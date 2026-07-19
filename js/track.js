@@ -135,7 +135,7 @@ function deleteOkr(okrId) {
 /* ---------- Applications ---------- */
 function renderApplicationsTab(container) {
   container.innerHTML = AppState.applications.length === 0
-    ? emptyState('📋', 'No applications tracked', 'Start one from any course in the Decide module — it will show up here as a step-by-step timeline.', 'Browse Courses', "navigateTo('decide')")
+    ? emptyState('📋', 'No applications tracked', "You haven't started an application yet. Pick a saved course and take the first step.", 'Browse Courses', "navigateTo('decide')")
     : AppState.applications.map((app) => renderApplicationTimeline(app)).join('');
 }
 

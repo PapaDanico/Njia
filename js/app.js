@@ -147,48 +147,172 @@ function emptyState(icon, title, description, ctaLabel, ctaOnClick) {
     </div>`;
 }
 
-/* ---------- Home page ---------- */
-const FEATURES = [
-  { page: 'discover', icon: '🧭', title: 'Discover', desc: 'Find your career cluster' },
-  { page: 'design', icon: '🎨', title: 'Design', desc: 'Build your Odyssey Plan' },
-  { page: 'decide', icon: '📊', title: 'Decide', desc: 'Match courses & funding' },
-  { page: 'connect', icon: '🤝', title: 'Connect', desc: 'Mentors & community' },
-  { page: 'track', icon: '📈', title: 'Track', desc: 'OKRs & applications' },
-  { page: 'decide', icon: '💰', title: 'Funding', desc: 'HELB, bursaries & more' }
+/* ---------- Home page — the landing page. This does the selling; the
+ * footer at the bottom carries secondary info (legal, sources, contact).
+ * See css/styles.css "LANDING PAGE" block for the scoped light theme. */
+
+const LANDING_EVIDENCE = [
+  {
+    num: '993,226', label: 'KCSE candidates, 2025',
+    body: 'Nearly a million Kenyan youth face the exact same fork in the road every single year — most without a data-driven way to choose.',
+    source: 'Source: KUCCPS / Ministry of Education, reported July 2026.'
+  },
+  {
+    num: '~30%', label: 'placed via KUCCPS, 2025/26 cycle',
+    body: '293,869 of 993,226 candidates secured a university or college place through the formal placement system — the rest navigate TVET, certificates, or gap years with far less structured guidance.',
+    source: 'Source: KUCCPS 2025/26 placement results, July 2026.'
+  },
+  {
+    num: '15.25%', label: 'youth unemployment (ages 15–24), 2025',
+    body: 'A mismatched or unresearched course choice does not just cost fees — it compounds an already difficult youth labour market.',
+    source: 'Source: World Bank, modeled ILO estimate (via Statista), 2025.'
+  },
+  {
+    num: '8,915', label: 'degree-qualifiers who chose TVET instead',
+    body: 'Out of 202,133+ candidates who qualified for a degree programme, only a small fraction chose a shorter, often cheaper TVET pathway — a visible sign of prestige bias over fit.',
+    source: 'Source: KUCCPS 2025 placement announcement, Ministry of Education, July 2026.'
+  }
+];
+
+const LANDING_PROCESS = [
+  { page: 'discover', title: 'Discover your cluster', body: 'A 20-minute adaptive diagnostic across Identity, Community, Necessity and Horizon — the same Four Elements framework Harvard Business School uses with executives.' },
+  { page: 'design', title: 'Design three futures', body: "Stanford's Odyssey Plan method: sketch the path you're already on, the one you'd choose if it disappeared, and the one you'd choose if money were no object." },
+  { page: 'decide', title: 'Decide with evidence', body: 'Match your profile against real course fees, grade requirements, and funding sources — filtered by your actual budget and timeline, not a wish list.' },
+  { page: 'connect', title: 'Connect with real people', body: "No algorithm replaces a conversation. Generate an outreach message and go talk to someone already doing the work." },
+  { page: 'track', title: 'Track your follow-through', body: 'Turn the plan into quarterly OKRs and a step-by-step application tracker, so the diagnostic becomes a decision, not just an insight.' }
 ];
 
 function renderHomePage() {
   const el = document.getElementById('page-home');
   if (!el) return;
   const completed = AppState.questionnaire.completed;
-  const savedCount = AppState.savedCourses.length;
-  const okrCount = AppState.okrs.length;
+  const primaryCluster = AppState.questionnaire.results?.primary;
 
   el.innerHTML = `
-    <section class="hero">
-      <div class="logo-mark-lg" aria-hidden="true"></div>
-      <h1>Njia</h1>
-      <p>Data-driven career pathway guidance for Kenyan youth — built on Stanford, HBR and HBS research, grounded in Kenyan institutional data.</p>
-      ${!completed ? `<button class="btn btn-primary mt-3" style="max-width:280px;margin:1rem auto 0" onclick="navigateTo('discover')">Start Your Discovery →</button>` : ''}
-    </section>
+    <div class="landing">
 
-    <div class="stats-row">
-      <div class="stat"><div class="value">${completed ? '✓' : '–'}</div><div class="label">Discovery</div></div>
-      <div class="stat"><div class="value">${savedCount}</div><div class="label">Saved Courses</div></div>
-      <div class="stat"><div class="value">${okrCount}</div><div class="label">Active OKRs</div></div>
-    </div>
+      <section class="landing-hero">
+        <span class="landing-eyebrow">STANFORD · HARVARD · REAL KENYAN DATA</span>
+        <h1 class="landing-h1">Career clarity shouldn't cost what <span class="hl-gold">Stanford charges.</span></h1>
+        <p class="landing-sub">Njia turns Stanford's Life Design method, HBR's life-strategy framework and Harvard Business School's career-vision model into a free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
+        <div class="landing-cta-row">
+          <button class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : "Start Your Discovery — it's free"} →</button>
+          <button class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
+        </div>
+        <div class="landing-trust-row">
+          <span class="landing-trust-item">🔒 Stays on your device</span>
+          <span class="landing-trust-item">🆓 Free, no signup</span>
+          <span class="landing-trust-item">⏱️ About 20 minutes</span>
+        </div>
+        ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">You're matched as <strong style="color:var(--landing-ink)">${CLUSTERS[primaryCluster].name}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
+      </section>
 
-    <h2 class="mb-2">Explore Njia</h2>
-    <div class="feature-grid">
-      ${FEATURES.map((f) => `
-        <button class="feature-card card-tap" onclick="navigateTo('${f.page}')">
-          <span class="icon" aria-hidden="true">${f.icon}</span>
-          <h3>${f.title}</h3>
-          <p>${f.desc}</p>
-        </button>
-      `).join('')}
+      <section class="landing-dark landing-block-tight">
+        <div class="landing-stats-grid">
+          ${LANDING_EVIDENCE.map((s) => `
+            <div>
+              <div class="landing-stat-num">${s.num}</div>
+              <div class="landing-stat-label">${escapeHtml(s.label)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="landing-block">
+        <span class="landing-eyebrow">THE GAP NJIA CLOSES</span>
+        <h2 class="landing-h2">What the data actually says about Kenyan youth and career choice</h2>
+        <p class="landing-h2-sub">Every number below is cited — not a vibe. This is the evidence base the questionnaire and course matcher are built on.</p>
+        <div class="landing-evidence-grid">
+          ${LANDING_EVIDENCE.map((s) => `
+            <div class="landing-evidence-card">
+              <div class="landing-evidence-num">${s.num}</div>
+              <h3>${escapeHtml(s.label)}</h3>
+              <p>${escapeHtml(s.body)}</p>
+              <div class="landing-source">${escapeHtml(s.source)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="landing-quote-section">
+        <p class="landing-quote">Most Kenyan youth aren't uninformed — they're <span class="hl-gold">unmatched.</span> The data exists. The pathway was never personalised.</p>
+        <p class="landing-quote-caption">That gap — between available data and personal decisions — is what every module in Njia is built to close.</p>
+      </section>
+
+      <section class="landing-block" id="landing-process">
+        <span class="landing-eyebrow">THE NJIA METHOD</span>
+        <h2 class="landing-h2">Five steps from confusion to a funded plan</h2>
+        <p class="landing-h2-sub">Each step is a full module in the app — open any of them directly.</p>
+        <div class="landing-process-list">
+          ${LANDING_PROCESS.map((p, i) => `
+            <div class="landing-process-card">
+              <div class="landing-process-num">${i + 1}</div>
+              <div>
+                <h3>${escapeHtml(p.title)}</h3>
+                <p>${escapeHtml(p.body)}</p>
+                <a href="#" class="landing-link" onclick="navigateTo('${p.page}');return false">Open ${p.page[0].toUpperCase()}${p.page.slice(1)} →</a>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="landing-block">
+        <span class="landing-eyebrow">A WORKED EXAMPLE</span>
+        <h2 class="landing-h2">What a complete pathway looks like</h2>
+        <p class="landing-h2-sub">This is an illustrative walkthrough, not a real user or testimonial — Njia is newly built and has no user outcomes to report yet.</p>
+        <div class="landing-example-card">
+          <span class="landing-example-tag">Hypothetical · "Shakinah"</span>
+          <ol>
+            <li>Completes the diagnostic in 20 minutes on her phone; scores as a primary <strong>People Leader</strong> with strong <strong>Carer</strong> signals.</li>
+            <li>The Odyssey Plan Builder sketches three futures: a Counselling Psychology diploma, a Community Health certificate that ladders into nursing, and — if money were no object — a psychology degree abroad.</li>
+            <li>The Course Matcher surfaces diplomas she qualifies for within her stated budget, each showing fees, grade requirements and illustrative employment outcomes.</li>
+            <li>The Funding Finder surfaces HELB and county bursary options matching her eligibility.</li>
+            <li>She generates two informational-interview messages and tracks her application as quarterly OKRs.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="landing-dark landing-final-cta">
+        <h2 class="landing-h2">Start with clarity. It's free.</h2>
+        <p class="landing-sub">Your answers never leave your device. No account, no cost, about 20 minutes.</p>
+        <button class="btn btn-gold" style="width:auto;display:inline-flex;margin-top:0.5rem" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
+        <div class="landing-guarantee-box">
+          <span aria-hidden="true">🔒</span>
+          <span><strong>Privacy guarantee.</strong> Everything you enter — questionnaire answers, plans, saved courses — stays in this browser's local storage. Nothing is sent to a server. Use "Clear My Data" (header lock icon) any time, especially on a shared device.</span>
+        </div>
+      </section>
+
+      <footer class="landing-footer">
+        <div class="landing-footer-grid">
+          <div class="landing-footer-brand">
+            <div class="flex items-center gap-1"><span class="logo-mark" aria-hidden="true"></span><strong style="color:#f8fafc">Njia</strong></div>
+            <p>Data-driven career pathway guidance for Kenyan youth, built on Stanford, HBR and HBS research.</p>
+          </div>
+          <div class="landing-footer-col">
+            <h4>Modules</h4>
+            ${LANDING_PROCESS.map((p) => `<button onclick="navigateTo('${p.page}')">${p.title}</button>`).join('')}
+          </div>
+          <div class="landing-footer-col">
+            <h4>Resources &amp; Legal</h4>
+            <button onclick="openPrivacyModal()">Privacy &amp; your data</button>
+            <button onclick="openMethodologyModal()">Methodology &amp; data sources</button>
+            <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
+            <a href="https://helb.co.ke" target="_blank" rel="noopener noreferrer">HELB ↗</a>
+          </div>
+        </div>
+        <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Course, fee and funding data inside the app is illustrative pending verification — see Methodology.</p>
+        <div class="landing-footer-bottom">
+          <div><a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a></div>
+          <span>© 2026 Njia · A free, open pathway for Kenyan youth.</span>
+        </div>
+      </footer>
     </div>
   `;
+}
+
+function scrollToLanding(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /* ---------- Init ---------- */
@@ -204,8 +328,40 @@ document.addEventListener('DOMContentLoaded', () => {
   renderRoute();
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch((err) => {
+    navigator.serviceWorker.register('./sw.js').then((registration) => {
+      registration.addEventListener('updatefound', () => {
+        const installing = registration.installing;
+        if (!installing) return;
+        installing.addEventListener('statechange', () => {
+          if (installing.state === 'installed' && navigator.serviceWorker.controller) {
+            showUpdateAvailableToast(registration);
+          }
+        });
+      });
+    }).catch((err) => {
       console.warn('Njia: Service Worker registration failed.', err);
+    });
+
+    let reloadedForUpdate = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (reloadedForUpdate) return;
+      reloadedForUpdate = true;
+      window.location.reload();
     });
   }
 });
+
+function showUpdateAvailableToast(registration) {
+  const container = document.getElementById('toast-container');
+  if (!container) return;
+  const toast = document.createElement('div');
+  toast.className = 'toast info';
+  toast.innerHTML = `
+    <span aria-hidden="true">⬆️</span>
+    <span>A new version of Njia is ready.</span>
+    <button class="btn btn-ghost btn-sm" style="width:auto;padding:0.3rem 0.7rem">Reload</button>
+  `;
+  const reloadBtn = toast.querySelector('button');
+  reloadBtn.onclick = () => registration.waiting?.postMessage('skipWaiting');
+  container.appendChild(toast);
+}

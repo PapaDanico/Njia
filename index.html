@@ -105,6 +105,15 @@
       showToast('All data cleared.', 'success');
       navigateTo('home');
     }
+    function openMethodologyModal() {
+      openModal(`
+        <h3 class="mb-2">Methodology &amp; Data Sources</h3>
+        <p class="text-secondary text-sm mb-2"><strong>Frameworks:</strong> Stanford Life Design Lab's Odyssey Planning, Rainer Strack's "Strategize Your Life" (HBR/BCG), and Dr. Timothy Butler's Four Elements career model (Harvard Business School).</p>
+        <p class="text-secondary text-sm mb-2"><strong>Landing page statistics</strong> (KCSE candidates, KUCCPS placement rate, youth unemployment) are cited to KUCCPS, the Ministry of Education, and a World Bank/ILO modeled estimate — see the footer for full citations.</p>
+        <p class="text-secondary text-sm mb-2"><strong>In-app course, fee and funding data</strong> (Decide module) is illustrative for this MVP — institution names are real, but fees, employment rates and salaries are not yet verified against live TVETA/CUE/KNBS sources. A disclaimer appears wherever this data is shown.</p>
+        <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+      `);
+    }
   </script>
 </body>
 </html>

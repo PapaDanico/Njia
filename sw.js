@@ -1,10 +1,14 @@
 /* Njia — Service Worker
- * Cache-first strategy: every core asset is cached on install so the app
- * works fully offline after the first visit. Bump CACHE_VERSION whenever
- * any cached file changes so clients pick up the new version.
+ * Network-first for app code (HTML/CSS/JS/data) so a deployed update is
+ * visible on the next load while still working offline from cache;
+ * cache-first for icons, which never change. A pure cache-first strategy
+ * for app code would mean a browser that already has this app installed
+ * could never see a new deploy without the user manually clearing site
+ * data — bump CACHE_VERSION on every deploy that changes cached files.
  */
 
-const CACHE_VERSION = 'njia-v1';
+const CACHE_VERSION = 'njia-v2';
+const ICON_ASSETS = ['./icons/icon-192x192.png', './icons/icon-512x512.png'];
 const CACHE_ASSETS = [
   './',
   './index.html',
@@ -25,10 +29,14 @@ const CACHE_ASSETS = [
 ];
 
 self.addEventListener('install', (event) => {
+  // No self.skipWaiting() here: a first-time install activates on its own
+  // since there's no existing controller to conflict with. An *update*
+  // must wait in the 'waiting' state until the user approves the reload
+  // (see app.js showUpdateAvailableToast + the 'message' listener below) —
+  // calling skipWaiting() unconditionally would activate updates silently
+  // and reload the page out from under the user without them agreeing.
   event.waitUntil(
-    caches.open(CACHE_VERSION)
-      .then((cache) => cache.addAll(CACHE_ASSETS))
-      .then(() => self.skipWaiting())
+    caches.open(CACHE_VERSION).then((cache) => cache.addAll(CACHE_ASSETS))
   );
 });
 
@@ -42,25 +50,38 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+self.addEventListener('message', (event) => {
+  if (event.data === 'skipWaiting') self.skipWaiting();
+});
+
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
+  const isIcon = ICON_ASSETS.some((path) => event.request.url.endsWith(path.replace('./', '/')));
 
-      return fetch(event.request)
-        .then((response) => {
-          if (response && response.status === 200 && response.type === 'basic') {
-            const responseClone = response.clone();
-            caches.open(CACHE_VERSION).then((cache) => cache.put(event.request, responseClone));
-          }
-          return response;
-        })
-        .catch(() => {
-          if (event.request.mode === 'navigate') return caches.match('./index.html');
-          return undefined;
-        });
-    })
+  if (isIcon) {
+    // Cache-first: icons are immutable for a given deploy.
+    event.respondWith(
+      caches.match(event.request).then((cached) => cached || fetch(event.request))
+    );
+    return;
+  }
+
+  // Network-first: always try to get the latest app code/data; fall back
+  // to cache when offline, and to the cached shell for navigations.
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        if (response && response.status === 200 && response.type === 'basic') {
+          const responseClone = response.clone();
+          caches.open(CACHE_VERSION).then((cache) => cache.put(event.request, responseClone));
+        }
+        return response;
+      })
+      .catch(() => caches.match(event.request).then((cached) => {
+        if (cached) return cached;
+        if (event.request.mode === 'navigate') return caches.match('./index.html');
+        return undefined;
+      }))
   );
 });

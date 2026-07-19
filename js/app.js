@@ -175,8 +175,8 @@ const LANDING_EVIDENCE = [
 ];
 
 const LANDING_PROCESS = [
-  { page: 'discover', title: 'Discover your cluster', body: 'A 20-minute adaptive diagnostic across Identity, Community, Necessity and Horizon — the same Four Elements framework Harvard Business School uses with executives.' },
-  { page: 'design', title: 'Design three futures', body: "Stanford's Odyssey Plan method: sketch the path you're already on, the one you'd choose if it disappeared, and the one you'd choose if money were no object." },
+  { page: 'discover', title: 'Discover your cluster', body: 'A 20-minute adaptive diagnostic across Identity, Community, Necessity and Horizon — a career-psychology model refined through decades of executive coaching research.' },
+  { page: 'design', title: 'Design three futures', body: "A structured life-design technique: sketch the path you're already on, the one you'd choose if it disappeared, and the one you'd choose if money were no object." },
   { page: 'decide', title: 'Decide with evidence', body: 'Match your profile against real course fees, grade requirements, and funding sources — filtered by your actual budget and timeline, not a wish list.' },
   { page: 'connect', title: 'Connect with real people', body: "No algorithm replaces a conversation. Generate an outreach message and go talk to someone already doing the work." },
   { page: 'track', title: 'Track your follow-through', body: 'Turn the plan into quarterly OKRs and a step-by-step application tracker, so the diagnostic becomes a decision, not just an insight.' }
@@ -192,9 +192,10 @@ function renderHomePage() {
     <div class="landing">
 
       <section class="landing-hero">
-        <span class="landing-eyebrow">STANFORD · HARVARD · REAL KENYAN DATA</span>
-        <h1 class="landing-h1">Career clarity shouldn't cost what <span class="hl-gold">Stanford charges.</span></h1>
-        <p class="landing-sub">Njia turns Stanford's Life Design method, HBR's life-strategy framework and Harvard Business School's career-vision model into a free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
+        <img class="landing-hero-logo" src="./icons/logo-mark-256.png" alt="Njia" width="64" height="64">
+        <span class="landing-eyebrow">RESEARCH-BACKED METHOD · REAL KENYAN DATA · ZERO COST</span>
+        <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
+        <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
         <div class="landing-cta-row">
           <button type="button" class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : "Start Your Discovery — it's free"} →</button>
           <button type="button" class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
@@ -286,8 +287,8 @@ function renderHomePage() {
       <footer class="landing-footer">
         <div class="landing-footer-grid">
           <div class="landing-footer-brand">
-            <div class="flex items-center gap-1"><span class="logo-mark" aria-hidden="true"></span><strong style="color:#f8fafc">Njia</strong></div>
-            <p>Data-driven career pathway guidance for Kenyan youth, built on Stanford, HBR and HBS research.</p>
+            <div class="flex items-center gap-1"><img class="logo-mark" src="./icons/logo-mark-128.png" alt="" aria-hidden="true"><strong style="color:#f8fafc">Njia</strong></div>
+            <p>Data-driven career pathway guidance for Kenyan youth, built on research-backed career psychology and life-design methods.</p>
           </div>
           <div class="landing-footer-col">
             <h4>Modules</h4>

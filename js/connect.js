@@ -3,7 +3,7 @@
  * SCOPE NOTE: Real mentor matching and peer cohorts require a live backend
  * and a vetted volunteer directory — out of scope for this client-only MVP
  * (see README roadmap, Phase 2). What ships now: an informational-interview
- * message generator (Stanford DYL "prototyping" technique) that helps users
+ * message generator (a life-design "prototyping" technique) that helps users
  * reach out to their own real-world contacts, plus role archetypes per
  * cluster so they know who to look for. No fabricated mentor profiles or
  * contact details are presented as real people.

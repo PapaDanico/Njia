@@ -2,7 +2,7 @@
  * Adaptive questionnaire: sections -> questions -> weighted options.
  * Each option carries `scores`, a partial map of cluster-id -> points.
  * Clusters not mentioned in an option implicitly score 0 for it.
- * `element` tags each question to one of the Four Elements (HBS Butler):
+ * `element` tags each question to one of the Four Elements of career clarity:
  * identity | community | necessity | horizon
  */
 
@@ -17,21 +17,21 @@ const CLUSTERS = {
   creator: {
     name: 'The Creator',
     short: 'Creator',
-    color: '#f59e0b',
+    color: '#ed8b2d',
     description: 'You are energised by making, designing, writing and performing. Ideas want to become something real in your hands.',
     paths: ['Graphic Design', 'Journalism', 'Fashion Design', 'Architecture', 'Film & Media']
   },
   business: {
     name: 'The Business Builder',
     short: 'Business Builder',
-    color: '#10b981',
+    color: '#6fae48',
     description: 'You are energised by markets, deals and building value from nothing. You see opportunity where others see risk.',
     paths: ['Entrepreneurship', 'Sales', 'Marketing', 'E-commerce', 'Supply Chain']
   },
   tech: {
     name: 'The Tech Navigator',
     short: 'Tech Navigator',
-    color: '#0ea5e9',
+    color: '#1ca0d0',
     description: 'You are energised by solving problems with technology. Systems, logic and code make sense to you in a way people notice.',
     paths: ['Software Development', 'Data Analysis', 'Cybersecurity', 'IT Support', 'Networking']
   },
@@ -57,7 +57,7 @@ const QUESTIONNAIRE = [
     title: 'Who You Are',
     subtitle: 'Signature strengths and what pulls your attention',
     icon: '🧭',
-    color: '#0ea5e9',
+    color: '#1ca0d0',
     questions: [
       {
         id: 'id_1',
@@ -200,7 +200,7 @@ const QUESTIONNAIRE = [
     title: 'Your Real Constraints',
     subtitle: 'Non-negotiables — money, time, and obligations',
     icon: '⚖️',
-    color: '#f59e0b',
+    color: '#ed8b2d',
     questions: [
       {
         id: 'ne_1',
@@ -262,7 +262,7 @@ const QUESTIONNAIRE = [
     title: 'Your Horizon',
     subtitle: 'What living a full life means to you',
     icon: '🌅',
-    color: '#10b981',
+    color: '#6fae48',
     questions: [
       {
         id: 'ho_1',

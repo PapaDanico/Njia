@@ -857,11 +857,74 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 
 /* =====================================================================
-   PRINT / PDF EXPORT — triggered by window.print() from a "Download PDF
-   Report" button. Browsers' native print-to-PDF is used instead of a JS
-   PDF library, keeping the app dependency-free and offline-safe.
+   SHAREABLE REPORT CARD — one compact, logo-branded card used for all
+   three share paths: printed to PDF via window.print() (no JS PDF
+   library, keeping the app dependency-free and offline-safe), shown
+   full-size on-screen in the "Preview & Share" modal for screenshotting,
+   and summarised as text for WhatsApp/native share. Deliberately built
+   as its own compact layout rather than reusing the full in-app results
+   view, so it stays to 1-2 printed pages.
    ===================================================================== */
 .print-only { display: none; }
+
+.report-card {
+  position: relative;
+  background: #ffffff;
+  color: #1c2530;
+  border-radius: var(--radius-lg);
+  padding: 1.7rem 1.5rem 1.4rem;
+  overflow: hidden;
+}
+.report-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+}
+.report-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.75rem; flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e3ddd0;
+}
+.report-header img { width: 180px; height: auto; flex-shrink: 0; }
+.report-header-meta { text-align: right; }
+.report-eyebrow {
+  display: block; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 1.2px; text-transform: uppercase; color: #64748b;
+}
+.report-date { font-size: 0.82rem; color: #94a3b8; }
+
+.report-primary { border-left: 5px solid; padding-left: 1.1rem; margin-bottom: 0.9rem; }
+.report-primary-label { display: block; font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; }
+.report-primary h2 { font-size: 1.65rem; margin: 0.2rem 0 0.4rem; }
+.report-primary p { font-size: 0.95rem; color: #475569; margin-bottom: 0.6rem; }
+.report-paths { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.report-path-tag { font-size: 0.76rem; background: #f1f5f9; color: #334155; padding: 0.2rem 0.65rem; border-radius: 999px; }
+
+.report-secondary-line { font-size: 0.88rem; color: #475569; margin-bottom: 1.1rem; }
+
+.report-columns { display: grid; grid-template-columns: 1fr; gap: 1.2rem; margin-bottom: 1.1rem; }
+@media (min-width: 480px) { .report-columns { grid-template-columns: 1fr 1fr; } }
+
+.report-section-title { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #64748b; margin-bottom: 0.55rem; }
+.report-bar-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
+.report-bar-label { font-size: 0.78rem; width: 68px; flex-shrink: 0; color: #334155; }
+.report-bar-track { flex: 1; height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+.report-bar-fill { height: 100%; border-radius: 999px; }
+.report-bar-pct { font-size: 0.78rem; width: 32px; text-align: right; color: #334155; flex-shrink: 0; }
+
+.report-chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.report-chip { font-size: 0.76rem; background: #f1f5f9; color: #334155; padding: 0.2rem 0.6rem; border-radius: 6px; }
+
+.report-courses ul { list-style: disc; padding-left: 1.2rem; font-size: 0.88rem; color: #334155; line-height: 1.5; }
+.report-progress-line { font-size: 0.88rem; color: #334155; margin-bottom: 0.7rem; }
+
+.report-footer { border-top: 1px solid #e2e8f0; padding-top: 0.85rem; margin-top: 0.6rem; text-align: center; }
+.report-footer p { font-size: 0.78rem; color: #64748b; margin: 0; }
+.report-footer .report-url { font-weight: 600; color: var(--primary-dark) !important; }
+
+@page { size: A4; margin: 12mm 10mm; }
 
 @media print {
   .app-header, .bottom-nav, .install-banner, .toast-container,
@@ -872,15 +935,8 @@ textarea.q-input::placeholder { color: var(--text-muted); }
     background: #ffffff !important;
     color: #0f172a !important;
   }
-  .card, .cluster-primary {
-    background: #ffffff !important;
-    border: 1px solid #cbd5e1 !important;
-    box-shadow: none !important;
-    break-inside: avoid;
-  }
-  .text-secondary, .text-muted { color: #334155 !important; }
-  .score-bar-track { background: #e2e8f0 !important; }
-  .print-only { display: block !important; text-align: center; margin-bottom: 1.5rem; }
-  .print-only img { width: 48px; height: 48px; margin: 0 auto 0.5rem; }
-  .print-only .print-date { font-size: 0.8rem; color: #64748b; }
+  .discover-full-results { display: none !important; }
+  .print-only { display: block !important; }
+  .report-card { padding: 0; }
+  .report-columns { grid-template-columns: 1fr 1fr; }
 }

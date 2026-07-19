@@ -244,65 +244,153 @@ function renderDiscoverResults(el) {
   ].filter(Boolean).join('');
 
   el.innerHTML = `
-    <div class="print-only">
-      <img src="./icons/logo-mark-light-128.png" alt="Njia" width="48" height="48" decoding="async">
-      <h2>Njia Career Report</h2>
-      <div class="print-date">Generated ${new Date().toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-    </div>
+    <div class="print-only">${renderShareableReportHTML()}</div>
 
-    <h2 class="mb-2">Your Results</h2>
+    <div class="discover-full-results">
+      <h2 class="mb-2">Your Results</h2>
 
-    <div class="cluster-primary">
-      <span class="cluster-badge" style="background:${primaryC.color}22;color:${primaryC.color}">Primary Cluster</span>
-      <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
-      <p class="text-secondary text-sm mt-1">${primaryC.description}</p>
-      <div class="cluster-tags">${primaryC.paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
-      <div class="btn-row mt-2">
-        <button type="button" class="btn btn-secondary btn-sm" onclick="downloadReportPDF()">📄 PDF Report</button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="shareReportWhatsApp()">📱 WhatsApp</button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="shareDiscoverResult()">🔗 Copy / Share</button>
+      <div class="cluster-primary">
+        <span class="cluster-badge" style="background:${primaryC.color}22;color:${primaryC.color}">Primary Cluster</span>
+        <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
+        <p class="text-secondary text-sm mt-1">${primaryC.description}</p>
+        <div class="cluster-tags">${primaryC.paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
+        <button type="button" class="btn btn-primary btn-sm mt-2" onclick="openReportPreviewModal()">🖼️ Preview &amp; Share Report</button>
       </div>
-    </div>
 
-    <div class="card">
-      <span class="caption">Secondary Cluster</span>
-      <h3 style="color:${secondaryC.color}" class="mt-1">${secondaryC.name}</h3>
-      <p class="text-secondary text-sm mt-1">${secondaryC.description}</p>
-    </div>
+      <div class="card">
+        <span class="caption">Secondary Cluster</span>
+        <h3 style="color:${secondaryC.color}" class="mt-1">${secondaryC.name}</h3>
+        <p class="text-secondary text-sm mt-1">${secondaryC.description}</p>
+      </div>
 
-    <div class="card">
-      <h3 class="mb-2">Four Elements — Clarity Scores</h3>
-      ${Object.entries(elementScores).map(([key, score]) => `
-        <div class="score-row">
-          <div class="score-label"><span>${elementLabels[key]}</span><span>${score}%</span></div>
-          <div class="score-bar-track"><div class="score-bar-fill" style="width:${score}%;background:${primaryC.color}"></div></div>
-          <p class="text-muted text-sm mt-1" style="font-size:0.75rem">${elementDescs[key]}</p>
-        </div>
-      `).join('')}
-      <p class="text-muted text-sm mt-1">The fourth Element, Necessity, is shown below as your actual constraints rather than a clarity score.</p>
-    </div>
-
-    ${constraintRows ? `<div class="card"><h3 class="mb-1">Necessity — Your Constraints</h3><p class="text-muted text-sm mb-2">The fourth Element. These feed the Decide module's course matcher directly.</p><div class="meta-grid">${constraintRows}</div></div>` : ''}
-
-    <div class="card">
-      <h3 class="mb-2">All Clusters</h3>
-      <div class="cluster-secondary-list">
-        ${ranked.map(([id, pts]) => `
-          <div class="cluster-row">
-            <span><span class="cluster-dot" style="background:${CLUSTERS[id].color}"></span>${CLUSTERS[id].name}</span>
-            <span class="text-muted text-sm">${pts} pts</span>
+      <div class="card">
+        <h3 class="mb-2">Four Elements — Clarity Scores</h3>
+        ${Object.entries(elementScores).map(([key, score]) => `
+          <div class="score-row">
+            <div class="score-label"><span>${elementLabels[key]}</span><span>${score}%</span></div>
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:${score}%;background:${primaryC.color}"></div></div>
+            <p class="text-muted text-sm mt-1" style="font-size:0.75rem">${elementDescs[key]}</p>
           </div>
         `).join('')}
+        <p class="text-muted text-sm mt-1">The fourth Element, Necessity, is shown below as your actual constraints rather than a clarity score.</p>
+      </div>
+
+      ${constraintRows ? `<div class="card"><h3 class="mb-1">Necessity — Your Constraints</h3><p class="text-muted text-sm mb-2">The fourth Element. These feed the Decide module's course matcher directly.</p><div class="meta-grid">${constraintRows}</div></div>` : ''}
+
+      <div class="card">
+        <h3 class="mb-2">All Clusters</h3>
+        <div class="cluster-secondary-list">
+          ${ranked.map(([id, pts]) => `
+            <div class="cluster-row">
+              <span><span class="cluster-dot" style="background:${CLUSTERS[id].color}"></span>${CLUSTERS[id].name}</span>
+              <span class="text-muted text-sm">${pts} pts</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-primary" onclick="navigateTo('design')">Build Odyssey Plan →</button>
+        <button type="button" class="btn btn-secondary" onclick="navigateTo('decide')">See Matching Courses</button>
+      </div>
+      <button type="button" class="btn btn-ghost mt-2" onclick="confirmRetakeQuestionnaire()">Retake Discovery</button>
+      <button type="button" class="btn btn-ghost mt-1" onclick="openFeedbackModal()">Was this helpful? Give feedback</button>
+    </div>
+  `;
+}
+
+/* ---------- Shareable report card — one compact layout feeding the PDF
+ * export, the on-screen "Preview & Share" modal (screenshot-friendly),
+ * and (via buildReportSummary) the WhatsApp/native-share text. */
+function renderShareableReportHTML() {
+  const results = AppState.questionnaire.results;
+  if (!results) return '';
+  const { primary, secondary, elementScores, constraints } = results;
+  const primaryC = CLUSTERS[primary];
+  const secondaryC = CLUSTERS[secondary];
+  const dateStr = new Date().toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' });
+  const elementLabels = { identity: 'Identity', community: 'Community', horizon: 'Horizon' };
+
+  const constraintChips = [
+    constraints.grade && `<span class="report-chip">🎓 ${escapeHtml(constraints.grade)}</span>`,
+    constraints.budget && `<span class="report-chip">💰 ${escapeHtml(constraints.budget.replace('_', ' '))}</span>`,
+    constraints.urgency && `<span class="report-chip">⏱️ ${escapeHtml(constraints.urgency)}</span>`,
+    constraints.obligations && `<span class="report-chip">🏠 ${escapeHtml(constraints.obligations)}</span>`
+  ].filter(Boolean).join('');
+
+  const savedCourses = AppState.savedCourses
+    .map((id) => COURSES.find((c) => c.id === id))
+    .filter(Boolean)
+    .slice(0, 3);
+
+  const doneOkrs = AppState.okrs.filter((o) => o.keyResults.every((k) => k.done)).length;
+
+  return `
+    <div class="report-card">
+      <div class="report-header">
+        <img src="./icons/logo-lockup-report.png" alt="Njia" width="180" height="85" decoding="async">
+        <div class="report-header-meta">
+          <span class="report-eyebrow">Career Pathway Report</span>
+          <span class="report-date">${dateStr}</span>
+        </div>
+      </div>
+
+      <div class="report-primary" style="border-color:${primaryC.color}">
+        <span class="report-primary-label" style="color:${primaryC.color}">Primary Match</span>
+        <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
+        <p>${primaryC.description}</p>
+        <div class="report-paths">${primaryC.paths.slice(0, 4).map((p) => `<span class="report-path-tag">${escapeHtml(p)}</span>`).join('')}</div>
+      </div>
+
+      <p class="report-secondary-line">Also aligned with <strong style="color:${secondaryC.color}">${secondaryC.name}</strong>.</p>
+
+      <div class="report-columns">
+        <div class="report-elements">
+          <span class="report-section-title">Four Elements</span>
+          ${Object.entries(elementScores).map(([key, score]) => `
+            <div class="report-bar-row">
+              <span class="report-bar-label">${elementLabels[key]}</span>
+              <div class="report-bar-track"><div class="report-bar-fill" style="width:${score}%;background:${primaryC.color}"></div></div>
+              <span class="report-bar-pct">${score}%</span>
+            </div>
+          `).join('')}
+        </div>
+        ${constraintChips ? `
+          <div class="report-constraints">
+            <span class="report-section-title">Your Constraints</span>
+            <div class="report-chip-row">${constraintChips}</div>
+          </div>` : ''}
+      </div>
+
+      ${savedCourses.length ? `
+        <div class="report-courses">
+          <span class="report-section-title">Considering</span>
+          <ul>${savedCourses.map((c) => `<li>${escapeHtml(c.name)}</li>`).join('')}</ul>
+        </div>` : ''}
+
+      ${AppState.okrs.length ? `<p class="report-progress-line">📈 ${doneOkrs}/${AppState.okrs.length} goals completed so far.</p>` : ''}
+
+      <div class="report-footer">
+        <p>Built with <strong>Njia</strong> — a free, evidence-based career pathway diagnostic for Kenyan youth.</p>
+        <p class="report-url">njiacareerpathways.netlify.app</p>
       </div>
     </div>
-
-    <div class="btn-row">
-      <button type="button" class="btn btn-primary" onclick="navigateTo('design')">Build Odyssey Plan →</button>
-      <button type="button" class="btn btn-secondary" onclick="navigateTo('decide')">See Matching Courses</button>
-    </div>
-    <button type="button" class="btn btn-ghost mt-2" onclick="confirmRetakeQuestionnaire()">Retake Discovery</button>
-    <button type="button" class="btn btn-ghost mt-1" onclick="openFeedbackModal()">Was this helpful? Give feedback</button>
   `;
+}
+
+function openReportPreviewModal() {
+  const html = renderShareableReportHTML();
+  if (!html) return;
+  openModal(`
+    <h3 class="mb-2">Preview &amp; Share</h3>
+    <p class="text-secondary text-sm mb-2">Screenshot this card to share directly, or use a button below.</p>
+    ${html}
+    <div class="btn-row mt-3">
+      <button type="button" class="btn btn-secondary btn-sm" onclick="downloadReportPDF()">📄 PDF</button>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="shareReportWhatsApp()">📱 WhatsApp</button>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="shareDiscoverResult()">🔗 Copy / Share</button>
+    </div>
+  `);
 }
 
 const NJIA_SITE_URL = 'https://njiacareerpathways.netlify.app/';
@@ -310,8 +398,23 @@ const NJIA_SITE_URL = 'https://njiacareerpathways.netlify.app/';
 function buildReportSummary() {
   const results = AppState.questionnaire.results;
   if (!results) return null;
-  const clusterName = CLUSTERS[results.primary].name;
-  const lines = [`My Njia Career Report — ${clusterName}`];
+  const primaryC = CLUSTERS[results.primary];
+  const secondaryC = CLUSTERS[results.secondary];
+  const { constraints } = results;
+
+  const lines = [
+    `🧭 *My Njia Career Report*`,
+    '',
+    `🎯 Primary match: *${primaryC.name}*`,
+    `↳ ${primaryC.description}`,
+    `🔹 Also aligned with: ${secondaryC.name}`
+  ];
+
+  const constraintBits = [
+    constraints.grade && `🎓 Grade: ${constraints.grade}`,
+    constraints.budget && `💰 Budget: ${constraints.budget.replace('_', ' ')}`
+  ].filter(Boolean);
+  if (constraintBits.length) lines.push('', ...constraintBits);
 
   const savedCourseNames = AppState.savedCourses
     .map((id) => COURSES.find((c) => c.id === id))
@@ -319,15 +422,15 @@ function buildReportSummary() {
     .slice(0, 3)
     .map((c) => `• ${c.name}`);
   if (savedCourseNames.length) {
-    lines.push('', 'Courses I\'m considering:', ...savedCourseNames);
+    lines.push('', '📚 Courses I\'m considering:', ...savedCourseNames);
   }
 
   if (AppState.okrs.length) {
     const doneCount = AppState.okrs.filter((o) => o.keyResults.every((k) => k.done)).length;
-    lines.push('', `Progress: ${doneCount}/${AppState.okrs.length} goals completed so far.`);
+    lines.push('', `📈 Progress: ${doneCount}/${AppState.okrs.length} goals completed so far.`);
   }
 
-  lines.push('', 'Built with Njia — a free, evidence-based career pathway diagnostic for Kenyan youth.');
+  lines.push('', '_Built with Njia — a free, evidence-based career pathway diagnostic for Kenyan youth._');
   return lines.join('\n');
 }
 

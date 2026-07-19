@@ -18,7 +18,7 @@ const defaultState = () => ({
   applications: [],
   okrs: [],
   mentors: [],
-  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any' }
+  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all' }
 });
 
 let AppState = loadState();

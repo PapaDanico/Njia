@@ -22,6 +22,14 @@ function institutionById(id) {
   return INSTITUTIONS.find((i) => i.id === id);
 }
 
+const COUNTIES = [...new Set(INSTITUTIONS.map((i) => i.county))].sort();
+
+/* Illustrative accommodation + upkeep planning estimate (Ksh/month) — a
+ * rough budgeting aid, not verified data, since actual rent/upkeep varies
+ * heavily by town and student. total_fees_kes elsewhere is tuition only,
+ * which understates what a course really costs to complete. */
+const ACCOMMODATION_ESTIMATE_KES_PER_MONTH = { onCampus: 4000, offCampus: 8000 };
+
 function getEffectiveGrade() {
   const f = AppState.decideFilters;
   if (f.grade) return f.grade;
@@ -33,12 +41,16 @@ function renderDecidePage() {
   const el = document.getElementById('page-decide');
   if (!el) return;
 
+  const verifiedCount = COURSES.filter((c) => c.data_confidence === 'verified').length
+    + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
+  const totalCount = COURSES.length + FUNDING_SOURCES.length;
+
   el.innerHTML = `
     <h1 class="mb-1">Decide</h1>
     <p class="text-secondary mb-2">Every recommendation answers three questions: Do I qualify? Can I afford it? Will it lead to work I care about?</p>
     <div class="data-disclaimer">
       <span aria-hidden="true">⚠️</span>
-      <span>This MVP dataset (fees, employment rates, salaries, deadlines) is <strong>illustrative</strong> for demonstration — verify current figures directly with each institution or funder before deciding.</span>
+      <span>This MVP dataset (fees, employment rates, salaries, deadlines) is <strong>illustrative</strong> for demonstration — verify current figures directly with each institution or funder before deciding. <strong>${verifiedCount} of ${totalCount} records</strong> have been independently cross-checked against a public source — look for the ✓ Verified badge.</span>
     </div>
     <div class="odyssey-tabs">
       <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'courses' ? 'active' : ''}" onclick="setDecideTab('courses')">🎓 Courses</button>
@@ -87,14 +99,34 @@ function renderCourseMatcher(container) {
   const clusterOptions = ['all', ...Object.keys(CLUSTERS)];
   const grade = getEffectiveGrade();
 
-  let filtered = COURSES.map((c) => ({ course: c, match: computeCourseMatch(c) }));
-  if (AppState.decideFilters.cluster !== 'all') {
-    filtered = filtered.filter((f) => f.course.cluster === AppState.decideFilters.cluster);
-  }
-  if (AppState.decideFilters.mode !== 'any') {
-    filtered = filtered.filter((f) => f.course.mode === AppState.decideFilters.mode);
-  }
+  // Budget only penalises match score (below) rather than hiding a course —
+  // a great over-budget course should still be visible as "a stretch", not
+  // disappear. Only cluster/mode/county can actually zero out this list.
+  const matchesCluster = (course) => AppState.decideFilters.cluster === 'all' || course.cluster === AppState.decideFilters.cluster;
+  const matchesMode = (course) => AppState.decideFilters.mode === 'any' || course.mode === AppState.decideFilters.mode;
+  const matchesCounty = (course) => {
+    if (AppState.decideFilters.county === 'all') return true;
+    return institutionById(course.institution_id)?.county === AppState.decideFilters.county;
+  };
+
+  let filtered = COURSES
+    .filter((c) => matchesCluster(c) && matchesMode(c) && matchesCounty(c))
+    .map((c) => ({ course: c, match: computeCourseMatch(c) }));
   filtered.sort((a, b) => b.match.score - a.match.score);
+
+  // Smarter empty state: name whichever filter is actually the blocker.
+  let emptyMessage = 'Try clearing the cluster or county filter.';
+  if (filtered.length === 0) {
+    const countyOnlyBlocks = AppState.decideFilters.county !== 'all'
+      && COURSES.some((c) => matchesCluster(c) && matchesMode(c) && !matchesCounty(c));
+    const clusterOnlyBlocks = AppState.decideFilters.cluster !== 'all'
+      && COURSES.some((c) => matchesCounty(c) && matchesMode(c) && !matchesCluster(c));
+    if (countyOnlyBlocks && !clusterOnlyBlocks) {
+      emptyMessage = 'Matching courses exist in other counties — try "All Counties" or a different one.';
+    } else if (clusterOnlyBlocks && !countyOnlyBlocks) {
+      emptyMessage = 'No courses in this cluster match your other filters — try "All Clusters".';
+    }
+  }
 
   container.innerHTML = `
     <div class="filter-row" role="tablist" aria-label="Filter by career cluster">
@@ -102,6 +134,13 @@ function renderCourseMatcher(container) {
         <button type="button" class="filter-chip ${AppState.decideFilters.cluster === c ? 'active' : ''}" onclick="setDecideClusterFilter('${c}')">
           ${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}
         </button>
+      `).join('')}
+    </div>
+
+    <div class="filter-row" aria-label="Filter by county">
+      <button type="button" class="filter-chip ${AppState.decideFilters.county === 'all' ? 'active' : ''}" onclick="setDecideCountyFilter('all')">📍 All Counties</button>
+      ${COUNTIES.map((county) => `
+        <button type="button" class="filter-chip ${AppState.decideFilters.county === county ? 'active' : ''}" onclick="setDecideCountyFilter('${county}')">${escapeHtml(county)}</button>
       `).join('')}
     </div>
 
@@ -122,7 +161,7 @@ function renderCourseMatcher(container) {
     </div>
 
     ${filtered.length === 0
-      ? emptyState('🔍', 'No matching courses', 'Try widening your budget or clearing the cluster filter.', 'Clear Filters', 'clearDecideFilters()')
+      ? emptyState('🔍', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
       : filtered.map(({ course, match }) => renderCourseCard(course, match)).join('')
     }
   `;
@@ -135,6 +174,9 @@ function renderCourseCard(course, match) {
 
   const isVerified = course.data_confidence === 'verified';
 
+  const accomRate = inst?.has_hostel ? ACCOMMODATION_ESTIMATE_KES_PER_MONTH.onCampus : ACCOMMODATION_ESTIMATE_KES_PER_MONTH.offCampus;
+  const totalCostOfAttendance = course.total_fees_kes + accomRate * course.duration_months;
+
   return `
     <div class="card course-card">
       <div class="flex items-center gap-1" style="flex-wrap:wrap">
@@ -146,14 +188,16 @@ function renderCourseCard(course, match) {
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(course.level)}</div></div>
         <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">${course.duration_months} mo</div></div>
-        <div class="meta-item"><div class="meta-label">Total Fees</div><div class="meta-value">${formatKes(course.total_fees_kes)}</div></div>
+        <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value">${formatKes(course.total_fees_kes)}</div></div>
         <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value">${escapeHtml(course.min_grade || 'None')}</div></div>
         <div class="meta-item"><div class="meta-label">Employment Rate</div><div class="meta-value">${formatPercent(course.employment_rate)}</div></div>
         <div class="meta-item"><div class="meta-label">Median Salary</div><div class="meta-value">${formatKes(course.median_salary_kes)}/mo</div></div>
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
+      <p class="text-muted text-sm mb-1">🗓️ Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
       <p class="text-muted text-sm mb-2">📊 Feasibility: roughly <strong>${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
+      <p class="text-muted text-sm mb-2">🏠 Full cost of attendance (illustrative): tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong>${formatKes(totalCostOfAttendance)}</strong> total. Varies by town — plan, don't rely on this figure.</p>
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(course.verification_note)}</p>` : ''}
       <div class="btn-row">
         <button type="button" class="btn ${saved ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleSavedCourse('${course.id}')">${saved ? '★ Saved' : '☆ Save'}</button>
@@ -178,8 +222,13 @@ function setDecideGradeFilter(value) {
   saveState();
   renderDecideTabContent();
 }
+function setDecideCountyFilter(county) {
+  AppState.decideFilters.county = county;
+  saveState();
+  renderDecideTabContent();
+}
 function clearDecideFilters() {
-  AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any' };
+  AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all' };
   saveState();
   renderDecideTabContent();
 }
@@ -235,6 +284,19 @@ function renderFundingFinder(container) {
   if (activeType !== 'all') filtered = filtered.filter((f) => f.type === activeType);
 
   container.innerHTML = `
+    <div class="card">
+      <h3 class="mb-1">📅 Key Application Windows</h3>
+      <p class="text-muted text-sm mb-2">Deadlines vary by funder and change yearly — always confirm the current cycle directly before your window closes.</p>
+      <div class="cluster-secondary-list">
+        ${FUNDING_SOURCES.map((f) => `
+          <div class="cluster-row">
+            <span>${escapeHtml(f.name)}</span>
+            <span class="text-muted text-sm">${escapeHtml(f.application_deadline || 'Rolling')}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
     <div class="filter-row">
       ${FUNDING_TYPES.map((t) => `
         <button type="button" class="filter-chip ${activeType === t ? 'active' : ''}" onclick="setFundingTypeFilter('${t}')">

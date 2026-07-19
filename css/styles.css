@@ -141,7 +141,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   display: block;
 }
 .header-btn {
-  width: 44px; height: 44px;
+  width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
   background: transparent; border: none; border-radius: var(--radius-sm);
   color: var(--text-secondary);
@@ -162,7 +162,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 .install-banner-text { font-size: 0.85rem; font-weight: 600; }
 .install-banner-actions { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
 .install-banner .btn-sm { width: auto; }
-.install-banner .header-btn { color: #fff; width: 44px; height: 44px; }
+.install-banner .header-btn { color: #fff; width: 48px; height: 48px; }
 .install-banner .header-btn:hover { background: rgba(255,255,255,0.15); }
 .header-btn:hover { background: var(--bg-card); }
 
@@ -202,7 +202,7 @@ main {
   gap: 2px;
   background: none; border: none;
   color: var(--text-muted);
-  min-height: 44px;
+  min-height: 48px;
   position: relative;
 }
 .nav-item .nav-icon { font-size: 1.3rem; }
@@ -241,7 +241,7 @@ main {
 .btn {
   display: inline-flex; align-items: center; justify-content: center;
   gap: 0.5rem;
-  min-height: 44px;
+  min-height: 48px;
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-md);
   border: none;
@@ -256,7 +256,7 @@ main {
 .btn-success { background: var(--secondary); color: #fff; }
 .btn-danger { background: var(--danger); color: #fff; }
 .btn-ghost { background: transparent; color: var(--primary); }
-.btn-sm { min-height: 36px; padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; }
+.btn-sm { min-height: 48px; padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-row { display: flex; gap: 0.75rem; }
 .btn-row .btn { width: auto; flex: 1; }
@@ -326,7 +326,7 @@ main {
   border-radius: var(--radius-md);
   padding: 1rem;
   margin-bottom: 0.6rem;
-  min-height: 44px;
+  min-height: 48px;
   color: var(--text-primary);
   transition: transform 0.1s ease, border-color 0.15s ease, background 0.15s ease;
 }
@@ -352,7 +352,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   background: var(--bg-card); border: 1px solid var(--border-light);
   border-radius: 999px; padding: 0.4rem 0.9rem; font-size: 0.8rem;
   margin-top: 0.5rem; color: var(--text-secondary);
-  min-height: 44px;
+  min-height: 48px;
 }
 .voice-btn.recording { color: var(--danger); border-color: var(--danger); }
 
@@ -408,12 +408,12 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   text-align: center;
   font-size: 0.8rem;
   font-weight: 600;
-  min-height: 44px;
+  min-height: 48px;
 }
 .odyssey-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 .odyssey-year-row { display: flex; gap: 0.5rem; align-items: flex-start; margin-bottom: 0.6rem; }
 .odyssey-year-badge {
-  min-width: 44px; height: 44px;
+  min-width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
   background: var(--bg-card); border-radius: var(--radius-sm);
   font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
@@ -422,14 +422,14 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   flex: 1;
   background: var(--bg-card); border: 1px solid var(--border-light);
   border-radius: var(--radius-sm); padding: 0.6rem;
-  color: var(--text-primary); min-height: 44px;
+  color: var(--text-primary); min-height: 48px;
 }
 
 /* ---------- Life portfolio gauges ---------- */
 .portfolio-gauge { margin-bottom: 1.25rem; }
 .portfolio-gauge .gauge-label { display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: 0.9rem; font-weight: 600; }
 .portfolio-gauge input[type="range"] {
-  width: 100%; height: 44px;
+  width: 100%; height: 48px;
   accent-color: var(--primary);
 }
 
@@ -502,7 +502,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   flex-shrink: 0;
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 999px; padding: 0.4rem 0.9rem;
-  font-size: 0.8rem; white-space: nowrap; min-height: 36px;
+  font-size: 0.8rem; white-space: nowrap; min-height: 48px;
   transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease;
 }
 .filter-chip:active { transform: scale(0.95); }
@@ -597,7 +597,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   .modal-sheet { border-radius: var(--radius-xl); max-width: 480px; }
 }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-.modal-close { background: var(--bg-card); border: none; border-radius: 50%; width: 32px; height: 32px; color: var(--text-secondary); }
+.modal-close { background: var(--bg-card); border: none; border-radius: 50%; width: 44px; height: 44px; color: var(--text-secondary); }
 
 /* ---------- Utility ---------- */
 .mt-1 { margin-top: 0.5rem; } .mt-2 { margin-top: 1rem; } .mt-3 { margin-top: 1.5rem; }

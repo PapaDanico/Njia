@@ -72,6 +72,7 @@ function renderDesignTabContent() {
   else if (designActiveTab === 'portfolio') renderPortfolioTab(container);
   else if (designActiveTab === 'prototype') renderPrototypeTab(container);
   else if (designActiveTab === 'gravity') renderGravityTab(container);
+  replayFadeIn(container);
 }
 
 /* ---------- Odyssey Plan Builder ---------- */

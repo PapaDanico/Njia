@@ -129,6 +129,11 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   font-weight: 700;
   font-size: 1.1rem;
 }
+.header-page-label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
 .logo-mark {
   width: 28px; height: 28px;
   object-fit: contain;
@@ -175,6 +180,7 @@ main {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
+.fade-in { animation: fadeIn 0.25s ease; }
 
 /* ---------- Bottom Nav ---------- */
 .bottom-nav {
@@ -322,9 +328,11 @@ main {
   margin-bottom: 0.6rem;
   min-height: 44px;
   color: var(--text-primary);
+  transition: transform 0.1s ease, border-color 0.15s ease, background 0.15s ease;
 }
 .option-card:hover { border-color: var(--border-light); }
-.option-card.selected { border-color: var(--primary); background: rgba(14, 165, 233, 0.1); }
+.option-card:active { transform: scale(0.98); }
+.option-card.selected { border-color: var(--primary); background: rgba(28, 160, 208, 0.1); }
 .option-card.selected::after { content: ' ✓'; color: var(--primary); font-weight: 700; }
 
 textarea.q-input {
@@ -446,6 +454,17 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border-radius: 999px;
   margin-bottom: 0.5rem;
 }
+.verified-badge {
+  display: inline-block;
+  background: rgba(111,174,72,0.15);
+  color: var(--secondary);
+  border: 1px solid var(--secondary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  margin-bottom: 0.5rem;
+}
 .course-card .institution-name { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
 .meta-grid {
   display: grid;
@@ -467,7 +486,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   margin-bottom: 0.5rem;
 }
 .data-disclaimer {
-  background: rgba(245, 158, 11, 0.12);
+  background: rgba(237, 139, 45, 0.12);
   border: 1px solid var(--accent);
   border-radius: var(--radius-md);
   padding: 0.75rem 1rem;
@@ -484,7 +503,9 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 999px; padding: 0.4rem 0.9rem;
   font-size: 0.8rem; white-space: nowrap; min-height: 36px;
+  transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease;
 }
+.filter-chip:active { transform: scale(0.95); }
 .filter-chip.active { background: var(--primary); border-color: var(--primary); color: #fff; }
 
 /* ---------- Mentor cards ---------- */
@@ -501,8 +522,8 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 /* ---------- OKR items ---------- */
 .okr-item .okr-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
 .status-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; }
-.status-badge.on-track { background: rgba(16,185,129,0.15); color: var(--secondary); }
-.status-badge.at-risk { background: rgba(245,158,11,0.15); color: var(--accent); }
+.status-badge.on-track { background: rgba(111,174,72,0.15); color: var(--secondary); }
+.status-badge.at-risk { background: rgba(237,139,45,0.15); color: var(--accent); }
 .status-badge.done { background: rgba(148,163,184,0.15); color: var(--text-muted); }
 
 /* ---------- Application timeline ---------- */

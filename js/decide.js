@@ -61,6 +61,7 @@ function renderDecideTabContent() {
   if (!container) return;
   if (AppState.decideFilters.activeTab === 'courses') renderCourseMatcher(container);
   else renderFundingFinder(container);
+  replayFadeIn(container);
 }
 
 /* ---------- Course Matcher ---------- */
@@ -132,9 +133,14 @@ function renderCourseCard(course, match) {
   const saved = AppState.savedCourses.includes(course.id);
   const monthlyEstimate = Math.round(course.total_fees_kes / course.duration_months);
 
+  const isVerified = course.data_confidence === 'verified';
+
   return `
     <div class="card course-card">
-      <span class="match-badge">${match.score}% Match${!match.eligible ? ' · Grade below requirement' : ''}</span>
+      <div class="flex items-center gap-1" style="flex-wrap:wrap">
+        <span class="match-badge">${match.score}% Match${!match.eligible ? ' · Grade below requirement' : ''}</span>
+        ${isVerified ? '<span class="verified-badge" title="Fee figures cross-checked against a public source">✓ Verified estimate</span>' : ''}
+      </div>
       <h3>${escapeHtml(course.name)}</h3>
       <div class="institution-name">${escapeHtml(inst ? inst.name : 'Unknown institution')} · ${escapeHtml(inst ? inst.location : '')}</div>
       <div class="meta-grid">
@@ -148,6 +154,7 @@ function renderCourseCard(course, match) {
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
       <p class="text-muted text-sm mb-2">📊 Feasibility: roughly <strong>${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
+      ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(course.verification_note)}</p>` : ''}
       <div class="btn-row">
         <button type="button" class="btn ${saved ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleSavedCourse('${course.id}')">${saved ? '★ Saved' : '☆ Save'}</button>
         <button type="button" class="btn btn-ghost btn-sm" onclick="startApplicationForCourse('${course.id}')">Start Application</button>
@@ -247,11 +254,16 @@ function setFundingTypeFilter(type) {
 
 function renderFundingCard(f, userGrade) {
   const eligible = meetsGradeRequirement(userGrade, f.min_grade);
+  const isVerified = f.data_confidence === 'verified';
   return `
     <div class="card">
-      <span class="type-badge">${escapeHtml(f.type.replace('_', ' '))}</span>
+      <div class="flex items-center gap-1" style="flex-wrap:wrap">
+        <span class="type-badge">${escapeHtml(f.type.replace('_', ' '))}</span>
+        ${isVerified ? '<span class="verified-badge" title="Cross-checked against a public source">✓ Verified</span>' : ''}
+      </div>
       <h3>${escapeHtml(f.name)}</h3>
       <p class="text-secondary text-sm mb-2">${escapeHtml(f.description)}</p>
+      ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(f.verification_note)}</p>` : ''}
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Coverage</div><div class="meta-value">${escapeHtml(f.coverage)}</div></div>
         <div class="meta-item"><div class="meta-label">Max Amount</div><div class="meta-value">${formatKes(f.max_amount_kes)}</div></div>

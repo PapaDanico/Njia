@@ -59,6 +59,8 @@ function navigateTo(pageId) {
   renderRoute();
 }
 
+const PAGE_LABELS = { home: '', discover: 'Discover', design: 'Design', decide: 'Decide', connect: 'Connect', track: 'Track' };
+
 function renderRoute() {
   PAGES.forEach((id) => {
     const el = document.getElementById(`page-${id}`);
@@ -68,6 +70,8 @@ function renderRoute() {
   document.querySelectorAll('.nav-item').forEach((btn) => {
     btn.classList.toggle('active', btn.dataset.page === AppState.currentPage);
   });
+  const label = document.getElementById('header-page-label');
+  if (label) label.textContent = PAGE_LABELS[AppState.currentPage] ? `· ${PAGE_LABELS[AppState.currentPage]}` : '';
   window.scrollTo(0, 0);
 
   const renderers = {
@@ -135,6 +139,13 @@ function formatPercent(fraction) {
 
 function uid(prefix = 'id') {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function replayFadeIn(el) {
+  if (!el) return;
+  el.classList.remove('fade-in');
+  void el.offsetWidth; // force reflow so the animation restarts on re-render
+  el.classList.add('fade-in');
 }
 
 function emptyState(icon, title, description, ctaLabel, ctaOnClick) {
@@ -301,6 +312,7 @@ function renderHomePage() {
             <button type="button" onclick="openTermsModal()">Terms of Use</button>
             <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
             <button type="button" onclick="openFaqModal()">FAQ</button>
+            <button type="button" onclick="openFeedbackModal()">Give Feedback</button>
             <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
             <a href="https://helb.co.ke" target="_blank" rel="noopener noreferrer">HELB ↗</a>
           </div>

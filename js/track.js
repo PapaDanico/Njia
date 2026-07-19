@@ -42,6 +42,7 @@ function renderTrackTabContent() {
   if (!container) return;
   if (trackActiveTab === 'okrs') renderOkrsTab(container);
   else renderApplicationsTab(container);
+  replayFadeIn(container);
 }
 
 /* ---------- OKRs ---------- */

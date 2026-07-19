@@ -6,6 +6,19 @@
   <title>Njia — Data-Driven Career Pathway</title>
   <meta name="description" content="Njia helps Kenyan youth make evidence-based career pathway decisions using Stanford, HBR and HBS frameworks combined with Kenyan institutional data.">
   <meta name="theme-color" content="#0f172a">
+
+  <!-- Open Graph / social share preview (WhatsApp, Facebook, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Njia — Data-Driven Career Pathway for Kenyan Youth">
+  <meta property="og:description" content="A free, evidence-based career diagnostic built on Stanford, HBR and HBS frameworks — matched against real Kenyan courses, fees and funding.">
+  <meta property="og:image" content="https://njiacareerpathways.netlify.app/icons/og-image.jpg">
+  <meta property="og:url" content="https://njiacareerpathways.netlify.app/">
+  <meta property="og:site_name" content="Njia">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Njia — Data-Driven Career Pathway for Kenyan Youth">
+  <meta name="twitter:description" content="A free, evidence-based career diagnostic built on Stanford, HBR and HBS frameworks — matched against real Kenyan courses, fees and funding.">
+  <meta name="twitter:image" content="https://njiacareerpathways.netlify.app/icons/og-image.jpg">
+
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
@@ -22,6 +35,14 @@
       </div>
       <button type="button" class="header-btn" id="privacy-btn" aria-label="Privacy and data" onclick="openPrivacyModal()">🔒</button>
     </header>
+
+    <section id="install-banner" class="install-banner hidden" aria-label="Install Njia">
+      <span class="install-banner-text">📲 Install Njia for one-tap, offline access</span>
+      <div class="install-banner-actions">
+        <button type="button" class="btn btn-primary btn-sm" onclick="triggerInstallPrompt()">Install</button>
+        <button type="button" class="header-btn" aria-label="Dismiss install banner" onclick="dismissInstallBanner()">✕</button>
+      </div>
+    </section>
 
     <main>
       <div class="page" id="page-home"></div>
@@ -111,6 +132,40 @@
         <p class="text-secondary text-sm mb-2"><strong>Frameworks:</strong> Stanford Life Design Lab's Odyssey Planning, Rainer Strack's "Strategize Your Life" (HBR/BCG), and Dr. Timothy Butler's Four Elements career model (Harvard Business School).</p>
         <p class="text-secondary text-sm mb-2"><strong>Landing page statistics</strong> (KCSE candidates, KUCCPS placement rate, youth unemployment) are cited to KUCCPS, the Ministry of Education, and a World Bank/ILO modeled estimate — see the footer for full citations.</p>
         <p class="text-secondary text-sm mb-2"><strong>In-app course, fee and funding data</strong> (Decide module) is illustrative for this MVP — institution names are real, but fees, employment rates and salaries are not yet verified against live TVETA/CUE/KNBS sources. A disclaimer appears wherever this data is shown.</p>
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+      `);
+    }
+    function openTermsModal() {
+      openModal(`
+        <h3 class="mb-2">Terms of Use</h3>
+        <p class="text-secondary text-sm mb-2">Njia is provided free, "as is", for informational and educational purposes only. It is not professional career counselling, financial, or legal advice — always verify institution accreditation, fees and funding details directly with the relevant institution or authority before making a decision.</p>
+        <p class="text-secondary text-sm mb-2">Njia is an independent project. It is not affiliated with, endorsed by, or sponsored by Stanford University, Harvard Business Review, Harvard Business School, or any institution, funder, or organisation named or listed in the app — those names are used solely to describe publicly available frameworks or public information.</p>
+        <p class="text-secondary text-sm mb-2">All your data (questionnaire answers, plans, saved courses, OKRs, applications) is stored only in this browser's local storage on your device. No account is required and Njia does not collect or receive your data on any server.</p>
+        <p class="text-secondary text-sm mb-2">Course, institution and funding data bundled in this version is illustrative pending verification (see Methodology) and may contain errors. You are responsible for verifying information and for decisions made using this tool. Njia is provided without warranty of any kind, and content may change or be discontinued at any time.</p>
+        <p class="text-secondary text-sm mb-2">By using Njia, you agree to these terms.</p>
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+      `);
+    }
+    function openPartnersModal() {
+      openModal(`
+        <h3 class="mb-2">Products &amp; Partners</h3>
+        <p class="text-secondary text-sm mb-2"><strong>Products.</strong> Njia is currently one free product suite: five modules — Discover, Design, Decide, Connect, Track — covering career diagnosis, life design, course/funding matching, outreach, and follow-through. All run client-side, with no account or backend required.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Partners.</strong> Njia does not yet have any formal institutional, government, or NGO partners — this is an independently built, early-stage project. Institution names shown in the Decide module are included because they are real, publicly known Kenyan institutions, not because of any partnership or endorsement.</p>
+        <p class="text-secondary text-sm mb-2">Looking ahead, the kind of partnerships that would most improve Njia are: accredited institutions willing to share verified fee/outcome data, funders (HELB, county bursary offices, foundations) for direct integration, and youth or community organisations for real mentor matching. If that's you, please reach out through the project's GitHub repository.</p>
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+      `);
+    }
+    function openFaqModal() {
+      openModal(`
+        <h3 class="mb-2">Frequently Asked Questions</h3>
+        <p class="text-secondary text-sm mb-2"><strong>Is Njia really free?</strong><br>Yes — completely free, no signup, no ads, no paywall.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Does my data leave my phone?</strong><br>No. Everything is stored in your browser's local storage, on your device only.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Do I need internet to use it?</strong><br>Only for your first visit. After that, Njia works fully offline.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Is the course/fee data accurate?</strong><br>Institution names are real, but fees, employment rates and salaries are illustrative estimates for this early version — always confirm directly with the institution before deciding. See Methodology.</p>
+        <p class="text-secondary text-sm mb-2"><strong>What if my KCSE grade isn't great?</strong><br>Discover and the Course Matcher are built around this — they surface certificate and TVET pathways too, not just university degrees, and adapt to your actual grade and budget.</p>
+        <p class="text-secondary text-sm mb-2"><strong>How is this different from a personality quiz?</strong><br>It's built on three published frameworks used at Stanford, HBR and Harvard Business School (see Methodology), and every recommendation is checked against real Kenyan grade requirements, fees and funding — not just a personality label.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Can I use this on a shared or borrowed phone?</strong><br>Yes — use "Clear My Data" (lock icon in the header) before handing the phone back.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Can I retake the Discover questionnaire?</strong><br>Yes, any time, from the results screen.</p>
         <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
       `);
     }

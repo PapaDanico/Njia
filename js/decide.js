@@ -41,8 +41,8 @@ function renderDecidePage() {
       <span>This MVP dataset (fees, employment rates, salaries, deadlines) is <strong>illustrative</strong> for demonstration — verify current figures directly with each institution or funder before deciding.</span>
     </div>
     <div class="odyssey-tabs">
-      <button class="odyssey-tab ${AppState.decideFilters.activeTab === 'courses' ? 'active' : ''}" onclick="setDecideTab('courses')">🎓 Courses</button>
-      <button class="odyssey-tab ${AppState.decideFilters.activeTab === 'funding' ? 'active' : ''}" onclick="setDecideTab('funding')">💰 Funding</button>
+      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'courses' ? 'active' : ''}" onclick="setDecideTab('courses')">🎓 Courses</button>
+      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'funding' ? 'active' : ''}" onclick="setDecideTab('funding')">💰 Funding</button>
     </div>
     <div id="decide-tab-content"></div>
   `;
@@ -98,7 +98,7 @@ function renderCourseMatcher(container) {
   container.innerHTML = `
     <div class="filter-row" role="tablist" aria-label="Filter by career cluster">
       ${clusterOptions.map((c) => `
-        <button class="filter-chip ${AppState.decideFilters.cluster === c ? 'active' : ''}" onclick="setDecideClusterFilter('${c}')">
+        <button type="button" class="filter-chip ${AppState.decideFilters.cluster === c ? 'active' : ''}" onclick="setDecideClusterFilter('${c}')">
           ${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}
         </button>
       `).join('')}
@@ -149,8 +149,8 @@ function renderCourseCard(course, match) {
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
       <p class="text-muted text-sm mb-2">📊 Feasibility: roughly <strong>${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
       <div class="btn-row">
-        <button class="btn ${saved ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleSavedCourse('${course.id}')">${saved ? '★ Saved' : '☆ Save'}</button>
-        <button class="btn btn-ghost btn-sm" onclick="startApplicationForCourse('${course.id}')">Start Application</button>
+        <button type="button" class="btn ${saved ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleSavedCourse('${course.id}')">${saved ? '★ Saved' : '☆ Save'}</button>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="startApplicationForCourse('${course.id}')">Start Application</button>
       </div>
     </div>
   `;
@@ -230,7 +230,7 @@ function renderFundingFinder(container) {
   container.innerHTML = `
     <div class="filter-row">
       ${FUNDING_TYPES.map((t) => `
-        <button class="filter-chip ${activeType === t ? 'active' : ''}" onclick="setFundingTypeFilter('${t}')">
+        <button type="button" class="filter-chip ${activeType === t ? 'active' : ''}" onclick="setFundingTypeFilter('${t}')">
           ${t === 'all' ? 'All' : t.replace('_', ' ')}
         </button>
       `).join('')}

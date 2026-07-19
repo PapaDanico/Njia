@@ -51,7 +51,7 @@ function renderDesignPage() {
     <p class="text-secondary mb-2">Design multiple viable futures, not just one — the Stanford Life Design approach.</p>
     <div class="odyssey-tabs" role="tablist">
       ${[['odyssey', '🗺️ Odyssey'], ['portfolio', '⚖️ Portfolio'], ['prototype', '✅ Prototype'], ['gravity', '🪨 Gravity']].map(([key, label]) => `
-        <button class="odyssey-tab ${designActiveTab === key ? 'active' : ''}" role="tab" onclick="setDesignTab('${key}')">${label}</button>
+        <button type="button" class="odyssey-tab ${designActiveTab === key ? 'active' : ''}" role="tab" onclick="setDesignTab('${key}')">${label}</button>
       `).join('')}
     </div>
     <div id="design-tab-content"></div>
@@ -218,7 +218,7 @@ function renderGravityTab(container) {
       <textarea class="q-input mt-1" id="gravity-problem" placeholder="e.g. I cannot afford a 4-year degree right now"></textarea>
       <label class="caption mt-2" for="gravity-reframe" style="display:block">Your reframe (a certificate-to-diploma ladder? evening classes? work-study?)</label>
       <textarea class="q-input mt-1" id="gravity-reframe" placeholder="e.g. Start with a KMTC certificate, work part-time, upgrade to the diploma in year 2"></textarea>
-      <button class="btn btn-primary mt-2" onclick="addGravityProblem()">Save Reframe</button>
+      <button type="button" class="btn btn-primary mt-2" onclick="addGravityProblem()">Save Reframe</button>
     </div>
     <div id="gravity-list">
       ${AppState.gravityProblems.length === 0
@@ -229,7 +229,7 @@ function renderGravityTab(container) {
             <p class="mb-2">${escapeHtml(g.problem)}</p>
             <span class="caption">Reframe</span>
             <p class="text-secondary">${escapeHtml(g.reframe)}</p>
-            <button class="btn btn-ghost btn-sm mt-2" onclick="deleteGravityProblem('${g.id}')">Remove</button>
+            <button type="button" class="btn btn-ghost btn-sm mt-2" onclick="deleteGravityProblem('${g.id}')">Remove</button>
           </div>
         `).join('')
       }

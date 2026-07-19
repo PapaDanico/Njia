@@ -46,7 +46,7 @@ function renderConnectPage() {
       <input type="text" id="connect-name" placeholder="e.g. Auntie Wanjiru" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
       <label class="caption" for="connect-role">Their role</label>
       <input type="text" id="connect-role" placeholder="e.g. community health nurse" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
-      <button class="btn btn-primary" onclick="generateOutreachMessage()">Generate Message</button>
+      <button type="button" class="btn btn-primary" onclick="generateOutreachMessage()">Generate Message</button>
       <div id="outreach-output" class="mt-2"></div>
     </div>
 
@@ -70,7 +70,7 @@ function generateOutreachMessage() {
   if (output) {
     output.innerHTML = `
       <textarea class="q-input" readonly style="min-height:140px">${escapeHtml(message)}</textarea>
-      <button class="btn btn-secondary btn-sm mt-2" onclick="copyOutreachMessage(this)">Copy to Clipboard</button>
+      <button type="button" class="btn btn-secondary btn-sm mt-2" onclick="copyOutreachMessage(this)">Copy to Clipboard</button>
     `;
   }
 }

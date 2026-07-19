@@ -23,8 +23,8 @@ function renderTrackPage() {
     </div>
 
     <div class="odyssey-tabs">
-      <button class="odyssey-tab ${trackActiveTab === 'okrs' ? 'active' : ''}" onclick="setTrackTab('okrs')">🎯 OKRs</button>
-      <button class="odyssey-tab ${trackActiveTab === 'applications' ? 'active' : ''}" onclick="setTrackTab('applications')">📋 Applications</button>
+      <button type="button" class="odyssey-tab ${trackActiveTab === 'okrs' ? 'active' : ''}" onclick="setTrackTab('okrs')">🎯 OKRs</button>
+      <button type="button" class="odyssey-tab ${trackActiveTab === 'applications' ? 'active' : ''}" onclick="setTrackTab('applications')">📋 Applications</button>
     </div>
     <div id="track-tab-content"></div>
   `;
@@ -59,7 +59,7 @@ function daysSince(iso) {
 
 function renderOkrsTab(container) {
   container.innerHTML = `
-    <button class="btn btn-primary mb-2" onclick="openOkrModal()">+ New OKR</button>
+    <button type="button" class="btn btn-primary mb-2" onclick="openOkrModal()">+ New OKR</button>
     ${AppState.okrs.length === 0
       ? emptyState('🎯', 'No OKRs yet', 'Turn your Odyssey Plan into a quarterly objective with 2–3 measurable key results.', '+ New OKR', 'openOkrModal()')
       : AppState.okrs.map((okr) => renderOkrItem(okr)).join('')
@@ -86,7 +86,7 @@ function renderOkrItem(okr) {
           <label for="kr-${okr.id}-${i}">${escapeHtml(kr.text)}</label>
         </div>
       `).join('')}
-      <button class="btn btn-ghost btn-sm mt-2" onclick="deleteOkr('${okr.id}')">Delete OKR</button>
+      <button type="button" class="btn btn-ghost btn-sm mt-2" onclick="deleteOkr('${okr.id}')">Delete OKR</button>
     </div>
   `;
 }
@@ -98,7 +98,7 @@ function openOkrModal() {
     <input type="text" id="okr-title" placeholder="e.g. Get accepted into a Counselling Diploma programme" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
     <label class="caption">Key Results (one per line, 2–3 recommended)</label>
     <textarea class="q-input mt-1" id="okr-key-results" placeholder="Shortlist 5 institutions&#10;Sit and pass entrance requirements&#10;Submit HELB application"></textarea>
-    <button class="btn btn-primary mt-2" onclick="createOkr()">Create OKR</button>
+    <button type="button" class="btn btn-primary mt-2" onclick="createOkr()">Create OKR</button>
   `);
 }
 
@@ -152,12 +152,12 @@ function renderApplicationTimeline(app) {
             <div class="timeline-dot"></div>
             <div class="flex justify-between items-center">
               <span>${escapeHtml(step.title)}</span>
-              <button class="btn btn-ghost btn-sm" onclick="toggleApplicationStep('${app.id}', ${i})">${step.done ? 'Undo' : 'Mark Done'}</button>
+              <button type="button" class="btn btn-ghost btn-sm" onclick="toggleApplicationStep('${app.id}', ${i})">${step.done ? 'Undo' : 'Mark Done'}</button>
             </div>
           </div>
         `).join('')}
       </div>
-      <button class="btn btn-ghost btn-sm mt-2" onclick="deleteApplication('${app.id}')">Remove Application</button>
+      <button type="button" class="btn btn-ghost btn-sm mt-2" onclick="deleteApplication('${app.id}')">Remove Application</button>
     </div>
   `;
 }

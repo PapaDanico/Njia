@@ -35,7 +35,7 @@ function renderDiscoverIntro(el) {
       <h3 class="mb-1">What to expect</h3>
       <p class="text-secondary text-sm">Answer honestly, not aspirationally. There are no wrong answers — some questions ask about constraints like budget and timeline so your recommendations are actually realistic for you.</p>
     </div>
-    <button class="btn btn-primary" onclick="startDiscoverQuestionnaire()">Begin Discovery →</button>
+    <button type="button" class="btn btn-primary" onclick="startDiscoverQuestionnaire()">Begin Discovery →</button>
   `;
 }
 
@@ -62,7 +62,7 @@ function renderDiscoverQuestion(el) {
   let bodyHtml = '';
   if (q.type === 'single') {
     bodyHtml = q.options.map((opt, i) => `
-      <button class="option-card ${existingAnswer && existingAnswer.optionIndex === i ? 'selected' : ''}"
+      <button type="button" class="option-card ${existingAnswer && existingAnswer.optionIndex === i ? 'selected' : ''}"
         onclick="selectDiscoverOption(${idx}, ${i})">
         ${escapeHtml(opt.text)}
       </button>
@@ -74,7 +74,7 @@ function renderDiscoverQuestion(el) {
       <button type="button" class="voice-btn" id="voice-btn" onclick="toggleVoiceInput()">
         <span aria-hidden="true">🎙️</span> <span id="voice-btn-label">Speak your answer</span>
       </button>
-      <button class="btn btn-primary mt-2" onclick="submitDiscoverText(${idx})">Continue →</button>
+      <button type="button" class="btn btn-primary mt-2" onclick="submitDiscoverText(${idx})">Continue →</button>
     `;
   }
 
@@ -88,8 +88,8 @@ function renderDiscoverQuestion(el) {
     <h2 class="mb-2">${escapeHtml(q.text)}</h2>
     ${bodyHtml}
     <div class="btn-row mt-3">
-      ${idx > 0 ? `<button class="btn btn-secondary" onclick="goToDiscoverQuestion(${idx - 1})">← Back</button>` : ''}
-      ${q.type === 'text' ? '' : (existingAnswer ? `<button class="btn btn-ghost" onclick="goToDiscoverQuestion(${idx + 1})">Skip →</button>` : '')}
+      ${idx > 0 ? `<button type="button" class="btn btn-secondary" onclick="goToDiscoverQuestion(${idx - 1})">← Back</button>` : ''}
+      ${q.type === 'text' ? '' : (existingAnswer ? `<button type="button" class="btn btn-ghost" onclick="goToDiscoverQuestion(${idx + 1})">Skip →</button>` : '')}
     </div>
   `;
 
@@ -286,10 +286,10 @@ function renderDiscoverResults(el) {
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-primary" onclick="navigateTo('design')">Build Odyssey Plan →</button>
-      <button class="btn btn-secondary" onclick="navigateTo('decide')">See Matching Courses</button>
+      <button type="button" class="btn btn-primary" onclick="navigateTo('design')">Build Odyssey Plan →</button>
+      <button type="button" class="btn btn-secondary" onclick="navigateTo('decide')">See Matching Courses</button>
     </div>
-    <button class="btn btn-ghost mt-2" onclick="confirmRetakeQuestionnaire()">Retake Discovery</button>
+    <button type="button" class="btn btn-ghost mt-2" onclick="confirmRetakeQuestionnaire()">Retake Discovery</button>
   `;
 }
 
@@ -298,8 +298,8 @@ function confirmRetakeQuestionnaire() {
     <h3 class="mb-2">Retake Discovery?</h3>
     <p class="text-secondary mb-3">This clears your previous answers and results. Your saved courses, Odyssey Plans and OKRs are not affected.</p>
     <div class="btn-row">
-      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-danger" onclick="retakeQuestionnaire()">Retake</button>
+      <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-danger" onclick="retakeQuestionnaire()">Retake</button>
     </div>
   `);
 }

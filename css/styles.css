@@ -58,6 +58,17 @@
   color-scheme: light;
 }
 
+/* ---------- noscript fallback ---------- */
+.noscript-fallback {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  font-family: system-ui, sans-serif;
+  text-align: center;
+  color: #0f172a;
+  background: #fff;
+}
+
 /* ---------- Reset ---------- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { -webkit-text-size-adjust: 100%; }
@@ -205,7 +216,7 @@ main {
   min-height: 48px;
   position: relative;
 }
-.nav-item .nav-icon { font-size: 1.3rem; }
+.nav-item .nav-icon { font-size: 1.3rem; position: relative; display: inline-block; }
 .nav-item .nav-label { font-size: 0.65rem; font-weight: 600; }
 .nav-item.active { color: var(--primary); }
 .nav-item.active::before {
@@ -213,6 +224,20 @@ main {
   position: absolute; top: 4px;
   width: 4px; height: 4px; border-radius: 50%;
   background: var(--primary);
+}
+.nav-item.active::after {
+  content: '';
+  position: absolute; top: 4px; bottom: 4px; left: 6px; right: 6px;
+  background: rgba(28, 160, 208, 0.12);
+  border-radius: 12px;
+  z-index: -1;
+}
+.nav-item.has-badge .nav-icon::after {
+  content: '';
+  position: absolute; top: -2px; right: -4px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg-elevated);
 }
 .nav-item:active { transform: scale(0.95); }
 
@@ -677,6 +702,26 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   max-width: 46ch;
   margin-bottom: 1.5rem;
 }
+.landing-proverb {
+  font-size: 0.85rem;
+  color: var(--landing-ink-muted);
+  font-style: italic;
+  max-width: 42ch;
+  margin: -0.75rem 0 1.25rem;
+  border-left: 3px solid var(--accent);
+  padding-left: 0.75rem;
+}
+.landing-teaser-box {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: var(--landing-card);
+  border: 1px solid var(--landing-border);
+  border-left: 4px solid var(--secondary);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  font-size: 0.88rem;
+  color: var(--landing-ink);
+}
+.landing-teaser-box a { color: var(--primary-dark); font-weight: 600; }
 .landing-h2 {
   font-family: Georgia, Cambria, 'Times New Roman', serif;
   font-size: 1.5rem;

@@ -237,7 +237,7 @@ function toggleSavedCourse(courseId) {
   const idx = AppState.savedCourses.indexOf(courseId);
   if (idx === -1) {
     AppState.savedCourses.push(courseId);
-    showToast('Course saved.', 'success');
+    showToast('Saved. We\'ll remind you to apply.', 'success');
   } else {
     AppState.savedCourses.splice(idx, 1);
     showToast('Course removed from saved list.', 'info');

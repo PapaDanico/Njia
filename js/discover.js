@@ -247,7 +247,7 @@ function renderDiscoverResults(el) {
     <div class="print-only">${renderShareableReportHTML()}</div>
 
     <div class="discover-full-results">
-      <h2 class="mb-2">Your Results</h2>
+      <h2 class="mb-2">This is what the data says about you</h2>
 
       <div class="cluster-primary">
         <span class="cluster-badge" style="background:${primaryC.color}22;color:${primaryC.color}">Primary Cluster</span>

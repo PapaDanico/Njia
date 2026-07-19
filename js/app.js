@@ -66,6 +66,14 @@ function navigateTo(pageId) {
 
 const PAGE_LABELS = { home: '', discover: 'Discover', design: 'Design', decide: 'Decide', connect: 'Connect', track: 'Track' };
 
+// Nudge toward Track when there's saved-but-unstarted work — a subtle
+// signal, not a notification count. Reactive to njia-state-changed too,
+// so saving a course updates the badge without needing a page change.
+function updateTrackBadge() {
+  const needsAttention = AppState.savedCourses.length > 0 && AppState.applications.length === 0;
+  document.querySelector('.nav-item[data-page="track"]')?.classList.toggle('has-badge', needsAttention);
+}
+
 function renderRoute({ focusHeading = false } = {}) {
   PAGES.forEach((id) => {
     const el = document.getElementById(`page-${id}`);
@@ -78,6 +86,7 @@ function renderRoute({ focusHeading = false } = {}) {
     if (isActive) btn.setAttribute('aria-current', 'page');
     else btn.removeAttribute('aria-current');
   });
+  updateTrackBadge();
   const label = document.getElementById('header-page-label');
   if (label) label.textContent = PAGE_LABELS[AppState.currentPage] ? `· ${PAGE_LABELS[AppState.currentPage]}` : '';
   window.scrollTo(0, 0);
@@ -250,8 +259,9 @@ function renderHomePage() {
         <span class="landing-eyebrow">RESEARCH-BACKED METHOD · REAL KENYAN DATA · ZERO COST</span>
         <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
         <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
+        <p class="landing-proverb"><em>"Penye nia, pana njia"</em> — where there's a will, there's a way. It's why we're called Njia.</p>
         <div class="landing-cta-row">
-          <button type="button" class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : "Start Your Discovery — it's free"} →</button>
+          <button type="button" class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery — 20 minutes, free'} →</button>
           <button type="button" class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
         </div>
         <div class="landing-trust-row">
@@ -261,6 +271,20 @@ function renderHomePage() {
         </div>
         ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">You're matched as <strong style="color:var(--landing-ink)">${CLUSTERS[primaryCluster].name}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
       </section>
+
+      ${AppState.savedCourses.length > 0 ? (() => {
+        const savedCount = AppState.savedCourses.length;
+        const hasApplication = AppState.applications.length > 0;
+        const nextPage = hasApplication ? 'track' : 'decide';
+        const cta = hasApplication ? 'View your progress →' : 'Pick one and start →';
+        return `
+        <section class="landing-block-tight">
+          <div class="landing-teaser-box">
+            <span aria-hidden="true">📌</span>
+            <span>You have <strong>${savedCount}</strong> saved course${savedCount === 1 ? '' : 's'} waiting. <a href="#" onclick="navigateTo('${nextPage}');return false">${cta}</a></span>
+          </div>
+        </section>`;
+      })() : ''}
 
       <section class="landing-dark landing-block-tight">
         <div class="landing-stats-grid">
@@ -365,7 +389,7 @@ function renderHomePage() {
           <div>
             <a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="openFaqModal();return false">FAQ</a>
           </div>
-          <span>© 2026 Njia · A free, open pathway for Kenyan youth.</span>
+          <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
         </div>
       </footer>
     </div>
@@ -434,8 +458,16 @@ document.addEventListener('DOMContentLoaded', () => {
       console.warn('Njia: Service Worker registration failed.', err);
     });
 
+    // A page loaded with no existing controller (first-ever visit, or after
+    // clearing site data) gets its *first* controllerchange the moment the
+    // new service worker takes control — that's not an update, just normal
+    // startup, and reloading here would silently refresh first-time visitors
+    // for no reason. Only treat it as "an update is ready" when a controller
+    // already existed before this event fired.
+    const hadControllerAtLoad = !!navigator.serviceWorker.controller;
     let reloadedForUpdate = false;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadControllerAtLoad) return;
       if (reloadedForUpdate) return;
       reloadedForUpdate = true;
       window.location.reload();
@@ -445,20 +477,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ---------- PWA install prompt ---------- */
 const INSTALL_DISMISSED_KEY = 'njia_install_dismissed';
+const INSTALL_ENGAGEMENT_DELAY_MS = 2 * 60 * 1000;
+const sessionStartedAt = Date.now();
 let deferredInstallPrompt = null;
+let installBannerShown = false;
 
 function isRunningStandalone() {
   return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 }
 
+// Show the install banner only once the visitor has actually engaged —
+// finished Discovery, or stuck around 2+ minutes — rather than the moment
+// the browser makes beforeinstallprompt available, before they've seen
+// any value from the app.
+function maybeShowInstallBanner() {
+  if (installBannerShown || !deferredInstallPrompt || isRunningStandalone()) return;
+  let dismissed = false;
+  try { dismissed = localStorage.getItem(INSTALL_DISMISSED_KEY) === '1'; } catch (err) { /* localStorage unavailable — proceed as not dismissed */ }
+  if (dismissed) return;
+  const engaged = AppState.questionnaire.completed || (Date.now() - sessionStartedAt) >= INSTALL_ENGAGEMENT_DELAY_MS;
+  if (!engaged) return;
+  installBannerShown = true;
+  showInstallBanner();
+}
+
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
   deferredInstallPrompt = event;
-  if (isRunningStandalone()) return;
-  let dismissed = false;
-  try { dismissed = localStorage.getItem(INSTALL_DISMISSED_KEY) === '1'; } catch (err) { /* localStorage unavailable — show banner anyway */ }
-  if (!dismissed) showInstallBanner();
+  maybeShowInstallBanner();
+  setTimeout(maybeShowInstallBanner, INSTALL_ENGAGEMENT_DELAY_MS + 500);
 });
+
+document.addEventListener('njia-state-changed', maybeShowInstallBanner);
+document.addEventListener('njia-state-changed', updateTrackBadge);
 
 window.addEventListener('appinstalled', () => {
   hideInstallBanner();
@@ -490,6 +541,14 @@ function dismissInstallBanner() {
   hideInstallBanner();
   try { localStorage.setItem(INSTALL_DISMISSED_KEY, '1'); } catch (err) { /* best effort — banner still hides for this session */ }
 }
+
+/* ---------- Offline / online indicator ---------- */
+window.addEventListener('offline', () => {
+  showToast('📴 You are offline — Njia still works, your data is safe.', 'info', 5000);
+});
+window.addEventListener('online', () => {
+  showToast('🌐 Back online.', 'success', 2000);
+});
 
 function showUpdateAvailableToast(registration) {
   const container = document.getElementById('toast-container');

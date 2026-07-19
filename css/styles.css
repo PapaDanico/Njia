@@ -39,20 +39,12 @@
   color-scheme: dark;
 }
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg: #f8fafc;
-    --bg-elevated: #ffffff;
-    --bg-card: #f1f5f9;
-    --bg-input: #e2e8f0;
-    --text-primary: #0f172a;
-    --text-secondary: #334155;
-    --text-muted: #64748b;
-    --border: #e2e8f0;
-    --border-light: #cbd5e1;
-    color-scheme: light;
-  }
-}
+/* Dark is the deliberate default for the app shell (battery/eye-strain,
+ * per the original design brief) — it does not auto-follow OS light-mode
+ * preference, since every dark-tuned color (nav labels, etc.) was never
+ * verified for contrast against a light background. A manual opt-in
+ * toggle can set data-theme="light" if one is ever added; until then
+ * this rule is unused but ready. */
 :root[data-theme="light"] {
   --bg: #f8fafc;
   --bg-elevated: #ffffff;
@@ -656,7 +648,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   color: var(--landing-ink);
   margin-bottom: 1rem;
 }
-.landing-h1 .hl-gold { color: var(--accent); }
+.landing-h1 .hl-gold { color: #b8631a; }
 .landing-h1 .hl-blue { color: var(--primary-dark); }
 .landing-sub {
   font-size: 1rem;
@@ -748,7 +740,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   font-weight: 700;
   color: var(--landing-ink);
 }
-.landing-quote .hl-gold { color: var(--accent); }
+.landing-quote .hl-gold { color: #b8631a; }
 .landing-quote-caption { margin-top: 1rem; font-size: 0.85rem; color: var(--landing-ink-muted); }
 
 .landing-process-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -816,7 +808,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 .landing-footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.75rem; margin-bottom: 2rem; }
 .landing-footer-brand p { font-size: 0.85rem; color: #94a3b8; margin-top: 0.5rem; max-width: 32ch; }
-.landing-footer-col h4 {
+.landing-footer-col .footer-col-label {
   font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;
   color: #94a3b8; margin-bottom: 0.75rem;
 }
@@ -825,12 +817,12 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   font-size: 0.85rem; padding: 0.3rem 0; text-align: left;
 }
 .landing-footer-sources {
-  font-size: 0.72rem; color: #64748b; border-top: 1px solid #334155;
+  font-size: 0.72rem; color: #94a3b8; border-top: 1px solid #334155;
   padding-top: 1.25rem; margin-bottom: 1.25rem; line-height: 1.6;
 }
 .landing-footer-bottom {
   display: flex; flex-direction: column; gap: 0.5rem;
-  font-size: 0.75rem; color: #64748b;
+  font-size: 0.75rem; color: #94a3b8;
   border-top: 1px solid #334155; padding-top: 1.25rem;
 }
 .landing-footer-bottom a { color: #94a3b8; margin-right: 1rem; }

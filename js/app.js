@@ -291,11 +291,11 @@ function renderHomePage() {
             <p>Data-driven career pathway guidance for Kenyan youth, built on research-backed career psychology and life-design methods.</p>
           </div>
           <div class="landing-footer-col">
-            <h4>Modules</h4>
+            <p class="footer-col-label">Modules</p>
             ${LANDING_PROCESS.map((p) => `<button type="button" onclick="navigateTo('${p.page}')">${p.title}</button>`).join('')}
           </div>
           <div class="landing-footer-col">
-            <h4>Resources &amp; Legal</h4>
+            <p class="footer-col-label">Resources &amp; Legal</p>
             <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>
             <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
             <button type="button" onclick="openTermsModal()">Terms of Use</button>

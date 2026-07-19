@@ -331,6 +331,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('modal-close-btn')?.addEventListener('click', closeModal);
 
+  // Respect a deep-link hash (e.g. from manifest.json shortcuts) on first
+  // load only — in-app tab navigation deliberately doesn't touch the URL.
+  const hashPage = window.location.hash.replace('#', '');
+  if (PAGES.includes(hashPage)) AppState.currentPage = hashPage;
+
   renderRoute();
 
   if ('serviceWorker' in navigator) {

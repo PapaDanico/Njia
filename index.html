@@ -100,6 +100,16 @@
     <button type="submit">Send</button>
   </form>
 
+  <form name="njia-partner-inquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="text" name="organisation">
+    <input type="text" name="contact">
+    <input type="email" name="email">
+    <input type="text" name="type">
+    <textarea name="message"></textarea>
+    <input type="text" name="bot-field">
+    <button type="submit">Send</button>
+  </form>
+
   <!-- Data layer -->
   <script src="./data/questions.js"></script>
   <script src="./data/institutions.js"></script>
@@ -208,9 +218,57 @@
         <h3 class="mb-2">Products &amp; Partners</h3>
         <p class="text-secondary text-sm mb-2"><strong>Products.</strong> Njia is currently one free product suite: five modules — Discover, Design, Decide, Connect, Track — covering career diagnosis, life design, course/funding matching, outreach, and follow-through. All run client-side, with no account or backend required.</p>
         <p class="text-secondary text-sm mb-2"><strong>Partners.</strong> Njia does not yet have any formal institutional, government, or NGO partners — this is an independently built, early-stage project. Institution names shown in the Decide module are included because they are real, publicly known Kenyan institutions, not because of any partnership or endorsement.</p>
-        <p class="text-secondary text-sm mb-2">Looking ahead, the kind of partnerships that would most improve Njia are: accredited institutions willing to share verified fee/outcome data, funders (HELB, county bursary offices, foundations) for direct integration, and youth or community organisations for real mentor matching. If that's you, please reach out through the project's GitHub repository.</p>
+        <p class="text-secondary text-sm mb-2">Looking ahead, the kind of partnerships that would most improve Njia are: accredited institutions willing to share verified fee/outcome data, funders (HELB, county bursary offices, foundations) for direct integration, and youth or community organisations for real mentor matching.</p>
+        <button type="button" class="btn btn-primary mb-2" onclick="openPartnerInquiryModal()">🤝 Partner With Us</button>
         <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
       `);
+    }
+    function openPartnerInquiryModal() {
+      openModal(`
+        <h3 class="mb-2">Partner With Us</h3>
+        <p class="text-secondary text-sm mb-2">Institution, funder, NGO, government body, or employer — tell us a bit about what you have in mind. No commitment, just a starting conversation.</p>
+        <label class="caption" for="partner-org">Organisation name</label>
+        <input type="text" id="partner-org" placeholder="e.g. Equity Group Foundation" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
+        <label class="caption" for="partner-contact">Your name</label>
+        <input type="text" id="partner-contact" placeholder="Your name" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
+        <label class="caption" for="partner-email">Email</label>
+        <input type="email" id="partner-email" placeholder="you@organisation.org" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
+        <label class="caption" for="partner-type">Type of partnership</label>
+        <select id="partner-type" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
+          <option value="institution">Accredited institution (data sharing)</option>
+          <option value="funder">Funder / bursary / scholarship body</option>
+          <option value="government">Government / county body</option>
+          <option value="ngo">NGO / youth organisation</option>
+          <option value="employer">Employer</option>
+          <option value="other">Other</option>
+        </select>
+        <label class="caption" for="partner-message">Message</label>
+        <textarea class="q-input mt-1" id="partner-message" placeholder="What did you have in mind?"></textarea>
+        <button type="button" class="btn btn-primary mt-2" onclick="submitPartnerInquiry()">Send Inquiry</button>
+      `);
+    }
+    function submitPartnerInquiry() {
+      const org = document.getElementById('partner-org')?.value.trim();
+      const contact = document.getElementById('partner-contact')?.value.trim();
+      const email = document.getElementById('partner-email')?.value.trim();
+      const type = document.getElementById('partner-type')?.value;
+      const message = document.getElementById('partner-message')?.value.trim();
+      if (!org || !contact || !email || !message) {
+        showToast('Please fill in organisation, name, email and a short message.', 'error');
+        return;
+      }
+      const body = new URLSearchParams({
+        'form-name': 'njia-partner-inquiry',
+        organisation: org,
+        contact,
+        email,
+        type,
+        message
+      }).toString();
+      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
+        .then(() => showToast('Thanks — we\'ll be in touch.', 'success'))
+        .catch(() => showToast('Could not send — check your connection and try again.', 'error'));
+      closeModal();
     }
     function openFaqModal() {
       openModal(`

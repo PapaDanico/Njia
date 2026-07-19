@@ -77,7 +77,7 @@ function computeCourseMatch(course) {
   if (!eligible) score = Math.min(score, 20);
 
   const budgetMax = AppState.decideFilters.budgetMax;
-  if (budgetMax && course.total_fees_kes > budgetMax) score = Math.max(0, score - 25);
+  if (budgetMax != null && course.total_fees_kes > budgetMax) score = Math.max(0, score - 25);
 
   return { score: Math.round(score), eligible };
 }
@@ -107,9 +107,9 @@ function renderCourseMatcher(container) {
     <div class="card">
       <div class="flex justify-between items-center mb-1">
         <span class="caption">Max budget (2 yrs, Ksh)</span>
-        <span class="text-sm">${AppState.decideFilters.budgetMax ? formatKes(AppState.decideFilters.budgetMax) : 'No limit'}</span>
+        <span class="text-sm">${AppState.decideFilters.budgetMax != null ? formatKes(AppState.decideFilters.budgetMax) : 'No limit'}</span>
       </div>
-      <input type="range" min="0" max="750000" step="10000" value="${AppState.decideFilters.budgetMax || 750000}"
+      <input type="range" min="0" max="750000" step="10000" value="${AppState.decideFilters.budgetMax != null ? AppState.decideFilters.budgetMax : 750000}"
         oninput="setDecideBudgetFilter(this.value)" aria-label="Maximum budget">
       <div class="flex justify-between items-center mb-1 mt-2">
         <span class="caption">Your grade (for eligibility)</span>

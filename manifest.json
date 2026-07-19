@@ -1,7 +1,7 @@
 {
   "name": "Njia — Data-Driven Career Pathway",
   "short_name": "Njia",
-  "description": "Data-driven career pathway guidance for Kenyan youth, built on Stanford, HBR and HBS research.",
+  "description": "Data-driven career pathway guidance for Kenyan youth, built on research-backed career psychology and life-design methods.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -10,6 +10,7 @@
   "theme_color": "#0f172a",
   "lang": "en",
   "dir": "ltr",
+  "categories": ["education", "lifestyle"],
   "icons": [
     {
       "src": "icons/icon-192x192.png",
@@ -22,6 +23,34 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Start Discovery",
+      "short_name": "Discover",
+      "description": "Jump straight into the career diagnostic",
+      "url": "./index.html#discover",
+      "icons": [{ "src": "icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Track Progress",
+      "short_name": "Track",
+      "description": "Check your OKRs and applications",
+      "url": "./index.html#track",
+      "icons": [{ "src": "icons/icon-192x192.png", "sizes": "192x192" }]
     }
   ]
 }

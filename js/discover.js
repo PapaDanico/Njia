@@ -237,13 +237,19 @@ function renderDiscoverResults(el) {
   };
 
   const constraintRows = [
-    constraints.grade && `<div class="meta-item"><div class="meta-label">Grade</div><div class="meta-value">${escapeHtml(constraints.grade)}</div></div>`,
-    constraints.budget && `<div class="meta-item"><div class="meta-label">Budget (2yr)</div><div class="meta-value">${escapeHtml(constraints.budget.replace('_', ' '))}</div></div>`,
-    constraints.urgency && `<div class="meta-item"><div class="meta-label">Income urgency</div><div class="meta-value">${escapeHtml(constraints.urgency)}</div></div>`,
-    constraints.obligations && `<div class="meta-item"><div class="meta-label">Obligations</div><div class="meta-value">${escapeHtml(constraints.obligations)}</div></div>`
+    constraints.grade && `<div class="meta-item"><div class="meta-label">🎓 Grade</div><div class="meta-value">${escapeHtml(constraints.grade)}</div></div>`,
+    constraints.budget && `<div class="meta-item"><div class="meta-label">💰 Budget (2yr)</div><div class="meta-value">${escapeHtml(constraints.budget.replace('_', ' '))}</div></div>`,
+    constraints.urgency && `<div class="meta-item"><div class="meta-label">⏱️ Income urgency</div><div class="meta-value">${escapeHtml(constraints.urgency)}</div></div>`,
+    constraints.obligations && `<div class="meta-item"><div class="meta-label">🏠 Obligations</div><div class="meta-value">${escapeHtml(constraints.obligations)}</div></div>`
   ].filter(Boolean).join('');
 
   el.innerHTML = `
+    <div class="print-only">
+      <img src="./icons/logo-mark-128.png" alt="Njia">
+      <h2>Njia Career Report</h2>
+      <div class="print-date">Generated ${new Date().toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+    </div>
+
     <h2 class="mb-2">Your Results</h2>
 
     <div class="cluster-primary">
@@ -251,7 +257,11 @@ function renderDiscoverResults(el) {
       <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
       <p class="text-secondary text-sm mt-1">${primaryC.description}</p>
       <div class="cluster-tags">${primaryC.paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
-      <button type="button" class="btn btn-secondary btn-sm mt-2" style="width:auto;display:inline-flex" onclick="shareDiscoverResult()">📤 Share my result</button>
+      <div class="btn-row mt-2">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="downloadReportPDF()">📄 PDF Report</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="shareReportWhatsApp()">📱 WhatsApp</button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="shareDiscoverResult()">🔗 Copy / Share</button>
+      </div>
     </div>
 
     <div class="card">
@@ -269,10 +279,10 @@ function renderDiscoverResults(el) {
           <p class="text-muted text-sm mt-1" style="font-size:0.75rem">${elementDescs[key]}</p>
         </div>
       `).join('')}
-      <p class="text-muted text-sm mt-1">Necessity (grade, budget, urgency, obligations) is shown below — it feeds the Decide module's course matcher directly rather than a clarity score.</p>
+      <p class="text-muted text-sm mt-1">The fourth Element, Necessity, is shown below as your actual constraints rather than a clarity score.</p>
     </div>
 
-    ${constraintRows ? `<div class="card"><h3 class="mb-2">Your Constraints</h3><div class="meta-grid">${constraintRows}</div></div>` : ''}
+    ${constraintRows ? `<div class="card"><h3 class="mb-1">Necessity — Your Constraints</h3><p class="text-muted text-sm mb-2">The fourth Element. These feed the Decide module's course matcher directly.</p><div class="meta-grid">${constraintRows}</div></div>` : ''}
 
     <div class="card">
       <h3 class="mb-2">All Clusters</h3>
@@ -295,25 +305,60 @@ function renderDiscoverResults(el) {
   `;
 }
 
+const NJIA_SITE_URL = 'https://njiacareerpathways.netlify.app/';
+
+function buildReportSummary() {
+  const results = AppState.questionnaire.results;
+  if (!results) return null;
+  const clusterName = CLUSTERS[results.primary].name;
+  const lines = [`My Njia Career Report — ${clusterName}`];
+
+  const savedCourseNames = AppState.savedCourses
+    .map((id) => COURSES.find((c) => c.id === id))
+    .filter(Boolean)
+    .slice(0, 3)
+    .map((c) => `• ${c.name}`);
+  if (savedCourseNames.length) {
+    lines.push('', 'Courses I\'m considering:', ...savedCourseNames);
+  }
+
+  if (AppState.okrs.length) {
+    const doneCount = AppState.okrs.filter((o) => o.keyResults.every((k) => k.done)).length;
+    lines.push('', `Progress: ${doneCount}/${AppState.okrs.length} goals completed so far.`);
+  }
+
+  lines.push('', 'Built with Njia — a free, evidence-based career pathway diagnostic for Kenyan youth.');
+  return lines.join('\n');
+}
+
 function shareDiscoverResult() {
-  const primary = AppState.questionnaire.results?.primary;
-  if (!primary) return;
-  const clusterName = CLUSTERS[primary].name;
-  const shareText = `My Njia result: ${clusterName} — a free, evidence-based career pathway diagnostic for Kenyan youth, matched to real Kenyan courses and funding. Find your cluster:`;
-  const shareUrl = 'https://njiacareerpathways.netlify.app/';
+  const summary = buildReportSummary();
+  if (!summary) return;
 
   if (navigator.share) {
-    navigator.share({ title: 'My Njia result', text: shareText, url: shareUrl }).catch(() => {
+    navigator.share({ title: 'My Njia result', text: summary, url: NJIA_SITE_URL }).catch(() => {
       // user cancelled the native share sheet — no action needed
     });
     return;
   }
 
-  navigator.clipboard?.writeText(`${shareText} ${shareUrl}`).then(() => {
+  navigator.clipboard?.writeText(`${summary}\n${NJIA_SITE_URL}`).then(() => {
     showToast('Result copied — paste it into WhatsApp or anywhere else.', 'success');
   }).catch(() => {
     showToast('Could not copy automatically — try again or share the link manually.', 'error');
   });
+}
+
+function shareReportWhatsApp() {
+  const summary = buildReportSummary();
+  if (!summary) return;
+  const text = encodeURIComponent(`${summary}\n${NJIA_SITE_URL}`);
+  window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener,noreferrer');
+}
+
+function downloadReportPDF() {
+  showToast('Opening print dialog — choose "Save as PDF" as the destination.', 'info');
+  setTimeout(() => window.print(), 300);
 }
 
 function confirmRetakeQuestionnaire() {

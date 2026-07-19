@@ -1,13 +1,16 @@
 /* Njia — Design System
  * Mobile-first, dark-theme-default, vanilla CSS. No preprocessor, no build step.
+ * Brand palette sampled directly from the Njia mark: circuit-blue (data/tech),
+ * deep navy-teal (the wordmark), leaf-green (the pathway/mountains), and the
+ * arrow's orange (momentum/growth) — see icons/logo-mark-256.png.
  */
 
 :root {
-  --primary: #0ea5e9;
-  --primary-dark: #0284c7;
-  --primary-light: #e0f2fe;
-  --secondary: #10b981;
-  --accent: #f59e0b;
+  --primary: #1ca0d0;
+  --primary-dark: #004c6a;
+  --primary-light: #dff3fb;
+  --secondary: #6fae48;
+  --accent: #ed8b2d;
   --danger: #ef4444;
   --purple: #8b5cf6;
   --pink: #ec4899;
@@ -134,10 +137,11 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   font-weight: 700;
   font-size: 1.1rem;
 }
-.app-header .logo-mark {
+.logo-mark {
   width: 28px; height: 28px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
 }
 .header-btn {
   width: 40px; height: 40px;
@@ -221,20 +225,16 @@ main {
   border-radius: var(--radius-lg);
   padding: 1.25rem;
   margin-bottom: 1rem;
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.card:hover { transform: translateY(-2px); border-color: var(--border-light); }
+.card:hover { transform: translateY(-2px); border-color: var(--border-light); box-shadow: 0 6px 16px rgba(0,0,0,0.28); }
 .card-tap { cursor: pointer; }
 
 /* ---------- Hero ---------- */
 .hero {
   text-align: center;
   padding: 2rem 1rem 1.5rem;
-}
-.hero .logo-mark-lg {
-  width: 72px; height: 72px; margin: 0 auto 1rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
 }
 .hero h1 { margin-bottom: 0.5rem; }
 .hero p { color: var(--text-secondary); max-width: 420px; margin: 0 auto; }
@@ -639,7 +639,15 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .landing-block { padding: 2.5rem 1.25rem; }
 .landing-block-tight { padding: 1.5rem 1.25rem; }
 
-.landing-hero { padding: 2.5rem 1.25rem 2rem; text-align: left; }
+.landing-hero {
+  padding: 2.5rem 1.25rem 2rem;
+  text-align: left;
+  background: radial-gradient(120% 100% at 0% 0%, rgba(28,160,208,0.10), rgba(237,139,45,0.06) 45%, transparent 70%);
+}
+.landing-hero-logo {
+  width: 64px; height: 64px; object-fit: contain; margin-bottom: 1.25rem;
+  filter: drop-shadow(0 4px 14px rgba(28,160,208,0.35));
+}
 .landing-h1 {
   font-family: Georgia, Cambria, 'Times New Roman', serif;
   font-size: 1.9rem;
@@ -668,7 +676,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 
 .landing-cta-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
 .btn-gold {
-  background: linear-gradient(135deg, #f6b73c, var(--accent));
+  background: linear-gradient(135deg, #f5a855, var(--accent));
   color: #1c2530;
   font-weight: 700;
 }
@@ -706,7 +714,10 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border: 1px solid var(--landing-border);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(28,37,48,0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+.landing-evidence-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(28,37,48,0.1); }
 .landing-evidence-num {
   font-family: Georgia, Cambria, 'Times New Roman', serif;
   font-size: 2.1rem;
@@ -747,7 +758,10 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border-radius: var(--radius-lg);
   padding: 1.1rem;
   display: flex; gap: 0.9rem;
+  box-shadow: 0 1px 3px rgba(28,37,48,0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+.landing-process-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(28,37,48,0.1); }
 .landing-process-num {
   flex-shrink: 0;
   width: 36px; height: 36px;

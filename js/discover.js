@@ -29,7 +29,7 @@ function renderDiscoverIntro(el) {
     <div class="hero" style="padding-top:0.5rem">
       <div class="icon" style="font-size:3rem" aria-hidden="true">🧭</div>
       <h1>Discover</h1>
-      <p>A 20-minute adaptive diagnostic across the Four Elements of career clarity — <strong>Identity, Community, Necessity, Horizon</strong> — used at Harvard Business School to help executives (and now you) find real direction.</p>
+      <p>A 20-minute adaptive diagnostic across the Four Elements of career clarity — <strong>Identity, Community, Necessity, Horizon</strong> — the same model executive coaches use to help leaders find real direction, now built for you.</p>
     </div>
     <div class="card">
       <h3 class="mb-1">What to expect</h3>
@@ -298,7 +298,7 @@ function shareDiscoverResult() {
   const primary = AppState.questionnaire.results?.primary;
   if (!primary) return;
   const clusterName = CLUSTERS[primary].name;
-  const shareText = `My Njia result: ${clusterName} — a free, evidence-based career pathway diagnostic for Kenyan youth (Stanford + HBR + HBS frameworks, matched to real Kenyan courses and funding). Find your cluster:`;
+  const shareText = `My Njia result: ${clusterName} — a free, evidence-based career pathway diagnostic for Kenyan youth, matched to real Kenyan courses and funding. Find your cluster:`;
   const shareUrl = 'https://njiacareerpathways.netlify.app/';
 
   if (navigator.share) {

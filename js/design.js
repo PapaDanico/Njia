@@ -6,9 +6,9 @@
 let designActiveTab = 'odyssey';
 
 const ODYSSEY_TEMPLATE = [
-  { id: 'life1', label: 'Life One', subtitle: "The path you're already on or considering", color: '#0ea5e9' },
-  { id: 'life2', label: 'Life Two', subtitle: "What you'd do if Life One disappeared", color: '#10b981' },
-  { id: 'life3', label: 'Life Three', subtitle: 'What you\'d do if money or image were no object', color: '#f59e0b' }
+  { id: 'life1', label: 'Life One', subtitle: "The path you're already on or considering", color: '#1ca0d0' },
+  { id: 'life2', label: 'Life Two', subtitle: "What you'd do if Life One disappeared", color: '#6fae48' },
+  { id: 'life3', label: 'Life Three', subtitle: 'What you\'d do if money or image were no object', color: '#ed8b2d' }
 ];
 
 const PROTOTYPE_SUGGESTIONS = {
@@ -48,7 +48,7 @@ function renderDesignPage() {
 
   el.innerHTML = `
     <h1 class="mb-1">Design</h1>
-    <p class="text-secondary mb-2">Design multiple viable futures, not just one — the Stanford Life Design approach.</p>
+    <p class="text-secondary mb-2">Design multiple viable futures, not just one — a life-design approach built for exploring options before committing.</p>
     <div class="odyssey-tabs" role="tablist">
       ${[['odyssey', '🗺️ Odyssey'], ['portfolio', '⚖️ Portfolio'], ['prototype', '✅ Prototype'], ['gravity', '🪨 Gravity']].map(([key, label]) => `
         <button type="button" class="odyssey-tab ${designActiveTab === key ? 'active' : ''}" role="tab" onclick="setDesignTab('${key}')">${label}</button>
@@ -110,9 +110,9 @@ function updateOdysseyYear(planId, yearIndex, value) {
 
 /* ---------- Life Portfolio Visualiser ---------- */
 const PORTFOLIO_GAUGES = [
-  { key: 'health', label: 'Health', icon: '💪', color: '#10b981' },
-  { key: 'work', label: 'Work', icon: '💼', color: '#0ea5e9' },
-  { key: 'play', label: 'Play', icon: '🎮', color: '#f59e0b' },
+  { key: 'health', label: 'Health', icon: '💪', color: '#6fae48' },
+  { key: 'work', label: 'Work', icon: '💼', color: '#1ca0d0' },
+  { key: 'play', label: 'Play', icon: '🎮', color: '#ed8b2d' },
   { key: 'love', label: 'Love', icon: '❤️', color: '#ec4899' }
 ];
 

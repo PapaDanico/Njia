@@ -1,10 +1,12 @@
 # Njia — Data-Driven Career Pathway for Kenyan Youth
 
 Njia (Swahili for "Pathway") is a Progressive Web App that helps Kenyan youth
-make evidence-based career decisions, combining frameworks from Stanford's
-Life Design Lab, Harvard Business Review, and Harvard Business School with
-Kenyan institutional data (TVET/university courses, fees, funding, and
-employment outcomes).
+make evidence-based career decisions. It fuses three research-backed
+methodologies — career psychology (the Four Elements model), life design
+(Odyssey Planning), and strategic life-portfolio planning — with real Kenyan
+institutional data (TVET/university courses, fees, funding, and employment
+outcomes). See "The Njia Method" in-app (footer → Methodology) for the full
+breakdown.
 
 Built as vanilla HTML/CSS/JS — no framework, no build step, no npm install
 required to run it. Works offline after first load, installs to the home

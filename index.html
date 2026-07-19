@@ -32,6 +32,7 @@
       <div class="logo">
         <img class="logo-mark" src="./icons/logo-mark-128.png" alt="" aria-hidden="true">
         <span>Njia</span>
+        <span id="header-page-label" class="header-page-label" aria-live="polite"></span>
       </div>
       <button type="button" class="header-btn" id="privacy-btn" aria-label="Privacy and data" onclick="openPrivacyModal()">🔒</button>
     </header>
@@ -87,6 +88,18 @@
     </div>
   </div>
 
+  <!-- Static form so Netlify's build-time scanner registers this form (see
+       Site configuration -> Forms in the Netlify dashboard to view
+       submissions; the feature must be enabled there). Actual submission
+       happens via fetch() in submitFeedback(), not a real form post. -->
+  <form name="njia-feedback" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="text" name="rating">
+    <input type="text" name="page">
+    <textarea name="comment"></textarea>
+    <input type="text" name="bot-field">
+    <button type="submit">Send</button>
+  </form>
+
   <!-- Data layer -->
   <script src="./data/questions.js"></script>
   <script src="./data/institutions.js"></script>
@@ -106,9 +119,51 @@
       openModal(`
         <h3 class="mb-2">Your Data & Privacy</h3>
         <p class="text-secondary text-sm mb-2">Everything you enter in Njia — questionnaire answers, plans, saved courses, OKRs — stays on this device in your browser's local storage. Nothing is sent to a server or shared with anyone.</p>
+        <p class="text-secondary text-sm mb-2">Switching phones? Export a backup below and import it on the new device — nothing here syncs automatically.</p>
+        <div class="btn-row mb-2">
+          <button type="button" class="btn btn-secondary" onclick="exportMyData()">⬇ Export Backup</button>
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('import-file-input').click()">⬆ Import Backup</button>
+        </div>
+        <input type="file" id="import-file-input" accept="application/json" class="hidden" onchange="importMyData(this.files[0])">
         <p class="text-secondary text-sm mb-2">If you're using a shared or borrowed phone, use "Clear My Data" below before handing it back.</p>
         <button type="button" class="btn btn-danger" onclick="confirmClearAllData()">Clear My Data</button>
       `);
+    }
+    function exportMyData() {
+      const blob = new Blob([JSON.stringify(AppState, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `njia-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('Backup downloaded.', 'success');
+    }
+    function importMyData(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        let parsed;
+        try {
+          parsed = JSON.parse(reader.result);
+        } catch (err) {
+          showToast('That file is not a valid Njia backup.', 'error');
+          return;
+        }
+        if (typeof parsed !== 'object' || parsed === null || !('questionnaire' in parsed)) {
+          showToast('That file does not look like a Njia backup.', 'error');
+          return;
+        }
+        AppState = Object.assign(defaultState(), parsed);
+        saveState();
+        closeModal();
+        showToast('Backup restored.', 'success');
+        navigateTo('home');
+      };
+      reader.onerror = () => showToast('Could not read that file.', 'error');
+      reader.readAsText(file);
     }
     function confirmClearAllData() {
       openModal(`
@@ -133,7 +188,7 @@
         <p class="text-secondary text-sm mb-2"><strong>Life Design (Odyssey Planning).</strong> Rather than forcing one linear plan, you sketch three: the path you're already on, the path you'd take if it disappeared, and the path you'd take if money were no object. Committing too early is a leading cause of career regret — prototyping multiple futures first is how design strategists avoid it.</p>
         <p class="text-secondary text-sm mb-2"><strong>Strategic Life Portfolio.</strong> The same rigour used in corporate strategy, applied to a life: auditing how your time and energy actually split across health, work, play and relationships, then making deliberate trade-offs instead of drifting.</p>
         <p class="text-secondary text-sm mb-2"><strong>Landing page statistics</strong> (KCSE candidates, KUCCPS placement rate, youth unemployment) are cited to KUCCPS, the Ministry of Education, and a World Bank/ILO modeled estimate — see the footer for full citations.</p>
-        <p class="text-secondary text-sm mb-2"><strong>In-app course, fee and funding data</strong> (Decide module) is illustrative for this MVP — institution names are real, but fees, employment rates and salaries are not yet verified against live TVETA/CUE/KNBS sources. A disclaimer appears wherever this data is shown.</p>
+        <p class="text-secondary text-sm mb-2"><strong>In-app course, fee and funding data</strong> (Decide module) is mostly illustrative for this MVP — institution names are real, but fees, employment rates and salaries are estimates not yet verified against live TVETA/CUE/KNBS sources. A handful of records (marked "✓ Verified estimate") have been cross-checked against a public source (e.g. HELB's 2025/26 funding model, published KMTC and university fee ranges) and carry a citation — but even those are ranges or mid-estimates, not an institution's exact published figure. Always confirm directly before deciding.</p>
         <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
       `);
     }
@@ -170,6 +225,44 @@
         <p class="text-secondary text-sm mb-2"><strong>Can I retake the Discover questionnaire?</strong><br>Yes, any time, from the results screen.</p>
         <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
       `);
+    }
+    function openFeedbackModal() {
+      openModal(`
+        <h3 class="mb-2">Quick feedback</h3>
+        <p class="text-secondary text-sm mb-2">Optional and anonymous — helps improve Njia. No reply, no account needed.</p>
+        <div class="btn-row mb-2">
+          <button type="button" class="btn btn-secondary" id="feedback-up" onclick="selectFeedbackRating('up')">👍 Helpful</button>
+          <button type="button" class="btn btn-secondary" id="feedback-down" onclick="selectFeedbackRating('down')">👎 Not helpful</button>
+        </div>
+        <textarea class="q-input" id="feedback-comment" placeholder="Anything specific? (optional)"></textarea>
+        <button type="button" class="btn btn-primary mt-2" onclick="submitFeedback()">Send Feedback</button>
+      `);
+    }
+    let selectedFeedbackRating = null;
+    function selectFeedbackRating(rating) {
+      selectedFeedbackRating = rating;
+      document.getElementById('feedback-up')?.classList.toggle('btn-primary', rating === 'up');
+      document.getElementById('feedback-up')?.classList.toggle('btn-secondary', rating !== 'up');
+      document.getElementById('feedback-down')?.classList.toggle('btn-primary', rating === 'down');
+      document.getElementById('feedback-down')?.classList.toggle('btn-secondary', rating !== 'down');
+    }
+    function submitFeedback() {
+      const comment = document.getElementById('feedback-comment')?.value.trim() || '';
+      if (!selectedFeedbackRating && !comment) {
+        showToast('Pick a rating or add a comment first.', 'error');
+        return;
+      }
+      const body = new URLSearchParams({
+        'form-name': 'njia-feedback',
+        rating: selectedFeedbackRating || 'none',
+        page: AppState.currentPage,
+        comment
+      }).toString();
+      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
+        .then(() => showToast('Thanks for the feedback!', 'success'))
+        .catch(() => showToast('Could not send feedback — check your connection.', 'error'));
+      selectedFeedbackRating = null;
+      closeModal();
     }
   </script>
 </body>

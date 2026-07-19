@@ -291,6 +291,7 @@ function renderDiscoverResults(el) {
       <button type="button" class="btn btn-secondary" onclick="navigateTo('decide')">See Matching Courses</button>
     </div>
     <button type="button" class="btn btn-ghost mt-2" onclick="confirmRetakeQuestionnaire()">Retake Discovery</button>
+    <button type="button" class="btn btn-ghost mt-1" onclick="openFeedbackModal()">Was this helpful? Give feedback</button>
   `;
 }
 

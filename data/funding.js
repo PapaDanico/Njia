@@ -11,14 +11,15 @@
 const FUNDING_SOURCES = [
   {
     id: 'f001', name: 'HELB (Higher Education Loans Board)', type: 'loan',
-    description: 'Government student loan for university and TVET students, repayable after completion.',
-    coverage: 'Tuition + upkeep (partial)', max_amount_kes: 60000,
-    eligibility: 'Kenyan citizen, admitted to a HELB-recognised university or TVET institution',
+    description: 'Kenya moved to a new Higher Education Funding (HEF) model in 2025/26: instead of a flat loan, students are placed into funding bands (by household means-testing) that mix a government scholarship, a HELB loan, and a household contribution. Apply via the HEF portal, not the old HELB-only process.',
+    coverage: 'Scholarship + loan + household contribution, split by funding band', max_amount_kes: 60000,
+    eligibility: 'Kenyan citizen, admitted to a HEF-recognised university or TVET institution, means-tested via the HEF portal',
     min_grade: 'D+', application_deadline: 'Rolling, opens with each intake',
     website: 'https://helb.co.ke', application_url: 'https://portal.helb.co.ke',
-    requirements: ['National ID', 'Admission letter', 'Parent/guardian ID', 'Means testing form'],
-    interest_rate: '4% per annum', repayment_period: 'Starts 1 year after completion, up to 15 years',
-    data_confidence: 'illustrative'
+    requirements: ['National ID', 'Admission letter', 'Parent/guardian ID', 'HEF means-testing form'],
+    interest_rate: '4% per annum on the loan portion', repayment_period: 'Starts 1 year after completion, up to 15 years',
+    data_confidence: 'verified',
+    verification_note: 'Funding-model structure (bands, HEF portal, scholarship+loan+household split) confirmed via HELB/Tuko coverage of the 2025/26 funding model, July 2026. Exact band amounts vary by household means-testing and were not independently confirmed — check the HEF portal for your band.'
   },
   {
     id: 'f002', name: 'Equity Group Foundation — Wings to Fly', type: 'scholarship',

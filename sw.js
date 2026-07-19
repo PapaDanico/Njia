@@ -7,7 +7,7 @@
  * data — bump CACHE_VERSION on every deploy that changes cached files.
  */
 
-const CACHE_VERSION = 'njia-v3';
+const CACHE_VERSION = 'njia-v4';
 const ICON_ASSETS = ['./icons/icon-192x192.png', './icons/icon-512x512.png'];
 const CACHE_ASSETS = [
   './',

@@ -297,13 +297,18 @@ function renderHomePage() {
             <h4>Resources &amp; Legal</h4>
             <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>
             <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
+            <button type="button" onclick="openTermsModal()">Terms of Use</button>
+            <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
+            <button type="button" onclick="openFaqModal()">FAQ</button>
             <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
             <a href="https://helb.co.ke" target="_blank" rel="noopener noreferrer">HELB ↗</a>
           </div>
         </div>
         <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Course, fee and funding data inside the app is illustrative pending verification — see Methodology.</p>
         <div class="landing-footer-bottom">
-          <div><a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a></div>
+          <div>
+            <a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="openFaqModal();return false">FAQ</a>
+          </div>
           <span>© 2026 Njia · A free, open pathway for Kenyan youth.</span>
         </div>
       </footer>
@@ -350,6 +355,54 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+/* ---------- PWA install prompt ---------- */
+const INSTALL_DISMISSED_KEY = 'njia_install_dismissed';
+let deferredInstallPrompt = null;
+
+function isRunningStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  if (isRunningStandalone()) return;
+  let dismissed = false;
+  try { dismissed = localStorage.getItem(INSTALL_DISMISSED_KEY) === '1'; } catch (err) { /* localStorage unavailable — show banner anyway */ }
+  if (!dismissed) showInstallBanner();
+});
+
+window.addEventListener('appinstalled', () => {
+  hideInstallBanner();
+  deferredInstallPrompt = null;
+  showToast('Njia installed — find it on your home screen.', 'success');
+});
+
+function showInstallBanner() {
+  document.getElementById('install-banner')?.classList.remove('hidden');
+}
+
+function hideInstallBanner() {
+  document.getElementById('install-banner')?.classList.add('hidden');
+}
+
+function triggerInstallPrompt() {
+  if (!deferredInstallPrompt) {
+    hideInstallBanner();
+    return;
+  }
+  deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.finally(() => {
+    deferredInstallPrompt = null;
+    hideInstallBanner();
+  });
+}
+
+function dismissInstallBanner() {
+  hideInstallBanner();
+  try { localStorage.setItem(INSTALL_DISMISSED_KEY, '1'); } catch (err) { /* best effort — banner still hides for this session */ }
+}
 
 function showUpdateAvailableToast(registration) {
   const container = document.getElementById('toast-container');

@@ -251,6 +251,7 @@ function renderDiscoverResults(el) {
       <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
       <p class="text-secondary text-sm mt-1">${primaryC.description}</p>
       <div class="cluster-tags">${primaryC.paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
+      <button type="button" class="btn btn-secondary btn-sm mt-2" style="width:auto;display:inline-flex" onclick="shareDiscoverResult()">📤 Share my result</button>
     </div>
 
     <div class="card">
@@ -291,6 +292,27 @@ function renderDiscoverResults(el) {
     </div>
     <button type="button" class="btn btn-ghost mt-2" onclick="confirmRetakeQuestionnaire()">Retake Discovery</button>
   `;
+}
+
+function shareDiscoverResult() {
+  const primary = AppState.questionnaire.results?.primary;
+  if (!primary) return;
+  const clusterName = CLUSTERS[primary].name;
+  const shareText = `My Njia result: ${clusterName} — a free, evidence-based career pathway diagnostic for Kenyan youth (Stanford + HBR + HBS frameworks, matched to real Kenyan courses and funding). Find your cluster:`;
+  const shareUrl = 'https://njiacareerpathways.netlify.app/';
+
+  if (navigator.share) {
+    navigator.share({ title: 'My Njia result', text: shareText, url: shareUrl }).catch(() => {
+      // user cancelled the native share sheet — no action needed
+    });
+    return;
+  }
+
+  navigator.clipboard?.writeText(`${shareText} ${shareUrl}`).then(() => {
+    showToast('Result copied — paste it into WhatsApp or anywhere else.', 'success');
+  }).catch(() => {
+    showToast('Could not copy automatically — try again or share the link manually.', 'error');
+  });
 }
 
 function confirmRetakeQuestionnaire() {

@@ -145,6 +145,24 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   background: transparent; border: none; border-radius: var(--radius-sm);
   color: var(--text-secondary);
 }
+
+.install-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: var(--primary-dark);
+  color: #fff;
+  position: sticky;
+  top: var(--header-h);
+  z-index: 19;
+}
+.install-banner-text { font-size: 0.85rem; font-weight: 600; }
+.install-banner-actions { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
+.install-banner .btn-sm { width: auto; }
+.install-banner .header-btn { color: #fff; width: 32px; height: 32px; }
+.install-banner .header-btn:hover { background: rgba(255,255,255,0.15); }
 .header-btn:hover { background: var(--bg-card); }
 
 main {

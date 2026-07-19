@@ -42,6 +42,9 @@ function saveState() {
     console.error('Njia: could not persist state (storage full or unavailable).', err);
     showToast('Could not save — device storage may be full.', 'error');
   }
+  // Fired regardless of persistence success — in-memory state still changed,
+  // so any future reactive view should still be able to re-render off it.
+  document.dispatchEvent(new CustomEvent('njia-state-changed', { detail: { state: AppState } }));
 }
 
 function resetState() {
@@ -56,19 +59,24 @@ function navigateTo(pageId) {
   if (!PAGES.includes(pageId)) return;
   AppState.currentPage = pageId;
   saveState();
-  renderRoute();
+  // focusHeading: true only for user-triggered navigation, not the initial
+  // render — stealing focus on first load would be surprising, not helpful.
+  renderRoute({ focusHeading: true });
 }
 
 const PAGE_LABELS = { home: '', discover: 'Discover', design: 'Design', decide: 'Decide', connect: 'Connect', track: 'Track' };
 
-function renderRoute() {
+function renderRoute({ focusHeading = false } = {}) {
   PAGES.forEach((id) => {
     const el = document.getElementById(`page-${id}`);
     if (!el) return;
     el.classList.toggle('active', id === AppState.currentPage);
   });
   document.querySelectorAll('.nav-item').forEach((btn) => {
-    btn.classList.toggle('active', btn.dataset.page === AppState.currentPage);
+    const isActive = btn.dataset.page === AppState.currentPage;
+    btn.classList.toggle('active', isActive);
+    if (isActive) btn.setAttribute('aria-current', 'page');
+    else btn.removeAttribute('aria-current');
   });
   const label = document.getElementById('header-page-label');
   if (label) label.textContent = PAGE_LABELS[AppState.currentPage] ? `· ${PAGE_LABELS[AppState.currentPage]}` : '';
@@ -84,6 +92,14 @@ function renderRoute() {
   };
   const renderFn = renderers[AppState.currentPage];
   if (typeof renderFn === 'function') renderFn();
+
+  if (focusHeading) {
+    const heading = document.getElementById(`page-${AppState.currentPage}`)?.querySelector('h1, h2');
+    if (heading) {
+      if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+      heading.focus({ preventScroll: true });
+    }
+  }
 }
 
 /* ---------- Toast ---------- */
@@ -362,8 +378,9 @@ function scrollToLanding(id) {
 
 /* ---------- Init ---------- */
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.nav-item').forEach((btn) => {
-    btn.addEventListener('click', () => navigateTo(btn.dataset.page));
+  document.querySelector('.bottom-nav')?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.nav-item');
+    if (btn) navigateTo(btn.dataset.page);
   });
   document.getElementById('modal-overlay')?.addEventListener('click', (e) => {
     if (e.target.id === 'modal-overlay') closeModal();

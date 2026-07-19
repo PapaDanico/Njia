@@ -100,13 +100,36 @@ function showToast(message, type = 'info', duration = 3000) {
 }
 
 /* ---------- Modal ---------- */
+let modalPreviouslyFocused = null;
+
+function getFocusableElements(container) {
+  if (!container) return [];
+  return Array.from(container.querySelectorAll(
+    'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  )).filter((el) => el.offsetParent !== null);
+}
+
 function openModal(contentHtml) {
   const overlay = document.getElementById('modal-overlay');
   const sheet = document.getElementById('modal-sheet-content');
-  if (!overlay || !sheet) return;
+  const dialog = document.querySelector('.modal-sheet');
+  if (!overlay || !sheet || !dialog) return;
   sheet.innerHTML = contentHtml;
+
+  const heading = sheet.querySelector('h3');
+  if (heading) {
+    if (!heading.id) heading.id = uid('modal-h');
+    dialog.setAttribute('aria-labelledby', heading.id);
+  } else {
+    dialog.removeAttribute('aria-labelledby');
+  }
+
+  modalPreviouslyFocused = document.activeElement;
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
+
+  const focusables = getFocusableElements(dialog);
+  (focusables[0] || dialog).focus({ preventScroll: true });
 }
 
 function closeModal() {
@@ -114,6 +137,10 @@ function closeModal() {
   if (!overlay) return;
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden', 'true');
+  if (modalPreviouslyFocused && typeof modalPreviouslyFocused.focus === 'function') {
+    modalPreviouslyFocused.focus({ preventScroll: true });
+  }
+  modalPreviouslyFocused = null;
 }
 
 /* ---------- Shared utilities ---------- */
@@ -203,7 +230,7 @@ function renderHomePage() {
     <div class="landing">
 
       <section class="landing-hero">
-        <img class="landing-hero-logo" src="./icons/logo-mark-light-256.png" alt="Njia" width="64" height="64">
+        <img class="landing-hero-logo" src="./icons/logo-mark-light-256.png" alt="Njia" width="64" height="64" decoding="async">
         <span class="landing-eyebrow">RESEARCH-BACKED METHOD · REAL KENYAN DATA · ZERO COST</span>
         <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
         <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
@@ -298,7 +325,7 @@ function renderHomePage() {
       <footer class="landing-footer">
         <div class="landing-footer-grid">
           <div class="landing-footer-brand">
-            <div class="flex items-center gap-1"><img class="logo-mark" src="./icons/logo-mark-128.png" alt="" aria-hidden="true"><strong style="color:#f8fafc">Njia</strong></div>
+            <div class="flex items-center gap-1"><img class="logo-mark" src="./icons/logo-mark-128.png" alt="" aria-hidden="true" width="28" height="28" decoding="async"><strong style="color:#f8fafc">Njia</strong></div>
             <p>Data-driven career pathway guidance for Kenyan youth, built on research-backed career psychology and life-design methods.</p>
           </div>
           <div class="landing-footer-col">
@@ -342,6 +369,31 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target.id === 'modal-overlay') closeModal();
   });
   document.getElementById('modal-close-btn')?.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    const overlay = document.getElementById('modal-overlay');
+    if (!overlay || !overlay.classList.contains('open')) return;
+
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeModal();
+      return;
+    }
+
+    if (e.key !== 'Tab') return;
+    const dialog = document.querySelector('.modal-sheet');
+    const focusables = getFocusableElements(dialog);
+    if (focusables.length === 0) { e.preventDefault(); return; }
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
 
   // Respect a deep-link hash (e.g. from manifest.json shortcuts) on first
   // load only — in-app tab navigation deliberately doesn't touch the URL.

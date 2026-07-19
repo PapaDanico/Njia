@@ -245,7 +245,7 @@ function renderDiscoverResults(el) {
 
   el.innerHTML = `
     <div class="print-only">
-      <img src="./icons/logo-mark-light-128.png" alt="Njia">
+      <img src="./icons/logo-mark-light-128.png" alt="Njia" width="48" height="48" decoding="async">
       <h2>Njia Career Report</h2>
       <div class="print-date">Generated ${new Date().toLocaleDateString('en-KE', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
     </div>

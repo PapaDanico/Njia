@@ -20,7 +20,7 @@
         <span class="logo-mark" aria-hidden="true"></span>
         <span>Njia</span>
       </div>
-      <button class="header-btn" id="privacy-btn" aria-label="Privacy and data" onclick="openPrivacyModal()">🔒</button>
+      <button type="button" class="header-btn" id="privacy-btn" aria-label="Privacy and data" onclick="openPrivacyModal()">🔒</button>
     </header>
 
     <main>
@@ -33,22 +33,22 @@
     </main>
 
     <nav class="bottom-nav" aria-label="Main navigation">
-      <button class="nav-item" data-page="home" aria-label="Home">
+      <button type="button" class="nav-item" data-page="home" aria-label="Home">
         <span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-label">Home</span>
       </button>
-      <button class="nav-item" data-page="discover" aria-label="Discover">
+      <button type="button" class="nav-item" data-page="discover" aria-label="Discover">
         <span class="nav-icon" aria-hidden="true">🧭</span><span class="nav-label">Discover</span>
       </button>
-      <button class="nav-item" data-page="design" aria-label="Design">
+      <button type="button" class="nav-item" data-page="design" aria-label="Design">
         <span class="nav-icon" aria-hidden="true">🎨</span><span class="nav-label">Design</span>
       </button>
-      <button class="nav-item" data-page="decide" aria-label="Decide">
+      <button type="button" class="nav-item" data-page="decide" aria-label="Decide">
         <span class="nav-icon" aria-hidden="true">📊</span><span class="nav-label">Decide</span>
       </button>
-      <button class="nav-item" data-page="connect" aria-label="Connect">
+      <button type="button" class="nav-item" data-page="connect" aria-label="Connect">
         <span class="nav-icon" aria-hidden="true">🤝</span><span class="nav-label">Connect</span>
       </button>
-      <button class="nav-item" data-page="track" aria-label="Track">
+      <button type="button" class="nav-item" data-page="track" aria-label="Track">
         <span class="nav-icon" aria-hidden="true">📈</span><span class="nav-label">Track</span>
       </button>
     </nav>
@@ -56,11 +56,11 @@
 
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
-  <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+  <div class="modal-overlay" id="modal-overlay">
     <div class="modal-sheet" role="dialog" aria-modal="true">
       <div class="modal-header">
         <span class="caption">Njia</span>
-        <button class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+        <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
       </div>
       <div id="modal-sheet-content"></div>
     </div>
@@ -86,7 +86,7 @@
         <h3 class="mb-2">Your Data & Privacy</h3>
         <p class="text-secondary text-sm mb-2">Everything you enter in Njia — questionnaire answers, plans, saved courses, OKRs — stays on this device in your browser's local storage. Nothing is sent to a server or shared with anyone.</p>
         <p class="text-secondary text-sm mb-2">If you're using a shared or borrowed phone, use "Clear My Data" below before handing it back.</p>
-        <button class="btn btn-danger" onclick="confirmClearAllData()">Clear My Data</button>
+        <button type="button" class="btn btn-danger" onclick="confirmClearAllData()">Clear My Data</button>
       `);
     }
     function confirmClearAllData() {
@@ -94,8 +94,8 @@
         <h3 class="mb-2">Clear all Njia data?</h3>
         <p class="text-secondary mb-3">This permanently deletes your Discovery results, Odyssey Plans, saved courses, OKRs and applications from this device. This cannot be undone.</p>
         <div class="btn-row">
-          <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-          <button class="btn btn-danger" onclick="clearAllDataConfirmed()">Delete Everything</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+          <button type="button" class="btn btn-danger" onclick="clearAllDataConfirmed()">Delete Everything</button>
         </div>
       `);
     }
@@ -111,7 +111,7 @@
         <p class="text-secondary text-sm mb-2"><strong>Frameworks:</strong> Stanford Life Design Lab's Odyssey Planning, Rainer Strack's "Strategize Your Life" (HBR/BCG), and Dr. Timothy Butler's Four Elements career model (Harvard Business School).</p>
         <p class="text-secondary text-sm mb-2"><strong>Landing page statistics</strong> (KCSE candidates, KUCCPS placement rate, youth unemployment) are cited to KUCCPS, the Ministry of Education, and a World Bank/ILO modeled estimate — see the footer for full citations.</p>
         <p class="text-secondary text-sm mb-2"><strong>In-app course, fee and funding data</strong> (Decide module) is illustrative for this MVP — institution names are real, but fees, employment rates and salaries are not yet verified against live TVETA/CUE/KNBS sources. A disclaimer appears wherever this data is shown.</p>
-        <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
       `);
     }
   </script>

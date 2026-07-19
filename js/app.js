@@ -143,7 +143,7 @@ function emptyState(icon, title, description, ctaLabel, ctaOnClick) {
       <div class="icon" aria-hidden="true">${icon}</div>
       <h3>${escapeHtml(title)}</h3>
       <p>${escapeHtml(description)}</p>
-      ${ctaLabel ? `<button class="btn btn-primary" style="width:auto;display:inline-flex" onclick="${ctaOnClick}">${escapeHtml(ctaLabel)}</button>` : ''}
+      ${ctaLabel ? `<button type="button" class="btn btn-primary" style="width:auto;display:inline-flex" onclick="${ctaOnClick}">${escapeHtml(ctaLabel)}</button>` : ''}
     </div>`;
 }
 
@@ -196,8 +196,8 @@ function renderHomePage() {
         <h1 class="landing-h1">Career clarity shouldn't cost what <span class="hl-gold">Stanford charges.</span></h1>
         <p class="landing-sub">Njia turns Stanford's Life Design method, HBR's life-strategy framework and Harvard Business School's career-vision model into a free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
         <div class="landing-cta-row">
-          <button class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : "Start Your Discovery — it's free"} →</button>
-          <button class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
+          <button type="button" class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : "Start Your Discovery — it's free"} →</button>
+          <button type="button" class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
         </div>
         <div class="landing-trust-row">
           <span class="landing-trust-item">🔒 Stays on your device</span>
@@ -276,7 +276,7 @@ function renderHomePage() {
       <section class="landing-dark landing-final-cta">
         <h2 class="landing-h2">Start with clarity. It's free.</h2>
         <p class="landing-sub">Your answers never leave your device. No account, no cost, about 20 minutes.</p>
-        <button class="btn btn-gold" style="width:auto;display:inline-flex;margin-top:0.5rem" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
+        <button type="button" class="btn btn-gold" style="width:auto;display:inline-flex;margin-top:0.5rem" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
         <div class="landing-guarantee-box">
           <span aria-hidden="true">🔒</span>
           <span><strong>Privacy guarantee.</strong> Everything you enter — questionnaire answers, plans, saved courses — stays in this browser's local storage. Nothing is sent to a server. Use "Clear My Data" (header lock icon) any time, especially on a shared device.</span>
@@ -291,12 +291,12 @@ function renderHomePage() {
           </div>
           <div class="landing-footer-col">
             <h4>Modules</h4>
-            ${LANDING_PROCESS.map((p) => `<button onclick="navigateTo('${p.page}')">${p.title}</button>`).join('')}
+            ${LANDING_PROCESS.map((p) => `<button type="button" onclick="navigateTo('${p.page}')">${p.title}</button>`).join('')}
           </div>
           <div class="landing-footer-col">
             <h4>Resources &amp; Legal</h4>
-            <button onclick="openPrivacyModal()">Privacy &amp; your data</button>
-            <button onclick="openMethodologyModal()">Methodology &amp; data sources</button>
+            <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>
+            <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
             <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
             <a href="https://helb.co.ke" target="_blank" rel="noopener noreferrer">HELB ↗</a>
           </div>
@@ -359,7 +359,7 @@ function showUpdateAvailableToast(registration) {
   toast.innerHTML = `
     <span aria-hidden="true">⬆️</span>
     <span>A new version of Njia is ready.</span>
-    <button class="btn btn-ghost btn-sm" style="width:auto;padding:0.3rem 0.7rem">Reload</button>
+    <button type="button" class="btn btn-ghost btn-sm" style="width:auto;padding:0.3rem 0.7rem">Reload</button>
   `;
   const reloadBtn = toast.querySelector('button');
   reloadBtn.onclick = () => registration.waiting?.postMessage('skipWaiting');

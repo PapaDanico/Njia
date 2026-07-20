@@ -132,17 +132,34 @@
   <script src="./js/track.js"></script>
 
   <script>
+    function openAboutModal() {
+      openModal(`
+        <h3 class="mb-2">About Njia</h3>
+        <p class="text-secondary text-sm mb-2"><strong>The problem.</strong> Nearly a million Kenyan youth sit the KCSE every year — 993,226 in 2025. Only around 30% get placed into a course through KUCCPS. Youth unemployment sits at 15.25%. Most of that isn't a shortage of options; it's a shortage of a clear, personal way to match real strengths and constraints to a real pathway — degree, diploma, TVET, or certificate.</p>
+        <p class="text-secondary text-sm mb-2"><strong>What Njia is.</strong> A free, five-module diagnostic — Discover, Design, Decide, Connect, Track — that fuses career psychology, life-design methods and strategic life-portfolio planning into one tool, then checks the result against real Kenyan course fees, grade requirements and funding sources. No account, no cost, works offline once loaded.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Who's behind it.</strong> Njia is an independently built, early-stage project — not backed by any institution, government body, or funder (see Products &amp; Partners). That's also why it's honest about which data is illustrative and which is verified: there's no sponsor to please, only the person using it.</p>
+        <p class="text-secondary text-sm mb-2"><strong>What we won't do.</strong> Charge for the core diagnostic, sell your data (we don't have it — see Privacy), or claim certainty the data doesn't support.</p>
+        <p class="text-secondary text-sm mb-2">Want the full research basis? See Methodology. Want to help make the data real? See Products &amp; Partners.</p>
+        <div class="btn-row mb-2">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openMethodologyModal()">Methodology</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openPartnersModal()">Partners</button>
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+      `);
+    }
     function openPrivacyModal() {
       openModal(`
         <h3 class="mb-2">Your Data & Privacy</h3>
         <p class="text-secondary text-sm mb-2">Everything you enter in Njia — questionnaire answers, plans, saved courses, OKRs — stays on this device in your browser's local storage. Nothing is sent to a server or shared with anyone.</p>
+        <p class="text-secondary text-sm mb-2"><strong>The one exception:</strong> if you choose to submit the optional Feedback or Partner Inquiry form, whatever you type into that form is sent to us — that's the only data that ever leaves your device, and only if you actively submit it.</p>
+        <p class="text-secondary text-sm mb-2">Njia doesn't use cookies, trackers, or analytics scripts of any kind — there's nothing running in the background collecting behaviour data.</p>
         <p class="text-secondary text-sm mb-2">Switching phones? Export a backup below and import it on the new device — nothing here syncs automatically.</p>
         <div class="btn-row mb-2">
           <button type="button" class="btn btn-secondary" onclick="exportMyData()">⬇ Export Backup</button>
           <button type="button" class="btn btn-secondary" onclick="document.getElementById('import-file-input').click()">⬆ Import Backup</button>
         </div>
         <input type="file" id="import-file-input" accept="application/json" class="hidden" onchange="importMyData(this.files[0])">
-        <p class="text-secondary text-sm mb-2">If you're using a shared or borrowed phone, use "Clear My Data" below before handing it back.</p>
+        <p class="text-secondary text-sm mb-2">If you're using a shared or borrowed phone, use "Clear My Data" below before handing it back — it wipes everything Njia stored on this device. It can't do anything about a Feedback or Partner Inquiry you already submitted, since that already left the device.</p>
         <button type="button" class="btn btn-danger" onclick="confirmClearAllData()">Clear My Data</button>
       `);
     }
@@ -214,8 +231,10 @@
         <h3 class="mb-2">Terms of Use</h3>
         <p class="text-secondary text-sm mb-2">Njia is provided free, "as is", for informational and educational purposes only. It is not professional career counselling, financial, or legal advice — always verify institution accreditation, fees and funding details directly with the relevant institution or authority before making a decision.</p>
         <p class="text-secondary text-sm mb-2">Njia is an independent project. It is not affiliated with, endorsed by, or sponsored by any institution, funder, or organisation named or listed in the app — those names are used solely to describe real, publicly available institutions or public information.</p>
-        <p class="text-secondary text-sm mb-2">All your data (questionnaire answers, plans, saved courses, OKRs, applications) is stored only in this browser's local storage on your device. No account is required and Njia does not collect or receive your data on any server.</p>
+        <p class="text-secondary text-sm mb-2">All your data (questionnaire answers, plans, saved courses, OKRs, applications) is stored only in this browser's local storage on your device. No account is required and Njia does not collect or receive your data on any server — the sole exception is the optional Feedback and Partner Inquiry forms, which are only sent to us if you actively submit them.</p>
         <p class="text-secondary text-sm mb-2">Course, institution and funding data bundled in this version is illustrative pending verification (see Methodology) and may contain errors. You are responsible for verifying information and for decisions made using this tool. Njia is provided without warranty of any kind, and content may change or be discontinued at any time.</p>
+        <p class="text-secondary text-sm mb-2">If you are under 18, we encourage you to involve a parent or guardian in decisions about your education and finances — Njia is a research tool, not a substitute for that conversation.</p>
+        <p class="text-secondary text-sm mb-2">These terms are governed by the laws of Kenya. We may update these terms as Njia develops; continued use after a change means you accept the update. Questions or concerns — use "Give Feedback" in the footer.</p>
         <p class="text-secondary text-sm mb-2">By using Njia, you agree to these terms.</p>
         <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
       `);
@@ -233,7 +252,7 @@
     function openPartnerInquiryModal() {
       openModal(`
         <h3 class="mb-2">Partner With Us</h3>
-        <p class="text-secondary text-sm mb-2">Institution, funder, NGO, government body, or employer — tell us a bit about what you have in mind. No commitment, just a starting conversation.</p>
+        <p class="text-secondary text-sm mb-2">Institution, funder, NGO, government body, or employer — tell us a bit about what you have in mind. No commitment, just a starting conversation. Submitting sends these details to us — unlike the rest of Njia, this form isn't private, since you're asking us to contact you back.</p>
         <label class="caption" for="partner-org">Organisation name</label>
         <input type="text" id="partner-org" placeholder="e.g. Equity Group Foundation" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
         <label class="caption" for="partner-contact">Your name</label>
@@ -281,12 +300,16 @@
       openModal(`
         <h3 class="mb-2">Frequently Asked Questions</h3>
         <p class="text-secondary text-sm mb-2"><strong>Is Njia really free?</strong><br>Yes — completely free, no signup, no ads, no paywall.</p>
-        <p class="text-secondary text-sm mb-2"><strong>Does my data leave my phone?</strong><br>No. Everything is stored in your browser's local storage, on your device only.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Does my data leave my phone?</strong><br>No — your questionnaire answers, plans, saved courses and OKRs stay in your browser's local storage on your device only. The one exception is if you choose to submit the optional Feedback or Partner Inquiry form; whatever you type there is sent to us, and only then.</p>
         <p class="text-secondary text-sm mb-2"><strong>Do I need internet to use it?</strong><br>Only for your first visit. After that, Njia works fully offline.</p>
         <p class="text-secondary text-sm mb-2"><strong>Is the course/fee data accurate?</strong><br>Institution names are real, but fees, employment rates and salaries are illustrative estimates for this early version — always confirm directly with the institution before deciding. See Methodology.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Is Njia affiliated with KUCCPS, HELB, or any institution?</strong><br>No. Njia is an independent, early-stage project — institution and funder names appear because they're real, publicly known Kenyan bodies, not because of any partnership or endorsement. See About Njia.</p>
         <p class="text-secondary text-sm mb-2"><strong>What if my KCSE grade isn't great?</strong><br>Discover and the Course Matcher are built around this — they surface certificate and TVET pathways too, not just university degrees, and adapt to your actual grade and budget.</p>
         <p class="text-secondary text-sm mb-2"><strong>How is this different from a personality quiz?</strong><br>It's built on three research-backed methodologies — career psychology, life design and strategic life-portfolio planning (see Methodology) — and every recommendation is checked against real Kenyan grade requirements, fees and funding, not just a personality label.</p>
         <p class="text-secondary text-sm mb-2"><strong>Can I use this on a shared or borrowed phone?</strong><br>Yes — use "Clear My Data" (lock icon in the header) before handing the phone back.</p>
+        <p class="text-secondary text-sm mb-2"><strong>What happens to my data if I uninstall Njia or clear my browser data?</strong><br>It's gone for good — since everything lives in this browser's local storage, uninstalling or clearing site data deletes it permanently. Export a backup first if you want to keep it (see Privacy &amp; your data).</p>
+        <p class="text-secondary text-sm mb-2"><strong>Can I use Njia if I'm not in Kenya?</strong><br>You can, but the course, fee and funding data is Kenya-specific — it won't be useful for education decisions outside Kenya's system.</p>
+        <p class="text-secondary text-sm mb-2"><strong>I found a data error — how do I report it?</strong><br>Use "Give Feedback" in the footer and describe what looks wrong. Course, fee and funding data is illustrative pending verification, and reports help decide what to verify next.</p>
         <p class="text-secondary text-sm mb-2"><strong>Can I retake the Discover questionnaire?</strong><br>Yes, any time, from the results screen.</p>
         <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
       `);
@@ -294,7 +317,7 @@
     function openFeedbackModal() {
       openModal(`
         <h3 class="mb-2">Quick feedback</h3>
-        <p class="text-secondary text-sm mb-2">Optional and anonymous — helps improve Njia. No reply, no account needed.</p>
+        <p class="text-secondary text-sm mb-2">Optional and anonymous — helps improve Njia. No reply, no account needed. Submitting sends your rating and comment to us; it's the only thing that ever leaves your device.</p>
         <div class="btn-row mb-2">
           <button type="button" class="btn btn-secondary" id="feedback-up" onclick="selectFeedbackRating('up')">👍 Helpful</button>
           <button type="button" class="btn btn-secondary" id="feedback-down" onclick="selectFeedbackRating('down')">👎 Not helpful</button>

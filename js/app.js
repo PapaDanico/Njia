@@ -358,7 +358,7 @@ function renderHomePage() {
         <button type="button" class="btn btn-gold" style="width:auto;display:inline-flex;margin-top:0.5rem" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
         <div class="landing-guarantee-box">
           <span aria-hidden="true">🔒</span>
-          <span><strong>Privacy guarantee.</strong> Everything you enter — questionnaire answers, plans, saved courses — stays in this browser's local storage. Nothing is sent to a server. Use "Clear My Data" (header lock icon) any time, especially on a shared device.</span>
+          <span><strong>Privacy guarantee.</strong> Everything you enter — questionnaire answers, plans, saved courses — stays in this browser's local storage, not on a server. (The only exception: the optional Feedback and Partner forms in the footer, sent to us only if you submit them.) Use "Clear My Data" (header lock icon) any time, especially on a shared device.</span>
         </div>
       </section>
 
@@ -374,6 +374,7 @@ function renderHomePage() {
           </div>
           <div class="landing-footer-col">
             <p class="footer-col-label">Resources &amp; Legal</p>
+            <button type="button" onclick="openAboutModal()">About Njia</button>
             <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>
             <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
             <button type="button" onclick="openTermsModal()">Terms of Use</button>
@@ -387,7 +388,7 @@ function renderHomePage() {
         <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Course, fee and funding data inside the app is illustrative pending verification — see Methodology.</p>
         <div class="landing-footer-bottom">
           <div>
-            <a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="openFaqModal();return false">FAQ</a>
+            <a href="#" onclick="openAboutModal();return false">About</a><a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="openFaqModal();return false">FAQ</a>
           </div>
           <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
         </div>

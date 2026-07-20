@@ -102,29 +102,36 @@ function renderCourseMatcher(container) {
   // Budget only penalises match score (below) rather than hiding a course —
   // a great over-budget course should still be visible as "a stretch", not
   // disappear. Only cluster/mode/county can actually zero out this list.
+  const levelOptions = ['all', 'certificate', 'diploma', 'degree'];
+  const levelLabels = { certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
+
   const matchesCluster = (course) => AppState.decideFilters.cluster === 'all' || course.cluster === AppState.decideFilters.cluster;
   const matchesMode = (course) => AppState.decideFilters.mode === 'any' || course.mode === AppState.decideFilters.mode;
+  const matchesLevel = (course) => AppState.decideFilters.level === 'all' || course.level === AppState.decideFilters.level;
   const matchesCounty = (course) => {
     if (AppState.decideFilters.county === 'all') return true;
     return institutionById(course.institution_id)?.county === AppState.decideFilters.county;
   };
 
   let filtered = COURSES
-    .filter((c) => matchesCluster(c) && matchesMode(c) && matchesCounty(c))
+    .filter((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && matchesCounty(c))
     .map((c) => ({ course: c, match: computeCourseMatch(c) }));
   filtered.sort((a, b) => b.match.score - a.match.score);
 
   // Smarter empty state: name whichever filter is actually the blocker.
-  let emptyMessage = 'Try clearing the cluster or county filter.';
+  let emptyMessage = 'Try clearing the cluster, level or county filter.';
   if (filtered.length === 0) {
     const countyOnlyBlocks = AppState.decideFilters.county !== 'all'
-      && COURSES.some((c) => matchesCluster(c) && matchesMode(c) && !matchesCounty(c));
+      && COURSES.some((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && !matchesCounty(c));
     const clusterOnlyBlocks = AppState.decideFilters.cluster !== 'all'
-      && COURSES.some((c) => matchesCounty(c) && matchesMode(c) && !matchesCluster(c));
-    if (countyOnlyBlocks && !clusterOnlyBlocks) {
-      emptyMessage = 'Matching courses exist in other counties — try "All Counties" or a different one.';
-    } else if (clusterOnlyBlocks && !countyOnlyBlocks) {
-      emptyMessage = 'No courses in this cluster match your other filters — try "All Clusters".';
+      && COURSES.some((c) => matchesCounty(c) && matchesMode(c) && matchesLevel(c) && !matchesCluster(c));
+    const levelOnlyBlocks = AppState.decideFilters.level !== 'all'
+      && COURSES.some((c) => matchesCluster(c) && matchesMode(c) && matchesCounty(c) && !matchesLevel(c));
+    const blockers = [countyOnlyBlocks, clusterOnlyBlocks, levelOnlyBlocks].filter(Boolean).length;
+    if (blockers === 1) {
+      if (countyOnlyBlocks) emptyMessage = 'Matching courses exist in other counties — try "All Counties" or a different one.';
+      else if (clusterOnlyBlocks) emptyMessage = 'No courses in this cluster match your other filters — try "All Clusters".';
+      else if (levelOnlyBlocks) emptyMessage = 'No courses at this level match your other filters — try "All Levels".';
     }
   }
 
@@ -133,6 +140,14 @@ function renderCourseMatcher(container) {
       ${clusterOptions.map((c) => `
         <button type="button" class="filter-chip ${AppState.decideFilters.cluster === c ? 'active' : ''}" onclick="setDecideClusterFilter('${c}')">
           ${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}
+        </button>
+      `).join('')}
+    </div>
+
+    <div class="filter-row" aria-label="Filter by qualification level">
+      ${levelOptions.map((l) => `
+        <button type="button" class="filter-chip ${AppState.decideFilters.level === l ? 'active' : ''}" onclick="setDecideLevelFilter('${l}')">
+          ${l === 'all' ? 'All Levels' : levelLabels[l]}
         </button>
       `).join('')}
     </div>
@@ -227,8 +242,13 @@ function setDecideCountyFilter(county) {
   saveState();
   renderDecideTabContent();
 }
+function setDecideLevelFilter(level) {
+  AppState.decideFilters.level = level;
+  saveState();
+  renderDecideTabContent();
+}
 function clearDecideFilters() {
-  AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all' };
+  AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all', level: 'all' };
   saveState();
   renderDecideTabContent();
 }

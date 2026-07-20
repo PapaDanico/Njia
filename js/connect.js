@@ -51,6 +51,19 @@ function renderConnectPage() {
     </div>
 
     <div class="card">
+      <h3 class="mb-1">🛡️ Cold Outreach Safety Checklist</h3>
+      <p class="text-muted text-sm mb-2">Before you reach out or meet up — a few rules that protect you.</p>
+      <ul class="mt-1">
+        <li class="text-secondary text-sm mb-1">• A real professional will never ask you to pay a "registration" or "connection" fee for career advice. That's a scam, however friendly it sounds.</li>
+        <li class="text-secondary text-sm mb-1">• Prefer a phone or video call for a first conversation with someone you don't already know.</li>
+        <li class="text-secondary text-sm mb-1">• If you do meet in person, choose a public place — a café, library, or office — never a private home.</li>
+        <li class="text-secondary text-sm mb-1">• Tell a parent, guardian, or friend who you're meeting, where, and when — and check in with them after.</li>
+        <li class="text-secondary text-sm mb-1">• Don't share your national ID number, M-Pesa PIN, passwords, or bank details with anyone contacting you this way — no legitimate mentor needs them.</li>
+        <li class="text-secondary text-sm mb-1">• If something feels off, it's okay to stop responding. You don't owe anyone an explanation.</li>
+      </ul>
+    </div>
+
+    <div class="card">
       <div class="flex justify-between items-center mb-1">
         <h3>👥 Peer Cohorts</h3>
         <span class="type-badge">Phase 2</span>

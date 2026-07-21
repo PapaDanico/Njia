@@ -190,7 +190,7 @@ function renderCourseMatcher(container) {
 
     ${filtered.length === 0
       ? emptyState('🔍', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
-      : filtered.map(({ course, match }) => renderCourseCard(course, match)).join('')
+      : `<div class="results-grid">${filtered.map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>`
     }
   `;
 }
@@ -342,7 +342,7 @@ function renderFundingFinder(container) {
         </button>
       `).join('')}
     </div>
-    ${filtered.map((f) => renderFundingCard(f, grade)).join('')}
+    <div class="results-grid">${filtered.map((f) => renderFundingCard(f, grade)).join('')}</div>
   `;
 }
 

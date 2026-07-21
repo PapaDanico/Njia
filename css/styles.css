@@ -35,6 +35,8 @@
   --header-h: 60px;
   --nav-h: 64px;
   --content-max: 600px;
+  --sidebar-w: 240px;
+  --page-max: 960px;
 
   color-scheme: dark;
 }
@@ -240,6 +242,65 @@ main {
   border: 2px solid var(--bg-elevated);
 }
 .nav-item:active { transform: scale(0.95); }
+
+/* =====================================================================
+   DESKTOP SHELL — below this width the app is the mobile single-column
+   tool it was built as (#app capped at --content-max, bottom-nav fixed
+   and centered). At wide viewports that leaves the whole app pinned in
+   a 600px column with empty space on both sides. Restructure #app into
+   a header-bar + sidebar-nav + content grid instead — pure CSS, no HTML
+   changes, since .app-header/#install-banner/main/.bottom-nav are
+   already siblings in that DOM order inside #app; grid-template-areas
+   just repositions them visually.
+   ===================================================================== */
+@media (min-width: 1024px) {
+  #app {
+    max-width: none;
+    display: grid;
+    grid-template-columns: var(--sidebar-w) 1fr;
+    grid-template-areas:
+      "header header"
+      "banner banner"
+      "nav    main";
+    grid-template-rows: auto auto 1fr;
+  }
+  .app-header { grid-area: header; padding: 0 1.5rem; }
+  #install-banner { grid-area: banner; }
+  main { grid-area: main; padding-bottom: 1rem; }
+
+  .bottom-nav {
+    grid-area: nav;
+    position: sticky;
+    top: var(--header-h);
+    left: auto; bottom: auto; transform: none;
+    width: 100%; max-width: none;
+    height: calc(100vh - var(--header-h));
+    align-self: start;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    padding: 1.5rem 0.75rem;
+    border-top: none;
+    border-right: 1px solid var(--border);
+  }
+  .nav-item {
+    flex: none;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding: 0 0.9rem;
+    height: 48px;
+  }
+  .nav-item .nav-label { font-size: 0.85rem; }
+  .nav-item.active::before { display: none; }
+  .nav-item.active::after { top: 0; bottom: 0; left: 0; right: 0; border-radius: var(--radius-md); }
+  .nav-item.has-badge .nav-icon::after { top: 2px; right: -6px; }
+
+  .page { max-width: var(--page-max); margin: 0 auto; padding: 2rem 2.5rem; }
+  #page-home.page { max-width: none; margin: 0; padding: 0 !important; }
+
+  .toast-container { max-width: 420px; }
+}
 
 /* ---------- Cards ---------- */
 .card {
@@ -469,6 +530,19 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .check-item.done label { text-decoration: line-through; color: var(--text-muted); }
 
 /* ---------- Course / Funding cards ---------- */
+/* auto-fill/minmax instead of viewport-width breakpoints: adapts to
+ * whatever width the grid's parent actually has, not the raw viewport —
+ * #app stays capped at --content-max below the 1024px desktop shell
+ * breakpoint, so a viewport-width breakpoint here would try to force 2
+ * columns into a still-narrow container. This just fits as many 320px+
+ * columns as actually fit, correct at every width automatically. */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+.results-grid .card { margin-bottom: 0; }
 .match-badge {
   display: inline-block;
   background: var(--secondary);
@@ -899,6 +973,26 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   .landing-cta-row .btn { width: auto; }
   .landing-stats-grid { grid-template-columns: repeat(4, 1fr); }
   .landing-footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+}
+
+/* Desktop: #page-home now fills the full width next to the sidebar (see
+ * DESKTOP SHELL) instead of a 600px column, so cream/white-backed
+ * sections get their own content capped and centred here — the dark,
+ * full-bleed-worthy bands (stats/final-cta/footer) stay edge to edge and
+ * only their inner grid gets capped instead, so the colour block still
+ * reads as a deliberate full-width band, not an accidentally-wide one. */
+@media (min-width: 1024px) {
+  .landing-hero, .landing-block, .landing-quote-section {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .landing-stats-grid, .landing-footer-grid, .landing-guarantee-box {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .landing-evidence-grid { grid-template-columns: repeat(2, 1fr); }
+  .landing-process-list { display: grid; grid-template-columns: repeat(2, 1fr); }
 }
 
 /* =====================================================================

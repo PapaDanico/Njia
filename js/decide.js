@@ -112,15 +112,20 @@ function renderCourseMatcher(container) {
     if (AppState.decideFilters.county === 'all') return true;
     return institutionById(course.institution_id)?.county === AppState.decideFilters.county;
   };
+  const matchesSaved = (course) => !AppState.decideFilters.savedOnly || AppState.savedCourses.includes(course.id);
 
   let filtered = COURSES
-    .filter((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && matchesCounty(c))
+    .filter((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && matchesCounty(c) && matchesSaved(c))
     .map((c) => ({ course: c, match: computeCourseMatch(c) }));
   filtered.sort((a, b) => b.match.score - a.match.score);
 
   // Smarter empty state: name whichever filter is actually the blocker.
   let emptyMessage = 'Try clearing the cluster, level or county filter.';
-  if (filtered.length === 0) {
+  if (filtered.length === 0 && AppState.decideFilters.savedOnly) {
+    emptyMessage = AppState.savedCourses.length === 0
+      ? 'You haven\'t saved any courses yet — browse below and tap ☆ Save on ones you like.'
+      : 'None of your saved courses match your other filters — clear a filter to see them.';
+  } else if (filtered.length === 0) {
     const countyOnlyBlocks = AppState.decideFilters.county !== 'all'
       && COURSES.some((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && !matchesCounty(c));
     const clusterOnlyBlocks = AppState.decideFilters.cluster !== 'all'
@@ -136,6 +141,14 @@ function renderCourseMatcher(container) {
   }
 
   container.innerHTML = `
+    ${AppState.savedCourses.length > 0 ? `
+      <div class="filter-row" aria-label="Show saved courses only">
+        <button type="button" class="filter-chip ${AppState.decideFilters.savedOnly ? 'active' : ''}" onclick="toggleDecideSavedOnly()">
+          ★ Saved Only (${AppState.savedCourses.length})
+        </button>
+      </div>
+    ` : ''}
+
     <div class="filter-row" role="tablist" aria-label="Filter by career cluster">
       ${clusterOptions.map((c) => `
         <button type="button" class="filter-chip ${AppState.decideFilters.cluster === c ? 'active' : ''}" onclick="setDecideClusterFilter('${c}')">
@@ -247,8 +260,13 @@ function setDecideLevelFilter(level) {
   saveState();
   renderDecideTabContent();
 }
+function toggleDecideSavedOnly() {
+  AppState.decideFilters.savedOnly = !AppState.decideFilters.savedOnly;
+  saveState();
+  renderDecideTabContent();
+}
 function clearDecideFilters() {
-  AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all', level: 'all' };
+  AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false };
   saveState();
   renderDecideTabContent();
 }

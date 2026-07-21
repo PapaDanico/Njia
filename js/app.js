@@ -18,7 +18,7 @@ const defaultState = () => ({
   applications: [],
   okrs: [],
   mentors: [],
-  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all', level: 'all' }
+  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false }
 });
 
 let AppState = loadState();
@@ -275,13 +275,13 @@ function renderHomePage() {
       ${AppState.savedCourses.length > 0 ? (() => {
         const savedCount = AppState.savedCourses.length;
         const hasApplication = AppState.applications.length > 0;
-        const nextPage = hasApplication ? 'track' : 'decide';
+        const onclick = hasApplication ? "navigateTo('track');return false" : "goToSavedCourses();return false";
         const cta = hasApplication ? 'View your progress →' : 'Pick one and start →';
         return `
         <section class="landing-block-tight">
           <div class="landing-teaser-box">
             <span aria-hidden="true">📌</span>
-            <span>You have <strong>${savedCount}</strong> saved course${savedCount === 1 ? '' : 's'} waiting. <a href="#" onclick="navigateTo('${nextPage}');return false">${cta}</a></span>
+            <span>You have <strong>${savedCount}</strong> saved course${savedCount === 1 ? '' : 's'} waiting. <a href="#" onclick="${onclick}">${cta}</a></span>
           </div>
         </section>`;
       })() : ''}
@@ -399,6 +399,16 @@ function renderHomePage() {
 
 function scrollToLanding(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Home's saved-courses teaser jumps straight to the Saved Only view in
+// Decide, instead of dropping the user back into the full unfiltered
+// Course Matcher they'd have to re-search to find what they already saved.
+function goToSavedCourses() {
+  AppState.decideFilters.activeTab = 'courses';
+  AppState.decideFilters.savedOnly = true;
+  saveState();
+  navigateTo('decide');
 }
 
 /* ---------- Init ---------- */

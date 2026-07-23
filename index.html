@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Njia — Data-Driven Career Pathway</title>
   <meta name="description" content="Njia helps Kenyan youth make evidence-based career pathway decisions using a research-backed career psychology and life-design method, combined with Kenyan institutional data.">
-  <meta name="theme-color" content="#0f172a">
+  <meta name="theme-color" content="#faf9f5">
 
   <!-- Open Graph / social share preview (WhatsApp, Facebook, etc.) -->
   <meta property="og:type" content="website">
@@ -23,7 +23,7 @@
   <link rel="icon" href="./icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
@@ -37,7 +37,7 @@
   <div id="app">
     <header class="app-header">
       <div class="logo">
-        <img class="logo-mark" src="./icons/logo-mark-128.png" alt="" aria-hidden="true" width="28" height="28" decoding="async">
+        <img class="logo-mark" src="./icons/logo-mark-light-128.png" alt="" aria-hidden="true" width="28" height="28" decoding="async">
         <span>Njia</span>
         <span id="header-page-label" class="header-page-label" aria-live="polite"></span>
       </div>
@@ -292,7 +292,10 @@
         message
       }).toString();
       fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
-        .then(() => showToast('Thanks — we\'ll be in touch.', 'success'))
+        .then((res) => {
+          if (!res.ok) throw new Error('form rejected: ' + res.status);
+          showToast('Thanks — we\'ll be in touch.', 'success');
+        })
         .catch(() => showToast('Could not send — check your connection and try again.', 'error'));
       closeModal();
     }
@@ -347,7 +350,10 @@
         comment
       }).toString();
       fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body })
-        .then(() => showToast('Thanks for the feedback!', 'success'))
+        .then((res) => {
+          if (!res.ok) throw new Error('form rejected: ' + res.status);
+          showToast('Thanks for the feedback!', 'success');
+        })
         .catch(() => showToast('Could not send feedback — check your connection.', 'error'));
       selectedFeedbackRating = null;
       closeModal();

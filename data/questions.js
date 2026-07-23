@@ -10,42 +10,42 @@ const CLUSTERS = {
   carer: {
     name: 'The Carer',
     short: 'Carer',
-    color: '#ec4899',
+    color: '#c0326f',
     description: 'You are energised by helping, healing, teaching and supporting others. You notice when someone is struggling before they say a word.',
     paths: ['Counselling', 'Nursing', 'Social Work', 'Teaching', 'Community Health']
   },
   creator: {
     name: 'The Creator',
     short: 'Creator',
-    color: '#ed8b2d',
+    color: '#b8631a',
     description: 'You are energised by making, designing, writing and performing. Ideas want to become something real in your hands.',
     paths: ['Graphic Design', 'Journalism', 'Fashion Design', 'Architecture', 'Film & Media']
   },
   business: {
     name: 'The Business Builder',
     short: 'Business Builder',
-    color: '#6fae48',
+    color: '#55802d',
     description: 'You are energised by markets, deals and building value from nothing. You see opportunity where others see risk.',
     paths: ['Entrepreneurship', 'Sales', 'Marketing', 'E-commerce', 'Supply Chain']
   },
   tech: {
     name: 'The Tech Navigator',
     short: 'Tech Navigator',
-    color: '#1ca0d0',
+    color: '#0e7ba6',
     description: 'You are energised by solving problems with technology. Systems, logic and code make sense to you in a way people notice.',
     paths: ['Software Development', 'Data Analysis', 'Cybersecurity', 'IT Support', 'Networking']
   },
   people: {
     name: 'The People Leader',
     short: 'People Leader',
-    color: '#8b5cf6',
+    color: '#6d43c8',
     description: 'You are energised by bringing people together and inspiring action. Others naturally look to you when a group needs direction.',
     paths: ['Human Resources', 'Project Management', 'Public Administration', 'Events Management']
   },
   numbers: {
     name: 'The Numbers Professional',
     short: 'Numbers Pro',
-    color: '#ef4444',
+    color: '#c0392b',
     description: 'You are energised by clarity in data and structure in chaos. Numbers tell you a story that words cannot.',
     paths: ['Accounting', 'Finance', 'Statistics', 'Banking', 'Actuarial Science']
   }
@@ -57,7 +57,7 @@ const QUESTIONNAIRE = [
     title: 'Who You Are',
     subtitle: 'Signature strengths and what pulls your attention',
     icon: '🧭',
-    color: '#1ca0d0',
+    color: '#0e7ba6',
     questions: [
       {
         id: 'id_1',
@@ -134,7 +134,7 @@ const QUESTIONNAIRE = [
     title: 'Who You Work Best With',
     subtitle: 'Team dynamics and the people who bring out your best',
     icon: '🤝',
-    color: '#8b5cf6',
+    color: '#6d43c8',
     questions: [
       {
         id: 'co_1',
@@ -200,7 +200,7 @@ const QUESTIONNAIRE = [
     title: 'Your Real Constraints',
     subtitle: 'Non-negotiables — money, time, and obligations',
     icon: '⚖️',
-    color: '#ed8b2d',
+    color: '#b8631a',
     questions: [
       {
         id: 'ne_1',
@@ -262,7 +262,7 @@ const QUESTIONNAIRE = [
     title: 'Your Horizon',
     subtitle: 'What living a full life means to you',
     icon: '🌅',
-    color: '#6fae48',
+    color: '#55802d',
     questions: [
       {
         id: 'ho_1',

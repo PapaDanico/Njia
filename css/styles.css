@@ -1,31 +1,53 @@
 /* Njia — Design System
- * Mobile-first, dark-theme-default, vanilla CSS. No preprocessor, no build step.
- * Brand palette sampled directly from the Njia mark: circuit-blue (data/tech),
- * deep navy-teal (the wordmark), leaf-green (the pathway/mountains), and the
- * arrow's orange (momentum/growth) — see icons/logo-mark-256.png.
+ * Mobile-first, vanilla CSS. No preprocessor, no build step, no external fonts.
+ *
+ * "Warm premium" theme: paper backgrounds, warm ink text, serif display
+ * headings (system serif stack), and a terracotta action colour — one
+ * accent doing the talking, everything else calm. Njia's brand hues from
+ * the mark (circuit-blue, navy-teal, leaf-green, arrow-orange) survive as
+ * data-visualisation colours (clusters, bars, the report accent strip) and
+ * the dark navy landing bands, deepened where needed so they hold WCAG
+ * contrast on light surfaces.
  */
 
 :root {
-  --primary: #1ca0d0;
-  --primary-dark: #004c6a;
-  --primary-light: #dff3fb;
-  --secondary: #6fae48;
-  --accent: #ed8b2d;
-  --danger: #ef4444;
+  /* Action colour — terracotta. ~4.9:1 against white, so white button
+   * text passes AA at normal size. --primary-dark is the link/eyebrow
+   * ink variant (~7:1). */
+  --primary: #b4552d;
+  --primary-dark: #8a3f20;
+  --primary-light: #f7e9e0;
+  --secondary: #55802d;      /* leaf green, deepened for light bg */
+  --accent: #ed8b2d;         /* brand gold — reserved for dark bands */
+  --accent-ink: #b8631a;     /* gold's text-on-light variant */
+  --danger: #c0392b;
   --purple: #8b5cf6;
   --pink: #ec4899;
 
-  --bg: #0f172a;
-  --bg-elevated: #1e293b;
-  --bg-card: #334155;
-  --bg-input: #475569;
+  /* Surfaces — warm paper, not grey. Cards sit white on paper; insets
+   * (meta grids, inputs, chips) sit oat on white. */
+  --bg: #faf9f5;
+  --bg-elevated: #ffffff;
+  --bg-card: #f2efe7;
+  --bg-input: #ece8dd;
 
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --text-primary: #1f1e1d;
+  --text-secondary: #52504a;
+  --text-muted: #6b6862;
 
-  --border: #475569;
-  --border-light: #64748b;
+  --border: #e6e2d7;
+  --border-light: #d6d1c2;
+
+  /* Ink fill for selected chips/tabs — dark neutral, so terracotta stays
+   * reserved for primary actions and "current location" signals. */
+  --ink: #1f1e1d;
+  --ink-contrast: #faf9f5;
+
+  --serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, 'Times New Roman', serif;
+
+  --shadow-sm: 0 1px 2px rgba(31, 30, 29, 0.05);
+  --shadow-md: 0 6px 18px rgba(31, 30, 29, 0.08);
+  --shadow-lg: 0 16px 40px rgba(31, 30, 29, 0.14);
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -38,25 +60,6 @@
   --sidebar-w: 240px;
   --page-max: 960px;
 
-  color-scheme: dark;
-}
-
-/* Dark is the deliberate default for the app shell (battery/eye-strain,
- * per the original design brief) — it does not auto-follow OS light-mode
- * preference, since every dark-tuned color (nav labels, etc.) was never
- * verified for contrast against a light background. A manual opt-in
- * toggle can set data-theme="light" if one is ever added; until then
- * this rule is unused but ready. */
-:root[data-theme="light"] {
-  --bg: #f8fafc;
-  --bg-elevated: #ffffff;
-  --bg-card: #f1f5f9;
-  --bg-input: #e2e8f0;
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --border-light: #cbd5e1;
   color-scheme: light;
 }
 
@@ -67,8 +70,8 @@
   padding: 1.5rem;
   font-family: system-ui, sans-serif;
   text-align: center;
-  color: #0f172a;
-  background: #fff;
+  color: #1f1e1d;
+  background: #faf9f5;
 }
 
 /* ---------- Reset ---------- */
@@ -85,13 +88,17 @@ body {
 img { max-width: 100%; display: block; }
 button, input, textarea, select { font-family: inherit; font-size: inherit; color: inherit; }
 button { cursor: pointer; }
-a { color: var(--primary); text-decoration: none; }
+a { color: var(--primary-dark); text-decoration: none; }
 ul { list-style: none; }
+input[type="range"] { accent-color: var(--primary); }
 
+/* Display type is serif — the single strongest "premium editorial"
+ * signal available without shipping a webfont. Body stays sans. */
+h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.01em; line-height: 1.25; }
 h1 { font-size: 1.75rem; font-weight: 700; }
 h2 { font-size: 1.5rem; font-weight: 700; }
 h3 { font-size: 1.25rem; font-weight: 700; }
-small, .caption { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); }
+small, .caption { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); }
 .text-sm { font-size: 0.85rem; }
 .text-muted { color: var(--text-muted); }
 .text-secondary { color: var(--text-secondary); }
@@ -129,7 +136,9 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
-  background: var(--bg-elevated);
+  background: rgba(250, 249, 245, 0.92);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -139,10 +148,12 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-family: var(--serif);
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
 }
 .header-page-label {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 500;
   font-size: 0.95rem;
   color: var(--text-secondary);
@@ -153,6 +164,11 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   flex-shrink: 0;
   display: block;
 }
+/* The mark assets carry a cream (#f5f2ea) plate. multiply blends that
+ * plate into any light surface, so the artwork sits directly on the
+ * paper with no visible square. Scoped to light contexts only — on the
+ * dark footer the same trick would sink the art into black. */
+.app-header .logo-mark { mix-blend-mode: multiply; }
 .header-btn {
   width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
@@ -166,8 +182,8 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.6rem 1rem;
-  background: var(--primary-dark);
-  color: #fff;
+  background: var(--ink);
+  color: var(--ink-contrast);
   position: sticky;
   top: var(--header-h);
   z-index: 19;
@@ -175,8 +191,8 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 .install-banner-text { font-size: 0.85rem; font-weight: 600; }
 .install-banner-actions { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
 .install-banner .btn-sm { width: auto; }
-.install-banner .header-btn { color: #fff; width: 48px; height: 48px; }
-.install-banner .header-btn:hover { background: rgba(255,255,255,0.15); }
+.install-banner .header-btn { color: var(--ink-contrast); width: 48px; height: 48px; }
+.install-banner .header-btn:hover { background: rgba(250,249,245,0.15); }
 .header-btn:hover { background: var(--bg-card); }
 
 main {
@@ -204,7 +220,9 @@ main {
   max-width: var(--content-max);
   height: var(--nav-h);
   display: flex;
-  background: var(--bg-elevated);
+  background: rgba(250, 249, 245, 0.94);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
   z-index: 30;
   padding-bottom: env(safe-area-inset-bottom, 0);
@@ -220,7 +238,7 @@ main {
 }
 .nav-item .nav-icon { font-size: 1.3rem; position: relative; display: inline-block; }
 .nav-item .nav-label { font-size: 0.65rem; font-weight: 600; }
-.nav-item.active { color: var(--primary); }
+.nav-item.active { color: var(--primary-dark); }
 .nav-item.active::before {
   content: '';
   position: absolute; top: 4px;
@@ -230,7 +248,7 @@ main {
 .nav-item.active::after {
   content: '';
   position: absolute; top: 4px; bottom: 4px; left: 6px; right: 6px;
-  background: rgba(28, 160, 208, 0.12);
+  background: rgba(180, 85, 45, 0.09);
   border-radius: 12px;
   z-index: -1;
 }
@@ -238,8 +256,8 @@ main {
   content: '';
   position: absolute; top: -2px; right: -4px;
   width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--bg-elevated);
+  background: var(--primary);
+  border: 2px solid var(--bg);
 }
 .nav-item:active { transform: scale(0.95); }
 
@@ -309,10 +327,10 @@ main {
   border-radius: var(--radius-lg);
   padding: 1.25rem;
   margin-bottom: 1rem;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  box-shadow: var(--shadow-sm);
   transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.card:hover { transform: translateY(-2px); border-color: var(--border-light); box-shadow: 0 6px 16px rgba(0,0,0,0.28); }
+.card:hover { transform: translateY(-2px); border-color: var(--border-light); box-shadow: var(--shadow-md); }
 .card-tap { cursor: pointer; }
 
 /* ---------- Hero ---------- */
@@ -333,15 +351,17 @@ main {
   border: none;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: transform 0.1s ease, opacity 0.15s ease;
+  transition: transform 0.1s ease, opacity 0.15s ease, background 0.15s ease;
   width: 100%;
 }
 .btn:active { transform: scale(0.95); }
-.btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; }
-.btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-light); }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: #a34b26; }
+.btn-secondary { background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-light); }
+.btn-secondary:hover { background: var(--bg-card); }
 .btn-success { background: var(--secondary); color: #fff; }
 .btn-danger { background: var(--danger); color: #fff; }
-.btn-ghost { background: transparent; color: var(--primary); }
+.btn-ghost { background: transparent; color: var(--primary-dark); }
 .btn-sm { min-height: 48px; padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-row { display: flex; gap: 0.75rem; }
@@ -380,20 +400,20 @@ main {
   padding: 0.85rem 0.5rem;
   text-align: center;
 }
-.stat .value { font-size: 1.4rem; font-weight: 700; color: var(--primary); }
+.stat .value { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: var(--primary-dark); }
 .stat .label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* ---------- Progress bar ---------- */
 .progress-track {
   height: 8px;
-  background: var(--bg-card);
+  background: var(--bg-input);
   border-radius: 999px;
   overflow: hidden;
   margin-bottom: 1rem;
 }
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
   border-radius: 999px;
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -418,7 +438,7 @@ main {
 }
 .option-card:hover { border-color: var(--border-light); }
 .option-card:active { transform: scale(0.98); }
-.option-card.selected { border-color: var(--primary); background: rgba(28, 160, 208, 0.1); }
+.option-card.selected { border-color: var(--primary); background: var(--primary-light); }
 .option-card.selected::after { content: ' ✓'; color: var(--primary); font-weight: 700; }
 
 textarea.q-input {
@@ -445,7 +465,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 /* ---------- Score bars (Four Elements) ---------- */
 .score-row { margin-bottom: 0.9rem; }
 .score-row .score-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem; }
-.score-bar-track { height: 10px; background: var(--bg-card); border-radius: 999px; overflow: hidden; }
+.score-bar-track { height: 10px; background: var(--bg-input); border-radius: 999px; overflow: hidden; }
 .score-bar-fill { height: 100%; border-radius: 999px; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* ---------- Cluster result cards ---------- */
@@ -456,6 +476,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   text-align: center;
   margin-bottom: 1rem;
   background: var(--bg-elevated);
+  box-shadow: var(--shadow-sm);
 }
 .cluster-badge {
   display: inline-block;
@@ -487,7 +508,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .odyssey-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
 .odyssey-tab {
   flex: 1;
-  background: var(--bg-card);
+  background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 0.6rem;
@@ -495,8 +516,10 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   font-size: 0.8rem;
   font-weight: 600;
   min-height: 48px;
+  color: var(--text-secondary);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
-.odyssey-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.odyssey-tab.active { background: var(--ink); color: var(--ink-contrast); border-color: var(--ink); }
 .odyssey-year-row { display: flex; gap: 0.5rem; align-items: flex-start; margin-bottom: 0.6rem; }
 .odyssey-year-badge {
   min-width: 48px; height: 48px;
@@ -555,7 +578,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 .verified-badge {
   display: inline-block;
-  background: rgba(111,174,72,0.15);
+  background: rgba(85, 128, 45, 0.1);
   color: var(--secondary);
   border: 1px solid var(--secondary);
   font-size: 0.68rem;
@@ -581,12 +604,12 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   display: inline-block;
   font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
   padding: 0.2rem 0.6rem; border-radius: 999px;
-  background: var(--bg-card); color: var(--accent);
+  background: var(--bg-card); color: var(--accent-ink);
   margin-bottom: 0.5rem;
 }
 .data-disclaimer {
-  background: rgba(237, 139, 45, 0.12);
-  border: 1px solid var(--accent);
+  background: rgba(237, 139, 45, 0.1);
+  border: 1px solid #eac48d;
   border-radius: var(--radius-md);
   padding: 0.75rem 1rem;
   font-size: 0.8rem;
@@ -599,13 +622,14 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .filter-row { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; margin-bottom: 1rem; }
 .filter-chip {
   flex-shrink: 0;
-  background: var(--bg-card); border: 1px solid var(--border);
+  background: var(--bg-elevated); border: 1px solid var(--border-light);
   border-radius: 999px; padding: 0.4rem 0.9rem;
   font-size: 0.8rem; white-space: nowrap; min-height: 48px;
-  transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease;
+  color: var(--text-secondary);
+  transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 .filter-chip:active { transform: scale(0.95); }
-.filter-chip.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+.filter-chip.active { background: var(--ink); border-color: var(--ink); color: var(--ink-contrast); }
 
 /* ---------- Mentor cards ---------- */
 .mentor-card { display: flex; gap: 0.85rem; align-items: center; }
@@ -621,9 +645,9 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 /* ---------- OKR items ---------- */
 .okr-item .okr-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
 .status-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; }
-.status-badge.on-track { background: rgba(111,174,72,0.15); color: var(--secondary); }
-.status-badge.at-risk { background: rgba(237,139,45,0.15); color: var(--accent); }
-.status-badge.done { background: rgba(148,163,184,0.15); color: var(--text-muted); }
+.status-badge.on-track { background: rgba(85, 128, 45, 0.12); color: var(--secondary); }
+.status-badge.at-risk { background: rgba(184, 99, 26, 0.12); color: var(--accent-ink); }
+.status-badge.done { background: rgba(31, 30, 29, 0.08); color: var(--text-muted); }
 
 /* ---------- Application timeline ---------- */
 .timeline { position: relative; padding-left: 1.5rem; }
@@ -660,7 +684,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border-radius: var(--radius-md);
   padding: 0.85rem 1rem;
   display: flex; align-items: center; gap: 0.6rem;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  box-shadow: var(--shadow-lg);
   animation: slideDown 0.3s ease;
   pointer-events: auto;
 }
@@ -674,7 +698,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 /* ---------- Modal ---------- */
 .modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(31, 30, 29, 0.42);
   z-index: 90;
   display: none;
   align-items: flex-end;
@@ -687,6 +711,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   padding: 1.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0));
   max-height: 85vh; overflow-y: auto;
+  box-shadow: var(--shadow-lg);
   transform: translateY(100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -711,22 +736,21 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 
 /* =====================================================================
-   LANDING PAGE — the Home page is Njia's "sell" surface and deliberately
-   breaks from the dark in-app tool theme to match the evidence-led,
-   editorial design language used across our other diagnostic tools
-   (cream background, serif display headlines, cited stat cards, a
-   pull-quote thesis, numbered process steps, final CTA + guarantee,
-   structured footer). The in-app modules (Discover/Design/Decide/
-   Connect/Track) stay on the dark mobile-tool theme deliberately —
-   that's the working surface, not the sell surface.
+   LANDING PAGE — the Home page is Njia's "sell" surface: evidence-led,
+   editorial (serif display headlines, cited stat cards, a pull-quote
+   thesis, numbered process steps, final CTA + guarantee, structured
+   footer). Since the whole app now shares the warm paper/ink/terracotta
+   system, the landing reads as the cover of the same book rather than a
+   different product — its dark navy bands (stats/final CTA/footer) stay
+   as deliberate full-bleed contrast moments tied to the wordmark navy.
    ===================================================================== */
 
 #page-home {
-  --landing-bg: #f5f2ea;
+  --landing-bg: #faf9f5;
   --landing-card: #ffffff;
-  --landing-ink: #1c2530;
-  --landing-ink-muted: #5b6472;
-  --landing-border: #e3ddd0;
+  --landing-ink: #1f1e1d;
+  --landing-ink-muted: #5d5a52;
+  --landing-border: #e6e2d7;
   --landing-dark: #0f172a;
   background: var(--landing-bg);
   color: var(--landing-ink);
@@ -735,7 +759,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 @media (min-width: 480px) { #page-home { margin: 0 -1.5rem; } }
 
-.landing-serif { font-family: Georgia, Cambria, 'Times New Roman', serif; }
+.landing-serif { font-family: var(--serif); }
 
 .landing-eyebrow {
   display: block;
@@ -754,21 +778,22 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .landing-hero {
   padding: 2.5rem 1.25rem 2rem;
   text-align: left;
-  background: radial-gradient(120% 100% at 0% 0%, rgba(28,160,208,0.10), rgba(237,139,45,0.06) 45%, transparent 70%);
+  background: radial-gradient(120% 100% at 0% 0%, rgba(180,85,45,0.07), rgba(237,139,45,0.05) 45%, transparent 70%);
 }
 .landing-hero-logo {
   width: 64px; height: 64px; object-fit: contain; margin-bottom: 1.25rem;
-  filter: drop-shadow(0 4px 14px rgba(28,160,208,0.35));
+  mix-blend-mode: multiply;
+  border-radius: 12px;
 }
 .landing-h1 {
-  font-family: Georgia, Cambria, 'Times New Roman', serif;
+  font-family: var(--serif);
   font-size: 1.9rem;
   line-height: 1.25;
   font-weight: 700;
   color: var(--landing-ink);
   margin-bottom: 1rem;
 }
-.landing-h1 .hl-gold { color: #b8631a; }
+.landing-h1 .hl-gold { color: var(--primary); }
 .landing-h1 .hl-blue { color: var(--primary-dark); }
 .landing-sub {
   font-size: 1rem;
@@ -782,7 +807,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   font-style: italic;
   max-width: 42ch;
   margin: -0.75rem 0 1.25rem;
-  border-left: 3px solid var(--accent);
+  border-left: 3px solid var(--primary);
   padding-left: 0.75rem;
 }
 .landing-teaser-box {
@@ -794,10 +819,11 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   padding: 0.85rem 1rem;
   font-size: 0.88rem;
   color: var(--landing-ink);
+  box-shadow: var(--shadow-sm);
 }
 .landing-teaser-box a { color: var(--primary-dark); font-weight: 600; }
 .landing-h2 {
-  font-family: Georgia, Cambria, 'Times New Roman', serif;
+  font-family: var(--serif);
   font-size: 1.5rem;
   line-height: 1.3;
   font-weight: 700;
@@ -808,10 +834,11 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 
 .landing-cta-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
 .btn-gold {
-  background: linear-gradient(135deg, #f5a855, var(--accent));
-  color: #1c2530;
+  background: var(--primary);
+  color: #fff;
   font-weight: 700;
 }
+.btn-gold:hover { background: #a34b26; }
 .btn-outline-dark {
   background: transparent;
   border: 1.5px solid var(--landing-ink);
@@ -831,7 +858,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   gap: 1.5rem 1rem;
 }
 .landing-stat-num {
-  font-family: Georgia, Cambria, 'Times New Roman', serif;
+  font-family: var(--serif);
   font-size: 2rem;
   font-weight: 700;
   color: var(--accent);
@@ -846,12 +873,12 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border: 1px solid var(--landing-border);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
-  box-shadow: 0 1px 3px rgba(28,37,48,0.06);
+  box-shadow: var(--shadow-sm);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.landing-evidence-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(28,37,48,0.1); }
+.landing-evidence-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .landing-evidence-num {
-  font-family: Georgia, Cambria, 'Times New Roman', serif;
+  font-family: var(--serif);
   font-size: 2.1rem;
   font-weight: 700;
   color: var(--primary-dark);
@@ -874,13 +901,13 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border-bottom: 1px solid var(--landing-border);
 }
 .landing-quote {
-  font-family: Georgia, Cambria, 'Times New Roman', serif;
+  font-family: var(--serif);
   font-size: 1.5rem;
   line-height: 1.4;
   font-weight: 700;
   color: var(--landing-ink);
 }
-.landing-quote .hl-gold { color: #b8631a; }
+.landing-quote .hl-gold { color: var(--primary); }
 .landing-quote-caption { margin-top: 1rem; font-size: 0.85rem; color: var(--landing-ink-muted); }
 
 .landing-process-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -890,10 +917,10 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border-radius: var(--radius-lg);
   padding: 1.1rem;
   display: flex; gap: 0.9rem;
-  box-shadow: 0 1px 3px rgba(28,37,48,0.06);
+  box-shadow: var(--shadow-sm);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.landing-process-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(28,37,48,0.1); }
+.landing-process-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .landing-process-num {
   flex-shrink: 0;
   width: 36px; height: 36px;
@@ -902,7 +929,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   color: #fff;
   display: flex; align-items: center; justify-content: center;
   font-weight: 700;
-  font-family: Georgia, Cambria, 'Times New Roman', serif;
+  font-family: var(--serif);
 }
 .landing-process-card h3 { font-size: 1rem; margin-bottom: 0.25rem; color: var(--landing-ink); }
 .landing-process-card p { font-size: 0.85rem; color: var(--landing-ink-muted); margin-bottom: 0.5rem; }
@@ -1002,65 +1029,68 @@ textarea.q-input::placeholder { color: var(--text-muted); }
    full-size on-screen in the "Preview & Share" modal for screenshotting,
    and summarised as text for WhatsApp/native share. Deliberately built
    as its own compact layout rather than reusing the full in-app results
-   view, so it stays to 1-2 printed pages.
+   view, so it stays to 1-2 printed pages. The accent strip keeps the
+   original four-colour brand palette from the mark — this card travels
+   off-app, so it carries the full logo identity.
    ===================================================================== */
 .print-only { display: none; }
 
 .report-card {
   position: relative;
   background: #ffffff;
-  color: #1c2530;
+  color: #1f1e1d;
   border-radius: var(--radius-lg);
   padding: 1.7rem 1.5rem 1.4rem;
   overflow: hidden;
+  border: 1px solid var(--border);
 }
 .report-card::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0; height: 6px;
-  background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+  background: linear-gradient(90deg, #1ca0d0, #ed8b2d, #6fae48);
 }
 .report-header {
   display: flex; align-items: center; justify-content: space-between;
   gap: 0.75rem; flex-wrap: wrap;
   margin-bottom: 1.2rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #e3ddd0;
+  border-bottom: 2px solid #e6e2d7;
 }
 .report-header img { width: 180px; height: auto; flex-shrink: 0; }
 .report-header-meta { text-align: right; }
 .report-eyebrow {
   display: block; font-size: 0.72rem; font-weight: 700;
-  letter-spacing: 1.2px; text-transform: uppercase; color: #64748b;
+  letter-spacing: 1.2px; text-transform: uppercase; color: #6b6862;
 }
-.report-date { font-size: 0.82rem; color: #94a3b8; }
+.report-date { font-size: 0.82rem; color: #a5a29a; }
 
 .report-primary { border-left: 5px solid; padding-left: 1.1rem; margin-bottom: 0.9rem; }
 .report-primary-label { display: block; font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; }
 .report-primary h2 { font-size: 1.65rem; margin: 0.2rem 0 0.4rem; }
-.report-primary p { font-size: 0.95rem; color: #475569; margin-bottom: 0.6rem; }
+.report-primary p { font-size: 0.95rem; color: #52504a; margin-bottom: 0.6rem; }
 .report-paths { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.report-path-tag { font-size: 0.76rem; background: #f1f5f9; color: #334155; padding: 0.2rem 0.65rem; border-radius: 999px; }
+.report-path-tag { font-size: 0.76rem; background: #f2efe7; color: #52504a; padding: 0.2rem 0.65rem; border-radius: 999px; }
 
-.report-secondary-line { font-size: 0.88rem; color: #475569; margin-bottom: 1.1rem; }
+.report-secondary-line { font-size: 0.88rem; color: #52504a; margin-bottom: 1.1rem; }
 
 .report-columns { display: grid; grid-template-columns: 1fr; gap: 1.2rem; margin-bottom: 1.1rem; }
 @media (min-width: 480px) { .report-columns { grid-template-columns: 1fr 1fr; } }
 
-.report-section-title { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #64748b; margin-bottom: 0.55rem; }
+.report-section-title { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #6b6862; margin-bottom: 0.55rem; }
 .report-bar-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
-.report-bar-label { font-size: 0.78rem; width: 68px; flex-shrink: 0; color: #334155; }
-.report-bar-track { flex: 1; height: 8px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+.report-bar-label { font-size: 0.78rem; width: 68px; flex-shrink: 0; color: #52504a; }
+.report-bar-track { flex: 1; height: 8px; background: #ece8dd; border-radius: 999px; overflow: hidden; }
 .report-bar-fill { height: 100%; border-radius: 999px; }
-.report-bar-pct { font-size: 0.78rem; width: 32px; text-align: right; color: #334155; flex-shrink: 0; }
+.report-bar-pct { font-size: 0.78rem; width: 32px; text-align: right; color: #52504a; flex-shrink: 0; }
 
 .report-chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.report-chip { font-size: 0.76rem; background: #f1f5f9; color: #334155; padding: 0.2rem 0.6rem; border-radius: 6px; }
+.report-chip { font-size: 0.76rem; background: #f2efe7; color: #52504a; padding: 0.2rem 0.6rem; border-radius: 6px; }
 
-.report-courses ul { list-style: disc; padding-left: 1.2rem; font-size: 0.88rem; color: #334155; line-height: 1.5; }
-.report-progress-line { font-size: 0.88rem; color: #334155; margin-bottom: 0.7rem; }
+.report-courses ul { list-style: disc; padding-left: 1.2rem; font-size: 0.88rem; color: #52504a; line-height: 1.5; }
+.report-progress-line { font-size: 0.88rem; color: #52504a; margin-bottom: 0.7rem; }
 
-.report-footer { border-top: 1px solid #e2e8f0; padding-top: 0.85rem; margin-top: 0.6rem; text-align: center; }
-.report-footer p { font-size: 0.78rem; color: #64748b; margin: 0; }
+.report-footer { border-top: 1px solid #e6e2d7; padding-top: 0.85rem; margin-top: 0.6rem; text-align: center; }
+.report-footer p { font-size: 0.78rem; color: #6b6862; margin: 0; }
 .report-footer .report-url { font-weight: 600; color: var(--primary-dark) !important; }
 
 @page { size: A4; margin: 12mm 10mm; }
@@ -1072,10 +1102,10 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   }
   body, #app, main, .page {
     background: #ffffff !important;
-    color: #0f172a !important;
+    color: #1f1e1d !important;
   }
   .discover-full-results { display: none !important; }
   .print-only { display: block !important; }
-  .report-card { padding: 0; }
+  .report-card { padding: 0; border: none; }
   .report-columns { grid-template-columns: 1fr 1fr; }
 }

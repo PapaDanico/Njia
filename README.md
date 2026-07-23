@@ -63,7 +63,7 @@ important since many users share devices.
 ├── index.html          # App shell, page containers, script loading order
 ├── manifest.json        # PWA manifest
 ├── sw.js                 # Service Worker — cache-first offline strategy
-├── css/styles.css        # Full design system (dark-default, light-aware)
+├── css/styles.css        # Full design system (warm paper/ink/terracotta theme)
 ├── js/
 │   ├── app.js            # AppState, routing, toast/modal, home page
 │   ├── discover.js        # Module 1
@@ -108,9 +108,10 @@ though the Service Worker only activates when served over `http(s)://`.
 ## Accessibility & performance notes
 
 - Visible focus states on all interactive elements; touch targets are
-  44×44px minimum.
-- Respects `prefers-reduced-motion` and `prefers-color-scheme` (dark by
-  default, but not hard-locked).
+  48×48px minimum (the modal close button is the one 44×44px exception).
+- Respects `prefers-reduced-motion`. The theme is a single warm light
+  palette (paper background, ink text, terracotta accent) with serif
+  display headings — system fonts only, no webfonts shipped.
 - No external fonts/scripts — everything loads from this repo, keeping the
   app installable and functional with zero third-party network calls.
 

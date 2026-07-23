@@ -6,9 +6,9 @@
 let designActiveTab = 'odyssey';
 
 const ODYSSEY_TEMPLATE = [
-  { id: 'life1', label: 'Life One', subtitle: "The path you're already on or considering", color: '#1ca0d0' },
-  { id: 'life2', label: 'Life Two', subtitle: "What you'd do if Life One disappeared", color: '#6fae48' },
-  { id: 'life3', label: 'Life Three', subtitle: 'What you\'d do if money or image were no object', color: '#ed8b2d' }
+  { id: 'life1', label: 'Life One', subtitle: "The path you're already on or considering", color: '#0e7ba6' },
+  { id: 'life2', label: 'Life Two', subtitle: "What you'd do if Life One disappeared", color: '#55802d' },
+  { id: 'life3', label: 'Life Three', subtitle: 'What you\'d do if money or image were no object', color: '#b8631a' }
 ];
 
 const PROTOTYPE_SUGGESTIONS = {
@@ -87,9 +87,11 @@ function ensureOdysseyPlans() {
 
 function renderOdysseyTab(container) {
   ensureOdysseyPlans();
+  // Colour resolves from the template, not the persisted plan — plans saved
+  // before a palette change would otherwise keep stale colours forever.
   container.innerHTML = AppState.odysseyPlans.map((plan) => `
     <div class="card">
-      <span class="caption" style="color:${plan.color}">${plan.label}</span>
+      <span class="caption" style="color:${(ODYSSEY_TEMPLATE.find((t) => t.id === plan.id) || plan).color}">${plan.label}</span>
       <h3 class="mb-1">${escapeHtml(plan.subtitle)}</h3>
       ${plan.years.map((val, i) => `
         <div class="odyssey-year-row">
@@ -111,10 +113,10 @@ function updateOdysseyYear(planId, yearIndex, value) {
 
 /* ---------- Life Portfolio Visualiser ---------- */
 const PORTFOLIO_GAUGES = [
-  { key: 'health', label: 'Health', icon: '💪', color: '#6fae48' },
-  { key: 'work', label: 'Work', icon: '💼', color: '#1ca0d0' },
-  { key: 'play', label: 'Play', icon: '🎮', color: '#ed8b2d' },
-  { key: 'love', label: 'Love', icon: '❤️', color: '#ec4899' }
+  { key: 'health', label: 'Health', icon: '💪', color: '#55802d' },
+  { key: 'work', label: 'Work', icon: '💼', color: '#0e7ba6' },
+  { key: 'play', label: 'Play', icon: '🎮', color: '#b8631a' },
+  { key: 'love', label: 'Love', icon: '❤️', color: '#c0326f' }
 ];
 
 function renderPortfolioTab(container) {

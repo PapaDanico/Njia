@@ -152,12 +152,10 @@ function renderCourseMatcher(container) {
       </div>
     ` : ''}
 
-    <div class="filter-row" role="tablist" aria-label="Filter by career cluster">
-      ${clusterOptions.map((c) => `
-        <button type="button" class="filter-chip ${AppState.decideFilters.cluster === c ? 'active' : ''}" onclick="setDecideClusterFilter('${c}')">
-          ${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}
-        </button>
-      `).join('')}
+    <div class="filter-row" aria-label="Filter by career cluster">
+      <select onchange="setDecideClusterFilter(this.value)" style="width:100%;max-width:220px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${clusterOptions.map((c) => `<option value="${c}" ${AppState.decideFilters.cluster === c ? 'selected' : ''}>${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}</option>`).join('')}
+      </select>
     </div>
 
     <div class="filter-row" aria-label="Filter by qualification level">
@@ -347,12 +345,10 @@ function renderFundingFinder(container) {
       </div>
     </div>
 
-    <div class="filter-row">
-      ${FUNDING_TYPES.map((t) => `
-        <button type="button" class="filter-chip ${activeType === t ? 'active' : ''}" onclick="setFundingTypeFilter('${t}')">
-          ${t === 'all' ? 'All' : t.replace('_', ' ')}
-        </button>
-      `).join('')}
+    <div class="filter-row" aria-label="Filter by funding type">
+      <select onchange="setFundingTypeFilter(this.value)" style="width:100%;max-width:220px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${FUNDING_TYPES.map((t) => `<option value="${t}" ${activeType === t ? 'selected' : ''}>${t === 'all' ? 'All Funding Types' : t.replace('_', ' ')}</option>`).join('')}
+      </select>
     </div>
     <div class="results-grid">${filtered.map((f) => renderFundingCard(f, grade)).join('')}</div>
   `;

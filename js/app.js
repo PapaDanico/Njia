@@ -18,7 +18,11 @@ const defaultState = () => ({
   applications: [],
   okrs: [],
   mentors: [],
-  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false }
+  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false },
+  // View-only UI state for Track and Design — kept separate from
+  // decideFilters (Decide-module-scoped) so clearDecideFilters() can't
+  // accidentally drop or corrupt unrelated modules' selections.
+  viewFilters: { okrStatus: 'all', okrSort: 'recent', appStatus: 'all', prototypeCluster: null }
 });
 
 let AppState = loadState();

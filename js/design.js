@@ -184,7 +184,7 @@ function ensurePrototypeChecklist(cluster) {
 }
 
 function renderPrototypeTab(container) {
-  const activeCluster = AppState.decideFilters?.prototypeCluster || getSuggestedCluster();
+  const activeCluster = AppState.viewFilters.prototypeCluster || getSuggestedCluster();
   ensurePrototypeChecklist(activeCluster);
   const clusterItems = AppState.prototypeChecklist.filter((i) => i.cluster === activeCluster);
   const conversations = clusterItems.filter((i) => i.type === 'conversation');
@@ -220,8 +220,7 @@ function renderPrototypeTab(container) {
 }
 
 function setPrototypeCluster(cluster) {
-  AppState.decideFilters = AppState.decideFilters || {};
-  AppState.decideFilters.prototypeCluster = cluster;
+  AppState.viewFilters.prototypeCluster = cluster;
   saveState();
   renderPrototypeTab(document.getElementById('design-tab-content'));
 }

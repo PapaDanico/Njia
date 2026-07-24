@@ -59,20 +59,20 @@ function daysSince(iso) {
 }
 
 function renderOkrsTab(container) {
-  const statusFilter = AppState.decideFilters?.okrStatus || 'all';
-  const sortBy = AppState.decideFilters?.okrSort || 'recent';
+  const statusFilter = AppState.viewFilters.okrStatus;
+  const sortBy = AppState.viewFilters.okrSort;
 
-  let filtered = AppState.okrs;
+  let filtered = AppState.okrs.slice();
   if (statusFilter !== 'all') {
     filtered = filtered.filter((okr) => okrStatus(okr) === statusFilter);
   }
 
   if (sortBy === 'recent') {
-    filtered = filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   } else if (sortBy === 'progress') {
-    filtered = filtered.sort((a, b) => {
-      const aProgress = b.keyResults.filter((k) => k.done).length / (b.keyResults.length || 1);
-      const bProgress = a.keyResults.filter((k) => k.done).length / (a.keyResults.length || 1);
+    filtered.sort((a, b) => {
+      const aProgress = a.keyResults.filter((k) => k.done).length / (a.keyResults.length || 1);
+      const bProgress = b.keyResults.filter((k) => k.done).length / (b.keyResults.length || 1);
       return bProgress - aProgress;
     });
   }
@@ -170,7 +170,7 @@ function applicationStatus(app) {
 }
 
 function renderApplicationsTab(container) {
-  const statusFilter = AppState.decideFilters?.appStatus || 'all';
+  const statusFilter = AppState.viewFilters.appStatus;
   let filtered = AppState.applications;
   if (statusFilter !== 'all') {
     filtered = filtered.filter((app) => applicationStatus(app) === statusFilter);
@@ -196,8 +196,7 @@ function renderApplicationsTab(container) {
 }
 
 function setApplicationStatusFilter(status) {
-  AppState.decideFilters = AppState.decideFilters || {};
-  AppState.decideFilters.appStatus = status;
+  AppState.viewFilters.appStatus = status;
   saveState();
   renderApplicationsTab(document.getElementById('track-tab-content'));
 }
@@ -241,15 +240,13 @@ function deleteApplication(appId) {
 }
 
 function setOkrStatusFilter(status) {
-  AppState.decideFilters = AppState.decideFilters || {};
-  AppState.decideFilters.okrStatus = status;
+  AppState.viewFilters.okrStatus = status;
   saveState();
   renderOkrsTab(document.getElementById('track-tab-content'));
 }
 
 function setOkrSortBy(sortBy) {
-  AppState.decideFilters = AppState.decideFilters || {};
-  AppState.decideFilters.okrSort = sortBy;
+  AppState.viewFilters.okrSort = sortBy;
   saveState();
   renderOkrsTab(document.getElementById('track-tab-content'));
 }

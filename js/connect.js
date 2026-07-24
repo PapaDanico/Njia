@@ -18,6 +18,19 @@ const MENTOR_ARCHETYPES = {
   numbers: ['An accountant partway through their KASNEB/CPA path', 'A bank operations or finance officer']
 };
 
+/* Short noun-phrase role labels for the outreach-message dropdown/template
+ * (e.g. "...as a {role}"). Kept separate from MENTOR_ARCHETYPES, whose
+ * entries are full descriptive sentences meant for the "Who to look for"
+ * list, not for splicing into a sentence. */
+const MENTOR_ROLES = {
+  carer: ['school counsellor', 'KRCHN nurse', 'social worker'],
+  creator: ['graphic designer', 'video editor', 'journalist'],
+  business: ['small business owner', 'sales or marketing professional'],
+  tech: ['junior software developer', 'IT support technician'],
+  people: ['HR officer', 'project coordinator', 'county government officer'],
+  numbers: ['accountant', 'bank operations officer']
+};
+
 function renderConnectPage() {
   const el = document.getElementById('page-connect');
   if (!el) return;
@@ -47,7 +60,7 @@ function renderConnectPage() {
       <label class="caption" for="connect-role">Their role</label>
       <select id="connect-role" onchange="updateCustomRole()" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
         <option value="">Select a role or type custom</option>
-        ${(cluster ? MENTOR_ARCHETYPES[cluster] : [...new Set(Object.values(MENTOR_ARCHETYPES).flat())]).map((role) => `<option value="${role}">${escapeHtml(role)}</option>`).join('')}
+        ${(cluster ? MENTOR_ROLES[cluster] : [...new Set(Object.values(MENTOR_ROLES).flat())]).map((role) => `<option value="${escapeHtml(role)}">${escapeHtml(role.charAt(0).toUpperCase() + role.slice(1))}</option>`).join('')}
         <option value="__custom__">Type a custom role...</option>
       </select>
       <input type="text" id="connect-role-custom" placeholder="e.g. community health nurse" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;display:none" onchange="updateCustomRole()">

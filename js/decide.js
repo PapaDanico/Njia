@@ -123,7 +123,7 @@ function renderCourseMatcher(container) {
   filtered.sort((a, b) => b.match.score - a.match.score);
 
   // Smarter empty state: name whichever filter is actually the blocker.
-  let emptyMessage = 'Try clearing the cluster, level or county filter.';
+  let emptyMessage = 'Try clearing the cluster, level, mode or county filter.';
   if (filtered.length === 0 && AppState.decideFilters.savedOnly) {
     emptyMessage = AppState.savedCourses.length === 0
       ? 'You haven\'t saved any courses yet — browse below and tap ☆ Save on ones you like.'
@@ -135,11 +135,14 @@ function renderCourseMatcher(container) {
       && COURSES.some((c) => matchesCounty(c) && matchesMode(c) && matchesLevel(c) && !matchesCluster(c));
     const levelOnlyBlocks = AppState.decideFilters.level !== 'all'
       && COURSES.some((c) => matchesCluster(c) && matchesMode(c) && matchesCounty(c) && !matchesLevel(c));
-    const blockers = [countyOnlyBlocks, clusterOnlyBlocks, levelOnlyBlocks].filter(Boolean).length;
+    const modeOnlyBlocks = AppState.decideFilters.mode !== 'any'
+      && COURSES.some((c) => matchesCluster(c) && matchesLevel(c) && matchesCounty(c) && !matchesMode(c));
+    const blockers = [countyOnlyBlocks, clusterOnlyBlocks, levelOnlyBlocks, modeOnlyBlocks].filter(Boolean).length;
     if (blockers === 1) {
       if (countyOnlyBlocks) emptyMessage = 'Matching courses exist in other counties — try "All Counties" or a different one.';
       else if (clusterOnlyBlocks) emptyMessage = 'No courses in this cluster match your other filters — try "All Clusters".';
       else if (levelOnlyBlocks) emptyMessage = 'No courses at this level match your other filters — try "All Levels".';
+      else if (modeOnlyBlocks) emptyMessage = 'No courses at this learning mode match your other filters — try "Any Schedule".';
     }
   }
 
@@ -207,8 +210,11 @@ function renderCourseCard(course, match) {
 
   const isVerified = course.data_confidence === 'verified';
 
+  // Online courses don't require relocating or renting near an institution,
+  // so an accommodation estimate would overstate the real cost for them.
+  const requiresRelocation = course.mode !== 'online';
   const accomRate = inst?.has_hostel ? ACCOMMODATION_ESTIMATE_KES_PER_MONTH.onCampus : ACCOMMODATION_ESTIMATE_KES_PER_MONTH.offCampus;
-  const totalCostOfAttendance = course.total_fees_kes + accomRate * course.duration_months;
+  const totalCostOfAttendance = requiresRelocation ? course.total_fees_kes + accomRate * course.duration_months : course.total_fees_kes;
 
   return `
     <div class="card course-card">
@@ -230,7 +236,10 @@ function renderCourseCard(course, match) {
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
       <p class="text-muted text-sm mb-1">🗓️ Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
       <p class="text-muted text-sm mb-2">📊 Feasibility: roughly <strong>${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
-      <p class="text-muted text-sm mb-2">🏠 Full cost of attendance (illustrative): tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong>${formatKes(totalCostOfAttendance)}</strong> total. Varies by town — plan, don't rely on this figure.</p>
+      <p class="text-muted text-sm mb-2">🏠 Full cost of attendance (illustrative): ${requiresRelocation
+        ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong>${formatKes(totalCostOfAttendance)}</strong> total. Varies by town — plan, don't rely on this figure.`
+        : `<strong>${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
+      }</p>
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(course.verification_note)}</p>` : ''}
       <div class="btn-row">
         <button type="button" class="btn ${saved ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleSavedCourse('${course.id}')">${saved ? '★ Saved' : '☆ Save'}</button>

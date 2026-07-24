@@ -299,6 +299,13 @@ function renderDiscoverResults(el) {
   `;
 }
 
+// Single source of truth for "done" OKR count — reused by the report card
+// and the WhatsApp/share summary so they can't drift out of sync with each
+// other or with Track's own definition of done (js/track.js okrStatus).
+function countDoneOkrs() {
+  return AppState.okrs.filter((o) => okrStatus(o) === 'done').length;
+}
+
 /* ---------- Shareable report card — one compact layout feeding the PDF
  * export, the on-screen "Preview & Share" modal (screenshot-friendly),
  * and (via buildReportSummary) the WhatsApp/native-share text. */
@@ -323,7 +330,7 @@ function renderShareableReportHTML() {
     .filter(Boolean)
     .slice(0, 3);
 
-  const doneOkrs = AppState.okrs.filter((o) => o.keyResults.every((k) => k.done)).length;
+  const doneOkrs = countDoneOkrs();
 
   return `
     <div class="report-card">
@@ -426,7 +433,7 @@ function buildReportSummary() {
   }
 
   if (AppState.okrs.length) {
-    const doneCount = AppState.okrs.filter((o) => o.keyResults.every((k) => k.done)).length;
+    const doneCount = countDoneOkrs();
     lines.push('', `📈 Progress: ${doneCount}/${AppState.okrs.length} goals completed so far.`);
   }
 

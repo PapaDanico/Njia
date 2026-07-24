@@ -45,7 +45,12 @@ function renderConnectPage() {
       <label class="caption" for="connect-name">Their name (optional)</label>
       <input type="text" id="connect-name" placeholder="e.g. Auntie Wanjiru" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
       <label class="caption" for="connect-role">Their role</label>
-      <input type="text" id="connect-role" placeholder="e.g. community health nurse" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
+      <select id="connect-role" onchange="updateCustomRole()" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        <option value="">Select a role or type custom</option>
+        ${(cluster ? MENTOR_ARCHETYPES[cluster] : [...new Set(Object.values(MENTOR_ARCHETYPES).flat())]).map((role) => `<option value="${role}">${escapeHtml(role)}</option>`).join('')}
+        <option value="__custom__">Type a custom role...</option>
+      </select>
+      <input type="text" id="connect-role-custom" placeholder="e.g. community health nurse" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;display:none" onchange="updateCustomRole()">
       <button type="button" class="btn btn-primary" onclick="generateOutreachMessage()">Generate Message</button>
       <div id="outreach-output" class="mt-2"></div>
     </div>
@@ -73,9 +78,29 @@ function renderConnectPage() {
   `;
 }
 
+function updateCustomRole() {
+  const select = document.getElementById('connect-role');
+  const custom = document.getElementById('connect-role-custom');
+  if (select.value === '__custom__') {
+    custom.style.display = 'block';
+    custom.focus();
+  } else {
+    custom.style.display = 'none';
+  }
+}
+
 function generateOutreachMessage() {
   const name = document.getElementById('connect-name')?.value.trim();
-  const role = document.getElementById('connect-role')?.value.trim() || 'someone in this field';
+  const roleSelect = document.getElementById('connect-role');
+  const roleCustom = document.getElementById('connect-role-custom');
+  let role = roleSelect?.value?.trim();
+
+  if (role === '__custom__') {
+    role = roleCustom?.value?.trim() || 'someone in this field';
+  } else if (!role || role === '') {
+    role = 'someone in this field';
+  }
+
   const greeting = name ? `Hi ${name},` : 'Hi,';
   const message = `${greeting}\n\nMy name is [your name]. I'm exploring a career path and would really value 15 minutes of your time to hear about your experience as ${role.match(/^[aeiou]/i) ? 'an' : 'a'} ${role}. Would you be open to a short call or chat this week, whenever is convenient for you?\n\nThank you so much,\n[your name]`;
 

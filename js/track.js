@@ -59,11 +59,43 @@ function daysSince(iso) {
 }
 
 function renderOkrsTab(container) {
+  const statusFilter = AppState.decideFilters?.okrStatus || 'all';
+  const sortBy = AppState.decideFilters?.okrSort || 'recent';
+
+  let filtered = AppState.okrs;
+  if (statusFilter !== 'all') {
+    filtered = filtered.filter((okr) => okrStatus(okr) === statusFilter);
+  }
+
+  if (sortBy === 'recent') {
+    filtered = filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } else if (sortBy === 'progress') {
+    filtered = filtered.sort((a, b) => {
+      const aProgress = b.keyResults.filter((k) => k.done).length / (b.keyResults.length || 1);
+      const bProgress = a.keyResults.filter((k) => k.done).length / (a.keyResults.length || 1);
+      return bProgress - aProgress;
+    });
+  }
+
   container.innerHTML = `
+    <div class="filter-row" style="margin-bottom:1rem;display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center">
+      <label class="caption" style="margin:0;font-weight:500" for="okr-status-filter">Filter:</label>
+      <select id="okr-status-filter" onchange="setOkrStatusFilter(this.value)" style="min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        <option value="all" ${statusFilter === 'all' ? 'selected' : ''}>All OKRs</option>
+        <option value="on-track" ${statusFilter === 'on-track' ? 'selected' : ''}>On Track</option>
+        <option value="at-risk" ${statusFilter === 'at-risk' ? 'selected' : ''}>At Risk</option>
+        <option value="done" ${statusFilter === 'done' ? 'selected' : ''}>Done</option>
+      </select>
+      <label class="caption" style="margin:0;font-weight:500" for="okr-sort-filter">Sort:</label>
+      <select id="okr-sort-filter" onchange="setOkrSortBy(this.value)" style="min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        <option value="recent" ${sortBy === 'recent' ? 'selected' : ''}>Most Recent</option>
+        <option value="progress" ${sortBy === 'progress' ? 'selected' : ''}>Progress (High to Low)</option>
+      </select>
+    </div>
     <button type="button" class="btn btn-primary mb-2" onclick="openOkrModal()">+ New OKR</button>
-    ${AppState.okrs.length === 0
+    ${filtered.length === 0
       ? emptyState('🎯', 'No OKRs yet', 'Turn your Odyssey Plan into a quarterly objective with 2–3 measurable key results.', '+ New OKR', 'openOkrModal()')
-      : AppState.okrs.map((okr) => renderOkrItem(okr)).join('')
+      : filtered.map((okr) => renderOkrItem(okr)).join('')
     }
   `;
 }
@@ -175,4 +207,18 @@ function deleteApplication(appId) {
   AppState.applications = AppState.applications.filter((a) => a.id !== appId);
   saveState();
   renderApplicationsTab(document.getElementById('track-tab-content'));
+}
+
+function setOkrStatusFilter(status) {
+  AppState.decideFilters = AppState.decideFilters || {};
+  AppState.decideFilters.okrStatus = status;
+  saveState();
+  renderOkrsTab(document.getElementById('track-tab-content'));
+}
+
+function setOkrSortBy(sortBy) {
+  AppState.decideFilters = AppState.decideFilters || {};
+  AppState.decideFilters.okrSort = sortBy;
+  saveState();
+  renderOkrsTab(document.getElementById('track-tab-content'));
 }

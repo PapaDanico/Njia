@@ -105,6 +105,9 @@ function renderCourseMatcher(container) {
   const levelOptions = ['all', 'certificate', 'diploma', 'degree'];
   const levelLabels = { certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
 
+  const modeOptions = ['any', 'full_time', 'evening', 'weekend', 'online'];
+  const modeLabels = { any: 'Any Schedule', full_time: 'Full-Time', evening: 'Evening', weekend: 'Weekend', online: 'Online' };
+
   const matchesCluster = (course) => AppState.decideFilters.cluster === 'all' || course.cluster === AppState.decideFilters.cluster;
   const matchesMode = (course) => AppState.decideFilters.mode === 'any' || course.mode === AppState.decideFilters.mode;
   const matchesLevel = (course) => AppState.decideFilters.level === 'all' || course.level === AppState.decideFilters.level;
@@ -158,18 +161,22 @@ function renderCourseMatcher(container) {
     </div>
 
     <div class="filter-row" aria-label="Filter by qualification level">
-      ${levelOptions.map((l) => `
-        <button type="button" class="filter-chip ${AppState.decideFilters.level === l ? 'active' : ''}" onclick="setDecideLevelFilter('${l}')">
-          ${l === 'all' ? 'All Levels' : levelLabels[l]}
-        </button>
-      `).join('')}
+      <select onchange="setDecideLevelFilter(this.value)" style="width:100%;max-width:200px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${levelOptions.map((l) => `<option value="${l}" ${AppState.decideFilters.level === l ? 'selected' : ''}>${l === 'all' ? 'All Levels' : levelLabels[l]}</option>`).join('')}
+      </select>
+    </div>
+
+    <div class="filter-row" aria-label="Filter by learning mode">
+      <select onchange="setDecideModeFilter(this.value)" style="width:100%;max-width:200px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${modeOptions.map((m) => `<option value="${m}" ${AppState.decideFilters.mode === m ? 'selected' : ''}>${modeLabels[m]}</option>`).join('')}
+      </select>
     </div>
 
     <div class="filter-row" aria-label="Filter by county">
-      <button type="button" class="filter-chip ${AppState.decideFilters.county === 'all' ? 'active' : ''}" onclick="setDecideCountyFilter('all')">📍 All Counties</button>
-      ${COUNTIES.map((county) => `
-        <button type="button" class="filter-chip ${AppState.decideFilters.county === county ? 'active' : ''}" onclick="setDecideCountyFilter('${county}')">${escapeHtml(county)}</button>
-      `).join('')}
+      <select onchange="setDecideCountyFilter(this.value)" style="width:100%;max-width:250px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        <option value="all" ${AppState.decideFilters.county === 'all' ? 'selected' : ''}>📍 All Counties</option>
+        ${COUNTIES.map((county) => `<option value="${county}" ${AppState.decideFilters.county === county ? 'selected' : ''}>${escapeHtml(county)}</option>`).join('')}
+      </select>
     </div>
 
     <div class="card">
@@ -257,6 +264,11 @@ function setDecideCountyFilter(county) {
 }
 function setDecideLevelFilter(level) {
   AppState.decideFilters.level = level;
+  saveState();
+  renderDecideTabContent();
+}
+function setDecideModeFilter(mode) {
+  AppState.decideFilters.mode = mode;
   saveState();
   renderDecideTabContent();
 }

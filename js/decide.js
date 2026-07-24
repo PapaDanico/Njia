@@ -105,6 +105,9 @@ function renderCourseMatcher(container) {
   const levelOptions = ['all', 'certificate', 'diploma', 'degree'];
   const levelLabels = { certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
 
+  const modeOptions = ['any', 'full_time', 'evening', 'weekend', 'online'];
+  const modeLabels = { any: 'Any Schedule', full_time: 'Full-Time', evening: 'Evening', weekend: 'Weekend', online: 'Online' };
+
   const matchesCluster = (course) => AppState.decideFilters.cluster === 'all' || course.cluster === AppState.decideFilters.cluster;
   const matchesMode = (course) => AppState.decideFilters.mode === 'any' || course.mode === AppState.decideFilters.mode;
   const matchesLevel = (course) => AppState.decideFilters.level === 'all' || course.level === AppState.decideFilters.level;
@@ -149,27 +152,29 @@ function renderCourseMatcher(container) {
       </div>
     ` : ''}
 
-    <div class="filter-row" role="tablist" aria-label="Filter by career cluster">
-      ${clusterOptions.map((c) => `
-        <button type="button" class="filter-chip ${AppState.decideFilters.cluster === c ? 'active' : ''}" onclick="setDecideClusterFilter('${c}')">
-          ${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}
-        </button>
-      `).join('')}
+    <div class="filter-row" aria-label="Filter by career cluster">
+      <select onchange="setDecideClusterFilter(this.value)" style="width:100%;max-width:220px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${clusterOptions.map((c) => `<option value="${c}" ${AppState.decideFilters.cluster === c ? 'selected' : ''}>${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}</option>`).join('')}
+      </select>
     </div>
 
     <div class="filter-row" aria-label="Filter by qualification level">
-      ${levelOptions.map((l) => `
-        <button type="button" class="filter-chip ${AppState.decideFilters.level === l ? 'active' : ''}" onclick="setDecideLevelFilter('${l}')">
-          ${l === 'all' ? 'All Levels' : levelLabels[l]}
-        </button>
-      `).join('')}
+      <select onchange="setDecideLevelFilter(this.value)" style="width:100%;max-width:200px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${levelOptions.map((l) => `<option value="${l}" ${AppState.decideFilters.level === l ? 'selected' : ''}>${l === 'all' ? 'All Levels' : levelLabels[l]}</option>`).join('')}
+      </select>
+    </div>
+
+    <div class="filter-row" aria-label="Filter by learning mode">
+      <select onchange="setDecideModeFilter(this.value)" style="width:100%;max-width:200px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${modeOptions.map((m) => `<option value="${m}" ${AppState.decideFilters.mode === m ? 'selected' : ''}>${modeLabels[m]}</option>`).join('')}
+      </select>
     </div>
 
     <div class="filter-row" aria-label="Filter by county">
-      <button type="button" class="filter-chip ${AppState.decideFilters.county === 'all' ? 'active' : ''}" onclick="setDecideCountyFilter('all')">📍 All Counties</button>
-      ${COUNTIES.map((county) => `
-        <button type="button" class="filter-chip ${AppState.decideFilters.county === county ? 'active' : ''}" onclick="setDecideCountyFilter('${county}')">${escapeHtml(county)}</button>
-      `).join('')}
+      <select onchange="setDecideCountyFilter(this.value)" style="width:100%;max-width:250px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        <option value="all" ${AppState.decideFilters.county === 'all' ? 'selected' : ''}>📍 All Counties</option>
+        ${COUNTIES.map((county) => `<option value="${county}" ${AppState.decideFilters.county === county ? 'selected' : ''}>${escapeHtml(county)}</option>`).join('')}
+      </select>
     </div>
 
     <div class="card">
@@ -260,6 +265,11 @@ function setDecideLevelFilter(level) {
   saveState();
   renderDecideTabContent();
 }
+function setDecideModeFilter(mode) {
+  AppState.decideFilters.mode = mode;
+  saveState();
+  renderDecideTabContent();
+}
 function toggleDecideSavedOnly() {
   AppState.decideFilters.savedOnly = !AppState.decideFilters.savedOnly;
   saveState();
@@ -335,12 +345,10 @@ function renderFundingFinder(container) {
       </div>
     </div>
 
-    <div class="filter-row">
-      ${FUNDING_TYPES.map((t) => `
-        <button type="button" class="filter-chip ${activeType === t ? 'active' : ''}" onclick="setFundingTypeFilter('${t}')">
-          ${t === 'all' ? 'All' : t.replace('_', ' ')}
-        </button>
-      `).join('')}
+    <div class="filter-row" aria-label="Filter by funding type">
+      <select onchange="setFundingTypeFilter(this.value)" style="width:100%;max-width:220px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${FUNDING_TYPES.map((t) => `<option value="${t}" ${activeType === t ? 'selected' : ''}>${t === 'all' ? 'All Funding Types' : t.replace('_', ' ')}</option>`).join('')}
+      </select>
     </div>
     <div class="results-grid">${filtered.map((f) => renderFundingCard(f, grade)).join('')}</div>
   `;

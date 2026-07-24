@@ -160,27 +160,35 @@ function getSuggestedCluster() {
   return results ? results.primary : 'general';
 }
 
-function ensurePrototypeChecklist() {
-  const cluster = getSuggestedCluster();
+function ensurePrototypeChecklist(cluster) {
   const suggestions = PROTOTYPE_SUGGESTIONS[cluster] || PROTOTYPE_SUGGESTIONS.general;
-  const existingTexts = new Set(AppState.prototypeChecklist.map((i) => i.text));
+  // Legacy items saved before cluster-tagging existed belong to the
+  // originally-suggested cluster, so they still show up under it.
+  const legacyCluster = getSuggestedCluster();
+  let touched = false;
+  AppState.prototypeChecklist.forEach((item) => {
+    if (!item.cluster) { item.cluster = legacyCluster; touched = true; }
+  });
+  const existingTexts = new Set(AppState.prototypeChecklist.filter((i) => i.cluster === cluster).map((i) => i.text));
   const toAdd = [];
   suggestions.conversations.forEach((text) => {
-    if (!existingTexts.has(text)) toAdd.push({ id: uid('proto'), type: 'conversation', text, done: false });
+    if (!existingTexts.has(text)) toAdd.push({ id: uid('proto'), type: 'conversation', text, done: false, cluster });
   });
   suggestions.experiences.forEach((text) => {
-    if (!existingTexts.has(text)) toAdd.push({ id: uid('proto'), type: 'experience', text, done: false });
+    if (!existingTexts.has(text)) toAdd.push({ id: uid('proto'), type: 'experience', text, done: false, cluster });
   });
-  if (toAdd.length) {
+  if (toAdd.length || touched) {
     AppState.prototypeChecklist = [...AppState.prototypeChecklist, ...toAdd];
     saveState();
   }
 }
 
 function renderPrototypeTab(container) {
-  ensurePrototypeChecklist();
-  const conversations = AppState.prototypeChecklist.filter((i) => i.type === 'conversation');
-  const experiences = AppState.prototypeChecklist.filter((i) => i.type === 'experience');
+  const activeCluster = AppState.decideFilters?.prototypeCluster || getSuggestedCluster();
+  ensurePrototypeChecklist(activeCluster);
+  const clusterItems = AppState.prototypeChecklist.filter((i) => i.cluster === activeCluster);
+  const conversations = clusterItems.filter((i) => i.type === 'conversation');
+  const experiences = clusterItems.filter((i) => i.type === 'experience');
 
   const renderList = (items) => items.map((item) => `
     <div class="check-item ${item.done ? 'done' : ''}">
@@ -189,7 +197,15 @@ function renderPrototypeTab(container) {
     </div>
   `).join('');
 
+  const clusterOptions = Object.keys(CLUSTERS);
+
   container.innerHTML = `
+    <div class="card">
+      <span class="caption">Explore suggestions for</span>
+      <select onchange="setPrototypeCluster(this.value)" style="width:100%;max-width:260px;min-height:44px;margin-top:0.4rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${clusterOptions.map((c) => `<option value="${c}" ${activeCluster === c ? 'selected' : ''}>${CLUSTERS[c].name}</option>`).join('')}
+      </select>
+    </div>
     <div class="card">
       <h3 class="mb-1">💬 Prototype Conversations</h3>
       <p class="text-muted text-sm mb-2">Before committing years and money, talk to people already doing it.</p>
@@ -201,6 +217,13 @@ function renderPrototypeTab(container) {
       ${renderList(experiences)}
     </div>
   `;
+}
+
+function setPrototypeCluster(cluster) {
+  AppState.decideFilters = AppState.decideFilters || {};
+  AppState.decideFilters.prototypeCluster = cluster;
+  saveState();
+  renderPrototypeTab(document.getElementById('design-tab-content'));
 }
 
 function togglePrototypeItem(id) {

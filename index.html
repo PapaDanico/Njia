@@ -63,24 +63,22 @@
       <div class="header-actions">
         <button type="button" class="btn btn-primary btn-sm landing-cta-header" id="header-cta-btn" onclick="navigateTo('discover')">Start Discovery</button>
         <button type="button" class="header-btn" id="privacy-btn" aria-label="Privacy and data" onclick="openPrivacyModal()">🔒</button>
-        <button type="button" class="header-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu-overlay" onclick="toggleMobileMenu()">☰</button>
+        <button type="button" class="header-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()">☰</button>
       </div>
     </header>
 
-    <div class="mobile-menu-overlay" id="mobile-menu-overlay" aria-hidden="true">
-      <nav class="mobile-menu" aria-label="Mobile site menu">
-        <a href="#" onclick="scrollAndCloseMenu('landing-evidence');return false">Why Njia</a>
-        <a href="#" onclick="scrollAndCloseMenu('landing-process');return false">The Method</a>
-        <p class="mobile-menu-label">Modules</p>
-        <a href="#" onclick="navigateAndCloseMenu('discover');return false"><span aria-hidden="true">🧭</span> Discover</a>
-        <a href="#" onclick="navigateAndCloseMenu('design');return false"><span aria-hidden="true">🎨</span> Design</a>
-        <a href="#" onclick="navigateAndCloseMenu('decide');return false"><span aria-hidden="true">📊</span> Decide</a>
-        <a href="#" onclick="navigateAndCloseMenu('connect');return false"><span aria-hidden="true">🤝</span> Connect</a>
-        <a href="#" onclick="navigateAndCloseMenu('track');return false"><span aria-hidden="true">📈</span> Track</a>
-        <a href="#" onclick="closeMobileMenu();openFaqModal();return false">FAQ</a>
-        <button type="button" class="btn btn-primary mt-2" id="mobile-menu-cta-btn" onclick="navigateAndCloseMenu('discover')">Start Discovery →</button>
-      </nav>
-    </div>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile site menu">
+      <a href="#" onclick="scrollAndCloseMenu('landing-evidence');return false">Why Njia</a>
+      <a href="#" onclick="scrollAndCloseMenu('landing-process');return false">The Method</a>
+      <p class="mobile-menu-label">Modules</p>
+      <a href="#" onclick="navigateAndCloseMenu('discover');return false"><span aria-hidden="true">🧭</span> Discover</a>
+      <a href="#" onclick="navigateAndCloseMenu('design');return false"><span aria-hidden="true">🎨</span> Design</a>
+      <a href="#" onclick="navigateAndCloseMenu('decide');return false"><span aria-hidden="true">📊</span> Decide</a>
+      <a href="#" onclick="navigateAndCloseMenu('connect');return false"><span aria-hidden="true">🤝</span> Connect</a>
+      <a href="#" onclick="navigateAndCloseMenu('track');return false"><span aria-hidden="true">📈</span> Track</a>
+      <a href="#" onclick="closeMobileMenu();openFaqModal();return false">FAQ</a>
+      <button type="button" class="btn btn-primary mt-2" id="mobile-menu-cta-btn" onclick="navigateAndCloseMenu('discover')">Start Discovery →</button>
+    </nav>
 
     <section id="install-banner" class="install-banner hidden" aria-label="Install Njia">
       <span class="install-banner-text">📲 Install Njia for one-tap, offline access</span>

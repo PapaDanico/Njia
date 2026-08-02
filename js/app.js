@@ -104,24 +104,20 @@ function closeModulesDropdown() {
 }
 
 function toggleMobileMenu() {
-  const overlay = document.getElementById('mobile-menu-overlay');
+  const menu = document.getElementById('mobile-menu');
   const toggle = document.getElementById('nav-toggle');
-  if (!overlay || !toggle) return;
-  const isOpen = overlay.classList.toggle('open');
-  overlay.setAttribute('aria-hidden', String(!isOpen));
+  if (!menu || !toggle) return;
+  const isOpen = menu.classList.toggle('open');
   toggle.setAttribute('aria-expanded', String(isOpen));
   toggle.textContent = isOpen ? '✕' : '☰';
-  document.body.style.overflow = isOpen ? 'hidden' : '';
 }
 
 function closeMobileMenu() {
-  const overlay = document.getElementById('mobile-menu-overlay');
+  const menu = document.getElementById('mobile-menu');
   const toggle = document.getElementById('nav-toggle');
-  if (!overlay || !overlay.classList.contains('open')) return;
-  overlay.classList.remove('open');
-  overlay.setAttribute('aria-hidden', 'true');
+  if (!menu || !menu.classList.contains('open')) return;
+  menu.classList.remove('open');
   if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.textContent = '☰'; }
-  document.body.style.overflow = '';
 }
 
 function navigateAndCloseMenu(page) {
@@ -130,7 +126,7 @@ function navigateAndCloseMenu(page) {
 }
 
 function scrollAndCloseMenu(id) {
-  const wasOpen = document.getElementById('mobile-menu-overlay')?.classList.contains('open');
+  const wasOpen = document.getElementById('mobile-menu')?.classList.contains('open');
   closeMobileMenu();
   // Let the drawer's close transition (and the overflow:hidden release)
   // settle before scrolling, so the anchor lands where expected instead
@@ -491,12 +487,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('modal-close-btn')?.addEventListener('click', closeModal);
 
-  document.getElementById('mobile-menu-overlay')?.addEventListener('click', (e) => {
-    if (e.target.id === 'mobile-menu-overlay') closeMobileMenu();
-  });
   document.addEventListener('click', (e) => {
-    if (e.target.closest('.landing-nav-dropdown')) return;
-    closeModulesDropdown();
+    const menu = document.getElementById('mobile-menu');
+    const toggle = document.getElementById('nav-toggle');
+    if (menu && menu.classList.contains('open') && !menu.contains(e.target) && e.target !== toggle) {
+      closeMobileMenu();
+    }
+    if (!e.target.closest('.landing-nav-dropdown')) closeModulesDropdown();
   });
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;

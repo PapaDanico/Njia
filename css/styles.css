@@ -217,14 +217,14 @@ body[data-page="home"] .nav-toggle { display: flex; }
 }
 .landing-nav-link:hover, .landing-nav-link:focus-visible { color: var(--primary-dark); }
 .landing-nav-dropdown { position: relative; }
-.landing-nav-dropdown-btn .caret { font-size: 0.7rem; transition: transform 0.15s ease; }
-.landing-nav-dropdown-btn[aria-expanded="true"] .caret { transform: rotate(180deg); }
+.landing-nav-dropdown-btn .caret { font-size: 0.7rem; transition: transform 0.15s ease; opacity: 0.6; }
+.landing-nav-dropdown-btn[aria-expanded="true"] .caret,
+.landing-nav-dropdown:hover .caret, .landing-nav-dropdown:focus-within .caret { transform: rotate(180deg); opacity: 1; }
 .landing-nav-dropdown-menu {
-  display: none;
   position: absolute;
   top: calc(100% + 0.75rem);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(6px);
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -232,8 +232,15 @@ body[data-page="home"] .nav-toggle { display: flex; }
   padding: 0.5rem;
   min-width: 190px;
   z-index: 25;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
 }
-.landing-nav-dropdown-menu.open { display: block; }
+.landing-nav-dropdown-menu.open,
+.landing-nav-dropdown:hover .landing-nav-dropdown-menu,
+.landing-nav-dropdown:focus-within .landing-nav-dropdown-menu {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
 .landing-nav-dropdown-menu button {
   display: flex; align-items: center; gap: 0.6rem;
   width: 100%;
@@ -253,26 +260,24 @@ body[data-page="home"] .nav-toggle { display: flex; }
 .header-actions .landing-cta-header { display: none; white-space: nowrap; }
 .nav-toggle { font-size: 1.3rem; }
 
-.mobile-menu-overlay {
-  display: none;
-  position: fixed; inset: 0;
-  background: rgba(31, 30, 29, 0.42);
-  z-index: 32;
-}
-.mobile-menu-overlay.open { display: block; }
+/* Mobile menu: a floating panel below the sticky header, not a full-page
+   scrim — #app is the nearest position:relative ancestor, so top matches
+   the header's own height exactly. */
 .mobile-menu {
+  display: none;
   position: absolute;
   top: var(--header-h); left: 0; right: 0;
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border);
   box-shadow: var(--shadow-lg);
-  display: flex;
   flex-direction: column;
   padding: 0.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0));
   max-height: calc(100vh - var(--header-h));
   overflow-y: auto;
+  z-index: 32;
   animation: fadeIn 0.2s ease;
 }
+.mobile-menu.open { display: flex; }
 .mobile-menu a, .mobile-menu button:not(.btn) {
   display: flex; align-items: center; gap: 0.6rem;
   min-height: 48px;
@@ -293,7 +298,7 @@ body[data-page="home"] .nav-toggle { display: flex; }
   body[data-page="home"] .landing-nav { display: flex; }
   body[data-page="home"] .header-actions .landing-cta-header { display: inline-flex; }
   body[data-page="home"] .nav-toggle { display: none; }
-  .mobile-menu-overlay { display: none !important; }
+  .mobile-menu { display: none !important; }
 }
 
 main {
@@ -1198,7 +1203,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 
 @media print {
   .app-header, .bottom-nav, .install-banner, .toast-container,
-  .modal-overlay, .mobile-menu-overlay, .btn, .btn-row, button, .odyssey-tabs, .filter-row {
+  .modal-overlay, .mobile-menu, .btn, .btn-row, button, .odyssey-tabs, .filter-row {
     display: none !important;
   }
   body, #app, main, .page {

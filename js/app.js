@@ -18,7 +18,11 @@ const defaultState = () => ({
   applications: [],
   okrs: [],
   mentors: [],
-  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false }
+  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false },
+  // View-only UI state for Track and Design — kept separate from
+  // decideFilters (Decide-module-scoped) so clearDecideFilters() can't
+  // accidentally drop or corrupt unrelated modules' selections.
+  viewFilters: { okrStatus: 'all', okrSort: 'recent', appStatus: 'all', prototypeCluster: null }
 });
 
 let AppState = loadState();
@@ -74,6 +78,63 @@ function updateTrackBadge() {
   document.querySelector('.nav-item[data-page="track"]')?.classList.toggle('has-badge', needsAttention);
 }
 
+// The header/mobile-menu CTA mirrors the hero CTA's completed-state
+// wording — both live outside renderHomePage's innerHTML (header is
+// static app-shell markup), so they need their own sync point.
+function updateHeaderCta() {
+  const text = AppState.questionnaire.completed ? 'Revisit Discovery' : 'Start Discovery';
+  const headerBtn = document.getElementById('header-cta-btn');
+  if (headerBtn) headerBtn.textContent = text;
+  const mobileBtn = document.getElementById('mobile-menu-cta-btn');
+  if (mobileBtn) mobileBtn.textContent = `${text} →`;
+}
+
+/* ---------- Landing header: nav dropdown + mobile menu ---------- */
+function toggleModulesDropdown() {
+  const btn = document.getElementById('modules-dropdown-btn');
+  const menu = document.getElementById('modules-dropdown-menu');
+  if (!btn || !menu) return;
+  const isOpen = menu.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(isOpen));
+}
+
+function closeModulesDropdown() {
+  document.getElementById('modules-dropdown-menu')?.classList.remove('open');
+  document.getElementById('modules-dropdown-btn')?.setAttribute('aria-expanded', 'false');
+}
+
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const toggle = document.getElementById('nav-toggle');
+  if (!menu || !toggle) return;
+  const isOpen = menu.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', String(isOpen));
+  toggle.textContent = isOpen ? '✕' : '☰';
+}
+
+function closeMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const toggle = document.getElementById('nav-toggle');
+  if (!menu || !menu.classList.contains('open')) return;
+  menu.classList.remove('open');
+  if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.textContent = '☰'; }
+}
+
+function navigateAndCloseMenu(page) {
+  closeMobileMenu();
+  navigateTo(page);
+}
+
+function scrollAndCloseMenu(id) {
+  const wasOpen = document.getElementById('mobile-menu')?.classList.contains('open');
+  closeMobileMenu();
+  // Let the drawer's close transition (and the overflow:hidden release)
+  // settle before scrolling, so the anchor lands where expected instead
+  // of the mid-close layout shift throwing scrollIntoView off.
+  if (wasOpen) setTimeout(() => scrollToLanding(id), 150);
+  else scrollToLanding(id);
+}
+
 function renderRoute({ focusHeading = false } = {}) {
   PAGES.forEach((id) => {
     const el = document.getElementById(`page-${id}`);
@@ -87,6 +148,10 @@ function renderRoute({ focusHeading = false } = {}) {
     else btn.removeAttribute('aria-current');
   });
   updateTrackBadge();
+  updateHeaderCta();
+  document.body.dataset.page = AppState.currentPage;
+  closeMobileMenu();
+  closeModulesDropdown();
   const label = document.getElementById('header-page-label');
   if (label) label.textContent = PAGE_LABELS[AppState.currentPage] ? `· ${PAGE_LABELS[AppState.currentPage]}` : '';
   window.scrollTo(0, 0);
@@ -265,9 +330,9 @@ function renderHomePage() {
           <button type="button" class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
         </div>
         <div class="landing-trust-row">
-          <span class="landing-trust-item">🔒 Stays on your device</span>
-          <span class="landing-trust-item">🆓 Free, no signup</span>
-          <span class="landing-trust-item">⏱️ About 20 minutes</span>
+          <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 10V8a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h8V8a4 4 0 0 0-8 0v2Zm4 5a1.6 1.6 0 0 0-.8 3v1.4a.8.8 0 0 0 1.6 0V18a1.6 1.6 0 0 0-.8-3Z"/></svg> Stays on your device</span>
+          <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2c1.9 0 3.6.65 4.95 1.75L5.75 16.95A7.95 7.95 0 0 1 12 4Zm0 16a7.9 7.9 0 0 1-4.95-1.75L18.25 7.05A7.95 7.95 0 0 1 12 20Z"/></svg> Free, no signup</span>
+          <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> About 20 minutes</span>
         </div>
         ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">You're matched as <strong style="color:var(--landing-ink)">${CLUSTERS[primaryCluster].name}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
       </section>
@@ -297,7 +362,7 @@ function renderHomePage() {
         </div>
       </section>
 
-      <section class="landing-block">
+      <section class="landing-block" id="landing-evidence">
         <span class="landing-eyebrow">THE GAP NJIA CLOSES</span>
         <h2 class="landing-h2">What the data actually says about Kenyan youth and career choice</h2>
         <p class="landing-h2-sub">Every number below is cited — not a vibe. This is the evidence base the questionnaire and course matcher are built on.</p>
@@ -422,6 +487,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('modal-close-btn')?.addEventListener('click', closeModal);
 
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobile-menu');
+    const toggle = document.getElementById('nav-toggle');
+    if (menu && menu.classList.contains('open') && !menu.contains(e.target) && e.target !== toggle) {
+      closeMobileMenu();
+    }
+    if (!e.target.closest('.landing-nav-dropdown')) closeModulesDropdown();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    closeMobileMenu();
+    closeModulesDropdown();
+  });
+
   document.addEventListener('keydown', (e) => {
     const overlay = document.getElementById('modal-overlay');
     if (!overlay || !overlay.classList.contains('open')) return;
@@ -521,6 +600,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
 
 document.addEventListener('njia-state-changed', maybeShowInstallBanner);
 document.addEventListener('njia-state-changed', updateTrackBadge);
+document.addEventListener('njia-state-changed', updateHeaderCta);
 
 window.addEventListener('appinstalled', () => {
   hideInstallBanner();

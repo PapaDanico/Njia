@@ -1018,7 +1018,10 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   color: var(--primary-dark);
   margin-bottom: 0.5rem;
 }
-.landing-numbers-card h3 { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 1.1rem; color: var(--landing-ink); }
+/* A styled <p>, not a heading — this card sits directly beside the hero's
+ * h1 with no h2 in between (the page's next real heading is much further
+ * down), so an h3 here would skip a level and fail heading-order. */
+.landing-numbers-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; margin-bottom: 1.1rem; color: var(--landing-ink); }
 .landing-numbers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.25rem; margin-bottom: 1.1rem; }
 .landing-numbers-item { display: flex; flex-direction: column; gap: 0.2rem; }
 .landing-numbers-figure { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.6rem; font-weight: 700; color: var(--primary-dark); line-height: 1; }

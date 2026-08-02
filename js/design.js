@@ -125,7 +125,7 @@ function renderPortfolioTab(container) {
       <p class="text-secondary text-sm mb-2">Drag each slider to reflect how much time and energy that area of your life gets <em>right now</em> — not how you wish it were.</p>
       ${PORTFOLIO_GAUGES.map((g) => `
         <div class="portfolio-gauge">
-          <div class="gauge-label"><span>${g.icon} ${g.label}</span><span id="gauge-val-${g.key}">${AppState.portfolio[g.key]}%</span></div>
+          <div class="gauge-label"><span>${g.icon} ${g.label}</span><span id="gauge-val-${g.key}" class="num">${AppState.portfolio[g.key]}%</span></div>
           <input type="range" min="0" max="100" value="${AppState.portfolio[g.key]}" style="accent-color:${g.color}"
             oninput="updatePortfolioGauge('${g.key}', this.value)" aria-label="${g.label} level">
         </div>

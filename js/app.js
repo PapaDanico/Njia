@@ -359,7 +359,7 @@ function renderHomePage() {
       <section class="landing-hero">
         <div class="landing-hero-main">
           <img class="landing-hero-logo" src="./icons/logo-mark-light-256.png" alt="Njia" width="64" height="64" decoding="async">
-          <span class="landing-eyebrow">RESEARCH-BACKED METHOD · REAL KENYAN DATA · ZERO COST</span>
+          <span class="status-pill mb-2"><span class="dot" aria-hidden="true"></span>Research-backed method · Real Kenyan data · Always free</span>
           <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
           <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
           <p class="landing-proverb"><em>"Penye nia, pana njia"</em> — where there's a will, there's a way. It's why we're called Njia.</p>

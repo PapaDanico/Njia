@@ -952,7 +952,8 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 
 .landing-trust-row { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
-.landing-trust-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--landing-ink-muted); }
+.landing-trust-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--landing-ink-muted); }
+.landing-trust-item svg { flex: 0 0 auto; color: var(--secondary); }
 
 .landing-dark {
   background: var(--landing-dark);

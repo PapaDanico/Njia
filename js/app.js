@@ -330,9 +330,9 @@ function renderHomePage() {
           <button type="button" class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
         </div>
         <div class="landing-trust-row">
-          <span class="landing-trust-item">🔒 Stays on your device</span>
-          <span class="landing-trust-item">🆓 Free, no signup</span>
-          <span class="landing-trust-item">⏱️ About 20 minutes</span>
+          <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 10V8a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h8V8a4 4 0 0 0-8 0v2Zm4 5a1.6 1.6 0 0 0-.8 3v1.4a.8.8 0 0 0 1.6 0V18a1.6 1.6 0 0 0-.8-3Z"/></svg> Stays on your device</span>
+          <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2c1.9 0 3.6.65 4.95 1.75L5.75 16.95A7.95 7.95 0 0 1 12 4Zm0 16a7.9 7.9 0 0 1-4.95-1.75L18.25 7.05A7.95 7.95 0 0 1 12 20Z"/></svg> Free, no signup</span>
+          <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> About 20 minutes</span>
         </div>
         ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">You're matched as <strong style="color:var(--landing-ink)">${CLUSTERS[primaryCluster].name}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
       </section>

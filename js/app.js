@@ -78,6 +78,67 @@ function updateTrackBadge() {
   document.querySelector('.nav-item[data-page="track"]')?.classList.toggle('has-badge', needsAttention);
 }
 
+// The header/mobile-menu CTA mirrors the hero CTA's completed-state
+// wording — both live outside renderHomePage's innerHTML (header is
+// static app-shell markup), so they need their own sync point.
+function updateHeaderCta() {
+  const text = AppState.questionnaire.completed ? 'Revisit Discovery' : 'Start Discovery';
+  const headerBtn = document.getElementById('header-cta-btn');
+  if (headerBtn) headerBtn.textContent = text;
+  const mobileBtn = document.getElementById('mobile-menu-cta-btn');
+  if (mobileBtn) mobileBtn.textContent = `${text} →`;
+}
+
+/* ---------- Landing header: nav dropdown + mobile menu ---------- */
+function toggleModulesDropdown() {
+  const btn = document.getElementById('modules-dropdown-btn');
+  const menu = document.getElementById('modules-dropdown-menu');
+  if (!btn || !menu) return;
+  const isOpen = menu.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(isOpen));
+}
+
+function closeModulesDropdown() {
+  document.getElementById('modules-dropdown-menu')?.classList.remove('open');
+  document.getElementById('modules-dropdown-btn')?.setAttribute('aria-expanded', 'false');
+}
+
+function toggleMobileMenu() {
+  const overlay = document.getElementById('mobile-menu-overlay');
+  const toggle = document.getElementById('nav-toggle');
+  if (!overlay || !toggle) return;
+  const isOpen = overlay.classList.toggle('open');
+  overlay.setAttribute('aria-hidden', String(!isOpen));
+  toggle.setAttribute('aria-expanded', String(isOpen));
+  toggle.textContent = isOpen ? '✕' : '☰';
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+function closeMobileMenu() {
+  const overlay = document.getElementById('mobile-menu-overlay');
+  const toggle = document.getElementById('nav-toggle');
+  if (!overlay || !overlay.classList.contains('open')) return;
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.textContent = '☰'; }
+  document.body.style.overflow = '';
+}
+
+function navigateAndCloseMenu(page) {
+  closeMobileMenu();
+  navigateTo(page);
+}
+
+function scrollAndCloseMenu(id) {
+  const wasOpen = document.getElementById('mobile-menu-overlay')?.classList.contains('open');
+  closeMobileMenu();
+  // Let the drawer's close transition (and the overflow:hidden release)
+  // settle before scrolling, so the anchor lands where expected instead
+  // of the mid-close layout shift throwing scrollIntoView off.
+  if (wasOpen) setTimeout(() => scrollToLanding(id), 150);
+  else scrollToLanding(id);
+}
+
 function renderRoute({ focusHeading = false } = {}) {
   PAGES.forEach((id) => {
     const el = document.getElementById(`page-${id}`);
@@ -91,6 +152,10 @@ function renderRoute({ focusHeading = false } = {}) {
     else btn.removeAttribute('aria-current');
   });
   updateTrackBadge();
+  updateHeaderCta();
+  document.body.dataset.page = AppState.currentPage;
+  closeMobileMenu();
+  closeModulesDropdown();
   const label = document.getElementById('header-page-label');
   if (label) label.textContent = PAGE_LABELS[AppState.currentPage] ? `· ${PAGE_LABELS[AppState.currentPage]}` : '';
   window.scrollTo(0, 0);
@@ -301,7 +366,7 @@ function renderHomePage() {
         </div>
       </section>
 
-      <section class="landing-block">
+      <section class="landing-block" id="landing-evidence">
         <span class="landing-eyebrow">THE GAP NJIA CLOSES</span>
         <h2 class="landing-h2">What the data actually says about Kenyan youth and career choice</h2>
         <p class="landing-h2-sub">Every number below is cited — not a vibe. This is the evidence base the questionnaire and course matcher are built on.</p>
@@ -426,6 +491,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.getElementById('modal-close-btn')?.addEventListener('click', closeModal);
 
+  document.getElementById('mobile-menu-overlay')?.addEventListener('click', (e) => {
+    if (e.target.id === 'mobile-menu-overlay') closeMobileMenu();
+  });
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.landing-nav-dropdown')) return;
+    closeModulesDropdown();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    closeMobileMenu();
+    closeModulesDropdown();
+  });
+
   document.addEventListener('keydown', (e) => {
     const overlay = document.getElementById('modal-overlay');
     if (!overlay || !overlay.classList.contains('open')) return;
@@ -525,6 +603,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
 
 document.addEventListener('njia-state-changed', maybeShowInstallBanner);
 document.addEventListener('njia-state-changed', updateTrackBadge);
+document.addEventListener('njia-state-changed', updateHeaderCta);
 
 window.addEventListener('appinstalled', () => {
   hideInstallBanner();

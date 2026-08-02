@@ -195,6 +195,107 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
 .install-banner .header-btn:hover { background: rgba(250,249,245,0.15); }
 .header-btn:hover { background: var(--bg-card); }
 
+.header-actions { display: flex; align-items: center; gap: 0.4rem; }
+
+/* ---------- Landing nav (header) + mobile menu — home page only.
+   Hidden by default everywhere; body[data-page="home"] (set by
+   renderRoute) reveals the hamburger on mobile and the full nav row +
+   CTA on desktop, so module pages keep their existing minimal header. */
+.landing-nav, .landing-cta-header, .nav-toggle { display: none; }
+body[data-page="home"] .nav-toggle { display: flex; }
+
+.landing-nav { align-items: center; gap: 1.75rem; }
+.landing-nav-link {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: none; border: none;
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  padding: 0.4rem 0;
+  transition: color 0.15s ease;
+}
+.landing-nav-link:hover, .landing-nav-link:focus-visible { color: var(--primary-dark); }
+.landing-nav-dropdown { position: relative; }
+.landing-nav-dropdown-btn .caret { font-size: 0.7rem; transition: transform 0.15s ease; }
+.landing-nav-dropdown-btn[aria-expanded="true"] .caret { transform: rotate(180deg); }
+.landing-nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 0.5rem;
+  min-width: 190px;
+  z-index: 25;
+}
+.landing-nav-dropdown-menu.open { display: block; }
+.landing-nav-dropdown-menu button {
+  display: flex; align-items: center; gap: 0.6rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: none; border: none;
+  color: var(--text-primary);
+  font-size: 0.9rem; font-weight: 500;
+  text-align: left;
+  min-height: 48px;
+}
+.landing-nav-dropdown-menu button:hover { background: var(--bg-card); }
+
+/* Specificity bump (.header-actions .landing-cta-header, not just the
+   class alone) so this beats .btn's display:inline-flex — same
+   specificity would otherwise tie and let source order decide. */
+.header-actions .landing-cta-header { display: none; white-space: nowrap; }
+.nav-toggle { font-size: 1.3rem; }
+
+.mobile-menu-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(31, 30, 29, 0.42);
+  z-index: 32;
+}
+.mobile-menu-overlay.open { display: block; }
+.mobile-menu {
+  position: absolute;
+  top: var(--header-h); left: 0; right: 0;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom, 0));
+  max-height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease;
+}
+.mobile-menu a, .mobile-menu button:not(.btn) {
+  display: flex; align-items: center; gap: 0.6rem;
+  min-height: 48px;
+  padding: 0.5rem 0.25rem;
+  font-size: 1rem; font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+}
+.mobile-menu-label {
+  font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin: 0.75rem 0 0.1rem;
+}
+.mobile-menu .btn { margin-top: 1rem; }
+
+@media (min-width: 1024px) {
+  body[data-page="home"] .landing-nav { display: flex; }
+  body[data-page="home"] .header-actions .landing-cta-header { display: inline-flex; }
+  body[data-page="home"] .nav-toggle { display: none; }
+  .mobile-menu-overlay { display: none !important; }
+}
+
 main {
   flex: 1;
   padding-bottom: calc(var(--nav-h) + 1rem);
@@ -1097,7 +1198,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 
 @media print {
   .app-header, .bottom-nav, .install-banner, .toast-container,
-  .modal-overlay, .btn, .btn-row, button, .odyssey-tabs, .filter-row {
+  .modal-overlay, .mobile-menu-overlay, .btn, .btn-row, button, .odyssey-tabs, .filter-row {
     display: none !important;
   }
   body, #app, main, .page {

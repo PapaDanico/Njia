@@ -183,7 +183,7 @@ function renderCourseMatcher(container) {
     <div class="card">
       <div class="flex justify-between items-center mb-1">
         <span class="caption">Max budget (2 yrs, Ksh)</span>
-        <span class="text-sm">${AppState.decideFilters.budgetMax != null ? formatKes(AppState.decideFilters.budgetMax) : 'No limit'}</span>
+        <span class="text-sm num">${AppState.decideFilters.budgetMax != null ? formatKes(AppState.decideFilters.budgetMax) : 'No limit'}</span>
       </div>
       <input type="range" min="0" max="750000" step="10000" value="${AppState.decideFilters.budgetMax != null ? AppState.decideFilters.budgetMax : 750000}"
         oninput="setDecideBudgetFilter(this.value)" aria-label="Maximum budget">
@@ -219,26 +219,26 @@ function renderCourseCard(course, match) {
   return `
     <div class="card course-card">
       <div class="flex items-center gap-1" style="flex-wrap:wrap">
-        <span class="match-badge">${match.score}% Match${!match.eligible ? ' · Grade below requirement' : ''}</span>
+        <span class="match-badge"><span class="num">${match.score}%</span> Match${!match.eligible ? ' · Grade below requirement' : ''}</span>
         ${isVerified ? '<span class="verified-badge" title="Fee figures cross-checked against a public source">✓ Verified estimate</span>' : ''}
       </div>
       <h3>${escapeHtml(course.name)}</h3>
       <div class="institution-name">${escapeHtml(inst ? inst.name : 'Unknown institution')} · ${escapeHtml(inst ? inst.location : '')}</div>
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(course.level)}</div></div>
-        <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value">${course.duration_months} mo</div></div>
-        <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value">${formatKes(course.total_fees_kes)}</div></div>
-        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value">${escapeHtml(course.min_grade || 'None')}</div></div>
-        <div class="meta-item"><div class="meta-label">Employment Rate</div><div class="meta-value">${formatPercent(course.employment_rate)}</div></div>
-        <div class="meta-item"><div class="meta-label">Median Salary</div><div class="meta-value">${formatKes(course.median_salary_kes)}/mo</div></div>
+        <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${course.duration_months} mo</div></div>
+        <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value num">${formatKes(course.total_fees_kes)}</div></div>
+        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
+        <div class="meta-item"><div class="meta-label">Employment Rate</div><div class="meta-value num">${formatPercent(course.employment_rate)}</div></div>
+        <div class="meta-item"><div class="meta-label">Median Salary</div><div class="meta-value num">${formatKes(course.median_salary_kes)}/mo</div></div>
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
       <p class="text-muted text-sm mb-1">🗓️ Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
-      <p class="text-muted text-sm mb-2">📊 Feasibility: roughly <strong>${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
+      <p class="text-muted text-sm mb-2">📊 Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
       <p class="text-muted text-sm mb-2">🏠 Full cost of attendance (illustrative): ${requiresRelocation
-        ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong>${formatKes(totalCostOfAttendance)}</strong> total. Varies by town — plan, don't rely on this figure.`
-        : `<strong>${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
+        ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total. Varies by town — plan, don't rely on this figure.`
+        : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
       }</p>
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(course.verification_note)}</p>` : ''}
       <div class="btn-row">
@@ -383,8 +383,8 @@ function renderFundingCard(f, userGrade) {
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(f.verification_note)}</p>` : ''}
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Coverage</div><div class="meta-value">${escapeHtml(f.coverage)}</div></div>
-        <div class="meta-item"><div class="meta-label">Max Amount</div><div class="meta-value">${formatKes(f.max_amount_kes)}</div></div>
-        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value">${escapeHtml(f.min_grade || 'None')}${!eligible ? ' ⚠️' : ''}</div></div>
+        <div class="meta-item"><div class="meta-label">Max Amount</div><div class="meta-value num">${formatKes(f.max_amount_kes)}</div></div>
+        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(f.min_grade || 'None')}${!eligible ? ' ⚠️' : ''}</div></div>
         <div class="meta-item"><div class="meta-label">Deadline</div><div class="meta-value">${escapeHtml(f.application_deadline || 'Rolling')}</div></div>
       </div>
       <p class="text-muted text-sm mb-1"><strong>Requirements:</strong> ${f.requirements.map(escapeHtml).join(', ')}</p>

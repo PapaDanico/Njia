@@ -267,7 +267,7 @@ function renderDiscoverResults(el) {
         <h3 class="mb-2">Four Elements — Clarity Scores</h3>
         ${Object.entries(elementScores).map(([key, score]) => `
           <div class="score-row">
-            <div class="score-label"><span>${elementLabels[key]}</span><span>${score}%</span></div>
+            <div class="score-label"><span>${elementLabels[key]}</span><span class="num">${score}%</span></div>
             <div class="score-bar-track"><div class="score-bar-fill" style="width:${score}%;background:${primaryC.color}"></div></div>
             <p class="text-muted text-sm mt-1" style="font-size:0.75rem">${elementDescs[key]}</p>
           </div>
@@ -358,7 +358,7 @@ function renderShareableReportHTML() {
             <div class="report-bar-row">
               <span class="report-bar-label">${elementLabels[key]}</span>
               <div class="report-bar-track"><div class="report-bar-fill" style="width:${score}%;background:${primaryC.color}"></div></div>
-              <span class="report-bar-pct">${score}%</span>
+              <span class="report-bar-pct num">${score}%</span>
             </div>
           `).join('')}
         </div>

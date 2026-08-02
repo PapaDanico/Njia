@@ -44,10 +44,22 @@
   --ink-contrast: #faf9f5;
 
   --serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, 'Times New Roman', serif;
+  /* Reserved for data figures — fees, percentages, dates, grades — never
+   * for prose. Tabular mono is the signature analytical-fintech texture
+   * the "family" sites all share (Mwangaza Yield's font-mono .num, JK's
+   * numeric callouts): it makes columns of numbers actually align and
+   * reads as measured data rather than marketing copy. */
+  --mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'JetBrains Mono', Consolas, monospace;
 
   --shadow-sm: 0 1px 2px rgba(31, 30, 29, 0.05);
   --shadow-md: 0 6px 18px rgba(31, 30, 29, 0.08);
   --shadow-lg: 0 16px 40px rgba(31, 30, 29, 0.14);
+  /* Flatter than shadow-lg on purpose — the family sites keep even their
+   * most prominent standalone cards nearly flush with the page (a 1-4px
+   * blur, not a floating 40px one); shadow-lg stays reserved for actual
+   * overlays (modals, dropdowns) where "lifted above the page" is the
+   * point. */
+  --shadow-card: 0 1px 2px rgba(31, 30, 29, 0.04), 0 4px 14px rgba(31, 30, 29, 0.05);
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -102,6 +114,24 @@ small, .caption { font-size: 0.75rem; text-transform: uppercase; letter-spacing:
 .text-sm { font-size: 0.85rem; }
 .text-muted { color: var(--text-muted); }
 .text-secondary { color: var(--text-secondary); }
+
+/* Data figures only — fees, percentages, counts, grades. Never prose. */
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+/* Small trust/freshness signal — dot + label in a pill, matching every
+ * "family" site's opening move (e.g. "● Built on public CBK data · Always
+ * free"). Sits above the hero headline, distinct from the eyebrow label. */
+.status-pill {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.status-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--secondary); flex-shrink: 0; }
 
 /* Focus states — visible everywhere, WCAG requirement */
 a:focus-visible, button:focus-visible, input:focus-visible,
@@ -506,7 +536,7 @@ main {
   padding: 0.85rem 0.5rem;
   text-align: center;
 }
-.stat .value { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; color: var(--primary-dark); }
+.stat .value { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.4rem; font-weight: 700; color: var(--primary-dark); }
 .stat .label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* ---------- Progress bar ---------- */
@@ -694,17 +724,28 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   margin-bottom: 0.5rem;
 }
 .course-card .institution-name { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+/* Ledger rows — label left, value right, hairline dividers, no box — the
+ * ledger/breakdown-table treatment every "family" site uses for financial
+ * figures (e.g. a T-bill's gross-yield-to-net-yield breakdown) instead of
+ * a boxed 2-column grid. Same meta-grid/meta-item/meta-label/meta-value
+ * DOM shape as before; only the layout direction changed, so no render
+ * function needed touching to pick this up. */
 .meta-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  margin: 0.75rem 0;
-  background: var(--bg-card);
-  border-radius: var(--radius-sm);
-  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0.85rem 0;
+  border-top: 1px solid var(--border);
 }
-.meta-grid .meta-item .meta-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; }
-.meta-grid .meta-item .meta-value { font-size: 0.9rem; font-weight: 600; }
+.meta-grid .meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.meta-grid .meta-item .meta-label { font-size: 0.8rem; color: var(--text-muted); }
+.meta-grid .meta-item .meta-value { font-size: 0.92rem; font-weight: 700; text-align: right; }
 .career-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0; }
 .type-badge {
   display: inline-block;
@@ -966,7 +1007,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-card);
 }
 .landing-numbers-eyebrow {
   display: block;
@@ -980,7 +1021,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .landing-numbers-card h3 { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 1.1rem; color: var(--landing-ink); }
 .landing-numbers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.25rem; margin-bottom: 1.1rem; }
 .landing-numbers-item { display: flex; flex-direction: column; gap: 0.2rem; }
-.landing-numbers-figure { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; color: var(--primary-dark); line-height: 1; }
+.landing-numbers-figure { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.6rem; font-weight: 700; color: var(--primary-dark); line-height: 1; }
 .landing-numbers-label { font-size: 0.78rem; color: var(--landing-ink-muted); line-height: 1.35; }
 .landing-numbers-note { font-size: 0.72rem; color: var(--landing-ink-muted); border-top: 1px solid var(--landing-border); padding-top: 0.75rem; margin: 0; }
 
@@ -994,7 +1035,8 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   gap: 1.5rem 1rem;
 }
 .landing-stat-num {
-  font-family: var(--serif);
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
   font-size: 2rem;
   font-weight: 700;
   color: var(--accent);
@@ -1014,7 +1056,8 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 .landing-evidence-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .landing-evidence-num {
-  font-family: var(--serif);
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
   font-size: 2.1rem;
   font-weight: 700;
   color: var(--primary-dark);

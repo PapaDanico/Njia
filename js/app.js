@@ -323,7 +323,7 @@ function renderNjiaNumbersCard() {
   return `
     <div class="landing-numbers-card">
       <span class="landing-numbers-eyebrow">Njia in numbers</span>
-      <h3>What's actually in the app right now</h3>
+      <p class="landing-numbers-title">What's actually in the app right now</p>
       <div class="landing-numbers-grid">
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${COURSES.length}</span>

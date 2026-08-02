@@ -955,6 +955,35 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .landing-trust-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--landing-ink-muted); }
 .landing-trust-item svg { flex: 0 0 auto; color: var(--secondary); }
 
+/* ---------- Hero sidecar: "Njia in numbers" ----------
+   Mobile: flows naturally below the CTA/trust row. Desktop (>=1024px,
+   see DESKTOP SHELL): .landing-hero becomes a two-column grid so the
+   hero stops being a centred mobile stack stretched across a wide
+   viewport with dead space beside it. */
+.landing-hero-aside { margin-top: 1.75rem; }
+.landing-numbers-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-lg);
+}
+.landing-numbers-eyebrow {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+}
+.landing-numbers-card h3 { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 1.1rem; color: var(--landing-ink); }
+.landing-numbers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.25rem; margin-bottom: 1.1rem; }
+.landing-numbers-item { display: flex; flex-direction: column; gap: 0.2rem; }
+.landing-numbers-figure { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; color: var(--primary-dark); line-height: 1; }
+.landing-numbers-label { font-size: 0.78rem; color: var(--landing-ink-muted); line-height: 1.35; }
+.landing-numbers-note { font-size: 0.72rem; color: var(--landing-ink-muted); border-top: 1px solid var(--landing-border); padding-top: 0.75rem; margin: 0; }
+
 .landing-dark {
   background: var(--landing-dark);
   color: #f8fafc;
@@ -1106,7 +1135,11 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   .landing-cta-row { flex-direction: row; }
   .landing-cta-row .btn { width: auto; }
   .landing-stats-grid { grid-template-columns: repeat(4, 1fr); }
-  .landing-footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+  /* Brand block spans its own row above a 2x2 grid of link columns —
+     four single-column-wide link lists at this width would be too
+     cramped to read. */
+  .landing-footer-grid { grid-template-columns: repeat(2, 1fr); }
+  .landing-footer-brand { grid-column: 1 / -1; }
 }
 
 /* Desktop: #page-home now fills the full width next to the sidebar (see
@@ -1120,6 +1153,18 @@ textarea.q-input::placeholder { color: var(--text-muted); }
     max-width: 1200px;
     margin: 0 auto;
   }
+  /* The hero stops being a centred mobile column stretched across a wide
+     viewport (all the width, none of it used) and becomes a genuine
+     two-up layout: headline/CTA left, the numbers card as a sidecar
+     right — the same "content + evidence panel" shape as the benchmark
+     sites' hero sections. */
+  .landing-hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3rem; align-items: start; }
+  .landing-hero-aside { margin-top: 3.75rem; }
+  /* Brand column resumes its own place beside a single row of four link
+     columns — the wasted right-hand gap this replaces at 1024px+ came
+     from being stuck at the 480px breakpoint's 3-column grid. */
+  .landing-footer-grid { grid-template-columns: 1.4fr repeat(4, 1fr); }
+  .landing-footer-brand { grid-column: auto; }
   .landing-stats-grid, .landing-footer-grid, .landing-guarantee-box {
     max-width: 1200px;
     margin-left: auto;

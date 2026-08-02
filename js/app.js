@@ -310,6 +310,43 @@ const LANDING_PROCESS = [
   { page: 'track', title: 'Track your follow-through', body: 'Turn the plan into quarterly OKRs and a step-by-step application tracker, so the diagnostic becomes a decision, not just an insight.' }
 ];
 
+// Computed live from the bundled data files, not hardcoded — so this
+// can't drift out of sync as courses/institutions/funding sources are
+// added or removed. Mirrors the same verified-count logic Decide shows.
+function renderNjiaNumbersCard() {
+  const clusterCount = Object.keys(CLUSTERS).length;
+  const countyCount = new Set(INSTITUTIONS.map((i) => i.county)).size;
+  const verifiedCount = COURSES.filter((c) => c.data_confidence === 'verified').length
+    + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
+  const totalRecords = COURSES.length + FUNDING_SOURCES.length;
+
+  return `
+    <div class="landing-numbers-card">
+      <span class="landing-numbers-eyebrow">Njia in numbers</span>
+      <h3>What's actually in the app right now</h3>
+      <div class="landing-numbers-grid">
+        <div class="landing-numbers-item">
+          <span class="landing-numbers-figure">${COURSES.length}</span>
+          <span class="landing-numbers-label">courses matched across ${clusterCount} career clusters</span>
+        </div>
+        <div class="landing-numbers-item">
+          <span class="landing-numbers-figure">${INSTITUTIONS.length}</span>
+          <span class="landing-numbers-label">institutions across ${countyCount} counties</span>
+        </div>
+        <div class="landing-numbers-item">
+          <span class="landing-numbers-figure">${FUNDING_SOURCES.length}</span>
+          <span class="landing-numbers-label">funding sources tracked</span>
+        </div>
+        <div class="landing-numbers-item">
+          <span class="landing-numbers-figure">${verifiedCount}/${totalRecords}</span>
+          <span class="landing-numbers-label">records independently verified</span>
+        </div>
+      </div>
+      <p class="landing-numbers-note">Computed from the dataset this app actually ships — not marketing copy. See Methodology for what "verified" means.</p>
+    </div>
+  `;
+}
+
 function renderHomePage() {
   const el = document.getElementById('page-home');
   if (!el) return;
@@ -320,21 +357,26 @@ function renderHomePage() {
     <div class="landing">
 
       <section class="landing-hero">
-        <img class="landing-hero-logo" src="./icons/logo-mark-light-256.png" alt="Njia" width="64" height="64" decoding="async">
-        <span class="landing-eyebrow">RESEARCH-BACKED METHOD · REAL KENYAN DATA · ZERO COST</span>
-        <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
-        <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
-        <p class="landing-proverb"><em>"Penye nia, pana njia"</em> — where there's a will, there's a way. It's why we're called Njia.</p>
-        <div class="landing-cta-row">
-          <button type="button" class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery — 20 minutes, free'} →</button>
-          <button type="button" class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
+        <div class="landing-hero-main">
+          <img class="landing-hero-logo" src="./icons/logo-mark-light-256.png" alt="Njia" width="64" height="64" decoding="async">
+          <span class="landing-eyebrow">RESEARCH-BACKED METHOD · REAL KENYAN DATA · ZERO COST</span>
+          <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
+          <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
+          <p class="landing-proverb"><em>"Penye nia, pana njia"</em> — where there's a will, there's a way. It's why we're called Njia.</p>
+          <div class="landing-cta-row">
+            <button type="button" class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery — 20 minutes, free'} →</button>
+            <button type="button" class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
+          </div>
+          <div class="landing-trust-row">
+            <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 10V8a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h8V8a4 4 0 0 0-8 0v2Zm4 5a1.6 1.6 0 0 0-.8 3v1.4a.8.8 0 0 0 1.6 0V18a1.6 1.6 0 0 0-.8-3Z"/></svg> Stays on your device</span>
+            <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2c1.9 0 3.6.65 4.95 1.75L5.75 16.95A7.95 7.95 0 0 1 12 4Zm0 16a7.9 7.9 0 0 1-4.95-1.75L18.25 7.05A7.95 7.95 0 0 1 12 20Z"/></svg> Free, no signup</span>
+            <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> About 20 minutes</span>
+          </div>
+          ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">You're matched as <strong style="color:var(--landing-ink)">${CLUSTERS[primaryCluster].name}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
         </div>
-        <div class="landing-trust-row">
-          <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 10V8a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h1Zm2 0h8V8a4 4 0 0 0-8 0v2Zm4 5a1.6 1.6 0 0 0-.8 3v1.4a.8.8 0 0 0 1.6 0V18a1.6 1.6 0 0 0-.8-3Z"/></svg> Stays on your device</span>
-          <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2c1.9 0 3.6.65 4.95 1.75L5.75 16.95A7.95 7.95 0 0 1 12 4Zm0 16a7.9 7.9 0 0 1-4.95-1.75L18.25 7.05A7.95 7.95 0 0 1 12 20Z"/></svg> Free, no signup</span>
-          <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> About 20 minutes</span>
+        <div class="landing-hero-aside">
+          ${renderNjiaNumbersCard()}
         </div>
-        ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">You're matched as <strong style="color:var(--landing-ink)">${CLUSTERS[primaryCluster].name}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
       </section>
 
       ${AppState.savedCourses.length > 0 ? (() => {
@@ -438,16 +480,22 @@ function renderHomePage() {
             ${LANDING_PROCESS.map((p) => `<button type="button" onclick="navigateTo('${p.page}')">${p.title}</button>`).join('')}
           </div>
           <div class="landing-footer-col">
-            <p class="footer-col-label">Resources &amp; Legal</p>
-            <button type="button" onclick="openAboutModal()">About Njia</button>
-            <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>
-            <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
-            <button type="button" onclick="openTermsModal()">Terms of Use</button>
-            <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
+            <p class="footer-col-label">Learn</p>
             <button type="button" onclick="openFaqModal()">FAQ</button>
-            <button type="button" onclick="openFeedbackModal()">Give Feedback</button>
+            <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
+            <button type="button" onclick="openAboutModal()">About Njia</button>
             <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
             <a href="https://helb.co.ke" target="_blank" rel="noopener noreferrer">HELB ↗</a>
+          </div>
+          <div class="landing-footer-col">
+            <p class="footer-col-label">Company</p>
+            <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
+            <button type="button" onclick="openFeedbackModal()">Give Feedback</button>
+          </div>
+          <div class="landing-footer-col">
+            <p class="footer-col-label">Legal</p>
+            <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>
+            <button type="button" onclick="openTermsModal()">Terms of Use</button>
           </div>
         </div>
         <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Course, fee and funding data inside the app is illustrative pending verification — see Methodology.</p>

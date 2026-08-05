@@ -21,9 +21,26 @@ const defaultState = () => ({
   decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false, sortBy: 'match' },
   // View-only UI state for Track and Design — kept separate from
   // decideFilters (Decide-module-scoped) so clearDecideFilters() can't
-  // accidentally drop or corrupt unrelated modules' selections.
-  viewFilters: { okrStatus: 'all', okrSort: 'recent', appStatus: 'all', appSort: 'recent', prototypeCluster: null }
+  // accidentally drop or corrupt unrelated modules' selections. Also holds
+  // each module's active sub-tab, so — like Decide's own activeTab — it
+  // survives navigating away and back instead of resetting to the first tab.
+  viewFilters: { okrStatus: 'all', okrSort: 'recent', appStatus: 'all', appSort: 'recent', prototypeCluster: null, designActiveTab: 'odyssey', trackActiveTab: 'okrs' }
 });
+
+// Nested containers whose individual keys should survive a schema change —
+// a plain Object.assign(defaults, parsed) replaces these wholesale, so a
+// returning user's saved (older-shape) object silently drops any key added
+// to defaultState() since they last saved, with no error and no obvious
+// symptom beyond that one feature quietly misbehaving. Merge each one key-
+// by-key instead, so `defaultState()` stays the single source of truth for
+// backfilling new fields.
+//
+// Declared before the AppState = loadState() call below, on purpose: `const`
+// bindings aren't initialized until execution reaches them, so referencing
+// this from inside loadState() before this line had run would throw
+// (loadState is a hoisted function declaration, but its call at module load
+// happens top-to-bottom same as any other statement).
+const MERGED_STATE_CONTAINERS = ['questionnaire', 'portfolio', 'decideFilters', 'viewFilters'];
 
 let AppState = loadState();
 
@@ -32,7 +49,14 @@ function loadState() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return defaultState();
     const parsed = JSON.parse(raw);
-    return Object.assign(defaultState(), parsed);
+    const defaults = defaultState();
+    const merged = Object.assign(defaults, parsed);
+    MERGED_STATE_CONTAINERS.forEach((key) => {
+      if (parsed[key] && typeof parsed[key] === 'object') {
+        merged[key] = Object.assign(defaultState()[key], parsed[key]);
+      }
+    });
+    return merged;
   } catch (err) {
     console.warn('Njia: could not read saved state, starting fresh.', err);
     return defaultState();

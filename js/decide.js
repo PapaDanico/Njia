@@ -5,7 +5,15 @@
  */
 
 const GRADE_ORDER = ['E', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A'];
-const GRADE_BUCKET_DEFAULT = { A: 'A-', B: 'B', C: 'C', D: 'D+' };
+// Each bucket besides D corresponds to an "X and above" questionnaire option
+// (e.g. "B to B+"), so defaulting to the floor of that range is the
+// conservative choice — never overstates eligibility. The D bucket is the
+// one inverted range ("D+ and below", spanning down to E) — there is no
+// floor to default to safely, so it's deliberately absent here rather than
+// reusing 'D+' (the range's ceiling), which would have silently overstated
+// eligibility for the lowest-grade, most budget-constrained users.
+// getEffectiveGrade() falls back to "unknown grade" for this bucket instead.
+const GRADE_BUCKET_DEFAULT = { A: 'A-', B: 'B', C: 'C' };
 
 function gradeRank(grade) {
   const idx = GRADE_ORDER.indexOf(grade);
@@ -22,7 +30,13 @@ function institutionById(id) {
   return INSTITUTIONS.find((i) => i.id === id);
 }
 
-const COUNTIES = [...new Set(INSTITUTIONS.map((i) => i.county))].sort();
+// Only counties with at least one actual course — a handful of institutions
+// in the directory (e.g. Egerton, KMTC-Kakamega) aren't paired with any
+// course yet, and are each the only institution in their county, so
+// including every institution's county here would offer filter options
+// (like "Nakuru" or "Kakamega") that are guaranteed to return zero results.
+const COURSE_INSTITUTION_IDS = new Set(COURSES.map((c) => c.institution_id));
+const COUNTIES = [...new Set(INSTITUTIONS.filter((i) => COURSE_INSTITUTION_IDS.has(i.id)).map((i) => i.county))].sort();
 
 /* Illustrative accommodation + upkeep planning estimate (Ksh/month) — a
  * rough budgeting aid, not verified data, since actual rent/upkeep varies
@@ -92,7 +106,12 @@ function computeCourseMatch(course) {
   const budgetMax = AppState.decideFilters.budgetMax;
   if (budgetMax != null && course.total_fees_kes > budgetMax) score = Math.max(0, score - 25);
 
-  return { score: Math.round(score), eligible };
+  // gradeUnconfirmed: this course has a grade requirement, but we don't
+  // actually know the user's grade — meetsGradeRequirement() treats that as
+  // "don't claim ineligible", which is right, but the UI still needs to show
+  // the difference between "confirmed eligible" and "eligibility unverified"
+  // rather than rendering both identically.
+  return { score: Math.round(score), eligible, gradeUnconfirmed: grade == null && !!course.min_grade };
 }
 
 function renderCourseMatcher(container) {
@@ -166,25 +185,25 @@ function renderCourseMatcher(container) {
     ` : ''}
 
     <div class="filter-row" aria-label="Filter by career cluster">
-      <select onchange="setDecideClusterFilter(this.value)" style="width:100%;max-width:220px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select class="form-control" onchange="setDecideClusterFilter(this.value)" style="width:100%;max-width:220px">
         ${clusterOptions.map((c) => `<option value="${c}" ${AppState.decideFilters.cluster === c ? 'selected' : ''}>${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}</option>`).join('')}
       </select>
     </div>
 
     <div class="filter-row" aria-label="Filter by qualification level">
-      <select onchange="setDecideLevelFilter(this.value)" style="width:100%;max-width:200px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select class="form-control" onchange="setDecideLevelFilter(this.value)" style="width:100%;max-width:200px">
         ${levelOptions.map((l) => `<option value="${l}" ${AppState.decideFilters.level === l ? 'selected' : ''}>${l === 'all' ? 'All Levels' : levelLabels[l]}</option>`).join('')}
       </select>
     </div>
 
     <div class="filter-row" aria-label="Filter by learning mode">
-      <select onchange="setDecideModeFilter(this.value)" style="width:100%;max-width:200px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select class="form-control" onchange="setDecideModeFilter(this.value)" style="width:100%;max-width:200px">
         ${modeOptions.map((m) => `<option value="${m}" ${AppState.decideFilters.mode === m ? 'selected' : ''}>${modeLabels[m]}</option>`).join('')}
       </select>
     </div>
 
     <div class="filter-row" aria-label="Filter by county">
-      <select onchange="setDecideCountyFilter(this.value)" style="width:100%;max-width:250px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select class="form-control" onchange="setDecideCountyFilter(this.value)" style="width:100%;max-width:250px">
         <option value="all" ${AppState.decideFilters.county === 'all' ? 'selected' : ''}>📍 All Counties</option>
         ${COUNTIES.map((county) => `<option value="${county}" ${AppState.decideFilters.county === county ? 'selected' : ''}>${escapeHtml(county)}</option>`).join('')}
       </select>
@@ -192,7 +211,7 @@ function renderCourseMatcher(container) {
 
     <div class="filter-row" aria-label="Sort courses" style="display:flex;align-items:center;gap:0.6rem">
       <label class="caption" style="margin:0;font-weight:500" for="course-sort-select">Sort:</label>
-      <select id="course-sort-select" onchange="setDecideSortBy(this.value)" style="min-height:44px;max-width:220px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select id="course-sort-select" class="form-control" onchange="setDecideSortBy(this.value)" style="max-width:220px">
         ${Object.entries(sortOptions).map(([key, label]) => `<option value="${key}" ${sortBy === key ? 'selected' : ''}>${label}</option>`).join('')}
       </select>
       ${AppState.savedCourses.length >= 2 ? `<button type="button" class="btn btn-ghost btn-sm" style="width:auto;margin-left:auto" onclick="openCourseComparison()">⚖️ Compare Saved</button>` : ''}
@@ -208,7 +227,7 @@ function renderCourseMatcher(container) {
       <div class="flex justify-between items-center mb-1 mt-2">
         <span class="caption">Your grade (for eligibility)</span>
       </div>
-      <select onchange="setDecideGradeFilter(this.value)" style="width:100%;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
+      <select class="form-control" onchange="setDecideGradeFilter(this.value)" style="width:100%">
         <option value="">Not set</option>
         ${GRADE_ORDER.slice().reverse().map((g) => `<option value="${g}" ${grade === g ? 'selected' : ''}>${g}</option>`).join('')}
       </select>
@@ -237,7 +256,7 @@ function renderCourseCard(course, match) {
   return `
     <div class="card course-card">
       <div class="flex items-center gap-1" style="flex-wrap:wrap">
-        <span class="match-badge"><span class="num">${match.score}%</span> Match${!match.eligible ? ' · Grade below requirement' : ''}</span>
+        <span class="match-badge"><span class="num">${match.score}%</span> Match${!match.eligible ? ' · Grade below requirement' : match.gradeUnconfirmed ? ' · Set your grade to confirm' : ''}</span>
         ${isVerified ? '<span class="verified-badge" title="Fee figures cross-checked against a public source">✓ Verified estimate</span>' : ''}
       </div>
       <h3>${escapeHtml(course.name)}</h3>
@@ -421,7 +440,7 @@ function renderFundingFinder(container) {
     </div>
 
     <div class="filter-row" aria-label="Filter by funding type">
-      <select onchange="setFundingTypeFilter(this.value)" style="width:100%;max-width:220px;min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select class="form-control" onchange="setFundingTypeFilter(this.value)" style="width:100%;max-width:220px">
         ${FUNDING_TYPES.map((t) => `<option value="${t}" ${activeType === t ? 'selected' : ''}>${t === 'all' ? 'All Funding Types' : t.replace('_', ' ')}</option>`).join('')}
       </select>
     </div>
@@ -437,6 +456,7 @@ function setFundingTypeFilter(type) {
 
 function renderFundingCard(f, userGrade) {
   const eligible = meetsGradeRequirement(userGrade, f.min_grade);
+  const gradeUnconfirmed = userGrade == null && !!f.min_grade;
   const isVerified = f.data_confidence === 'verified';
   return `
     <div class="card">
@@ -450,7 +470,7 @@ function renderFundingCard(f, userGrade) {
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Coverage</div><div class="meta-value">${escapeHtml(f.coverage)}</div></div>
         <div class="meta-item"><div class="meta-label">Max Amount</div><div class="meta-value num">${formatKes(f.max_amount_kes)}</div></div>
-        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(f.min_grade || 'None')}${!eligible ? ' ⚠️' : ''}</div></div>
+        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(f.min_grade || 'None')}${!eligible ? ' ⚠️' : gradeUnconfirmed ? ' (set your grade)' : ''}</div></div>
         <div class="meta-item"><div class="meta-label">Deadline</div><div class="meta-value">${escapeHtml(f.application_deadline || 'Rolling')}</div></div>
       </div>
       <p class="text-muted text-sm mb-1"><strong>Requirements:</strong> ${f.requirements.map(escapeHtml).join(', ')}</p>

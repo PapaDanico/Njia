@@ -595,6 +595,23 @@ textarea.q-input {
 }
 textarea.q-input::placeholder { color: var(--text-muted); }
 
+/* Shared text/select input chrome — same visual language as q-input above.
+ * Centralises the ~20 identical inline style="..." blocks that used to be
+ * duplicated across decide.js/track.js/design.js/connect.js/index.html;
+ * width/max-width/margin stay inline since those genuinely vary by
+ * placement (e.g. compact same-row filter selects vs full-width form
+ * fields), but the input's own chrome shouldn't need a find-and-replace
+ * across five files every time it changes. */
+.form-control {
+  min-height: 44px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  color: var(--text-primary);
+  padding: 0.5rem;
+  font-size: 0.95rem;
+}
+
 .voice-btn {
   display: inline-flex; align-items: center; gap: 0.4rem;
   background: var(--bg-card); border: 1px solid var(--border-light);

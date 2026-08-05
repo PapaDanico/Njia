@@ -3,8 +3,6 @@
  * Alumni Network outcomes require a shared backend — deferred (see README).
  */
 
-let trackActiveTab = 'okrs';
-
 function renderTrackPage() {
   const el = document.getElementById('page-track');
   if (!el) return;
@@ -23,8 +21,8 @@ function renderTrackPage() {
     </div>
 
     <div class="odyssey-tabs">
-      <button type="button" class="odyssey-tab ${trackActiveTab === 'okrs' ? 'active' : ''}" onclick="setTrackTab('okrs')">🎯 OKRs</button>
-      <button type="button" class="odyssey-tab ${trackActiveTab === 'applications' ? 'active' : ''}" onclick="setTrackTab('applications')">📋 Applications</button>
+      <button type="button" class="odyssey-tab ${AppState.viewFilters.trackActiveTab === 'okrs' ? 'active' : ''}" onclick="setTrackTab('okrs')">🎯 OKRs</button>
+      <button type="button" class="odyssey-tab ${AppState.viewFilters.trackActiveTab === 'applications' ? 'active' : ''}" onclick="setTrackTab('applications')">📋 Applications</button>
     </div>
     <div id="track-tab-content"></div>
   `;
@@ -33,14 +31,15 @@ function renderTrackPage() {
 }
 
 function setTrackTab(tab) {
-  trackActiveTab = tab;
+  AppState.viewFilters.trackActiveTab = tab;
+  saveState();
   renderTrackPage();
 }
 
 function renderTrackTabContent() {
   const container = document.getElementById('track-tab-content');
   if (!container) return;
-  if (trackActiveTab === 'okrs') renderOkrsTab(container);
+  if (AppState.viewFilters.trackActiveTab === 'okrs') renderOkrsTab(container);
   else renderApplicationsTab(container);
   replayFadeIn(container);
 }
@@ -80,14 +79,14 @@ function renderOkrsTab(container) {
   container.innerHTML = `
     <div class="filter-row" style="margin-bottom:1rem;display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center">
       <label class="caption" style="margin:0;font-weight:500" for="okr-status-filter">Filter:</label>
-      <select id="okr-status-filter" onchange="setOkrStatusFilter(this.value)" style="min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select id="okr-status-filter" class="form-control" onchange="setOkrStatusFilter(this.value)">
         <option value="all" ${statusFilter === 'all' ? 'selected' : ''}>All OKRs</option>
         <option value="on-track" ${statusFilter === 'on-track' ? 'selected' : ''}>On Track</option>
         <option value="at-risk" ${statusFilter === 'at-risk' ? 'selected' : ''}>At Risk</option>
         <option value="done" ${statusFilter === 'done' ? 'selected' : ''}>Done</option>
       </select>
       <label class="caption" style="margin:0;font-weight:500" for="okr-sort-filter">Sort:</label>
-      <select id="okr-sort-filter" onchange="setOkrSortBy(this.value)" style="min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select id="okr-sort-filter" class="form-control" onchange="setOkrSortBy(this.value)">
         <option value="recent" ${sortBy === 'recent' ? 'selected' : ''}>Most Recent</option>
         <option value="progress" ${sortBy === 'progress' ? 'selected' : ''}>Progress (High to Low)</option>
       </select>
@@ -128,7 +127,7 @@ function openOkrModal() {
   openModal(`
     <h3 class="mb-2">New Quarterly OKR</h3>
     <label class="caption" for="okr-title">Objective</label>
-    <input type="text" id="okr-title" placeholder="e.g. Get accepted into a Counselling Diploma programme" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
+    <input type="text" id="okr-title" class="form-control" placeholder="e.g. Get accepted into a Counselling Diploma programme" style="width:100%;margin:0.4rem 0 0.8rem">
     <label class="caption">Key Results (one per line, 2–3 recommended)</label>
     <textarea class="q-input mt-1" id="okr-key-results" placeholder="Shortlist 5 institutions&#10;Sit and pass entrance requirements&#10;Submit HELB application"></textarea>
     <button type="button" class="btn btn-primary mt-2" onclick="createOkr()">Create OKR</button>
@@ -190,13 +189,13 @@ function renderApplicationsTab(container) {
   const filterControls = AppState.applications.length > 0 ? `
     <div class="filter-row" style="margin-bottom:1rem;display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center">
       <label class="caption" style="margin:0;font-weight:500" for="app-status-filter">Filter:</label>
-      <select id="app-status-filter" onchange="setApplicationStatusFilter(this.value)" style="min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select id="app-status-filter" class="form-control" onchange="setApplicationStatusFilter(this.value)">
         <option value="all" ${statusFilter === 'all' ? 'selected' : ''}>All Applications</option>
         <option value="in-progress" ${statusFilter === 'in-progress' ? 'selected' : ''}>In Progress</option>
         <option value="complete" ${statusFilter === 'complete' ? 'selected' : ''}>Complete</option>
       </select>
       <label class="caption" style="margin:0;font-weight:500" for="app-sort-filter">Sort:</label>
-      <select id="app-sort-filter" onchange="setApplicationSortBy(this.value)" style="min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select id="app-sort-filter" class="form-control" onchange="setApplicationSortBy(this.value)">
         <option value="recent" ${sortBy === 'recent' ? 'selected' : ''}>Most Recent</option>
         <option value="progress" ${sortBy === 'progress' ? 'selected' : ''}>Progress (High to Low)</option>
         <option value="name" ${sortBy === 'name' ? 'selected' : ''}>Course Name (A-Z)</option>

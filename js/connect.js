@@ -56,14 +56,14 @@ function renderConnectPage() {
       <h3 class="mb-1">✉️ Informational Interview Message</h3>
       <p class="text-muted text-sm mb-2">Generate a short, respectful outreach message you can send by WhatsApp, SMS or email to someone you'd like to learn from.</p>
       <label class="caption" for="connect-name">Their name (optional)</label>
-      <input type="text" id="connect-name" placeholder="e.g. Auntie Wanjiru" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem">
+      <input type="text" id="connect-name" class="form-control" placeholder="e.g. Auntie Wanjiru" style="width:100%;margin:0.4rem 0 0.8rem">
       <label class="caption" for="connect-role">Their role</label>
-      <select id="connect-role" onchange="updateCustomRole()" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select id="connect-role" class="form-control" onchange="updateCustomRole()" style="width:100%;margin:0.4rem 0 0.8rem">
         <option value="">Select a role or type custom</option>
         ${(cluster ? MENTOR_ROLES[cluster] : [...new Set(Object.values(MENTOR_ROLES).flat())]).map((role) => `<option value="${escapeHtml(role)}">${escapeHtml(role.charAt(0).toUpperCase() + role.slice(1))}</option>`).join('')}
         <option value="__custom__">Type a custom role...</option>
       </select>
-      <input type="text" id="connect-role-custom" placeholder="e.g. community health nurse" style="width:100%;min-height:44px;margin:0.4rem 0 0.8rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;display:none" onchange="updateCustomRole()">
+      <input type="text" id="connect-role-custom" class="form-control" placeholder="e.g. community health nurse" style="width:100%;margin:0.4rem 0 0.8rem;display:none" onchange="updateCustomRole()">
       <button type="button" class="btn btn-primary" onclick="generateOutreachMessage()">Generate Message</button>
       <div id="outreach-output" class="mt-2"></div>
     </div>

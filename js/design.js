@@ -3,8 +3,6 @@
  * Gravity Problem Reframer. Depends on: js/app.js, data/questions.js (CLUSTERS)
  */
 
-let designActiveTab = 'odyssey';
-
 const ODYSSEY_TEMPLATE = [
   { id: 'life1', label: 'Life One', subtitle: "The path you're already on or considering", color: '#0e7ba6' },
   { id: 'life2', label: 'Life Two', subtitle: "What you'd do if Life One disappeared", color: '#55802d' },
@@ -51,7 +49,7 @@ function renderDesignPage() {
     <p class="text-secondary mb-2">Design multiple viable futures, not just one — a life-design approach built for exploring options before committing.</p>
     <div class="odyssey-tabs" role="tablist">
       ${[['odyssey', '🗺️ Odyssey'], ['portfolio', '⚖️ Portfolio'], ['prototype', '✅ Prototype'], ['gravity', '🪨 Gravity']].map(([key, label]) => `
-        <button type="button" class="odyssey-tab ${designActiveTab === key ? 'active' : ''}" role="tab" onclick="setDesignTab('${key}')">${label}</button>
+        <button type="button" class="odyssey-tab ${AppState.viewFilters.designActiveTab === key ? 'active' : ''}" role="tab" onclick="setDesignTab('${key}')">${label}</button>
       `).join('')}
     </div>
     <div id="design-tab-content"></div>
@@ -61,17 +59,19 @@ function renderDesignPage() {
 }
 
 function setDesignTab(tab) {
-  designActiveTab = tab;
+  AppState.viewFilters.designActiveTab = tab;
+  saveState();
   renderDesignPage();
 }
 
 function renderDesignTabContent() {
   const container = document.getElementById('design-tab-content');
   if (!container) return;
-  if (designActiveTab === 'odyssey') renderOdysseyTab(container);
-  else if (designActiveTab === 'portfolio') renderPortfolioTab(container);
-  else if (designActiveTab === 'prototype') renderPrototypeTab(container);
-  else if (designActiveTab === 'gravity') renderGravityTab(container);
+  const activeTab = AppState.viewFilters.designActiveTab;
+  if (activeTab === 'odyssey') renderOdysseyTab(container);
+  else if (activeTab === 'portfolio') renderPortfolioTab(container);
+  else if (activeTab === 'prototype') renderPrototypeTab(container);
+  else if (activeTab === 'gravity') renderGravityTab(container);
   replayFadeIn(container);
 }
 
@@ -202,7 +202,7 @@ function renderPrototypeTab(container) {
   container.innerHTML = `
     <div class="card">
       <span class="caption">Explore suggestions for</span>
-      <select onchange="setPrototypeCluster(this.value)" style="width:100%;max-width:260px;min-height:44px;margin-top:0.4rem;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+      <select class="form-control" onchange="setPrototypeCluster(this.value)" style="width:100%;max-width:260px;margin-top:0.4rem">
         ${clusterOptions.map((c) => `<option value="${c}" ${activeCluster === c ? 'selected' : ''}>${CLUSTERS[c].name}</option>`).join('')}
       </select>
     </div>

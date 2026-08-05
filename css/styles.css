@@ -404,14 +404,35 @@ main {
 .nav-item:active { transform: scale(0.95); }
 
 /* =====================================================================
-   DESKTOP SHELL — below this width the app is the mobile single-column
-   tool it was built as (#app capped at --content-max, bottom-nav fixed
-   and centered). At wide viewports that leaves the whole app pinned in
-   a 600px column with empty space on both sides. Restructure #app into
-   a header-bar + sidebar-nav + content grid instead — pure CSS, no HTML
-   changes, since .app-header/#install-banner/main/.bottom-nav are
-   already siblings in that DOM order inside #app; grid-template-areas
-   just repositions them visually.
+   MID-WIDTH TIER — the gap between the 600px mobile cap and the full
+   sidebar shell below. Below this, #app just sat pinned at 600px with a
+   growing dead margin on both sides — 190px+ of empty background on
+   each edge at a common ~980px laptop/tablet-landscape width, reading
+   as "squeezed into the middle" rather than deliberately narrow. The
+   full sidebar+grid restructure below needs real width to breathe (a
+   240px sidebar eating into anything much under 1024px leaves its own
+   2-column grids cramped), so this tier instead just widens #app itself
+   and lets the grids that already respond to their container's width —
+   the course/funding results-grid (auto-fill), the stats/footer grid
+   (own 480px breakpoint) — fill it. (The landing page's hero/evidence/
+   process grids get their own matching override further down, in the
+   LANDING PAGE section, so it stays after their base rules in source
+   order — same reason the DESKTOP SHELL's landing overrides below live
+   next to this tier's instead of up here.)
+   ===================================================================== */
+@media (min-width: 768px) {
+  #app { max-width: 880px; }
+  .bottom-nav { max-width: 880px; }
+}
+
+/* =====================================================================
+   DESKTOP SHELL — the full redesign: restructure #app into a header-bar
+   + sidebar-nav + content grid instead of the single centered column
+   above — pure CSS, no HTML changes, since .app-header/#install-banner/
+   main/.bottom-nav are already siblings in that DOM order inside #app;
+   grid-template-areas just repositions them visually. Needs the sidebar
+   nav's 240px plus genuinely spacious 2-column grids, which is why it
+   waits for 1024px rather than sharing the tier above.
    ===================================================================== */
 @media (min-width: 1024px) {
   #app {
@@ -1264,6 +1285,20 @@ textarea.q-input::placeholder { color: var(--text-muted); }
      cramped to read. */
   .landing-footer-grid { grid-template-columns: repeat(2, 1fr); }
   .landing-footer-brand { grid-column: 1 / -1; }
+}
+
+/* Mid-width tier's landing-page half (see MID-WIDTH TIER, near the top of
+ * this file, for #app itself) — needs to sit after the base rules above
+ * so it actually wins the cascade, hence living down here instead of next
+ * to that block. #page-home isn't widened to fill #app yet at this tier
+ * (that's a 1024px+ thing below), so these sections just render at
+ * whatever #app's new ~880px cap gives them — plenty of room for a real
+ * two-up hero and two-column card grids without needing the sidebar. */
+@media (min-width: 768px) {
+  .landing-hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2.5rem; align-items: start; }
+  .landing-hero-aside { margin-top: 3rem; }
+  .landing-evidence-grid { grid-template-columns: repeat(2, 1fr); }
+  .landing-process-list { display: grid; grid-template-columns: repeat(2, 1fr); }
 }
 
 /* Desktop: #page-home now fills the full width next to the sidebar (see

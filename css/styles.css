@@ -260,7 +260,7 @@ body[data-page="home"] .nav-toggle { display: flex; }
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   padding: 0.5rem;
-  min-width: 190px;
+  min-width: 280px;
   z-index: 25;
   opacity: 0;
   visibility: hidden;
@@ -271,17 +271,23 @@ body[data-page="home"] .nav-toggle { display: flex; }
 .landing-nav-dropdown:focus-within .landing-nav-dropdown-menu {
   opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
 }
+/* Two-line rows (title + one-line description) — matching the mega-menu
+ * pattern the family sites use for their tool/module dropdowns, instead
+ * of a flat list of bare labels. */
 .landing-nav-dropdown-menu button {
-  display: flex; align-items: center; gap: 0.6rem;
+  display: flex; align-items: flex-start; gap: 0.7rem;
   width: 100%;
   padding: 0.6rem 0.75rem;
   border-radius: var(--radius-sm);
   background: none; border: none;
   color: var(--text-primary);
-  font-size: 0.9rem; font-weight: 500;
   text-align: left;
   min-height: 48px;
 }
+.landing-nav-dropdown-menu button > span:first-child { font-size: 1.05rem; line-height: 1.4; flex-shrink: 0; }
+.landing-nav-dropdown-menu button > span:last-child { display: flex; flex-direction: column; gap: 0.1rem; }
+.landing-nav-dropdown-menu button strong { font-size: 0.9rem; font-weight: 600; }
+.landing-nav-dropdown-menu button small { font-size: 0.76rem; font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--text-muted); }
 .landing-nav-dropdown-menu button:hover { background: var(--bg-card); }
 
 /* Specificity bump (.header-actions .landing-cta-header, not just the
@@ -746,6 +752,63 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 .meta-grid .meta-item .meta-label { font-size: 0.8rem; color: var(--text-muted); }
 .meta-grid .meta-item .meta-value { font-size: 0.92rem; font-weight: 700; text-align: right; }
+
+/* ---------- Comparison table (Decide: Compare Saved Courses) ----------
+ * Same ledger language as .meta-grid — hairline rows, mono numerals for
+ * data cells — but transposed into a real table since comparing N saved
+ * courses needs N value columns per attribute row, not one. */
+.comparison-hint { font-size: 0.78rem; color: var(--text-muted); margin: -0.4rem 0 0.6rem; }
+.comparison-scroll {
+  overflow-x: auto;
+  margin: 0 -0.25rem;
+  padding: 0 0.25rem 0.6rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-ink) var(--bg-card);
+  /* Scroll-shadow trick: two background gradients scroll with the content
+   * (masking the edges once there's room to scroll) and two stay fixed to
+   * the viewport (hinting more content), so the cue works even where the
+   * native scrollbar renders as an invisible overlay. */
+  background-image:
+    linear-gradient(to right, var(--bg-elevated) 50%, rgba(0,0,0,0)),
+    linear-gradient(to left, var(--bg-elevated) 50%, rgba(0,0,0,0)),
+    linear-gradient(to right, rgba(31,30,29,0.14), rgba(0,0,0,0)),
+    linear-gradient(to left, rgba(31,30,29,0.14), rgba(0,0,0,0));
+  background-position: left, right, left, right;
+  background-repeat: no-repeat;
+  background-size: 24px 100%, 24px 100%, 12px 100%, 12px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+.comparison-scroll::-webkit-scrollbar { height: 8px; }
+.comparison-scroll::-webkit-scrollbar-track { background: var(--bg-card); border-radius: 999px; }
+.comparison-scroll::-webkit-scrollbar-thumb { background: var(--accent-ink); border-radius: 999px; }
+.comparison-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.comparison-table th, .comparison-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  white-space: nowrap;
+}
+.comparison-table thead th {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: normal;
+  min-width: 140px;
+  vertical-align: bottom;
+}
+.comparison-table tbody th {
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: normal;
+}
+.comparison-table tbody th, .comparison-table thead th:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--bg-elevated);
+}
+.comparison-table td { font-weight: 600; }
+.comparison-table td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.comparison-table td.wrap { white-space: normal; max-width: 170px; }
 .career-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0; }
 .type-badge {
   display: inline-block;
@@ -901,10 +964,8 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   --landing-dark: #0f172a;
   background: var(--landing-bg);
   color: var(--landing-ink);
-  margin: 0 -1rem;
   padding: 0 !important;
 }
-@media (min-width: 480px) { #page-home { margin: 0 -1.5rem; } }
 
 .landing-serif { font-family: var(--serif); }
 

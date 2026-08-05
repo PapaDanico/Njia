@@ -120,7 +120,17 @@ function renderCourseMatcher(container) {
   let filtered = COURSES
     .filter((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && matchesCounty(c) && matchesSaved(c))
     .map((c) => ({ course: c, match: computeCourseMatch(c) }));
-  filtered.sort((a, b) => b.match.score - a.match.score);
+
+  const sortBy = AppState.decideFilters.sortBy || 'match';
+  const sortOptions = { match: 'Best Match', fees_low: 'Lowest Fees', fees_high: 'Highest Fees', employment: 'Highest Employment Rate', duration: 'Shortest Duration' };
+  const sorters = {
+    match: (a, b) => b.match.score - a.match.score,
+    fees_low: (a, b) => a.course.total_fees_kes - b.course.total_fees_kes,
+    fees_high: (a, b) => b.course.total_fees_kes - a.course.total_fees_kes,
+    employment: (a, b) => (b.course.employment_rate ?? 0) - (a.course.employment_rate ?? 0),
+    duration: (a, b) => a.course.duration_months - b.course.duration_months
+  };
+  filtered.sort(sorters[sortBy] || sorters.match);
 
   // Smarter empty state: name whichever filter is actually the blocker.
   let emptyMessage = 'Try clearing the cluster, level, mode or county filter.';
@@ -178,6 +188,14 @@ function renderCourseMatcher(container) {
         <option value="all" ${AppState.decideFilters.county === 'all' ? 'selected' : ''}>📍 All Counties</option>
         ${COUNTIES.map((county) => `<option value="${county}" ${AppState.decideFilters.county === county ? 'selected' : ''}>${escapeHtml(county)}</option>`).join('')}
       </select>
+    </div>
+
+    <div class="filter-row" aria-label="Sort courses" style="display:flex;align-items:center;gap:0.6rem">
+      <label class="caption" style="margin:0;font-weight:500" for="course-sort-select">Sort:</label>
+      <select id="course-sort-select" onchange="setDecideSortBy(this.value)" style="min-height:44px;max-width:220px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        ${Object.entries(sortOptions).map(([key, label]) => `<option value="${key}" ${sortBy === key ? 'selected' : ''}>${label}</option>`).join('')}
+      </select>
+      ${AppState.savedCourses.length >= 2 ? `<button type="button" class="btn btn-ghost btn-sm" style="width:auto;margin-left:auto" onclick="openCourseComparison()">⚖️ Compare Saved</button>` : ''}
     </div>
 
     <div class="card">
@@ -284,6 +302,11 @@ function toggleDecideSavedOnly() {
   saveState();
   renderDecideTabContent();
 }
+function setDecideSortBy(sortBy) {
+  AppState.decideFilters.sortBy = sortBy;
+  saveState();
+  renderDecideTabContent();
+}
 function clearDecideFilters() {
   AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false };
   saveState();
@@ -328,6 +351,49 @@ function startApplicationForCourse(courseId) {
   saveState();
   showToast('Application tracker created — see it in Track.', 'success');
   navigateTo('track');
+}
+
+/* ---------- Course Comparison ---------- */
+function openCourseComparison() {
+  const courses = AppState.savedCourses.map((id) => COURSES.find((c) => c.id === id)).filter(Boolean).slice(0, 4);
+  if (courses.length < 2) {
+    showToast('Save at least 2 courses to compare them.', 'info');
+    return;
+  }
+  const rows = [
+    { label: 'Institution', get: (c) => institutionById(c.institution_id)?.name || 'Unknown institution', wrap: true },
+    { label: 'Level', get: (c) => c.level },
+    { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true },
+    { label: 'Tuition', get: (c) => formatKes(c.total_fees_kes), num: true },
+    { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
+    { label: 'Employment Rate', get: (c) => formatPercent(c.employment_rate), num: true },
+    { label: 'Median Salary', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true },
+    { label: 'Match Score', get: (c) => `${computeCourseMatch(c).score}%`, num: true }
+  ];
+  const truncated = AppState.savedCourses.length > courses.length;
+  openModal(`
+    <h3 class="mb-2">Compare Saved Courses</h3>
+    <p class="text-secondary text-sm mb-2">${truncated ? `Showing your first ${courses.length} saved courses — comparisons cap at 4 to stay readable.` : 'Side-by-side comparison of your saved courses.'}</p>
+    <p class="comparison-hint">↔ Swipe or scroll sideways to see every course</p>
+    <div class="comparison-scroll">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            ${courses.map((c) => `<th scope="col">${escapeHtml(c.name)}</th>`).join('')}
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map((row) => `
+            <tr>
+              <th scope="row">${row.label}</th>
+              ${courses.map((c) => `<td class="${row.num ? 'num' : ''}${row.wrap ? ' wrap' : ''}">${escapeHtml(String(row.get(c)))}</td>`).join('')}
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `);
 }
 
 /* ---------- Funding Finder ---------- */

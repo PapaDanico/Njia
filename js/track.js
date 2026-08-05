@@ -171,18 +171,35 @@ function applicationStatus(app) {
 
 function renderApplicationsTab(container) {
   const statusFilter = AppState.viewFilters.appStatus;
-  let filtered = AppState.applications;
+  const sortBy = AppState.viewFilters.appSort || 'recent';
+  let filtered = AppState.applications.slice();
   if (statusFilter !== 'all') {
     filtered = filtered.filter((app) => applicationStatus(app) === statusFilter);
   }
+  if (sortBy === 'recent') {
+    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } else if (sortBy === 'name') {
+    filtered.sort((a, b) => a.courseName.localeCompare(b.courseName));
+  } else if (sortBy === 'progress') {
+    filtered.sort((a, b) => {
+      const pctOf = (app) => app.steps.filter((s) => s.done).length / (app.steps.length || 1);
+      return pctOf(b) - pctOf(a);
+    });
+  }
 
   const filterControls = AppState.applications.length > 0 ? `
-    <div class="filter-row" style="margin-bottom:1rem">
+    <div class="filter-row" style="margin-bottom:1rem;display:flex;gap:0.8rem;flex-wrap:wrap;align-items:center">
       <label class="caption" style="margin:0;font-weight:500" for="app-status-filter">Filter:</label>
       <select id="app-status-filter" onchange="setApplicationStatusFilter(this.value)" style="min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
         <option value="all" ${statusFilter === 'all' ? 'selected' : ''}>All Applications</option>
         <option value="in-progress" ${statusFilter === 'in-progress' ? 'selected' : ''}>In Progress</option>
         <option value="complete" ${statusFilter === 'complete' ? 'selected' : ''}>Complete</option>
+      </select>
+      <label class="caption" style="margin:0;font-weight:500" for="app-sort-filter">Sort:</label>
+      <select id="app-sort-filter" onchange="setApplicationSortBy(this.value)" style="min-height:44px;background:var(--bg-card);border:1px solid var(--border-light);border-radius:8px;color:var(--text-primary);padding:0.5rem;font-size:0.95rem">
+        <option value="recent" ${sortBy === 'recent' ? 'selected' : ''}>Most Recent</option>
+        <option value="progress" ${sortBy === 'progress' ? 'selected' : ''}>Progress (High to Low)</option>
+        <option value="name" ${sortBy === 'name' ? 'selected' : ''}>Course Name (A-Z)</option>
       </select>
     </div>
   ` : '';
@@ -197,6 +214,12 @@ function renderApplicationsTab(container) {
 
 function setApplicationStatusFilter(status) {
   AppState.viewFilters.appStatus = status;
+  saveState();
+  renderApplicationsTab(document.getElementById('track-tab-content'));
+}
+
+function setApplicationSortBy(sortBy) {
+  AppState.viewFilters.appSort = sortBy;
   saveState();
   renderApplicationsTab(document.getElementById('track-tab-content'));
 }

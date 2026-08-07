@@ -1,6 +1,8 @@
 /* Njia — design.js — MODULE 2: The Life & Career Studio
  * Odyssey Plan Builder, Life Portfolio Visualiser, Prototype Planner,
- * Gravity Problem Reframer. Depends on: js/app.js, data/questions.js (CLUSTERS)
+ * Gravity Problem Reframer. Depends on: js/app.js, data/questions.js
+ * (CLUSTERS), data/courses.js + data/institutions.js (Odyssey anchor-course
+ * dropdowns pull from the same catalogue Decide matches against).
  */
 
 const ODYSSEY_TEMPLATE = [
@@ -79,10 +81,62 @@ function renderDesignTabContent() {
 function ensureOdysseyPlans() {
   if (AppState.odysseyPlans.length === 0) {
     AppState.odysseyPlans = ODYSSEY_TEMPLATE.map((t) => ({
-      ...t, years: ['', '', '', '', '']
+      ...t, years: ['', '', '', '', ''], cluster: null, courseId: null, confidence: null
     }));
     saveState();
   }
+  // Plans saved before the anchor fields existed just read as undefined,
+  // which every render/update treats the same as null — no migration needed.
+}
+
+const ODYSSEY_CONFIDENCE_LABELS = { low: 'Low — still a sketch', medium: 'Medium — worth prototyping', high: 'High — I could commit to this' };
+
+/* The per-plan anchor selects: cluster, course, confidence. Cluster and
+ * course tie a sketched life to the same catalogue Decide matches against
+ * (a plan anchored to a real course gets its fees/duration surfaced right
+ * on the card); confidence is the life-design method's own plan-dashboard
+ * gauge, so "which of my three lives do I actually believe in?" becomes a
+ * recorded answer instead of a vibe. */
+function renderOdysseyAnchors(plan) {
+  const clusterOptions = Object.keys(CLUSTERS);
+  const savedSet = new Set(AppState.savedCourses);
+  // Filter courses to the plan's anchor cluster when one is chosen, but
+  // never filter out the currently-selected course; saved courses sort
+  // first (starred) since they're the likeliest anchors.
+  const courseOptions = COURSES
+    .filter((c) => !plan.cluster || c.cluster === plan.cluster || c.id === plan.courseId)
+    .slice()
+    .sort((a, b) => (savedSet.has(b.id) ? 1 : 0) - (savedSet.has(a.id) ? 1 : 0));
+
+  const course = plan.courseId ? COURSES.find((c) => c.id === plan.courseId) : null;
+  const inst = course ? INSTITUTIONS.find((i) => i.id === course.institution_id) : null;
+
+  return `
+    <div class="odyssey-anchor-row">
+      <div>
+        <label class="caption" for="odyssey-cluster-${plan.id}">Anchor cluster</label>
+        <select id="odyssey-cluster-${plan.id}" class="form-control" style="width:100%;margin-top:0.3rem" onchange="updateOdysseyCluster('${plan.id}', this.value)">
+          <option value="">Not set</option>
+          ${clusterOptions.map((c) => `<option value="${c}" ${plan.cluster === c ? 'selected' : ''}>${CLUSTERS[c].short}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <label class="caption" for="odyssey-course-${plan.id}">Anchor course</label>
+        <select id="odyssey-course-${plan.id}" class="form-control" style="width:100%;margin-top:0.3rem" onchange="updateOdysseyCourse('${plan.id}', this.value)">
+          <option value="">Not set</option>
+          ${courseOptions.map((c) => `<option value="${c.id}" ${plan.courseId === c.id ? 'selected' : ''}>${savedSet.has(c.id) ? '★ ' : ''}${escapeHtml(c.name)}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <label class="caption" for="odyssey-confidence-${plan.id}">Your confidence in this life</label>
+        <select id="odyssey-confidence-${plan.id}" class="form-control" style="width:100%;margin-top:0.3rem" onchange="updateOdysseyConfidence('${plan.id}', this.value)">
+          <option value="">Not set</option>
+          ${Object.entries(ODYSSEY_CONFIDENCE_LABELS).map(([key, label]) => `<option value="${key}" ${plan.confidence === key ? 'selected' : ''}>${label}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    ${course ? `<p class="text-muted text-sm mb-2">📌 ${escapeHtml(inst ? inst.name : 'Unknown institution')} · <span class="num">${course.duration_months} mo</span> · <span class="num">${formatKes(course.total_fees_kes)}</span> tuition · min grade <span class="num">${escapeHtml(course.min_grade || 'None')}</span> — figures from the Decide catalogue, illustrative pending verification.</p>` : ''}
+  `;
 }
 
 function renderOdysseyTab(container) {
@@ -93,6 +147,7 @@ function renderOdysseyTab(container) {
     <div class="card">
       <span class="caption" style="color:${(ODYSSEY_TEMPLATE.find((t) => t.id === plan.id) || plan).color}">${plan.label}</span>
       <h3 class="mb-1">${escapeHtml(plan.subtitle)}</h3>
+      ${renderOdysseyAnchors(plan)}
       ${plan.years.map((val, i) => `
         <div class="odyssey-year-row">
           <div class="odyssey-year-badge">Y${i + 1}</div>
@@ -109,6 +164,36 @@ function updateOdysseyYear(planId, yearIndex, value) {
   if (!plan) return;
   plan.years[yearIndex] = value;
   saveState();
+}
+
+function updateOdysseyCluster(planId, value) {
+  const plan = AppState.odysseyPlans.find((p) => p.id === planId);
+  if (!plan) return;
+  plan.cluster = value || null;
+  // A course anchored under the old cluster no longer matches the new
+  // one — clear it rather than leaving a contradictory pairing.
+  if (plan.courseId) {
+    const course = COURSES.find((c) => c.id === plan.courseId);
+    if (plan.cluster && course && course.cluster !== plan.cluster) plan.courseId = null;
+  }
+  saveState();
+  renderOdysseyTab(document.getElementById('design-tab-content'));
+}
+
+function updateOdysseyCourse(planId, value) {
+  const plan = AppState.odysseyPlans.find((p) => p.id === planId);
+  if (!plan) return;
+  plan.courseId = value || null;
+  saveState();
+  renderOdysseyTab(document.getElementById('design-tab-content'));
+}
+
+function updateOdysseyConfidence(planId, value) {
+  const plan = AppState.odysseyPlans.find((p) => p.id === planId);
+  if (!plan) return;
+  plan.confidence = value || null;
+  saveState();
+  renderOdysseyTab(document.getElementById('design-tab-content'));
 }
 
 /* ---------- Life Portfolio Visualiser ---------- */
@@ -234,12 +319,26 @@ function togglePrototypeItem(id) {
 }
 
 /* ---------- Gravity Problem Reframer ---------- */
+const GRAVITY_CATEGORIES = {
+  financial: '💰 Money & fees',
+  family: '👪 Family obligations',
+  academic: '🎓 Grades & qualifications',
+  location: '📍 Location & distance',
+  health: '💪 Health',
+  other: '🪨 Other'
+};
+
 function renderGravityTab(container) {
   container.innerHTML = `
     <div class="card">
       <h3 class="mb-1">🪨 Name a Gravity Problem</h3>
       <p class="text-muted text-sm mb-2">A gravity problem is a real constraint you can't solve directly (e.g. "I can't afford a 4-year degree right now"). Name it, then reframe your energy toward what you <em>can</em> design around.</p>
-      <label class="caption" for="gravity-problem">The constraint</label>
+      <label class="caption" for="gravity-category">What kind of constraint is it?</label>
+      <select id="gravity-category" class="form-control" style="width:100%;max-width:280px;display:block;margin-top:0.3rem">
+        <option value="">Pick a category (optional)</option>
+        ${Object.entries(GRAVITY_CATEGORIES).map(([key, label]) => `<option value="${key}">${label}</option>`).join('')}
+      </select>
+      <label class="caption mt-2" for="gravity-problem" style="display:block">The constraint</label>
       <textarea class="q-input mt-1" id="gravity-problem" placeholder="e.g. I cannot afford a 4-year degree right now"></textarea>
       <label class="caption mt-2" for="gravity-reframe" style="display:block">Your reframe (a certificate-to-diploma ladder? evening classes? work-study?)</label>
       <textarea class="q-input mt-1" id="gravity-reframe" placeholder="e.g. Start with a KMTC certificate, work part-time, upgrade to the diploma in year 2"></textarea>
@@ -250,6 +349,7 @@ function renderGravityTab(container) {
         ? emptyState('🪨', 'No gravity problems yet', 'Once you name a constraint and its reframe, it will appear here.', null, null)
         : AppState.gravityProblems.map((g) => `
           <div class="card">
+            ${g.category && GRAVITY_CATEGORIES[g.category] ? `<span class="type-badge">${GRAVITY_CATEGORIES[g.category]}</span>` : ''}
             <span class="caption">Constraint</span>
             <p class="mb-2">${escapeHtml(g.problem)}</p>
             <span class="caption">Reframe</span>
@@ -265,11 +365,12 @@ function renderGravityTab(container) {
 function addGravityProblem() {
   const problem = document.getElementById('gravity-problem')?.value.trim();
   const reframe = document.getElementById('gravity-reframe')?.value.trim();
+  const category = document.getElementById('gravity-category')?.value || null;
   if (!problem || !reframe) {
     showToast('Fill in both the constraint and your reframe.', 'error');
     return;
   }
-  AppState.gravityProblems.push({ id: uid('gravity'), problem, reframe, createdAt: new Date().toISOString() });
+  AppState.gravityProblems.push({ id: uid('gravity'), problem, reframe, category, createdAt: new Date().toISOString() });
   saveState();
   showToast('Reframe saved.', 'success');
   renderGravityTab(document.getElementById('design-tab-content'));

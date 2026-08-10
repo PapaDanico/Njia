@@ -8,7 +8,7 @@
 const ODYSSEY_TEMPLATE = [
   { id: 'life1', label: 'Life One', subtitle: "The path you're already on or considering", color: '#0e7ba6' },
   { id: 'life2', label: 'Life Two', subtitle: "What you'd do if Life One disappeared", color: '#55802d' },
-  { id: 'life3', label: 'Life Three', subtitle: 'What you\'d do if money or image were no object', color: '#b8631a' }
+  { id: 'life3', label: 'Life Three', subtitle: 'What you\'d do if money or image were no object', color: '#8a5310' }
 ];
 
 const PROTOTYPE_SUGGESTIONS = {
@@ -201,7 +201,7 @@ function updateOdysseyConfidence(planId, value) {
 const PORTFOLIO_GAUGES = [
   { key: 'health', label: 'Health', icon: '💪', color: '#55802d' },
   { key: 'work', label: 'Work', icon: '💼', color: '#0e7ba6' },
-  { key: 'play', label: 'Play', icon: '🎮', color: '#b8631a' },
+  { key: 'play', label: 'Play', icon: '🎮', color: '#8a5310' },
   { key: 'love', label: 'Love', icon: '❤️', color: '#c0326f' }
 ];
 

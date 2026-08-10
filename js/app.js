@@ -563,7 +563,7 @@ function renderHomePage() {
         </div>
 
         <div class="landing-tool-section">
-          <span class="landing-eyebrow" style="color:var(--primary)">FIND YOUR PATH</span>
+          <span class="landing-eyebrow" style="color:var(--primary-dark)">FIND YOUR PATH</span>
           <div class="landing-tool-grid">
             ${LANDING_TOOLS.find.map((t) => `
               <button type="button" class="landing-tool-card" onclick="navigateTo('${t.page}')">
@@ -576,7 +576,7 @@ function renderHomePage() {
         </div>
 
         <div class="landing-tool-section">
-          <span class="landing-eyebrow" style="color:var(--secondary)">MAKE IT HAPPEN</span>
+          <span class="landing-eyebrow" style="color:var(--success-ink)">MAKE IT HAPPEN</span>
           <div class="landing-tool-grid">
             ${LANDING_TOOLS.make.map((t) => `
               <button type="button" class="landing-tool-card" onclick="navigateTo('${t.page}')">

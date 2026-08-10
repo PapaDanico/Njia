@@ -270,7 +270,7 @@ function renderCourseMatcher(container) {
       <div class="flex justify-between items-center mb-1 mt-2">
         <span class="caption">Your grade (for eligibility)</span>
       </div>
-      <select class="form-control" onchange="setDecideGradeFilter(this.value)" style="width:100%">
+      <select class="form-control" aria-label="Your grade (for eligibility)" onchange="setDecideGradeFilter(this.value)" style="width:100%">
         <option value="">Not set</option>
         ${GRADE_ORDER.slice().reverse().map((g) => `<option value="${g}" ${grade === g ? 'selected' : ''}>${g}</option>`).join('')}
       </select>

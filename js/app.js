@@ -133,7 +133,7 @@ function toggleMobileMenu() {
   if (!menu || !toggle) return;
   const isOpen = menu.classList.toggle('open');
   toggle.setAttribute('aria-expanded', String(isOpen));
-  toggle.textContent = isOpen ? '✕' : '☰';
+  toggle.innerHTML = icon(isOpen ? 'x' : 'menu');
 }
 
 function closeMobileMenu() {
@@ -141,7 +141,7 @@ function closeMobileMenu() {
   const toggle = document.getElementById('nav-toggle');
   if (!menu || !menu.classList.contains('open')) return;
   menu.classList.remove('open');
-  if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.textContent = '☰'; }
+  if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.innerHTML = icon('menu'); }
 }
 
 function navigateAndCloseMenu(page) {
@@ -204,11 +204,11 @@ function renderRoute({ focusHeading = false } = {}) {
 function showToast(message, type = 'info', duration = 3000) {
   const container = document.getElementById('toast-container');
   if (!container) return;
-  const icons = { success: '✅', error: '⚠️', info: 'ℹ️' };
+  const icons = { success: 'check-circle', error: 'alert', info: 'info' };
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
   toast.setAttribute('role', 'status');
-  toast.innerHTML = `<span aria-hidden="true">${icons[type] || icons.info}</span><span>${escapeHtml(message)}</span>`;
+  toast.innerHTML = `${icon(icons[type] || icons.info)}<span>${escapeHtml(message)}</span>`;
   container.appendChild(toast);
   setTimeout(() => toast.remove(), duration);
 }
@@ -289,10 +289,16 @@ function replayFadeIn(el) {
   el.classList.add('fade-in');
 }
 
-function emptyState(icon, title, description, ctaLabel, ctaOnClick) {
+/* Chrome icon from the sprite in index.html — see DESIGN.md: app chrome
+ * uses stroke SVGs, emoji is reserved for content voice. */
+function icon(name, cls = '') {
+  return `<svg class="icon${cls ? ' ' + cls : ''}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+}
+
+function emptyState(iconName, title, description, ctaLabel, ctaOnClick) {
   return `
     <div class="empty-state">
-      <div class="icon" aria-hidden="true">${icon}</div>
+      <div class="icon-disc" aria-hidden="true">${icon(iconName)}</div>
       <h3>${escapeHtml(title)}</h3>
       <p>${escapeHtml(description)}</p>
       ${ctaLabel ? `<button type="button" class="btn btn-primary" style="width:auto;display:inline-flex" onclick="${ctaOnClick}">${escapeHtml(ctaLabel)}</button>` : ''}
@@ -411,7 +417,7 @@ function renderHomePage() {
         return `
         <section class="landing-block-tight">
           <div class="landing-teaser-box">
-            <span aria-hidden="true">📌</span>
+            <span aria-hidden="true">${icon('pin')}</span>
             <span>You have <strong>${savedCount}</strong> saved course${savedCount === 1 ? '' : 's'} waiting. <a href="#" onclick="${onclick}">${cta}</a></span>
           </div>
         </section>`;
@@ -488,7 +494,7 @@ function renderHomePage() {
         <p class="landing-sub">Your answers never leave your device. No account, no cost, about 20 minutes.</p>
         <button type="button" class="btn btn-gold" style="width:auto;display:inline-flex;margin-top:0.5rem" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
         <div class="landing-guarantee-box">
-          <span aria-hidden="true">🔒</span>
+          <span aria-hidden="true">${icon('lock')}</span>
           <span><strong>Privacy guarantee.</strong> Everything you enter — questionnaire answers, plans, saved courses — stays in this browser's local storage, not on a server. (The only exception: the optional Feedback and Partner forms in the footer, sent to us only if you submit them.) Use "Clear My Data" (header lock icon) any time, especially on a shared device.</span>
         </div>
       </section>
@@ -496,7 +502,7 @@ function renderHomePage() {
       <footer class="landing-footer">
         <div class="landing-footer-grid">
           <div class="landing-footer-brand">
-            <div class="flex items-center gap-1"><img class="logo-mark" src="./icons/logo-mark-128.png" alt="" aria-hidden="true" width="28" height="28" decoding="async"><strong style="color:#f8fafc">Njia</strong></div>
+            <div class="flex items-center gap-1"><img class="logo-mark" src="./icons/logo-mark-128.png" alt="" aria-hidden="true" width="28" height="28" decoding="async" loading="lazy"><strong style="color:#f8fafc">Njia</strong></div>
             <p>Data-driven career pathway guidance for Kenyan youth, built on research-backed career psychology and life-design methods.</p>
           </div>
           <div class="landing-footer-col">
@@ -707,10 +713,10 @@ function dismissInstallBanner() {
 
 /* ---------- Offline / online indicator ---------- */
 window.addEventListener('offline', () => {
-  showToast('📴 You are offline — Njia still works, your data is safe.', 'info', 5000);
+  showToast('You are offline — Njia still works, your data is safe.', 'info', 5000);
 });
 window.addEventListener('online', () => {
-  showToast('🌐 Back online.', 'success', 2000);
+  showToast('Back online.', 'success', 2000);
 });
 
 function showUpdateAvailableToast(registration) {

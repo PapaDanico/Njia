@@ -38,6 +38,7 @@ function renderConnectPage() {
   const cluster = AppState.questionnaire.results?.primary;
 
   el.innerHTML = `
+    <p class="page-eyebrow">Module 04 · Connect</p>
     <h1 class="mb-1">Connect</h1>
     <p class="text-secondary mb-2">No algorithm replaces a real conversation. This module helps you prototype your path by talking to real people.</p>
 
@@ -53,7 +54,7 @@ function renderConnectPage() {
     </div>
 
     <div class="card">
-      <h3 class="mb-1">✉️ Informational Interview Message</h3>
+      <h3 class="mb-1">${icon('mail')} Informational Interview Message</h3>
       <p class="text-muted text-sm mb-2">Generate a short, respectful outreach message you can send by WhatsApp, SMS or email to someone you'd like to learn from.</p>
       <label class="caption" for="connect-name">Their name (optional)</label>
       <input type="text" id="connect-name" class="form-control" placeholder="e.g. Auntie Wanjiru" style="width:100%;margin:0.4rem 0 0.8rem">
@@ -69,7 +70,7 @@ function renderConnectPage() {
     </div>
 
     <div class="card">
-      <h3 class="mb-1">🛡️ Cold Outreach Safety Checklist</h3>
+      <h3 class="mb-1">${icon('shield')} Cold Outreach Safety Checklist</h3>
       <p class="text-muted text-sm mb-2">Before you reach out or meet up — a few rules that protect you.</p>
       <ul class="mt-1">
         <li class="text-secondary text-sm mb-1">• A real professional will never ask you to pay a "registration" or "connection" fee for career advice. That's a scam, however friendly it sounds.</li>
@@ -83,7 +84,7 @@ function renderConnectPage() {
 
     <div class="card">
       <div class="flex justify-between items-center mb-1">
-        <h3>👥 Peer Cohorts</h3>
+        <h3>${icon('users')} Peer Cohorts</h3>
         <span class="type-badge">Phase 2</span>
       </div>
       <p class="text-secondary text-sm">Small WhatsApp-integrated groups of youth with similar profiles are planned for a future release, once Njia has a backend to coordinate real cohorts safely.</p>

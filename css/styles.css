@@ -139,6 +139,32 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
+/* …except page headings, which navigateTo() focuses programmatically for
+ * screen-reader users (tabindex="-1"). They aren't interactive, so the
+ * outline just reads as a broken debug box around every page title. */
+h1[tabindex="-1"]:focus-visible, h2[tabindex="-1"]:focus-visible { outline: none; }
+
+/* ---------- Chrome icons ----------
+ * Stroke SVGs from the sprite in index.html (24-grid, 2px, round caps,
+ * currentColor) — the family rule: app chrome gets these, emoji stays
+ * reserved for content voice. Sized by the em of their context. */
+.icon {
+  width: 1.15em; height: 1.15em;
+  flex-shrink: 0;
+  vertical-align: -0.18em;
+}
+
+/* ---------- Page header ----------
+ * Editorial module header: overline eyebrow above the serif h1, matching
+ * the landing page's section overlines. */
+.page-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--primary);
+  margin-bottom: 0.35rem;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -218,7 +244,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   top: var(--header-h);
   z-index: 19;
 }
-.install-banner-text { font-size: 0.85rem; font-weight: 600; }
+.install-banner-text { font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; }
 .install-banner-actions { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
 .install-banner .btn-sm { width: auto; }
 .install-banner .header-btn { color: var(--ink-contrast); width: 48px; height: 48px; }
@@ -284,7 +310,8 @@ body[data-page="home"] .nav-toggle { display: flex; }
   text-align: left;
   min-height: 48px;
 }
-.landing-nav-dropdown-menu button > span:first-child { font-size: 1.05rem; line-height: 1.4; flex-shrink: 0; }
+.landing-nav-dropdown-menu button > span:first-child { flex-shrink: 0; display: inline-flex; margin-top: 0.15rem; color: var(--primary); }
+.landing-nav-dropdown-menu button .icon { width: 18px; height: 18px; }
 .landing-nav-dropdown-menu button > span:last-child { display: flex; flex-direction: column; gap: 0.1rem; }
 .landing-nav-dropdown-menu button strong { font-size: 0.9rem; font-weight: 600; }
 .landing-nav-dropdown-menu button small { font-size: 0.76rem; font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--text-muted); }
@@ -329,6 +356,8 @@ body[data-page="home"] .nav-toggle { display: flex; }
   margin: 0.75rem 0 0.1rem;
 }
 .mobile-menu .btn { margin-top: 1rem; }
+.mobile-menu .menu-icon { display: inline-flex; margin-right: 0.55rem; color: var(--primary); vertical-align: -0.2em; }
+.mobile-menu .menu-icon .icon { width: 18px; height: 18px; }
 
 @media (min-width: 1024px) {
   body[data-page="home"] .landing-nav { display: flex; }
@@ -378,7 +407,8 @@ main {
   min-height: 48px;
   position: relative;
 }
-.nav-item .nav-icon { font-size: 1.3rem; position: relative; display: inline-block; }
+.nav-item .nav-icon { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.nav-item .nav-icon .icon { width: 21px; height: 21px; }
 .nav-item .nav-label { font-size: 0.65rem; font-weight: 600; }
 .nav-item.active { color: var(--primary-dark); }
 .nav-item.active::before {
@@ -479,6 +509,13 @@ main {
 
   .page { max-width: var(--page-max); margin: 0 auto; padding: 2rem 2.5rem; }
   #page-home.page { max-width: none; margin: 0; padding: 0 !important; }
+
+  /* Full-width buttons are a phone tap-target pattern; stretched across
+   * the desktop content column they read as unfinished. Size to content
+   * with a floor, except where a layout explicitly manages widths. */
+  .page .btn { width: auto; min-width: 200px; }
+  .page .btn-row .btn { min-width: 0; }
+  .page .btn-sm { min-width: 0; }
 
   .toast-container { max-width: 420px; }
 }
@@ -684,22 +721,41 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .cluster-row:last-child { border-bottom: none; }
 .cluster-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 0.5rem; }
 
-/* ---------- Odyssey plans ---------- */
-.odyssey-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-.odyssey-tab {
-  flex: 1;
+/* ---------- Segmented controls (module tabs) ----------
+ * One contained control instead of loose full-width pills: a bordered
+ * track with flat segments, active segment takes the ink fill (the
+ * family's deliberate selected-state, see token comment at the top). */
+.odyssey-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1rem;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 0.6rem;
+  border-radius: 999px;
+  padding: 4px;
+}
+.odyssey-tab {
+  flex: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 0.45rem;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
   text-align: center;
   font-size: 0.8rem;
   font-weight: 600;
-  min-height: 48px;
+  min-height: 44px;
   color: var(--text-secondary);
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
-.odyssey-tab.active { background: var(--ink); color: var(--ink-contrast); border-color: var(--ink); }
+.odyssey-tab:hover { color: var(--text-primary); }
+.odyssey-tab.active { background: var(--ink); color: var(--ink-contrast); }
+.odyssey-tab .icon { width: 1em; height: 1em; }
+@media (min-width: 1024px) {
+  .odyssey-tabs { display: inline-flex; }
+  .odyssey-tab { flex: none; padding: 0.55rem 1.4rem; }
+}
 /* Anchor selects (cluster / course / confidence) sit in one wrapping row
  * above the year inputs — three side-by-side where the card is wide
  * enough, stacking naturally on narrow screens via min-width + wrap. */
@@ -870,9 +926,24 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   margin-bottom: 1rem;
   display: flex; gap: 0.5rem; align-items: flex-start;
 }
+.data-disclaimer > .icon { width: 16px; height: 16px; margin-top: 0.15rem; color: #b8641b; }
+
+/* Section-card headings that lead with a chrome icon */
+h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 
 /* ---------- Filters ---------- */
 .filter-row { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+/* One wrapping toolbar for a set of filter selects — side by side where
+ * the container allows, wrapping 2-up on phones, instead of each select
+ * stacking as its own full-width row. */
+.filter-toolbar {
+  display: flex; flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.filter-toolbar .form-control { width: auto; flex: 1 1 150px; max-width: 230px; }
+.filter-toolbar .filter-spacer { flex: 1 0 auto; }
 .filter-chip {
   flex-shrink: 0;
   background: var(--bg-elevated); border: 1px solid var(--border-light);
@@ -921,7 +992,16 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   padding: 3rem 1.5rem;
   color: var(--text-muted);
 }
-.empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.7; }
+.icon-disc {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--text-muted);
+}
+.icon-disc .icon { width: 26px; height: 26px; }
 .empty-state h3 { color: var(--text-secondary); margin-bottom: 0.5rem; }
 .empty-state p { max-width: 320px; margin: 0 auto 1.25rem; font-size: 0.9rem; }
 
@@ -943,6 +1023,10 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 .toast.success { border-color: var(--secondary); }
 .toast.error { border-color: var(--danger); }
+.toast .icon { width: 18px; height: 18px; }
+.toast.success .icon { color: var(--secondary); }
+.toast.error .icon { color: var(--danger); }
+.toast.info .icon { color: var(--primary-dark); }
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-16px); }
   to { opacity: 1; transform: translateY(0); }

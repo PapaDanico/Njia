@@ -60,15 +60,16 @@ function renderDecidePage() {
   const totalCount = COURSES.length + FUNDING_SOURCES.length;
 
   el.innerHTML = `
+    <p class="page-eyebrow">Module 03 · Decide</p>
     <h1 class="mb-1">Decide</h1>
     <p class="text-secondary mb-2">Every recommendation answers three questions: Do I qualify? Can I afford it? Will it lead to work I care about?</p>
     <div class="data-disclaimer">
-      <span aria-hidden="true">⚠️</span>
+      ${icon('alert')}
       <span>This MVP dataset (fees, employment rates, salaries, deadlines) is <strong>illustrative</strong> for demonstration — verify current figures directly with each institution or funder before deciding. <strong>${verifiedCount} of ${totalCount} records</strong> have been independently cross-checked against a public source — look for the ✓ Verified badge.</span>
     </div>
     <div class="odyssey-tabs">
-      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'courses' ? 'active' : ''}" onclick="setDecideTab('courses')">🎓 Courses</button>
-      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'funding' ? 'active' : ''}" onclick="setDecideTab('funding')">💰 Funding</button>
+      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'courses' ? 'active' : ''}" onclick="setDecideTab('courses')">${icon('grad-cap')}Courses</button>
+      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'funding' ? 'active' : ''}" onclick="setDecideTab('funding')">${icon('coins')}Funding</button>
     </div>
     <div id="decide-tab-content"></div>
   `;
@@ -184,37 +185,28 @@ function renderCourseMatcher(container) {
       </div>
     ` : ''}
 
-    <div class="filter-row" aria-label="Filter by career cluster">
-      <select class="form-control" onchange="setDecideClusterFilter(this.value)" style="width:100%;max-width:220px">
+    <div class="filter-toolbar" aria-label="Course filters">
+      <select class="form-control" aria-label="Filter by career cluster" onchange="setDecideClusterFilter(this.value)">
         ${clusterOptions.map((c) => `<option value="${c}" ${AppState.decideFilters.cluster === c ? 'selected' : ''}>${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}</option>`).join('')}
       </select>
-    </div>
-
-    <div class="filter-row" aria-label="Filter by qualification level">
-      <select class="form-control" onchange="setDecideLevelFilter(this.value)" style="width:100%;max-width:200px">
+      <select class="form-control" aria-label="Filter by qualification level" onchange="setDecideLevelFilter(this.value)">
         ${levelOptions.map((l) => `<option value="${l}" ${AppState.decideFilters.level === l ? 'selected' : ''}>${l === 'all' ? 'All Levels' : levelLabels[l]}</option>`).join('')}
       </select>
-    </div>
-
-    <div class="filter-row" aria-label="Filter by learning mode">
-      <select class="form-control" onchange="setDecideModeFilter(this.value)" style="width:100%;max-width:200px">
+      <select class="form-control" aria-label="Filter by learning mode" onchange="setDecideModeFilter(this.value)">
         ${modeOptions.map((m) => `<option value="${m}" ${AppState.decideFilters.mode === m ? 'selected' : ''}>${modeLabels[m]}</option>`).join('')}
       </select>
-    </div>
-
-    <div class="filter-row" aria-label="Filter by county">
-      <select class="form-control" onchange="setDecideCountyFilter(this.value)" style="width:100%;max-width:250px">
-        <option value="all" ${AppState.decideFilters.county === 'all' ? 'selected' : ''}>📍 All Counties</option>
+      <select class="form-control" aria-label="Filter by county" onchange="setDecideCountyFilter(this.value)">
+        <option value="all" ${AppState.decideFilters.county === 'all' ? 'selected' : ''}>All Counties</option>
         ${COUNTIES.map((county) => `<option value="${county}" ${AppState.decideFilters.county === county ? 'selected' : ''}>${escapeHtml(county)}</option>`).join('')}
       </select>
     </div>
 
-    <div class="filter-row" aria-label="Sort courses" style="display:flex;align-items:center;gap:0.6rem">
-      <label class="caption" style="margin:0;font-weight:500" for="course-sort-select">Sort:</label>
-      <select id="course-sort-select" class="form-control" onchange="setDecideSortBy(this.value)" style="max-width:220px">
+    <div class="filter-toolbar" aria-label="Sort courses">
+      <label class="caption" style="margin:0;font-weight:500;flex:none" for="course-sort-select">Sort:</label>
+      <select id="course-sort-select" class="form-control" onchange="setDecideSortBy(this.value)">
         ${Object.entries(sortOptions).map(([key, label]) => `<option value="${key}" ${sortBy === key ? 'selected' : ''}>${label}</option>`).join('')}
       </select>
-      ${AppState.savedCourses.length >= 2 ? `<button type="button" class="btn btn-ghost btn-sm" style="width:auto;margin-left:auto" onclick="openCourseComparison()">⚖️ Compare Saved</button>` : ''}
+      ${AppState.savedCourses.length >= 2 ? `<span class="filter-spacer"></span><button type="button" class="btn btn-ghost btn-sm" style="width:auto" onclick="openCourseComparison()">${icon('scale')} Compare Saved</button>` : ''}
     </div>
 
     <div class="card">
@@ -234,7 +226,7 @@ function renderCourseMatcher(container) {
     </div>
 
     ${filtered.length === 0
-      ? emptyState('🔍', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
+      ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
       : `<div class="results-grid">${filtered.map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>`
     }
   `;
@@ -271,9 +263,9 @@ function renderCourseCard(course, match) {
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
-      <p class="text-muted text-sm mb-1">🗓️ Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
-      <p class="text-muted text-sm mb-2">📊 Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
-      <p class="text-muted text-sm mb-2">🏠 Full cost of attendance (illustrative): ${requiresRelocation
+      <p class="text-muted text-sm mb-1">Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
+      <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
+      <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation
         ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total. Varies by town — plan, don't rely on this figure.`
         : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
       }</p>
@@ -427,7 +419,7 @@ function renderFundingFinder(container) {
 
   container.innerHTML = `
     <div class="card">
-      <h3 class="mb-1">📅 Key Application Windows</h3>
+      <h3 class="mb-1">${icon('calendar')} Key Application Windows</h3>
       <p class="text-muted text-sm mb-2">Deadlines vary by funder and change yearly — always confirm the current cycle directly before your window closes.</p>
       <div class="cluster-secondary-list">
         ${FUNDING_SOURCES.map((f) => `

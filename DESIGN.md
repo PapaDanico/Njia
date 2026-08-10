@@ -151,6 +151,52 @@ One entrance (`fadeIn` / `replayFadeIn`) on page and tab content.
 `prefers-reduced-motion` is globally respected — never add motion that
 bypasses it.
 
+## Persisted state is untrusted input
+
+Njia is an installed PWA that updates itself in place, so a returning
+user can arrive carrying state written by a much older version. Any
+renderer that reaches straight into a persisted collection —
+`app.steps.every(...)`, `plan.years.map(...)` — throws on an entry saved
+before that field existed, and a throw inside `renderRoute()` leaves the
+module blank with no way back except clearing site data, which destroys
+everything else the user saved.
+
+`normalizeState()` in `js/app.js` is the single place that repairs shape,
+and it runs before any module renders. Two rules:
+
+- **Repair beats discard.** Backfill the missing field and keep the
+  user's work; drop an entry only when its identity is unrecoverable.
+  Pad `years`, never truncate it — truncating deletes something a real
+  person typed.
+- **Coerce booleans explicitly.** A persisted `done: 'false'` is truthy
+  and would render an uncompleted step as done, silently inflating
+  someone's progress.
+
+Add a collection to `defaultState()` and you add it here too;
+`tests/state.test.js` pins both halves of the contract.
+
+Note the load-order trap: `loadState()` runs at module load, *above*
+these helpers in source order, so they are function declarations rather
+than `const` arrows. A `const` there sits in the temporal dead zone,
+throws, gets swallowed by `loadState`'s own `catch`, and wipes every
+user's saved work on every load — silently, since the fallback looks
+like a fresh install.
+
+## Reveal, don't re-render
+
+Toggling a control's visibility by rebuilding the surrounding view costs
+~180ms on a mid-range Android at 4× CPU throttle when the Decide
+catalogue is on screen — well past the 100ms responsiveness floor, on the
+app's most-repeated action. Render conditional chrome (the saved-only
+chip, Compare Saved) unconditionally and flip the `hidden` attribute
+instead; re-render only when the *contents* genuinely change, as when
+un-saving a course under the saved-only filter.
+
+The UA rule for `[hidden]` is `display:none` at the lowest possible
+specificity, so any component rule setting `display` defeats it. The
+reset in `styles.css` restores it with `!important` — without that,
+`el.hidden = true` looks correct in the DOM and changes nothing on screen.
+
 ## PWA
 
 Bump `CACHE_VERSION` in `sw.js` on every deploy that changes cached

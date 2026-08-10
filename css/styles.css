@@ -222,6 +222,10 @@
 
 /* ---------- Reset ---------- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
+/* The UA rule for [hidden] is display:none at the lowest specificity, so any
+   component rule setting display (.btn, .filter-row) silently defeats it.
+   Restore it here so `el.hidden = true` is reliable everywhere. */
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

@@ -56,11 +56,65 @@ function loadState() {
         merged[key] = Object.assign(defaultState()[key], parsed[key]);
       }
     });
-    return merged;
+    return normalizeState(merged);
   } catch (err) {
     console.warn('Njia: could not read saved state, starting fresh.', err);
     return defaultState();
   }
+}
+
+/* Repair the shape of a loaded state before any module renders from it.
+ *
+ * Njia is an installed PWA that updates itself in place, so a returning user
+ * can arrive carrying state written by an older version whose collections had
+ * a different shape — and a renderer that does `app.steps.every(...)` on an
+ * entry saved before `steps` existed throws, leaving that module a blank page
+ * with no way back except clearing site data (which silently destroys
+ * everything else they saved). Persisted state is untrusted input; validate it
+ * once, here, rather than guarding every read site forever.
+ *
+ * Repair beats discard: an entry missing a field gets the field back and keeps
+ * the user's work. Only entries too malformed to identify are dropped.
+ *
+ * The three helpers below are function declarations, not `const` arrows, on purpose:
+ * loadState() runs at module load (line ~45), which is *above* this point in
+ * source order. `const` bindings sit in the temporal dead zone until execution
+ * reaches them, so arrow versions would throw ReferenceError inside
+ * normalizeState — and loadState's own catch would swallow it and hand back
+ * defaultState(), silently wiping the user's saved work on every single load.
+ */
+function asArray(value) { return Array.isArray(value) ? value : []; }
+function asObjects(value) { return asArray(value).filter((entry) => entry && typeof entry === 'object'); }
+function asStrings(value) { return asArray(value).filter((entry) => typeof entry === 'string'); }
+
+function normalizeState(state) {
+  state.savedCourses = asStrings(state.savedCourses);
+  state.gravityProblems = asObjects(state.gravityProblems);
+  state.prototypeChecklist = asObjects(state.prototypeChecklist);
+  state.mentors = asObjects(state.mentors);
+
+  state.applications = asObjects(state.applications).map((app) => ({
+    ...app,
+    steps: asObjects(app.steps).map((step) => ({ ...step, done: step.done === true }))
+  }));
+
+  state.okrs = asObjects(state.okrs).map((okr) => ({
+    ...okr,
+    keyResults: asObjects(okr.keyResults).map((kr) => ({ ...kr, done: kr.done === true }))
+  }));
+
+  // A plan is identified by its template id; an unrecognised one can't be
+  // rendered meaningfully, so it goes. `years` is padded, never truncated —
+  // shortening it would delete something the user typed.
+  state.odysseyPlans = asObjects(state.odysseyPlans)
+    .filter((plan) => typeof plan.id === 'string')
+    .map((plan) => {
+      const years = asArray(plan.years).map((year) => (typeof year === 'string' ? year : ''));
+      while (years.length < 5) years.push('');
+      return { ...plan, years };
+    });
+
+  return state;
 }
 
 function saveState() {

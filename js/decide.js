@@ -270,13 +270,13 @@ function renderCourseMatcher(container) {
     <div class="decide-layout">
     <aside class="decide-rail" aria-label="Course filters">
     <p class="decide-rail-title">Filter the catalogue</p>
-    ${AppState.savedCourses.length > 0 ? `
-      <div class="filter-row" aria-label="Show saved courses only">
-        <button type="button" class="filter-chip ${AppState.decideFilters.savedOnly ? 'active' : ''}" onclick="toggleDecideSavedOnly()">
-          ★ Saved Only (${AppState.savedCourses.length})
-        </button>
-      </div>
-    ` : ''}
+    <!-- Rendered unconditionally and hidden when empty, so saving your first
+         course toggles an attribute instead of re-rendering the catalogue. -->
+    <div class="filter-row" data-saved-row aria-label="Show saved courses only" ${AppState.savedCourses.length > 0 ? '' : 'hidden'}>
+      <button type="button" data-saved-chip class="filter-chip ${AppState.decideFilters.savedOnly ? 'active' : ''}" onclick="toggleDecideSavedOnly()">
+        ★ Saved Only (${AppState.savedCourses.length})
+      </button>
+    </div>
 
     <div class="filter-toolbar" aria-label="Course filters">
       <select class="form-control" aria-label="Filter by career cluster" onchange="setDecideClusterFilter(this.value)">
@@ -304,7 +304,8 @@ function renderCourseMatcher(container) {
       <select id="course-sort-select" class="form-control" onchange="setDecideSortBy(this.value)">
         ${Object.entries(sortOptions).map(([key, label]) => `<option value="${key}" ${sortBy === key ? 'selected' : ''}>${label}</option>`).join('')}
       </select>
-      ${AppState.savedCourses.length >= 2 ? `<span class="filter-spacer"></span><button type="button" class="btn btn-ghost btn-sm" style="width:auto" onclick="openCourseComparison()">${icon('scale')} Compare Saved</button>` : ''}
+      <span class="filter-spacer" data-compare-spacer ${AppState.savedCourses.length >= 2 ? '' : 'hidden'}></span>
+      <button type="button" data-compare-btn class="btn btn-ghost btn-sm" style="width:auto" onclick="openCourseComparison()" ${AppState.savedCourses.length >= 2 ? '' : 'hidden'}>${icon('scale')} Compare Saved</button>
     </div>
 
     <div class="card">
@@ -401,7 +402,7 @@ function renderCourseCard(course, match) {
         </ul>
       </details>
       <div class="btn-row">
-        <button type="button" class="btn ${saved ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleSavedCourse('${course.id}')">${saved ? '★ Saved' : '☆ Save'}</button>
+        <button type="button" data-save-btn="${course.id}" aria-pressed="${saved}" class="btn ${saved ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleSavedCourse('${course.id}')">${saved ? '★ Saved' : '☆ Save'}</button>
         <button type="button" class="btn btn-ghost btn-sm" onclick="startApplicationForCourse('${course.id}')">Start Application</button>
       </div>
     </div>
@@ -460,9 +461,17 @@ function clearDecideFilters() {
   renderDecideTabContent();
 }
 
+/* Saving used to re-render the whole tab, which on a 73-course catalogue
+ * threw the user thousands of pixels away from the card they had just
+ * scrolled to find — losing your place on the app's core action, on the
+ * phones this app is built for. Now only the things that actually changed
+ * are touched: the card's own button, the saved-only chip, and the
+ * compare affordance. Scroll position survives, and so does the rest of
+ * the DOM. */
 function toggleSavedCourse(courseId) {
   const idx = AppState.savedCourses.indexOf(courseId);
-  if (idx === -1) {
+  const nowSaved = idx === -1;
+  if (nowSaved) {
     AppState.savedCourses.push(courseId);
     showToast('Saved. We\'ll remind you to apply.', 'success');
   } else {
@@ -470,7 +479,37 @@ function toggleSavedCourse(courseId) {
     showToast('Course removed from saved list.', 'info');
   }
   saveState();
-  renderDecideTabContent();
+
+  // If the saved-only filter is on, removing a course must actually drop
+  // it from the list — that is a genuine change of contents, so re-render.
+  if (AppState.decideFilters.savedOnly && !nowSaved) {
+    renderDecideTabContent();
+    return;
+  }
+  updateSavedAffordances(courseId, nowSaved);
+}
+
+function updateSavedAffordances(courseId, nowSaved) {
+  const btn = document.querySelector(`[data-save-btn="${courseId}"]`);
+  if (btn) {
+    btn.textContent = nowSaved ? '★ Saved' : '☆ Save';
+    btn.classList.toggle('btn-secondary', nowSaved);
+    btn.classList.toggle('btn-primary', !nowSaved);
+    btn.setAttribute('aria-pressed', String(nowSaved));
+  }
+  const count = AppState.savedCourses.length;
+  const chip = document.querySelector('[data-saved-chip]');
+  if (chip) chip.textContent = `★ Saved Only (${count})`;
+  // The chip and compare button are always in the DOM, so crossing their
+  // count thresholds is an attribute flip rather than a re-render.
+  setHidden('[data-saved-row]', count === 0);
+  setHidden('[data-compare-spacer]', count < 2);
+  setHidden('[data-compare-btn]', count < 2);
+}
+
+function setHidden(selector, hidden) {
+  const el = document.querySelector(selector);
+  if (el) el.hidden = hidden;
 }
 
 function startApplicationForCourse(courseId) {

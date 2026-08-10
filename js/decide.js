@@ -26,6 +26,13 @@ function meetsGradeRequirement(userGrade, minGrade) {
   return gradeRank(userGrade) >= gradeRank(minGrade);
 }
 
+/* Marks any figure whose provenance is 'illustrative'. Outcome figures are
+ * estimates on every record — see the provenance notice in data/courses.js —
+ * so this must never be dropped for visual tidiness. */
+function estimateMark(course) {
+  return course.outcomes_confidence === 'verified' ? '' : '<span class="est-mark" title="Estimated — not measured. Kenya does not publish graduate outcomes per course.">est.</span>';
+}
+
 function institutionById(id) {
   return INSTITUTIONS.find((i) => i.id === id);
 }
@@ -55,7 +62,7 @@ function renderDecidePage() {
   const el = document.getElementById('page-decide');
   if (!el) return;
 
-  const verifiedCount = COURSES.filter((c) => c.data_confidence === 'verified').length
+  const verifiedCount = COURSES.filter((c) => c.fees_confidence === 'verified').length
     + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
   const totalCount = COURSES.length + FUNDING_SOURCES.length;
 
@@ -71,7 +78,7 @@ function renderDecidePage() {
         <p class="text-secondary mb-2">Every recommendation answers three questions: Do I qualify? Can I afford it? Will it lead to work I care about?</p>
         <div class="data-disclaimer">
           ${icon('alert')}
-          <span>This MVP dataset (fees, employment rates, salaries, deadlines) is <strong>illustrative</strong> for demonstration — verify current figures directly with each institution or funder before deciding. <strong>${verifiedCount} of ${totalCount} records</strong> have been independently cross-checked against a public source — look for the ✓ Verified badge.</span>
+          <span><strong>${verifiedCount} of ${totalCount} records</strong> have fees or terms cross-checked against a named public source — look for the ✓ Fees verified badge. <strong>Employment rates and salaries are estimates, not measurements</strong>: Kenya does not publish graduate outcomes per course, so no figure marked <span class="est-mark">est.</span> has been measured. Always confirm fees with the institution before deciding.</span>
         </div>
       </div>
       <aside class="module-header-aside">
@@ -232,7 +239,9 @@ function renderCourseMatcher(container) {
     : null;
 
   const sortBy = AppState.decideFilters.sortBy || 'match';
-  const sortOptions = { match: 'Best Match', fees_low: 'Lowest Fees', fees_high: 'Highest Fees', employment: 'Highest Employment Rate', duration: 'Shortest Duration' };
+  const sortOptions = { match: 'Best Match', fees_low: 'Lowest Fees', fees_high: 'Highest Fees', employment: 'Highest Employment (est.)', duration: 'Shortest Duration' };
+  // 'employment' ranks on an estimated figure, never a measured one. The label
+  // in sortOptions says so — do not shorten it back to "Employment Rate".
   const sorters = {
     match: (a, b) => b.match.score - a.match.score,
     fees_low: (a, b) => a.course.total_fees_kes - b.course.total_fees_kes,
@@ -342,7 +351,7 @@ function renderCourseCard(course, match) {
   const saved = AppState.savedCourses.includes(course.id);
   const monthlyEstimate = Math.round(course.total_fees_kes / course.duration_months);
 
-  const isVerified = course.data_confidence === 'verified';
+  const isVerified = course.fees_confidence === 'verified';
 
   // Online courses don't require relocating or renting near an institution,
   // so an accommodation estimate would overstate the real cost for them.
@@ -378,8 +387,8 @@ function renderCourseCard(course, match) {
         <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${course.duration_months} mo</div></div>
         <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value num">${formatKes(course.total_fees_kes)}</div></div>
         <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
-        <div class="meta-item"><div class="meta-label">Employment Rate</div><div class="meta-value num">${formatPercent(course.employment_rate)}</div></div>
-        <div class="meta-item"><div class="meta-label">Median Salary</div><div class="meta-value num">${formatKes(course.median_salary_kes)}/mo</div></div>
+        <div class="meta-item"><div class="meta-label">Employment Rate ${estimateMark(course)}</div><div class="meta-value num is-estimate">${formatPercent(course.employment_rate)}</div></div>
+        <div class="meta-item"><div class="meta-label">Median Salary ${estimateMark(course)}</div><div class="meta-value num is-estimate">${formatKes(course.median_salary_kes)}/mo</div></div>
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
@@ -555,8 +564,8 @@ function openCourseComparison() {
     { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true, raw: (c) => c.duration_months, better: 'min' },
     { label: 'Tuition', get: (c) => formatKes(c.total_fees_kes), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
-    { label: 'Employment Rate', get: (c) => formatPercent(c.employment_rate), num: true, raw: (c) => c.employment_rate ?? -1, better: 'max' },
-    { label: 'Median Salary', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true, raw: (c) => c.median_salary_kes ?? -1, better: 'max' },
+    { label: 'Employment Rate (est.)', get: (c) => formatPercent(c.employment_rate), num: true, raw: (c) => c.employment_rate ?? -1, better: 'max' },
+    { label: 'Median Salary (est.)', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true, raw: (c) => c.median_salary_kes ?? -1, better: 'max' },
     { label: 'Match Score', get: (c) => `${computeCourseMatch(c).score}%`, num: true, raw: (c) => computeCourseMatch(c).score, better: 'max' }
   ];
   const bestValue = (row) => {

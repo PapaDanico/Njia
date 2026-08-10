@@ -260,6 +260,60 @@ function clusterSpread(ranked, totalPoints) {
   }));
 }
 
+/* The labour-market reality check, filtered to the user's matched cluster.
+ *
+ * Interest fit answers "what suits me". This answers "what does that pay, and
+ * who is actually hiring" — the question every Kenyan parent asks next, and
+ * the one a career tool that ducks it has no business calling itself
+ * evidence-based.
+ *
+ * Every earnings figure ships with its entryReality caveat, because a sector
+ * average includes consultants and principals and is emphatically not a
+ * school-leaver's starting salary. The caveat is not decoration; rendering
+ * the number without it would repeat the fabricated-statistics failure this
+ * whole layer exists to correct. tests/provenance.test.js enforces that the
+ * caveat exists on every record.
+ */
+function renderLabourMarketCard(primaryCluster) {
+  if (typeof SECTOR_EARNINGS === 'undefined') return '';
+  const sectors = SECTOR_EARNINGS.filter((s) => s.clusters.includes(primaryCluster));
+  const signals = KENYA_DEMAND_SIGNALS.filter((s) => s.clusters.includes(primaryCluster));
+  if (!sectors.length && !signals.length) return '';
+
+  const monthly = (annual) => formatKes(Math.round(annual / 12));
+
+  return `
+    <div class="card evidence-card">
+      <span class="caption">The labour market you are entering</span>
+      <h2 class="mb-1 mt-1">What this field actually pays — and who is hiring</h2>
+      <p class="text-secondary text-sm mb-2">Kenya publishes earnings by <em>sector</em>, not by course. These are averages across formal wage employment, so read them as where a career can reach, not where it starts.</p>
+
+      ${sectors.map((s) => `
+        <div class="sector-row">
+          <div class="sector-row-head">
+            <span class="sector-name">${escapeHtml(s.sector)}</span>
+            <span class="sector-figure num">${monthly(s.annualKes)}<span class="sector-per">/mo avg</span></span>
+          </div>
+          <p class="sector-reality">${escapeHtml(s.entryReality)}</p>
+        </div>
+      `).join('')}
+
+      ${signals.length ? `
+        <h3 class="mt-2 mb-1">Demand signals in Kenya right now</h3>
+        <ul class="evidence-list">
+          ${signals.map((s) => `<li><strong>${escapeHtml(s.signal)}.</strong> ${escapeHtml(s.note)}</li>`).join('')}
+        </ul>
+      ` : ''}
+
+      <h3 class="mt-2 mb-1">The skills that keep paying</h3>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.skillChurn)} ${escapeHtml(FUTURE_OF_WORK.interpretation)}</p>
+      <p class="text-muted text-sm">Fastest-growing globally: ${FUTURE_OF_WORK.fastestGrowingSkills.map((s) => escapeHtml(s)).join(' · ')}</p>
+
+      <p class="text-muted text-sm mt-2">Earnings: ${escapeHtml(LABOUR_MARKET_ANCHORS.source)}. Skills outlook: ${escapeHtml(FUTURE_OF_WORK.source)} (global scope). Figures were cross-checked across independent reports rather than read from the primary release — see the Methodology note in Help.</p>
+    </div>
+  `;
+}
+
 function renderDiscoverResults(el) {
   const { ranked, primary, secondary, elementScores, constraints } = AppState.questionnaire.results;
   const primaryC = CLUSTERS[primary];
@@ -347,6 +401,8 @@ function renderDiscoverResults(el) {
         </ul>
         <p class="text-muted text-sm mt-2">Sources: Tsabari, Tziner &amp; Meir (2005) meta-analysis of congruence and satisfaction; Low, Yoon, Roberts &amp; Rounds (2005) on interest stability; Nye, Su, Rounds &amp; Drasgow (2012) on interests and performance; Super's stages of vocational development (crystallisation 14–18, specification 18–21). See Methodology for how these shape the Njia Method.</p>
       </div>
+
+      ${renderLabourMarketCard(primary)}
 
       ${constraintRows ? `<div class="card"><h2 class="mb-1">Necessity — Your Constraints</h2><p class="text-muted text-sm mb-2">The fourth Element. These feed the Decide module's course matcher directly.</p><div class="meta-grid">${constraintRows}</div></div>` : ''}
 

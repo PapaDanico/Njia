@@ -452,7 +452,7 @@ const LANDING_PROCESS = [
 function renderNjiaNumbersCard() {
   const clusterCount = Object.keys(CLUSTERS).length;
   const countyCount = new Set(INSTITUTIONS.map((i) => i.county)).size;
-  const verifiedCount = COURSES.filter((c) => c.data_confidence === 'verified').length
+  const verifiedCount = COURSES.filter((c) => c.fees_confidence === 'verified').length
     + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
   const totalRecords = COURSES.length + FUNDING_SOURCES.length;
 

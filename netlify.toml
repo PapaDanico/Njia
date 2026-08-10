@@ -4,5 +4,6 @@
 # build command is set in the Netlify dashboard, so a dashboard-side
 # setting can never fail deploys for a site with nothing to build.
 [build]
+  base = ""
   command = "echo 'Njia has no build step - deploying repository root as-is'"
   publish = "."

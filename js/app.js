@@ -289,6 +289,38 @@ function replayFadeIn(el) {
   el.classList.add('fade-in');
 }
 
+/* ---------- Theme ----------
+ * data-theme is stamped pre-paint by the inline script in index.html;
+ * this manager keeps the toggle button, meta theme-color and system-
+ * preference changes in sync with it. */
+const THEME_COLORS = { light: '#faf9f5', dark: '#16130f' };
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme]);
+  const btn = document.getElementById('theme-btn');
+  if (btn) {
+    btn.innerHTML = icon(theme === 'dark' ? 'sun' : 'moon');
+    btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+}
+
+function toggleTheme() {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('njia-theme', next); } catch (e) { /* private mode */ }
+  applyTheme(next);
+}
+
+function initTheme() {
+  applyTheme(document.documentElement.dataset.theme || 'light');
+  // Follow system changes only while the user hasn't made an explicit choice.
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    let stored = null;
+    try { stored = localStorage.getItem('njia-theme'); } catch (err) { /* ignore */ }
+    if (stored !== 'light' && stored !== 'dark') applyTheme(e.matches ? 'dark' : 'light');
+  });
+}
+
 /* Chrome icon from the sprite in index.html — see DESIGN.md: app chrome
  * uses stroke SVGs, emoji is reserved for content voice. */
 function icon(name, cls = '') {
@@ -556,6 +588,7 @@ function goToSavedCourses() {
 
 /* ---------- Init ---------- */
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
   document.querySelector('.bottom-nav')?.addEventListener('click', (e) => {
     const btn = e.target.closest('.nav-item');
     if (btn) navigateTo(btn.dataset.page);

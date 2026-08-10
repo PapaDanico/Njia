@@ -58,6 +58,32 @@ Two rules keep desktop from looking like a stretched phone:
 - Filter selects share one wrapping `.filter-toolbar` row, never one
   select per row.
 
+## Tokens — the Kanda discipline
+
+Adopted from Kandalogistics' design system: **component rules reference
+tokens, never raw values.** If you find yourself typing a hex or a pixel
+in a component rule, the token is missing — add it to the `:root` block
+instead. Tint panels use the `*-soft` background + `*-ink` text +
+`*-border` hairline triplets; never raw success/warn/danger as small
+text on tints. Spacing tokens follow a 4px grid (`--space-1` … `--space-16`);
+display sizes are fluid (`--text-*-fluid` via `clamp()`), because a fixed
+phone headline shown on a desktop is most of why a page reads as a
+utility.
+
+## Light and dark
+
+Both schemes are first-class. The dark scheme is "warm ink" — the same
+paper-and-terracotta identity inverted onto deep espresso grounds (never
+pure black), with the terracotta lightened where it carries text so the
+AA contrast floor holds (non-negotiable, per the family rule). The
+mechanism: a tiny inline script in `index.html` stamps
+`data-theme` pre-paint from the stored choice or system preference;
+`applyTheme()` in `js/app.js` owns the toggle, persistence
+(`localStorage.njia-theme`), meta theme-color sync, and follows system
+changes until the user chooses explicitly. All dark values live in the
+single `:root[data-theme="dark"]` block; the landing page swaps its
+scoped `--landing-*` token set as a unit.
+
 ## Motion
 
 One entrance (`fadeIn` / `replayFadeIn`) on page and tab content.

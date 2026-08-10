@@ -25,6 +25,20 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="stylesheet" href="./css/styles.css">
+  <script>
+    // Stamp the theme before first paint so a dark-preference load never
+    // flashes light. Kept inline and tiny on purpose; the full theme
+    // manager (toggle, persistence, meta sync) lives in js/app.js.
+    (function () {
+      try {
+        var t = localStorage.getItem('njia-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) { /* default light */ }
+    })();
+  </script>
 </head>
 <body>
   <!-- Stroke-icon sprite for app chrome (nav, tabs, system affordances) —
@@ -63,6 +77,8 @@
       <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
       <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
       <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.3 17.7-1.4 1.4"/><path d="m19.1 4.9-1.4 1.4"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
     </defs>
   </svg>
   <noscript>
@@ -115,6 +131,7 @@
 
       <div class="header-actions">
         <button type="button" class="btn btn-primary btn-sm landing-cta-header" id="header-cta-btn" onclick="navigateTo('discover')">Start Discovery</button>
+        <button type="button" class="header-btn" id="theme-btn" aria-label="Switch colour theme" onclick="toggleTheme()"><svg class="icon" aria-hidden="true"><use href="#i-moon"/></svg></button>
         <button type="button" class="header-btn" id="privacy-btn" aria-label="Privacy and data" onclick="openPrivacyModal()"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></button>
         <button type="button" class="header-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
       </div>

@@ -50,13 +50,15 @@ interactive elements.
 
 ## Layout
 
-Mobile-first; the desktop shell (≥1024px) is a sidebar + content grid.
-Two rules keep desktop from looking like a stretched phone:
+Mobile-first; the desktop shell (≥1024px) is a top nav with grouped
+dropdowns over a centred content column (see "Desktop layout" below for
+how that width is used). Two rules keep desktop from looking like a
+stretched phone:
 
 - Buttons size to content on desktop (`.page .btn { width: auto }`)
   — full-width buttons are a phone tap-target pattern.
 - Filter selects share one wrapping `.filter-toolbar` row, never one
-  select per row.
+  select per row; on wide screens they move into the Decide rail.
 
 ## Tokens — the Kanda discipline
 

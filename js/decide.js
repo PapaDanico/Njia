@@ -60,15 +60,16 @@ function renderDecidePage() {
   const totalCount = COURSES.length + FUNDING_SOURCES.length;
 
   el.innerHTML = `
+    <p class="page-eyebrow">Module 03 · Decide</p>
     <h1 class="mb-1">Decide</h1>
     <p class="text-secondary mb-2">Every recommendation answers three questions: Do I qualify? Can I afford it? Will it lead to work I care about?</p>
     <div class="data-disclaimer">
-      <span aria-hidden="true">⚠️</span>
+      ${icon('alert')}
       <span>This MVP dataset (fees, employment rates, salaries, deadlines) is <strong>illustrative</strong> for demonstration — verify current figures directly with each institution or funder before deciding. <strong>${verifiedCount} of ${totalCount} records</strong> have been independently cross-checked against a public source — look for the ✓ Verified badge.</span>
     </div>
     <div class="odyssey-tabs">
-      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'courses' ? 'active' : ''}" onclick="setDecideTab('courses')">🎓 Courses</button>
-      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'funding' ? 'active' : ''}" onclick="setDecideTab('funding')">💰 Funding</button>
+      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'courses' ? 'active' : ''}" onclick="setDecideTab('courses')">${icon('grad-cap')}Courses</button>
+      <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'funding' ? 'active' : ''}" onclick="setDecideTab('funding')">${icon('coins')}Funding</button>
     </div>
     <div id="decide-tab-content"></div>
   `;
@@ -90,28 +91,79 @@ function renderDecideTabContent() {
   replayFadeIn(container);
 }
 
-/* ---------- Course Matcher ---------- */
+/* ---------- Course Matcher ----------
+ * scoreCourseMatch is deliberately pure (course + profile in, score out —
+ * no AppState, no DOM) so `node --test tests/*.test.js` can exercise it directly.
+ * It also returns a factor-by-factor breakdown that renderCourseCard shows
+ * under "Why this match?", so the score is explainable, not an oracle. */
+function scoreCourseMatch(course, profile) {
+  const { hasResults, primary, secondary, grade, budgetMax } = profile;
+  const breakdown = [];
+  let score = 40;
+  if (hasResults) {
+    if (course.cluster === primary) {
+      score = 95;
+      breakdown.push({ factor: 'Career fit', detail: `${CLUSTERS[course.cluster].short} is your primary cluster — the strongest signal in your Discovery results.`, effect: 'up' });
+    } else if (course.cluster === secondary) {
+      score = 72;
+      breakdown.push({ factor: 'Career fit', detail: `${CLUSTERS[course.cluster].short} is your secondary cluster — a good, but not strongest, fit.`, effect: 'up' });
+    } else {
+      score = 35;
+      breakdown.push({ factor: 'Career fit', detail: `${CLUSTERS[course.cluster].short} is outside your two matched clusters.`, effect: 'down' });
+    }
+  } else {
+    breakdown.push({ factor: 'Career fit', detail: 'Complete Discover to personalise this — without your results every course starts from the same baseline.', effect: 'neutral' });
+  }
+
+  const eligible = meetsGradeRequirement(grade, course.min_grade);
+  const gradeUnconfirmed = grade == null && !!course.min_grade;
+  if (!eligible) {
+    score = Math.min(score, 20);
+    breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade}; your grade (${grade}) is below it — the score is capped until that changes.`, effect: 'down' });
+  } else if (gradeUnconfirmed) {
+    // meetsGradeRequirement() treats an unknown grade as "don't claim
+    // ineligible", which is right — but the UI still needs to show the
+    // difference between "confirmed eligible" and "eligibility unverified".
+    breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade} — set your grade in the filters to confirm you qualify.`, effect: 'neutral' });
+  } else if (course.min_grade) {
+    breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade} — your grade (${grade}) meets it.`, effect: 'up' });
+  } else {
+    breakdown.push({ factor: 'Grade eligibility', detail: 'No minimum grade requirement.', effect: 'up' });
+  }
+
+  if (budgetMax != null) {
+    if (course.total_fees_kes > budgetMax) {
+      score = Math.max(0, score - 25);
+      breakdown.push({ factor: 'Budget', detail: 'Tuition is above your maximum budget — shown as a stretch rather than hidden.', effect: 'down' });
+    } else {
+      breakdown.push({ factor: 'Budget', detail: 'Tuition fits within your maximum budget.', effect: 'up' });
+    }
+  }
+
+  return { score: Math.round(score), eligible, gradeUnconfirmed, breakdown };
+}
+
+/* Tuition vs the user's stated budget as a three-state signal. "Stretch"
+ * means within 25% over — visible as a reachable-with-funding option
+ * rather than silently lumped in with far-out-of-reach courses. Pure, tested. */
+function feasibilitySignal(course, budgetMax) {
+  if (budgetMax == null) return null;
+  if (course.total_fees_kes <= budgetMax) return { level: 'within', overBy: 0 };
+  const overBy = course.total_fees_kes - budgetMax;
+  return course.total_fees_kes <= budgetMax * 1.25
+    ? { level: 'stretch', overBy }
+    : { level: 'over', overBy };
+}
+
 function computeCourseMatch(course) {
   const results = AppState.questionnaire.results;
-  let score = 40;
-  if (results) {
-    if (course.cluster === results.primary) score = 95;
-    else if (course.cluster === results.secondary) score = 72;
-    else score = 35;
-  }
-  const grade = getEffectiveGrade();
-  const eligible = meetsGradeRequirement(grade, course.min_grade);
-  if (!eligible) score = Math.min(score, 20);
-
-  const budgetMax = AppState.decideFilters.budgetMax;
-  if (budgetMax != null && course.total_fees_kes > budgetMax) score = Math.max(0, score - 25);
-
-  // gradeUnconfirmed: this course has a grade requirement, but we don't
-  // actually know the user's grade — meetsGradeRequirement() treats that as
-  // "don't claim ineligible", which is right, but the UI still needs to show
-  // the difference between "confirmed eligible" and "eligibility unverified"
-  // rather than rendering both identically.
-  return { score: Math.round(score), eligible, gradeUnconfirmed: grade == null && !!course.min_grade };
+  return scoreCourseMatch(course, {
+    hasResults: !!results,
+    primary: results?.primary,
+    secondary: results?.secondary,
+    grade: getEffectiveGrade(),
+    budgetMax: AppState.decideFilters.budgetMax
+  });
 }
 
 function renderCourseMatcher(container) {
@@ -184,37 +236,28 @@ function renderCourseMatcher(container) {
       </div>
     ` : ''}
 
-    <div class="filter-row" aria-label="Filter by career cluster">
-      <select class="form-control" onchange="setDecideClusterFilter(this.value)" style="width:100%;max-width:220px">
+    <div class="filter-toolbar" aria-label="Course filters">
+      <select class="form-control" aria-label="Filter by career cluster" onchange="setDecideClusterFilter(this.value)">
         ${clusterOptions.map((c) => `<option value="${c}" ${AppState.decideFilters.cluster === c ? 'selected' : ''}>${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}</option>`).join('')}
       </select>
-    </div>
-
-    <div class="filter-row" aria-label="Filter by qualification level">
-      <select class="form-control" onchange="setDecideLevelFilter(this.value)" style="width:100%;max-width:200px">
+      <select class="form-control" aria-label="Filter by qualification level" onchange="setDecideLevelFilter(this.value)">
         ${levelOptions.map((l) => `<option value="${l}" ${AppState.decideFilters.level === l ? 'selected' : ''}>${l === 'all' ? 'All Levels' : levelLabels[l]}</option>`).join('')}
       </select>
-    </div>
-
-    <div class="filter-row" aria-label="Filter by learning mode">
-      <select class="form-control" onchange="setDecideModeFilter(this.value)" style="width:100%;max-width:200px">
+      <select class="form-control" aria-label="Filter by learning mode" onchange="setDecideModeFilter(this.value)">
         ${modeOptions.map((m) => `<option value="${m}" ${AppState.decideFilters.mode === m ? 'selected' : ''}>${modeLabels[m]}</option>`).join('')}
       </select>
-    </div>
-
-    <div class="filter-row" aria-label="Filter by county">
-      <select class="form-control" onchange="setDecideCountyFilter(this.value)" style="width:100%;max-width:250px">
-        <option value="all" ${AppState.decideFilters.county === 'all' ? 'selected' : ''}>📍 All Counties</option>
+      <select class="form-control" aria-label="Filter by county" onchange="setDecideCountyFilter(this.value)">
+        <option value="all" ${AppState.decideFilters.county === 'all' ? 'selected' : ''}>All Counties</option>
         ${COUNTIES.map((county) => `<option value="${county}" ${AppState.decideFilters.county === county ? 'selected' : ''}>${escapeHtml(county)}</option>`).join('')}
       </select>
     </div>
 
-    <div class="filter-row" aria-label="Sort courses" style="display:flex;align-items:center;gap:0.6rem">
-      <label class="caption" style="margin:0;font-weight:500" for="course-sort-select">Sort:</label>
-      <select id="course-sort-select" class="form-control" onchange="setDecideSortBy(this.value)" style="max-width:220px">
+    <div class="filter-toolbar" aria-label="Sort courses">
+      <label class="caption" style="margin:0;font-weight:500;flex:none" for="course-sort-select">Sort:</label>
+      <select id="course-sort-select" class="form-control" onchange="setDecideSortBy(this.value)">
         ${Object.entries(sortOptions).map(([key, label]) => `<option value="${key}" ${sortBy === key ? 'selected' : ''}>${label}</option>`).join('')}
       </select>
-      ${AppState.savedCourses.length >= 2 ? `<button type="button" class="btn btn-ghost btn-sm" style="width:auto;margin-left:auto" onclick="openCourseComparison()">⚖️ Compare Saved</button>` : ''}
+      ${AppState.savedCourses.length >= 2 ? `<span class="filter-spacer"></span><button type="button" class="btn btn-ghost btn-sm" style="width:auto" onclick="openCourseComparison()">${icon('scale')} Compare Saved</button>` : ''}
     </div>
 
     <div class="card">
@@ -234,7 +277,7 @@ function renderCourseMatcher(container) {
     </div>
 
     ${filtered.length === 0
-      ? emptyState('🔍', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
+      ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
       : `<div class="results-grid">${filtered.map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>`
     }
   `;
@@ -257,6 +300,16 @@ function renderCourseCard(course, match) {
     <div class="card course-card">
       <div class="flex items-center gap-1" style="flex-wrap:wrap">
         <span class="match-badge"><span class="num">${match.score}%</span> Match${!match.eligible ? ' · Grade below requirement' : match.gradeUnconfirmed ? ' · Set your grade to confirm' : ''}</span>
+        ${(() => {
+          const feas = feasibilitySignal(course, AppState.decideFilters.budgetMax);
+          if (!feas) return '';
+          const copy = {
+            within: 'Within budget',
+            stretch: `Stretch · <span class="num">+${formatKes(feas.overBy)}</span>`,
+            over: `Over budget · <span class="num">+${formatKes(feas.overBy)}</span>`
+          }[feas.level];
+          return `<span class="feas-chip feas-${feas.level}" title="Tuition compared with your maximum budget filter">${copy}</span>`;
+        })()}
         ${isVerified ? '<span class="verified-badge" title="Fee figures cross-checked against a public source">✓ Verified estimate</span>' : ''}
       </div>
       <h3>${escapeHtml(course.name)}</h3>
@@ -271,13 +324,19 @@ function renderCourseCard(course, match) {
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
-      <p class="text-muted text-sm mb-1">🗓️ Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
-      <p class="text-muted text-sm mb-2">📊 Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
-      <p class="text-muted text-sm mb-2">🏠 Full cost of attendance (illustrative): ${requiresRelocation
+      <p class="text-muted text-sm mb-1">Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
+      <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
+      <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation
         ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total. Varies by town — plan, don't rely on this figure.`
         : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
       }</p>
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(course.verification_note)}</p>` : ''}
+      <details class="match-why">
+        <summary>Why ${match.score}% match?</summary>
+        <ul>
+          ${match.breakdown.map((b) => `<li class="match-why-${b.effect}"><strong>${escapeHtml(b.factor)}:</strong> ${escapeHtml(b.detail)}</li>`).join('')}
+        </ul>
+      </details>
       <div class="btn-row">
         <button type="button" class="btn ${saved ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleSavedCourse('${course.id}')">${saved ? '★ Saved' : '☆ Save'}</button>
         <button type="button" class="btn btn-ghost btn-sm" onclick="startApplicationForCourse('${course.id}')">Start Application</button>
@@ -379,21 +438,30 @@ function openCourseComparison() {
     showToast('Save at least 2 courses to compare them.', 'info');
     return;
   }
+  // Rows with a `raw` getter + `better` direction get best-value shading —
+  // audit-table style: mark the winner in each measurable dimension rather
+  // than making the reader scan and compare digits themselves.
   const rows = [
     { label: 'Institution', get: (c) => institutionById(c.institution_id)?.name || 'Unknown institution', wrap: true },
     { label: 'Level', get: (c) => c.level },
-    { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true },
-    { label: 'Tuition', get: (c) => formatKes(c.total_fees_kes), num: true },
+    { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true, raw: (c) => c.duration_months, better: 'min' },
+    { label: 'Tuition', get: (c) => formatKes(c.total_fees_kes), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
-    { label: 'Employment Rate', get: (c) => formatPercent(c.employment_rate), num: true },
-    { label: 'Median Salary', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true },
-    { label: 'Match Score', get: (c) => `${computeCourseMatch(c).score}%`, num: true }
+    { label: 'Employment Rate', get: (c) => formatPercent(c.employment_rate), num: true, raw: (c) => c.employment_rate ?? -1, better: 'max' },
+    { label: 'Median Salary', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true, raw: (c) => c.median_salary_kes ?? -1, better: 'max' },
+    { label: 'Match Score', get: (c) => `${computeCourseMatch(c).score}%`, num: true, raw: (c) => computeCourseMatch(c).score, better: 'max' }
   ];
+  const bestValue = (row) => {
+    if (!row.raw) return null;
+    const values = courses.map(row.raw);
+    if (new Set(values).size < 2) return null; // all equal — nothing to mark
+    return row.better === 'min' ? Math.min(...values) : Math.max(...values);
+  };
   const truncated = AppState.savedCourses.length > courses.length;
   openModal(`
     <h3 class="mb-2">Compare Saved Courses</h3>
     <p class="text-secondary text-sm mb-2">${truncated ? `Showing your first ${courses.length} saved courses — comparisons cap at 4 to stay readable.` : 'Side-by-side comparison of your saved courses.'}</p>
-    <p class="comparison-hint">↔ Swipe or scroll sideways to see every course</p>
+    <p class="comparison-hint">↔ Swipe or scroll sideways to see every course · shaded cells mark the best value in each measurable row</p>
     <div class="comparison-scroll">
       <table class="comparison-table">
         <thead>
@@ -403,12 +471,18 @@ function openCourseComparison() {
           </tr>
         </thead>
         <tbody>
-          ${rows.map((row) => `
+          ${rows.map((row) => {
+            const best = bestValue(row);
+            return `
             <tr>
               <th scope="row">${row.label}</th>
-              ${courses.map((c) => `<td class="${row.num ? 'num' : ''}${row.wrap ? ' wrap' : ''}">${escapeHtml(String(row.get(c)))}</td>`).join('')}
+              ${courses.map((c) => {
+                const isBest = best != null && row.raw(c) === best;
+                return `<td class="${row.num ? 'num' : ''}${row.wrap ? ' wrap' : ''}${isBest ? ' best' : ''}">${escapeHtml(String(row.get(c)))}</td>`;
+              }).join('')}
             </tr>
-          `).join('')}
+          `;
+          }).join('')}
         </tbody>
       </table>
     </div>
@@ -427,7 +501,7 @@ function renderFundingFinder(container) {
 
   container.innerHTML = `
     <div class="card">
-      <h3 class="mb-1">📅 Key Application Windows</h3>
+      <h3 class="mb-1">${icon('calendar')} Key Application Windows</h3>
       <p class="text-muted text-sm mb-2">Deadlines vary by funder and change yearly — always confirm the current cycle directly before your window closes.</p>
       <div class="cluster-secondary-list">
         ${FUNDING_SOURCES.map((f) => `

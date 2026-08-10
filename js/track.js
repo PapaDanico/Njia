@@ -11,6 +11,7 @@ function renderTrackPage() {
   const doneOkrs = AppState.okrs.filter((o) => okrStatus(o) === 'done').length;
 
   el.innerHTML = `
+    <p class="page-eyebrow">Module 05 · Track</p>
     <h1 class="mb-1">Track</h1>
     <p class="text-secondary mb-2">Plans mean nothing without follow-through.</p>
 
@@ -21,8 +22,8 @@ function renderTrackPage() {
     </div>
 
     <div class="odyssey-tabs">
-      <button type="button" class="odyssey-tab ${AppState.viewFilters.trackActiveTab === 'okrs' ? 'active' : ''}" onclick="setTrackTab('okrs')">🎯 OKRs</button>
-      <button type="button" class="odyssey-tab ${AppState.viewFilters.trackActiveTab === 'applications' ? 'active' : ''}" onclick="setTrackTab('applications')">📋 Applications</button>
+      <button type="button" class="odyssey-tab ${AppState.viewFilters.trackActiveTab === 'okrs' ? 'active' : ''}" onclick="setTrackTab('okrs')">${icon('target')}OKRs</button>
+      <button type="button" class="odyssey-tab ${AppState.viewFilters.trackActiveTab === 'applications' ? 'active' : ''}" onclick="setTrackTab('applications')">${icon('clipboard')}Applications</button>
     </div>
     <div id="track-tab-content"></div>
   `;
@@ -93,7 +94,7 @@ function renderOkrsTab(container) {
     </div>
     <button type="button" class="btn btn-primary mb-2" onclick="openOkrModal()">+ New OKR</button>
     ${filtered.length === 0
-      ? emptyState('🎯', 'No OKRs yet', 'Turn your Odyssey Plan into a quarterly objective with 2–3 measurable key results.', '+ New OKR', 'openOkrModal()')
+      ? emptyState('target', 'No OKRs yet', 'Turn your Odyssey Plan into a quarterly objective with 2–3 measurable key results.', '+ New OKR', 'openOkrModal()')
       : filtered.map((okr) => renderOkrItem(okr)).join('')
     }
   `;
@@ -204,9 +205,9 @@ function renderApplicationsTab(container) {
   ` : '';
 
   container.innerHTML = filterControls + (AppState.applications.length === 0
-    ? emptyState('📋', 'No applications tracked', "You haven't started an application yet. Pick a saved course and take the first step.", 'Browse Courses', "navigateTo('decide')")
+    ? emptyState('clipboard', 'No applications tracked', "You haven't started an application yet. Pick a saved course and take the first step.", 'Browse Courses', "navigateTo('decide')")
     : filtered.length === 0
-      ? emptyState('📋', 'No matching applications', 'Try clearing the status filter.', 'Clear Filter', "setApplicationStatusFilter('all')")
+      ? emptyState('clipboard', 'No matching applications', 'Try clearing the status filter.', 'Clear Filter', "setApplicationStatusFilter('all')")
       : filtered.map((app) => renderApplicationTimeline(app)).join('')
   );
 }

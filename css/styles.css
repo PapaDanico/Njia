@@ -72,7 +72,110 @@
   --sidebar-w: 240px;
   --page-max: 960px;
 
+  /* ---- Structural tokens (Kanda discipline: component rules reference
+   * tokens, never raw values — if you're typing a hex or px in a
+   * component rule, the token is missing; add it here instead). ---- */
+
+  /* Spacing — 4px grid. Adopt in new rules; legacy rems migrate as
+   * they're touched. */
+  --space-1: 4px;  --space-2: 8px;   --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px;  --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px;
+
+  /* Fluid display sizes — a fixed 28px headline is a phone headline
+   * shown on a desktop. */
+  --text-lg-fluid: clamp(1.25rem, 2.2vw, 1.5rem);
+  --text-xl-fluid: clamp(1.6rem, 3vw, 2.05rem);
+  --text-2xl-fluid: clamp(1.9rem, 4.2vw, 2.75rem);
+
+  /* Action-colour states + text-on-fill */
+  --primary-deep: #a34b26;
+  --primary-soft: rgba(180, 85, 45, 0.09);
+  --on-fill: #ffffff;
+
+  /* Tint panels — soft background + AA-safe ink + hairline, per state.
+   * Never raw success/warn/danger as small text on tints. */
+  --success-soft: rgba(85, 128, 45, 0.12);
+  --success-ink: #46691f;
+  --success-border: rgba(85, 128, 45, 0.3);
+  --warn-soft: rgba(237, 139, 45, 0.12);
+  --warn-ink: #8a5310;
+  --warn-border: #eac48d;
+  --danger-soft: rgba(192, 57, 43, 0.1);
+  --danger-ink: #a02e20;
+  --danger-border: rgba(192, 57, 43, 0.3);
+
+  /* Neutral veils */
+  --ink-veil: rgba(31, 30, 29, 0.08);
+  --scrim: rgba(31, 30, 29, 0.42);
+  --header-veil: rgba(250, 249, 245, 0.92);
+
   color-scheme: light;
+}
+
+/* ---------- Dark scheme — "warm ink" ----------
+ * The same paper-and-terracotta identity, inverted: deep espresso
+ * grounds (never pure black), cream text, the terracotta accent
+ * lightened where it carries text so the contrast floor holds. JS
+ * stamps data-theme from the stored choice or system preference
+ * (see applyTheme in js/app.js); a head inline script stamps it
+ * pre-paint so there is no light flash. */
+:root[data-theme="dark"] {
+  --primary: #c96a3f;
+  --primary-dark: #dd9a72;
+  --primary-light: #3a2519;
+  --primary-deep: #b4552d;
+  --primary-soft: rgba(201, 106, 63, 0.14);
+  --secondary: #82a95a;
+  --accent-ink: #dfa35f;
+  --danger: #e0685a;
+
+  --bg: #16130f;
+  --bg-elevated: #201c16;
+  --bg-card: #29241d;
+  --bg-input: #322c24;
+
+  --text-primary: #f0ece3;
+  --text-secondary: #c6bfb2;
+  --text-muted: #98917f;
+
+  --border: #37312a;
+  --border-light: #47403a;
+
+  --ink: #f0ece3;
+  --ink-contrast: #16130f;
+  --on-fill: #1c1206;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 14px rgba(0, 0, 0, 0.25);
+
+  --success-soft: rgba(130, 169, 90, 0.16);
+  --success-ink: #a5c583;
+  --success-border: rgba(130, 169, 90, 0.4);
+  --warn-soft: rgba(223, 163, 95, 0.14);
+  --warn-ink: #e3b075;
+  --warn-border: rgba(223, 163, 95, 0.45);
+  --danger-soft: rgba(224, 104, 90, 0.14);
+  --danger-ink: #eb9a8e;
+  --danger-border: rgba(224, 104, 90, 0.4);
+
+  --ink-veil: rgba(240, 236, 227, 0.1);
+  --scrim: rgba(0, 0, 0, 0.6);
+  --header-veil: rgba(22, 19, 15, 0.92);
+
+  color-scheme: dark;
+}
+
+/* The landing page is a scoped composition on its own tokens — swap
+ * them as a set so its dark bands, cards and copy re-balance together. */
+:root[data-theme="dark"] #page-home {
+  --landing-bg: #16130f;
+  --landing-card: #201c16;
+  --landing-ink: #f0ece3;
+  --landing-ink-muted: #a89f8f;
+  --landing-border: #37312a;
 }
 
 /* ---------- noscript fallback ---------- */
@@ -107,7 +210,7 @@ input[type="range"] { accent-color: var(--primary); }
 /* Display type is serif — the single strongest "premium editorial"
  * signal available without shipping a webfont. Body stays sans. */
 h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.01em; line-height: 1.25; }
-h1 { font-size: 1.75rem; font-weight: 700; }
+h1 { font-size: var(--text-xl-fluid); font-weight: 700; }
 h2 { font-size: 1.5rem; font-weight: 700; }
 h3 { font-size: 1.25rem; font-weight: 700; }
 small, .caption { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); }
@@ -139,6 +242,32 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
+/* …except page headings, which navigateTo() focuses programmatically for
+ * screen-reader users (tabindex="-1"). They aren't interactive, so the
+ * outline just reads as a broken debug box around every page title. */
+h1[tabindex="-1"]:focus-visible, h2[tabindex="-1"]:focus-visible { outline: none; }
+
+/* ---------- Chrome icons ----------
+ * Stroke SVGs from the sprite in index.html (24-grid, 2px, round caps,
+ * currentColor) — the family rule: app chrome gets these, emoji stays
+ * reserved for content voice. Sized by the em of their context. */
+svg.icon {
+  width: 1.15em; height: 1.15em;
+  flex-shrink: 0;
+  vertical-align: -0.18em;
+}
+
+/* ---------- Page header ----------
+ * Editorial module header: overline eyebrow above the serif h1, matching
+ * the landing page's section overlines. */
+.page-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--primary);
+  margin-bottom: 0.35rem;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -166,7 +295,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
-  background: rgba(250, 249, 245, 0.92);
+  background: var(--header-veil);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
@@ -199,6 +328,14 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
  * paper with no visible square. Scoped to light contexts only — on the
  * dark footer the same trick would sink the art into black. */
 .app-header .logo-mark { mix-blend-mode: multiply; }
+/* On dark grounds multiply sinks the cream plate into mud — show the
+ * plate as a small rounded badge instead. */
+:root[data-theme="dark"] .app-header .logo-mark,
+:root[data-theme="dark"] .landing-hero-logo,
+:root[data-theme="dark"] .logo-mark {
+  mix-blend-mode: normal;
+  border-radius: 6px;
+}
 .header-btn {
   width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
@@ -218,7 +355,7 @@ textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
   top: var(--header-h);
   z-index: 19;
 }
-.install-banner-text { font-size: 0.85rem; font-weight: 600; }
+.install-banner-text { font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; }
 .install-banner-actions { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
 .install-banner .btn-sm { width: auto; }
 .install-banner .header-btn { color: var(--ink-contrast); width: 48px; height: 48px; }
@@ -284,7 +421,8 @@ body[data-page="home"] .nav-toggle { display: flex; }
   text-align: left;
   min-height: 48px;
 }
-.landing-nav-dropdown-menu button > span:first-child { font-size: 1.05rem; line-height: 1.4; flex-shrink: 0; }
+.landing-nav-dropdown-menu button > span:first-child { flex-shrink: 0; display: inline-flex; margin-top: 0.15rem; color: var(--primary); }
+.landing-nav-dropdown-menu button .icon { width: 18px; height: 18px; }
 .landing-nav-dropdown-menu button > span:last-child { display: flex; flex-direction: column; gap: 0.1rem; }
 .landing-nav-dropdown-menu button strong { font-size: 0.9rem; font-weight: 600; }
 .landing-nav-dropdown-menu button small { font-size: 0.76rem; font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--text-muted); }
@@ -329,6 +467,8 @@ body[data-page="home"] .nav-toggle { display: flex; }
   margin: 0.75rem 0 0.1rem;
 }
 .mobile-menu .btn { margin-top: 1rem; }
+.mobile-menu .menu-icon { display: inline-flex; margin-right: 0.55rem; color: var(--primary); vertical-align: -0.2em; }
+.mobile-menu .menu-icon .icon { width: 18px; height: 18px; }
 
 @media (min-width: 1024px) {
   body[data-page="home"] .landing-nav { display: flex; }
@@ -362,7 +502,7 @@ main {
   max-width: var(--content-max);
   height: var(--nav-h);
   display: flex;
-  background: rgba(250, 249, 245, 0.94);
+  background: var(--header-veil);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
@@ -378,7 +518,8 @@ main {
   min-height: 48px;
   position: relative;
 }
-.nav-item .nav-icon { font-size: 1.3rem; position: relative; display: inline-block; }
+.nav-item .nav-icon { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.nav-item .nav-icon .icon { width: 21px; height: 21px; }
 .nav-item .nav-label { font-size: 0.65rem; font-weight: 600; }
 .nav-item.active { color: var(--primary-dark); }
 .nav-item.active::before {
@@ -390,7 +531,7 @@ main {
 .nav-item.active::after {
   content: '';
   position: absolute; top: 4px; bottom: 4px; left: 6px; right: 6px;
-  background: rgba(180, 85, 45, 0.09);
+  background: var(--primary-soft);
   border-radius: 12px;
   z-index: -1;
 }
@@ -480,6 +621,13 @@ main {
   .page { max-width: var(--page-max); margin: 0 auto; padding: 2rem 2.5rem; }
   #page-home.page { max-width: none; margin: 0; padding: 0 !important; }
 
+  /* Full-width buttons are a phone tap-target pattern; stretched across
+   * the desktop content column they read as unfinished. Size to content
+   * with a floor, except where a layout explicitly manages widths. */
+  .page .btn { width: auto; min-width: 200px; }
+  .page .btn-row .btn { min-width: 0; }
+  .page .btn-sm { min-width: 0; }
+
   .toast-container { max-width: 420px; }
 }
 
@@ -518,12 +666,12 @@ main {
   width: 100%;
 }
 .btn:active { transform: scale(0.95); }
-.btn-primary { background: var(--primary); color: #fff; }
-.btn-primary:hover { background: #a34b26; }
+.btn-primary { background: var(--primary); color: var(--on-fill); }
+.btn-primary:hover { background: var(--primary-deep); }
 .btn-secondary { background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-light); }
 .btn-secondary:hover { background: var(--bg-card); }
-.btn-success { background: var(--secondary); color: #fff; }
-.btn-danger { background: var(--danger); color: #fff; }
+.btn-success { background: var(--secondary); color: var(--on-fill); }
+.btn-danger { background: var(--danger); color: var(--on-fill); }
 .btn-ghost { background: transparent; color: var(--primary-dark); }
 .btn-sm { min-height: 48px; padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -684,22 +832,41 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .cluster-row:last-child { border-bottom: none; }
 .cluster-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 0.5rem; }
 
-/* ---------- Odyssey plans ---------- */
-.odyssey-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
-.odyssey-tab {
-  flex: 1;
+/* ---------- Segmented controls (module tabs) ----------
+ * One contained control instead of loose full-width pills: a bordered
+ * track with flat segments, active segment takes the ink fill (the
+ * family's deliberate selected-state, see token comment at the top). */
+.odyssey-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 1rem;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 0.6rem;
+  border-radius: 999px;
+  padding: 4px;
+}
+.odyssey-tab {
+  flex: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 0.45rem;
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
   text-align: center;
   font-size: 0.8rem;
   font-weight: 600;
-  min-height: 48px;
+  min-height: 44px;
   color: var(--text-secondary);
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease;
 }
-.odyssey-tab.active { background: var(--ink); color: var(--ink-contrast); border-color: var(--ink); }
+.odyssey-tab:hover { color: var(--text-primary); }
+.odyssey-tab.active { background: var(--ink); color: var(--ink-contrast); }
+.odyssey-tab .icon { width: 1em; height: 1em; }
+@media (min-width: 1024px) {
+  .odyssey-tabs { display: inline-flex; }
+  .odyssey-tab { flex: none; padding: 0.55rem 1.4rem; }
+}
 /* Anchor selects (cluster / course / confidence) sit in one wrapping row
  * above the year inputs — three side-by-side where the card is wide
  * enough, stacking naturally on narrow screens via min-width + wrap. */
@@ -754,7 +921,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .match-badge {
   display: inline-block;
   background: var(--secondary);
-  color: #fff;
+  color: var(--on-fill);
   font-size: 0.7rem;
   font-weight: 700;
   padding: 0.2rem 0.6rem;
@@ -763,7 +930,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 .verified-badge {
   display: inline-block;
-  background: rgba(85, 128, 45, 0.1);
+  background: var(--success-soft);
   color: var(--secondary);
   border: 1px solid var(--secondary);
   font-size: 0.68rem;
@@ -861,8 +1028,8 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   margin-bottom: 0.5rem;
 }
 .data-disclaimer {
-  background: rgba(237, 139, 45, 0.1);
-  border: 1px solid #eac48d;
+  background: var(--warn-soft);
+  border: 1px solid var(--warn-border);
   border-radius: var(--radius-md);
   padding: 0.75rem 1rem;
   font-size: 0.8rem;
@@ -870,9 +1037,24 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   margin-bottom: 1rem;
   display: flex; gap: 0.5rem; align-items: flex-start;
 }
+.data-disclaimer > .icon { width: 16px; height: 16px; margin-top: 0.15rem; color: var(--accent-ink); }
+
+/* Section-card headings that lead with a chrome icon */
+h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 
 /* ---------- Filters ---------- */
 .filter-row { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+/* One wrapping toolbar for a set of filter selects — side by side where
+ * the container allows, wrapping 2-up on phones, instead of each select
+ * stacking as its own full-width row. */
+.filter-toolbar {
+  display: flex; flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.filter-toolbar .form-control { width: auto; flex: 1 1 150px; max-width: 230px; }
+.filter-toolbar .filter-spacer { flex: 1 0 auto; }
 .filter-chip {
   flex-shrink: 0;
   background: var(--bg-elevated); border: 1px solid var(--border-light);
@@ -883,6 +1065,60 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 .filter-chip:active { transform: scale(0.95); }
 .filter-chip.active { background: var(--ink); border-color: var(--ink); color: var(--ink-contrast); }
+
+/* ---------- Analytical signal layers ----------
+ * Honest, audit-style indicators: how decisive the cluster result is,
+ * and how a course's tuition sits against the user's stated budget. */
+.confidence-line {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-left: 3px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+.confidence-clear { border-left-color: var(--secondary); }
+.confidence-moderate { border-left-color: var(--accent-ink); }
+.confidence-close, .confidence-unclear { border-left-color: var(--danger); }
+
+.feas-chip {
+  display: inline-flex; align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.feas-within { background: var(--success-soft); color: var(--success-ink); border-color: var(--success-border); }
+.feas-stretch { background: var(--warn-soft); color: var(--warn-ink); border-color: var(--warn-border); }
+.feas-over { background: var(--danger-soft); color: var(--danger-ink); border-color: var(--danger-border); }
+
+.comparison-table td.best {
+  background: var(--success-soft);
+  font-weight: 700;
+}
+
+/* ---------- "Why this match?" breakdown ----------
+ * The match score explains itself factor by factor — trust in the
+ * algorithm comes from showing the working, not from the number. */
+.match-why { margin-bottom: 0.9rem; font-size: 0.82rem; }
+.match-why summary {
+  cursor: pointer;
+  color: var(--primary-dark);
+  font-weight: 600;
+  padding: 0.2rem 0;
+}
+.match-why summary:hover { text-decoration: underline; }
+.match-why ul { list-style: none; margin-top: 0.4rem; }
+.match-why li {
+  padding: 0.35rem 0 0.35rem 1rem;
+  border-left: 2px solid var(--border);
+  color: var(--text-secondary);
+  margin-bottom: 0.2rem;
+}
+.match-why li.match-why-up { border-left-color: var(--secondary); }
+.match-why li.match-why-down { border-left-color: var(--danger); }
 
 /* ---------- Mentor cards ---------- */
 .mentor-card { display: flex; gap: 0.85rem; align-items: center; }
@@ -898,9 +1134,9 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 /* ---------- OKR items ---------- */
 .okr-item .okr-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
 .status-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; }
-.status-badge.on-track { background: rgba(85, 128, 45, 0.12); color: var(--secondary); }
-.status-badge.at-risk { background: rgba(184, 99, 26, 0.12); color: var(--accent-ink); }
-.status-badge.done { background: rgba(31, 30, 29, 0.08); color: var(--text-muted); }
+.status-badge.on-track { background: var(--success-soft); color: var(--success-ink); }
+.status-badge.at-risk { background: var(--warn-soft); color: var(--warn-ink); }
+.status-badge.done { background: var(--ink-veil); color: var(--text-muted); }
 
 /* ---------- Application timeline ---------- */
 .timeline { position: relative; padding-left: 1.5rem; }
@@ -921,7 +1157,16 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   padding: 3rem 1.5rem;
   color: var(--text-muted);
 }
-.empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.7; }
+.icon-disc {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--text-muted);
+}
+.icon-disc .icon { width: 26px; height: 26px; }
 .empty-state h3 { color: var(--text-secondary); margin-bottom: 0.5rem; }
 .empty-state p { max-width: 320px; margin: 0 auto 1.25rem; font-size: 0.9rem; }
 
@@ -943,6 +1188,10 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 .toast.success { border-color: var(--secondary); }
 .toast.error { border-color: var(--danger); }
+.toast .icon { width: 18px; height: 18px; }
+.toast.success .icon { color: var(--secondary); }
+.toast.error .icon { color: var(--danger); }
+.toast.info .icon { color: var(--primary-dark); }
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-16px); }
   to { opacity: 1; transform: translateY(0); }
@@ -951,7 +1200,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 /* ---------- Modal ---------- */
 .modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(31, 30, 29, 0.42);
+  background: var(--scrim);
   z-index: 90;
   display: none;
   align-items: flex-end;
@@ -1038,7 +1287,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 }
 .landing-h1 {
   font-family: var(--serif);
-  font-size: 1.9rem;
+  font-size: var(--text-2xl-fluid);
   line-height: 1.25;
   font-weight: 700;
   color: var(--landing-ink);
@@ -1281,7 +1530,6 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .landing-footer-bottom a { color: #94a3b8; margin-right: 1rem; }
 
 @media (min-width: 480px) {
-  .landing-h1 { font-size: 2.3rem; }
   .landing-cta-row { flex-direction: row; }
   .landing-cta-row .btn { width: auto; }
   .landing-stats-grid { grid-template-columns: repeat(4, 1fr); }

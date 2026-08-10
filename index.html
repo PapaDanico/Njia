@@ -25,8 +25,62 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="stylesheet" href="./css/styles.css">
+  <script>
+    // Stamp the theme before first paint so a dark-preference load never
+    // flashes light. Kept inline and tiny on purpose; the full theme
+    // manager (toggle, persistence, meta sync) lives in js/app.js.
+    (function () {
+      try {
+        var t = localStorage.getItem('njia-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) { /* default light */ }
+    })();
+  </script>
 </head>
 <body>
+  <!-- Stroke-icon sprite for app chrome (nav, tabs, system affordances) —
+       lucide-style geometry hand-inlined on a 24-unit grid, 2px stroke,
+       round caps, currentColor. Family design rule (see DESIGN.md): chrome
+       gets these; emoji stays reserved for content voice only. -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <defs>
+      <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></symbol>
+      <symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.6 8.4-2 5.2-5.2 2 2-5.2z"/></symbol>
+      <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20v-8"/><path d="M10 20V6"/><path d="M16 20v-5"/><path d="M22 20H2"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+      <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+      <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+      <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+      <symbol id="i-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+      <symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></symbol>
+      <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.1 5.6a2 2 0 0 0 1.8 0l3.7-1.9a1 1 0 0 1 1.4.9v12.8a1 1 0 0 1-.6.9l-4.5 2.3a2 2 0 0 1-1.8 0l-4.2-2.1a2 2 0 0 0-1.8 0l-3.7 1.9a1 1 0 0 1-1.4-.9V6.7a1 1 0 0 1 .6-.9l4.5-2.3a2 2 0 0 1 1.8 0z"/><path d="M15 5.8v15"/><path d="M9 3.2v15"/></symbol>
+      <symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-mountain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></symbol>
+      <symbol id="i-grad-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+      <symbol id="i-coins" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h5"/><path d="M9 13h6"/><path d="M9 17h6"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+      <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+      <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.3 17.7-1.4 1.4"/><path d="m19.1 4.9-1.4 1.4"/></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    </defs>
+  </svg>
   <noscript>
     <div class="noscript-fallback">
       <h1>Njia</h1>
@@ -51,23 +105,23 @@
           </button>
           <div class="landing-nav-dropdown-menu" id="modules-dropdown-menu" role="menu">
             <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('discover')">
-              <span aria-hidden="true">🧭</span>
+              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg></span>
               <span><strong>Discover</strong><small>20-minute diagnostic across the Four Elements</small></span>
             </button>
             <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('design')">
-              <span aria-hidden="true">🎨</span>
+              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg></span>
               <span><strong>Design</strong><small>Sketch three futures with the Odyssey Plan</small></span>
             </button>
             <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('decide')">
-              <span aria-hidden="true">📊</span>
+              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span>
               <span><strong>Decide</strong><small>Match courses and funding to your budget</small></span>
             </button>
             <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('connect')">
-              <span aria-hidden="true">🤝</span>
+              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
               <span><strong>Connect</strong><small>Outreach messages for real conversations</small></span>
             </button>
             <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('track')">
-              <span aria-hidden="true">📈</span>
+              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span>
               <span><strong>Track</strong><small>Quarterly OKRs and an application tracker</small></span>
             </button>
           </div>
@@ -77,8 +131,9 @@
 
       <div class="header-actions">
         <button type="button" class="btn btn-primary btn-sm landing-cta-header" id="header-cta-btn" onclick="navigateTo('discover')">Start Discovery</button>
-        <button type="button" class="header-btn" id="privacy-btn" aria-label="Privacy and data" onclick="openPrivacyModal()">🔒</button>
-        <button type="button" class="header-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()">☰</button>
+        <button type="button" class="header-btn" id="theme-btn" aria-label="Switch colour theme" onclick="toggleTheme()"><svg class="icon" aria-hidden="true"><use href="#i-moon"/></svg></button>
+        <button type="button" class="header-btn" id="privacy-btn" aria-label="Privacy and data" onclick="openPrivacyModal()"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></button>
+        <button type="button" class="header-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
       </div>
     </header>
 
@@ -86,20 +141,20 @@
       <a href="#" onclick="scrollAndCloseMenu('landing-evidence');return false">Why Njia</a>
       <a href="#" onclick="scrollAndCloseMenu('landing-process');return false">The Method</a>
       <p class="mobile-menu-label">Modules</p>
-      <a href="#" onclick="navigateAndCloseMenu('discover');return false"><span aria-hidden="true">🧭</span> Discover</a>
-      <a href="#" onclick="navigateAndCloseMenu('design');return false"><span aria-hidden="true">🎨</span> Design</a>
-      <a href="#" onclick="navigateAndCloseMenu('decide');return false"><span aria-hidden="true">📊</span> Decide</a>
-      <a href="#" onclick="navigateAndCloseMenu('connect');return false"><span aria-hidden="true">🤝</span> Connect</a>
-      <a href="#" onclick="navigateAndCloseMenu('track');return false"><span aria-hidden="true">📈</span> Track</a>
+      <a href="#" onclick="navigateAndCloseMenu('discover');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg></span> Discover</a>
+      <a href="#" onclick="navigateAndCloseMenu('design');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg></span> Design</a>
+      <a href="#" onclick="navigateAndCloseMenu('decide');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span> Decide</a>
+      <a href="#" onclick="navigateAndCloseMenu('connect');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span> Connect</a>
+      <a href="#" onclick="navigateAndCloseMenu('track');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span> Track</a>
       <a href="#" onclick="closeMobileMenu();openFaqModal();return false">FAQ</a>
       <button type="button" class="btn btn-primary mt-2" id="mobile-menu-cta-btn" onclick="navigateAndCloseMenu('discover')">Start Discovery →</button>
     </nav>
 
     <section id="install-banner" class="install-banner hidden" aria-label="Install Njia">
-      <span class="install-banner-text">📲 Install Njia for one-tap, offline access</span>
+      <span class="install-banner-text"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg> Install Njia for one-tap, offline access</span>
       <div class="install-banner-actions">
         <button type="button" class="btn btn-primary btn-sm" onclick="triggerInstallPrompt()">Install</button>
-        <button type="button" class="header-btn" aria-label="Dismiss install banner" onclick="dismissInstallBanner()">✕</button>
+        <button type="button" class="header-btn" aria-label="Dismiss install banner" onclick="dismissInstallBanner()"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
       </div>
     </section>
 
@@ -114,22 +169,22 @@
 
     <nav class="bottom-nav" aria-label="Main navigation">
       <button type="button" class="nav-item" data-page="home" aria-label="Home">
-        <span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-label">Home</span>
+        <span class="nav-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg></span><span class="nav-label">Home</span>
       </button>
       <button type="button" class="nav-item" data-page="discover" aria-label="Discover">
-        <span class="nav-icon" aria-hidden="true">🧭</span><span class="nav-label">Discover</span>
+        <span class="nav-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg></span><span class="nav-label">Discover</span>
       </button>
       <button type="button" class="nav-item" data-page="design" aria-label="Design">
-        <span class="nav-icon" aria-hidden="true">🎨</span><span class="nav-label">Design</span>
+        <span class="nav-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg></span><span class="nav-label">Design</span>
       </button>
       <button type="button" class="nav-item" data-page="decide" aria-label="Decide">
-        <span class="nav-icon" aria-hidden="true">📊</span><span class="nav-label">Decide</span>
+        <span class="nav-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span><span class="nav-label">Decide</span>
       </button>
       <button type="button" class="nav-item" data-page="connect" aria-label="Connect">
-        <span class="nav-icon" aria-hidden="true">🤝</span><span class="nav-label">Connect</span>
+        <span class="nav-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span><span class="nav-label">Connect</span>
       </button>
       <button type="button" class="nav-item" data-page="track" aria-label="Track">
-        <span class="nav-icon" aria-hidden="true">📈</span><span class="nav-label">Track</span>
+        <span class="nav-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span><span class="nav-label">Track</span>
       </button>
     </nav>
   </div>
@@ -140,7 +195,7 @@
     <div class="modal-sheet" role="dialog" aria-modal="true" tabindex="-1">
       <div class="modal-header">
         <span class="caption">Njia</span>
-        <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close">✕</button>
+        <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
       </div>
       <div id="modal-sheet-content"></div>
     </div>
@@ -296,7 +351,7 @@
         <p class="text-secondary text-sm mb-2"><strong>Products.</strong> Njia is currently one free product suite: five modules — Discover, Design, Decide, Connect, Track — covering career diagnosis, life design, course/funding matching, outreach, and follow-through. All run client-side, with no account or backend required.</p>
         <p class="text-secondary text-sm mb-2"><strong>Partners.</strong> Njia does not yet have any formal institutional, government, or NGO partners — this is an independently built, early-stage project. Institution names shown in the Decide module are included because they are real, publicly known Kenyan institutions, not because of any partnership or endorsement.</p>
         <p class="text-secondary text-sm mb-2">Looking ahead, the kind of partnerships that would most improve Njia are: accredited institutions willing to share verified fee/outcome data, funders (HELB, county bursary offices, foundations) for direct integration, and youth or community organisations for real mentor matching.</p>
-        <button type="button" class="btn btn-primary mb-2" onclick="openPartnerInquiryModal()">🤝 Partner With Us</button>
+        <button type="button" class="btn btn-primary mb-2" onclick="openPartnerInquiryModal()"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg> Partner With Us</button>
         <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
       `);
     }

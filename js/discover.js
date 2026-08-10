@@ -27,7 +27,8 @@ function renderDiscoverPage() {
 function renderDiscoverIntro(el) {
   el.innerHTML = `
     <div class="hero" style="padding-top:0.5rem">
-      <div class="icon" style="font-size:3rem" aria-hidden="true">🧭</div>
+      <div class="icon-disc" aria-hidden="true" style="margin-bottom:0.75rem">${icon('compass')}</div>
+      <p class="page-eyebrow">Module 01 · Discover</p>
       <h1>Discover</h1>
       <p>A 20-minute adaptive diagnostic across the Four Elements of career clarity — <strong>Identity, Community, Necessity, Horizon</strong> — the same model executive coaches use to help leaders find real direction, now built for you.</p>
     </div>
@@ -72,7 +73,7 @@ function renderDiscoverQuestion(el) {
     bodyHtml = `
       <textarea class="q-input" id="discover-text-input" placeholder="${escapeHtml(q.placeholder || '')}">${escapeHtml(val)}</textarea>
       <button type="button" class="voice-btn" id="voice-btn" onclick="toggleVoiceInput()">
-        <span aria-hidden="true">🎙️</span> <span id="voice-btn-label">Speak your answer</span>
+        ${icon('mic')} <span id="voice-btn-label">Speak your answer</span>
       </button>
       <button type="button" class="btn btn-primary mt-2" onclick="submitDiscoverText(${idx})">Continue →</button>
     `;
@@ -168,8 +169,10 @@ function toggleVoiceInput() {
   voiceRecognition.start();
 }
 
-/* ---------- Scoring ---------- */
-function finishQuestionnaire() {
+/* ---------- Scoring ----------
+ * computeClusterScores is deliberately pure (answers in, results out — no
+ * AppState, no DOM) so `node --test tests/*.test.js` can exercise it directly. */
+function computeClusterScores(answers) {
   const clusterTotals = {};
   Object.keys(CLUSTERS).forEach((c) => { clusterTotals[c] = 0; });
 
@@ -180,12 +183,16 @@ function finishQuestionnaire() {
 
   const tags = {};
 
-  Object.values(AppState.questionnaire.answers).forEach((ans) => {
+  Object.values(answers).forEach((ans) => {
+    // A weight-2 question counts double — the questionnaire data has
+    // carried per-question weights since day one, but scoring ignored
+    // them until now. Answers saved without a weight count once.
+    const weight = ans.weight > 0 ? ans.weight : 1;
     if (ans.scores) {
       Object.entries(ans.scores).forEach(([cluster, pts]) => {
-        clusterTotals[cluster] = (clusterTotals[cluster] || 0) + pts;
+        clusterTotals[cluster] = (clusterTotals[cluster] || 0) + pts * weight;
         if (elementPoints[ans.element]) {
-          elementPoints[ans.element][cluster] = (elementPoints[ans.element][cluster] || 0) + pts;
+          elementPoints[ans.element][cluster] = (elementPoints[ans.element][cluster] || 0) + pts * weight;
         }
       });
     }
@@ -214,9 +221,25 @@ function finishQuestionnaire() {
     obligations: Object.keys(tags).find((t) => t.startsWith('obligations_'))?.replace('obligations_', '') || null
   };
 
+  return { clusterTotals, ranked, primary, secondary, elementScores, constraints, totalPoints };
+}
+
+/* How decisive is the primary-cluster result? Reported as the points margin
+ * over the secondary cluster — an honest signal, not marketing. Pure, tested. */
+function matchConfidence(ranked) {
+  const top = ranked[0]?.[1] ?? 0;
+  const second = ranked[1]?.[1] ?? 0;
+  if (top <= 0) return { level: 'unclear', marginPts: 0, marginPct: 0 };
+  const marginPts = top - second;
+  const marginPct = Math.round((marginPts / top) * 100);
+  const level = marginPct >= 25 ? 'clear' : marginPct >= 10 ? 'moderate' : 'close';
+  return { level, marginPts, marginPct };
+}
+
+function finishQuestionnaire() {
   AppState.questionnaire.completed = true;
   AppState.questionnaire.results = {
-    clusterTotals, ranked, primary, secondary, elementScores, constraints, totalPoints,
+    ...computeClusterScores(AppState.questionnaire.answers),
     computedAt: new Date().toISOString()
   };
   saveState();
@@ -237,10 +260,10 @@ function renderDiscoverResults(el) {
   };
 
   const constraintRows = [
-    constraints.grade && `<div class="meta-item"><div class="meta-label">🎓 Grade</div><div class="meta-value">${escapeHtml(constraints.grade)}</div></div>`,
-    constraints.budget && `<div class="meta-item"><div class="meta-label">💰 Budget (2yr)</div><div class="meta-value">${escapeHtml(constraints.budget.replace('_', ' '))}</div></div>`,
-    constraints.urgency && `<div class="meta-item"><div class="meta-label">⏱️ Income urgency</div><div class="meta-value">${escapeHtml(constraints.urgency)}</div></div>`,
-    constraints.obligations && `<div class="meta-item"><div class="meta-label">🏠 Obligations</div><div class="meta-value">${escapeHtml(constraints.obligations)}</div></div>`
+    constraints.grade && `<div class="meta-item"><div class="meta-label">Grade</div><div class="meta-value">${escapeHtml(constraints.grade)}</div></div>`,
+    constraints.budget && `<div class="meta-item"><div class="meta-label">Budget (2yr)</div><div class="meta-value">${escapeHtml(constraints.budget.replace('_', ' '))}</div></div>`,
+    constraints.urgency && `<div class="meta-item"><div class="meta-label">Income urgency</div><div class="meta-value">${escapeHtml(constraints.urgency)}</div></div>`,
+    constraints.obligations && `<div class="meta-item"><div class="meta-label">Obligations</div><div class="meta-value">${escapeHtml(constraints.obligations)}</div></div>`
   ].filter(Boolean).join('');
 
   el.innerHTML = `
@@ -254,7 +277,17 @@ function renderDiscoverResults(el) {
         <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
         <p class="text-secondary text-sm mt-1">${primaryC.description}</p>
         <div class="cluster-tags">${primaryC.paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
-        <button type="button" class="btn btn-primary btn-sm mt-2" onclick="openReportPreviewModal()">🖼️ Preview &amp; Share Report</button>
+        ${(() => {
+          const conf = matchConfidence(ranked);
+          const confCopy = {
+            clear: `a clear separation — the data points firmly at ${primaryC.name}.`,
+            moderate: `a moderate separation — ${primaryC.name} leads, but keep your secondary cluster in view.`,
+            close: `a close call — treat both clusters as live options and prototype both in the Design module.`,
+            unclear: 'not enough scored answers to separate the clusters — consider retaking the diagnostic.'
+          }[conf.level];
+          return `<p class="confidence-line confidence-${conf.level}"><strong>Signal strength:</strong> <span class="num">+${conf.marginPts} pts</span> (${conf.marginPct}%) over your secondary cluster — ${confCopy}</p>`;
+        })()}
+        <button type="button" class="btn btn-primary btn-sm mt-2" onclick="openReportPreviewModal()">${icon('image')} Preview &amp; Share Report</button>
       </div>
 
       <div class="card">
@@ -319,10 +352,10 @@ function renderShareableReportHTML() {
   const elementLabels = { identity: 'Identity', community: 'Community', horizon: 'Horizon' };
 
   const constraintChips = [
-    constraints.grade && `<span class="report-chip">🎓 ${escapeHtml(constraints.grade)}</span>`,
-    constraints.budget && `<span class="report-chip">💰 ${escapeHtml(constraints.budget.replace('_', ' '))}</span>`,
+    constraints.grade && `<span class="report-chip">Grade: ${escapeHtml(constraints.grade)}</span>`,
+    constraints.budget && `<span class="report-chip">Budget: ${escapeHtml(constraints.budget.replace('_', ' '))}</span>`,
     constraints.urgency && `<span class="report-chip">⏱️ ${escapeHtml(constraints.urgency)}</span>`,
-    constraints.obligations && `<span class="report-chip">🏠 ${escapeHtml(constraints.obligations)}</span>`
+    constraints.obligations && `<span class="report-chip">Obligations: ${escapeHtml(constraints.obligations)}</span>`
   ].filter(Boolean).join('');
 
   const savedCourses = AppState.savedCourses
@@ -335,7 +368,7 @@ function renderShareableReportHTML() {
   return `
     <div class="report-card">
       <div class="report-header">
-        <img src="./icons/logo-lockup-report.png" alt="Njia" width="180" height="85" decoding="async">
+        <img src="./icons/logo-lockup-report.png" alt="Njia" width="180" height="85" decoding="async" loading="lazy">
         <div class="report-header-meta">
           <span class="report-eyebrow">Career Pathway Report</span>
           <span class="report-date">${dateStr}</span>
@@ -375,7 +408,7 @@ function renderShareableReportHTML() {
           <ul>${savedCourses.map((c) => `<li>${escapeHtml(c.name)}</li>`).join('')}</ul>
         </div>` : ''}
 
-      ${AppState.okrs.length ? `<p class="report-progress-line">📈 ${doneOkrs}/${AppState.okrs.length} goals completed so far.</p>` : ''}
+      ${AppState.okrs.length ? `<p class="report-progress-line">${doneOkrs}/${AppState.okrs.length} goals completed so far.</p>` : ''}
 
       <div class="report-footer">
         <p>Built with <strong>Njia</strong> — a free, evidence-based career pathway diagnostic for Kenyan youth.</p>
@@ -393,9 +426,9 @@ function openReportPreviewModal() {
     <p class="text-secondary text-sm mb-2">Screenshot this card to share directly, or use a button below.</p>
     ${html}
     <div class="btn-row mt-3">
-      <button type="button" class="btn btn-secondary btn-sm" onclick="downloadReportPDF()">📄 PDF</button>
-      <button type="button" class="btn btn-secondary btn-sm" onclick="shareReportWhatsApp()">📱 WhatsApp</button>
-      <button type="button" class="btn btn-secondary btn-sm" onclick="shareDiscoverResult()">🔗 Copy / Share</button>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="downloadReportPDF()">${icon('file')} PDF</button>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="shareReportWhatsApp()">${icon('phone')} WhatsApp</button>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="shareDiscoverResult()">${icon('link')} Copy / Share</button>
     </div>
   `);
 }

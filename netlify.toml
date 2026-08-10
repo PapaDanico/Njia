@@ -1,0 +1,18 @@
+# Njia is deliberately buildless (see README "Deploying to Netlify"):
+# vanilla HTML/CSS/JS served straight from the repository root. This file
+# pins that in version control — file-based config overrides whatever
+# build command is set in the Netlify dashboard, so a dashboard-side
+# setting can never fail deploys for a site with nothing to build.
+[build]
+  base = ""
+  command = "echo 'Njia has no build step - deploying repository root as-is'"
+  publish = "."
+
+# The Lighthouse plugin (installed via the dashboard) runs in report-only
+# mode: file-declared inputs take precedence over UI-configured inputs, so
+# score thresholds can never fail a deploy. Scores still appear on every
+# deploy for tracking against the >90 target.
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  [plugins.inputs]
+    fail_deploy_on_score_thresholds = false

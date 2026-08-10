@@ -47,11 +47,12 @@ function renderDesignPage() {
   if (!el) return;
 
   el.innerHTML = `
+    <p class="page-eyebrow">Module 02 · Design</p>
     <h1 class="mb-1">Design</h1>
     <p class="text-secondary mb-2">Design multiple viable futures, not just one — a life-design approach built for exploring options before committing.</p>
     <div class="odyssey-tabs" role="tablist">
-      ${[['odyssey', '🗺️ Odyssey'], ['portfolio', '⚖️ Portfolio'], ['prototype', '✅ Prototype'], ['gravity', '🪨 Gravity']].map(([key, label]) => `
-        <button type="button" class="odyssey-tab ${AppState.viewFilters.designActiveTab === key ? 'active' : ''}" role="tab" onclick="setDesignTab('${key}')">${label}</button>
+      ${[['odyssey', 'map', 'Odyssey'], ['portfolio', 'scale', 'Portfolio'], ['prototype', 'check-circle', 'Prototype'], ['gravity', 'mountain', 'Gravity']].map(([key, ic, label]) => `
+        <button type="button" class="odyssey-tab ${AppState.viewFilters.designActiveTab === key ? 'active' : ''}" role="tab" onclick="setDesignTab('${key}')">${icon(ic)}${label}</button>
       `).join('')}
     </div>
     <div id="design-tab-content"></div>
@@ -135,7 +136,7 @@ function renderOdysseyAnchors(plan) {
         </select>
       </div>
     </div>
-    ${course ? `<p class="text-muted text-sm mb-2">📌 ${escapeHtml(inst ? inst.name : 'Unknown institution')} · <span class="num">${course.duration_months} mo</span> · <span class="num">${formatKes(course.total_fees_kes)}</span> tuition · min grade <span class="num">${escapeHtml(course.min_grade || 'None')}</span> — figures from the Decide catalogue, illustrative pending verification.</p>` : ''}
+    ${course ? `<p class="text-muted text-sm mb-2">${icon('pin')} ${escapeHtml(inst ? inst.name : 'Unknown institution')} · <span class="num">${course.duration_months} mo</span> · <span class="num">${formatKes(course.total_fees_kes)}</span> tuition · min grade <span class="num">${escapeHtml(course.min_grade || 'None')}</span> — figures from the Decide catalogue, illustrative pending verification.</p>` : ''}
   `;
 }
 
@@ -320,18 +321,18 @@ function togglePrototypeItem(id) {
 
 /* ---------- Gravity Problem Reframer ---------- */
 const GRAVITY_CATEGORIES = {
-  financial: '💰 Money & fees',
-  family: '👪 Family obligations',
-  academic: '🎓 Grades & qualifications',
-  location: '📍 Location & distance',
-  health: '💪 Health',
-  other: '🪨 Other'
+  financial: 'Money & fees',
+  family: 'Family obligations',
+  academic: 'Grades & qualifications',
+  location: 'Location & distance',
+  health: 'Health',
+  other: 'Other'
 };
 
 function renderGravityTab(container) {
   container.innerHTML = `
     <div class="card">
-      <h3 class="mb-1">🪨 Name a Gravity Problem</h3>
+      <h3 class="mb-1">${icon('mountain')} Name a Gravity Problem</h3>
       <p class="text-muted text-sm mb-2">A gravity problem is a real constraint you can't solve directly (e.g. "I can't afford a 4-year degree right now"). Name it, then reframe your energy toward what you <em>can</em> design around.</p>
       <label class="caption" for="gravity-category">What kind of constraint is it?</label>
       <select id="gravity-category" class="form-control" style="width:100%;max-width:280px;display:block;margin-top:0.3rem">
@@ -346,7 +347,7 @@ function renderGravityTab(container) {
     </div>
     <div id="gravity-list">
       ${AppState.gravityProblems.length === 0
-        ? emptyState('🪨', 'No gravity problems yet', 'Once you name a constraint and its reframe, it will appear here.', null, null)
+        ? emptyState('mountain', 'No gravity problems yet', 'Once you name a constraint and its reframe, it will appear here.', null, null)
         : AppState.gravityProblems.map((g) => `
           <div class="card">
             ${g.category && GRAVITY_CATEGORIES[g.category] ? `<span class="type-badge">${GRAVITY_CATEGORIES[g.category]}</span>` : ''}

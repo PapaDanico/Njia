@@ -153,7 +153,6 @@ function toggleMobileMenu() {
   if (!menu || !toggle) return;
   const isOpen = menu.classList.toggle('open');
   toggle.setAttribute('aria-expanded', String(isOpen));
-  toggle.innerHTML = icon(isOpen ? 'x' : 'menu');
 }
 
 function closeMobileMenu() {
@@ -161,7 +160,7 @@ function closeMobileMenu() {
   const toggle = document.getElementById('nav-toggle');
   if (!menu || !menu.classList.contains('open')) return;
   menu.classList.remove('open');
-  if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.innerHTML = icon('menu'); }
+  if (toggle) toggle.setAttribute('aria-expanded', 'false');
 }
 
 function navigateAndCloseMenu(page) {
@@ -692,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (e) => {
     const menu = document.getElementById('mobile-menu');
     const toggle = document.getElementById('nav-toggle');
-    if (menu && menu.classList.contains('open') && !menu.contains(e.target) && e.target !== toggle) {
+    if (menu && menu.classList.contains('open') && !menu.contains(e.target) && !toggle?.contains(e.target)) {
       closeMobileMenu();
     }
     if (!e.target.closest('.landing-nav-dropdown')) closeModulesDropdown();

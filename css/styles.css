@@ -105,6 +105,12 @@
   --danger-ink: #a02e20;
   --danger-border: rgba(192, 57, 43, 0.3);
 
+  /* Odyssey plan accents — one per life. Light values sit on white cards;
+   * the dark scheme lifts each to clear the AA floor on the espresso card. */
+  --plan-life1: #0e7ba6;
+  --plan-life2: #55802d;
+  --plan-life3: #8a5310;
+
   /* Neutral veils */
   --ink-veil: rgba(31, 30, 29, 0.08);
   --scrim: rgba(31, 30, 29, 0.42);
@@ -160,6 +166,10 @@
   --danger-soft: rgba(224, 104, 90, 0.14);
   --danger-ink: #eb9a8e;
   --danger-border: rgba(224, 104, 90, 0.4);
+
+  --plan-life1: #6fc3e4;
+  --plan-life2: #a5c583;
+  --plan-life3: #e3b075;
 
   --ink-veil: rgba(240, 236, 227, 0.1);
   --scrim: rgba(0, 0, 0, 0.6);
@@ -363,6 +373,15 @@ svg.icon {
 .header-btn:hover { background: var(--bg-card); }
 
 .header-actions { display: flex; align-items: center; gap: 0.4rem; }
+/* The hamburger holds both glyphs and swaps them from aria-expanded.
+ * Replacing its innerHTML on click used to destroy the very node the
+ * click was dispatched on, so the outside-click handler below could no
+ * longer recognise the target as the toggle and closed the menu again
+ * the instant it opened. Never mutate an element out from under an
+ * in-flight event. */
+.nav-toggle .icon-close { display: none; }
+.nav-toggle[aria-expanded="true"] .icon-menu { display: none; }
+.nav-toggle[aria-expanded="true"] .icon-close { display: inline-block; }
 .nav-back { display: none; }
 body:not([data-page="home"]) .nav-back { display: flex; }
 
@@ -1396,10 +1415,10 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-cta-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
 .btn-gold {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-fill);
   font-weight: 700;
 }
-.btn-gold:hover { background: #a34b26; }
+.btn-gold:hover { background: var(--primary-deep); }
 .btn-outline-dark {
   background: transparent;
   border: 1.5px solid var(--landing-ink);

@@ -25,6 +25,15 @@ source and date.
    dated in the note).
 4. Anything else — not sufficient. Leave `illustrative`.
 
+## Catalogue size (August 2026)
+
+57 courses across 35 institutions in 10 counties, covering all six
+clusters (7–11 courses each) and all three qualification levels. The
+expansion added real CUE-chartered universities and TVETA-registered
+national polytechnics; public-TVET fees are anchored to the verified
+consolidated annual fee, which is why the verified count grew with the
+catalogue rather than being diluted by it.
+
 ## Status (August 2026)
 
 ### Funding — 9 of 12 verified
@@ -44,7 +53,7 @@ source and date.
 | f011 | TVET Govt Funding | ✅ verified | Consolidated public-TVET fee Ksh 67,189/yr effective May 2026 |
 | f012 | Faith/Community | ⏳ illustrative | Informal by nature — stays illustrative |
 
-### Courses — 7 of 28 verified
+### Courses — 22 of 57 verified
 
 | ID | Course | Status | Basis |
 |---|---|---|---|

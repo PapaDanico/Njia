@@ -59,13 +59,33 @@ function renderDecidePage() {
     + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
   const totalCount = COURSES.length + FUNDING_SOURCES.length;
 
+  const counties = new Set(INSTITUTIONS.filter((i) => COURSE_INSTITUTION_IDS.has(i.id)).map((i) => i.county));
+  const levels = new Set(COURSES.map((c) => c.level));
+  const cheapest = COURSES.reduce((min, c) => Math.min(min, c.total_fees_kes), Infinity);
+
   el.innerHTML = `
-    <p class="page-eyebrow">Module 03 · Decide</p>
-    <h1 class="mb-1">Decide</h1>
-    <p class="text-secondary mb-2">Every recommendation answers three questions: Do I qualify? Can I afford it? Will it lead to work I care about?</p>
-    <div class="data-disclaimer">
-      ${icon('alert')}
-      <span>This MVP dataset (fees, employment rates, salaries, deadlines) is <strong>illustrative</strong> for demonstration — verify current figures directly with each institution or funder before deciding. <strong>${verifiedCount} of ${totalCount} records</strong> have been independently cross-checked against a public source — look for the ✓ Verified badge.</span>
+    <div class="module-header">
+      <div class="module-header-main">
+        <p class="page-eyebrow">Module 03 · Decide</p>
+        <h1 class="mb-1">Decide</h1>
+        <p class="text-secondary mb-2">Every recommendation answers three questions: Do I qualify? Can I afford it? Will it lead to work I care about?</p>
+        <div class="data-disclaimer">
+          ${icon('alert')}
+          <span>This MVP dataset (fees, employment rates, salaries, deadlines) is <strong>illustrative</strong> for demonstration — verify current figures directly with each institution or funder before deciding. <strong>${verifiedCount} of ${totalCount} records</strong> have been independently cross-checked against a public source — look for the ✓ Verified badge.</span>
+        </div>
+      </div>
+      <aside class="module-header-aside">
+        <p class="decide-rail-title">Catalogue coverage</p>
+        <div class="coverage-grid">
+          <div><span class="coverage-num num">${COURSES.length}</span><span class="coverage-label">courses</span></div>
+          <div><span class="coverage-num num">${INSTITUTIONS.length}</span><span class="coverage-label">institutions</span></div>
+          <div><span class="coverage-num num">${counties.size}</span><span class="coverage-label">counties</span></div>
+          <div><span class="coverage-num num">${levels.size}</span><span class="coverage-label">qualification levels</span></div>
+          <div><span class="coverage-num num">${FUNDING_SOURCES.length}</span><span class="coverage-label">funding sources</span></div>
+          <div><span class="coverage-num num">${formatKes(cheapest).replace('Ksh ', '')}</span><span class="coverage-label">lowest tuition (Ksh)</span></div>
+        </div>
+        <p class="coverage-note">Every figure computed from the dataset this build ships.</p>
+      </aside>
     </div>
     <div class="odyssey-tabs">
       <button type="button" class="odyssey-tab ${AppState.decideFilters.activeTab === 'courses' ? 'active' : ''}" onclick="setDecideTab('courses')">${icon('grad-cap')}Courses</button>
@@ -155,6 +175,14 @@ function feasibilitySignal(course, budgetMax) {
     : { level: 'over', overBy };
 }
 
+/* How many months of the median graduate salary the tuition costs. A blunt
+ * but honest return signal: a 12-month certificate that costs two months of
+ * pay is a different proposition from a degree that costs fourteen. Pure. */
+function paybackMonths(course) {
+  if (!course.median_salary_kes || !course.total_fees_kes) return null;
+  return Math.round((course.total_fees_kes / course.median_salary_kes) * 10) / 10;
+}
+
 function computeCourseMatch(course) {
   const results = AppState.questionnaire.results;
   return scoreCourseMatch(course, {
@@ -192,6 +220,12 @@ function renderCourseMatcher(container) {
     .filter((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && matchesCounty(c) && matchesSaved(c))
     .map((c) => ({ course: c, match: computeCourseMatch(c) }));
 
+  // Analytical layer: how much of the catalogue this grade actually unlocks.
+  // A concrete answer to "is my grade the thing holding me back?".
+  const gradeOpenPct = grade
+    ? Math.round((COURSES.filter((c) => meetsGradeRequirement(grade, c.min_grade)).length / COURSES.length) * 100)
+    : null;
+
   const sortBy = AppState.decideFilters.sortBy || 'match';
   const sortOptions = { match: 'Best Match', fees_low: 'Lowest Fees', fees_high: 'Highest Fees', employment: 'Highest Employment Rate', duration: 'Shortest Duration' };
   const sorters = {
@@ -228,6 +262,9 @@ function renderCourseMatcher(container) {
   }
 
   container.innerHTML = `
+    <div class="decide-layout">
+    <aside class="decide-rail" aria-label="Course filters">
+    <p class="decide-rail-title">Filter the catalogue</p>
     ${AppState.savedCourses.length > 0 ? `
       <div class="filter-row" aria-label="Show saved courses only">
         <button type="button" class="filter-chip ${AppState.decideFilters.savedOnly ? 'active' : ''}" onclick="toggleDecideSavedOnly()">
@@ -276,10 +313,16 @@ function renderCourseMatcher(container) {
       </select>
     </div>
 
-    ${filtered.length === 0
-      ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
-      : `<div class="results-grid">${filtered.map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>`
-    }
+    </aside>
+
+    <div class="decide-results">
+      <p class="decide-count"><strong class="num">${filtered.length}</strong> of <span class="num">${COURSES.length}</span> courses match your filters${gradeOpenPct != null ? ` · your grade opens <strong class="num">${gradeOpenPct}%</strong> of the catalogue` : ''}</p>
+      ${filtered.length === 0
+        ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
+        : `<div class="results-grid">${filtered.map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>`
+      }
+    </div>
+    </div>
   `;
 }
 
@@ -324,6 +367,11 @@ function renderCourseCard(course, match) {
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
+      ${(() => {
+        const pb = paybackMonths(course);
+        if (pb == null) return '';
+        return `<p class="text-muted text-sm mb-1">Tuition equals about <strong class="num">${pb}</strong> months of the illustrative median salary for this path — a rough return signal, not a promise.</p>`;
+      })()}
       <p class="text-muted text-sm mb-1">Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
       <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
       <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation

@@ -84,6 +84,37 @@ changes until the user chooses explicitly. All dark values live in the
 single `:root[data-theme="dark"]` block; the landing page swaps its
 scoped `--landing-*` token set as a unit.
 
+## Desktop layout — earn the width
+
+The desktop shell is a top nav plus a `--page-max` (1280px) content
+column. Wide does not mean stretched:
+
+- **Running text keeps a readable measure** (`--prose-max`, 68ch). Cards,
+  grids and tables use the full width; paragraphs never do.
+- **The space beside prose carries information, not air.** Module headers
+  are a two-column grid: intro left, a live panel right (Decide shows
+  catalogue coverage computed from the shipped dataset).
+- **Decide has a sticky filter rail** (260px) instead of filters stacked
+  above results — the rail turns the old dead gutter into working chrome
+  and keeps every filter reachable while scrolling a long catalogue.
+- **Grids get denser with width**: the results grid is
+  `auto-fill minmax(288px, 1fr)` (3–4 course cards per row at 1280px),
+  and the three Odyssey lives sit side by side, because comparing futures
+  is the point of the exercise.
+- The **phone bottom nav stays** — thumb reach on low-end Android is a
+  Njia constraint, and it is deliberately not inherited from Kanda.
+
+A media query adds no specificity: a desktop override must come **after**
+the base rule in source order, or it silently loses.
+
+## Colour that carries text
+
+Palette values in `data/*.js` (cluster colours, plan accents) are tuned
+for **fills** — bars, dots, tints. Wherever one of them carries *text*,
+use its ink token instead (`--cluster-<id>-ink`, `--plan-life<n>`), which
+is defined per scheme so the AA floor holds in both. Never interpolate a
+raw palette hex into a `color:` in JS.
+
 ## Motion
 
 One entrance (`fadeIn` / `replayFadeIn`) on page and tab content.

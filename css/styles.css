@@ -70,7 +70,11 @@
   --nav-h: 64px;
   --content-max: 600px;
   --sidebar-w: 240px;
-  --page-max: 960px;
+  /* Content width. --page-max is the working width for data-dense modules;
+   * --prose-max keeps running text at a readable measure inside it, so a
+   * wide page never turns body copy into a 1200px line. */
+  --page-max: 1280px;
+  --prose-max: 68ch;
 
   /* ---- Structural tokens (Kanda discipline: component rules reference
    * tokens, never raw values — if you're typing a hex or px in a
@@ -104,6 +108,16 @@
   --danger-soft: rgba(192, 57, 43, 0.1);
   --danger-ink: #a02e20;
   --danger-border: rgba(192, 57, 43, 0.3);
+
+  /* Cluster inks — the cluster palette in data/questions.js is tuned for
+   * fills (bars, dots, tints). These are its text-safe counterparts, one
+   * per scheme, so a cluster name never drops under the AA floor. */
+  --cluster-carer-ink: #9c1f56;
+  --cluster-creator-ink: #8a5310;
+  --cluster-business-ink: #46691f;
+  --cluster-tech-ink: #0a5f81;
+  --cluster-people-ink: #5a34ab;
+  --cluster-numbers-ink: #a02e20;
 
   /* Odyssey plan accents — one per life. Light values sit on white cards;
    * the dark scheme lifts each to clear the AA floor on the espresso card. */
@@ -166,6 +180,13 @@
   --danger-soft: rgba(224, 104, 90, 0.14);
   --danger-ink: #eb9a8e;
   --danger-border: rgba(224, 104, 90, 0.4);
+
+  --cluster-carer-ink: #f191b9;
+  --cluster-creator-ink: #e3b075;
+  --cluster-business-ink: #a5c583;
+  --cluster-tech-ink: #74c6e6;
+  --cluster-people-ink: #bba4f2;
+  --cluster-numbers-ink: #eb9a8e;
 
   --plan-life1: #6fc3e4;
   --plan-life2: #a5c583;
@@ -603,6 +624,55 @@ main {
   .page { max-width: var(--page-max); margin: 0 auto; padding: 2rem 2.5rem; }
   #page-home.page { max-width: none; margin: 0; padding: 0 !important; }
 
+  /* Running text stays at a readable measure even though the page is wide.
+   * Cards, grids and tables are free to use the full width. */
+  .page > p.text-secondary,
+  .page > .data-disclaimer,
+  .page > .page-eyebrow + h1 + p { max-width: var(--prose-max); }
+
+  /* The three Odyssey lives belong side by side — comparing futures is the
+   * whole point of the exercise, and stacking them hid the comparison. */
+  .odyssey-plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; align-items: start; }
+  .odyssey-plan-grid .card { margin-bottom: 0; }
+  .odyssey-plan-grid .odyssey-anchor-row { flex-direction: column; gap: 0.5rem; }
+  .odyssey-plan-grid .odyssey-anchor-row > div { min-width: 0; }
+
+  /* Discover results: findings left, constraints and actions right. */
+  .discover-results-grid { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 1.5rem; align-items: start; }
+  .discover-results-grid > * { min-width: 0; }
+  .discover-results-aside { position: sticky; top: calc(var(--header-h) + 1rem); }
+}
+
+/* =====================================================================
+   WIDE DESKTOP — Decide gets a persistent filter rail instead of filters
+   stacked above the results. The rail is the single biggest space win:
+   it turns the dead left gutter into working chrome and keeps every
+   filter visible while the user scrolls a long catalogue.
+   ===================================================================== */
+@media (min-width: 1100px) {
+  .decide-layout { display: grid; grid-template-columns: 260px 1fr; gap: 1.75rem; align-items: start; }
+  .decide-rail {
+    position: sticky;
+    top: calc(var(--header-h) + 1rem);
+    display: flex; flex-direction: column; gap: 0.75rem;
+    padding: 1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    max-height: calc(100vh - var(--header-h) - 2rem);
+    overflow-y: auto;
+  }
+  .decide-rail .filter-toolbar { flex-direction: column; align-items: stretch; gap: 0.6rem; margin-bottom: 0; }
+  .decide-rail .filter-toolbar .form-control { width: 100%; max-width: none; flex: none; }
+  .decide-rail .filter-spacer { display: none; }
+  .decide-rail .card { margin-bottom: 0; border: none; box-shadow: none; padding: 0; background: transparent; }
+  .decide-rail-title {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.4px; color: var(--text-muted);
+  }
+  .decide-results { min-width: 0; }
+
   /* Full-width buttons are a phone tap-target pattern; stretched across
    * the desktop content column they read as unfinished. Size to content
    * with a floor, except where a layout explicitly manages widths. */
@@ -900,6 +970,11 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   align-items: start;
 }
 .results-grid .card { margin-bottom: 0; }
+/* Denser catalogue on desktop. Declared after the base rule above because
+ * a media query adds no specificity — source order is what decides. */
+@media (min-width: 1024px) {
+  .results-grid { grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 1.1rem; }
+}
 .match-badge {
   display: inline-block;
   background: var(--secondary);
@@ -1142,6 +1217,54 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-tool-card h3 { font-size: 0.95rem; margin-bottom: 0.15rem; }
 .landing-tool-card p { font-size: 0.8rem; color: var(--landing-ink-muted); line-height: 1.45; }
 .landing-tool-arrow { margin-left: auto; color: var(--primary); align-self: center; flex-shrink: 0; }
+
+
+/* ---------- Module header: intro left, live coverage panel right ----------
+ * Running text keeps a readable measure, so on a wide screen the right of
+ * the header was dead space. It now carries the dataset's own numbers. */
+.module-header-aside { display: none; }
+.coverage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1rem; margin-top: 0.6rem; }
+.coverage-grid > div { display: flex; flex-direction: column; gap: 0.1rem; }
+.coverage-num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.15rem; font-weight: 700; color: var(--primary-dark); line-height: 1.1; }
+.coverage-label { font-size: 0.72rem; color: var(--text-muted); }
+.coverage-note { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+@media (min-width: 1100px) {
+  .module-header { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start; }
+  .module-header-main { min-width: 0; }
+  .module-header-aside {
+    display: block;
+    padding: 1.1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+/* ---------- Analytical result components ---------- */
+.decide-count { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.9rem; }
+
+.spread-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.spread-row { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; }
+.spread-rank { width: 1.2rem; color: var(--text-muted); font-size: 0.78rem; flex-shrink: 0; }
+.spread-name { width: 8.5rem; flex-shrink: 0; color: var(--text-secondary); }
+.spread-row.spread-top .spread-name { color: var(--text-primary); font-weight: 600; }
+.spread-bar { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-input); overflow: hidden; min-width: 40px; }
+.spread-fill { display: block; height: 100%; border-radius: 999px; }
+.spread-share { width: 2.6rem; text-align: right; flex-shrink: 0; color: var(--text-secondary); }
+
+.evidence-card { border-left: 3px solid var(--primary); }
+.evidence-list { list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.evidence-list li {
+  font-size: 0.86rem; line-height: 1.55; color: var(--text-secondary);
+  padding-left: 0.9rem; border-left: 2px solid var(--border);
+}
+.evidence-list strong { color: var(--text-primary); }
+
+@media (max-width: 560px) {
+  .spread-name { width: 6.5rem; font-size: 0.8rem; }
+}
 
 /* ---------- Mentor cards ---------- */
 .mentor-card { display: flex; gap: 0.85rem; align-items: center; }

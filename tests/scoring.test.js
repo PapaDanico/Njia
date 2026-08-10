@@ -30,6 +30,10 @@ const meetsGradeRequirement = grab('meetsGradeRequirement');
 const gradeRank = grab('gradeRank');
 const matchConfidence = grab('matchConfidence');
 const feasibilitySignal = grab('feasibilitySignal');
+const clusterSpread = grab('clusterSpread');
+const paybackMonths = grab('paybackMonths');
+const COURSES = grab('COURSES');
+const INSTITUTIONS = grab('INSTITUTIONS');
 const CLUSTERS = grab('CLUSTERS');
 const FLAT_QUESTIONS = grab('FLAT_QUESTIONS');
 
@@ -196,4 +200,69 @@ test('breakdown explains every factor that moved the score', () => {
   assert.equal(factors.join('|'), 'Career fit|Grade eligibility|Budget');
   assert.equal(m.breakdown[0].effect, 'up');
   assert.equal(m.breakdown[2].effect, 'down');
+});
+
+
+/* ---------- catalogue integrity ---------- */
+
+test('every course points at a real institution and a real cluster', () => {
+  const instIds = new Set(INSTITUTIONS.map((i) => i.id));
+  const clusterIds = new Set(Object.keys(CLUSTERS));
+  for (const c of COURSES) {
+    assert.ok(instIds.has(c.institution_id), `${c.id} references missing institution ${c.institution_id}`);
+    assert.ok(clusterIds.has(c.cluster), `${c.id} references missing cluster ${c.cluster}`);
+  }
+});
+
+test('course ids and institution ids are unique', () => {
+  const cIds = COURSES.map((c) => c.id);
+  const iIds = INSTITUTIONS.map((i) => i.id);
+  assert.equal(cIds.length, new Set(cIds).size, 'duplicate course id');
+  assert.equal(iIds.length, new Set(iIds).size, 'duplicate institution id');
+});
+
+test('every cluster has at least three courses, so no result is a dead end', () => {
+  for (const cluster of Object.keys(CLUSTERS)) {
+    const n = COURSES.filter((c) => c.cluster === cluster).length;
+    assert.ok(n >= 3, `cluster ${cluster} only has ${n} course(s)`);
+  }
+});
+
+test('every verified record carries a verification note', () => {
+  for (const c of COURSES) {
+    if (c.data_confidence === 'verified') {
+      assert.ok(c.verification_note && c.verification_note.length > 40,
+        `${c.id} is marked verified without a substantive note`);
+    }
+  }
+});
+
+/* ---------- clusterSpread ---------- */
+
+test('spread covers every cluster, ranked, with shares of the total', () => {
+  const ranked = [['tech', 30], ['carer', 20], ['business', 10], ['people', 10], ['creator', 20], ['numbers', 10]];
+  const spread = clusterSpread(ranked, 100);
+  assert.equal(spread.length, 6);
+  assert.equal(spread[0].id, 'tech');
+  assert.equal(spread[0].share, 30);
+  assert.equal(spread[0].rank, 1);
+  assert.equal(spread[5].rank, 6);
+});
+
+test('spread survives a zero total without dividing by zero', () => {
+  const spread = clusterSpread([['tech', 0], ['carer', 0]], 0);
+  assert.equal(spread[0].share, 0);
+  assert.ok(Number.isFinite(spread[0].share));
+});
+
+/* ---------- paybackMonths ---------- */
+
+test('payback is tuition expressed in months of median salary', () => {
+  assert.equal(paybackMonths({ total_fees_kes: 120000, median_salary_kes: 30000 }), 4);
+  assert.equal(paybackMonths({ total_fees_kes: 67189, median_salary_kes: 20000 }), 3.4);
+});
+
+test('payback is null when either figure is missing', () => {
+  assert.equal(paybackMonths({ total_fees_kes: 100000 }), null);
+  assert.equal(paybackMonths({ median_salary_kes: 30000 }), null);
 });

@@ -144,7 +144,7 @@ function renderOdysseyTab(container) {
   ensureOdysseyPlans();
   // Colour resolves from the template, not the persisted plan — plans saved
   // before a palette change would otherwise keep stale colours forever.
-  container.innerHTML = AppState.odysseyPlans.map((plan) => `
+  container.innerHTML = `<div class="odyssey-plan-grid">` + AppState.odysseyPlans.map((plan) => `
     <div class="card">
       <span class="caption" style="color:${(ODYSSEY_TEMPLATE.find((t) => t.id === plan.id) || plan).color}">${plan.label}</span>
       <h3 class="mb-1">${escapeHtml(plan.subtitle)}</h3>
@@ -157,7 +157,7 @@ function renderOdysseyTab(container) {
         </div>
       `).join('')}
     </div>
-  `).join('') + `<p class="text-muted text-sm">Changes save automatically as you type.</p>`;
+  `).join('') + `</div><p class="text-muted text-sm">Changes save automatically as you type.</p>`;
 }
 
 function updateOdysseyYear(planId, yearIndex, value) {

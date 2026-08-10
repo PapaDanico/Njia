@@ -1,0 +1,8 @@
+# Njia is deliberately buildless (see README "Deploying to Netlify"):
+# vanilla HTML/CSS/JS served straight from the repository root. This file
+# pins that in version control — file-based config overrides whatever
+# build command is set in the Netlify dashboard, so a dashboard-side
+# setting can never fail deploys for a site with nothing to build.
+[build]
+  command = "echo 'Njia has no build step - deploying repository root as-is'"
+  publish = "."

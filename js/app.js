@@ -113,18 +113,38 @@ function updateHeaderCta() {
   if (mobileBtn) mobileBtn.textContent = `${text} →`;
 }
 
-/* ---------- Landing header: nav dropdown + mobile menu ---------- */
-function toggleModulesDropdown() {
-  const btn = document.getElementById('modules-dropdown-btn');
-  const menu = document.getElementById('modules-dropdown-menu');
-  if (!btn || !menu) return;
-  const isOpen = menu.classList.toggle('open');
-  btn.setAttribute('aria-expanded', String(isOpen));
+/* ---------- Header: grouped nav dropdowns + mobile menu ---------- */
+function closeNavDropdowns() {
+  document.querySelectorAll('.landing-nav-dropdown-menu.open').forEach((m) => m.classList.remove('open'));
+  document.querySelectorAll('.landing-nav-dropdown-btn[aria-expanded="true"]').forEach((b) => b.setAttribute('aria-expanded', 'false'));
 }
 
-function closeModulesDropdown() {
-  document.getElementById('modules-dropdown-menu')?.classList.remove('open');
-  document.getElementById('modules-dropdown-btn')?.setAttribute('aria-expanded', 'false');
+function toggleNavDropdown(btn) {
+  const menu = btn.parentElement?.querySelector('.landing-nav-dropdown-menu');
+  if (!menu) return;
+  const wasOpen = menu.classList.contains('open');
+  closeNavDropdowns();
+  if (!wasOpen) {
+    menu.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
+// Kept as an alias — navigateTo() and the document click handler call it.
+function closeModulesDropdown() { closeNavDropdowns(); }
+
+/* Learn-menu links target landing sections; from a module page, go home
+ * first and scroll once the landing has rendered. */
+function goHomeAndScroll(id) {
+  if (AppState.currentPage !== 'home') navigateTo('home');
+  requestAnimationFrame(() => scrollToLanding(id));
+}
+
+/* The Application Clock CTA and funding links land directly on the
+ * Decide module's Funding tab. */
+function goToFundingTab() {
+  AppState.decideFilters.activeTab = 'funding';
+  navigateTo('decide');
 }
 
 function toggleMobileMenu() {
@@ -409,6 +429,41 @@ function renderNjiaNumbersCard() {
   `;
 }
 
+/* The Application Clock — Kanda's "Regulatory Clock" pattern powered by
+ * Njia's verified funding records: real deadlines, sourced and dated. */
+const LANDING_TOOLS = {
+  find: [
+    { page: 'discover', icon: 'compass', title: 'Discover', body: 'A 20-minute adaptive diagnostic across the Four Elements — with a signal-strength readout, not just a label.' },
+    { page: 'design', icon: 'pen', title: 'Design', body: 'Sketch three five-year futures side by side, then name the constraints you can and cannot design around.' }
+  ],
+  make: [
+    { page: 'decide', icon: 'chart', title: 'Decide', body: 'Courses and funding matched to your grades and budget — every match score explains itself.' },
+    { page: 'connect', icon: 'users', title: 'Connect', body: 'Respectful outreach messages and a safety checklist for talking to people already doing the work.' },
+    { page: 'track', icon: 'trend', title: 'Track', body: 'Quarterly OKRs and an application tracker, so the plan survives contact with the term calendar.' }
+  ]
+};
+
+function renderApplicationClock() {
+  const rows = FUNDING_SOURCES
+    .filter((f) => f.data_confidence === 'verified' && f.application_deadline)
+    .slice(0, 4);
+  return `
+    <div class="landing-clock-card">
+      <p class="landing-clock-title">The Application Clock</p>
+      ${rows.map((f) => `
+        <div class="landing-clock-row">
+          ${icon('calendar')}
+          <div>
+            <div class="landing-clock-name">${escapeHtml(f.name)}</div>
+            <div class="landing-clock-when">${escapeHtml(f.application_deadline)}</div>
+          </div>
+        </div>
+      `).join('')}
+      <button type="button" class="landing-clock-btn" onclick="goToFundingTab()">Open all funding deadlines →</button>
+    </div>
+  `;
+}
+
 function renderHomePage() {
   const el = document.getElementById('page-home');
   if (!el) return;
@@ -421,6 +476,7 @@ function renderHomePage() {
       <section class="landing-hero">
         <div class="landing-hero-main">
           <img class="landing-hero-logo" src="./icons/logo-mark-light-256.png" alt="Njia" width="64" height="64" decoding="async">
+          <p class="landing-hero-eyebrow">Career pathway intelligence · Kenya</p>
           <span class="status-pill mb-2"><span class="dot" aria-hidden="true"></span>Research-backed method · Real Kenyan data · Always free</span>
           <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
           <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
@@ -437,7 +493,7 @@ function renderHomePage() {
           ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">You're matched as <strong style="color:var(--landing-ink)">${CLUSTERS[primaryCluster].name}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
         </div>
         <div class="landing-hero-aside">
-          ${renderNjiaNumbersCard()}
+          ${renderApplicationClock()}
         </div>
       </section>
 
@@ -488,20 +544,48 @@ function renderHomePage() {
       </section>
 
       <section class="landing-block" id="landing-process">
-        <span class="landing-eyebrow">THE NJIA METHOD</span>
-        <h2 class="landing-h2">Five steps from confusion to a funded plan</h2>
-        <p class="landing-h2-sub">Each step is a full module in the app — open any of them directly.</p>
-        <div class="landing-process-list">
-          ${LANDING_PROCESS.map((p, i) => `
-            <div class="landing-process-card">
-              <div class="landing-process-num">${i + 1}</div>
-              <div>
-                <h3>${escapeHtml(p.title)}</h3>
-                <p>${escapeHtml(p.body)}</p>
-                <a href="#" class="landing-link" onclick="navigateTo('${p.page}');return false">Open ${p.page[0].toUpperCase()}${p.page.slice(1)} →</a>
-              </div>
-            </div>
-          `).join('')}
+        <span class="landing-eyebrow">TWO TRACKS</span>
+        <h2 class="landing-h2">Which side of the decision are you on?</h2>
+        <p class="landing-h2-sub">Every tool is free, works offline, and computes on your device. Start wherever your question is.</p>
+        <div class="landing-track-grid">
+          <div class="landing-track-card">
+            <span class="landing-track-eyebrow">Find your path</span>
+            <h3>Still deciding what you're for</h3>
+            <p>A research-backed diagnostic and a life-design canvas — for when the question is "which direction?", not "which college?".</p>
+            <span class="landing-track-count">2 tools →</span>
+          </div>
+          <div class="landing-track-card track-make">
+            <span class="landing-track-eyebrow">Make it happen</span>
+            <h3>Direction chosen, now execute</h3>
+            <p>Courses, fees and funding matched to your grades and budget, outreach to real people, and follow-through tracking.</p>
+            <span class="landing-track-count">3 tools →</span>
+          </div>
+        </div>
+
+        <div class="landing-tool-section">
+          <span class="landing-eyebrow" style="color:var(--primary)">FIND YOUR PATH</span>
+          <div class="landing-tool-grid">
+            ${LANDING_TOOLS.find.map((t) => `
+              <button type="button" class="landing-tool-card" onclick="navigateTo('${t.page}')">
+                <span class="icon-disc" aria-hidden="true">${icon(t.icon)}</span>
+                <span><h3>${escapeHtml(t.title)}</h3><p>${escapeHtml(t.body)}</p></span>
+                <span class="landing-tool-arrow" aria-hidden="true">→</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="landing-tool-section">
+          <span class="landing-eyebrow" style="color:var(--secondary)">MAKE IT HAPPEN</span>
+          <div class="landing-tool-grid">
+            ${LANDING_TOOLS.make.map((t) => `
+              <button type="button" class="landing-tool-card" onclick="navigateTo('${t.page}')">
+                <span class="icon-disc" aria-hidden="true">${icon(t.icon)}</span>
+                <span><h3>${escapeHtml(t.title)}</h3><p>${escapeHtml(t.body)}</p></span>
+                <span class="landing-tool-arrow" aria-hidden="true">→</span>
+              </button>
+            `).join('')}
+          </div>
         </div>
       </section>
 
@@ -521,14 +605,21 @@ function renderHomePage() {
         </div>
       </section>
 
+      <section class="landing-block" id="landing-privacy">
+        <span class="landing-eyebrow">PRIVACY BY ARCHITECTURE</span>
+        <h2 class="landing-h2">We cannot see your answers, because there is nowhere for them to go.</h2>
+        <p class="landing-h2-sub">No accounts, no tracking, no analytics. Everything you enter — questionnaire answers, plans, saved courses — lives in this browser's local storage and is computed on your device. The only exception: the optional Feedback and Partner forms below, sent to us only if you submit them. Use "Clear My Data" (the header lock) any time, especially on a shared phone.</p>
+        <div class="btn-row" style="max-width:420px">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openPrivacyModal()">Privacy &amp; your data</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openMethodologyModal()">Method &amp; sources</button>
+        </div>
+        <div class="mt-3">${renderNjiaNumbersCard()}</div>
+      </section>
+
       <section class="landing-dark landing-final-cta">
         <h2 class="landing-h2">Start with clarity. It's free.</h2>
         <p class="landing-sub">Your answers never leave your device. No account, no cost, about 20 minutes.</p>
         <button type="button" class="btn btn-gold" style="width:auto;display:inline-flex;margin-top:0.5rem" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
-        <div class="landing-guarantee-box">
-          <span aria-hidden="true">${icon('lock')}</span>
-          <span><strong>Privacy guarantee.</strong> Everything you enter — questionnaire answers, plans, saved courses — stays in this browser's local storage, not on a server. (The only exception: the optional Feedback and Partner forms in the footer, sent to us only if you submit them.) Use "Clear My Data" (header lock icon) any time, especially on a shared device.</span>
-        </div>
       </section>
 
       <footer class="landing-footer">

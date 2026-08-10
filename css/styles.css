@@ -363,13 +363,15 @@ svg.icon {
 .header-btn:hover { background: var(--bg-card); }
 
 .header-actions { display: flex; align-items: center; gap: 0.4rem; }
+.nav-back { display: none; }
+body:not([data-page="home"]) .nav-back { display: flex; }
 
 /* ---------- Landing nav (header) + mobile menu — home page only.
    Hidden by default everywhere; body[data-page="home"] (set by
    renderRoute) reveals the hamburger on mobile and the full nav row +
    CTA on desktop, so module pages keep their existing minimal header. */
 .landing-nav, .landing-cta-header, .nav-toggle { display: none; }
-body[data-page="home"] .nav-toggle { display: flex; }
+.nav-toggle { display: flex; }
 
 .landing-nav { align-items: center; gap: 1.75rem; }
 .landing-nav-link {
@@ -471,9 +473,9 @@ body[data-page="home"] .nav-toggle { display: flex; }
 .mobile-menu .menu-icon .icon { width: 18px; height: 18px; }
 
 @media (min-width: 1024px) {
-  body[data-page="home"] .landing-nav { display: flex; }
+  .landing-nav { display: flex; }
   body[data-page="home"] .header-actions .landing-cta-header { display: inline-flex; }
-  body[data-page="home"] .nav-toggle { display: none; }
+  .nav-toggle { display: none; }
   .mobile-menu { display: none !important; }
 }
 
@@ -567,56 +569,17 @@ main {
 }
 
 /* =====================================================================
-   DESKTOP SHELL — the full redesign: restructure #app into a header-bar
-   + sidebar-nav + content grid instead of the single centered column
-   above — pure CSS, no HTML changes, since .app-header/#install-banner/
-   main/.bottom-nav are already siblings in that DOM order inside #app;
-   grid-template-areas just repositions them visually. Needs the sidebar
-   nav's 240px plus genuinely spacious 2-column grids, which is why it
-   waits for 1024px rather than sharing the tier above.
+   DESKTOP SHELL — Kanda anatomy: one slim top nav with grouped
+   dropdowns on every page, no sidebar. The bottom nav is a phone
+   affordance (thumb reach on the low-end Android devices Njia targets)
+   and disappears at desktop widths, where the top nav's two module
+   groups take over. Content centers on --page-max.
    ===================================================================== */
 @media (min-width: 1024px) {
-  #app {
-    max-width: none;
-    display: grid;
-    grid-template-columns: var(--sidebar-w) 1fr;
-    grid-template-areas:
-      "header header"
-      "banner banner"
-      "nav    main";
-    grid-template-rows: auto auto 1fr;
-  }
-  .app-header { grid-area: header; padding: 0 1.5rem; }
-  #install-banner { grid-area: banner; }
-  main { grid-area: main; padding-bottom: 1rem; }
-
-  .bottom-nav {
-    grid-area: nav;
-    position: sticky;
-    top: var(--header-h);
-    left: auto; bottom: auto; transform: none;
-    width: 100%; max-width: none;
-    height: calc(100vh - var(--header-h));
-    align-self: start;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.35rem;
-    padding: 1.5rem 0.75rem;
-    border-top: none;
-    border-right: 1px solid var(--border);
-  }
-  .nav-item {
-    flex: none;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 0.75rem;
-    padding: 0 0.9rem;
-    height: 48px;
-  }
-  .nav-item .nav-label { font-size: 0.85rem; }
-  .nav-item.active::before { display: none; }
-  .nav-item.active::after { top: 0; bottom: 0; left: 0; right: 0; border-radius: var(--radius-md); }
-  .nav-item.has-badge .nav-icon::after { top: 2px; right: -6px; }
+  #app { max-width: none; }
+  .app-header { padding: 0 1.5rem; }
+  main { padding-bottom: 1rem; }
+  .bottom-nav { display: none; }
 
   .page { max-width: var(--page-max); margin: 0 auto; padding: 2rem 2.5rem; }
   #page-home.page { max-width: none; margin: 0; padding: 0 !important; }
@@ -1120,6 +1083,47 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .match-why li.match-why-up { border-left-color: var(--secondary); }
 .match-why li.match-why-down { border-left-color: var(--danger); }
 
+/* ---------- Landing: two tracks + tool grids (Kanda anatomy) ---------- */
+.landing-track-grid { display: grid; gap: 1rem; margin-top: 1.25rem; }
+@media (min-width: 768px) { .landing-track-grid { grid-template-columns: 1fr 1fr; } }
+.landing-track-card {
+  background: var(--landing-card);
+  border: 1px solid var(--landing-border);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+.landing-track-card.track-make { border-left-color: var(--secondary); }
+.landing-track-eyebrow {
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.4px;
+  color: var(--primary);
+}
+.landing-track-card.track-make .landing-track-eyebrow { color: var(--secondary); }
+.landing-track-card h3 { margin: 0.3rem 0 0.35rem; }
+.landing-track-card p { font-size: 0.88rem; color: var(--landing-ink-muted); }
+.landing-track-count { display: inline-block; margin-top: 0.6rem; font-size: 0.8rem; font-weight: 700; color: var(--primary-dark); }
+
+.landing-tool-section { margin-top: 2.5rem; }
+.landing-tool-grid { display: grid; gap: 0.9rem; margin-top: 1.1rem; }
+@media (min-width: 768px) { .landing-tool-grid { grid-template-columns: repeat(3, 1fr); } }
+.landing-tool-card {
+  display: flex; gap: 0.85rem; align-items: flex-start;
+  background: var(--landing-card);
+  border: 1px solid var(--landing-border);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: left; width: 100%;
+  color: var(--landing-ink);
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.landing-tool-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.landing-tool-card .icon-disc { width: 42px; height: 42px; margin: 0; flex-shrink: 0; color: var(--primary); }
+.landing-tool-card .icon-disc .icon { width: 20px; height: 20px; }
+.landing-tool-card h3 { font-size: 0.95rem; margin-bottom: 0.15rem; }
+.landing-tool-card p { font-size: 0.8rem; color: var(--landing-ink-muted); line-height: 1.45; }
+.landing-tool-arrow { margin-left: auto; color: var(--primary); align-self: center; flex-shrink: 0; }
+
 /* ---------- Mentor cards ---------- */
 .mentor-card { display: flex; gap: 0.85rem; align-items: center; }
 .mentor-avatar {
@@ -1276,10 +1280,67 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-block-tight { padding: 1.5rem 1.25rem; }
 
 .landing-hero {
-  padding: 2.5rem 1.25rem 2rem;
+  padding: 2.5rem 1.25rem 2.25rem;
   text-align: left;
-  background: radial-gradient(120% 100% at 0% 0%, rgba(180,85,45,0.07), rgba(237,139,45,0.05) 45%, transparent 70%);
+  /* Kanda hero anatomy in Njia's palette: deep navy ground with warm
+   * terracotta/gold radials, cream type, gold accent word. */
+  background:
+    radial-gradient(120% 120% at 88% 0%, rgba(237, 139, 45, 0.16), transparent 55%),
+    radial-gradient(110% 110% at 0% 100%, rgba(180, 85, 45, 0.2), transparent 60%),
+    var(--landing-dark);
+  color: #f8fafc;
 }
+.landing-hero .landing-hero-logo { mix-blend-mode: normal; border-radius: 12px; }
+.landing-hero .landing-h1 { color: #f8fafc; }
+.landing-hero .landing-sub { color: rgba(248, 250, 252, 0.82); }
+.landing-hero .landing-proverb { color: rgba(248, 250, 252, 0.7); border-left-color: var(--accent); }
+.landing-hero .status-pill { background: rgba(248, 250, 252, 0.08); border-color: rgba(248, 250, 252, 0.2); color: rgba(248, 250, 252, 0.85); }
+.landing-hero .landing-trust-item { color: rgba(248, 250, 252, 0.75); }
+.landing-hero .btn-outline-dark { color: #f8fafc; border-color: rgba(248, 250, 252, 0.4); }
+.landing-hero .btn-outline-dark:hover { background: rgba(248, 250, 252, 0.1); }
+.landing-hero-eyebrow {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.6px;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+/* Floating utility card — Kanda's "Regulatory Clock" pattern, powered by
+ * Njia's verified funding deadlines. */
+.landing-clock-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(248, 250, 252, 0.18);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  color: #f8fafc;
+}
+.landing-clock-title {
+  font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.landing-clock-row {
+  display: flex; gap: 0.6rem; align-items: flex-start;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(248, 250, 252, 0.12);
+}
+.landing-clock-row:last-of-type { border-bottom: none; margin-bottom: 0.4rem; }
+.landing-clock-row .icon { width: 15px; height: 15px; color: var(--accent); margin-top: 0.15rem; flex-shrink: 0; }
+.landing-clock-name { font-weight: 600; font-size: 0.85rem; line-height: 1.35; }
+.landing-clock-when { font-size: 0.74rem; color: rgba(248, 250, 252, 0.65); margin-top: 0.1rem; }
+.landing-clock-btn {
+  width: 100%;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(248, 250, 252, 0.35);
+  background: transparent;
+  color: #f8fafc;
+  font-weight: 600; font-size: 0.85rem;
+}
+.landing-clock-btn:hover { background: rgba(248, 250, 252, 0.1); }
 .landing-hero-logo {
   width: 64px; height: 64px; object-fit: contain; margin-bottom: 1.25rem;
   mix-blend-mode: multiply;

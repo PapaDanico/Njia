@@ -91,6 +91,15 @@ python3 -m http.server 8080
 Opening `index.html` directly via `file://` also works for quick checks,
 though the Service Worker only activates when served over `http(s)://`.
 
+## Tests
+
+The scoring cores (questionnaire cluster scoring, course match scoring)
+are pure functions with unit tests — no npm install needed:
+
+```bash
+node --test tests/*.test.js
+```
+
 ## Deploying to Netlify
 
 1. Push this repository to GitHub (or drag-and-drop the folder in the

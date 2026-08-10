@@ -91,28 +91,67 @@ function renderDecideTabContent() {
   replayFadeIn(container);
 }
 
-/* ---------- Course Matcher ---------- */
+/* ---------- Course Matcher ----------
+ * scoreCourseMatch is deliberately pure (course + profile in, score out —
+ * no AppState, no DOM) so `node --test tests/*.test.js` can exercise it directly.
+ * It also returns a factor-by-factor breakdown that renderCourseCard shows
+ * under "Why this match?", so the score is explainable, not an oracle. */
+function scoreCourseMatch(course, profile) {
+  const { hasResults, primary, secondary, grade, budgetMax } = profile;
+  const breakdown = [];
+  let score = 40;
+  if (hasResults) {
+    if (course.cluster === primary) {
+      score = 95;
+      breakdown.push({ factor: 'Career fit', detail: `${CLUSTERS[course.cluster].short} is your primary cluster — the strongest signal in your Discovery results.`, effect: 'up' });
+    } else if (course.cluster === secondary) {
+      score = 72;
+      breakdown.push({ factor: 'Career fit', detail: `${CLUSTERS[course.cluster].short} is your secondary cluster — a good, but not strongest, fit.`, effect: 'up' });
+    } else {
+      score = 35;
+      breakdown.push({ factor: 'Career fit', detail: `${CLUSTERS[course.cluster].short} is outside your two matched clusters.`, effect: 'down' });
+    }
+  } else {
+    breakdown.push({ factor: 'Career fit', detail: 'Complete Discover to personalise this — without your results every course starts from the same baseline.', effect: 'neutral' });
+  }
+
+  const eligible = meetsGradeRequirement(grade, course.min_grade);
+  const gradeUnconfirmed = grade == null && !!course.min_grade;
+  if (!eligible) {
+    score = Math.min(score, 20);
+    breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade}; your grade (${grade}) is below it — the score is capped until that changes.`, effect: 'down' });
+  } else if (gradeUnconfirmed) {
+    // meetsGradeRequirement() treats an unknown grade as "don't claim
+    // ineligible", which is right — but the UI still needs to show the
+    // difference between "confirmed eligible" and "eligibility unverified".
+    breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade} — set your grade in the filters to confirm you qualify.`, effect: 'neutral' });
+  } else if (course.min_grade) {
+    breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade} — your grade (${grade}) meets it.`, effect: 'up' });
+  } else {
+    breakdown.push({ factor: 'Grade eligibility', detail: 'No minimum grade requirement.', effect: 'up' });
+  }
+
+  if (budgetMax != null) {
+    if (course.total_fees_kes > budgetMax) {
+      score = Math.max(0, score - 25);
+      breakdown.push({ factor: 'Budget', detail: 'Tuition is above your maximum budget — shown as a stretch rather than hidden.', effect: 'down' });
+    } else {
+      breakdown.push({ factor: 'Budget', detail: 'Tuition fits within your maximum budget.', effect: 'up' });
+    }
+  }
+
+  return { score: Math.round(score), eligible, gradeUnconfirmed, breakdown };
+}
+
 function computeCourseMatch(course) {
   const results = AppState.questionnaire.results;
-  let score = 40;
-  if (results) {
-    if (course.cluster === results.primary) score = 95;
-    else if (course.cluster === results.secondary) score = 72;
-    else score = 35;
-  }
-  const grade = getEffectiveGrade();
-  const eligible = meetsGradeRequirement(grade, course.min_grade);
-  if (!eligible) score = Math.min(score, 20);
-
-  const budgetMax = AppState.decideFilters.budgetMax;
-  if (budgetMax != null && course.total_fees_kes > budgetMax) score = Math.max(0, score - 25);
-
-  // gradeUnconfirmed: this course has a grade requirement, but we don't
-  // actually know the user's grade — meetsGradeRequirement() treats that as
-  // "don't claim ineligible", which is right, but the UI still needs to show
-  // the difference between "confirmed eligible" and "eligibility unverified"
-  // rather than rendering both identically.
-  return { score: Math.round(score), eligible, gradeUnconfirmed: grade == null && !!course.min_grade };
+  return scoreCourseMatch(course, {
+    hasResults: !!results,
+    primary: results?.primary,
+    secondary: results?.secondary,
+    grade: getEffectiveGrade(),
+    budgetMax: AppState.decideFilters.budgetMax
+  });
 }
 
 function renderCourseMatcher(container) {
@@ -270,6 +309,12 @@ function renderCourseCard(course, match) {
         : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
       }</p>
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(course.verification_note)}</p>` : ''}
+      <details class="match-why">
+        <summary>Why ${match.score}% match?</summary>
+        <ul>
+          ${match.breakdown.map((b) => `<li class="match-why-${b.effect}"><strong>${escapeHtml(b.factor)}:</strong> ${escapeHtml(b.detail)}</li>`).join('')}
+        </ul>
+      </details>
       <div class="btn-row">
         <button type="button" class="btn ${saved ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleSavedCourse('${course.id}')">${saved ? '★ Saved' : '☆ Save'}</button>
         <button type="button" class="btn btn-ghost btn-sm" onclick="startApplicationForCourse('${course.id}')">Start Application</button>

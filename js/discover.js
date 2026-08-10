@@ -169,8 +169,10 @@ function toggleVoiceInput() {
   voiceRecognition.start();
 }
 
-/* ---------- Scoring ---------- */
-function finishQuestionnaire() {
+/* ---------- Scoring ----------
+ * computeClusterScores is deliberately pure (answers in, results out — no
+ * AppState, no DOM) so `node --test tests/*.test.js` can exercise it directly. */
+function computeClusterScores(answers) {
   const clusterTotals = {};
   Object.keys(CLUSTERS).forEach((c) => { clusterTotals[c] = 0; });
 
@@ -181,12 +183,16 @@ function finishQuestionnaire() {
 
   const tags = {};
 
-  Object.values(AppState.questionnaire.answers).forEach((ans) => {
+  Object.values(answers).forEach((ans) => {
+    // A weight-2 question counts double — the questionnaire data has
+    // carried per-question weights since day one, but scoring ignored
+    // them until now. Answers saved without a weight count once.
+    const weight = ans.weight > 0 ? ans.weight : 1;
     if (ans.scores) {
       Object.entries(ans.scores).forEach(([cluster, pts]) => {
-        clusterTotals[cluster] = (clusterTotals[cluster] || 0) + pts;
+        clusterTotals[cluster] = (clusterTotals[cluster] || 0) + pts * weight;
         if (elementPoints[ans.element]) {
-          elementPoints[ans.element][cluster] = (elementPoints[ans.element][cluster] || 0) + pts;
+          elementPoints[ans.element][cluster] = (elementPoints[ans.element][cluster] || 0) + pts * weight;
         }
       });
     }
@@ -215,9 +221,13 @@ function finishQuestionnaire() {
     obligations: Object.keys(tags).find((t) => t.startsWith('obligations_'))?.replace('obligations_', '') || null
   };
 
+  return { clusterTotals, ranked, primary, secondary, elementScores, constraints, totalPoints };
+}
+
+function finishQuestionnaire() {
   AppState.questionnaire.completed = true;
   AppState.questionnaire.results = {
-    clusterTotals, ranked, primary, secondary, elementScores, constraints, totalPoints,
+    ...computeClusterScores(AppState.questionnaire.answers),
     computedAt: new Date().toISOString()
   };
   saveState();

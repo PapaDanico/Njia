@@ -148,7 +148,7 @@ h1[tabindex="-1"]:focus-visible, h2[tabindex="-1"]:focus-visible { outline: none
  * Stroke SVGs from the sprite in index.html (24-grid, 2px, round caps,
  * currentColor) — the family rule: app chrome gets these, emoji stays
  * reserved for content voice. Sized by the em of their context. */
-.icon {
+svg.icon {
   width: 1.15em; height: 1.15em;
   flex-shrink: 0;
   vertical-align: -0.18em;
@@ -954,6 +954,27 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .filter-chip:active { transform: scale(0.95); }
 .filter-chip.active { background: var(--ink); border-color: var(--ink); color: var(--ink-contrast); }
+
+/* ---------- "Why this match?" breakdown ----------
+ * The match score explains itself factor by factor — trust in the
+ * algorithm comes from showing the working, not from the number. */
+.match-why { margin-bottom: 0.9rem; font-size: 0.82rem; }
+.match-why summary {
+  cursor: pointer;
+  color: var(--primary-dark);
+  font-weight: 600;
+  padding: 0.2rem 0;
+}
+.match-why summary:hover { text-decoration: underline; }
+.match-why ul { list-style: none; margin-top: 0.4rem; }
+.match-why li {
+  padding: 0.35rem 0 0.35rem 1rem;
+  border-left: 2px solid var(--border);
+  color: var(--text-secondary);
+  margin-bottom: 0.2rem;
+}
+.match-why li.match-why-up { border-left-color: var(--secondary); }
+.match-why li.match-why-down { border-left-color: var(--danger); }
 
 /* ---------- Mentor cards ---------- */
 .mentor-card { display: flex; gap: 0.85rem; align-items: center; }

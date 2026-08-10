@@ -1242,6 +1242,75 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   }
 }
 
+/* ---------- Header brand lockup (Kanda pattern) ----------
+ * Mark + wordmark + a descriptor line, so the header says what this is
+ * without spending a nav slot on it. The descriptor drops on phones
+ * where the space genuinely is not there. */
+.logo-lockup { display: flex; flex-direction: column; line-height: 1.05; }
+.logo-word { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; }
+.logo-descriptor {
+  display: none;
+  font-size: 0.6rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+@media (min-width: 720px) { .logo-descriptor { display: block; } }
+/* Nav sits hard right against the utility icons rather than floating. */
+@media (min-width: 1024px) { .landing-nav { margin-left: auto; margin-right: 1.25rem; } }
+
+/* ---------- Help page ---------- */
+.help-columns { display: grid; gap: 1rem; }
+@media (min-width: 900px) { .help-columns { grid-template-columns: 1fr 1fr; align-items: start; } }
+.help-group .caption { display: block; margin-bottom: 0.35rem; }
+.help-qa { border-bottom: 1px solid var(--border); padding: 0.15rem 0; }
+.help-qa:last-child { border-bottom: none; }
+.help-qa summary {
+  cursor: pointer; padding: 0.6rem 0;
+  font-weight: 600; font-size: 0.9rem; color: var(--text-primary);
+}
+.help-qa summary:hover { color: var(--primary-dark); }
+.help-qa p { font-size: 0.86rem; color: var(--text-secondary); padding: 0 0 0.7rem; line-height: 1.6; }
+.help-tutorial-head { display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 0.75rem; }
+.help-tutorial-head .icon-disc { margin: 0; flex-shrink: 0; color: var(--primary); }
+.help-steps { margin: 0 0 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.55rem; }
+.help-steps li { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6; padding-left: 0.3rem; }
+.glossary-list { display: flex; flex-direction: column; gap: 0.7rem; }
+.glossary-row { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.9rem; align-items: baseline; }
+.glossary-row dt { font-weight: 700; font-size: 0.85rem; color: var(--primary-dark); }
+.glossary-row dd { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; }
+@media (max-width: 560px) { .glossary-row { grid-template-columns: 1fr; gap: 0.15rem; } }
+.link-btn { background: none; border: none; padding: 0; color: var(--primary-dark); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: inherit; }
+
+/* ---------- Footer learn tiles (Kanda pattern) ---------- */
+.footer-learn { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(248,250,252,0.14); }
+.footer-learn-grid { display: grid; gap: 0.75rem; margin-top: 0.9rem; }
+@media (min-width: 700px) { .footer-learn-grid { grid-template-columns: repeat(4, 1fr); } }
+.footer-learn-tile {
+  text-align: left; width: 100%;
+  padding: 0.85rem 1rem;
+  background: rgba(248,250,252,0.05);
+  border: 1px solid rgba(248,250,252,0.14);
+  border-radius: var(--radius-md);
+  color: #f8fafc;
+}
+.footer-learn-tile:hover { background: rgba(248,250,252,0.1); }
+.footer-learn-tile strong { display: block; font-size: 0.88rem; margin-bottom: 0.15rem; }
+.footer-learn-tile span { font-size: 0.75rem; color: rgba(248,250,252,0.6); line-height: 1.4; }
+.footer-about { margin-top: 1.75rem; }
+.footer-about p { font-size: 0.82rem; color: rgba(248,250,252,0.66); line-height: 1.6; max-width: 62ch; }
+
+.course-tagline { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.4rem 0 0.2rem; }
+.mini-tag {
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem; border-radius: var(--radius-sm);
+  background: var(--ink-veil); color: var(--text-secondary);
+}
+.mini-public { background: var(--success-soft); color: var(--success-ink); }
+.mini-private { background: var(--primary-soft); color: var(--primary-dark); }
+.mini-online { background: var(--warn-soft); color: var(--warn-ink); }
+
 /* ---------- Analytical result components ---------- */
 .decide-count { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.9rem; }
 

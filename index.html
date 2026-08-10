@@ -94,7 +94,10 @@
       <button type="button" class="header-btn nav-back" aria-label="Back to home" onclick="navigateTo('home')"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
       <div class="logo">
         <img class="logo-mark" src="./icons/logo-mark-light-128.png" alt="" aria-hidden="true" width="28" height="28" decoding="async">
-        <span>Njia</span>
+        <span class="logo-lockup">
+          <span class="logo-word">Njia</span>
+          <span class="logo-descriptor">Career Pathways · Kenya</span>
+        </span>
         <span id="header-page-label" class="header-page-label" aria-live="polite"></span>
       </div>
 
@@ -125,7 +128,7 @@
           <div class="landing-nav-dropdown-menu" role="menu">
             <button type="button" role="menuitem" onclick="closeNavDropdowns();goHomeAndScroll('landing-evidence')"><span><strong>Why Njia</strong><small>The evidence base behind the method</small></span></button>
             <button type="button" role="menuitem" onclick="closeNavDropdowns();goHomeAndScroll('landing-process')"><span><strong>The Method</strong><small>Two tracks, five tools</small></span></button>
-            <button type="button" role="menuitem" onclick="closeNavDropdowns();openFaqModal()"><span><strong>FAQ</strong><small>Straight answers, including the awkward ones</small></span></button>
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('help')"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg></span><span><strong>Help &amp; FAQ</strong><small>Tutorials, straight answers and a glossary</small></span></button>
             <button type="button" role="menuitem" onclick="closeNavDropdowns();openMethodologyModal()"><span><strong>Methodology &amp; sources</strong><small>How every figure is arrived at</small></span></button>
           </div>
         </div>
@@ -169,6 +172,7 @@
       <div class="page" id="page-decide"></div>
       <div class="page" id="page-connect"></div>
       <div class="page" id="page-track"></div>
+      <div class="page" id="page-help"></div>
     </main>
 
     <nav class="bottom-nav" aria-label="Main navigation">
@@ -240,6 +244,7 @@
   <script src="./js/decide.js"></script>
   <script src="./js/connect.js"></script>
   <script src="./js/track.js"></script>
+  <script src="./js/help.js"></script>
 
   <script>
     function openAboutModal() {

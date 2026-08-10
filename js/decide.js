@@ -195,6 +195,7 @@ function computeCourseMatch(course) {
 }
 
 function renderCourseMatcher(container) {
+  const ownership = AppState.decideFilters.ownership || 'all';
   const clusterOptions = ['all', ...Object.keys(CLUSTERS)];
   const grade = getEffectiveGrade();
 
@@ -215,9 +216,13 @@ function renderCourseMatcher(container) {
     return institutionById(course.institution_id)?.county === AppState.decideFilters.county;
   };
   const matchesSaved = (course) => !AppState.decideFilters.savedOnly || AppState.savedCourses.includes(course.id);
+  // Public vs private is the single biggest driver of what a course costs,
+  // so it deserves a filter rather than being buried in the institution name.
+  const matchesOwnership = (course) => ownership === 'all'
+    || institutionById(course.institution_id)?.ownership === ownership;
 
   let filtered = COURSES
-    .filter((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && matchesCounty(c) && matchesSaved(c))
+    .filter((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && matchesCounty(c) && matchesSaved(c) && matchesOwnership(c))
     .map((c) => ({ course: c, match: computeCourseMatch(c) }));
 
   // Analytical layer: how much of the catalogue this grade actually unlocks.
@@ -282,6 +287,11 @@ function renderCourseMatcher(container) {
       </select>
       <select class="form-control" aria-label="Filter by learning mode" onchange="setDecideModeFilter(this.value)">
         ${modeOptions.map((m) => `<option value="${m}" ${AppState.decideFilters.mode === m ? 'selected' : ''}>${modeLabels[m]}</option>`).join('')}
+      </select>
+      <select class="form-control" aria-label="Filter by public or private institution" onchange="setDecideOwnershipFilter(this.value)">
+        <option value="all" ${ownership === 'all' ? 'selected' : ''}>Public &amp; private</option>
+        <option value="public" ${ownership === 'public' ? 'selected' : ''}>Public only</option>
+        <option value="private" ${ownership === 'private' ? 'selected' : ''}>Private only</option>
       </select>
       <select class="form-control" aria-label="Filter by county" onchange="setDecideCountyFilter(this.value)">
         <option value="all" ${AppState.decideFilters.county === 'all' ? 'selected' : ''}>All Counties</option>
@@ -357,6 +367,11 @@ function renderCourseCard(course, match) {
       </div>
       <h3>${escapeHtml(course.name)}</h3>
       <div class="institution-name">${escapeHtml(inst ? inst.name : 'Unknown institution')} · ${escapeHtml(inst ? inst.location : '')}</div>
+      <div class="course-tagline">
+        ${inst ? `<span class="mini-tag mini-${inst.ownership}">${inst.ownership === 'public' ? 'Public' : 'Private'}</span>` : ''}
+        ${course.mode === 'online' ? '<span class="mini-tag mini-online">Online</span>' : ''}
+        ${inst?.has_hostel ? '<span class="mini-tag">Hostel</span>' : ''}
+      </div>
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(course.level)}</div></div>
         <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${course.duration_months} mo</div></div>
@@ -403,6 +418,12 @@ function setDecideBudgetFilter(value) {
   saveState();
   renderDecideTabContent();
 }
+function setDecideOwnershipFilter(value) {
+  AppState.decideFilters.ownership = value;
+  saveState();
+  renderDecideTabContent();
+}
+
 function setDecideGradeFilter(value) {
   AppState.decideFilters.grade = value || null;
   saveState();
@@ -434,7 +455,7 @@ function setDecideSortBy(sortBy) {
   renderDecideTabContent();
 }
 function clearDecideFilters() {
-  AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false };
+  AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all', level: 'all', ownership: 'all', savedOnly: false };
   saveState();
   renderDecideTabContent();
 }

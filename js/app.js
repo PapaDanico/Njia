@@ -81,7 +81,7 @@ function resetState() {
 }
 
 /* ---------- Routing ---------- */
-const PAGES = ['home', 'discover', 'design', 'decide', 'connect', 'track'];
+const PAGES = ['home', 'discover', 'design', 'decide', 'connect', 'track', 'help'];
 
 function navigateTo(pageId) {
   if (!PAGES.includes(pageId)) return;
@@ -92,7 +92,7 @@ function navigateTo(pageId) {
   renderRoute({ focusHeading: true });
 }
 
-const PAGE_LABELS = { home: '', discover: 'Discover', design: 'Design', decide: 'Decide', connect: 'Connect', track: 'Track' };
+const PAGE_LABELS = { home: '', discover: 'Discover', design: 'Design', decide: 'Decide', connect: 'Connect', track: 'Track', help: 'Help' };
 
 // Nudge toward Track when there's saved-but-unstarted work — a subtle
 // signal, not a notification count. Reactive to njia-state-changed too,
@@ -205,7 +205,8 @@ function renderRoute({ focusHeading = false } = {}) {
     design: window.renderDesignPage,
     decide: window.renderDecidePage,
     connect: window.renderConnectPage,
-    track: window.renderTrackPage
+    track: window.renderTrackPage,
+    help: window.renderHelpPage
   };
   const renderFn = renderers[AppState.currentPage];
   if (typeof renderFn === 'function') renderFn();
@@ -633,7 +634,8 @@ function renderHomePage() {
           </div>
           <div class="landing-footer-col">
             <p class="footer-col-label">Learn</p>
-            <button type="button" onclick="openFaqModal()">FAQ</button>
+            <button type="button" onclick="navigateTo('help')">Help, tutorials &amp; glossary</button>
+            <button type="button" onclick="openFaqModal()">Quick FAQ</button>
             <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
             <button type="button" onclick="openAboutModal()">About Njia</button>
             <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
@@ -650,10 +652,33 @@ function renderHomePage() {
             <button type="button" onclick="openTermsModal()">Terms of Use</button>
           </div>
         </div>
+        <section class="footer-learn">
+          <p class="footer-col-label">Learn the ground</p>
+          <div class="footer-learn-grid">
+            <button type="button" class="footer-learn-tile" onclick="navigateTo('help')">
+              <strong>Help &amp; tutorials</strong><span>Step-by-step walkthroughs for every module</span>
+            </button>
+            <button type="button" class="footer-learn-tile" onclick="AppState.viewFilters.helpTab='glossary';navigateTo('help')">
+              <strong>Glossary</strong><span>KUCCPS, HEF, TVETA and the rest, in plain language</span>
+            </button>
+            <button type="button" class="footer-learn-tile" onclick="openMethodologyModal()">
+              <strong>Method &amp; sources</strong><span>How every figure is arrived at, and its limits</span>
+            </button>
+            <button type="button" class="footer-learn-tile" onclick="goToFundingTab()">
+              <strong>Application clock</strong><span>Funding windows, with the current cycle noted</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="footer-about">
+          <p class="footer-col-label">About Njia</p>
+          <p>Njia is an independent, free career-pathway tool for Kenyan youth — unaffiliated with KUCCPS, HELB or any institution. It fuses career psychology, life design and life-portfolio planning with real Kenyan course, fee and funding data, and computes everything on your device. Institution and funder names appear because they are real public bodies, not because of any partnership. Data marked ✓ Verified has been cross-checked against a named public source; everything else is illustrative and should be confirmed before you decide.</p>
+        </section>
+
         <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Course, fee and funding data inside the app is illustrative pending verification — see Methodology.</p>
         <div class="landing-footer-bottom">
           <div>
-            <a href="#" onclick="openAboutModal();return false">About</a><a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="openFaqModal();return false">FAQ</a>
+            <a href="#" onclick="openAboutModal();return false">About</a><a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="navigateTo('help');return false">Help</a><a href="#" onclick="openFaqModal();return false">FAQ</a>
           </div>
           <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
         </div>

@@ -266,3 +266,30 @@ test('payback is null when either figure is missing', () => {
   assert.equal(paybackMonths({ total_fees_kes: 100000 }), null);
   assert.equal(paybackMonths({ median_salary_kes: 30000 }), null);
 });
+
+
+/* ---------- service-worker cache completeness ----------
+ * CACHE_ASSETS in sw.js is hand-maintained. A module added without a
+ * matching entry still works online and silently fails offline — for
+ * users with no signal, which is precisely who this app is built for.
+ * This guards that class of bug at commit time. */
+
+test('every shipped js/css/data file is listed in the service worker cache', () => {
+  const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
+  const listed = new Set([...sw.matchAll(/'\.\/(js|data|css)\/([^']+)'/g)].map((m) => `${m[1]}/${m[2]}`));
+  for (const dir of ['js', 'data', 'css']) {
+    for (const file of fs.readdirSync(path.join(root, dir))) {
+      assert.ok(listed.has(`${dir}/${file}`),
+        `${dir}/${file} is shipped but missing from CACHE_ASSETS in sw.js — it would break offline`);
+    }
+  }
+});
+
+test('the service worker does not cache files that no longer exist', () => {
+  const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
+  const listed = [...sw.matchAll(/'\.\/(js|data|css)\/([^']+)'/g)].map((m) => `${m[1]}/${m[2]}`);
+  for (const rel of listed) {
+    assert.ok(fs.existsSync(path.join(root, rel)),
+      `sw.js caches ${rel}, which does not exist — install would fail and the app would never go offline`);
+  }
+});

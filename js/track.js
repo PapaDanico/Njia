@@ -3,6 +3,32 @@
  * Alumni Network outcomes require a shared backend — deferred (see README).
  */
 
+/* Objective templates — the same fill-then-edit pattern as Odyssey.
+ * Each carries its own key results, because "write two or three
+ * measurable key results" is the step people actually stall on. */
+const OKR_TEMPLATES = [
+  { objective: 'Get accepted into a course I have chosen',
+    krs: 'Shortlist 5 institutions\nConfirm fees and intake dates with each\nSubmit 3 applications' },
+  { objective: 'Secure funding for my first year',
+    krs: 'Submit the HEF application\nApply to my constituency NG-CDF bursary\nApply to one private scholarship' },
+  { objective: 'Test whether this field is really for me',
+    krs: 'Speak to 3 people doing the work\nSpend a day shadowing one of them\nWrite down what surprised me' },
+  { objective: 'Improve the grade that is blocking my first choice',
+    krs: 'Register for the retake\nStudy 5 hours a week\nSit the exam' },
+  { objective: 'Save toward fees while I wait for the next intake',
+    krs: 'Open a separate savings account\nSave a fixed amount monthly\nReach my target before the intake' }
+];
+
+function applyOkrTemplate(value, selectEl) {
+  if (!value) return;
+  const t = OKR_TEMPLATES.find((x) => x.objective === value);
+  const obj = document.getElementById('okr-title');
+  const krs = document.getElementById('okr-key-results');
+  if (obj) { obj.value = value; obj.focus(); }
+  if (krs && t && !krs.value.trim()) krs.value = t.krs;
+  if (selectEl) selectEl.selectedIndex = 0;
+}
+
 function renderTrackPage() {
   const el = document.getElementById('page-track');
   if (!el) return;
@@ -129,6 +155,11 @@ function openOkrModal() {
     <h2 class="mb-2">New Quarterly OKR</h2>
     <label class="caption" for="okr-title">Objective</label>
     <input type="text" id="okr-title" class="form-control" placeholder="e.g. Get accepted into a Counselling Diploma programme" style="width:100%;margin:0.4rem 0 0.8rem">
+      <select class="odyssey-suggest form-control mt-1" aria-label="Insert an objective template"
+        onchange="applyOkrTemplate(this.value, this)">
+        <option value="">Stuck? Insert an objective…</option>
+        ${OKR_TEMPLATES.map((t) => `<option value="${escapeHtml(t.objective)}">${escapeHtml(t.objective)}</option>`).join('')}
+      </select>
     <label class="caption">Key Results (one per line, 2–3 recommended)</label>
     <textarea class="q-input mt-1" id="okr-key-results" placeholder="Shortlist 5 institutions&#10;Sit and pass entrance requirements&#10;Submit HELB application"></textarea>
     <button type="button" class="btn btn-primary mt-2" onclick="createOkr()">Create OKR</button>

@@ -140,6 +140,87 @@ function renderOdysseyAnchors(plan) {
   `;
 }
 
+
+/* ---------- Suggestion menus ----------
+ * Odyssey is a life-DESIGN exercise, so the year fields stay free text —
+ * picking three futures off a fixed menu would not be designing one.
+ * What the menus do is kill the blank page: they offer a concrete
+ * starting phrase, drawn from the plan's own anchor course and cluster
+ * where it has them, which lands in the field still fully editable.
+ * Fast on a phone, and the words remain the user's own. */
+function odysseySuggestions(plan, yearIndex) {
+  const course = plan.courseId ? COURSES.find((c) => c.id === plan.courseId) : null;
+  const inst = course ? INSTITUTIONS.find((i) => i.id === course.institution_id) : null;
+  const cluster = plan.cluster ? CLUSTERS[plan.cluster] : null;
+  const role = cluster?.paths?.[0] || 'the field';
+  const role2 = cluster?.paths?.[1] || role;
+  const courseName = course ? course.name : 'the course I choose';
+  const where = inst ? inst.name.replace(/\s*\(.*\)\s*/, '') : 'my chosen institution';
+
+  const byYear = [
+    [
+      `Start ${courseName}${inst ? ' at ' + where : ''}`,
+      'Work and save toward first-year fees',
+      'Apply for HEF funding and a county bursary',
+      `Volunteer or shadow someone in ${role} to test the fit`,
+      'Retake or improve the subjects holding me back'
+    ],
+    [
+      `Complete year one of ${courseName} and keep my grades up`,
+      'Take part-time work related to the field',
+      'Secure funding for the next year of fees',
+      `Talk to two people already working as a ${role}`
+    ],
+    [
+      `Finish ${courseName}`,
+      'Do an attachment or internship in the field',
+      'Build a portfolio or record of real work',
+      'Decide whether to ladder into the next qualification'
+    ],
+    [
+      `Working in a first ${role} role`,
+      'Ladder up to the next qualification',
+      'Save toward further study or equipment',
+      `Move toward ${role2} work`
+    ],
+    [
+      `Established in ${role} work`,
+      'Specialise or take on supervision',
+      'Start something of my own in this field',
+      'Mentor someone starting where I started'
+    ]
+  ];
+  return byYear[yearIndex] || byYear[byYear.length - 1];
+}
+
+function applyOdysseySuggestion(planId, yearIndex, value, selectEl) {
+  if (!value) return;
+  const plan = AppState.odysseyPlans.find((p) => p.id === planId);
+  if (!plan) return;
+  plan.years[yearIndex] = value;
+  saveState();
+  const input = document.getElementById(`odyssey-year-${planId}-${yearIndex}`);
+  if (input) { input.value = value; input.focus(); }
+  if (selectEl) selectEl.selectedIndex = 0;   // menu is a filler, not a state
+}
+
+const GRAVITY_REFRAMES = [
+  'Take the certificate route first, then ladder into the diploma once I am earning',
+  'Study part-time or online so I can keep working while I qualify',
+  'Start at a public TVET where the fees are subsidised, and transfer later',
+  'Apply for HEF, a constituency bursary and a county bursary in the same cycle',
+  'Pick an institution close to home so there is no rent or relocation cost',
+  'Work for a year, save deliberately, and start the course with fees in hand',
+  'Find an employer or sponsor who will support the training in exchange for service'
+];
+
+function applyGravityReframe(value, selectEl) {
+  if (!value) return;
+  const box = document.getElementById('gravity-reframe');
+  if (box) { box.value = value; box.focus(); }
+  if (selectEl) selectEl.selectedIndex = 0;
+}
+
 function renderOdysseyTab(container) {
   ensureOdysseyPlans();
   // Colour resolves from the template, not the persisted plan — plans saved
@@ -152,8 +233,15 @@ function renderOdysseyTab(container) {
       ${plan.years.map((val, i) => `
         <div class="odyssey-year-row">
           <div class="odyssey-year-badge">Y${i + 1}</div>
-          <input type="text" value="${escapeHtml(val)}" placeholder="What are you doing in year ${i + 1}?"
+          <div class="odyssey-year-field">
+          <input type="text" id="odyssey-year-${plan.id}-${i}" value="${escapeHtml(val)}" placeholder="What are you doing in year ${i + 1}?"
             onchange="updateOdysseyYear('${plan.id}', ${i}, this.value)" aria-label="${plan.label} year ${i + 1}">
+            <select class="odyssey-suggest form-control" aria-label="Insert a suggestion for ${plan.label} year ${i + 1}"
+              onchange="applyOdysseySuggestion('${plan.id}', ${i}, this.value, this)">
+              <option value="">Stuck? Insert a starting point…</option>
+              ${odysseySuggestions(plan, i).map((sug) => `<option value="${escapeHtml(sug)}">${escapeHtml(sug)}</option>`).join('')}
+            </select>
+          </div>
         </div>
       `).join('')}
     </div>
@@ -343,6 +431,11 @@ function renderGravityTab(container) {
       <textarea class="q-input mt-1" id="gravity-problem" placeholder="e.g. I cannot afford a 4-year degree right now"></textarea>
       <label class="caption mt-2" for="gravity-reframe" style="display:block">Your reframe (a certificate-to-diploma ladder? evening classes? work-study?)</label>
       <textarea class="q-input mt-1" id="gravity-reframe" placeholder="e.g. Start with a KMTC certificate, work part-time, upgrade to the diploma in year 2"></textarea>
+      <select class="odyssey-suggest form-control mt-1" aria-label="Insert a common reframe"
+        onchange="applyGravityReframe(this.value, this)">
+        <option value="">Stuck? Insert a common reframe…</option>
+        ${GRAVITY_REFRAMES.map((r) => `<option value="${escapeHtml(r)}">${escapeHtml(r)}</option>`).join('')}
+      </select>
       <button type="button" class="btn btn-primary mt-2" onclick="addGravityProblem()">Save Reframe</button>
     </div>
     <div id="gravity-list">

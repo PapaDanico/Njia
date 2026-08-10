@@ -24,7 +24,7 @@ const defaultState = () => ({
   // accidentally drop or corrupt unrelated modules' selections. Also holds
   // each module's active sub-tab, so — like Decide's own activeTab — it
   // survives navigating away and back instead of resetting to the first tab.
-  viewFilters: { okrStatus: 'all', okrSort: 'recent', appStatus: 'all', appSort: 'recent', prototypeCluster: null, designActiveTab: 'odyssey', trackActiveTab: 'okrs' }
+  viewFilters: { okrStatus: 'all', okrSort: 'recent', appStatus: 'all', appSort: 'recent', prototypeCluster: null, designActiveTab: 'odyssey', trackActiveTab: 'okrs', helpTab: 'faq' }
 });
 
 // Nested containers whose individual keys should survive a schema change —

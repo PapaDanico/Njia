@@ -44,7 +44,7 @@ function renderConnectPage() {
 
     <div class="card">
       <span class="caption">Who to look for</span>
-      <h3 class="mb-1">${cluster ? `Based on your ${CLUSTERS[cluster].name} result` : 'Complete Discover for personalised suggestions'}</h3>
+      <h2 class="mb-1">${cluster ? `Based on your ${CLUSTERS[cluster].name} result` : 'Complete Discover for personalised suggestions'}</h2>
       <ul class="mt-1">
         ${(cluster ? MENTOR_ARCHETYPES[cluster] : MENTOR_ARCHETYPES.tech.concat(MENTOR_ARCHETYPES.carer)).map((a) => `
           <li class="text-secondary text-sm mb-1">• ${escapeHtml(a)}</li>
@@ -54,7 +54,7 @@ function renderConnectPage() {
     </div>
 
     <div class="card">
-      <h3 class="mb-1">${icon('mail')} Informational Interview Message</h3>
+      <h2 class="mb-1">${icon('mail')} Informational Interview Message</h2>
       <p class="text-muted text-sm mb-2">Generate a short, respectful outreach message you can send by WhatsApp, SMS or email to someone you'd like to learn from.</p>
       <label class="caption" for="connect-name">Their name (optional)</label>
       <input type="text" id="connect-name" class="form-control" placeholder="e.g. Auntie Wanjiru" style="width:100%;margin:0.4rem 0 0.8rem">
@@ -70,7 +70,7 @@ function renderConnectPage() {
     </div>
 
     <div class="card">
-      <h3 class="mb-1">${icon('shield')} Cold Outreach Safety Checklist</h3>
+      <h2 class="mb-1">${icon('shield')} Cold Outreach Safety Checklist</h2>
       <p class="text-muted text-sm mb-2">Before you reach out or meet up — a few rules that protect you.</p>
       <ul class="mt-1">
         <li class="text-secondary text-sm mb-1">• A real professional will never ask you to pay a "registration" or "connection" fee for career advice. That's a scam, however friendly it sounds.</li>
@@ -84,7 +84,7 @@ function renderConnectPage() {
 
     <div class="card">
       <div class="flex justify-between items-center mb-1">
-        <h3>${icon('users')} Peer Cohorts</h3>
+        <h2>${icon('users')} Peer Cohorts</h2>
         <span class="type-badge">Phase 2</span>
       </div>
       <p class="text-secondary text-sm">Small WhatsApp-integrated groups of youth with similar profiles are planned for a future release, once Njia has a backend to coordinate real cohorts safely.</p>

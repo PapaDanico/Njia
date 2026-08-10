@@ -147,7 +147,7 @@ function renderOdysseyTab(container) {
   container.innerHTML = `<div class="odyssey-plan-grid">` + AppState.odysseyPlans.map((plan) => `
     <div class="card">
       <span class="caption" style="color:${(ODYSSEY_TEMPLATE.find((t) => t.id === plan.id) || plan).color}">${plan.label}</span>
-      <h3 class="mb-1">${escapeHtml(plan.subtitle)}</h3>
+      <h2 class="mb-1">${escapeHtml(plan.subtitle)}</h2>
       ${renderOdysseyAnchors(plan)}
       ${plan.years.map((val, i) => `
         <div class="odyssey-year-row">
@@ -218,7 +218,7 @@ function renderPortfolioTab(container) {
       `).join('')}
     </div>
     <div class="card">
-      <h3 class="mb-1">Reading your portfolio</h3>
+      <h2 class="mb-1">Reading your portfolio</h2>
       <p class="text-secondary text-sm">${portfolioInsight()}</p>
     </div>
   `;
@@ -293,12 +293,12 @@ function renderPrototypeTab(container) {
       </select>
     </div>
     <div class="card">
-      <h3 class="mb-1">💬 Prototype Conversations</h3>
+      <h2 class="mb-1">💬 Prototype Conversations</h2>
       <p class="text-muted text-sm mb-2">Before committing years and money, talk to people already doing it.</p>
       ${renderList(conversations)}
     </div>
     <div class="card">
-      <h3 class="mb-1">🔬 Prototype Experiences</h3>
+      <h2 class="mb-1">🔬 Prototype Experiences</h2>
       <p class="text-muted text-sm mb-2">Short, low-risk tastes of the work itself.</p>
       ${renderList(experiences)}
     </div>
@@ -332,7 +332,7 @@ const GRAVITY_CATEGORIES = {
 function renderGravityTab(container) {
   container.innerHTML = `
     <div class="card">
-      <h3 class="mb-1">${icon('mountain')} Name a Gravity Problem</h3>
+      <h2 class="mb-1">${icon('mountain')} Name a Gravity Problem</h2>
       <p class="text-muted text-sm mb-2">A gravity problem is a real constraint you can't solve directly (e.g. "I can't afford a 4-year degree right now"). Name it, then reframe your energy toward what you <em>can</em> design around.</p>
       <label class="caption" for="gravity-category">What kind of constraint is it?</label>
       <select id="gravity-category" class="form-control" style="width:100%;max-width:280px;display:block;margin-top:0.3rem">

@@ -33,7 +33,7 @@ function renderDiscoverIntro(el) {
       <p>A 20-minute adaptive diagnostic across the Four Elements of career clarity — <strong>Identity, Community, Necessity, Horizon</strong> — the same model executive coaches use to help leaders find real direction, now built for you.</p>
     </div>
     <div class="card">
-      <h3 class="mb-1">What to expect</h3>
+      <h2 class="mb-1">What to expect</h2>
       <p class="text-secondary text-sm">Answer honestly, not aspirationally. There are no wrong answers — some questions ask about constraints like budget and timeline so your recommendations are actually realistic for you.</p>
     </div>
     <button type="button" class="btn btn-primary" onclick="startDiscoverQuestionnaire()">Begin Discovery →</button>
@@ -283,7 +283,7 @@ function renderDiscoverResults(el) {
     <div class="print-only">${renderShareableReportHTML()}</div>
 
     <div class="discover-full-results">
-      <h2 class="mb-2">This is what the data says about you</h2>
+      <h1 class="mb-2">This is what the data says about you</h1>
 
       <div class="cluster-primary">
         <span class="cluster-badge" style="background:${primaryC.color}22;color:var(--cluster-${primary}-ink)">Primary Cluster</span>
@@ -305,12 +305,12 @@ function renderDiscoverResults(el) {
 
       <div class="card">
         <span class="caption">Secondary Cluster</span>
-        <h3 style="color:var(--cluster-${secondary}-ink)" class="mt-1">${secondaryC.name}</h3>
+        <h2 style="color:var(--cluster-${secondary}-ink)" class="mt-1">${secondaryC.name}</h2>
         <p class="text-secondary text-sm mt-1">${secondaryC.description}</p>
       </div>
 
       <div class="card">
-        <h3 class="mb-2">Four Elements — Clarity Scores</h3>
+        <h2 class="mb-2">Four Elements — Clarity Scores</h2>
         ${Object.entries(elementScores).map(([key, score]) => `
           <div class="score-row">
             <div class="score-label"><span>${elementLabels[key]}</span><span class="num">${score}%</span></div>
@@ -322,7 +322,7 @@ function renderDiscoverResults(el) {
       </div>
 
       <div class="card">
-        <h3 class="mb-1">Your full cluster spread</h3>
+        <h2 class="mb-1">Your full cluster spread</h2>
         <p class="text-muted text-sm mb-2">All six clusters, by share of your total points. Clusters within a few points of each other are effectively tied — treat them as live options, not runners-up.</p>
         <div class="spread-list">
           ${clusterSpread(AppState.questionnaire.results.ranked, AppState.questionnaire.results.totalPoints).map((row) => `
@@ -338,7 +338,7 @@ function renderDiscoverResults(el) {
 
       <div class="card evidence-card">
         <span class="caption">How much weight to put on this</span>
-        <h3 class="mb-1 mt-1">An interest profile is a strong start, not a verdict</h3>
+        <h2 class="mb-1 mt-1">An interest profile is a strong start, not a verdict</h2>
         <ul class="evidence-list">
           <li><strong>Interests predict what you choose and stick with better than how satisfied you will be.</strong> Across 53 studies, the match between interests and job only correlates about <span class="num">r&nbsp;=&nbsp;.17</span> with job satisfaction — roughly 3–6% of the variation. It is a real signal, and a modest one.</li>
           <li><strong>At your age, interests are still settling.</strong> Vocational interests keep firming up through the late teens and only reach their adult stability (about <span class="num">r&nbsp;=&nbsp;.70</span>) around ages 25–30. This is exactly why Njia asks you to design <em>three</em> futures rather than commit to one.</li>
@@ -348,10 +348,10 @@ function renderDiscoverResults(el) {
         <p class="text-muted text-sm mt-2">Sources: Tsabari, Tziner &amp; Meir (2005) meta-analysis of congruence and satisfaction; Low, Yoon, Roberts &amp; Rounds (2005) on interest stability; Nye, Su, Rounds &amp; Drasgow (2012) on interests and performance; Super's stages of vocational development (crystallisation 14–18, specification 18–21). See Methodology for how these shape the Njia Method.</p>
       </div>
 
-      ${constraintRows ? `<div class="card"><h3 class="mb-1">Necessity — Your Constraints</h3><p class="text-muted text-sm mb-2">The fourth Element. These feed the Decide module's course matcher directly.</p><div class="meta-grid">${constraintRows}</div></div>` : ''}
+      ${constraintRows ? `<div class="card"><h2 class="mb-1">Necessity — Your Constraints</h2><p class="text-muted text-sm mb-2">The fourth Element. These feed the Decide module's course matcher directly.</p><div class="meta-grid">${constraintRows}</div></div>` : ''}
 
       <div class="card">
-        <h3 class="mb-2">All Clusters</h3>
+        <h2 class="mb-2">All Clusters</h2>
         <div class="cluster-secondary-list">
           ${ranked.map(([id, pts]) => `
             <div class="cluster-row">
@@ -462,7 +462,7 @@ function openReportPreviewModal() {
   const html = renderShareableReportHTML();
   if (!html) return;
   openModal(`
-    <h3 class="mb-2">Preview &amp; Share</h3>
+    <h2 class="mb-2">Preview &amp; Share</h2>
     <p class="text-secondary text-sm mb-2">Screenshot this card to share directly, or use a button below.</p>
     ${html}
     <div class="btn-row mt-3">
@@ -546,7 +546,7 @@ function downloadReportPDF() {
 
 function confirmRetakeQuestionnaire() {
   openModal(`
-    <h3 class="mb-2">Retake Discovery?</h3>
+    <h2 class="mb-2">Retake Discovery?</h2>
     <p class="text-secondary mb-3">This clears your previous answers and results. Your saved courses, Odyssey Plans and OKRs are not affected.</p>
     <div class="btn-row">
       <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>

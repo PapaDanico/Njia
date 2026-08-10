@@ -365,7 +365,7 @@ function renderCourseCard(course, match) {
         })()}
         ${isVerified ? '<span class="verified-badge" title="Fee figures cross-checked against a public source">✓ Verified estimate</span>' : ''}
       </div>
-      <h3>${escapeHtml(course.name)}</h3>
+      <h2>${escapeHtml(course.name)}</h2>
       <div class="institution-name">${escapeHtml(inst ? inst.name : 'Unknown institution')} · ${escapeHtml(inst ? inst.location : '')}</div>
       <div class="course-tagline">
         ${inst ? `<span class="mini-tag mini-${inst.ownership}">${inst.ownership === 'public' ? 'Public' : 'Private'}</span>` : ''}
@@ -528,7 +528,7 @@ function openCourseComparison() {
   };
   const truncated = AppState.savedCourses.length > courses.length;
   openModal(`
-    <h3 class="mb-2">Compare Saved Courses</h3>
+    <h2 class="mb-2">Compare Saved Courses</h2>
     <p class="text-secondary text-sm mb-2">${truncated ? `Showing your first ${courses.length} saved courses — comparisons cap at 4 to stay readable.` : 'Side-by-side comparison of your saved courses.'}</p>
     <p class="comparison-hint">↔ Swipe or scroll sideways to see every course · shaded cells mark the best value in each measurable row</p>
     <div class="comparison-scroll">
@@ -570,7 +570,7 @@ function renderFundingFinder(container) {
 
   container.innerHTML = `
     <div class="card">
-      <h3 class="mb-1">${icon('calendar')} Key Application Windows</h3>
+      <h2 class="mb-1">${icon('calendar')} Key Application Windows</h2>
       <p class="text-muted text-sm mb-2">Deadlines vary by funder and change yearly — always confirm the current cycle directly before your window closes.</p>
       <div class="cluster-secondary-list">
         ${FUNDING_SOURCES.map((f) => `
@@ -607,7 +607,7 @@ function renderFundingCard(f, userGrade) {
         <span class="type-badge">${escapeHtml(f.type.replace('_', ' '))}</span>
         ${isVerified ? '<span class="verified-badge" title="Cross-checked against a public source">✓ Verified</span>' : ''}
       </div>
-      <h3>${escapeHtml(f.name)}</h3>
+      <h2>${escapeHtml(f.name)}</h2>
       <p class="text-secondary text-sm mb-2">${escapeHtml(f.description)}</p>
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(f.verification_note)}</p>` : ''}
       <div class="meta-grid">

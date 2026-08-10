@@ -351,7 +351,7 @@ function emptyState(iconName, title, description, ctaLabel, ctaOnClick) {
   return `
     <div class="empty-state">
       <div class="icon-disc" aria-hidden="true">${icon(iconName)}</div>
-      <h3>${escapeHtml(title)}</h3>
+      <h2>${escapeHtml(title)}</h2>
       <p>${escapeHtml(description)}</p>
       ${ctaLabel ? `<button type="button" class="btn btn-primary" style="width:auto;display:inline-flex" onclick="${ctaOnClick}">${escapeHtml(ctaLabel)}</button>` : ''}
     </div>`;
@@ -405,7 +405,7 @@ function renderNjiaNumbersCard() {
   return `
     <div class="landing-numbers-card">
       <span class="landing-numbers-eyebrow">Njia in numbers</span>
-      <p class="landing-numbers-title">What's actually in the app right now</p>
+      <h2 class="landing-numbers-title">What's actually in the app right now</h2>
       <div class="landing-numbers-grid">
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${COURSES.length}</span>

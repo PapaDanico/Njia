@@ -117,6 +117,34 @@ use its ink token instead (`--cluster-<id>-ink`, `--plan-life<n>`), which
 is defined per scheme so the AA floor holds in both. Never interpolate a
 raw palette hex into a `color:` in JS.
 
+## Accessibility — how to actually check it
+
+The AA floor is non-negotiable, and checking it badly is worse than not
+checking, because it produces false confidence. A desktop-only,
+WCAG-2.0-only audit passed clean while Lighthouse was still deducting
+points. The audit must cross **four** dimensions:
+
+- **Both viewports** — Lighthouse scores at a *mobile* form factor
+  (~412×823). Desktop-only runs miss target-size and layout failures.
+- **Both colour schemes** — dark shipped after several components, so
+  its surfaces are the ones most likely to be unaudited.
+- **Both data states** — empty and populated. Empty states render
+  different headings and controls entirely.
+- **The full ruleset** — `wcag2a`, `wcag2aa`, `wcag21aa`, `wcag22aa`
+  *and* `best-practice`. Restricting to `wcag2a`/`wcag2aa` hides
+  target-size (WCAG 2.2), heading-order and p-as-heading, all of which
+  Lighthouse does count.
+
+That is 7 pages × 2 × 2 × 2 = 56 states, and it should report zero.
+
+## Headings
+
+Semantics and type scale are separate concerns. A module page is
+`h1` (page title) → `h2` (card and section headings) → `h3` (sub-parts),
+with no skipped levels; card `h2`s keep the level-3 visual size via
+`.card > h2`. The landing page is the exception and is correct as it
+stands: its `h3`s sit under real `landing-h2` section headings.
+
 ## Motion
 
 One entrance (`fadeIn` / `replayFadeIn`) on page and tab content.

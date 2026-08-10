@@ -223,7 +223,7 @@ function renderHelpTutorials() {
             <span class="icon-disc" aria-hidden="true">${icon(t.icon)}</span>
             <div>
               <span class="caption">Walkthrough ${i + 1} · ${escapeHtml(t.time)}</span>
-              <h3>${escapeHtml(t.title)}</h3>
+              <h2>${escapeHtml(t.title)}</h2>
             </div>
           </div>
           <ol class="help-steps">

@@ -109,7 +109,7 @@ function renderOkrItem(okr) {
   return `
     <div class="card okr-item">
       <div class="okr-header">
-        <h3>${escapeHtml(okr.title)}</h3>
+        <h2>${escapeHtml(okr.title)}</h2>
         <span class="status-badge ${status}">${statusLabels[status]}</span>
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
@@ -126,7 +126,7 @@ function renderOkrItem(okr) {
 
 function openOkrModal() {
   openModal(`
-    <h3 class="mb-2">New Quarterly OKR</h3>
+    <h2 class="mb-2">New Quarterly OKR</h2>
     <label class="caption" for="okr-title">Objective</label>
     <input type="text" id="okr-title" class="form-control" placeholder="e.g. Get accepted into a Counselling Diploma programme" style="width:100%;margin:0.4rem 0 0.8rem">
     <label class="caption">Key Results (one per line, 2–3 recommended)</label>
@@ -229,7 +229,7 @@ function renderApplicationTimeline(app) {
   return `
     <div class="card">
       <div class="flex justify-between items-center mb-2">
-        <h3>${escapeHtml(app.courseName)}</h3>
+        <h2>${escapeHtml(app.courseName)}</h2>
         <span class="text-muted text-sm">${doneCount}/${app.steps.length}</span>
       </div>
       <div class="timeline">

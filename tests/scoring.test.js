@@ -28,6 +28,8 @@ const computeClusterScores = grab('computeClusterScores');
 const scoreCourseMatch = grab('scoreCourseMatch');
 const meetsGradeRequirement = grab('meetsGradeRequirement');
 const gradeRank = grab('gradeRank');
+const matchConfidence = grab('matchConfidence');
+const feasibilitySignal = grab('feasibilitySignal');
 const CLUSTERS = grab('CLUSTERS');
 const FLAT_QUESTIONS = grab('FLAT_QUESTIONS');
 
@@ -158,6 +160,32 @@ test('unknown grade against a requirement flags gradeUnconfirmed but stays eligi
   assert.ok(m.eligible);
   assert.ok(m.gradeUnconfirmed);
   assert.equal(m.score, 95);
+});
+
+/* ---------- matchConfidence ---------- */
+
+test('confidence levels follow the margin between top two clusters', () => {
+  assert.equal(matchConfidence([['tech', 20], ['carer', 10]]).level, 'clear');     // 50% margin
+  assert.equal(matchConfidence([['tech', 20], ['carer', 17]]).level, 'moderate');  // 15% margin
+  assert.equal(matchConfidence([['tech', 20], ['carer', 19]]).level, 'close');     // 5% margin
+  assert.equal(matchConfidence([['tech', 0], ['carer', 0]]).level, 'unclear');
+});
+
+test('confidence reports the raw points margin', () => {
+  const c = matchConfidence([['tech', 24], ['carer', 18]]);
+  assert.equal(c.marginPts, 6);
+  assert.equal(c.marginPct, 25);
+});
+
+/* ---------- feasibilitySignal ---------- */
+
+test('feasibility is silent without a budget and three-state with one', () => {
+  const c = course({ total_fees_kes: 200000 });
+  assert.equal(feasibilitySignal(c, null), null);
+  assert.equal(feasibilitySignal(c, 200000).level, 'within');
+  assert.equal(feasibilitySignal(c, 180000).level, 'stretch'); // within 25% over
+  assert.equal(feasibilitySignal(c, 100000).level, 'over');
+  assert.equal(feasibilitySignal(c, 100000).overBy, 100000);
 });
 
 test('breakdown explains every factor that moved the score', () => {

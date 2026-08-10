@@ -224,6 +224,18 @@ function computeClusterScores(answers) {
   return { clusterTotals, ranked, primary, secondary, elementScores, constraints, totalPoints };
 }
 
+/* How decisive is the primary-cluster result? Reported as the points margin
+ * over the secondary cluster — an honest signal, not marketing. Pure, tested. */
+function matchConfidence(ranked) {
+  const top = ranked[0]?.[1] ?? 0;
+  const second = ranked[1]?.[1] ?? 0;
+  if (top <= 0) return { level: 'unclear', marginPts: 0, marginPct: 0 };
+  const marginPts = top - second;
+  const marginPct = Math.round((marginPts / top) * 100);
+  const level = marginPct >= 25 ? 'clear' : marginPct >= 10 ? 'moderate' : 'close';
+  return { level, marginPts, marginPct };
+}
+
 function finishQuestionnaire() {
   AppState.questionnaire.completed = true;
   AppState.questionnaire.results = {
@@ -250,7 +262,7 @@ function renderDiscoverResults(el) {
   const constraintRows = [
     constraints.grade && `<div class="meta-item"><div class="meta-label">Grade</div><div class="meta-value">${escapeHtml(constraints.grade)}</div></div>`,
     constraints.budget && `<div class="meta-item"><div class="meta-label">Budget (2yr)</div><div class="meta-value">${escapeHtml(constraints.budget.replace('_', ' '))}</div></div>`,
-    constraints.urgency && `<div class="meta-item"><div class="meta-label">⏱️ Income urgency</div><div class="meta-value">${escapeHtml(constraints.urgency)}</div></div>`,
+    constraints.urgency && `<div class="meta-item"><div class="meta-label">Income urgency</div><div class="meta-value">${escapeHtml(constraints.urgency)}</div></div>`,
     constraints.obligations && `<div class="meta-item"><div class="meta-label">Obligations</div><div class="meta-value">${escapeHtml(constraints.obligations)}</div></div>`
   ].filter(Boolean).join('');
 
@@ -265,6 +277,16 @@ function renderDiscoverResults(el) {
         <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
         <p class="text-secondary text-sm mt-1">${primaryC.description}</p>
         <div class="cluster-tags">${primaryC.paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
+        ${(() => {
+          const conf = matchConfidence(ranked);
+          const confCopy = {
+            clear: `a clear separation — the data points firmly at ${primaryC.name}.`,
+            moderate: `a moderate separation — ${primaryC.name} leads, but keep your secondary cluster in view.`,
+            close: `a close call — treat both clusters as live options and prototype both in the Design module.`,
+            unclear: 'not enough scored answers to separate the clusters — consider retaking the diagnostic.'
+          }[conf.level];
+          return `<p class="confidence-line confidence-${conf.level}"><strong>Signal strength:</strong> <span class="num">+${conf.marginPts} pts</span> (${conf.marginPct}%) over your secondary cluster — ${confCopy}</p>`;
+        })()}
         <button type="button" class="btn btn-primary btn-sm mt-2" onclick="openReportPreviewModal()">${icon('image')} Preview &amp; Share Report</button>
       </div>
 

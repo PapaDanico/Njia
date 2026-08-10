@@ -955,6 +955,39 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .filter-chip:active { transform: scale(0.95); }
 .filter-chip.active { background: var(--ink); border-color: var(--ink); color: var(--ink-contrast); }
 
+/* ---------- Analytical signal layers ----------
+ * Honest, audit-style indicators: how decisive the cluster result is,
+ * and how a course's tuition sits against the user's stated budget. */
+.confidence-line {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  border-left: 3px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+.confidence-clear { border-left-color: var(--secondary); }
+.confidence-moderate { border-left-color: #b8641b; }
+.confidence-close, .confidence-unclear { border-left-color: var(--danger); }
+
+.feas-chip {
+  display: inline-flex; align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.feas-within { background: rgba(85, 128, 45, 0.12); color: #46691f; border-color: rgba(85, 128, 45, 0.3); }
+.feas-stretch { background: rgba(237, 139, 45, 0.12); color: #8a5310; border-color: rgba(237, 139, 45, 0.35); }
+.feas-over { background: rgba(192, 57, 43, 0.1); color: #a02e20; border-color: rgba(192, 57, 43, 0.3); }
+
+.comparison-table td.best {
+  background: rgba(85, 128, 45, 0.13);
+  font-weight: 700;
+}
+
 /* ---------- "Why this match?" breakdown ----------
  * The match score explains itself factor by factor — trust in the
  * algorithm comes from showing the working, not from the number. */

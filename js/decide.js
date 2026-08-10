@@ -143,6 +143,18 @@ function scoreCourseMatch(course, profile) {
   return { score: Math.round(score), eligible, gradeUnconfirmed, breakdown };
 }
 
+/* Tuition vs the user's stated budget as a three-state signal. "Stretch"
+ * means within 25% over — visible as a reachable-with-funding option
+ * rather than silently lumped in with far-out-of-reach courses. Pure, tested. */
+function feasibilitySignal(course, budgetMax) {
+  if (budgetMax == null) return null;
+  if (course.total_fees_kes <= budgetMax) return { level: 'within', overBy: 0 };
+  const overBy = course.total_fees_kes - budgetMax;
+  return course.total_fees_kes <= budgetMax * 1.25
+    ? { level: 'stretch', overBy }
+    : { level: 'over', overBy };
+}
+
 function computeCourseMatch(course) {
   const results = AppState.questionnaire.results;
   return scoreCourseMatch(course, {
@@ -288,6 +300,16 @@ function renderCourseCard(course, match) {
     <div class="card course-card">
       <div class="flex items-center gap-1" style="flex-wrap:wrap">
         <span class="match-badge"><span class="num">${match.score}%</span> Match${!match.eligible ? ' · Grade below requirement' : match.gradeUnconfirmed ? ' · Set your grade to confirm' : ''}</span>
+        ${(() => {
+          const feas = feasibilitySignal(course, AppState.decideFilters.budgetMax);
+          if (!feas) return '';
+          const copy = {
+            within: 'Within budget',
+            stretch: `Stretch · <span class="num">+${formatKes(feas.overBy)}</span>`,
+            over: `Over budget · <span class="num">+${formatKes(feas.overBy)}</span>`
+          }[feas.level];
+          return `<span class="feas-chip feas-${feas.level}" title="Tuition compared with your maximum budget filter">${copy}</span>`;
+        })()}
         ${isVerified ? '<span class="verified-badge" title="Fee figures cross-checked against a public source">✓ Verified estimate</span>' : ''}
       </div>
       <h3>${escapeHtml(course.name)}</h3>
@@ -416,21 +438,30 @@ function openCourseComparison() {
     showToast('Save at least 2 courses to compare them.', 'info');
     return;
   }
+  // Rows with a `raw` getter + `better` direction get best-value shading —
+  // audit-table style: mark the winner in each measurable dimension rather
+  // than making the reader scan and compare digits themselves.
   const rows = [
     { label: 'Institution', get: (c) => institutionById(c.institution_id)?.name || 'Unknown institution', wrap: true },
     { label: 'Level', get: (c) => c.level },
-    { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true },
-    { label: 'Tuition', get: (c) => formatKes(c.total_fees_kes), num: true },
+    { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true, raw: (c) => c.duration_months, better: 'min' },
+    { label: 'Tuition', get: (c) => formatKes(c.total_fees_kes), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
-    { label: 'Employment Rate', get: (c) => formatPercent(c.employment_rate), num: true },
-    { label: 'Median Salary', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true },
-    { label: 'Match Score', get: (c) => `${computeCourseMatch(c).score}%`, num: true }
+    { label: 'Employment Rate', get: (c) => formatPercent(c.employment_rate), num: true, raw: (c) => c.employment_rate ?? -1, better: 'max' },
+    { label: 'Median Salary', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true, raw: (c) => c.median_salary_kes ?? -1, better: 'max' },
+    { label: 'Match Score', get: (c) => `${computeCourseMatch(c).score}%`, num: true, raw: (c) => computeCourseMatch(c).score, better: 'max' }
   ];
+  const bestValue = (row) => {
+    if (!row.raw) return null;
+    const values = courses.map(row.raw);
+    if (new Set(values).size < 2) return null; // all equal — nothing to mark
+    return row.better === 'min' ? Math.min(...values) : Math.max(...values);
+  };
   const truncated = AppState.savedCourses.length > courses.length;
   openModal(`
     <h3 class="mb-2">Compare Saved Courses</h3>
     <p class="text-secondary text-sm mb-2">${truncated ? `Showing your first ${courses.length} saved courses — comparisons cap at 4 to stay readable.` : 'Side-by-side comparison of your saved courses.'}</p>
-    <p class="comparison-hint">↔ Swipe or scroll sideways to see every course</p>
+    <p class="comparison-hint">↔ Swipe or scroll sideways to see every course · shaded cells mark the best value in each measurable row</p>
     <div class="comparison-scroll">
       <table class="comparison-table">
         <thead>
@@ -440,12 +471,18 @@ function openCourseComparison() {
           </tr>
         </thead>
         <tbody>
-          ${rows.map((row) => `
+          ${rows.map((row) => {
+            const best = bestValue(row);
+            return `
             <tr>
               <th scope="row">${row.label}</th>
-              ${courses.map((c) => `<td class="${row.num ? 'num' : ''}${row.wrap ? ' wrap' : ''}">${escapeHtml(String(row.get(c)))}</td>`).join('')}
+              ${courses.map((c) => {
+                const isBest = best != null && row.raw(c) === best;
+                return `<td class="${row.num ? 'num' : ''}${row.wrap ? ' wrap' : ''}${isBest ? ' best' : ''}">${escapeHtml(String(row.get(c)))}</td>`;
+              }).join('')}
             </tr>
-          `).join('')}
+          `;
+          }).join('')}
         </tbody>
       </table>
     </div>

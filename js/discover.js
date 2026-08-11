@@ -339,6 +339,13 @@ function renderLabourMarketCard(primaryCluster) {
         </div>
       `).join('')}
 
+      ${typeof SKILLED_TRADES !== 'undefined' && SKILLED_TRADES.clusters.includes(primaryCluster) ? `
+        <h3 class="mt-2 mb-1">The trades are short of people</h3>
+        <p class="text-secondary text-sm mb-1">${escapeHtml(SKILLED_TRADES.supplyGap)} ${escapeHtml(SKILLED_TRADES.demandSignal)}</p>
+        <p class="text-secondary text-sm mb-1">Certified artisan day rates have risen from Ksh ${SKILLED_TRADES.dayRate2012Kes[0].toLocaleString()}–${SKILLED_TRADES.dayRate2012Kes[1].toLocaleString()} in 2012 to <strong>Ksh ${SKILLED_TRADES.dayRateKes[0].toLocaleString()}–${SKILLED_TRADES.dayRateKes[1].toLocaleString()}</strong> today. Rising fastest: ${SKILLED_TRADES.risingTrades.slice(0, 5).map((t) => escapeHtml(t)).join(' · ')}.</p>
+        <p class="text-muted text-sm mb-2">${escapeHtml(SKILLED_TRADES.caution)}</p>
+      ` : ''}
+
       ${signals.length ? `
         <h3 class="mt-2 mb-1">Demand signals in Kenya right now</h3>
         <ul class="evidence-list">

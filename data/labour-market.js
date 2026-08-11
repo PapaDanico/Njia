@@ -413,6 +413,36 @@ const METHOD_LINEAGE = [
   }
 ];
 
+/* SKILLED TRADES — the hardest evidence against prestige bias in this file.
+ *
+ * Only 8,915 candidates who earned a degree place chose TVET instead. The
+ * assumption behind that is that a degree pays better. In the trades, the
+ * numbers say otherwise:
+ *
+ *   Kenya has roughly 5,000 engineers and architects, and fewer than 2,000
+ *   trained plumbers, painters and masons. Two-thirds of developers name
+ *   skilled-worker shortage as the main brake on construction. Certified
+ *   artisan day rates have tripled since 2012.
+ *
+ * A caution that must travel with the day rate: it is a DAY RATE, not a
+ * salary. Work is often irregular and seasonal, there is no employer pension
+ * or leave, and the rate applies to *certified* artisans — the certificate is
+ * the thing doing the work. Presenting 3,000 a day as though it were
+ * guaranteed monthly income would be the same false precision this file
+ * exists to remove.
+ */
+const SKILLED_TRADES = {
+  source: 'KNBS construction labour index and Kenyan construction-sector reporting, cross-reported August 2026',
+  dayRateKes: [2500, 3000],
+  dayRate2012Kes: [500, 1000],
+  supplyGap: 'Roughly 5,000 engineers and architects countrywide, against fewer than 2,000 trained plumbers, painters and masons.',
+  demandSignal: 'Two-thirds of Kenyan developers report skilled-worker shortage as the main factor limiting construction activity. Demand for construction professionals is projected to rise from 260,000 to over 410,000 by 2035.',
+  risingTrades: ['Carpenters', 'Painters', 'Welders', 'Mechanics', 'Plumbers', 'Masons', 'Electricians'],
+  caution: 'These are day rates for *certified* artisans, not salaries. Work is often irregular and seasonal, and there is no employer pension, paid leave or sick pay. The certificate is what earns the rate — uncertified work pays a fraction of it.',
+  reading: 'A certified artisan day rate of Ksh 2,500–3,000 compares well with what many diploma and degree holders start on. This is the clearest evidence in the dataset that the prestige ranking of degree over trade is not tracking the money.',
+  clusters: ['tech', 'business']
+};
+
 /* The structural finding Njia is built around: the binding constraint on
  * Kenyan youth employment is not effort, it is the gap between what is taught
  * and what is demanded. Named plainly so the platform's premise is auditable
@@ -424,5 +454,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES };
 }

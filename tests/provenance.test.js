@@ -36,6 +36,7 @@ const EDUCATION_PIPELINE = grab('EDUCATION_PIPELINE');
 const FUTURE_OF_WORK = grab('FUTURE_OF_WORK');
 const AFRICA_OUTLOOK = grab('AFRICA_OUTLOOK');
 const INFORMAL_ECONOMY = grab('INFORMAL_ECONOMY');
+const SKILLED_TRADES = grab('SKILLED_TRADES');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -260,4 +261,21 @@ test('the informal economy context ships alongside the formal salary figures', (
   // five in six workers, and Njia's enterprise funding exists because of it.
   assert.ok(i.reading.length > 80, 'the reading must give an actual planning instruction');
   assert.ok(!/fallback|last resort|failure/i.test(i.reading), 'informal work must not be framed as a fallback');
+});
+
+test('artisan day rates never render as though they were salaries', () => {
+  // Ksh 2,500-3,000 is a day rate for *certified* work, in a trade where the
+  // work is often irregular and there is no pension or paid leave. Showing it
+  // as monthly income would be exactly the false precision this file exists to
+  // remove — this time in the flattering direction.
+  const t = SKILLED_TRADES;
+  assert.ok(t.caution && t.caution.length > 80, 'the day-rate caution must be substantive');
+  assert.match(t.caution, /day rate/i, 'the caution must name it as a day rate');
+  assert.match(t.caution, /irregular|seasonal/i, 'the caution must name the irregularity');
+  assert.match(t.caution, /certif/i, 'the rate applies to certified artisans — that condition must be stated');
+  assert.ok(t.dayRateKes[0] < t.dayRateKes[1], 'the rate is a range, not a point estimate');
+  assert.ok(t.dayRate2012Kes[1] < t.dayRateKes[0], 'the 2012 comparison should show real growth');
+  for (const c of t.clusters) {
+    assert.ok([...new Set(COURSES.map((x) => x.cluster))].includes(c), `trades map to unknown cluster ${c}`);
+  }
 });

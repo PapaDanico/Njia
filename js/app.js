@@ -450,8 +450,8 @@ const LANDING_EVIDENCE = [
   },
   {
     num: '8,915', label: 'degree-qualifiers who chose TVET instead',
-    body: 'Out of 202,133+ candidates who qualified for a degree programme, only a small fraction chose a shorter, often cheaper TVET pathway — a visible sign of prestige bias over fit.',
-    source: 'Source: KUCCPS 2025 placement announcement, Ministry of Education, July 2026.'
+    body: 'Of the candidates who qualified for a degree, only a small fraction chose a shorter, often cheaper TVET pathway. The assumption is that a degree pays better. Kenya has roughly 5,000 engineers and architects and fewer than 2,000 trained plumbers, painters and masons — and certified artisan day rates have tripled since 2012, to Ksh 2,500–3,000. Those are day rates for certified work, not salaries, and the work is often irregular. But the prestige ranking is not tracking the money.',
+    source: 'Sources: KUCCPS 2025 placement announcement, Ministry of Education; KNBS construction labour index and construction-sector reporting, cross-reported August 2026.'
   }
 ];
 

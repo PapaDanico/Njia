@@ -291,3 +291,30 @@ rather than in a footnote.
 study with employment outcomes. That is direct support for keeping
 `outcomes_confidence: 'illustrative'` on every course — the data does not exist
 to verify against, and this is now a checked absence rather than an assumption.
+
+
+## Skilled trades — the hardest evidence against prestige bias
+
+| Measure | Figure |
+| --- | --- |
+| Certified artisan day rate | **Ksh 2,500–3,000** (up from Ksh 500–1,000 in 2012) |
+| Engineers and architects countrywide | ~5,000 |
+| Trained plumbers, painters and masons | **fewer than 2,000** |
+| Developers naming skilled-worker shortage as the main brake on construction | two-thirds |
+| Construction professional demand | 260,000 today → 410,000+ by 2035 |
+| Fastest wage growth | Carpenters, painters, welders, mechanics |
+
+*Sources: KNBS construction labour index; Kenyan construction-sector reporting, cross-reported August 2026.*
+
+Only 8,915 candidates who earned a degree place chose TVET instead. The
+assumption behind that is that a degree pays better. In the trades the numbers
+say otherwise, and this is now stated on the landing page beside that figure
+rather than left as an unexplained sign of "prestige bias".
+
+**The caution is enforced, not optional.** Ksh 2,500–3,000 is a *day rate* for
+*certified* work. The work is often irregular and seasonal, there is no
+employer pension, paid leave or sick pay, and uncertified work pays a fraction
+of it. `tests/provenance.test.js` fails if the caution stops naming the day
+rate, the irregularity, or the certification condition — because presenting a
+day rate as monthly income would be the same false precision this register
+exists to remove, just in the flattering direction.

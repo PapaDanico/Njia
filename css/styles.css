@@ -1988,6 +1988,11 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 @media (min-width: 480px) { .report-columns { grid-template-columns: 1fr 1fr; } }
 
 .report-section-title { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #6b6862; margin-bottom: 0.55rem; }
+/* The legend the on-screen results carry and the exported card used to drop.
+ * Deliberately small and quiet — it exists so a number cannot be misread on
+ * paper, not to compete with the number itself. Fixed colours throughout this
+ * card because it prints, and a theme-dependent grey can come out invisible. */
+.report-legend { font-size: 0.66rem; line-height: 1.35; color: #6b6862; margin: -0.3rem 0 0.55rem; }
 .report-bar-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
 .report-bar-label { font-size: 0.78rem; width: 68px; flex-shrink: 0; color: #52504a; }
 .report-bar-track { flex: 1; height: 8px; background: #ece8dd; border-radius: 999px; overflow: hidden; }
@@ -1998,6 +2003,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .report-chip { font-size: 0.76rem; background: #f2efe7; color: #52504a; padding: 0.2rem 0.6rem; border-radius: 6px; }
 
 .report-courses ul { list-style: disc; padding-left: 1.2rem; font-size: 0.88rem; color: #52504a; line-height: 1.5; }
+.report-progress { margin-top: 0.55rem; }
 .report-progress-line { font-size: 0.88rem; color: #52504a; margin-bottom: 0.7rem; }
 
 .report-footer { border-top: 1px solid #e6e2d7; padding-top: 0.85rem; margin-top: 0.6rem; text-align: center; }

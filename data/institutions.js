@@ -153,6 +153,27 @@ const INSTITUTIONS = [
    * institutions. */
   { id: 'kitalevtc', name: 'Kitale Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Kitale', county: 'Trans Nzoia', accreditation: 'Public Vocational Training Centre · KNEC and NITA examination centre', website: 'https://transnzoia.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
   { id: 'kilifisaidia', name: 'Kilifi Saidia College', ownership: 'private', type: 'tvet', location: 'Kilifi', county: 'Kilifi', accreditation: 'TVETA Registered and Licensed · NITA trade-test centre', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
+
+  /* TEACHER TRAINING COLLEGES — a whole institution type the catalogue was
+   * missing. Njia held zero TTCs against roughly 35 nationally, while teaching
+   * is one of the largest destinations for a C-grade learner.
+   *
+   * Four of the six below sit in counties where Njia's only institution was a
+   * KMTC campus. That was true of 31 of 47 counties: the 47/47 coverage figure
+   * is two-thirds carried by one medical college, so in most of the country a
+   * learner who did not want nursing had nothing local to look at.
+   *
+   * Only colleges whose county could be confirmed from a source are listed.
+   * Several more are named in the national lists — Kamwenja, Shanzu, Thogoto,
+   * Bondo, Kaimosi, Mosoriot, Chesta, Galana, Tarbaj and others — with no
+   * county attached in anything found, and guessing from the place name would
+   * put a college in the wrong county on a filter learners rely on. */
+  { id: 'aberdare_ttc', name: 'Aberdare Teachers Training College', ownership: 'public', type: 'ttc', location: 'Nyandarua', county: 'Nyandarua', accreditation: 'Public TTC · approved for the Diploma in Primary Teacher Education (KNEC assessed)', website: 'https://tsc.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  { id: 'tambach_ttc', name: 'Tambach Teachers Training College', ownership: 'public', type: 'ttc', location: 'Tambach', county: 'Elgeyo-Marakwet', accreditation: 'Public TTC · approved for the Diploma in Primary Teacher Education (KNEC assessed)', website: 'https://tsc.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  { id: 'asumbi_ttc', name: 'Asumbi Teachers Training College', ownership: 'public', type: 'ttc', location: 'Asumbi', county: 'Homa Bay', accreditation: 'Public TTC · approved for the Diploma in Primary Teacher Education (KNEC assessed)', website: 'https://tsc.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  { id: 'kigari_ttc', name: "St. Mark's Teachers Training College, Kigari", ownership: 'public', type: 'ttc', location: 'Kigari', county: 'Embu', accreditation: 'Public TTC · approved for the Diploma in Primary Teacher Education (KNEC assessed)', website: 'https://tsc.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  { id: 'eregi_ttc', name: "St. Augustine Teachers Training College, Eregi", ownership: 'public', type: 'ttc', location: 'Eregi', county: 'Kakamega', accreditation: 'Public TTC · approved for the Diploma in Primary Teacher Education (KNEC assessed)', website: 'https://tsc.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  { id: 'kilimambogo_ttc', name: "St. John's Teachers Training College, Kilimambogo", ownership: 'public', type: 'ttc', location: 'Kilimambogo', county: 'Kiambu', accreditation: 'Public TTC · approved for the Diploma in Primary Teacher Education (KNEC assessed)', website: 'https://tsc.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

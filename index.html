@@ -39,8 +39,21 @@
       } catch (e) { /* default light */ }
     })();
   </script>
+  <!-- Content Security Policy.
+       Be precise about what this buys. The app uses inline onclick handlers
+       throughout and a pre-paint theme script, so script-src needs
+       'unsafe-inline' — meaning this CSP does NOT make the app immune to
+       injected script. What it does enforce is origin restriction, and for
+       Njia that is the load-bearing part: connect-src 'self' means user
+       answers, saved courses and plans cannot be sent to any third party,
+       which is the privacy promise the product actually makes. default-src
+       'self' blocks external scripts, styles, fonts and trackers outright.
+       Removing 'unsafe-inline' would require replacing every inline handler
+       with addEventListener — worth doing, and tracked in the upgrade plan. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <!-- Stroke-icon sprite for app chrome (nav, tabs, system affordances) —
        lucide-style geometry hand-inlined on a 24-unit grid, 2px stroke,
        round caps, currentColor. Family design rule (see DESIGN.md): chrome
@@ -165,7 +178,7 @@
       </div>
     </section>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <div class="page" id="page-home"></div>
       <div class="page" id="page-discover"></div>
       <div class="page" id="page-design"></div>

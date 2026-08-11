@@ -161,3 +161,31 @@ test('repair is idempotent — running it twice changes nothing', () => {
 test('a default state passes through unchanged', () => {
   sameShape(normalizeState(defaultState()), plain(defaultState()));
 });
+
+/* ---------- an empty step list is not a finished application ---------- */
+
+test('an application with no steps reports in-progress, never complete', () => {
+  // [].every() is true, so the naive check congratulated someone for work they
+  // had not started. This is reachable through normalizeState(), which gives an
+  // application saved before `steps` existed an empty array — the right repair,
+  // landing on the wrong reader.
+  const { applicationStatus } = loadTrack();
+  assert.equal(applicationStatus({ id: 'a1', steps: [] }), 'in-progress');
+  assert.equal(applicationStatus({ id: 'a2' }), 'in-progress', 'a missing steps array must not throw or read as done');
+  assert.equal(applicationStatus({ id: 'a3', steps: 'nope' }), 'in-progress', 'a non-array must not throw');
+  assert.equal(applicationStatus({ id: 'a4', steps: [{ done: true }, { done: true }] }), 'complete');
+  assert.equal(applicationStatus({ id: 'a5', steps: [{ done: true }, { done: false }] }), 'in-progress');
+});
+
+function loadTrack() {
+  const noop = () => {};
+  const ctx = vm.createContext({
+    console: { ...console, warn: noop, error: noop },
+    document: { getElementById: () => null, querySelector: () => null, querySelectorAll: () => [], addEventListener: noop },
+    AppState: { applications: [], okrs: [], viewFilters: {} },
+    saveState: noop, escapeHtml: (x) => x, icon: () => '', formatKes: () => '', uid: () => 'x'
+  });
+  ctx.globalThis = ctx;
+  vm.runInContext(fs.readFileSync(path.join(root, 'js/track.js'), 'utf8'), ctx, { filename: 'js/track.js' });
+  return { applicationStatus: vm.runInContext('applicationStatus', ctx) };
+}

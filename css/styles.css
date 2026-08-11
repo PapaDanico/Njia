@@ -2016,3 +2016,31 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .sector-figure { font-weight: 700; color: var(--text); white-space: nowrap; }
 .sector-per { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-left: 0.2rem; }
 .sector-reality { color: var(--text-secondary); font-size: 0.9rem; margin-top: var(--space-1); max-width: var(--prose-max); }
+
+/* Disclosure for the contested automation estimates. Collapsed by default —
+   the disagreement matters, but it should not bury the actionable line above
+   it for a reader who only wants the answer for their own cluster. */
+.automation-detail { margin: var(--space-3) 0 var(--space-2); }
+.automation-detail summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); padding: var(--space-2) 0; }
+.automation-detail summary:hover { color: var(--text); }
+.automation-detail[open] summary { margin-bottom: var(--space-2); }
+.automation-detail > p { max-width: var(--prose-max); }
+
+/* Scroll lock while a modal sheet is open. Without it the page behind scrolls
+   under the user's finger on a phone and the sheet appears to lose its place. */
+body.modal-open { overflow: hidden; }
+
+/* Skip link — the first focusable element on the page. Visually hidden until
+   focused. axe cannot flag a *missing* skip link, which is why the 56-state
+   sweep passed clean without one; keyboard users still had to tab the whole
+   header and nav before reaching content. */
+.skip-link {
+  position: absolute; left: var(--space-3); top: -100px;
+  z-index: 200;
+  background: var(--ink); color: var(--ink-contrast);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  font-weight: 600; text-decoration: none;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: var(--space-3); }

@@ -206,3 +206,171 @@ the count below.
 Fees and funding calls change **annually**. Every record's note carries
 its verification date; re-verify each record before the KCSE results
 release (typically January), when traffic peaks.
+
+
+## Research method — what is reachable, and what is not
+
+This matters because the platform's whole claim is verifiability, so the
+limits of the sourcing have to be as legible as the figures.
+
+**Direct fetching of primary sources is blocked.** Seventeen domains were
+tested by two independent methods (`WebFetch` and `curl` through the session
+proxy), including `weforum.org`, `knbs.or.ke`, `kmtc.ac.ke`, `cue.or.ke`,
+`tveta.go.ke`, `kuccps.net`, `helb.co.ke`, `ilo.org`, `data.worldbank.org`,
+`unesco.org`, `oxfordmartin.ox.ac.uk` and `odi.org`. Every one returns **403 —
+organisation policy denial**, logged by the proxy itself. Control domains
+(`api.github.com`, `registry.npmjs.org`) return 200, so the proxy is working;
+the denial is policy, not failure.
+
+**Search-with-domain-restriction is the channel that works.** Restricting a
+web search to an authoritative domain returns that publisher's own pages and
+their content, even though the pages cannot be fetched directly. That is how
+the WEF Future of Jobs 2025 figures, the Sub-Saharan Africa regional cut and
+the WEF Kenya digital-economy study were sourced.
+
+**Every figure is therefore `cross-reported`, not `primary`.** Nothing here
+was read from a source PDF. Where numbers disagree across reports, the
+disagreement is recorded rather than resolved by preference. Anyone with
+direct access should read the primary releases and upgrade the tier — and must
+not promote a figure without having read it.
+
+### Corrections this research pass forced
+
+| Claim | Was | Now |
+| --- | --- | --- |
+| BPO employment | "more than 60,000 directly" | Reported between ~7,000 and 60,000 depending on definition — all three counts named |
+| Job growth rankings | Percentage list only (AI, fintech, big data) | Both lists; the absolute list (nursing, teaching, frontline) shown alongside |
+| Graphic design | Absent | Named as fastest-declining, driven by generative AI — Njia lists design courses |
+| Placement framing | "~30% placed via KUCCPS" | Middle-level capacity 1,132,531 against 293,869 placed |
+
+The BPO correction is the one worth dwelling on. Njia shipped the largest of
+three circulating figures with no note that it was the broadest definition —
+flattering the sector by nearly an order of magnitude against the narrowest
+count, in a record a young person might plan around. It was caught only by
+going to the WEF's own Kenya study rather than stopping at secondary coverage.
+
+### The finding that reframes the platform
+
+Middle-level colleges hold capacity for **1,132,531** students. Placements
+across every institution type totalled **293,869**. Roughly four in five
+middle-level places go unfilled while young people conclude there is nothing
+for them.
+
+Njia has always asserted that the problem is information rather than scarcity.
+This is the first time that claim has been evidenced, and it is now the lead
+statistic on the landing page. `tests/provenance.test.js` fails if the
+capacity-to-placement gap ever inverts — because if it does, the premise needs
+rewriting, not the number massaging.
+
+
+## The informal economy — context every salary figure needs
+
+| Measure | Figure |
+| --- | --- |
+| Informal share of total employment | **83.8%** (18.1 million people) |
+| Formal wage employment | 16.2% (3.5 million) |
+| New jobs created, 2025 | 822,100 |
+| Share of those that were informal | **87.2%** |
+| Largest informal sector | Wholesale/retail, hotels and restaurants — 10.7 million |
+
+*Source: KNBS Economic Survey 2026, cross-reported August 2026.*
+
+Every figure in `SECTOR_EARNINGS` is an average across **formal wage
+employment** — the destination of roughly one working Kenyan in six. Njia had
+a caveat gesturing at this ("the informal sector absorbs far more workers") but
+never quantified it, so the formal salary ladder read as the normal outcome.
+
+The note now renders directly above the earnings figures, and a test fails if
+the informal share ever drops below half or if the wording frames informal work
+as a fallback. It is not the failure case: for five in six workers it is the
+economy, and it is why enterprise capital (YEDF) sits in the funding module
+rather than in a footnote.
+
+**Also confirmed, negatively:** searches restricted to `tveta.go.ke`,
+`education.go.ke` and `kippra.or.ke` return no national TVET graduate tracer
+study with employment outcomes. That is direct support for keeping
+`outcomes_confidence: 'illustrative'` on every course — the data does not exist
+to verify against, and this is now a checked absence rather than an assumption.
+
+
+## Skilled trades — the hardest evidence against prestige bias
+
+| Measure | Figure |
+| --- | --- |
+| Certified artisan day rate | **Ksh 2,500–3,000** (up from Ksh 500–1,000 in 2012) |
+| Engineers and architects countrywide | ~5,000 |
+| Trained plumbers, painters and masons | **fewer than 2,000** |
+| Developers naming skilled-worker shortage as the main brake on construction | two-thirds |
+| Construction professional demand | 260,000 today → 410,000+ by 2035 |
+| Fastest wage growth | Carpenters, painters, welders, mechanics |
+
+*Sources: KNBS construction labour index; Kenyan construction-sector reporting, cross-reported August 2026.*
+
+Only 8,915 candidates who earned a degree place chose TVET instead. The
+assumption behind that is that a degree pays better. In the trades the numbers
+say otherwise, and this is now stated on the landing page beside that figure
+rather than left as an unexplained sign of "prestige bias".
+
+**The caution is enforced, not optional.** Ksh 2,500–3,000 is a *day rate* for
+*certified* work. The work is often irregular and seasonal, there is no
+employer pension, paid leave or sick pay, and uncertified work pays a fraction
+of it. `tests/provenance.test.js` fails if the caution stops naming the day
+rate, the irregularity, or the certification condition — because presenting a
+day rate as monthly income would be the same false precision this register
+exists to remove, just in the flattering direction.
+
+
+## The absorption gap — vacancy is not hiring
+
+The correction that keeps the rest of this register honest.
+
+| Sector | The shortage | And yet |
+| --- | --- | --- |
+| Health | Needs 311,060 workers, has 234,140 — 76,920 posts unfilled. Nurse ratio 22.7 per 10,000 against WHO's 25, and the 60 needed for UHC. Gap projected to widen 49% to 114,352 by 2031. | Thousands of trained nurses are unemployed or underemployed, waiting on delayed public-sector absorption. The constraint is the hiring budget, not the need. |
+| Teaching | TSC estimates a shortage of ~96,345 teachers (38,054 primary, 58,291 post-primary); junior schools alone short 72,000+. | Much hiring is on internship rather than permanent and pensionable terms, driving rejected posts, low morale and litigation. |
+
+*Sources: Kenya health labour market modelling 2021–2035; TSC staffing reporting; cross-reported August 2026.*
+
+Njia now carries KMTC nursing across 45 counties and names health and education
+as Kenya's largest employers. All true — and quoting only the shortage would
+tell a seventeen-year-old that a nursing diploma leads straight to a job. That
+is the same true-but-incomplete failure as quoting the widest BPO figure.
+
+Both facts hold at once. The shortage is real and is a reason to train. The
+absorption delay is real and is a reason to plan for it: private and
+faith-based facilities, county contracts and NGO roles absorb faster than
+national public hiring. `tests/provenance.test.js` fails if any sector states a
+shortage without an absorption reality and a planning instruction beside it,
+and specifically requires the `carer` cluster — which carries the nursing
+expansion — to be covered.
+
+
+## Online work — real, growing, and oversold
+
+| Measure | Figure |
+| --- | --- |
+| Kenyans in digital work | ~600,000 (2019) → **2.4 million (2023)** |
+| Trained through Ajira Digital | ~391,000 |
+| Government ICT centres | 400+ |
+| Share of participants earning any income | 5% → **28%** |
+| Average monthly earnings | Ksh 2,600 → **Ksh 7,766** |
+
+*Source: Ajira Digital programme reporting and Kenyan digital-economy coverage, cross-reported August 2026.*
+
+"Learn digital skills and earn online" is marketed hard to Kenyan youth, and
+participation is genuinely large. The earnings are more sober: the share
+earning any income rose to 28%, which also means **roughly seven in ten trained
+participants were earning nothing from it**, and average monthly earnings of
+about Ksh 7,766 sit well below the formal-sector figures elsewhere in this
+register.
+
+**The connection nobody selling these courses will make:** the entry-level
+digital work most commonly trained for — transcription and data entry — is the
+same category the WEF Future of Jobs Report puts among the **fastest declining**
+roles as generative AI matures. It is not worthless, but it is a shrinking
+floor, and the way up is toward work that is harder to automate: client
+relationships, judgement, specialist domains.
+
+A test enforces that the AI caution names both the decline and the specific
+roles, and cross-checks that those roles still appear in the declining list —
+so the two datasets cannot drift apart and leave the claim unsupported.

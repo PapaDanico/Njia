@@ -2044,3 +2044,41 @@ body.modal-open { overflow: hidden; }
   transition: top 0.15s ease;
 }
 .skip-link:focus { top: var(--space-3); }
+
+/* Two growth rankings side by side. The percentage list is the one every
+   article quotes; the absolute list is the one a school-leaver can act on.
+   Showing them together is the whole point — separating them visually stops
+   the tech list reading as "the" answer. */
+.growth-split { display: grid; gap: var(--space-4); margin-top: var(--space-3); }
+@media (min-width: 640px) { .growth-split { grid-template-columns: 1fr 1fr; } }
+.growth-split > div { padding: var(--space-4); background: var(--surface-2, var(--surface)); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.growth-split p { margin-top: var(--space-1); max-width: none; }
+
+/* The informal-economy note sits directly above the sector earnings, because
+   those averages describe formal wage employment — where roughly one working
+   Kenyan in six ends up. Shown as context, not a warning: for five in six
+   workers the informal sector is the economy, not the failure case. */
+.informal-note {
+  background: var(--accent-soft, var(--surface));
+  border-left: 3px solid var(--accent, var(--primary));
+  border-radius: var(--radius-sm, 6px);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.informal-note p { max-width: var(--prose-max); color: var(--text-secondary); }
+.informal-note p:last-child { margin-bottom: 0; }
+
+/* The absorption note. A shortage of posts is not the same as an opening you
+   can walk into, and in health and teaching the two have come apart. Styled as
+   a distinct panel because the "and yet" is the part a reader most needs to
+   register, not skim past. */
+.absorption-note {
+  border: 1px solid var(--warn-border);
+  background: var(--warn-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+}
+.absorption-note p { color: var(--warn-ink); max-width: var(--prose-max); }
+.absorption-note .caption { color: var(--warn-ink); }
+.absorption-note p:last-child { margin-bottom: 0; }

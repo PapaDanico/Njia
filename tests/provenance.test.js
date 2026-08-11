@@ -32,6 +32,13 @@ const YOUTH_EMPLOYMENT_MEASURES = grab('YOUTH_EMPLOYMENT_MEASURES');
 const KENYA_DEMAND_SIGNALS = grab('KENYA_DEMAND_SIGNALS');
 const AUTOMATION_EXPOSURE = grab('AUTOMATION_EXPOSURE');
 const METHOD_LINEAGE = grab('METHOD_LINEAGE');
+const EDUCATION_PIPELINE = grab('EDUCATION_PIPELINE');
+const FUTURE_OF_WORK = grab('FUTURE_OF_WORK');
+const AFRICA_OUTLOOK = grab('AFRICA_OUTLOOK');
+const INFORMAL_ECONOMY = grab('INFORMAL_ECONOMY');
+const SKILLED_TRADES = grab('SKILLED_TRADES');
+const ABSORPTION_GAP = grab('ABSORPTION_GAP');
+const DIGITAL_WORK = grab('DIGITAL_WORK');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -196,4 +203,119 @@ test('course ids are unique', () => {
     assert.ok(!seen.has(c.id), `duplicate course id ${c.id}`);
     seen.add(c.id);
   }
+});
+
+/* ---------- the evidence base is internally consistent ---------- */
+
+test('the education pipeline adds up and keeps its capacity finding', () => {
+  const e = EDUCATION_PIPELINE;
+  assert.ok(e.qualifiedForDegree < e.kcseCandidates, 'more qualified than sat is impossible');
+  assert.ok(e.degreePlacements <= e.totalPlaced, 'degree placements cannot exceed total placements');
+  assert.ok(e.scoredDorBelow < e.kcseCandidates);
+  // The finding the whole platform rests on: places are not the scarce thing.
+  assert.ok(e.middleLevelCapacity > e.totalPlaced * 3,
+    'the capacity-vs-placement gap is the platform premise — if this ever inverts, the premise needs rewriting, not the number massaging');
+  const pct = (e.qualifiedForDegree / e.kcseCandidates) * 100;
+  assert.ok(Math.abs(pct - e.qualifiedForDegreePct) < 0.1, `stated ${e.qualifiedForDegreePct}% vs computed ${pct.toFixed(2)}%`);
+  assert.ok(e.readings.length >= 4);
+  for (const r of e.readings) assert.ok(r.detail && r.detail.length > 60, `"${r.finding}" is not explained`);
+});
+
+test('both job-growth rankings are kept, never just the tech one', () => {
+  // WEF ranks growth two ways. By percentage it is AI and fintech; by actual
+  // jobs added it is nursing, teaching and frontline work. Dropping the second
+  // list would quietly tell a future nurse their pathway is second-rate.
+  assert.ok(FUTURE_OF_WORK.growthByPercentage.length >= 5);
+  assert.ok(FUTURE_OF_WORK.growthByAbsoluteNumbers.length >= 4);
+  assert.ok(/nursing/i.test(FUTURE_OF_WORK.growthByAbsoluteNumbers.join(' ')),
+    'nursing is in the absolute-growth list and the catalogue is full of it');
+  assert.ok(/teacher/i.test(FUTURE_OF_WORK.growthByAbsoluteNumbers.join(' ')));
+  assert.ok(FUTURE_OF_WORK.absoluteVsPercentage.length > 60, 'the distinction must be explained, not just listed');
+});
+
+test('declining roles are shown, including the ones Njia teaches', () => {
+  // Graphic design moved from moderately growing to fastest declining. Njia
+  // lists design courses, so hiding this would be self-serving.
+  const d = FUTURE_OF_WORK.decliningRoles.join(' ');
+  assert.ok(/graphic designer/i.test(d), 'graphic design decline must not be dropped');
+  assert.ok(/clerical|data entry|cashier/i.test(d));
+  assert.ok(FUTURE_OF_WORK.decliningNote.length > 60);
+});
+
+test('regional optimism ships with its caveat', () => {
+  // "Africa is the most optimistic region" is about employers' view of the
+  // talent pool, not any one person's hiring odds.
+  assert.ok(AFRICA_OUTLOOK.caveat && AFRICA_OUTLOOK.caveat.length > 40);
+  assert.ok(AFRICA_OUTLOOK.source.includes('World Economic Forum'));
+});
+
+test('the informal economy context ships alongside the formal salary figures', () => {
+  // Every SECTOR_EARNINGS figure is formal wage employment — the destination of
+  // roughly one working Kenyan in six. Showing that ladder as the normal
+  // outcome, without saying how narrow it is, misdescribes where a school-leaver
+  // is statistically most likely to end up.
+  const i = INFORMAL_ECONOMY;
+  assert.ok(i.informalSharePct > 50, 'if this ever drops below half, the framing needs rewriting');
+  assert.ok(Math.abs((i.informalSharePct + i.formalSharePct) - 100) < 0.5, 'shares must sum to 100');
+  assert.ok(i.informalWorkers > i.formalWorkers * 3);
+  assert.ok(i.source && i.source.length > 20);
+  // The reading must not frame informal work as failure — it is the economy for
+  // five in six workers, and Njia's enterprise funding exists because of it.
+  assert.ok(i.reading.length > 80, 'the reading must give an actual planning instruction');
+  assert.ok(!/fallback|last resort|failure/i.test(i.reading), 'informal work must not be framed as a fallback');
+});
+
+test('artisan day rates never render as though they were salaries', () => {
+  // Ksh 2,500-3,000 is a day rate for *certified* work, in a trade where the
+  // work is often irregular and there is no pension or paid leave. Showing it
+  // as monthly income would be exactly the false precision this file exists to
+  // remove — this time in the flattering direction.
+  const t = SKILLED_TRADES;
+  assert.ok(t.caution && t.caution.length > 80, 'the day-rate caution must be substantive');
+  assert.match(t.caution, /day rate/i, 'the caution must name it as a day rate');
+  assert.match(t.caution, /irregular|seasonal/i, 'the caution must name the irregularity');
+  assert.match(t.caution, /certif/i, 'the rate applies to certified artisans — that condition must be stated');
+  assert.ok(t.dayRateKes[0] < t.dayRateKes[1], 'the rate is a range, not a point estimate');
+  assert.ok(t.dayRate2012Kes[1] < t.dayRateKes[0], 'the 2012 comparison should show real growth');
+  for (const c of t.clusters) {
+    assert.ok([...new Set(COURSES.map((x) => x.cluster))].includes(c), `trades map to unknown cluster ${c}`);
+  }
+});
+
+test('a shortage is never shown without the absorption reality beside it', () => {
+  // Health needs 76,920 more workers while thousands of trained nurses wait on
+  // budget-constrained hiring. Teaching is short 96,345 while intern posts go
+  // rejected. Quoting only the shortage would tell a seventeen-year-old that a
+  // nursing diploma leads straight to a job — the same true-but-incomplete
+  // failure as quoting the widest BPO figure.
+  assert.ok(ABSORPTION_GAP.sectors.length >= 2);
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const a of ABSORPTION_GAP.sectors) {
+    assert.ok(a.shortage && a.shortage.length > 80, `${a.sector} shortage is not substantiated`);
+    assert.ok(a.reality && a.reality.length > 60, `${a.sector} states a shortage with no absorption reality`);
+    assert.ok(a.planning && a.planning.length > 60, `${a.sector} gives no planning instruction`);
+    for (const c of a.clusters) assert.ok(clusters.includes(c), `${a.sector} maps to unknown cluster ${c}`);
+  }
+  // Carer is the cluster carrying 60+ KMTC nursing records; it must be covered.
+  assert.ok(ABSORPTION_GAP.sectors.some((a) => a.clusters.includes('carer')),
+    'the carer cluster carries the nursing expansion and must show the absorption gap');
+});
+
+test('online work is shown with its earnings reality and its AI exposure', () => {
+  // "Learn digital skills and earn online" is marketed hard to Kenyan youth.
+  // Participation is genuinely large, but roughly seven in ten trained
+  // participants earn nothing from it, and the entry-level work most commonly
+  // trained for — transcription, data entry — is what WEF puts among the
+  // fastest declining roles under generative AI. Both must ship with it.
+  const d = DIGITAL_WORK;
+  assert.ok(d.shareEarningIncomePct.after < 50,
+    'if most participants now earn, the "oversold" framing needs revisiting rather than keeping');
+  assert.ok(d.averageMonthlyEarningsKes.after > 0);
+  assert.ok(d.honestReading.length > 80, 'the earnings reality must be stated, not implied');
+  assert.match(d.aiCaution, /declin/i, 'the AI caution must name the decline');
+  assert.match(d.aiCaution, /transcription|data entry/i, 'it must name the specific roles being trained for');
+  // The roles named here must actually appear in the WEF declining list, or the
+  // two datasets have drifted apart and the connection is no longer supported.
+  const declining = FUTURE_OF_WORK.decliningRoles.join(' ').toLowerCase();
+  assert.ok(/data entry/.test(declining), 'the AI caution leans on the declining-roles list; keep them consistent');
 });

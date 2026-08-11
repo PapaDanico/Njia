@@ -16,9 +16,11 @@
  * Every earnings figure below is an average across *formal wage employment*
  * in that sector. It includes principals, consultants and senior engineers.
  * It is not a starting salary, and for most Njia users it is not the number
- * they will first earn. Kenya's informal sector absorbs far more workers than
- * the formal one, and a school-leaver with a certificate typically enters well
- * below these averages.
+ * they will first earn. Kenya's informal sector absorbs 83.8% of all workers —
+ * 18.1 million against 3.5 million in formal wage employment — so these
+ * averages describe the destination of roughly one working Kenyan in six, and a
+ * school-leaver with a certificate typically enters well below them. See
+ * INFORMAL_ECONOMY below; that context travels with these figures.
  *
  * Presenting a sector average to a seventeen-year-old as "what this career
  * pays" would repeat the exact failure this file was written to correct, in
@@ -84,6 +86,40 @@ const SECTOR_EARNINGS = [
   }
 ];
 
+/* THE INFORMAL ECONOMY — the context every earnings figure above needs.
+ *
+ * 83.8% of Kenyan employment is informal: 18.1 million people, against 3.5
+ * million in formal wage employment. Of the 822,100 jobs created in 2025,
+ * 87.2% were informal.
+ *
+ * This matters more than any single salary figure. Every sector earning in
+ * SECTOR_EARNINGS is an average across *formal wage employment* — the
+ * destination of roughly one working Kenyan in six. Presenting that ladder as
+ * the normal outcome, without saying how narrow it is, misdescribes where this
+ * user is statistically most likely to end up.
+ *
+ * That is not a counsel of despair and must never be written as one. It is why
+ * Njia treats enterprise capital (YEDF) as funding rather than a footnote, why
+ * business modelling sits in the catalogue, and why a trade certificate leading
+ * to self-employment is a legitimate plan rather than a fallback. The informal
+ * sector is not the failure case. For five in six workers it is the economy.
+ */
+const INFORMAL_ECONOMY = {
+  source: 'KNBS Economic Survey 2026 (reporting 2025), cross-reported coverage, August 2026',
+  informalSharePct: 83.8,
+  informalWorkers: 18100000,
+  formalSharePct: 16.2,
+  formalWorkers: 3500000,
+  newJobs2025: 822100,
+  newJobsInformalPct: 87.2,
+  largestInformalSectors: [
+    { sector: 'Wholesale and retail trade, hotels and restaurants', workers: 10700000 },
+    { sector: 'Manufacturing', workers: 3600000 }
+  ],
+  fastestGrowing: 'Construction, at 6.7% informal growth',
+  reading: 'Five in six working Kenyans are in the informal sector, and it absorbed 87% of last year\'s new jobs. Formal salary figures describe the smaller share. Plan for a pathway that works either way — a qualification that lets you be hired *and* lets you trade on your own account is worth more here than one that only does the first.'
+};
+
 /* Whole-economy anchors, 2025. Same source and same provenance caveat. */
 const LABOUR_MARKET_ANCHORS = {
   averageAnnualEarningsKes: 988200,
@@ -134,10 +170,39 @@ const YOUTH_EMPLOYMENT_MEASURES = [
  * applying a global projection to Nairobi without saying so is how these
  * reports get misused. */
 const FUTURE_OF_WORK = {
-  source: 'World Economic Forum, Future of Jobs Report 2025',
+  source: 'World Economic Forum, Future of Jobs Report 2025 (survey of 1,000+ employers representing over 14 million workers)',
   scope: 'global',
-  headline: '170 million new roles created and 92 million displaced by 2030 — a net gain of 78 million.',
-  skillChurn: '39% of existing skill sets are expected to be transformed or outdated between 2025 and 2030.',
+  headline: '170 million new roles created and 92 million displaced by 2030 — a net gain of 78 million, with 22% of all jobs disrupted.',
+  skillChurn: '39% of existing skill sets are expected to be transformed or outdated between 2025 and 2030, and 63% of employers already name the skills gap as their single biggest barrier.',
+  topCoreSkill: 'Analytical thinking is the top core skill, named essential by seven in ten employers, followed by resilience/flexibility/agility and then leadership and social influence.',
+
+  /* The distinction that matters most for a Kenyan school-leaver, and the one
+   * every summary of this report drops.
+   *
+   * WEF publishes two different growth rankings. By *percentage* growth the
+   * list is tech: AI and machine learning specialists, fintech engineers, big
+   * data specialists. Those roles grow fast off a small base, and they are what
+   * every article quotes.
+   *
+   * By *absolute numbers* — actual jobs added — the list is frontline, care and
+   * education: farmworkers, delivery drivers, construction workers, nursing
+   * professionals, secondary school teachers.
+   *
+   * For someone choosing a course in Kenya, the absolute list is the honest
+   * one. It is also, almost exactly, what this catalogue is full of. Showing
+   * only the percentage list would quietly tell a future nurse or teacher that
+   * their pathway is second-rate, when the evidence says the opposite. */
+  growthByPercentage: ['AI and machine learning specialists', 'Big data specialists', 'FinTech engineers', 'Software and applications developers', 'Security management specialists', 'Autonomous and electric vehicle specialists', 'Environmental and renewable energy engineers'],
+  growthByAbsoluteNumbers: ['Farmworkers', 'Delivery drivers', 'Construction workers', 'Nursing professionals', 'Secondary school teachers'],
+  absoluteVsPercentage: 'Tech roles grow fastest in percentage terms, off a small base. Frontline, care and education roles add the most actual jobs. Both are true; only one is a realistic plan for most school-leavers.',
+
+  /* Declining roles, and the change worth flagging: graphic design was a
+   * moderately *growing* job in the 2023 edition and is now among the fastest
+   * declining, driven by generative AI. Njia lists design courses, so this
+   * belongs in front of anyone choosing one. */
+  decliningRoles: ['Cashiers and ticket clerks', 'Administrative assistants and executive secretaries', 'Postal service clerks', 'Bank tellers', 'Data entry clerks', 'Graphic designers', 'Legal secretaries'],
+  decliningNote: 'Clerical and secretarial work shows the largest decline in absolute numbers. Graphic design is the notable mover — a moderately growing role in the 2023 edition, now among the fastest declining as generative AI reshapes the work.',
+  technologyEffects: 'Broadening digital access is expected to create 19 million jobs and displace 9 million by 2030; AI and information processing to create 11 million and displace 9 million.',
   fastestGrowingSkills: [
     'AI and big data',
     'Networks and cybersecurity',
@@ -149,6 +214,19 @@ const FUTURE_OF_WORK = {
   interpretation: 'The two fastest-growing skill families are cognitive (analytical thinking, critical assessment) and socio-emotional (resilience, flexibility, leadership) — not any single tool. This is the evidence base for Njia treating adaptability as a career asset rather than a soft extra.'
 };
 
+/* Sub-Saharan Africa, from WEF's regional cut. Kept distinct from both the
+ * global projection and the Kenya-specific signals, because collapsing the
+ * three is how these reports get misused. */
+const AFRICA_OUTLOOK = {
+  source: 'World Economic Forum, Future of Jobs Report 2025 — Sub-Saharan Africa regional findings',
+  talentOptimism: 'Almost half of Sub-Saharan African employers expect talent availability to improve between 2025 and 2030, against 29% globally — the most optimistic region in the survey.',
+  demographics: 'The region\'s population is projected to rise 79% over the next 30 years to 2.2 billion, the demographic dividend behind that optimism.',
+  risingSkills: 'AI, big data and technological literacy are rising fastest in demand, with cybersecurity and networks close behind; flexibility, agility and creative thinking are rising alongside them.',
+  kenyaIctIntensity: '18.4% of all employment in Kenya is in occupations with high ICT intensity.',
+  kenyaHiringGap: 'Kenyan business executives report innovation and risk-taking as the core management skills hardest to recruit for.',
+  caveat: 'Regional optimism is not a personal guarantee. It describes employers\' expectations of the talent pool, not any individual\'s odds of being hired.'
+};
+
 /* Kenya-specific demand signals, kept separate from the global projection. */
 const KENYA_DEMAND_SIGNALS = [
   {
@@ -157,8 +235,15 @@ const KENYA_DEMAND_SIGNALS = [
     clusters: ['tech', 'numbers']
   },
   {
-    signal: 'BPO and IT-enabled services employ more than 60,000 people directly',
-    note: 'One of the few sectors offering formal entry roles to candidates without a degree; Kenya has a national BPO policy pushing further growth.',
+    // Three figures circulate and they are not interchangeable. The WEF's own
+    // Kenya study counts roughly 7,000 in BPO proper — voice and transactional
+    // back-office. Around 40,000 jobs are reported as created in the sector
+    // recently. The ICT Authority's 60,000+ counts "BPO and IT-enabled
+    // services", a much wider net including gig and platform work. Njia shipped
+    // the largest number alone, which flattered the sector by nearly an order
+    // of magnitude against the narrowest count. All three are stated here.
+    signal: 'BPO employment is reported between about 7,000 and 60,000 depending on what is counted',
+    note: 'Roughly 7,000 work in BPO proper — voice and transactional back-office (World Economic Forum, Kenya digital economy study, 2025). About 40,000 jobs are reported as created in the wider sector. The ICT Authority\'s 60,000+ figure covers "BPO and IT-enabled services", including gig and platform work. Government targets 500,000. It remains one of the few sectors with formal entry roles that do not require a degree — but plan against the narrow number, not the headline.',
     clusters: ['business', 'tech']
   },
   {
@@ -187,6 +272,55 @@ const KENYA_DEMAND_SIGNALS = [
     clusters: ['tech']
   }
 ];
+
+/* The education pipeline, 2025 cycle — and the finding that reframes Njia.
+ *
+ * Middle-level colleges hold capacity for 1,132,531 students. Placements
+ * across every institution type came to 293,869. Capacity is not the binding
+ * constraint on Kenyan youth education — roughly four out of five middle-level
+ * places go unfilled while young people conclude there is nowhere for them.
+ *
+ * That is the entire premise of this platform, and until now it was asserted
+ * rather than evidenced. The problem Njia addresses is not scarcity of places.
+ * It is that a school-leaver cannot see what exists, what it costs, whether
+ * they qualify, or how to pay for it. Every figure below is sourced.
+ */
+const EDUCATION_PIPELINE = {
+  source: 'KNEC 2025 KCSE results (released 9 January 2026) and KUCCPS 2025/26 placement reporting, cross-reported August 2026',
+  kcseCandidates: 993226,
+  qualifiedForDegree: 270715,
+  qualifiedForDegreePct: 27.18,
+  scoredDorBelow: 359144,
+  scoredA: 1932,
+  totalPlaced: 293869,
+  degreePlacements: 202133,
+  kmtcPlacements: 28246,
+  degreeQualifiedWhoChoseTvet: 8915,
+  middleLevelCapacity: 1132531,
+  /* The lines Njia should actually say out loud. */
+  readings: [
+    {
+      finding: 'Capacity is not the constraint',
+      detail: 'Middle-level colleges can hold 1,132,531 students. Placements across all institution types totalled 293,869. The places exist; what is missing is a way to find them, price them and pay for them.'
+    },
+    {
+      finding: 'Most candidates are not competing for degrees at all',
+      detail: '270,715 of 993,226 candidates — 27.18% — reached the C+ needed for direct university entry. The other 72.82% are choosing among diplomas, certificates and artisan courses, which is where the catalogue is deepest.'
+    },
+    {
+      finding: '359,144 candidates scored D or below',
+      detail: 'More than a third of the cohort. Most career guidance is written as though this group does not exist. They are precisely who the no-minimum-grade and certificate entries are for.'
+    },
+    {
+      finding: 'KMTC is the largest single non-degree destination',
+      detail: '28,246 candidates were placed at the Kenya Medical Training College — more than Kenya School of Law, Utalii College and the teacher training colleges combined, several times over. It teaches the same national curriculum at campuses in 45 of the 47 counties.'
+    },
+    {
+      finding: 'Choosing TVET over a degree you qualified for is still rare',
+      detail: 'Only 8,915 of those who earned a degree place chose TVET instead. Prestige, not evidence, is doing much of the deciding.'
+    }
+  ]
+};
 
 /* Automation exposure — deliberately presented as a genuine disagreement.
  *
@@ -279,6 +413,113 @@ const METHOD_LINEAGE = [
   }
 ];
 
+/* DIGITAL WORK — real, growing, and oversold in roughly equal measure.
+ *
+ * "Learn digital skills and earn online" is marketed hard to Kenyan youth, and
+ * the participation numbers are genuinely large: digital work involvement grew
+ * from about 600,000 in 2019 to 2.4 million by 2023, and Ajira Digital has
+ * trained roughly 391,000 young people.
+ *
+ * The earnings tell a more sober story. Among digital content participants the
+ * share earning any income rose from 5% to 28% — which also means roughly
+ * seven in ten trained participants were earning nothing from it. Average
+ * monthly earnings rose to about Ksh 7,766, well under the formal-sector
+ * figures elsewhere in this file.
+ *
+ * And there is a connection worth stating plainly, because nobody selling
+ * these courses will: the entry-level digital work most commonly trained for —
+ * transcription, data entry — is the same category the WEF Future of Jobs
+ * Report puts among the fastest *declining* roles as generative AI matures.
+ * Training for it is not worthless, but it is training toward a shrinking
+ * floor, and the escape is upward into work AI does not do well.
+ */
+const DIGITAL_WORK = {
+  source: 'Ajira Digital programme reporting and Kenyan digital-economy coverage, cross-reported August 2026',
+  participantsInDigitalWork: { 2019: 600000, 2023: 2400000 },
+  ajiraTrained: 391000,
+  ictCentres: 400,
+  shareEarningIncomePct: { before: 5, after: 28 },
+  averageMonthlyEarningsKes: { before: 2600, after: 7766 },
+  honestReading: 'Participation is real and large, but roughly seven in ten trained participants were not earning from it, and average monthly earnings of about Ksh 7,766 sit well below the formal-sector figures elsewhere here. Treat online work as a supplement or a starting rung, not as a plan that replaces a qualification.',
+  aiCaution: 'The entry-level digital work most commonly trained for — transcription and data entry — is in the same category the WEF puts among the fastest declining roles as generative AI matures. It is not worthless, but it is a shrinking floor. The way up is toward work that is harder to automate: client relationships, judgement, specialist domains.',
+  clusters: ['tech', 'numbers', 'creator', 'business']
+};
+
+/* THE ABSORPTION GAP — vacancy is not the same as hiring.
+ *
+ * This is the correction that keeps the rest of this file honest. Njia now
+ * carries KMTC nursing across 45 counties and names health and education as
+ * Kenya's largest employers. All true. But a shortage of posts is not the same
+ * as an opening you can walk into, and in both sectors the two have come
+ * apart:
+ *
+ *   Health: Kenya needs 311,060 health workers and has 234,140 — a gap of
+ *   76,920. And yet thousands of qualified nurses are unemployed, waiting on
+ *   public-sector hiring that is budget-constrained rather than demand-
+ *   constrained.
+ *
+ *   Teaching: a shortage of about 96,345 teachers, with junior schools alone
+ *   short 72,000. And yet intern posts go rejected, because the Commission
+ *   cannot afford to convert interns to permanent and pensionable terms.
+ *
+ * Both facts are real at once. A platform that quoted only the shortage would
+ * be telling a seventeen-year-old that a nursing diploma leads straight to a
+ * job, which is the same true-but-incomplete failure as quoting the widest BPO
+ * figure. The shortage is real and it is a reason to train. The absorption
+ * delay is also real and it is a reason to plan for it — private and
+ * faith-based facilities, county contracts, NGO roles, and the possibility of
+ * a wait.
+ */
+const ABSORPTION_GAP = {
+  source: 'Kenya health labour market modelling (2021–2035) and TSC staffing reporting, cross-reported August 2026',
+  sectors: [
+    {
+      sector: 'Health and nursing',
+      shortage: 'Kenya needs 311,060 health workers against a supply of 234,140 — 75.3% of need met, 76,920 posts unfilled. The nurse-to-population ratio has risen to 22.7 per 10,000 but remains below the WHO-recommended 25, and far below the 60 needed for universal health coverage. The gap is projected to widen by 49% to 114,352 by 2031.',
+      reality: 'Thousands of trained nurses are nonetheless unemployed or underemployed, waiting on delayed public-sector absorption. The constraint is the hiring budget, not the need.',
+      planning: 'Train for it — the need is real and growing. But plan for the wait: private and faith-based facilities, county contracts and NGO roles absorb faster than national public hiring, and a first post may not be the one you expected.',
+      clusters: ['carer']
+    },
+    {
+      sector: 'Teaching',
+      shortage: 'The Teachers Service Commission estimates a shortage of about 96,345 teachers — 38,054 in primary and 58,291 in post-primary. Junior schools alone are short at least 72,000, and recruitment drives run in the tens of thousands.',
+      reality: 'Much of the hiring is on internship terms rather than permanent and pensionable, because of budget limits. That has driven rejected posts, low morale and litigation.',
+      planning: 'Education remains Kenya\'s single largest formal wage employer and the shortage is genuine. Go in knowing the likely first step is an internship rather than a permanent post, and check the terms before you count on the salary.',
+      clusters: ['carer', 'people']
+    }
+  ]
+};
+
+/* SKILLED TRADES — the hardest evidence against prestige bias in this file.
+ *
+ * Only 8,915 candidates who earned a degree place chose TVET instead. The
+ * assumption behind that is that a degree pays better. In the trades, the
+ * numbers say otherwise:
+ *
+ *   Kenya has roughly 5,000 engineers and architects, and fewer than 2,000
+ *   trained plumbers, painters and masons. Two-thirds of developers name
+ *   skilled-worker shortage as the main brake on construction. Certified
+ *   artisan day rates have tripled since 2012.
+ *
+ * A caution that must travel with the day rate: it is a DAY RATE, not a
+ * salary. Work is often irregular and seasonal, there is no employer pension
+ * or leave, and the rate applies to *certified* artisans — the certificate is
+ * the thing doing the work. Presenting 3,000 a day as though it were
+ * guaranteed monthly income would be the same false precision this file
+ * exists to remove.
+ */
+const SKILLED_TRADES = {
+  source: 'KNBS construction labour index and Kenyan construction-sector reporting, cross-reported August 2026',
+  dayRateKes: [2500, 3000],
+  dayRate2012Kes: [500, 1000],
+  supplyGap: 'Roughly 5,000 engineers and architects countrywide, against fewer than 2,000 trained plumbers, painters and masons.',
+  demandSignal: 'Two-thirds of Kenyan developers report skilled-worker shortage as the main factor limiting construction activity. Demand for construction professionals is projected to rise from 260,000 to over 410,000 by 2035.',
+  risingTrades: ['Carpenters', 'Painters', 'Welders', 'Mechanics', 'Plumbers', 'Masons', 'Electricians'],
+  caution: 'These are day rates for *certified* artisans, not salaries. Work is often irregular and seasonal, and there is no employer pension, paid leave or sick pay. The certificate is what earns the rate — uncertified work pays a fraction of it.',
+  reading: 'A certified artisan day rate of Ksh 2,500–3,000 compares well with what many diploma and degree holders start on. This is the clearest evidence in the dataset that the prestige ranking of degree over trade is not tracking the money.',
+  clusters: ['tech', 'business']
+};
+
 /* The structural finding Njia is built around: the binding constraint on
  * Kenyan youth employment is not effort, it is the gap between what is taught
  * and what is demanded. Named plainly so the platform's premise is auditable
@@ -290,5 +531,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK };
 }

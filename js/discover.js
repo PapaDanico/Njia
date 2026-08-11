@@ -322,6 +322,13 @@ function renderLabourMarketCard(primaryCluster) {
       <h2 class="mb-1 mt-1">What this field actually pays — and who is hiring</h2>
       <p class="text-secondary text-sm mb-2">Kenya publishes earnings by <em>sector</em>, not by course. These are averages across formal wage employment, so read them as where a career can reach, not where it starts.</p>
 
+      ${typeof INFORMAL_ECONOMY !== 'undefined' ? `
+        <div class="informal-note">
+          <p class="text-sm mb-1"><strong>${INFORMAL_ECONOMY.informalSharePct}% of Kenyan workers are in the informal sector</strong> — ${(INFORMAL_ECONOMY.informalWorkers / 1000000).toFixed(1)} million people, against ${(INFORMAL_ECONOMY.formalWorkers / 1000000).toFixed(1)} million in formal wage jobs. ${INFORMAL_ECONOMY.newJobsInformalPct}% of last year's new jobs were informal.</p>
+          <p class="text-sm">${escapeHtml(INFORMAL_ECONOMY.reading)}</p>
+        </div>
+      ` : ''}
+
       ${sectors.map((s) => `
         <div class="sector-row">
           <div class="sector-row-head">
@@ -331,6 +338,31 @@ function renderLabourMarketCard(primaryCluster) {
           <p class="sector-reality">${escapeHtml(s.entryReality)}</p>
         </div>
       `).join('')}
+
+      ${typeof DIGITAL_WORK !== 'undefined' && DIGITAL_WORK.clusters.includes(primaryCluster) ? `
+        <div class="absorption-note">
+          <span class="caption">Online work — real, and oversold</span>
+          <p class="text-sm mt-1 mb-1">Kenyans in digital work grew from about ${(DIGITAL_WORK.participantsInDigitalWork[2019] / 1000000).toFixed(1)}m in 2019 to ${(DIGITAL_WORK.participantsInDigitalWork[2023] / 1000000).toFixed(1)}m by 2023, and roughly ${DIGITAL_WORK.ajiraTrained.toLocaleString()} have been trained through Ajira Digital.</p>
+          <p class="text-sm mb-1"><strong>And yet:</strong> ${escapeHtml(DIGITAL_WORK.honestReading)}</p>
+          <p class="text-sm"><strong>Watch this:</strong> ${escapeHtml(DIGITAL_WORK.aiCaution)}</p>
+        </div>
+      ` : ''}
+
+      ${typeof ABSORPTION_GAP !== 'undefined' ? ABSORPTION_GAP.sectors.filter((a) => a.clusters.includes(primaryCluster)).map((a) => `
+        <div class="absorption-note">
+          <span class="caption">${escapeHtml(a.sector)} — shortage is not the same as hiring</span>
+          <p class="text-sm mt-1 mb-1">${escapeHtml(a.shortage)}</p>
+          <p class="text-sm mb-1"><strong>And yet:</strong> ${escapeHtml(a.reality)}</p>
+          <p class="text-sm"><strong>So:</strong> ${escapeHtml(a.planning)}</p>
+        </div>
+      `).join('') : ''}
+
+      ${typeof SKILLED_TRADES !== 'undefined' && SKILLED_TRADES.clusters.includes(primaryCluster) ? `
+        <h3 class="mt-2 mb-1">The trades are short of people</h3>
+        <p class="text-secondary text-sm mb-1">${escapeHtml(SKILLED_TRADES.supplyGap)} ${escapeHtml(SKILLED_TRADES.demandSignal)}</p>
+        <p class="text-secondary text-sm mb-1">Certified artisan day rates have risen from Ksh ${SKILLED_TRADES.dayRate2012Kes[0].toLocaleString()}–${SKILLED_TRADES.dayRate2012Kes[1].toLocaleString()} in 2012 to <strong>Ksh ${SKILLED_TRADES.dayRateKes[0].toLocaleString()}–${SKILLED_TRADES.dayRateKes[1].toLocaleString()}</strong> today. Rising fastest: ${SKILLED_TRADES.risingTrades.slice(0, 5).map((t) => escapeHtml(t)).join(' · ')}.</p>
+        <p class="text-muted text-sm mb-2">${escapeHtml(SKILLED_TRADES.caution)}</p>
+      ` : ''}
 
       ${signals.length ? `
         <h3 class="mt-2 mb-1">Demand signals in Kenya right now</h3>
@@ -342,8 +374,23 @@ function renderLabourMarketCard(primaryCluster) {
       ${renderAutomationBlock(primaryCluster)}
 
       <h3 class="mt-2 mb-1">The skills that keep paying</h3>
-      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.skillChurn)} ${escapeHtml(FUTURE_OF_WORK.interpretation)}</p>
-      <p class="text-muted text-sm">Fastest-growing globally: ${FUTURE_OF_WORK.fastestGrowingSkills.map((s) => escapeHtml(s)).join(' · ')}</p>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.skillChurn)} ${escapeHtml(FUTURE_OF_WORK.topCoreSkill)}</p>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.interpretation)}</p>
+      <p class="text-muted text-sm mb-2">Fastest-growing globally: ${FUTURE_OF_WORK.fastestGrowingSkills.map((s) => escapeHtml(s)).join(' · ')}</p>
+
+      <h3 class="mt-2 mb-1">Which jobs are actually growing</h3>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.absoluteVsPercentage)}</p>
+      <div class="growth-split">
+        <div>
+          <span class="caption">Fastest by percentage</span>
+          <p class="text-muted text-sm">${FUTURE_OF_WORK.growthByPercentage.slice(0, 5).map((r) => escapeHtml(r)).join(' · ')}</p>
+        </div>
+        <div>
+          <span class="caption">Most jobs added</span>
+          <p class="text-muted text-sm">${FUTURE_OF_WORK.growthByAbsoluteNumbers.map((r) => escapeHtml(r)).join(' · ')}</p>
+        </div>
+      </div>
+      <p class="text-muted text-sm mt-1"><strong>Declining:</strong> ${FUTURE_OF_WORK.decliningRoles.map((r) => escapeHtml(r)).join(' · ')}. ${escapeHtml(FUTURE_OF_WORK.decliningNote)}</p>
 
       <p class="text-muted text-sm mt-2">Earnings: ${escapeHtml(LABOUR_MARKET_ANCHORS.source)}. Skills outlook: ${escapeHtml(FUTURE_OF_WORK.source)} (global scope). Figures were cross-checked across independent reports rather than read from the primary release — see the Methodology note in Help.</p>
     </div>

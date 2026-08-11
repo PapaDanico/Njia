@@ -429,9 +429,14 @@ const LANDING_EVIDENCE = [
     source: 'Source: KUCCPS / Ministry of Education, reported July 2026.'
   },
   {
-    num: '~30%', label: 'placed via KUCCPS, 2025/26 cycle',
-    body: '293,869 of 993,226 candidates secured a university or college place through the formal placement system — the rest navigate TVET, certificates, or gap years with far less structured guidance.',
-    source: 'Source: KUCCPS 2025/26 placement results, July 2026.'
+    // The single most important number on this page. Middle-level colleges hold
+    // capacity for 1,132,531 students; 293,869 were placed. The places are not
+    // the scarce thing, which is the whole reason this platform exists — and
+    // until this cycle's figures were sourced, Njia asserted that rather than
+    // showing it.
+    num: '1,132,531', label: 'middle-level places available · 293,869 filled',
+    body: 'Middle-level colleges — diploma, certificate and artisan — have capacity for over 1.1 million students. Across every institution type, 293,869 candidates were placed. Roughly four in five places go unfilled while young people conclude there is nothing for them. The shortage is not of places. It is of a way to find them, price them, and pay for them.',
+    source: 'Sources: KUCCPS 2025/26 placement reporting; middle-level capacity per KUCCPS, cross-reported August 2026.'
   },
   {
     // Deliberately shows the range, not one number. Kenyan youth unemployment
@@ -445,8 +450,8 @@ const LANDING_EVIDENCE = [
   },
   {
     num: '8,915', label: 'degree-qualifiers who chose TVET instead',
-    body: 'Out of 202,133+ candidates who qualified for a degree programme, only a small fraction chose a shorter, often cheaper TVET pathway — a visible sign of prestige bias over fit.',
-    source: 'Source: KUCCPS 2025 placement announcement, Ministry of Education, July 2026.'
+    body: 'Of the candidates who qualified for a degree, only a small fraction chose a shorter, often cheaper TVET pathway. The assumption is that a degree pays better. Kenya has roughly 5,000 engineers and architects and fewer than 2,000 trained plumbers, painters and masons — and certified artisan day rates have tripled since 2012, to Ksh 2,500–3,000. Those are day rates for certified work, not salaries, and the work is often irregular. But the prestige ranking is not tracking the money.',
+    source: 'Sources: KUCCPS 2025 placement announcement, Ministry of Education; KNBS construction labour index and construction-sector reporting, cross-reported August 2026.'
   }
 ];
 

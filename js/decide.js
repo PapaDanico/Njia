@@ -124,7 +124,7 @@ function renderDecideTabContent() {
  * It also returns a factor-by-factor breakdown that renderCourseCard shows
  * under "Why this match?", so the score is explainable, not an oracle. */
 function scoreCourseMatch(course, profile) {
-  const { hasResults, primary, secondary, grade, budgetMax } = profile;
+  const { hasResults, primary, secondary, grade, budgetMax, homeCounty, courseCounty } = profile;
   const breakdown = [];
   let score = 40;
   if (hasResults) {
@@ -140,6 +140,28 @@ function scoreCourseMatch(course, profile) {
     }
   } else {
     breakdown.push({ factor: 'Career fit', detail: 'Complete Discover to personalise this — without your results every course starts from the same baseline.', effect: 'neutral' });
+  }
+
+  // Locality. The catalogue now reaches 45 counties, largely because KMTC
+  // teaches the same programmes at campuses nationwide. That is the point of
+  // the expansion, but it means an identical course exists in dozens of
+  // places, and without this a student in Kisumu would see the Lodwar campus
+  // ranked exactly level with the one down the road. Studying near home is
+  // often the difference between affordable and impossible — relocation means
+  // rent, transport and being away from family support.
+  //
+  // Applied only when a county is actually selected: with "All Counties" there
+  // is no home location to measure against, and inventing one would be worse
+  // than staying silent.
+  if (homeCounty && courseCounty) {
+    if (courseCounty === homeCounty) {
+      score += 3;
+      breakdown.push({ factor: 'Location', detail: `Taught in ${courseCounty} — no relocation, so no rent or transport on top of fees.`, effect: 'up' });
+    } else {
+      score -= 3;
+      breakdown.push({ factor: 'Location', detail: `Taught in ${courseCounty}, away from ${homeCounty} — budget for accommodation and travel on top of the fee.`, effect: 'down' });
+    }
+    score = Math.max(0, Math.min(100, score));
   }
 
   const eligible = meetsGradeRequirement(grade, course.min_grade);
@@ -197,7 +219,11 @@ function computeCourseMatch(course) {
     primary: results?.primary,
     secondary: results?.secondary,
     grade: getEffectiveGrade(),
-    budgetMax: AppState.decideFilters.budgetMax
+    budgetMax: AppState.decideFilters.budgetMax,
+    // Only meaningful once a county is chosen. Left null for "All Counties",
+    // where there is no home location to rank against.
+    homeCounty: AppState.decideFilters.county !== 'all' ? AppState.decideFilters.county : null,
+    courseCounty: institutionById(course.institution_id)?.county || null
   });
 }
 

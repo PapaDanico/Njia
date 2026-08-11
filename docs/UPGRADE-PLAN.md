@@ -89,9 +89,9 @@ figures at the level they actually exist: the sector.
 | Open University of Kenya programmes, fee-verified | Done — 16 records |
 | Free / no-minimum-grade entry points | Done — first in the catalogue |
 | Catalogue growth | Done — 73 → 81 courses, 30 → 38 fee-verified |
-| Coverage of CUE's ~88 degree-awarding institutions | **Open — 76 institutions covered overall** |
+| Coverage of CUE's ~88 degree-awarding institutions | **Open — 86 institutions covered overall** |
 | County coverage | **Done — 45 of 47** (KMTC has no campus in Kirinyaga or Samburu) |
-| Per-institution fee structures for illustrative courses | **Open — 105 of 147 verified (71%)** |
+| Per-institution fee structures for illustrative courses | **Open — 125 of 167 verified (75%)** |
 
 OUK deserves its own note. It is the most accessible institution in the
 catalogue for a Njia user: fully online, so no relocation or hostel cost;
@@ -109,7 +109,7 @@ was to stop treating every institution as a separate sourcing task and find the
 families that are *centrally priced*. KMTC publishes one national fee structure
 across 98 campuses in 45 counties; public TVET now charges one consolidated
 government-set annual fee. Two sources, forty-five counties. Coverage went from
-12 counties to 45 and the verified share went **up**, 47% to 71%, because
+12 counties to 45 and the verified share went **up**, 47% to 75%, because
 everything added came with a published fee.
 
 The remaining gap is distinct programmes rather than places. A student in any

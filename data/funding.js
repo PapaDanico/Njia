@@ -12,7 +12,7 @@ const FUNDING_SOURCES = [
   {
     id: 'f001', name: 'HELB (Higher Education Loans Board)', type: 'loan',
     description: 'Kenya moved to a new Higher Education Funding (HEF) model in 2025/26: instead of a flat loan, students are placed into funding bands (by household means-testing) that mix a government scholarship, a HELB loan, and a household contribution. Apply via the HEF portal, not the old HELB-only process.',
-    coverage: 'Scholarship + loan + household contribution, split by funding band', max_amount_kes: 60000,
+    coverage: 'Scholarship + loan + household contribution, split by funding band. Band 1 (highest need): about 70% government scholarship, 25% loan, and up to Ksh 60,000 upkeep. Band 5 (lowest need): about 30% scholarship, 30% loan, 40% household contribution, and up to Ksh 40,000 upkeep. The band is set by HELB\'s Means Testing Instrument, which weighs parental background, school type, family size, marginalisation and disability — not your grade.', max_amount_kes: 60000,
     eligibility: 'Kenyan citizen, admitted to a HEF-recognised university or TVET institution, means-tested via the HEF portal',
     min_grade: 'D+', application_deadline: 'Rolling, opens with each intake',
     website: 'https://helb.co.ke', application_url: 'https://portal.helb.co.ke',
@@ -129,7 +129,7 @@ const FUNDING_SOURCES = [
   },
   {
     id: 'f011', name: 'TVET Government Funding (Capitation + HEF)', type: 'bursary',
-    description: 'Public TVET training is government-subsidised: institutions receive per-student capitation, students apply for HEF scholarship/loan support, and from May 2026 public TVETs charge a single consolidated annual fee set by government.',
+    description: 'Public TVET training is government-subsidised: institutions receive per-student capitation, students apply for HEF scholarship/loan support, and from May 2026 public TVETs charge a single consolidated annual fee set by government. Plan for a real risk of not being funded: in 2025/26 TVET loan applications rose 8.3% to 339,726 while the number of students actually funded fell 46% to 157,376, and disbursements nearly halved to Ksh 5.8 billion from Ksh 10.7 billion. HELB attributed this to delays processing first-time applicants. Roughly two in five TVET applicants were funded. Apply early, and line up a county bursary or NG-CDF fallback rather than relying on HEF alone.',
     coverage: 'Subsidised public-TVET tuition; consolidated annual fee of Ksh 67,189 (incl. assessment) from May 2026', max_amount_kes: 67189,
     eligibility: 'Enrolled in a public TVETA-registered institution; HEF support is means-tested via the HEF portal',
     min_grade: null, application_deadline: 'Capitation is institutional; apply for HEF support with each intake',
@@ -137,7 +137,7 @@ const FUNDING_SOURCES = [
     requirements: ['Admission to a registered public TVET institution', 'HEF application for scholarship/loan support'],
     interest_rate: null, repayment_period: null,
     data_confidence: 'verified',
-    verification_note: 'Consolidated public-TVET annual fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026) as announced by government and reported by Eastleigh Voice and sector coverage, August 2026; 2025/26 TVET capitation disbursements confirmed via Ministry of Education reporting. Per-course billing may vary — confirm with the institution\'s registrar.'
+    verification_note: 'Consolidated public-TVET annual fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026) as announced by government and reported by Eastleigh Voice and sector coverage, August 2026; 2025/26 TVET capitation disbursements confirmed via Ministry of Education reporting. The funding-shortfall figures (applications 339,726, up 8.3%; students funded 157,376, down 46% from 291,252; disbursements Ksh 5.8bn from Ksh 10.7bn; HELB citing delays processing first-time applicants) come from HELB reporting cross-reported by Kenyan Wall Street and sector coverage, August 2026. Per-course billing may vary — confirm with the institution\'s registrar.'
   },
   {
     id: 'f012', name: 'Faith-Based / Community Sponsorship', type: 'sponsorship',

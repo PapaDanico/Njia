@@ -339,11 +339,32 @@ function renderCourseMatcher(container) {
       <p class="decide-count"><strong class="num">${filtered.length}</strong> of <span class="num">${COURSES.length}</span> courses match your filters${gradeOpenPct != null ? ` · your grade opens <strong class="num">${gradeOpenPct}%</strong> of the catalogue` : ''}</p>
       ${filtered.length === 0
         ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
-        : `<div class="results-grid">${filtered.map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>`
+        : `<div class="results-grid">${filtered.slice(0, AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE).map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>
+           ${filtered.length > (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)
+             ? `<div class="results-more"><button type="button" class="btn btn-secondary" onclick="showMoreCourses()">Show ${Math.min(DECIDE_PAGE_SIZE, filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE))} more · ${filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)} remaining</button></div>`
+             : ''}`
       }
     </div>
     </div>
   `;
+}
+
+/* The catalogue reaches 45 counties, which means a filtered list can run to
+ * well over a hundred cards. Rendering them all cost 450-530ms on a mid-range
+ * Android at 4x CPU throttle — and that fires on every filter change, which is
+ * the core interaction of the core module. Rendering a page at a time keeps it
+ * responsive; the count line above still reports the true total, so nothing is
+ * hidden, only deferred.
+ *
+ * The counter lives in decideFilters so it resets naturally whenever a filter
+ * changes (each setter clears it) rather than leaking a stale offset between
+ * different result sets. */
+const DECIDE_PAGE_SIZE = 24;
+
+function showMoreCourses() {
+  AppState.decideFilters.visibleCount = (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE) + DECIDE_PAGE_SIZE;
+  saveState();
+  renderDecideTabContent();
 }
 
 function renderCourseCard(course, match) {
@@ -420,52 +441,62 @@ function renderCourseCard(course, match) {
 
 function setDecideClusterFilter(cluster) {
   AppState.decideFilters.cluster = cluster;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideBudgetFilter(value) {
   AppState.decideFilters.budgetMax = Number(value) >= 750000 ? null : Number(value);
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideOwnershipFilter(value) {
   AppState.decideFilters.ownership = value;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 
 function setDecideGradeFilter(value) {
   AppState.decideFilters.grade = value || null;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideCountyFilter(county) {
   AppState.decideFilters.county = county;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideLevelFilter(level) {
   AppState.decideFilters.level = level;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideModeFilter(mode) {
   AppState.decideFilters.mode = mode;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function toggleDecideSavedOnly() {
   AppState.decideFilters.savedOnly = !AppState.decideFilters.savedOnly;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideSortBy(sortBy) {
   AppState.decideFilters.sortBy = sortBy;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function clearDecideFilters() {
   AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all', level: 'all', ownership: 'all', savedOnly: false };
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }

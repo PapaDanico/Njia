@@ -568,3 +568,33 @@ counties; the county record remains `illustrative` on its figures.*
 This is the cheapest possible improvement to a real disbursement rate. A young
 person who assembles nine documents before starting, rather than discovering the
 ninth after the deadline, is materially more likely to be funded.
+
+## The route for people who already have the skill
+
+Njia's whole model assumed the user is choosing what to study. But 83.8% of
+Kenyan workers are informal, and the day-rate data already showed the sharpest
+fact in the trades: **the certificate is what earns the rate.** A competent
+mason without paper and a certified one doing the identical job are paid
+differently. Njia had nothing to say to the first person.
+
+**Recognition of Prior Learning (RPL)** is the route, and it is badly
+under-advertised.
+
+| | |
+| --- | --- |
+| What it is | A structured assessment that certifies skills, knowledge and competence gained through work, informal training or life experience, and converts them toward a formal qualification |
+| Who it is for | Artisans, technicians and tradespeople already working — the jua kali sector — competent but holding no certificate |
+| Who runs it | TVETA with the Kenya National Qualifications Authority and ILO support; pushed for by the Federation of Kenya Employers and the Kenya Jua Kali Association |
+| Scale so far | **Over 600 certificates** awarded under the programme |
+| The honest limit | A young programme. Coverage across trades and counties is uneven. Not yet a national service you can sign up to online — expect to approach TVETA or an accredited assessment centre directly |
+
+*Source: TVETA / KNQA Recognition of Prior Learning Policy Framework (June 2021)
+and ILO reporting on RPL implementation, cross-reported August 2026. Confidence:
+`cross-reported`. The 600-certificate figure is the weakest element — it is a
+programme-to-date total with no published per-county or per-trade breakdown, so
+Njia states it as "real but early" rather than as coverage.*
+
+This completes a chain the dataset had already half-drawn: informal majority →
+certification premium → **the mechanism for crossing it**. It ships with its
+limit attached, because sending someone to a service that may not operate in
+their county is worse than saying nothing.

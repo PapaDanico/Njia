@@ -362,7 +362,10 @@ function renderLabourMarketCard(primaryCluster) {
       ${trades ? `
         <div class="informal-note">
           <p class="text-sm mb-1"><strong>The trades are short of people.</strong> ${escapeHtml(SKILLED_TRADES.supplyGap)} Certified day rates have risen from ${range(SKILLED_TRADES.dayRate2012Kes[0], SKILLED_TRADES.dayRate2012Kes[1])} in 2012 to <strong>${range(SKILLED_TRADES.dayRateKes[0], SKILLED_TRADES.dayRateKes[1])} a day</strong>.</p>
-          <p class="text-sm">${escapeHtml(SKILLED_TRADES.caution)}</p>
+          <p class="text-sm mb-1">${escapeHtml(SKILLED_TRADES.caution)}</p>
+          ${typeof PRIOR_LEARNING !== 'undefined' ? `
+            <p class="text-sm"><strong>Already have the skill but no certificate?</strong> <strong>Recognition of Prior Learning</strong> is how you get one without going back to school: ${escapeHtml(PRIOR_LEARNING.whatItIs.charAt(0).toLowerCase() + PRIOR_LEARNING.whatItIs.slice(1))} ${escapeHtml(PRIOR_LEARNING.scaleSoFar)} Help explains who to approach.</p>
+          ` : ''}
         </div>
       ` : ''}
 

@@ -120,6 +120,36 @@ const INFORMAL_ECONOMY = {
   reading: 'Five in six working Kenyans are in the informal sector, and it absorbed 87% of last year\'s new jobs. Formal salary figures describe the smaller share. Plan for a pathway that works either way — a qualification that lets you be hired *and* lets you trade on your own account is worth more here than one that only does the first.'
 };
 
+/* RECOGNITION OF PRIOR LEARNING — the route for people who already have the skill.
+ *
+ * Njia's entire model assumes you are choosing a course. For a large share of
+ * the people it is built for, that is the wrong question. Kenya's informal
+ * sector holds 83.8% of the workforce — mechanics, masons, tailors, welders,
+ * cooks — many of whom are already competent and simply have no paper that says
+ * so.
+ *
+ * This closes a loop the rest of this file already half-draws:
+ *
+ *   1. Five in six working Kenyans are informal (INFORMAL_ECONOMY).
+ *   2. A *certified* artisan earns Ksh 2,500-3,000 a day; uncertified work pays
+ *      a fraction of it (SKILLED_TRADES). The certificate is what earns the rate.
+ *   3. RPL is how you get that certificate for skills you already have, without
+ *      going back to school for years you cannot afford.
+ *
+ * That is the single most useful thing this platform can tell a working
+ * twenty-five-year-old with ten years on the tools and nothing to show for it.
+ */
+const PRIOR_LEARNING = {
+  source: 'TVETA / KNQA Recognition of Prior Learning Policy Framework (June 2021) and ILO reporting on RPL implementation, cross-reported August 2026',
+  whatItIs: 'A structured assessment that certifies skills, knowledge and competence you gained through work, informal training or life experience, and converts them toward a formal qualification.',
+  whoItIsFor: 'Artisans, technicians and tradespeople already working — the jua kali sector — who are competent but hold no certificate.',
+  whoRunsIt: 'Led by TVETA with the Kenya National Qualifications Authority and ILO support. The push came from the Federation of Kenya Employers and the Kenya Jua Kali Association, who identified the need to validate informal skills.',
+  scaleSoFar: 'Over 600 certificates awarded under the programme so far — real but early, so expect to have to ask for it rather than find it advertised.',
+  whyItMatters: 'A certified artisan commands Ksh 2,500-3,000 a day; uncertified work pays a fraction of the same job. If you already have the skill, certification is the shortest distance between what you can do and what you get paid for it.',
+  honestLimit: 'This is a young programme. Coverage across trades and counties is uneven, and you may need to approach TVETA or an accredited assessment centre directly. It is not yet a national service you can simply sign up to online.',
+  clusters: ['tech', 'business', 'creator', 'carer']
+};
+
 /* WHERE THE ROOM ACTUALLY IS — the mechanism behind the capacity paradox.
  *
  * EDUCATION_PIPELINE records that middle-level colleges hold over 1.1 million
@@ -697,5 +727,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING };
 }

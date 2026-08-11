@@ -45,6 +45,7 @@ const LOAN_REALITY = grab('LOAN_REALITY');
 const CBE_PATHWAYS = grab('CBE_PATHWAYS');
 const PLACEMENT_CALENDAR = grab('PLACEMENT_CALENDAR');
 const COMPETITION_REALITY = grab('COMPETITION_REALITY');
+const PRIOR_LEARNING = grab('PRIOR_LEARNING');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -418,4 +419,18 @@ test('the oversubscribed list ships with where the room actually is', () => {
   // KMTC diploma nursing. If that distinction is ever dropped the catalogue
   // starts reading as a promise it cannot keep.
   assert.match(c.theSameFieldTwice, /diploma/i);
+});
+
+test('Recognition of Prior Learning ships with its honest limit', () => {
+  // RPL is the route for someone who already has the skill — the majority
+  // case in an economy where 83.8% of work is informal. But it is a young
+  // programme with uneven coverage, and sending someone to chase a service
+  // that may not exist in their county without warning them is worse than
+  // not mentioning it.
+  const r = PRIOR_LEARNING;
+  assert.ok(r.honestLimit && r.honestLimit.length > 60, 'the maturity caveat must be substantive');
+  assert.match(r.honestLimit, /uneven|young|not yet/i);
+  assert.ok(r.whyItMatters.length > 60, 'the payoff must be concrete, not vague encouragement');
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const c of r.clusters) assert.ok(clusters.includes(c), `RPL maps to unknown cluster ${c}`);
 });

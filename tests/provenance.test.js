@@ -735,3 +735,45 @@ test('the maths fork ships with the exemption, which is the actionable half', ()
     'the degree list must be hedged — it is guidance, not published regulation');
   assert.match(m.confidence, /not a published KUCCPS requirement|informed guidance/i);
 });
+
+test('the exported report card carries the legend the screen carries', () => {
+  // The PDF is the copy that leaves the app. It goes to a parent, a school or
+  // a bursary office with no page around it to explain anything, and it used
+  // to ship the screen's wording minus the two lines that made it true: a
+  // "Four Elements" heading over three bars, percentages with nothing to read
+  // them by, and a bare clock emoji standing in for "Income urgency".
+  const src = fs.readFileSync(path.join(root, 'js', 'discover.js'), 'utf8');
+  const start = src.indexOf('function renderShareableReportHTML');
+  assert.ok(start > -1, 'the report card renderer must exist to be checked');
+  const card = src.slice(start, src.indexOf('function openReportPreviewModal'));
+
+  // Every assertion below runs against the EMITTED markup, not the raw
+  // source: the comments explaining why the emoji and the bare heading were
+  // removed naturally contain both, and a test that trips over its own
+  // rationale — or worse, passes because of it — is not a test.
+  const emitted = card
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .split('\n').filter((l) => !l.trim().startsWith('//')).join('\n');
+
+  // A percentage on paper must say what kind of number it is.
+  assert.match(emitted, /not a mark out of 100/i,
+    'the clarity scores must say they are not a grade');
+  assert.match(emitted, /Clarity Scores/,
+    'the heading must name what the bars measure, as the screen does');
+
+  // The heading promises four; three are bars and the fourth is the
+  // constraints column, which has to say so.
+  assert.match(emitted, /Necessity/,
+    'the fourth Element must be named, or "Four Elements" shows three');
+
+  // Constraint chips: real words, matching the on-screen labels. An emoji
+  // carries no text for a screen reader and is first to fall back to tofu in
+  // a print font.
+  assert.match(emitted, /Income urgency:/, 'urgency must be labelled in words');
+  assert.match(emitted, /Budget \(2yr\):/, 'budget must state its window, as the screen does');
+  assert.ok(!/⏱/.test(emitted), 'the clock emoji must not come back as a label');
+
+  // Applications are first-class in Track and belong in a progress summary
+  // that already reports goals.
+  assert.match(emitted, /applications complete/, 'applications must be reported, not only goals');
+});

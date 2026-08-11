@@ -603,8 +603,16 @@ function renderShareableReportHTML() {
 
   const constraintChips = [
     constraints.grade && `<span class="report-chip">Grade: ${escapeHtml(constraints.grade)}</span>`,
-    constraints.budget && `<span class="report-chip">Budget: ${escapeHtml(constraints.budget.replace('_', ' '))}</span>`,
-    constraints.urgency && `<span class="report-chip">⏱️ ${escapeHtml(constraints.urgency)}</span>`,
+    // Labels match renderDiscoverResults' meta grid exactly. They used to
+    // differ: this card said "Budget: low" where the screen said
+    // "Budget (2yr)", and rendered urgency as a bare "⏱️ high" — a clock emoji
+    // standing in for the words "Income urgency". On screen that is merely
+    // terse. On the PDF it is the whole label, and the PDF is the copy that
+    // travels to a parent, a school or a bursary office with no app around it
+    // to disambiguate. "high" what? Emoji also carry no text for a screen
+    // reader and are the first glyphs to fall back to tofu in a print font.
+    constraints.budget && `<span class="report-chip">Budget (2yr): ${escapeHtml(constraints.budget.replace('_', ' '))}</span>`,
+    constraints.urgency && `<span class="report-chip">Income urgency: ${escapeHtml(constraints.urgency)}</span>`,
     constraints.obligations && `<span class="report-chip">Obligations: ${escapeHtml(constraints.obligations)}</span>`
   ].filter(Boolean).join('');
 
@@ -614,6 +622,18 @@ function renderShareableReportHTML() {
     .slice(0, 3);
 
   const doneOkrs = countDoneOkrs();
+
+  // Applications count as progress too. `applicationStatus` lives in track.js,
+  // which loads after this module — guarded so the card still renders if the
+  // report is ever built before Track is on the page.
+  const apps = Array.isArray(AppState.applications) ? AppState.applications : [];
+  const doneApps = typeof applicationStatus === 'function'
+    ? apps.filter((a) => applicationStatus(a) === 'complete').length
+    : 0;
+  const progressLines = [
+    apps.length ? `${doneApps}/${apps.length} applications complete` : '',
+    AppState.okrs.length ? `${doneOkrs}/${AppState.okrs.length} goals completed` : ''
+  ].filter(Boolean);
 
   return `
     <div class="report-card">
@@ -636,7 +656,17 @@ function renderShareableReportHTML() {
 
       <div class="report-columns">
         <div class="report-elements">
-          <span class="report-section-title">Four Elements</span>
+          ${/* "Four Elements" over three bars was the screen's wording minus
+                the two lines that made it true. renderDiscoverResults titles
+                this "Four Elements — Clarity Scores", describes what each bar
+                measures, and says outright that the fourth Element, Necessity,
+                appears as constraints rather than a score. The card dropped all
+                of it, leaving a heading that promises four rows and shows
+                three, above percentages with nothing to read them by. A
+                standalone artifact cannot borrow context from the page that
+                made it. */''}
+          <span class="report-section-title">Four Elements — Clarity Scores</span>
+          <p class="report-legend">How concentrated each Element is on one cluster. A clarity score, <strong>not a mark out of 100</strong> — 60% is not a pass and 90% is not a distinction.</p>
           ${Object.entries(elementScores).map(([key, score]) => `
             <div class="report-bar-row">
               <span class="report-bar-label">${elementLabels[key]}</span>
@@ -647,7 +677,13 @@ function renderShareableReportHTML() {
         </div>
         ${constraintChips ? `
           <div class="report-constraints">
-            <span class="report-section-title">Your Constraints</span>
+            ${/* Naming Necessity here is what makes the heading opposite it
+                  honest — the fourth Element is present, it is simply reported
+                  as the constraints themselves rather than as a clarity score,
+                  because a "how concentrated" figure over budget and grade
+                  would mean nothing. */''}
+            <span class="report-section-title">Necessity — Your Constraints</span>
+            <p class="report-legend">The fourth Element, shown as your actual constraints rather than a score.</p>
             <div class="report-chip-row">${constraintChips}</div>
           </div>` : ''}
       </div>
@@ -658,7 +694,18 @@ function renderShareableReportHTML() {
           <ul>${savedCourses.map((c) => `<li>${escapeHtml(c.name)}</li>`).join('')}</ul>
         </div>` : ''}
 
-      ${AppState.okrs.length ? `<p class="report-progress-line">${doneOkrs}/${AppState.okrs.length} goals completed so far.</p>` : ''}
+      ${/* The card reported goals and silently omitted applications, which are
+            a first-class object in Track and the more concrete of the two — an
+            application in flight is the thing a parent, school or bursary
+            office actually wants to see on a career report. The line also used
+            to sit bare under the course list with no heading, reading as an
+            orphaned fourth bullet. Both halves are reported here, under a
+            title, and only when there is something to report. */''}
+      ${progressLines.length ? `
+        <div class="report-progress">
+          <span class="report-section-title">Progress So Far</span>
+          <p class="report-progress-line">${progressLines.join(' · ')}</p>
+        </div>` : ''}
 
       <div class="report-footer">
         <p>Built with <strong>Njia</strong> — a free, evidence-based career pathway diagnostic for Kenyan youth.</p>

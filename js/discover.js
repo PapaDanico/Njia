@@ -274,6 +274,40 @@ function clusterSpread(ranked, totalPoints) {
  * whole layer exists to correct. tests/provenance.test.js enforces that the
  * caveat exists on every record.
  */
+/* Automation exposure for the user's cluster.
+ *
+ * Frey & Osborne named three bottlenecks that resist computerisation —
+ * social intelligence, creative intelligence, and complex perception and
+ * manipulation — and those map unusually cleanly onto Njia's clusters, which
+ * is what makes this worth showing per-cluster instead of as a general
+ * warning nobody can act on.
+ *
+ * The two headline estimates disagree, and both are shown. Oxford Martin put
+ * developing-country risk far above rich-country risk; newer AI-specific work
+ * finds the opposite. Presenting only the alarming one would be the same
+ * cherry-picking this codebase has already been corrected for once.
+ */
+function renderAutomationBlock(primaryCluster) {
+  if (typeof AUTOMATION_EXPOSURE === 'undefined') return '';
+  const mine = AUTOMATION_EXPOSURE.bottlenecks.filter((b) => b.clusters.includes(primaryCluster));
+  if (!mine.length) return '';
+
+  return `
+    <h3 class="mt-2 mb-1">How exposed is this to automation?</h3>
+    ${mine.map((b) => `
+      <p class="text-secondary text-sm mb-1"><strong>${escapeHtml(b.barrier)}.</strong> ${escapeHtml(b.meaning)}</p>
+    `).join('')}
+    <p class="text-secondary text-sm mb-1">${escapeHtml(AUTOMATION_EXPOSURE.kenyaHeadline)} ${escapeHtml(AUTOMATION_EXPOSURE.kenyaSharpEnd)}</p>
+    <details class="automation-detail">
+      <summary>The two big estimates disagree — here is how</summary>
+      ${AUTOMATION_EXPOSURE.contested.map((c) => `
+        <p class="text-sm mb-1"><strong>${escapeHtml(c.view)}:</strong> ${escapeHtml(c.figure)}. <span class="text-muted">${escapeHtml(c.basis)}</span></p>
+      `).join('')}
+      <p class="text-muted text-sm">They measure different things — how codifiable the work is, versus what today's systems can actually do and where adoption pays. Njia shows both rather than the more dramatic one.</p>
+    </details>
+  `;
+}
+
 function renderLabourMarketCard(primaryCluster) {
   if (typeof SECTOR_EARNINGS === 'undefined') return '';
   const sectors = SECTOR_EARNINGS.filter((s) => s.clusters.includes(primaryCluster));
@@ -304,6 +338,8 @@ function renderLabourMarketCard(primaryCluster) {
           ${signals.map((s) => `<li><strong>${escapeHtml(s.signal)}.</strong> ${escapeHtml(s.note)}</li>`).join('')}
         </ul>
       ` : ''}
+
+      ${renderAutomationBlock(primaryCluster)}
 
       <h3 class="mt-2 mb-1">The skills that keep paying</h3>
       <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.skillChurn)} ${escapeHtml(FUTURE_OF_WORK.interpretation)}</p>

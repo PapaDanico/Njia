@@ -33,7 +33,7 @@ function renderTrackPage() {
   const el = document.getElementById('page-track');
   if (!el) return;
 
-  const doneApplications = AppState.applications.filter((a) => a.steps.every((s) => s.done)).length;
+  const doneApplications = AppState.applications.filter((a) => applicationStatus(a) === 'complete').length;
   const doneOkrs = AppState.okrs.filter((o) => okrStatus(o) === 'done').length;
 
   el.innerHTML = `
@@ -196,8 +196,15 @@ function deleteOkr(okrId) {
 }
 
 /* ---------- Applications ---------- */
+/* [].every() is true, so an application carrying no steps would report
+ * "complete" — a tracker congratulating someone for work they have not
+ * started. This is reachable in practice, not just in theory:
+ * normalizeState() gives an application saved before `steps` existed an
+ * empty steps array, which is the right repair but lands straight here. */
 function applicationStatus(app) {
-  return app.steps.every((s) => s.done) ? 'complete' : 'in-progress';
+  const steps = Array.isArray(app.steps) ? app.steps : [];
+  if (steps.length === 0) return 'in-progress';
+  return steps.every((s) => s.done) ? 'complete' : 'in-progress';
 }
 
 function renderApplicationsTab(container) {

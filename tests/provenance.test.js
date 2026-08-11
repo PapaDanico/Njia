@@ -30,6 +30,8 @@ const FUNDING_SOURCES = grab('FUNDING_SOURCES');
 const SECTOR_EARNINGS = grab('SECTOR_EARNINGS');
 const YOUTH_EMPLOYMENT_MEASURES = grab('YOUTH_EMPLOYMENT_MEASURES');
 const KENYA_DEMAND_SIGNALS = grab('KENYA_DEMAND_SIGNALS');
+const AUTOMATION_EXPOSURE = grab('AUTOMATION_EXPOSURE');
+const METHOD_LINEAGE = grab('METHOD_LINEAGE');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -121,6 +123,31 @@ test('every cluster a user can match into has labour-market evidence', () => {
     const hasSector = SECTOR_EARNINGS.some((s) => s.clusters.includes(cluster));
     const hasSignal = KENYA_DEMAND_SIGNALS.some((s) => s.clusters.includes(cluster));
     assert.ok(hasSector || hasSignal, `cluster "${cluster}" has no sector earnings and no demand signal`);
+  }
+});
+
+test('automation exposure covers every cluster and keeps both sides of the estimate', () => {
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const cluster of clusters) {
+    assert.ok(
+      AUTOMATION_EXPOSURE.bottlenecks.some((b) => b.clusters.includes(cluster)),
+      `cluster "${cluster}" has no automation guidance — it would render a heading with nothing under it`
+    );
+  }
+  // The two headline estimates point in opposite directions. Dropping either
+  // one turns a contested question into a false verdict, which is the exact
+  // cherry-picking this codebase has already been corrected for once.
+  assert.ok(AUTOMATION_EXPOSURE.contested.length >= 2, 'both sides of the automation estimate must be shown');
+  for (const c of AUTOMATION_EXPOSURE.contested) {
+    assert.ok(c.basis && c.basis.length > 30, `"${c.view}" does not say what it measures`);
+  }
+});
+
+test('every module names the method it is built on', () => {
+  assert.ok(METHOD_LINEAGE.length >= 3);
+  for (const m of METHOD_LINEAGE) {
+    assert.ok(m.source && m.source.length > 10, `${m.module} cites no source`);
+    assert.ok(m.note && m.note.length > 30, `${m.module} does not explain why the method applies`);
   }
 });
 

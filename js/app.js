@@ -304,7 +304,10 @@ function openModal(contentHtml) {
   if (!overlay || !sheet || !dialog) return;
   sheet.innerHTML = contentHtml;
 
-  const heading = sheet.querySelector('h3');
+  // Modal content is not consistently h3 — the comparison sheet leads with an
+  // h2 — so looking for h3 alone silently dropped aria-labelledby and left the
+  // dialog unnamed for screen readers. Take whichever heading comes first.
+  const heading = sheet.querySelector('h1, h2, h3, h4');
   if (heading) {
     if (!heading.id) heading.id = uid('modal-h');
     dialog.setAttribute('aria-labelledby', heading.id);
@@ -315,6 +318,9 @@ function openModal(contentHtml) {
   modalPreviouslyFocused = document.activeElement;
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
+  // Without this the page behind the sheet scrolls under the user's finger on
+  // a phone, which reads as the modal having lost its place.
+  document.body.classList.add('modal-open');
 
   const focusables = getFocusableElements(dialog);
   (focusables[0] || dialog).focus({ preventScroll: true });
@@ -325,6 +331,7 @@ function closeModal() {
   if (!overlay) return;
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
   if (modalPreviouslyFocused && typeof modalPreviouslyFocused.focus === 'function') {
     modalPreviouslyFocused.focus({ preventScroll: true });
   }

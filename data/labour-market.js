@@ -188,6 +188,97 @@ const KENYA_DEMAND_SIGNALS = [
   }
 ];
 
+/* Automation exposure — deliberately presented as a genuine disagreement.
+ *
+ * Two credible bodies of work point in opposite directions:
+ *
+ *   Oxford Martin (Frey & Osborne's method applied with World Bank data)
+ *   put developing-country automation risk at 55–85%, far above their
+ *   original 47% US figure — because poorer economies hold more routine,
+ *   codifiable work.
+ *
+ *   Newer AI-specific analysis finds the reverse: about 4.5% of jobs in
+ *   low- and middle-income economies are highly amenable to current
+ *   generative AI, against 14.2% in high-income ones — because the exposed
+ *   work (clerical, knowledge-processing) is concentrated in rich
+ *   countries, and because adoption needs infrastructure and wage
+ *   incentives that are weaker here.
+ *
+ * Both are real. They measure different things: technical automatability of
+ * task content versus present-day AI amenability. Njia shows both rather
+ * than picking whichever is more dramatic, and names the disagreement — a
+ * seventeen-year-old is owed the state of the evidence, not a tidy verdict
+ * that later turns out to be one camp's.
+ */
+const AUTOMATION_EXPOSURE = {
+  kenyaHeadline: 'Around 2.5 million Kenyans work in roles with high or significant exposure to generative AI.',
+  kenyaSharpEnd: 'Roughly 400,000 clerical and knowledge-processing workers — bookkeepers, payroll clerks, data-entry operators — sit at the sharp end, where disruption is already visible.',
+  kenyaSource: 'ODI analysis of the 2022 Kenya Continuous Household Survey, applying the ILO Generative AI and Jobs framework',
+  contested: [
+    {
+      view: 'Developing economies are more exposed, not less',
+      figure: '55–85% of jobs at risk across developing countries, against 47% in the US',
+      basis: 'Oxford Martin School, applying Frey & Osborne (2013/2017) to World Bank data. Measures how technically codifiable the task content is.'
+    },
+    {
+      view: 'Current AI touches rich-country work first',
+      figure: '4.5% of low- and middle-income jobs highly amenable to automation, against 14.2% in high-income economies',
+      basis: 'Recent AI-specific exposure analysis. Measures what today\'s systems can actually do, and where adoption pays.'
+    }
+  ],
+  /* Frey & Osborne named three bottlenecks that resist computerisation:
+   * complex perception and manipulation, creative intelligence, and social
+   * intelligence. Those map unusually cleanly onto Njia's clusters, which
+   * is why this is worth surfacing per-cluster rather than as a general
+   * warning nobody can act on. */
+  bottlenecks: [
+    {
+      barrier: 'Social intelligence',
+      meaning: 'Negotiation, persuasion, care, and reading people. Persistently hard to automate.',
+      clusters: ['carer', 'people']
+    },
+    {
+      barrier: 'Creative intelligence',
+      meaning: 'Originating ideas and artefacts that are novel rather than recombined.',
+      clusters: ['creator']
+    },
+    {
+      barrier: 'Complex perception and manipulation',
+      meaning: 'Skilled physical work in unstructured settings — installation, repair, fieldwork.',
+      clusters: ['tech']
+    },
+    {
+      barrier: 'Routine processing — the exposed side',
+      meaning: 'Clerical, bookkeeping and data-entry work is the most exposed category in Kenya today. This does not make an office pathway a bad choice; it makes the analytical and judgement parts of it the parts worth building.',
+      clusters: ['business', 'numbers']
+    }
+  ]
+};
+
+/* Njia's method is not improvised. The Odyssey Plan, prototyping and gravity
+ * problems in the Design module come from the Stanford Life Design Lab
+ * (Burnett & Evans), taught at Stanford for close to two decades and now at
+ * 600+ universities. Naming the lineage is not decoration: a tool that asks
+ * a young person to sketch three futures should say whose method that is and
+ * where they can go and read it themselves. */
+const METHOD_LINEAGE = [
+  {
+    module: 'Design — Odyssey Plans, prototyping, gravity problems',
+    source: 'Stanford Life Design Lab; Burnett & Evans, "Designing Your Life"',
+    note: 'Three parallel five-year futures, prototyped rather than committed to. The point of three is that it defeats the single-path thinking that makes a wrong choice feel final.'
+  },
+  {
+    module: 'Discover — interest clusters and their limits',
+    source: 'Tsabari, Tziner & Meir (2005); Low, Yoon, Roberts & Rounds (2005); Nye, Su, Rounds & Drasgow (2012); Super\'s stages of vocational development',
+    note: 'Interest–job congruence correlates only about r = .17 with satisfaction, and interests do not stabilise until roughly ages 25–30 — which is exactly why Njia reports a signal strength rather than a verdict.'
+  },
+  {
+    module: 'Decide — automation and demand evidence',
+    source: 'Frey & Osborne (Oxford Martin); WEF Future of Jobs 2025; KNBS Economic Survey 2026; ODI/ILO Kenya AI exposure analysis',
+    note: 'Sector-level, cited, and shown with its disagreements intact.'
+  }
+];
+
 /* The structural finding Njia is built around: the binding constraint on
  * Kenyan youth employment is not effort, it is the gap between what is taught
  * and what is demanded. Named plainly so the platform's premise is auditable
@@ -199,5 +290,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE };
 }

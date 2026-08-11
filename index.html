@@ -39,8 +39,21 @@
       } catch (e) { /* default light */ }
     })();
   </script>
+  <!-- Content Security Policy.
+       Be precise about what this buys. The app uses inline onclick handlers
+       throughout and a pre-paint theme script, so script-src needs
+       'unsafe-inline' — meaning this CSP does NOT make the app immune to
+       injected script. What it does enforce is origin restriction, and for
+       Njia that is the load-bearing part: connect-src 'self' means user
+       answers, saved courses and plans cannot be sent to any third party,
+       which is the privacy promise the product actually makes. default-src
+       'self' blocks external scripts, styles, fonts and trackers outright.
+       Removing 'unsafe-inline' would require replacing every inline handler
+       with addEventListener — worth doing, and tracked in the upgrade plan. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'">
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
   <!-- Stroke-icon sprite for app chrome (nav, tabs, system affordances) —
        lucide-style geometry hand-inlined on a 24-unit grid, 2px stroke,
        round caps, currentColor. Family design rule (see DESIGN.md): chrome
@@ -165,7 +178,7 @@
       </div>
     </section>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <div class="page" id="page-home"></div>
       <div class="page" id="page-discover"></div>
       <div class="page" id="page-design"></div>
@@ -232,26 +245,26 @@
   </form>
 
   <!-- Data layer -->
-  <script src="./data/questions.js"></script>
-  <script src="./data/institutions.js"></script>
-  <script src="./data/courses.js"></script>
-  <script src="./data/funding.js"></script>
-  <script src="./data/labour-market.js"></script>
+  <script defer src="./data/questions.js"></script>
+  <script defer src="./data/institutions.js"></script>
+  <script defer src="./data/courses.js"></script>
+  <script defer src="./data/funding.js"></script>
+  <script defer src="./data/labour-market.js"></script>
 
   <!-- App shell + modules -->
-  <script src="./js/app.js"></script>
-  <script src="./js/discover.js"></script>
-  <script src="./js/design.js"></script>
-  <script src="./js/decide.js"></script>
-  <script src="./js/connect.js"></script>
-  <script src="./js/track.js"></script>
-  <script src="./js/help.js"></script>
+  <script defer src="./js/app.js"></script>
+  <script defer src="./js/discover.js"></script>
+  <script defer src="./js/design.js"></script>
+  <script defer src="./js/decide.js"></script>
+  <script defer src="./js/connect.js"></script>
+  <script defer src="./js/track.js"></script>
+  <script defer src="./js/help.js"></script>
 
   <script>
     function openAboutModal() {
       openModal(`
         <h3 class="mb-2">About Njia</h3>
-        <p class="text-secondary text-sm mb-2"><strong>The problem.</strong> Nearly a million Kenyan youth sit the KCSE every year — 993,226 in 2025. Only around 30% get placed into a course through KUCCPS. Youth unemployment sits at 15.25%. Most of that isn't a shortage of options; it's a shortage of a clear, personal way to match real strengths and constraints to a real pathway — degree, diploma, TVET, or certificate.</p>
+        <p class="text-secondary text-sm mb-2"><strong>The problem.</strong> Nearly a million Kenyan youth sit the KCSE every year — 993,226 in 2025. Only around 30% get placed into a course through KUCCPS. Youth unemployment is reported anywhere between about 15% and 67% depending on the age band and on whether you count only people actively job-hunting or everyone without adequate work. Most of that isn't a shortage of options; it's a shortage of a clear, personal way to match real strengths and constraints to a real pathway — degree, diploma, TVET, or certificate.</p>
         <p class="text-secondary text-sm mb-2"><strong>What Njia is.</strong> A free, five-module diagnostic — Discover, Design, Decide, Connect, Track — that fuses career psychology, life-design methods and strategic life-portfolio planning into one tool, then checks the result against real Kenyan course fees, grade requirements and funding sources. No account, no cost, works offline once loaded.</p>
         <p class="text-secondary text-sm mb-2"><strong>Who's behind it.</strong> Njia is an independently built, early-stage project — not backed by any institution, government body, or funder (see Products &amp; Partners). That's also why it's honest about which data is illustrative and which is verified: there's no sponsor to please, only the person using it.</p>
         <p class="text-secondary text-sm mb-2"><strong>What we won't do.</strong> Charge for the core diagnostic, sell your data (we don't have it — see Privacy), or claim certainty the data doesn't support.</p>

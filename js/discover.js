@@ -709,7 +709,7 @@ function renderShareableReportHTML() {
 
       <div class="report-footer">
         <p>Built with <strong>Njia</strong> — a free, evidence-based career pathway diagnostic for Kenyan youth.</p>
-        <p class="report-url">njiacareerpathways.netlify.app</p>
+        <p class="report-url">njiacareerpathways.work</p>
       </div>
     </div>
   `;
@@ -730,7 +730,14 @@ function openReportPreviewModal() {
   `);
 }
 
-const NJIA_SITE_URL = 'https://njiacareerpathways.netlify.app/';
+/* The address every share carries: WhatsApp, the native share sheet, the
+ * clipboard, and the footer of every printed report. This was the .netlify.app
+ * deploy subdomain, which meant the product's whole growth loop — a learner
+ * sending their result to a friend or showing a printout to a parent — pointed
+ * at the deploy target rather than the domain being promoted. WhatsApp is the
+ * channel that matters most for this audience, so it was also the costliest
+ * place to have it wrong. */
+const NJIA_SITE_URL = 'https://njiacareerpathways.work/';
 
 function buildReportSummary() {
   const results = AppState.questionnaire.results;

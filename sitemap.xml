@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Njia sitemap.
+
+  One entry, deliberately. Njia is a single-page app: Discover, Design,
+  Decide, Connect, Track and Help are rendered client-side by navigateTo()
+  and never become distinct server URLs. The app does accept a hash on entry
+  (e.g. /#decide), but search engines collapse fragments to the page they
+  hang off, so listing them here would claim URLs that do not independently
+  exist. Better one honest entry than seven invented ones.
+
+  lastmod is maintained by hand — there is no build step to generate it. It
+  marks the last substantive content change, not every deploy.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://njiacareerpathways.work/</loc>
+    <lastmod>2026-08-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

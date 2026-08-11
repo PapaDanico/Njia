@@ -1201,3 +1201,82 @@ test('the catalogue keeps a route for a learner with no KCSE at all', () => {
   assert.ok(new Set(trades.map((c) => byId.get(c.institution_id)?.county)).size >= 2,
     'the no-KCSE route must exist in more than one county');
 });
+
+/* ---------- the domain being promoted is the one that gets indexed ---------- */
+
+/* A search for "njiacareerpathways.work" returned nothing. The site was live
+ * and Lighthouse scored SEO 96, so the markup was fine — the problem was that
+ * the custom domain appeared nowhere in the repository. All five absolute
+ * URLs pointed at the .netlify.app deploy subdomain, there was no canonical,
+ * and there was no robots.txt or sitemap to invite a crawl at all.
+ *
+ * Two hosts serving identical content with no stated preference is duplicate
+ * content: search engines pick a winner themselves and inbound links split
+ * between the two. Meanwhile every WhatsApp share of the custom domain
+ * advertised the deploy subdomain, because og:url said so.
+ *
+ * For a platform whose entire purpose is being found by Kenyan school
+ * leavers, that is a distribution failure, not a cosmetic one. */
+test('the custom domain is the canonical one, everywhere it is asserted', () => {
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const SITE = 'https://njiacareerpathways.work';
+
+  const canonical = html.match(/<link rel="canonical" href="([^"]+)"/);
+  assert.ok(canonical, 'index.html must declare a canonical URL');
+  assert.equal(canonical[1], `${SITE}/`, 'canonical must name the custom domain');
+
+  // og:url and og:image are absolute by necessity — a relative OG image does
+  // not resolve in WhatsApp or Facebook. Absolute means they can point at the
+  // wrong host, which is exactly what happened.
+  for (const [prop, tag] of [['og:url', 'property'], ['og:image', 'property'],
+                             ['twitter:image', 'name']]) {
+    const m = html.match(new RegExp(`<meta ${tag}="${prop}" content="([^"]+)"`));
+    assert.ok(m, `${prop} must be present`);
+    assert.ok(m[1].startsWith(SITE), `${prop} points at ${m[1]} — should be the custom domain`);
+  }
+
+  // Scoped to index.html this guard would have passed while the costliest
+  // instances sat untouched in js/discover.js: NJIA_SITE_URL, which is what
+  // WhatsApp shares, the native share sheet and the clipboard all send, plus
+  // the URL printed on every downloaded report. Check every shipped file.
+  const shipped = ['index.html', 'manifest.json', 'sw.js',
+    ...fs.readdirSync(path.join(root, 'js')).map((f) => `js/${f}`),
+    ...fs.readdirSync(path.join(root, 'data')).map((f) => `data/${f}`)];
+  const offenders = shipped.filter((f) => {
+    const src = fs.readFileSync(path.join(root, f), 'utf8');
+    // Match the host only in URL/text position, not in prose explaining the fix.
+    return /njiacareerpathways\.netlify\.app/.test(src.replace(/\/\*[\s\S]*?\*\/|^\s*(\/\/|\s*\*).*$/gm, ''));
+  });
+  assert.equal(offenders.join(', '), '',
+    'these still send users to the .netlify.app deploy subdomain');
+});
+
+test('robots.txt and sitemap.xml exist, agree, and parse', () => {
+  const robots = fs.readFileSync(path.join(root, 'robots.txt'), 'utf8');
+  const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+
+  assert.match(robots, /^Sitemap:\s*https:\/\/njiacareerpathways\.work\/sitemap\.xml$/m,
+    'robots.txt must point crawlers at the sitemap on the custom domain');
+  assert.match(robots, /^Allow:\s*\//m, 'robots.txt must allow crawling');
+
+  // The namespace is sitemaps.org, plural. Getting it wrong makes the file
+  // unparseable to every crawler while still looking correct at a glance —
+  // this was typed as sitemap.org on the first pass.
+  assert.match(sitemap, /xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/,
+    'sitemap namespace must be sitemaps.org (plural)');
+
+  const loc = sitemap.match(/<loc>([^<]+)<\/loc>/);
+  assert.ok(loc, 'sitemap must contain a <loc>');
+  assert.equal(loc[1], 'https://njiacareerpathways.work/');
+
+  const lastmod = sitemap.match(/<lastmod>([^<]+)<\/lastmod>/)[1];
+  assert.match(lastmod, /^\d{4}-\d{2}-\d{2}$/, 'lastmod must be an ISO date');
+  assert.ok(!Number.isNaN(Date.parse(lastmod)), `lastmod ${lastmod} is not a real date`);
+
+  // Crawler-facing files, fetched by bots and never by the app. Precaching
+  // them would cost every offline user bytes for something they never read —
+  // same reasoning that keeps the install screenshots out.
+  const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
+  assert.ok(!/robots\.txt|sitemap\.xml/.test(sw),
+    'crawler files must stay out of the offline cache');
+});

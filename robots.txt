@@ -1,0 +1,15 @@
+# Njia — https://njiacareerpathways.work/
+#
+# Njia exists to be found by Kenyan school leavers deciding what to do next.
+# Until this file existed there was no crawl invitation and no sitemap
+# pointer, and a search for the domain returned nothing at all.
+#
+# Everything here is public, free and requires no account, so everything is
+# crawlable. There are no private routes to exclude: the app is a single
+# page, all state lives in the visitor's own browser, and nothing a user
+# enters is ever sent to a server.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://njiacareerpathways.work/sitemap.xml

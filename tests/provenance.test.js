@@ -39,6 +39,9 @@ const INFORMAL_ECONOMY = grab('INFORMAL_ECONOMY');
 const SKILLED_TRADES = grab('SKILLED_TRADES');
 const ABSORPTION_GAP = grab('ABSORPTION_GAP');
 const DIGITAL_WORK = grab('DIGITAL_WORK');
+const MINIMUM_WAGE = grab('MINIMUM_WAGE');
+const ENTRY_PAY = grab('ENTRY_PAY');
+const LOAN_REALITY = grab('LOAN_REALITY');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -318,4 +321,43 @@ test('online work is shown with its earnings reality and its AI exposure', () =>
   // two datasets have drifted apart and the connection is no longer supported.
   const declining = FUTURE_OF_WORK.decliningRoles.join(' ').toLowerCase();
   assert.ok(/data entry/.test(declining), 'the AI caution leans on the declining-roles list; keep them consistent');
+});
+
+test('every cluster gets a real starting figure, not just a sector average', () => {
+  // The sector averages include consultants and principals and could never
+  // answer "what will I actually start on" — the question a school-leaver is
+  // really asking. ENTRY_PAY exists to answer it, so no cluster may be left
+  // without one.
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const cluster of clusters) {
+    assert.ok(ENTRY_PAY.some((e) => e.clusters.includes(cluster)),
+      `cluster "${cluster}" has no entry-pay figure and would fall back to averages alone`);
+  }
+  for (const e of ENTRY_PAY) {
+    assert.ok(e.monthlyKes[0] > 0 && e.monthlyKes[1] >= e.monthlyKes[0], `${e.role} has an incoherent range`);
+    assert.ok(e.note && e.note.length > 30, `${e.role} states a figure with no context`);
+  }
+});
+
+test('the minimum wage is present as the yardstick', () => {
+  // Without it, "Ksh 7,766 a month" from online work reads as a number rather
+  // than as less than half the urban legal floor.
+  assert.ok(MINIMUM_WAGE.urbanMonthlyKes > MINIMUM_WAGE.generalMonthlyKes);
+  assert.ok(MINIMUM_WAGE.source.includes('2026'), 'the wage order must be dated');
+  const online = ENTRY_PAY.find((e) => /online|freelance/i.test(e.role));
+  assert.ok(online.monthlyKes[1] < MINIMUM_WAGE.urbanMonthlyKes,
+    'if online work ever clears the urban minimum wage, the "oversold" framing needs revisiting');
+});
+
+test('the loan trap is stated with the action that defuses it', () => {
+  // Grace is 12 months, the penalty is Ksh 5,000/month, and the average
+  // graduate takes five years to find work. Stating the trap without the
+  // Ksh 1,500 minimum payment that prevents it would be alarming and useless.
+  const l = LOAN_REALITY;
+  assert.ok(l.penaltyPerMonthKes > l.minimumMonthlyIfUnemployedKes,
+    'the trap only exists because the penalty exceeds the minimum payment');
+  assert.ok(l.averageYearsToFirstJob * 12 > l.gracePeriodMonths,
+    'the trap depends on job search outlasting grace');
+  assert.ok(l.theAction && l.theAction.length > 60, 'never state the trap without the action');
+  assert.match(l.theAction, /minimum/i, 'the action must name the minimum payment');
 });

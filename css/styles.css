@@ -2082,3 +2082,28 @@ body.modal-open { overflow: hidden; }
 .absorption-note p { color: var(--warn-ink); max-width: var(--prose-max); }
 .absorption-note .caption { color: var(--warn-ink); }
 .absorption-note p:last-child { margin-bottom: 0; }
+
+/* Entry pay — the number a school-leaver is actually asking for, and the one
+   the sector averages could not answer. Leads the card; the averages moved
+   behind a disclosure because they are context, not the answer. */
+.pay-list { margin: var(--space-3) 0 var(--space-4); }
+.pay-row { padding: var(--space-3) 0; border-bottom: 1px solid var(--border); }
+.pay-row:last-child { border-bottom: none; }
+.pay-row-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
+.pay-role { font-weight: 600; }
+.pay-figure { font-weight: 700; white-space: nowrap; }
+.pay-per { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-left: 0.15rem; }
+.pay-note { color: var(--text-secondary); font-size: 0.85rem; margin-top: var(--space-1); max-width: var(--prose-max); }
+
+/* Progressive disclosure for the supporting evidence. The card ran past 1,000
+   words with facts repeating across layers; the decision-relevant figures now
+   lead and the rest is one tap away rather than a wall to scroll past. */
+.evidence-more { margin-top: var(--space-4); border-top: 1px solid var(--border); padding-top: var(--space-3); }
+.evidence-more > summary, .inline-detail > summary {
+  cursor: pointer; font-size: 0.85rem; font-weight: 600;
+  color: var(--text-secondary); padding: var(--space-2) 0;
+}
+.evidence-more > summary:hover, .inline-detail > summary:hover { color: var(--text); }
+.inline-detail { margin-top: var(--space-2); }
+.inline-detail > summary { color: var(--warn-ink); }
+.inline-detail p { color: var(--warn-ink); }

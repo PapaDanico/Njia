@@ -120,6 +120,83 @@ const INFORMAL_ECONOMY = {
   reading: 'Five in six working Kenyans are in the informal sector, and it absorbed 87% of last year\'s new jobs. Formal salary figures describe the smaller share. Plan for a pathway that works either way — a qualification that lets you be hired *and* lets you trade on your own account is worth more here than one that only does the first.'
 };
 
+/* THE YARDSTICK. Every figure in this file should be read against this.
+ * Regulation of Wages (General) (Amendment) Order 2026, Gazette Supplement
+ * No. 128, Legal Notices 95 and 96, in effect from 1 May 2026. */
+const MINIMUM_WAGE = {
+  source: 'Regulation of Wages (General) (Amendment) Order 2026 — Kenya Gazette Supplement No. 128, Legal Notices 95/96, effective 1 May 2026',
+  urbanMonthlyKes: 16114,
+  generalMonthlyKes: 7997,
+  note: 'Ksh 16,114 a month is the statutory floor in major urban areas; Ksh 7,997 is the lower general rate. Skilled workers are set at roughly two to three times the unskilled rate.'
+};
+
+/* WHAT PEOPLE ACTUALLY START ON. The sector averages elsewhere in this file
+ * include consultants and principals; these are entry figures, which is the
+ * number a school-leaver is really asking for. */
+const ENTRY_PAY = [
+  {
+    role: 'Nurse (KRCHN diploma), private hospital',
+    monthlyKes: [20000, 35000],
+    note: 'Entry level. Faster to get than a public post, and paid less for it.',
+    clusters: ['carer']
+  },
+  {
+    role: 'Nurse (KRCHN diploma), public scheme of service',
+    monthlyKes: [50000, 50000],
+    note: 'Materially better paid, but absorption is slow and budget-constrained at county level. UHC staff on short-term contracts moved to permanent and pensionable terms from 1 July 2026.',
+    clusters: ['carer']
+  },
+  {
+    role: 'Nurse, around five years in',
+    monthlyKes: [70000, 70000],
+    note: 'Progression is real — this is the same qualification, later.',
+    clusters: ['carer']
+  },
+  {
+    role: 'Teacher, TSC Grade B5 (diploma entry)',
+    monthlyKes: [28600, 37100],
+    note: 'The 2025–2029 CBA scale for Primary Teacher II, plus a Ksh 4,000 monthly commuter allowance at entry grade. Note the likely first step is an internship rather than this grade — check the terms of the post you are offered.',
+    clusters: ['carer', 'people']
+  },
+  {
+    role: 'Certified artisan (day rate, if worked ~22 days)',
+    monthlyKes: [55000, 66000],
+    note: 'Ksh 2,500-3,000 a day. This is the *ceiling* of a full month at full rate — the work is irregular, so treat it as the best case rather than the expectation.',
+    clusters: ['tech', 'business']
+  },
+  {
+    role: 'Online/freelance digital work (average)',
+    monthlyKes: [7766, 7766],
+    note: 'Below half the urban minimum wage, and only about 28% of trained participants earn anything at all.',
+    clusters: ['tech', 'numbers', 'creator', 'business']
+  }
+];
+
+/* THE DEBT ARITHMETIC NOBODY SETS OUT SIDE BY SIDE.
+ *
+ * HELB gives a one-year grace period after graduation. The penalty for not
+ * starting repayment is Ksh 5,000 a month. World Bank data puts the average
+ * time for a Kenyan university graduate to find a job at five years.
+ *
+ * Those three facts belong on the same page, because together they describe
+ * a trap: a graduate who takes the average time to find work is exposed to
+ * roughly four years of penalties after grace expires. That is not a reason
+ * to avoid borrowing — it is a reason to know the minimum-payment rule, which
+ * is the part that prevents it.
+ */
+const LOAN_REALITY = {
+  source: 'HELB published terms and repayment reporting; World Bank graduate transition data; cross-reported August 2026',
+  interestRatePct: 4,
+  termYears: 10,
+  gracePeriodMonths: 12,
+  minimumMonthlyIfUnemployedKes: 1500,
+  penaltyPerMonthKes: 5000,
+  beneficiariesInDefault: 360000,
+  averageYearsToFirstJob: 5,
+  theTrap: 'Grace runs 12 months. The penalty for not starting is Ksh 5,000 a month — more than three times the Ksh 1,500 minimum payment HELB accepts from someone unemployed or underemployed. A graduate who takes the average five years to find work, and does nothing, is exposed to years of penalties that dwarf the payment that would have prevented them.',
+  theAction: 'If you borrow, start paying the Ksh 1,500 minimum the month grace ends, employed or not. It is the single cheapest thing you can do with this information.'
+};
+
 /* Whole-economy anchors, 2025. Same source and same provenance caveat. */
 const LABOUR_MARKET_ANCHORS = {
   averageAnnualEarningsKes: 988200,
@@ -231,20 +308,8 @@ const AFRICA_OUTLOOK = {
 const KENYA_DEMAND_SIGNALS = [
   {
     signal: 'ICT roles account for roughly 13–15% of formal job postings',
-    note: 'The information and communication sector grew over 6% in 2024, outpacing the wider economy.',
+    note: 'The sector grew over 6% in 2024, outpacing the wider economy — the fastest-expanding formal employer in the country.',
     clusters: ['tech', 'numbers']
-  },
-  {
-    // Three figures circulate and they are not interchangeable. The WEF's own
-    // Kenya study counts roughly 7,000 in BPO proper — voice and transactional
-    // back-office. Around 40,000 jobs are reported as created in the sector
-    // recently. The ICT Authority's 60,000+ counts "BPO and IT-enabled
-    // services", a much wider net including gig and platform work. Njia shipped
-    // the largest number alone, which flattered the sector by nearly an order
-    // of magnitude against the narrowest count. All three are stated here.
-    signal: 'BPO employment is reported between about 7,000 and 60,000 depending on what is counted',
-    note: 'Roughly 7,000 work in BPO proper — voice and transactional back-office (World Economic Forum, Kenya digital economy study, 2025). About 40,000 jobs are reported as created in the wider sector. The ICT Authority\'s 60,000+ figure covers "BPO and IT-enabled services", including gig and platform work. Government targets 500,000. It remains one of the few sectors with formal entry roles that do not require a degree — but plan against the narrow number, not the headline.',
-    clusters: ['business', 'tech']
   },
   {
     signal: 'Banking and financial services report the strongest hiring intentions',
@@ -257,13 +322,8 @@ const KENYA_DEMAND_SIGNALS = [
     clusters: ['carer', 'people']
   },
   {
-    signal: 'Human health and social work is among the better-paying sectors in the economy',
-    note: 'It sits well above the national average earnings figure, and demand is structural rather than cyclical — but entry requires the qualification ladder, not just interest.',
-    clusters: ['carer']
-  },
-  {
-    signal: 'Creative and media roles ride the same ICT expansion',
-    note: 'The information and communication sector grew over 6% in 2024; digital content, design and production work increasingly sits inside it rather than in traditional media houses.',
+    signal: 'Creative work increasingly sits inside tech companies, not media houses',
+    note: 'Digital content, design and production have moved into the information and communication sector — which also means generative AI reaches them sooner.',
     clusters: ['creator']
   },
   {
@@ -531,5 +591,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY };
 }

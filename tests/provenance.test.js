@@ -944,3 +944,73 @@ test('every manifest image exists and its declared size matches the file', () =>
   const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
   assert.ok(!/screenshots\//.test(sw), 'install-dialog screenshots must stay out of the offline cache');
 });
+
+/* ---------- the catalogue can deliver what the evidence layer promises ---------- */
+
+/* Njia's sharpest evidence-layer claim is that certified trades pay: SKILLED_TRADES
+ * reports a Ksh 2,500–3,000 artisan day rate against fewer than 2,000 trained
+ * plumbers, painters and masons nationally, and concludes that "the certificate is
+ * what earns the rate".
+ *
+ * For a long time the app made that argument and could not act on it. The
+ * catalogue contained no masonry, no plumbing, no welding, no carpentry and no
+ * motor-vehicle trade at any level, so a learner persuaded by the argument had
+ * nowhere to apply. Telling someone a door pays well while showing them no door
+ * is worse than staying quiet. */
+test('every rising trade the evidence layer names has a course you can apply to', () => {
+  // Trade name -> the word that identifies its programme in the catalogue.
+  const programmeWord = {
+    Carpenters: 'carpentry', Painters: 'painting', Welders: 'welding',
+    Mechanics: 'mechanics', Plumbers: 'plumbing', Masons: 'masonry',
+    Electricians: 'electrical'
+  };
+  const names = COURSES.map((c) => c.name.toLowerCase());
+  const missing = SKILLED_TRADES.risingTrades.filter((trade) => {
+    const word = programmeWord[trade];
+    assert.ok(word, `no catalogue word mapped for rising trade ${trade} — update this test`);
+    return !names.some((n) => n.includes(word));
+  });
+  assert.equal(missing.join(', '), '', 'evidence layer promotes these trades with no way in');
+});
+
+/* KUCCPS sets the minimum for an Artisan certificate at E and opens Level 4 to
+ * KCSE mean grades C down to E. The grade selector has always offered E, so the
+ * app invited a learner to declare it — and then returned five Open University
+ * short certificates, none of them a trade and none residential. The floor was
+ * real but undeclared. */
+test('the lowest grade the app lets you select still reaches real courses', () => {
+  const GRADES = ['E', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A'];
+  const rank = (g) => GRADES.indexOf(g);
+  const reachable = COURSES.filter((c) => !c.min_grade || rank('E') >= rank(c.min_grade));
+
+  assert.ok(reachable.length >= 10, `grade E reaches only ${reachable.length} courses`);
+  // Not just "some records" — a trade, at a named institution, that ends in a
+  // qualification. The five OUK short certificates alone satisfied a naive count.
+  assert.ok(
+    reachable.some((c) => c.level === 'artisan'),
+    'grade E must reach the artisan tier, not only open-entry short certificates'
+  );
+});
+
+/* The level filter was once a hardcoded ['certificate','diploma','degree'].
+ * Adding artisan records would have left them reachable only under "All Levels":
+ * present in the data, absent from the dropdown, invisible to the learners the
+ * tier exists for. decide.js now derives the options from COURSES. */
+test('every level in the catalogue is offered by the level filter', () => {
+  const decide = fs.readFileSync(path.join(root, 'js/decide.js'), 'utf8');
+
+  // Guard the derivation itself, not a symptom: a literal array of level names
+  // is what the bug looked like, and what a future edit would most likely
+  // reintroduce.
+  assert.match(decide, /const CATALOGUE_LEVELS = \[\.\.\.new Set\(COURSES\.map/,
+    'level options must be derived from COURSES, not hardcoded');
+  assert.match(decide, /const levelOptions = \['all', \.\.\.CATALOGUE_LEVELS\]/,
+    'the filter must consume the derived list');
+
+  // Every level with a record needs a human-readable label, or the dropdown
+  // renders a raw data value.
+  const labels = decide.match(/const LEVEL_LABELS = \{([^}]*)\}/)[1];
+  for (const level of new Set(COURSES.map((c) => c.level))) {
+    assert.ok(labels.includes(`${level}:`), `level "${level}" has no LEVEL_LABELS entry`);
+  }
+});

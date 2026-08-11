@@ -185,6 +185,44 @@ const FUNDING_SOURCES = [
   }
 ];
 
+/* THE STICKER PRICE IS NOT WHAT A PUBLIC-TVET STUDENT PAYS.
+ *
+ * Njia prices 29 courses off the government's consolidated annual public-TVET
+ * fee of Ksh 67,189 and shows that figure, multiplied by course length, as
+ * "Tuition". That is the published fee and it is correct — but it is not the
+ * number a family is asked for.
+ *
+ * The government pays a capitation of Ksh 30,000 per trainee per year, and the
+ * published expectation of the student or guardian is Ksh 26,420 a year, in two
+ * instalments. So a card reading "Ksh 134,378 tuition" for a two-year diploma
+ * is showing something like two and a half times what is actually invoiced.
+ *
+ * That is not a rounding problem. It sits directly on top of the budget filter
+ * and the affordability scoring, and its whole effect is to make public TVET
+ * look further out of reach than it is — to exactly the readers with the least
+ * room, for whom a wrong number in that direction is the difference between
+ * applying and not.
+ *
+ * WHAT DOES NOT RECONCILE, STATED PLAINLY: 67,189 − 30,000 = 37,189, not
+ * 26,420. Both figures are reported consistently across independent sources
+ * and the published arithmetic simply does not close — most likely because the
+ * consolidated fee bundles components the 26,420 balance excludes. Njia does
+ * not invent a reconciliation. It shows the published fee, the published
+ * capitation and the published balance, names the gap, and tells the reader to
+ * get the actual invoice from the registrar.
+ */
+const PUBLIC_TVET_CAPITATION = {
+  source: 'Government consolidated public-TVET fee announcement effective May 2026 (Eastleigh Voice, Education News and sector coverage) and Ministry of Education TVET capitation reporting; the Ksh 30,000 per-trainee capitation has stood since FY 2018/19. Cross-reported August 2026.',
+  consolidatedAnnualFeeKes: 67189,
+  governmentCapitationKes: 30000,
+  publishedStudentBalanceKes: 26420,
+  helbLoanKes: 40000,
+  instalments: 2,
+  reading: 'The government pays Ksh 30,000 a year per trainee directly to the institution. The published expectation of the student or guardian is Ksh 26,420 a year, payable in two instalments — not the full consolidated fee shown as tuition.',
+  helbNote: 'A HELB loan of Ksh 40,000 is available to TVET students, of which Ksh 26,420 covers the fee balance and the remainder goes to upkeep. Funding is not assured — see the TVET funding record for how sharply the funded share fell in 2025/26.',
+  unreconciled: 'Published figures do not add up: Ksh 67,189 less the Ksh 30,000 capitation leaves Ksh 37,189, not the Ksh 26,420 balance that is also published. Both numbers are reported consistently, so the gap is in the published arithmetic rather than in one source. Treat all three as indicative and ask the registrar for the actual invoice.'
+};
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { FUNDING_SOURCES };
+  module.exports = { FUNDING_SOURCES, PUBLIC_TVET_CAPITATION };
 }

@@ -15,6 +15,22 @@ const GRADE_ORDER = ['E', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-
 // getEffectiveGrade() falls back to "unknown grade" for this bucket instead.
 const GRADE_BUCKET_DEFAULT = { A: 'A-', B: 'B', C: 'C' };
 
+/* Every level that actually has a record, lowest entry bar first.
+ *
+ * The level filter used to be a hardcoded ['certificate','diploma','degree'].
+ * Adding the artisan tier to data/courses.js would have left those records
+ * reachable only under "All Levels" — in the data, absent from the dropdown,
+ * and invisible to precisely the learners the tier was added for. Deriving
+ * the list means a level can never again exist in the catalogue but not in
+ * the UI. LEVEL_ORDER only fixes the running order; a level missing from it
+ * still appears, sorted to the end, rather than being dropped. */
+const LEVEL_ORDER = ['artisan', 'certificate', 'diploma', 'degree'];
+const LEVEL_LABELS = { artisan: 'Artisan', certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
+const CATALOGUE_LEVELS = [...new Set(COURSES.map((c) => c.level))].sort((a, b) => {
+  const rank = (l) => (LEVEL_ORDER.indexOf(l) === -1 ? Number.MAX_SAFE_INTEGER : LEVEL_ORDER.indexOf(l));
+  return rank(a) - rank(b) || a.localeCompare(b);
+});
+
 function gradeRank(grade) {
   const idx = GRADE_ORDER.indexOf(grade);
   return idx === -1 ? 0 : idx;
@@ -278,8 +294,14 @@ function renderCourseMatcher(container) {
   // Budget only penalises match score (below) rather than hiding a course —
   // a great over-budget course should still be visible as "a stretch", not
   // disappear. Only cluster/mode/county can actually zero out this list.
-  const levelOptions = ['all', 'certificate', 'diploma', 'degree'];
-  const levelLabels = { certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
+  // Derived from the catalogue, not hardcoded. These were once a literal
+  // ['all','certificate','diploma','degree'], which meant adding the artisan
+  // tier to data/courses.js would have left artisan courses reachable only
+  // under "All Levels" — present in the data, unfilterable in the UI, and
+  // invisible to exactly the learners the tier exists for. Anything with a
+  // record now gets an option; LEVEL_ORDER only decides the running order,
+  // and a level missing from it still appears, at the end.
+  const levelOptions = ['all', ...CATALOGUE_LEVELS];
 
   const modeOptions = ['any', 'full_time', 'evening', 'weekend', 'online'];
   const modeLabels = { any: 'Any Schedule', full_time: 'Full-Time', evening: 'Evening', weekend: 'Weekend', online: 'Online' };
@@ -369,7 +391,7 @@ function renderCourseMatcher(container) {
         ${clusterOptions.map((c) => `<option value="${c}" ${AppState.decideFilters.cluster === c ? 'selected' : ''}>${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}</option>`).join('')}
       </select>
       <select class="form-control" aria-label="Filter by qualification level" onchange="setDecideLevelFilter(this.value)">
-        ${levelOptions.map((l) => `<option value="${l}" ${AppState.decideFilters.level === l ? 'selected' : ''}>${l === 'all' ? 'All Levels' : levelLabels[l]}</option>`).join('')}
+        ${levelOptions.map((l) => `<option value="${l}" ${AppState.decideFilters.level === l ? 'selected' : ''}>${l === 'all' ? 'All Levels' : escapeHtml(LEVEL_LABELS[l] || l)}</option>`).join('')}
       </select>
       <select class="form-control" aria-label="Filter by learning mode" onchange="setDecideModeFilter(this.value)">
         ${modeOptions.map((m) => `<option value="${m}" ${AppState.decideFilters.mode === m ? 'selected' : ''}>${modeLabels[m]}</option>`).join('')}
@@ -545,7 +567,7 @@ function renderCourseCard(course, match) {
         ${inst?.has_hostel ? '<span class="mini-tag">Hostel</span>' : ''}
       </div>
       <div class="meta-grid">
-        <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(course.level)}</div></div>
+        <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(LEVEL_LABELS[course.level] || course.level)}</div></div>
         <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${course.duration_months} mo</div></div>
         <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value num">${formatKes(course.total_fees_kes)}</div></div>
         <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
@@ -565,7 +587,19 @@ function renderCourseCard(course, match) {
         ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
         : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
       }</p>
-      ${isVerified ? `<details class="fee-provenance"><summary>How this fee was verified</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}</p></details>` : ''}
+      ${/* For the 29 courses priced off the government's consolidated public-TVET
+            fee, the tuition figure above is the PUBLISHED fee, not the invoice.
+            Capitation covers Ksh 30,000 a year and the published student balance
+            is Ksh 26,420 — so the number a family is actually asked for is a
+            fraction of what the card otherwise shows. Left unsaid, it makes
+            public TVET look further out of reach than it is, to precisely the
+            readers with the least room. Matched on the verification note rather
+            than on ownership, because KMTC is also a public TVET and prices off
+            its own national structure, not this one. */''}
+      ${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? `
+        <p class="text-sm mb-2"><strong>You are not asked for all of that.</strong> ${escapeHtml(PUBLIC_TVET_CAPITATION.reading)}</p>
+      ` : ''}
+      ${isVerified ? `<details class="fee-provenance"><summary>How this fee was verified</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.unreconciled)}` : ''}</p></details>` : ''}
       <details class="match-why">
         <summary>Why ${match.score}% match?</summary>
         <ul>

@@ -54,7 +54,7 @@ explicitly scoped down rather than faked:
 |---|---|---|
 | 1. Discover | ✅ Full | Adaptive questionnaire, Four Elements clarity scoring, six-cluster matching, voice-to-text input (Web Speech API, transcribes to text — no audio storage) |
 | 2. Design | ✅ Full | Odyssey Plan Builder (3 plans × 5 years), Life Portfolio gauges, Prototype Planner, Gravity Problem Reframer |
-| 3. Decide | ✅ Full | Course Matcher (grade/budget/cluster filters, match %), Funding Finder, inline feasibility estimate |
+| 3. Decide | ✅ Full | Course Matcher (grade/budget/cluster filters, match %), Funding Finder, inline feasibility estimate. Covers all four qualification levels — Artisan (KNQF 4, entry grade E), Certificate, Diploma and Degree — so a learner at the bottom of the KCSE range still has a route shown rather than an empty list |
 | 4. Connect | ⚠️ Scoped down | Real mentor matching and peer cohorts need a live backend and a vetted volunteer directory (Phase 2). This build ships an informational-interview message generator and cluster-based "who to look for" guidance instead of fabricated mentor profiles. |
 | 5. Track | ✅ Full | Personal OKRs, application tracker with timeline, progress stats. Alumni outcome feedback loop needs shared/backend data (Phase 2). |
 
@@ -75,12 +75,14 @@ important since many users share devices.
 │   ├── design.js           # Module 2
 │   ├── decide.js            # Module 3
 │   ├── connect.js            # Module 4
-│   └── track.js               # Module 5
+│   ├── track.js               # Module 5
+│   └── help.js                 # Help page content
 ├── data/
 │   ├── questions.js       # Questionnaire sections + six career clusters
-│   ├── institutions.js     # 18 Kenyan institutions
-│   ├── courses.js           # 27 courses across all six clusters
-│   └── funding.js             # 12 funding sources
+│   ├── institutions.js     # 88 Kenyan institutions, all 47 counties
+│   ├── courses.js           # 185 places to apply · 91 distinct programmes
+│   ├── funding.js             # 12 funding sources
+│   └── labour-market.js        # Evidence layer (earnings, demand, trades, CBE)
 └── icons/                # PWA install icons (generated from brand logo)
 ```
 

@@ -968,3 +968,67 @@ someone's options get hidden from them. A test now asserts the word "bridge"
 survives in the stated reason and that the old overstated wording cannot return,
 since a vaguer reason invites a future contributor to "fix" it by building the
 filter on a guess.
+
+## CBE, third pass — the maths fork
+
+Pushing past "the PDFs can't be read" reached the actual subject lists, and one
+rule that outranks everything else in this section.
+
+### Track subjects, as published
+
+| Pathway | Track | Subjects |
+| --- | --- | --- |
+| STEM | Pure Sciences | Physics · Chemistry · Biology · General Science |
+| STEM | Applied Sciences | Computer Science · Home Science · Agriculture |
+| STEM | Technical Studies | Aviation · Building Construction · Electricity · Metal Work · Power Mechanics · Woodwork · Media Technology · Marine and Fisheries Technology |
+| Social Sciences | Humanities and Business Studies | Religious Education (CRE/IRE/HRE) · Business Studies · History and Citizenship · Geography |
+| Social Sciences | Languages and Literature | Literature in English · Indigenous Languages · KSL · Fasihi ya Kiswahili · Arabic · French · German · Mandarin |
+| Arts and Sports Science | Arts | Music and Dance · Theatre and Film · Fine Art |
+| Arts and Sports Science | Sports Science | Physical Education · Sports and Recreation |
+
+In Pure Sciences and Applied Sciences you take **at least two** subjects from
+the track's own list plus one more from elsewhere in STEM.
+
+### The quietest irreversible choice in the system
+
+Senior school splits mathematics in two, and **which paper you sit is decided by
+your pathway.** It does not look like a choice. It looks like a timetable.
+
+| | |
+| --- | --- |
+| The rule | STEM learners take **Core Mathematics**; Social Sciences and Arts and Sports Science learners take **Essential Mathematics** |
+| The bar | Pure Sciences learners **must** register Core Mathematics and are **barred** from Essential |
+| Essential covers | Functional algebra, financial mathematics (interest, taxation, budgeting), basic statistics, measurement, applied quantitative reasoning |
+| Core covers | The above plus advanced reasoning, algebra, statistics and problem-solving |
+| Core is wanted by | Engineering, medicine, data science, actuarial science, architecture, economics, physical sciences |
+| Essential suits | Law, journalism, creative arts, social work, business management, entrepreneurship, vocational trades |
+
+### The exemption — the only part anyone can act on
+
+**A learner outside STEM may be permitted to take Core Mathematics anyway,
+provided their junior school assessment shows adequate preparation.**
+
+Almost nobody is told this exists. It is the difference between a Social
+Sciences learner keeping accounting, economics or actuarial science open and
+quietly losing them at fourteen. The copy therefore leads on the *timing*: ask
+before the combination is registered, and early enough that junior school
+results can still be put forward.
+
+A test asserts the exemption, its condition, and the "before your combination is
+registered" timing all survive — the rule on its own is trivia, and only the
+exemption is actionable.
+
+### Provenance discipline on this section
+
+The **rule** (who sits which paper, who is barred, that a permission provision
+exists) is consistently reported across specialist education outlets.
+
+The **list of degrees requiring Core Mathematics is informed specialist
+guidance, not a published KUCCPS requirement.** It ships hedged as *"will almost
+certainly want"*, carries an explicit confidence note, and **a test fails if that
+hedge is ever removed** — this project has spent its life separating "reported"
+from "regulated", and this record must not quietly promote one to the other.
+
+*Source: Kenyan specialist education press reporting on the Ministry of
+Education senior school mathematics structure and Grade 10 subject registration,
+cross-reported August 2026. Confidence: `cross-reported`.*

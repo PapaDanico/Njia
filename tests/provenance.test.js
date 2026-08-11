@@ -667,6 +667,11 @@ test('pathways carry their tracks, and the design target is labelled as a target
   for (const pathway of p.pathways) {
     assert.ok(Array.isArray(pathway.tracks) && pathway.tracks.length > 0,
       `pathway ${pathway.name} has no tracks`);
+    for (const track of pathway.tracks) {
+      assert.ok(track.name, `a track under ${pathway.name} has no name`);
+      assert.ok(Array.isArray(track.subjects) && track.subjects.length > 0,
+        `track ${track.name} lists no subjects — a track without its subjects is not usable`);
+    }
   }
   assert.match(p.choiceUnit, /combination/i);
   assert.match(p.choiceUnit, /school/i, 'the school-level constraint is the part people miss');
@@ -692,4 +697,30 @@ test('CBE provenance credits the publisher and admits the documents were not rea
   assert.match(src, /KUCCPS/);
   assert.match(src, /could not be read directly|search indexing/i,
     'the retrieval limitation must travel with the source');
+});
+
+test('the maths fork ships with the exemption, which is the actionable half', () => {
+  // The quietest irreversible choice in the system: which mathematics paper
+  // you sit is decided by pathway and arrives looking like a timetable. The
+  // rule alone is trivia. The exemption — that a non-STEM learner may be
+  // permitted Core Mathematics on the strength of junior school results — is
+  // the only part someone can act on, and it is the part nobody is told.
+  const m = CBE_PATHWAYS.mathsFork;
+  assert.match(m.theRule, /Core Mathematics/);
+  assert.match(m.theRule, /Essential Mathematics/);
+  assert.match(m.theBar, /Pure Sciences/);
+  assert.match(m.theBar, /barred/i);
+
+  assert.ok(m.theExemption, 'the exemption must exist — it is the whole point of the record');
+  assert.match(m.theExemption, /outside STEM/i);
+  assert.match(m.theExemption, /junior school/i, 'the condition on the exemption must be stated');
+  assert.match(m.theAsk, /before your combination is registered/i,
+    'the timing is what makes the exemption usable');
+
+  // The degree list is specialist guidance, not a KUCCPS ruling. Njia has
+  // spent this project separating "reported" from "regulated"; this record
+  // must not quietly promote one to the other.
+  assert.match(m.coreOpens, /almost certainly/i,
+    'the degree list must be hedged — it is guidance, not published regulation');
+  assert.match(m.confidence, /not a published KUCCPS requirement|informed guidance/i);
 });

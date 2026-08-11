@@ -228,10 +228,51 @@ const CBE_PATHWAYS = {
   liveFrom: 'January 2026 — the first Grade 10 cohort',
   decisionPoint: 'Grade 10, at roughly age 14–15, on KJSEA results',
   pathways: [
-    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', tracks: ['Pure Sciences', 'Applied Sciences', 'Technical Studies'], clusters: ['tech', 'numbers'] },
-    { name: 'Social Sciences', covers: 'Humanities, business, languages and policy-facing subjects', tracks: ['Humanities', 'Business Studies', 'Languages', 'Foreign Languages', 'Religious Education'], clusters: ['people', 'business', 'carer'] },
-    { name: 'Arts and Sports Science', covers: 'Creative, performance and sports subjects', tracks: ['Performing and Visual Arts', 'Sports Science'], clusters: ['creator'] }
+    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', clusters: ['tech', 'numbers'],
+      tracks: [
+        { name: 'Pure Sciences', subjects: ['Physics', 'Chemistry', 'Biology', 'General Science'], rule: 'Take at least two from this list, plus one more from anywhere in STEM.' },
+        { name: 'Applied Sciences', subjects: ['Computer Science', 'Home Science', 'Agriculture'], rule: 'Take at least two from this list; the third may come from another STEM track.' },
+        { name: 'Technical Studies', subjects: ['Aviation', 'Building Construction', 'Electricity', 'Metal Work', 'Power Mechanics', 'Woodwork', 'Media Technology', 'Marine and Fisheries Technology'], rule: 'Trade and engineering-facing subjects, taken in threes.' }
+      ] },
+    { name: 'Social Sciences', covers: 'Humanities, business, languages and policy-facing subjects', clusters: ['people', 'business', 'carer'],
+      tracks: [
+        { name: 'Humanities and Business Studies', subjects: ['Religious Education (CRE, IRE or HRE)', 'Business Studies', 'History and Citizenship', 'Geography'], rule: 'Taken in threes from this list.' },
+        { name: 'Languages and Literature', subjects: ['Literature in English', 'Indigenous Languages', 'Kenyan Sign Language', 'Fasihi ya Kiswahili', 'Arabic', 'French', 'German', 'Mandarin'], rule: 'Taken in threes from this list.' }
+      ] },
+    { name: 'Arts and Sports Science', covers: 'Creative, performance and sports subjects', clusters: ['creator'],
+      tracks: [
+        { name: 'Arts', subjects: ['Music and Dance', 'Theatre and Film', 'Fine Art'], rule: 'Taken in threes from this list.' },
+        { name: 'Sports Science', subjects: ['Physical Education', 'Sports and Recreation'], rule: 'Taken with a third subject from the pathway.' }
+      ] }
   ],
+
+  /* THE FORK ALMOST NOBODY IS TOLD TO ASK ABOUT.
+   *
+   * Senior school splits mathematics in two. Which one you sit is decided by
+   * your pathway — and it is the quietest of the irreversible choices, because
+   * it does not look like a choice at all. It looks like a timetable.
+   *
+   * The escape hatch is the part worth the whole record: a learner OUTSIDE
+   * STEM may be permitted to take Core Mathematics if their junior school
+   * assessment shows they are ready. Nobody who does not already know this
+   * would think to ask for it — and it is the difference between a Social
+   * Sciences learner keeping actuarial science, economics or accounting open
+   * and quietly losing them at fourteen.
+   *
+   * Provenance discipline: the RULE (who sits which paper, who is barred,
+   * that permission exists) is reported consistently. The LIST of degrees
+   * needing Core Maths is informed specialist guidance, not a KUCCPS ruling,
+   * and is worded as "almost certainly" rather than stated as regulation. */
+  mathsFork: {
+    theRule: 'Senior school splits mathematics in two. STEM learners take Core Mathematics; Social Sciences and Arts and Sports Science learners take Essential Mathematics.',
+    theBar: 'Learners on the Pure Sciences track must register for Core Mathematics and are barred from Essential Mathematics.',
+    theExemption: 'A learner outside STEM may be permitted to take Core Mathematics, provided their junior school assessment shows adequate preparation. This is the provision to ask about, and almost nobody is told it exists.',
+    coreOpens: 'Engineering, medicine, data science, actuarial science, architecture, economics and the physical sciences will almost certainly want Core Mathematics.',
+    essentialSuits: 'Law, journalism, creative arts, social work, business management, entrepreneurship and the vocational trades sit comfortably with Essential Mathematics.',
+    theDifference: 'Essential Mathematics covers functional algebra, financial mathematics — interest, taxation, budgeting — basic statistics, measurement and applied quantitative reasoning. Core Mathematics goes further into advanced reasoning, algebra, statistics and problem-solving.',
+    theAsk: 'If you are heading outside STEM but think you may ever want a numerate degree, ask about Core Mathematics before your combination is registered, and ask early enough that your junior school results can still be put forward.',
+    confidence: 'The rule and the exemption are consistently reported. The list of degrees requiring Core Mathematics is informed guidance from education specialists rather than a published KUCCPS requirement — treat it as a strong steer and confirm the specific programme.'
+  },
   // A pathway is not the unit you actually pick. You pick a TRACK inside it,
   // and then a coded three-subject combination inside that. The Ministry
   // publishes the full combination table with codes; schools then offer only

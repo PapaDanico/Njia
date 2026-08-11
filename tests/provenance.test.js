@@ -25,6 +25,7 @@ for (const file of ['data/institutions.js', 'data/courses.js', 'data/funding.js'
 }
 const grab = (name) => vm.runInContext(name, context);
 const COURSES = grab('COURSES');
+const DISTINCT_PROGRAMMES = grab('DISTINCT_PROGRAMMES');
 const INSTITUTIONS = grab('INSTITUTIONS');
 const FUNDING_SOURCES = grab('FUNDING_SOURCES');
 const SECTOR_EARNINGS = grab('SECTOR_EARNINGS');
@@ -547,4 +548,190 @@ test('every course is distinguishable by name plus institution', () => {
   const names = new Map();
   for (const c of COURSES) names.set(c.name, (names.get(c.name) || 0) + 1);
   assert.ok(Math.max(...names.values()) > 1, 'bare course names are expected to collide');
+});
+
+test('no course carries a measured outcome, so nothing may rank on one', () => {
+  // The premise both guards below depend on. If Kenya ever publishes
+  // per-course graduate outcomes and records start arriving as 'verified',
+  // this fails loudly — which is the point. The restriction is a response to
+  // the data being illustrative, not a permanent design opinion.
+  const levels = new Set(COURSES.map((c) => c.outcomes_confidence));
+  assert.deepEqual([...levels], ['illustrative'],
+    'outcomes are no longer uniformly illustrative — revisit the sort and comparison restrictions');
+});
+
+test('the Decide sort offers no ordering built on illustrative outcomes', () => {
+  // Sorting is a stronger claim than display: it tells the user "this one
+  // first". Labelling the option "(est.)" qualified the number while the
+  // ordering still asserted a ranking the data cannot support.
+  const src = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  const sortOptionsLines = src.split('\n').filter((l) => l.includes('const sortOptions'));
+  assert.ok(sortOptionsLines.length > 0, 'sortOptions must exist to be checked');
+  for (const line of sortOptionsLines) {
+    assert.ok(!/employment|salary|outcome/i.test(line),
+      `sort menu offers an outcome-based ordering: ${line.trim()}`);
+  }
+  // And no comparator keyed on the outcome fields anywhere in the module.
+  assert.ok(!/^\s*employment:\s*\(a, b\)/m.test(src), 'an employment comparator is still defined');
+  assert.ok(!/median_salary_kes\s*\?\?\s*0\)\s*-/.test(src), 'a salary comparator is still defined');
+});
+
+test('the comparison table shows outcome estimates but crowns no winner', () => {
+  // A shaded "best value" cell is the app declaring a winner. Displaying an
+  // estimate is honest; ranking one estimate above another is not, so the
+  // outcome rows must carry no `better`/`raw` pair while the rows built on
+  // verified fee and duration data still do.
+  const src = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  for (const label of ['Employment Rate (est.)', 'Median Salary (est.)']) {
+    const row = src.split('\n').find((l) => l.includes(`label: '${label}'`));
+    assert.ok(row, `comparison row ${label} not found`);
+    assert.ok(!/better:/.test(row), `${label} still marks a best value`);
+    assert.ok(!/raw:/.test(row), `${label} still exposes a raw value for ranking`);
+  }
+  const tuition = src.split('\n').find((l) => l.includes("label: 'Tuition'"));
+  assert.match(tuition, /better: 'min'/, 'verified fee data should still mark a best value');
+});
+
+test('breadth and reach are counted as separate claims', () => {
+  // 167 records across 73 programme names: counting records as "courses"
+  // overstates breadth more than twofold, because KMTC teaches one national
+  // programme set at 44 campuses. Both numbers are true and answer different
+  // questions, so no surface may quote one while implying the other.
+  assert.equal(DISTINCT_PROGRAMMES, new Set(COURSES.map((c) => c.name)).size);
+  assert.ok(DISTINCT_PROGRAMMES < COURSES.length,
+    'if these ever match, the duplicate-campus shape has changed — recheck the copy');
+
+  for (const file of ['app.js', 'decide.js']) {
+    const src = fs.readFileSync(path.join(root, 'js', file), 'utf8');
+    for (const line of src.split('\n')) {
+      if (!line.includes('COURSES.length')) continue;
+      if (line.trimStart().startsWith('*') || line.trimStart().startsWith('//')) continue;
+      assert.ok(!/\bcourses\b/.test(line),
+        `${file} labels a record count as "courses": ${line.trim()}`);
+    }
+  }
+});
+
+test('the CBE pathway record names the gate that closes at fourteen', () => {
+  // Njia already teaches two gates: a mean grade decides whether you may
+  // apply, cluster points decide placement. Under CBE a third sits ahead of
+  // both — the three pathway subjects taken at Grade 10 ARE the subjects a
+  // degree later requires. It is the only one of the three that cannot be
+  // recovered from, so the record must say so in those terms.
+  const p = CBE_PATHWAYS;
+  assert.ok(p.theConstraint, 'the subject constraint must be stated');
+  assert.match(p.theConstraint, /subject/i);
+  assert.match(p.theConstraint, /grade/i, 'it must contrast against grades, which are recoverable');
+  assert.match(p.theConstraint, /cannot|never/i, 'the irreversibility is the whole point');
+
+  // The actionable half: where it is chosen, and that changing it has a window.
+  assert.match(p.wherePathwaysAreChosen, /selection\.education\.go\.ke/);
+  assert.match(p.changingIt, /Head of Junior School/i);
+  assert.match(p.changingIt, /two weeks/i, 'the deadline is the actionable detail');
+});
+
+test('Njia records what it does not know about pathways, and refuses to gate on it', () => {
+  // Two disciplines, both of which have to survive future editing.
+  const p = CBE_PATHWAYS;
+
+  // 1. The post-enrolment switching rules were searched for and not found.
+  //    Silence would read as "cannot be changed"; a guess would be invention.
+  assert.ok(p.whatIsNotPublished, 'the known gap must be recorded, not left silent');
+  assert.match(p.whatIsNotPublished, /not found|less clearly published/i);
+
+  // 2. Njia informs but does not filter the catalogue by pathway. Encoding an
+  //    unsourced pathway-to-programme map into the matcher would repeat the
+  //    exact fault this test file exists to prevent — invented data deciding
+  //    what a person sees. Guard that the decision stays deliberate.
+  // The reason has to stay precise. An earlier draft said the mapping "is
+  // not published", which was wrong — both halves are. What is missing is the
+  // bridge between CBE subject combinations and KUCCPS cluster requirements
+  // still written in KCSE subjects. A vaguer reason invites someone to
+  // "fix" it by building the filter on a guess.
+  assert.match(p.whyNjiaDoesNotFilter, /does not filter/i);
+  assert.match(p.whyNjiaDoesNotFilter, /bridge/i, 'the missing piece must be named as the bridge, not the whole map');
+  assert.match(p.whyNjiaDoesNotFilter, /KUCCPS/, 'the placement-side source must be credited as published');
+  assert.ok(!/not published in a form worth trusting/i.test(p.whyNjiaDoesNotFilter),
+    'the old overstated reason must not come back');
+
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  assert.ok(!/CBE_PATHWAYS|\bpathway\b/i.test(decide),
+    'Decide must not filter or score on CBE pathway until the subject mapping is sourced');
+});
+
+test('pathways carry their tracks, and the design target is labelled as a target', () => {
+  // You do not pick a pathway. You pick a coded three-subject combination
+  // inside a track inside a pathway, and only from what your school offers —
+  // so the tracks have to be present or the record describes the wrong unit.
+  const p = CBE_PATHWAYS;
+  for (const pathway of p.pathways) {
+    assert.ok(Array.isArray(pathway.tracks) && pathway.tracks.length > 0,
+      `pathway ${pathway.name} has no tracks`);
+    for (const track of pathway.tracks) {
+      assert.ok(track.name, `a track under ${pathway.name} has no name`);
+      assert.ok(Array.isArray(track.subjects) && track.subjects.length > 0,
+        `track ${track.name} lists no subjects — a track without its subjects is not usable`);
+    }
+  }
+  assert.match(p.choiceUnit, /combination/i);
+  assert.match(p.choiceUnit, /school/i, 'the school-level constraint is the part people miss');
+
+  // Scale makes the school constraint concrete. 161 is sourced for STEM only;
+  // the other two pathways' counts were not found, so no system-wide total may
+  // be quoted — summing or extrapolating would be a guess dressed as
+  // arithmetic, which is the failure mode this file exists to prevent.
+  assert.equal(p.stemCombinationCount, 161);
+  assert.match(p.scaleReading, /STEM/, 'the count must be attributed to STEM specifically');
+  assert.match(p.scaleReading, /not sourced|does not quote a total/i,
+    'the missing counts for the other pathways must be admitted');
+  assert.ok(!/\btotal of \d|\ball three pathways carry \d/i.test(p.scaleReading),
+    'no system-wide combination total may be asserted');
+
+  // 60/25/15 is a curriculum-framework planning target, not an observed
+  // placement outcome. Njia has spent this project removing figures that read
+  // as measurements when they are not, so this one must say what it is.
+  const spread = p.intendedSpread;
+  assert.equal(spread.stemPct + spread.socialSciencesAndLanguagesPct + spread.artsAndSportsPct, 100,
+    'the intended spread must account for the whole cohort');
+  assert.match(p.intendedSpreadReading, /target|not a measured|planning/i,
+    'the design target must not read as a measured outcome');
+});
+
+test('CBE provenance credits the publisher and admits the documents were not read', () => {
+  // WebFetch is blocked for these hosts in this environment; search indexing
+  // of the same publishers is not. That distinction matters: the figures are
+  // attributed to the Ministry, KICD, KNEC and KUCCPS, but no PDF was read
+  // line by line here, and the source string has to say so rather than imply
+  // a direct reading.
+  const src = CBE_PATHWAYS.source;
+  assert.match(src, /selection\.education\.go\.ke/);
+  assert.match(src, /KUCCPS/);
+  assert.match(src, /could not be read directly|search indexing/i,
+    'the retrieval limitation must travel with the source');
+});
+
+test('the maths fork ships with the exemption, which is the actionable half', () => {
+  // The quietest irreversible choice in the system: which mathematics paper
+  // you sit is decided by pathway and arrives looking like a timetable. The
+  // rule alone is trivia. The exemption — that a non-STEM learner may be
+  // permitted Core Mathematics on the strength of junior school results — is
+  // the only part someone can act on, and it is the part nobody is told.
+  const m = CBE_PATHWAYS.mathsFork;
+  assert.match(m.theRule, /Core Mathematics/);
+  assert.match(m.theRule, /Essential Mathematics/);
+  assert.match(m.theBar, /Pure Sciences/);
+  assert.match(m.theBar, /barred/i);
+
+  assert.ok(m.theExemption, 'the exemption must exist — it is the whole point of the record');
+  assert.match(m.theExemption, /outside STEM/i);
+  assert.match(m.theExemption, /junior school/i, 'the condition on the exemption must be stated');
+  assert.match(m.theAsk, /before your combination is registered/i,
+    'the timing is what makes the exemption usable');
+
+  // The degree list is specialist guidance, not a KUCCPS ruling. Njia has
+  // spent this project separating "reported" from "regulated"; this record
+  // must not quietly promote one to the other.
+  assert.match(m.coreOpens, /almost certainly/i,
+    'the degree list must be hedged — it is guidance, not published regulation');
+  assert.match(m.confidence, /not a published KUCCPS requirement|informed guidance/i);
 });

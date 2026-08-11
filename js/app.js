@@ -479,8 +479,8 @@ function renderNjiaNumbersCard() {
       <h2 class="landing-numbers-title">What's actually in the app right now</h2>
       <div class="landing-numbers-grid">
         <div class="landing-numbers-item">
-          <span class="landing-numbers-figure">${COURSES.length}</span>
-          <span class="landing-numbers-label">courses matched across ${clusterCount} career clusters</span>
+          <span class="landing-numbers-figure">${DISTINCT_PROGRAMMES}</span>
+          <span class="landing-numbers-label">distinct programmes across ${clusterCount} career clusters, offered at ${COURSES.length} places you could apply</span>
         </div>
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${INSTITUTIONS.length}</span>

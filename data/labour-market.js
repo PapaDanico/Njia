@@ -224,16 +224,104 @@ const PLACEMENT_MECHANICS = {
  * the cluster model both have to answer it eventually.
  */
 const CBE_PATHWAYS = {
-  source: 'Ministry of Education CBE senior school framework and 2026 transition coverage, cross-reported August 2026',
+  source: 'Ministry of Education Grade 10 Selection and Placement System (selection.education.go.ke), KICD Basic Education Curriculum Framework and senior school curriculum designs, KNEC senior school placement material, and KUCCPS degree cluster documentation. Retrieved via search indexing of those publishers August 2026 — the documents themselves could not be read directly from this environment, so figures are attributed to the publisher rather than quoted from the PDF.',
   liveFrom: 'January 2026 — the first Grade 10 cohort',
   decisionPoint: 'Grade 10, at roughly age 14–15, on KJSEA results',
   pathways: [
-    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', clusters: ['tech', 'numbers'] },
-    { name: 'Social Sciences', covers: 'Humanities, business, languages and policy-facing subjects', clusters: ['people', 'business', 'carer'] },
-    { name: 'Arts and Sports Science', covers: 'Creative, performance and sports subjects', clusters: ['creator'] }
+    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', clusters: ['tech', 'numbers'],
+      tracks: [
+        { name: 'Pure Sciences', subjects: ['Physics', 'Chemistry', 'Biology', 'General Science'], rule: 'Take at least two from this list, plus one more from anywhere in STEM.' },
+        { name: 'Applied Sciences', subjects: ['Computer Science', 'Home Science', 'Agriculture'], rule: 'Take at least two from this list; the third may come from another STEM track.' },
+        { name: 'Technical Studies', subjects: ['Aviation', 'Building Construction', 'Electricity', 'Metal Work', 'Power Mechanics', 'Woodwork', 'Media Technology', 'Marine and Fisheries Technology'], rule: 'Trade and engineering-facing subjects, taken in threes.' }
+      ] },
+    { name: 'Social Sciences', covers: 'Humanities, business, languages and policy-facing subjects', clusters: ['people', 'business', 'carer'],
+      tracks: [
+        { name: 'Humanities and Business Studies', subjects: ['Religious Education (CRE, IRE or HRE)', 'Business Studies', 'History and Citizenship', 'Geography'], rule: 'Taken in threes from this list.' },
+        { name: 'Languages and Literature', subjects: ['Literature in English', 'Indigenous Languages', 'Kenyan Sign Language', 'Fasihi ya Kiswahili', 'Arabic', 'French', 'German', 'Mandarin'], rule: 'Taken in threes from this list.' }
+      ] },
+    { name: 'Arts and Sports Science', covers: 'Creative, performance and sports subjects', clusters: ['creator'],
+      tracks: [
+        { name: 'Arts', subjects: ['Music and Dance', 'Theatre and Film', 'Fine Art'], rule: 'Taken in threes from this list.' },
+        { name: 'Sports Science', subjects: ['Physical Education', 'Sports and Recreation'], rule: 'Taken with a third subject from the pathway.' }
+      ] }
   ],
+
+  /* THE FORK ALMOST NOBODY IS TOLD TO ASK ABOUT.
+   *
+   * Senior school splits mathematics in two. Which one you sit is decided by
+   * your pathway — and it is the quietest of the irreversible choices, because
+   * it does not look like a choice at all. It looks like a timetable.
+   *
+   * The escape hatch is the part worth the whole record: a learner OUTSIDE
+   * STEM may be permitted to take Core Mathematics if their junior school
+   * assessment shows they are ready. Nobody who does not already know this
+   * would think to ask for it — and it is the difference between a Social
+   * Sciences learner keeping actuarial science, economics or accounting open
+   * and quietly losing them at fourteen.
+   *
+   * Provenance discipline: the RULE (who sits which paper, who is barred,
+   * that permission exists) is reported consistently. The LIST of degrees
+   * needing Core Maths is informed specialist guidance, not a KUCCPS ruling,
+   * and is worded as "almost certainly" rather than stated as regulation. */
+  mathsFork: {
+    theRule: 'Senior school splits mathematics in two. STEM learners take Core Mathematics; Social Sciences and Arts and Sports Science learners take Essential Mathematics.',
+    theBar: 'Learners on the Pure Sciences track must register for Core Mathematics and are barred from Essential Mathematics.',
+    theExemption: 'A learner outside STEM may be permitted to take Core Mathematics, provided their junior school assessment shows adequate preparation. This is the provision to ask about, and almost nobody is told it exists.',
+    coreOpens: 'Engineering, medicine, data science, actuarial science, architecture, economics and the physical sciences will almost certainly want Core Mathematics.',
+    essentialSuits: 'Law, journalism, creative arts, social work, business management, entrepreneurship and the vocational trades sit comfortably with Essential Mathematics.',
+    theDifference: 'Essential Mathematics covers functional algebra, financial mathematics — interest, taxation, budgeting — basic statistics, measurement and applied quantitative reasoning. Core Mathematics goes further into advanced reasoning, algebra, statistics and problem-solving.',
+    theAsk: 'If you are heading outside STEM but think you may ever want a numerate degree, ask about Core Mathematics before your combination is registered, and ask early enough that your junior school results can still be put forward.',
+    confidence: 'The rule and the exemption are consistently reported. The list of degrees requiring Core Mathematics is informed guidance from education specialists rather than a published KUCCPS requirement — treat it as a strong steer and confirm the specific programme.'
+  },
+  // A pathway is not the unit you actually pick. You pick a TRACK inside it,
+  // and then a coded three-subject combination inside that. The Ministry
+  // publishes the full combination table with codes; schools then offer only
+  // some of them, which is why the school you are placed in constrains the
+  // combination you can take just as much as the pathway does.
+  choiceUnit: 'You do not choose a pathway so much as a coded three-subject combination inside a track inside a pathway — and only from the combinations your school actually offers.',
+  // Scale, which is what makes the school constraint concrete rather than
+  // abstract. 161 combinations exist inside STEM alone; no single school
+  // offers anything approaching that. Counts for the other two pathways have
+  // not been sourced, so only the STEM figure is stated — a total would be a
+  // guess dressed as arithmetic.
+  stemCombinationCount: 161,
+  scaleReading: 'STEM alone carries 161 subject combinations across its three tracks. No school offers anywhere near all of them, which is why the schools you rank decide your real options as much as the pathway does. Njia has not sourced combination counts for Social Sciences or Arts and Sports Science, so it does not quote a total.',
+  // Policy design target from the Basic Education Curriculum Framework — an
+  // intended distribution, NOT an observed outcome. Stated as design because
+  // no placement result for the first cohort has been verified here.
+  intendedSpread: { stemPct: 60, socialSciencesAndLanguagesPct: 25, artsAndSportsPct: 15 },
+  intendedSpreadReading: 'The curriculum framework expects roughly 60% of senior school learners in STEM, 25% in languages and social sciences, and 15% in sports science and the performing and visual arts. This is a planning target, not a measured result — but it tells you the system is built to push the majority toward STEM, so choosing outside it means being in a minority by design rather than by accident.',
   commonCore: 'English, Kiswahili or Kenyan Sign Language, community service learning and physical education are taken by everyone, alongside three pathway subjects.',
-  implication: 'A Grade 10 pathway choice now narrows what is reachable at Grade 12. Njia currently meets people after KCSE, which under this system is after the decisive choice has already been made.'
+  subjectCount: 7,
+  // The correction, and the reason this record exists at all. Njia already
+  // teaches that a mean grade decides whether you may apply while weighted
+  // cluster points decide placement. Under CBE there is a third gate that sits
+  // ahead of both, and it closes at fourteen: the three pathway subjects you
+  // take ARE the subjects a degree later requires. No grade substitutes for a
+  // subject you never sat.
+  theConstraint: 'Your three pathway subjects become the subjects a degree programme later requires of you. That makes the Grade 10 choice a harder gate than any grade: an A in Social Sciences subjects does not open engineering, because the engineering cluster asks for subjects that pathway does not teach. Grades can be improved. A subject you never took cannot be.',
+  wherePathwaysAreChosen: 'Through the Ministry of Education selection portal at selection.education.go.ke, with career guidance from the school before choices are finalised.',
+  changingIt: 'There is a window and it closes. A parent requests a change through the Head of Junior School, and the guidance published for the first cohort required this at least two weeks before the January reporting date.',
+  whatIsNotPublished: 'What is much less clearly published is whether, and how, a learner can switch pathway once senior school has actually begun. Njia has not found an authoritative public answer, so it does not offer one — ask the school and the portal directly rather than assume either way.',
+  implication: 'A Grade 10 pathway choice now narrows what is reachable at Grade 12. Njia currently meets people after KCSE, which under this system is after the decisive choice has already been made.',
+  // Deliberate scope limit, recorded so it is a decision rather than an
+  // oversight — and stated precisely, because an earlier draft of this record
+  // got the reason wrong. It claimed the mapping "is not published". Both
+  // halves of it are:
+  //
+  //   1. CBE side — the Ministry publishes the full pathway/track/subject
+  //      combination table, with codes, at selection.education.go.ke.
+  //   2. Placement side — KUCCPS publishes its degree cluster document, which
+  //      gives every programme's four required cluster subjects.
+  //
+  // What genuinely does not exist yet is the BRIDGE between them: an
+  // authoritative statement of how a CBE three-subject combination will
+  // satisfy KUCCPS cluster-subject requirements for the first cohort to reach
+  // placement. KUCCPS's published requirements are written for KCSE subjects.
+  // Building the bridge ourselves would mean inventing the single rule that
+  // decides whether someone's options are shown or hidden, which is exactly
+  // the fault this dataset was rebuilt to remove. Inform, do not gate.
+  whyNjiaDoesNotFilter: 'Njia explains the constraint but does not filter courses by pathway. Both halves of the mapping are published — the Ministry\'s subject-combination table, and the KUCCPS degree cluster document listing each programme\'s four required subjects. What is not published is the bridge: how a CBE subject combination will satisfy cluster requirements that are still written in KCSE subjects. Njia will not invent that rule, because it is the rule that would decide whether your options get hidden from you. A warning you can act on beats a filter built on a guess.'
 };
 
 /* THE PLACEMENT CALENDAR. Dates, not prose, so the app can work out what is

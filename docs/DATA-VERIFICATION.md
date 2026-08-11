@@ -758,3 +758,326 @@ hoisted to a page-level footnote that a detached card would lose.
 The one line genuinely moved is the cost-of-attendance caveat, which is
 generic advice rather than provenance: it now sits once above the grid, where
 it correctly applies to every card at once.
+
+## Two claims Njia was making that its own data does not support
+
+### 1. "167 courses" was breadth inflated more than twofold
+
+| | |
+| --- | --- |
+| Course records | **167** |
+| Distinct programme names | **73** |
+| Institutions | 83 of 86 carry courses |
+| Counties | 45 of 47 |
+
+The catalogue holds one record per *programme-at-institution*. That is the right
+shape for **"where could I apply"** — a KMTC diploma in Nairobi and the same
+diploma in Kisumu are genuinely different options, with different commutes and
+different competition. It is the wrong shape for **"how many courses are
+there"**, because KMTC teaches one national programme set across 44 campuses.
+
+Both numbers are true; they answer different questions. Every surface now says
+which it means:
+
+- Landing: *"73 distinct programmes across 6 career clusters, offered at 167
+  places you could apply"*
+- Coverage rail: `73 distinct programmes` / `167 places to apply`
+- Results: *"X of 167 **places to apply** match your filters"*
+
+A test scans `app.js` and `decide.js` and fails if any non-comment line pairs
+`COURSES.length` with the word "courses". It also asserts
+`DISTINCT_PROGRAMMES < COURSES.length`, so if the duplicate-campus shape ever
+changes the copy gets rechecked rather than silently going stale.
+
+### 2. Illustrative outcomes were still ranking results
+
+Fees are **125 of 167 verified (75%)**. Outcomes are **0% verified** — every
+`outcomes_confidence` in the catalogue is `illustrative`, because Kenya
+publishes no per-course graduate outcomes (confirmed negatively against TVETA,
+the education ministry and KIPPRA).
+
+Those figures were nonetheless doing two ranking jobs:
+
+- **A "Highest Employment (est.)" sort option.** The `(est.)` label was the
+  earlier mitigation and it was not enough. A label qualifies the *number*
+  while the ordering still asserts a *ranking* the data cannot support.
+  **Removed.**
+- **A shaded "best value" cell** on the Employment Rate and Median Salary rows
+  of the comparison table. A shaded cell is the app declaring a winner between
+  two invented figures. **Removed** — the values still show, marked `est.`
+
+The principle, now encoded in tests: **sorting is a stronger claim than
+display.** An estimate may be shown when it is marked as one; it may not decide
+what comes first.
+
+This closes the exact failure recorded at the top of `tests/provenance.test.js`
+— *"an invented employment rate rendering under a Verified badge, sorting the
+results list, and picking the comparison table's winner."* The badge was fixed
+earlier in the project; the sorting and the winner were not, until now.
+
+Returning users whose saved state still holds `sortBy: 'employment'` are healed
+to `match` on render, so the dropdown cannot show one thing while state says
+another.
+
+**Also corrected:** the coverage rail rendered lowest tuition as a bare `0`,
+which reads as missing data. Two OUK short courses genuinely cost nothing, so
+it now reads **Free**.
+
+*Each of the three new guards was negative-tested — reintroduce the violation
+and the suite fails 1, restore and it passes 85.*
+
+## The CBE pathway decision — settled, and what was decided
+
+This was carried as an open scope question for several rounds. It is now closed.
+
+### The finding that settled it
+
+Under CBE, learners take **7 subjects** at senior school: 4 core (English,
+Kiswahili or KSL, Community Service Learning, Physical Education) plus **3
+pathway subjects**. And those three pathway subjects **become the subjects a
+degree programme later requires.**
+
+That makes the Grade 10 choice a harder gate than any grade. Njia already
+teaches two gates:
+
+| Gate | What it decides | Recoverable? |
+| --- | --- | --- |
+| Mean grade | Whether you may **apply** | Yes — retake |
+| Weighted cluster points | **Placement**, ranked against every applicant | Yes — improve subjects |
+| **CBE pathway subjects** | **Which programmes require subjects you hold** | **No** |
+
+An A in Social Sciences subjects does not open engineering, because the
+engineering cluster asks for subjects that pathway does not teach. **Grades can
+be improved. A subject you never sat cannot be.**
+
+### What was decided
+
+**Njia does not become a Grade 10 pathway diagnostic.** Njia's own evidence card
+states that vocational interests only reach adult stability (r ≈ .70) at ages
+25–30, and that interest–choice alignment *dips* at decision points. Building an
+interest-based diagnostic for 14-year-olds would contradict the research the
+platform cites on its own results page. The Decide module — fees, funding,
+placement, cut-offs — is also meaningless to someone in Grade 9.
+
+**Njia does state the constraint, plainly, where someone will meet it.** This is
+the third correction in the same family and it is recorded as such in the Help
+answer, which explicitly ties it back to the grade/cluster-points correction.
+
+**Njia does not filter the catalogue by pathway** — recorded in
+`whyNjiaDoesNotFilter` and enforced by a test that fails if `decide.js` ever
+references pathway. Filtering needs a verified map from each pathway's subjects
+to every programme's required subjects. No such map is published in a form worth
+trusting with someone's options, and a confident filter built on a guess would
+quietly hide courses a person can actually do. **Inform, do not gate.** That
+restriction is written to be lifted the moment the mapping is sourced.
+
+### What is deliberately not answered
+
+Whether, and how, a learner can switch pathway **once senior school has already
+begun** is not clearly published. It was searched for and not found. Silence
+would read as "cannot be changed"; a guess would be invention. The record carries
+`whatIsNotPublished`, a test asserts it survives, and the Help answer says
+outright that Njia will not guess and to ask the school and the portal directly.
+
+What *is* verified: choices are made through the Ministry portal at
+`selection.education.go.ke`, and a change before reporting is requested by a
+parent through the Head of Junior School, at least two weeks before the January
+reporting date.
+
+*Source: Ministry of Education Grade 10 Selection and Placement System
+(selection.education.go.ke), KICD Basic Education Curriculum Framework and senior
+school curriculum designs, KNEC senior school placement material, and KUCCPS
+degree cluster documentation. Retrieved August 2026 via search indexing of those
+publishers. Confidence: `cross-reported`.*
+
+> **Correction to an earlier version of this section.** It stated that
+> `selection.education.go.ke` "is blocked by this environment's egress proxy, as
+> are all `.go.ke` domains tried this session, so the primary source could not be
+> read directly." That was too broad and it stopped research that should have
+> continued. **`WebFetch` is blocked for these hosts; domain-restricted search is
+> not.** Searching the publishers directly returned materially better material —
+> the Ministry's coded subject-combination table, the pathway *track* structure,
+> the curriculum framework's intended pathway spread, and the KUCCPS degree
+> cluster document. What remains true is narrower: the PDFs themselves could not
+> be read line by line here, so figures are attributed to the publisher rather
+> than quoted from the document, and a test asserts that limitation travels with
+> the source string.
+
+### Timing
+
+The first CBE cohort entered Grade 10 in January 2026 and reaches placement
+around **2029**. Nothing here is broken for today's KCSE users. It was worth
+doing now because Njia was silent for every parent or older sibling advising a
+Grade 9 student today — and because `CBE_PATHWAYS` had been sitting in the
+dataset **exported but never rendered anywhere**, which this also fixes.
+
+## CBE, second pass — what searching the publishers directly turned up
+
+Three findings the first pass missed, and one correction to its reasoning.
+
+### The unit of choice is narrower than a pathway
+
+A pathway is only the top level. Inside it sits a **track**, and inside that a
+**coded three-subject combination** — and a school offers only some of them.
+
+| Pathway | Tracks |
+| --- | --- |
+| STEM | Pure Sciences · Applied Sciences · Technical Studies |
+| Social Sciences | Humanities · Business Studies · Languages · Foreign Languages · Religious Education |
+| Arts and Sports Science | Performing and Visual Arts · Sports Science |
+
+**The school you are placed in narrows your combination as much as the pathway
+does.** That is the actionable part, and it argues for checking which
+combinations a school actually offers *before* ranking it among your twelve
+choices.
+
+### The spread is a design target, not an accident
+
+The Basic Education Curriculum Framework expects roughly **60%** of senior
+school learners in STEM, **25%** in languages and social sciences, and **15%**
+in sports science and the performing and visual arts.
+
+This is recorded as `intendedSpread` and rendered explicitly as *"a planning
+target rather than a measured result"* — it describes how the system was built,
+not where the first cohort landed. A test fails if that framing is dropped,
+because this project has spent its life removing figures that read as
+measurements when they are not.
+
+What it usefully tells a reader: choosing outside STEM puts you in a minority
+the system planned for, not a mistake — and choosing STEM puts you in the stream
+intended to be the most crowded.
+
+### The no-filter reasoning was wrong, and is now precise
+
+The earlier record said filtering was refused because the pathway-to-programme
+map "is not published in a form worth trusting". **Both halves of it are
+published:**
+
+1. **CBE side** — the Ministry's full pathway/track/subject-combination table,
+   with codes, at `selection.education.go.ke`.
+2. **Placement side** — the KUCCPS degree cluster document, giving every
+   programme's four required cluster subjects.
+
+What genuinely does not exist is **the bridge**: an authoritative account of how
+a CBE three-subject combination will satisfy cluster requirements that are still
+written in KCSE subjects, for the first cohort reaching placement around 2029.
+
+The decision not to filter stands — but for the accurate reason. Njia will not
+invent the bridge, because that is precisely the rule that would decide whether
+someone's options get hidden from them. A test now asserts the word "bridge"
+survives in the stated reason and that the old overstated wording cannot return,
+since a vaguer reason invites a future contributor to "fix" it by building the
+filter on a guess.
+
+## CBE, third pass — the maths fork
+
+Pushing past "the PDFs can't be read" reached the actual subject lists, and one
+rule that outranks everything else in this section.
+
+### Track subjects, as published
+
+| Pathway | Track | Subjects |
+| --- | --- | --- |
+| STEM | Pure Sciences | Physics · Chemistry · Biology · General Science |
+| STEM | Applied Sciences | Computer Science · Home Science · Agriculture |
+| STEM | Technical Studies | Aviation · Building Construction · Electricity · Metal Work · Power Mechanics · Woodwork · Media Technology · Marine and Fisheries Technology |
+| Social Sciences | Humanities and Business Studies | Religious Education (CRE/IRE/HRE) · Business Studies · History and Citizenship · Geography |
+| Social Sciences | Languages and Literature | Literature in English · Indigenous Languages · KSL · Fasihi ya Kiswahili · Arabic · French · German · Mandarin |
+| Arts and Sports Science | Arts | Music and Dance · Theatre and Film · Fine Art |
+| Arts and Sports Science | Sports Science | Physical Education · Sports and Recreation |
+
+In Pure Sciences and Applied Sciences you take **at least two** subjects from
+the track's own list plus one more from elsewhere in STEM.
+
+### The quietest irreversible choice in the system
+
+Senior school splits mathematics in two, and **which paper you sit is decided by
+your pathway.** It does not look like a choice. It looks like a timetable.
+
+| | |
+| --- | --- |
+| The rule | STEM learners take **Core Mathematics**; Social Sciences and Arts and Sports Science learners take **Essential Mathematics** |
+| The bar | Pure Sciences learners **must** register Core Mathematics and are **barred** from Essential |
+| Essential covers | Functional algebra, financial mathematics (interest, taxation, budgeting), basic statistics, measurement, applied quantitative reasoning |
+| Core covers | The above plus advanced reasoning, algebra, statistics and problem-solving |
+| Core is wanted by | Engineering, medicine, data science, actuarial science, architecture, economics, physical sciences |
+| Essential suits | Law, journalism, creative arts, social work, business management, entrepreneurship, vocational trades |
+
+### The exemption — the only part anyone can act on
+
+**A learner outside STEM may be permitted to take Core Mathematics anyway,
+provided their junior school assessment shows adequate preparation.**
+
+Almost nobody is told this exists. It is the difference between a Social
+Sciences learner keeping accounting, economics or actuarial science open and
+quietly losing them at fourteen. The copy therefore leads on the *timing*: ask
+before the combination is registered, and early enough that junior school
+results can still be put forward.
+
+A test asserts the exemption, its condition, and the "before your combination is
+registered" timing all survive — the rule on its own is trivia, and only the
+exemption is actionable.
+
+### Provenance discipline on this section
+
+The **rule** (who sits which paper, who is barred, that a permission provision
+exists) is consistently reported across specialist education outlets.
+
+The **list of degrees requiring Core Mathematics is informed specialist
+guidance, not a published KUCCPS requirement.** It ships hedged as *"will almost
+certainly want"*, carries an explicit confidence note, and **a test fails if that
+hedge is ever removed** — this project has spent its life separating "reported"
+from "regulated", and this record must not quietly promote one to the other.
+
+*Source: Kenyan specialist education press reporting on the Ministry of
+Education senior school mathematics structure and Grade 10 subject registration,
+cross-reported August 2026. Confidence: `cross-reported`.*
+
+### Scale — what makes the school constraint concrete
+
+**STEM alone carries 161 subject combinations** across its three tracks. No
+school offers anywhere close to that, which is precisely why the twelve schools
+a learner ranks decide their real options as much as the pathway does.
+
+Combination counts for Social Sciences and Arts and Sports Science were **not
+found**. Njia therefore quotes the STEM figure only and states the gap — a
+system-wide total would be a guess dressed as arithmetic. A test asserts the
+count is attributed to STEM specifically, that the missing counts are admitted,
+and **fails if any system-wide total is ever asserted**.
+
+## Re-testing the negative that the sorting restriction rests on
+
+Every `outcomes_confidence` in the catalogue is `illustrative` because Kenya
+publishes no per-course graduate outcomes. That negative is load-bearing: it is
+the reason the Decide sort offers no outcome-based ordering and the comparison
+table crowns no winner on employment or salary.
+
+A negative finding reached by a method that was itself limited is worth exactly
+as much as the method. Since domain-restricted search turned out to reach
+publishers that direct fetch could not — see the correction in the CBE section —
+the finding was **re-tested in August 2026** against KUCCPS, TVETA, KNBS, the
+Commission for University Education, KIPPRA and the Ministry of Education.
+
+**It holds.** No Kenyan dataset giving employment rate or earnings *by course or
+programme* was found. What the publishers carry is enrolment and programme
+listings, not outcomes.
+
+### The trap in those results, recorded because it is an easy mistake
+
+The search surfaced tracer studies with precise, quotable employment figures —
+for example **"97% of graduates employed, 75% within one month, 86% in permanent
+positions."**
+
+That study is **Tanzanian** — nursing graduates of Kairuki University in Dar es
+Salaam. Others returned were Ethiopian and Indonesian. They are real studies
+with real numbers, they appear in a search scoped to Kenyan education
+publishers, and dropping one into a Kenyan course record would produce exactly
+the failure this dataset was rebuilt to remove: a foreign, single-institution
+figure rendering as though it described a Kenyan programme.
+
+Njia takes none of them. The absence of Kenyan per-course outcome data is a fact
+about Kenya, not a gap to be filled with the nearest available number.
+
+*This re-test changes no data. It is recorded because the restriction it
+supports is a deliberate reduction in what the app will do, and a restriction is
+only as defensible as the evidence that it is still necessary.*

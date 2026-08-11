@@ -374,3 +374,63 @@ relationships, judgement, specialist domains.
 A test enforces that the AI caution names both the decline and the specific
 roles, and cross-checks that those roles still appear in the declining list —
 so the two datasets cannot drift apart and leave the claim unsupported.
+
+
+## Entry pay — the question the averages could not answer
+
+Sector averages include consultants and principals. They could never answer
+"what will I actually start on", which is the question a school-leaver is
+asking. These are entry figures.
+
+| Role | Monthly | Note |
+| --- | --- | --- |
+| Nurse (KRCHN), private hospital | Ksh 20,000–35,000 | Faster to get than a public post, paid less for it |
+| Nurse (KRCHN), public scheme of service | ~Ksh 50,000 | Better paid, slow county absorption |
+| Nurse, ~5 years in | Ksh 70,000+ | Same qualification, later |
+| Teacher, TSC Grade B5 (diploma entry) | Ksh 28,600–37,100 | Plus Ksh 4,000 commuter allowance; first step is often an internship |
+| Certified artisan (~22 days at day rate) | Ksh 55,000–66,000 | **Best case, not expectation** — work is irregular |
+| Online/freelance digital work (average) | Ksh 7,766 | Below half the urban minimum wage |
+
+**The yardstick:** Kenya's urban minimum wage is **Ksh 16,114/month**
+(Regulation of Wages (General) (Amendment) Order 2026, Gazette Supplement 128,
+Legal Notices 95/96, effective 1 May 2026). Without it, "Ksh 7,766 from online
+work" reads as a number rather than as less than half the legal floor.
+
+A test fails if any cluster lacks an entry figure, and if online work ever
+clears the urban minimum wage — because then the "oversold" framing needs
+revisiting rather than keeping.
+
+## The loan trap, and the action that defuses it
+
+Three facts that are never set out together:
+
+- HELB grace period after graduation: **12 months**
+- Penalty for not starting repayment: **Ksh 5,000/month**
+- Average time for a Kenyan university graduate to find a job: **five years** (World Bank)
+
+A graduate who takes the average time and does nothing is exposed to years of
+penalties. But HELB accepts **Ksh 1,500/month** from someone unemployed or
+underemployed — a third of the penalty. Roughly 360,000 beneficiaries are in
+default.
+
+Njia states the trap **and** the action: start the Ksh 1,500 minimum the month
+grace ends, employed or not. A test fails if the trap is ever stated without
+it, because alarming a young person without telling them the cheap fix is worse
+than saying nothing.
+
+## Repetition audit
+
+Twelve evidence layers were added quickly and facts began appearing in several
+of them. A rendered-text audit found the results card running to **~1,000
+words** with "shortage×4", "BPO×4" and "digital×4" per cluster.
+
+Fixed by consolidation rather than deletion: entry pay and the decision-relevant
+panels now lead, and sector averages, demand signals, automation exposure and
+the future-of-work evidence moved behind a single disclosure. Duplicated
+records were pruned — the BPO breakdown lives only in the online-work layer, and
+two demand signals that restated the ICT and health stories were removed or
+rewritten.
+
+**Visible text fell from ~1,000 words to 260–486 per cluster**, every cluster
+now leads with a real starting figure, and repeated-phrase counts are at or
+near zero. Nothing was lost; it is one tap away instead of a wall to scroll.

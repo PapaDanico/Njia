@@ -261,3 +261,33 @@ This is the first time that claim has been evidenced, and it is now the lead
 statistic on the landing page. `tests/provenance.test.js` fails if the
 capacity-to-placement gap ever inverts — because if it does, the premise needs
 rewriting, not the number massaging.
+
+
+## The informal economy — context every salary figure needs
+
+| Measure | Figure |
+| --- | --- |
+| Informal share of total employment | **83.8%** (18.1 million people) |
+| Formal wage employment | 16.2% (3.5 million) |
+| New jobs created, 2025 | 822,100 |
+| Share of those that were informal | **87.2%** |
+| Largest informal sector | Wholesale/retail, hotels and restaurants — 10.7 million |
+
+*Source: KNBS Economic Survey 2026, cross-reported August 2026.*
+
+Every figure in `SECTOR_EARNINGS` is an average across **formal wage
+employment** — the destination of roughly one working Kenyan in six. Njia had
+a caveat gesturing at this ("the informal sector absorbs far more workers") but
+never quantified it, so the formal salary ladder read as the normal outcome.
+
+The note now renders directly above the earnings figures, and a test fails if
+the informal share ever drops below half or if the wording frames informal work
+as a fallback. It is not the failure case: for five in six workers it is the
+economy, and it is why enterprise capital (YEDF) sits in the funding module
+rather than in a footnote.
+
+**Also confirmed, negatively:** searches restricted to `tveta.go.ke`,
+`education.go.ke` and `kippra.or.ke` return no national TVET graduate tracer
+study with employment outcomes. That is direct support for keeping
+`outcomes_confidence: 'illustrative'` on every course — the data does not exist
+to verify against, and this is now a checked absence rather than an assumption.

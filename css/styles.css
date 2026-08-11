@@ -2053,3 +2053,17 @@ body.modal-open { overflow: hidden; }
 @media (min-width: 640px) { .growth-split { grid-template-columns: 1fr 1fr; } }
 .growth-split > div { padding: var(--space-4); background: var(--surface-2, var(--surface)); border: 1px solid var(--border); border-radius: var(--radius-md); }
 .growth-split p { margin-top: var(--space-1); max-width: none; }
+
+/* The informal-economy note sits directly above the sector earnings, because
+   those averages describe formal wage employment — where roughly one working
+   Kenyan in six ends up. Shown as context, not a warning: for five in six
+   workers the informal sector is the economy, not the failure case. */
+.informal-note {
+  background: var(--accent-soft, var(--surface));
+  border-left: 3px solid var(--accent, var(--primary));
+  border-radius: var(--radius-sm, 6px);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.informal-note p { max-width: var(--prose-max); color: var(--text-secondary); }
+.informal-note p:last-child { margin-bottom: 0; }

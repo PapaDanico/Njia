@@ -35,6 +35,7 @@ const METHOD_LINEAGE = grab('METHOD_LINEAGE');
 const EDUCATION_PIPELINE = grab('EDUCATION_PIPELINE');
 const FUTURE_OF_WORK = grab('FUTURE_OF_WORK');
 const AFRICA_OUTLOOK = grab('AFRICA_OUTLOOK');
+const INFORMAL_ECONOMY = grab('INFORMAL_ECONOMY');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -243,4 +244,20 @@ test('regional optimism ships with its caveat', () => {
   // talent pool, not any one person's hiring odds.
   assert.ok(AFRICA_OUTLOOK.caveat && AFRICA_OUTLOOK.caveat.length > 40);
   assert.ok(AFRICA_OUTLOOK.source.includes('World Economic Forum'));
+});
+
+test('the informal economy context ships alongside the formal salary figures', () => {
+  // Every SECTOR_EARNINGS figure is formal wage employment — the destination of
+  // roughly one working Kenyan in six. Showing that ladder as the normal
+  // outcome, without saying how narrow it is, misdescribes where a school-leaver
+  // is statistically most likely to end up.
+  const i = INFORMAL_ECONOMY;
+  assert.ok(i.informalSharePct > 50, 'if this ever drops below half, the framing needs rewriting');
+  assert.ok(Math.abs((i.informalSharePct + i.formalSharePct) - 100) < 0.5, 'shares must sum to 100');
+  assert.ok(i.informalWorkers > i.formalWorkers * 3);
+  assert.ok(i.source && i.source.length > 20);
+  // The reading must not frame informal work as failure — it is the economy for
+  // five in six workers, and Njia's enterprise funding exists because of it.
+  assert.ok(i.reading.length > 80, 'the reading must give an actual planning instruction');
+  assert.ok(!/fallback|last resort|failure/i.test(i.reading), 'informal work must not be framed as a fallback');
 });

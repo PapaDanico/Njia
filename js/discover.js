@@ -322,6 +322,13 @@ function renderLabourMarketCard(primaryCluster) {
       <h2 class="mb-1 mt-1">What this field actually pays — and who is hiring</h2>
       <p class="text-secondary text-sm mb-2">Kenya publishes earnings by <em>sector</em>, not by course. These are averages across formal wage employment, so read them as where a career can reach, not where it starts.</p>
 
+      ${typeof INFORMAL_ECONOMY !== 'undefined' ? `
+        <div class="informal-note">
+          <p class="text-sm mb-1"><strong>${INFORMAL_ECONOMY.informalSharePct}% of Kenyan workers are in the informal sector</strong> — ${(INFORMAL_ECONOMY.informalWorkers / 1000000).toFixed(1)} million people, against ${(INFORMAL_ECONOMY.formalWorkers / 1000000).toFixed(1)} million in formal wage jobs. ${INFORMAL_ECONOMY.newJobsInformalPct}% of last year's new jobs were informal.</p>
+          <p class="text-sm">${escapeHtml(INFORMAL_ECONOMY.reading)}</p>
+        </div>
+      ` : ''}
+
       ${sectors.map((s) => `
         <div class="sector-row">
           <div class="sector-row-head">

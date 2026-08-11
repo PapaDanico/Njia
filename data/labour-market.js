@@ -16,9 +16,11 @@
  * Every earnings figure below is an average across *formal wage employment*
  * in that sector. It includes principals, consultants and senior engineers.
  * It is not a starting salary, and for most Njia users it is not the number
- * they will first earn. Kenya's informal sector absorbs far more workers than
- * the formal one, and a school-leaver with a certificate typically enters well
- * below these averages.
+ * they will first earn. Kenya's informal sector absorbs 83.8% of all workers —
+ * 18.1 million against 3.5 million in formal wage employment — so these
+ * averages describe the destination of roughly one working Kenyan in six, and a
+ * school-leaver with a certificate typically enters well below them. See
+ * INFORMAL_ECONOMY below; that context travels with these figures.
  *
  * Presenting a sector average to a seventeen-year-old as "what this career
  * pays" would repeat the exact failure this file was written to correct, in
@@ -83,6 +85,40 @@ const SECTOR_EARNINGS = [
     entryReality: 'The lowest formal-sector average in the economy, and much agricultural work is informal and seasonal on top of that. Agri-technology and value-addition roles pay materially better than field labour.'
   }
 ];
+
+/* THE INFORMAL ECONOMY — the context every earnings figure above needs.
+ *
+ * 83.8% of Kenyan employment is informal: 18.1 million people, against 3.5
+ * million in formal wage employment. Of the 822,100 jobs created in 2025,
+ * 87.2% were informal.
+ *
+ * This matters more than any single salary figure. Every sector earning in
+ * SECTOR_EARNINGS is an average across *formal wage employment* — the
+ * destination of roughly one working Kenyan in six. Presenting that ladder as
+ * the normal outcome, without saying how narrow it is, misdescribes where this
+ * user is statistically most likely to end up.
+ *
+ * That is not a counsel of despair and must never be written as one. It is why
+ * Njia treats enterprise capital (YEDF) as funding rather than a footnote, why
+ * business modelling sits in the catalogue, and why a trade certificate leading
+ * to self-employment is a legitimate plan rather than a fallback. The informal
+ * sector is not the failure case. For five in six workers it is the economy.
+ */
+const INFORMAL_ECONOMY = {
+  source: 'KNBS Economic Survey 2026 (reporting 2025), cross-reported coverage, August 2026',
+  informalSharePct: 83.8,
+  informalWorkers: 18100000,
+  formalSharePct: 16.2,
+  formalWorkers: 3500000,
+  newJobs2025: 822100,
+  newJobsInformalPct: 87.2,
+  largestInformalSectors: [
+    { sector: 'Wholesale and retail trade, hotels and restaurants', workers: 10700000 },
+    { sector: 'Manufacturing', workers: 3600000 }
+  ],
+  fastestGrowing: 'Construction, at 6.7% informal growth',
+  reading: 'Five in six working Kenyans are in the informal sector, and it absorbed 87% of last year\'s new jobs. Formal salary figures describe the smaller share. Plan for a pathway that works either way — a qualification that lets you be hired *and* lets you trade on your own account is worth more here than one that only does the first.'
+};
 
 /* Whole-economy anchors, 2025. Same source and same provenance caveat. */
 const LABOUR_MARKET_ANCHORS = {
@@ -388,5 +424,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY };
 }

@@ -152,11 +152,23 @@ test('failing the grade requirement caps the score at 20', () => {
   assert.ok(!m.eligible);
 });
 
-test('over budget costs 25 points but never goes negative', () => {
+test('over budget costs points in proportion, and never goes negative', () => {
+  // This used to assert a flat -25 (score exactly 70). The penalty is now
+  // proportional to the size of the gap — see the proportionality tests
+  // below for why — so the fixed number is gone while the two properties
+  // that actually matter are kept: being over budget costs something, and
+  // the score has a floor at zero.
   const p = { hasResults: true, primary: 'tech', secondary: 'carer', grade: 'B', budgetMax: 100000 };
-  assert.equal(scoreCourseMatch(course(), p).score, 70);
+
+  // The fixture course is Ksh 200,000 against a Ksh 100,000 budget — exactly
+  // double, which is where the penalty curve caps at 40.
+  const doubled = scoreCourseMatch(course(), p).score;
+  const withinBudget = scoreCourseMatch(course(), { ...p, budgetMax: null }).score;
+  assert.ok(doubled < withinBudget, 'being over budget must cost something');
+  assert.equal(doubled, withinBudget - 40, 'at 2x budget the penalty is capped at 40');
+
   const floor = scoreCourseMatch(course({ cluster: 'business' }), { ...p, grade: 'D' });
-  assert.ok(floor.score >= 0);
+  assert.ok(floor.score >= 0, 'the score must never go negative');
 });
 
 test('unknown grade against a requirement flags gradeUnconfirmed but stays eligible', () => {
@@ -334,4 +346,112 @@ test('locality never pushes a score outside 0-100', () => {
       assert.ok(r.score >= 0 && r.score <= 100, `${c.id} scored ${r.score}`);
     }
   }
+});
+
+/* ---------- budget penalty proportionality ---------- */
+
+test('the budget penalty scales with how far over, not merely that it is over', () => {
+  // It used to be a flat -25 for any overage. Measured against the live app,
+  // a course Ksh 10,000 above budget and one Ksh 810,000 above it both scored
+  // 15 — identical. For a catalogue whose fees run from free to over
+  // Ksh 800,000 that is backwards: showing over-budget courses instead of
+  // hiding them is only useful if a near miss ranks above a wild miss, since
+  // the near miss is the one a bursary can close.
+  const p = { hasResults: true, primary: 'tech', secondary: 'carer', grade: 'A', budgetMax: 90_000 };
+  const at = (fees) => scoreCourseMatch(course({ total_fees_kes: fees, min_grade: null }), p);
+
+  const within = at(80_000).score;
+  const near = at(95_000).score;      // Ksh 5,000 over
+  const mid = at(140_000).score;      // Ksh 50,000 over
+  const far = at(400_000).score;      // Ksh 310,000 over
+
+  assert.ok(within > near, 'within budget must beat over budget');
+  assert.ok(near > mid, 'a near miss must rank above a bigger miss');
+  assert.ok(mid > far, 'the penalty must keep scaling through the mid range');
+  assert.notEqual(near, far, 'the flat-penalty regression must not return');
+
+  // The gap that matters most: a Ksh 5,000 miss versus a Ksh 310,000 miss.
+  assert.ok(near - far >= 15, `near miss and wild miss are only ${near - far} apart`);
+});
+
+test('the budget breakdown states the actual gap and reads from the feasibility bands', () => {
+  // Score and badge must not drift: both are derived from feasibilitySignal,
+  // so a course the card calls a "stretch" cannot be scored as unreachable.
+  const p = { hasResults: true, primary: 'tech', secondary: 'carer', grade: 'A', budgetMax: 90_000 };
+  const note = (fees) => scoreCourseMatch(course({ total_fees_kes: fees, min_grade: null }), p)
+    .breakdown.find((b) => b.factor === 'Budget');
+
+  const stretch = note(100_000);
+  assert.match(stretch.detail, /stretch/i, 'within 25% over is a stretch, not a long shot');
+  assert.match(stretch.detail, /10,000/, 'the actual shortfall must be named');
+  assert.equal(stretch.effect, 'down');
+
+  const longShot = note(500_000);
+  assert.match(longShot.detail, /long shot/i);
+  assert.match(longShot.detail, /410,000/, 'the actual shortfall must be named');
+
+  const ok = note(50_000);
+  assert.equal(ok.effect, 'up');
+});
+
+/* ---------- outcome estimates may be shown, never ranked ---------- */
+
+/* Sorting by employment rate was removed from the Course Matcher because
+ * ordering is a stronger claim than display, and not one employment_rate in
+ * the catalogue has been measured — Kenya publishes no per-course graduate
+ * outcomes. The match score is the other ranking surface, and nothing was
+ * checking that it stays clear of the same figures.
+ *
+ * Asserted behaviourally rather than by grepping for the identifier: drive
+ * the outcomes to extremes and require the score not to move. A future edit
+ * that folds employment_rate back into the score fails here even if it reads
+ * the field through a helper or an alias. */
+test('match score ignores outcome figures entirely', () => {
+  const base = {
+    id: 'x', name: 'X', cluster: 'tech', level: 'diploma', duration_months: 24,
+    total_fees_kes: 120000, min_grade: 'C', mode: 'full_time', institution_id: 'i'
+  };
+  const profile = { cluster: 'tech', grade: 'B', budgetMax: 200000 };
+  const plain = scoreCourseMatch({ ...base, employment_rate: 0.6, median_salary_kes: 30000 }, profile).score;
+
+  for (const outcome of [
+    { employment_rate: 0.99, median_salary_kes: 900000 },
+    { employment_rate: 0.01, median_salary_kes: 1 },
+    { employment_rate: null, median_salary_kes: null },   // the county-VTC records
+    {}                                                     // fields absent entirely
+  ]) {
+    assert.equal(
+      scoreCourseMatch({ ...base, ...outcome }, profile).score, plain,
+      `match score moved with outcomes ${JSON.stringify(outcome)} — estimates must not rank`
+    );
+  }
+});
+
+/* An unpublished fee must not read as affordable. `null <= budgetMax` is true
+ * in JavaScript, so without an explicit branch every county VTC course would
+ * report "within budget" and collect the affordability bonus on a fee nobody
+ * knows. */
+test('an unpublished fee is its own feasibility state, not "within budget"', () => {
+  const priced = { total_fees_kes: 120000 };
+  const unpriced = { total_fees_kes: null };
+
+  assert.equal(feasibilitySignal(priced, 200000).level, 'within');
+  assert.equal(feasibilitySignal(unpriced, 200000).level, 'unknown');
+  assert.equal(feasibilitySignal(unpriced, 1).level, 'unknown');   // never "over" either
+  assert.equal(feasibilitySignal(unpriced, null), null);           // no budget set at all
+
+  // And it must not be scored as affordable.
+  const base = { id: 'x', name: 'X', cluster: 'tech', level: 'artisan', duration_months: 12,
+    min_grade: 'E', mode: 'full_time', institution_id: 'i' };
+  const profile = { cluster: 'tech', grade: 'B', budgetMax: 200000 };
+  const budgetFactor = (c) => scoreCourseMatch(c, profile).breakdown.find((b) => b.factor === 'Budget');
+
+  assert.equal(budgetFactor({ ...base, ...priced }).effect, 'up');
+  assert.equal(budgetFactor({ ...base, ...unpriced }).effect, 'neutral');
+  // Neither rewarded nor punished: an unpriced course must score the same as
+  // one comfortably inside budget minus only the affordability bonus, never
+  // taking the over-budget penalty.
+  assert.ok(scoreCourseMatch({ ...base, ...unpriced }, profile).score
+    >= scoreCourseMatch({ ...base, total_fees_kes: 400000 }, profile).score,
+    'an unknown fee must not be punished harder than a known over-budget one');
 });

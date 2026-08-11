@@ -1231,3 +1231,143 @@ was real before running the suite — actually exercised the guard.
 
 **A negative test is only as good as the violation it constructs.** A probe that
 fails to violate looks identical to a guard that holds.
+
+## The offline claim, tested rather than trusted
+
+Njia asserts "works fully offline" in five places, including a direct FAQ
+answer: *"Only for your first visit. After that, Njia works fully offline."*
+Nobody had verified it.
+
+**It holds.** Driven against a real installed build with the network cut:
+
+| | |
+| --- | --- |
+| Service worker | installs, activates, takes control on first visit |
+| Offline reload | succeeds |
+| Data available | 174 courses, 88 institutions |
+| User state | saved courses and completed profile both survive |
+| All seven modules | render offline |
+| Console errors | none |
+
+### The other half of the contract: do existing users get updates?
+
+More consequential than the offline claim, because every data correction in
+this register is invisible to an installed user whose worker never updates.
+Also verified end to end by deploying a new `CACHE_VERSION` against an
+installed build: the update is detected, a banner offers it, the new worker is
+held in `waiting` rather than activating under the user, and on accept it
+activates and purges the old cache.
+
+### What that found
+
+**Two deploys with a tab left open stack two permanent banners.** `updatefound`
+fires once per deploy, and unlike `showToast()` this banner has no duration and
+no dismiss control — "Reload" is the only exit — so duplicates accumulate rather
+than fade. Measured: two `CACHE_VERSION` bumps without a reload gave two toasts
+unguarded, one guarded. Not hypothetical for this project, which shipped six
+cache bumps in a single session.
+
+**The README described the worker as "cache-first offline strategy."** That is
+backwards for app code and is precisely the misreading `sw.js`'s own header
+comment exists to prevent — a pure cache-first shell can never show a deployed
+update. It is network-first for app code, cache-first only for icons.
+
+### A false finding, and how it was caught
+
+The first probe reported two toasts for a *single* deploy. It queried
+`'.toast, [class*="toast"]'`, which matched **the container and its only
+child** — and a container's `innerText` equals that child's. There was no
+duplicate; `containerChildren` was 1 throughout.
+
+The guard was written before that was noticed, with a comment asserting a
+verified single-deploy duplicate. That comment was false. Rather than delete
+the guard or leave the claim standing, the real scenario was tested — two
+deploys, tab open — which **does** produce duplicates, and the comment now
+describes what was actually measured.
+
+*Fourth harness-produced false finding this session. The pattern is consistent:
+the app was right and the probe was wrong. Check the fixture before the code.*
+
+## The budget penalty was flat, and ranking depended on it
+
+An external audit of the live site flagged this, and driving the app confirmed
+it: a course **Ksh 10,000** above budget and one **Ksh 810,000** above it both
+scored **15**. Identical.
+
+For this catalogue that is backwards. Fees run from free to over Ksh 800,000,
+and the entire reason over-budget courses are *shown* rather than hidden is that
+something slightly out of reach may be reachable with a bursary while something
+ten times over is not. A flat penalty discarded that distinction at exactly the
+moment the ranking needed it.
+
+The penalty now scales with the size of the gap, and — more importantly — is
+read from the **same `feasibilitySignal`** the card renders, so the score and
+the badge cannot drift apart. A course the card calls a "stretch" can no longer
+be scored as unreachable.
+
+Measured against a completed profile, budget Ksh 90,000:
+
+| Tuition | Gap | Score |
+| --- | --- | --- |
+| 80,000 | within | **95** |
+| 95,000 | +5,000 | **85** |
+| 110,000 | +20,000 | **80** |
+| 180,000 | +90,000 | **55** |
+| 400,000 | +310,000 | 55 |
+| 900,000 | +810,000 | 55 |
+
+The curve starts at 8 for a near miss and caps at 40 once tuition is double the
+budget. **The cap is deliberate:** past 2×, "further out of reach" stops
+carrying useful ranking information, and the card still names the exact gap in
+shillings either way.
+
+### Two things this broke, and what they taught
+
+**It broke every test in `scoring.test.js` at once.** The first version formatted
+the shortfall with `formatKes()`, which lives in `app.js` — and
+`scoreCourseMatch` is deliberately AppState- and document-free so the harness can
+load it into a bare vm context with only the data files. That header comment
+exists for a reason and reaching past it cost 5 failing tests. Formatted inline
+instead; the purity contract holds.
+
+**One existing test pinned the defect.** *"over budget costs 25 points but never
+goes negative"* asserted `score === 70` — the flat penalty, written down as
+intended behaviour. It was rewritten rather than deleted: the two properties
+that actually matter (being over budget costs something; the score has a floor at
+zero) are kept, and the magic number is gone.
+
+*Both new guards negative-tested: restore the flat −25 and two tests fail;
+remove the shilling amount from the copy and one fails.*
+
+## Manifest: identity and the install dialog
+
+Two gaps the external audit was right about, both cheap and both real.
+
+**`id` was missing.** Without it a browser derives the app's identity *from
+`start_url`* — so changing `start_url` later registers as a different app and
+installed users silently keep the old one. Now pinned to `/`, independent of
+routing.
+
+**No `screenshots`.** Android shows its richer install dialog only when
+screenshots are present; without them users get the minimal chip, which converts
+far worse. Three added — two `narrow` (the phone dialog, which is nearly the
+whole audience) and one `wide` — captured from the running app rather than
+mocked up, and each carrying a `label`, which the dialog reads out.
+
+**Deliberately NOT in the service-worker precache.** They total ~630KB and are
+fetched only by the browser's install dialog, never by the app. Caching them
+would cost every offline user that much for nothing. A test asserts they stay
+out.
+
+### The guard that matters
+
+A manifest declaring a size the file does not have **fails silently** — the
+browser drops the asset, falls back to the minimal chip, and logs nothing. Since
+these screenshots are generated by driving the app, a later re-capture at a
+different viewport is exactly how the declaration and the file drift apart.
+
+The test reads the PNG header of every icon and screenshot and compares real
+dimensions against the declared `sizes`. All seven currently match.
+
+*Negative-tested three ways: drift a declared size, delete `id`, or add a
+screenshot to the precache — each fails the suite.*

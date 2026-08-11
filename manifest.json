@@ -1,6 +1,7 @@
 {
   "name": "Njia — Data-Driven Career Pathway",
   "short_name": "Njia",
+  "id": "/",
   "description": "Data-driven career pathway guidance for Kenyan youth, built on research-backed career psychology and life-design methods.",
   "start_url": "./index.html",
   "scope": "./",
@@ -10,7 +11,10 @@
   "theme_color": "#faf9f5",
   "lang": "en",
   "dir": "ltr",
-  "categories": ["education", "lifestyle"],
+  "categories": [
+    "education",
+    "lifestyle"
+  ],
   "icons": [
     {
       "src": "icons/icon-192x192.png",
@@ -43,14 +47,47 @@
       "short_name": "Discover",
       "description": "Jump straight into the career diagnostic",
       "url": "./index.html#discover",
-      "icons": [{ "src": "icons/icon-192x192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "Track Progress",
       "short_name": "Track",
       "description": "Check your OKRs and applications",
       "url": "./index.html#track",
-      "icons": [{ "src": "icons/icon-192x192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icons/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/screenshots/mobile-home.png",
+      "sizes": "412x915",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Njia's home screen, with the Application Clock showing live deadlines"
+    },
+    {
+      "src": "icons/screenshots/mobile-decide.png",
+      "sizes": "412x915",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Course matching against real Kenyan fees, grades and funding"
+    },
+    {
+      "src": "icons/screenshots/wide-home.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Njia on a wider screen"
     }
   ]
 }

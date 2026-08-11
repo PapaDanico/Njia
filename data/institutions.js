@@ -123,6 +123,23 @@ const INSTITUTIONS = [
    * nothing — when Archers Post has a public college running diplomas. */
   { id: 'mweatvc', name: 'Mwea Technical and Vocational College', ownership: 'public', type: 'tvet', location: "Wang'uru", county: 'Kirinyaga', accreditation: 'TVETA Registered', website: 'https://mweatvc.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
   { id: 'samburutvc', name: 'Samburu Technical and Vocational College', ownership: 'public', type: 'tvet', location: 'Archers Post', county: 'Samburu', accreditation: 'TVETA Registered', website: 'https://kuccps.net', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  /* A county vocational training centre rather than a college or polytechnic
+   * — the tier below TVC, and for most of rural Kenya the only formal trade
+   * training within reach. Capped at 20 trainees per course, which is why
+   * the trades it teaches are worth naming individually rather than assuming
+   * a learner can get any of them. */
+  /* Two faith-based providers, added because the artisan tier had a floor
+   * below its floor. Both admit on KCPE alone or with no KCSE at all, which
+   * is a rung below the KUCCPS artisan minimum of grade E and the only
+   * documented route for a learner who never sat, or did not finish, Form
+   * Four. Mission and diocesan centres are a large part of Kenyan artisan
+   * training and none were in the catalogue. */
+  { id: 'citc_mombasa', name: 'Christian Industrial Training Centre (CITC) Mombasa', ownership: 'private', type: 'tvet', location: "Sheikh Abdulla F. Road", county: 'Mombasa', accreditation: 'KNEC and NITA training and examination centre', website: 'https://citcmombasa.co.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
+  { id: 'ymca_nti', name: 'YMCA National Training Institute, Shauri Moyo', ownership: 'private', type: 'tvet', location: 'Ambira Road off Jogoo Road, Shauri Moyo', county: 'Nairobi', accreditation: 'NITA trade-testing centre (YMCA Kenya, founded 1966)', website: 'https://www.ymca-nti.org', modes: ['full_time'], has_workstudy: false, has_hostel: false },
+  { id: 'stkizito', name: 'St. Kizito Vocational Training Institute', ownership: 'private', type: 'tvet', location: 'Githurai Kimbo', county: 'Kiambu', accreditation: 'KNEC examination centre (Catholic, founded on Cardinal Otunga initiative 1990)', website: 'https://stkizito.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
+  { id: 'donbosco_karen', name: 'Don Bosco Boys Technical Training Centre', ownership: 'private', type: 'tvet', location: 'Langata-Karen Road, Karen', county: 'Nairobi', accreditation: 'TVETA Registered · NITA-accredited trades (Salesians of Don Bosco)', website: 'https://donboscoboystown.org', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  { id: 'citc_nairobi', name: 'Christian Industrial Training Centre (CITC) Nairobi', ownership: 'private', type: 'tvet', location: 'Pumwani, Meru Road', county: 'Nairobi', accreditation: 'KNEC and NITA training and examination centre (Anglican Church of Kenya, Diocese of Nairobi)', website: 'https://citcnairobi.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
+  { id: 'maralalvtc', name: 'Maralal Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Maralal', county: 'Samburu', accreditation: 'TVETA Registered (TVETA/PUBLIC/VTC/0090/2018)', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

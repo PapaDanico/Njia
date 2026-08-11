@@ -15,6 +15,22 @@ const GRADE_ORDER = ['E', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-
 // getEffectiveGrade() falls back to "unknown grade" for this bucket instead.
 const GRADE_BUCKET_DEFAULT = { A: 'A-', B: 'B', C: 'C' };
 
+/* Every level that actually has a record, lowest entry bar first.
+ *
+ * The level filter used to be a hardcoded ['certificate','diploma','degree'].
+ * Adding the artisan tier to data/courses.js would have left those records
+ * reachable only under "All Levels" — in the data, absent from the dropdown,
+ * and invisible to precisely the learners the tier was added for. Deriving
+ * the list means a level can never again exist in the catalogue but not in
+ * the UI. LEVEL_ORDER only fixes the running order; a level missing from it
+ * still appears, sorted to the end, rather than being dropped. */
+const LEVEL_ORDER = ['artisan', 'certificate', 'diploma', 'degree'];
+const LEVEL_LABELS = { artisan: 'Artisan', certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
+const CATALOGUE_LEVELS = [...new Set(COURSES.map((c) => c.level))].sort((a, b) => {
+  const rank = (l) => (LEVEL_ORDER.indexOf(l) === -1 ? Number.MAX_SAFE_INTEGER : LEVEL_ORDER.indexOf(l));
+  return rank(a) - rank(b) || a.localeCompare(b);
+});
+
 function gradeRank(grade) {
   const idx = GRADE_ORDER.indexOf(grade);
   return idx === -1 ? 0 : idx;
@@ -68,7 +84,9 @@ function renderDecidePage() {
 
   const counties = new Set(INSTITUTIONS.filter((i) => COURSE_INSTITUTION_IDS.has(i.id)).map((i) => i.county));
   const levels = new Set(COURSES.map((c) => c.level));
-  const cheapest = COURSES.reduce((min, c) => Math.min(min, c.total_fees_kes), Infinity);
+  // Only over published fees: Math.min(x, null) is 0, which would have
+  // advertised the catalogue's cheapest course as free.
+  const cheapest = COURSES.reduce((min, c) => (c.total_fees_kes == null ? min : Math.min(min, c.total_fees_kes)), Infinity);
 
   el.innerHTML = `
     <div class="module-header">
@@ -194,11 +212,51 @@ function scoreCourseMatch(course, profile) {
   }
 
   if (budgetMax != null) {
-    if (course.total_fees_kes > budgetMax) {
-      score = Math.max(0, score - 25);
-      breakdown.push({ factor: 'Budget', detail: 'Tuition is above your maximum budget — shown as a stretch rather than hidden.', effect: 'down' });
-    } else {
+    /* The penalty scales with HOW FAR over budget, and is read from the same
+     * feasibilitySignal the card renders, so the score and the badge cannot
+     * drift apart.
+     *
+     * It used to be a flat -25 for any overage at all. That made a course
+     * Ksh 10,000 above budget rank identically to one Ksh 810,000 above it —
+     * measured, both scored 15 — which is precisely backwards for this
+     * catalogue. Fees here run from free to over Ksh 800,000, and the whole
+     * point of showing over-budget courses rather than hiding them is that
+     * something slightly out of reach may be reachable with a bursary while
+     * something ten times over is not. A flat penalty threw that distinction
+     * away at the moment the ranking needed it.
+     *
+     * The curve starts at 8 for a near miss and caps at 40 once tuition is
+     * double the budget — past that, "further out of reach" stops carrying
+     * useful information. */
+    const feas = feasibilitySignal(course, budgetMax);
+    if (feas.level === 'unknown') {
+      // Neither rewarded nor punished. Penalising an unpublished fee would
+      // bury the cheapest institutions in the catalogue — county VTCs are
+      // where a learner with no money actually goes — and treating it as
+      // affordable would be a claim the data does not support.
+      breakdown.push({
+        factor: 'Budget',
+        detail: 'This centre does not publish a fee — ask them directly before you count it in or out.',
+        effect: 'neutral'
+      });
+    } else if (feas.level === 'within') {
       breakdown.push({ factor: 'Budget', detail: 'Tuition fits within your maximum budget.', effect: 'up' });
+    } else {
+      const penalty = Math.min(40, Math.round(8 + (feas.overBy / budgetMax) * 32));
+      score = Math.max(0, score - penalty);
+      // Formatted inline rather than through formatKes(). That helper lives in
+      // app.js, and scoreCourseMatch is deliberately AppState- and
+      // document-free so tests/scoring.test.js can load it into a bare vm
+      // context with only the data files — see that file's header. Reaching
+      // for the helper here broke every test in it at once.
+      const gap = `Ksh ${feas.overBy.toLocaleString('en-KE')}`;
+      breakdown.push({
+        factor: 'Budget',
+        detail: feas.level === 'stretch'
+          ? `${gap} above your budget — a stretch, and the kind of gap a bursary can close.`
+          : `${gap} above your budget — shown rather than hidden, but treat it as a long shot without funding.`,
+        effect: 'down'
+      });
     }
   }
 
@@ -210,11 +268,31 @@ function scoreCourseMatch(course, profile) {
  * rather than silently lumped in with far-out-of-reach courses. Pure, tested. */
 function feasibilitySignal(course, budgetMax) {
   if (budgetMax == null) return null;
+  // Some institutions genuinely do not publish a fee — county vocational
+  // training centres mostly say "contact the admissions office". That is
+  // recorded as a null rather than a guessed number, and it has to be its
+  // own state: `null <= budgetMax` is true in JavaScript, so without this
+  // line an unpublished fee would report as comfortably "within budget"
+  // and earn the affordability bonus. Not knowing is not the same as cheap.
+  if (course.total_fees_kes == null) return { level: 'unknown', overBy: 0 };
   if (course.total_fees_kes <= budgetMax) return { level: 'within', overBy: 0 };
   const overBy = course.total_fees_kes - budgetMax;
   return course.total_fees_kes <= budgetMax * 1.25
     ? { level: 'stretch', overBy }
     : { level: 'over', overBy };
+}
+
+/* Fee comparator that sends unpublished fees to the end of the list in BOTH
+ * directions. Subtracting a null yields NaN, and a NaN comparator makes
+ * Array.prototype.sort's result implementation-defined — the unpublished
+ * rows would have landed in arbitrary positions rather than obviously last. */
+function byFee(a, b, dir) {
+  if (a.total_fees_kes == null && b.total_fees_kes == null) return 0;
+  if (a.total_fees_kes == null) return 1;
+  if (b.total_fees_kes == null) return -1;
+  return dir === 'asc'
+    ? a.total_fees_kes - b.total_fees_kes
+    : b.total_fees_kes - a.total_fees_kes;
 }
 
 /* How many months of the median graduate salary the tuition costs. A blunt
@@ -248,8 +326,14 @@ function renderCourseMatcher(container) {
   // Budget only penalises match score (below) rather than hiding a course —
   // a great over-budget course should still be visible as "a stretch", not
   // disappear. Only cluster/mode/county can actually zero out this list.
-  const levelOptions = ['all', 'certificate', 'diploma', 'degree'];
-  const levelLabels = { certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
+  // Derived from the catalogue, not hardcoded. These were once a literal
+  // ['all','certificate','diploma','degree'], which meant adding the artisan
+  // tier to data/courses.js would have left artisan courses reachable only
+  // under "All Levels" — present in the data, unfilterable in the UI, and
+  // invisible to exactly the learners the tier exists for. Anything with a
+  // record now gets an option; LEVEL_ORDER only decides the running order,
+  // and a level missing from it still appears, at the end.
+  const levelOptions = ['all', ...CATALOGUE_LEVELS];
 
   const modeOptions = ['any', 'full_time', 'evening', 'weekend', 'online'];
   const modeLabels = { any: 'Any Schedule', full_time: 'Full-Time', evening: 'Evening', weekend: 'Weekend', online: 'Online' };
@@ -292,8 +376,8 @@ function renderCourseMatcher(container) {
   // display, so outcomes may be shown (marked est.) and may not rank.
   const sorters = {
     match: (a, b) => b.match.score - a.match.score,
-    fees_low: (a, b) => a.course.total_fees_kes - b.course.total_fees_kes,
-    fees_high: (a, b) => b.course.total_fees_kes - a.course.total_fees_kes,
+    fees_low: (a, b) => byFee(a.course, b.course, 'asc'),
+    fees_high: (a, b) => byFee(a.course, b.course, 'desc'),
     duration: (a, b) => a.course.duration_months - b.course.duration_months
   };
   filtered.sort(sorters[sortBy] || sorters.match);
@@ -339,7 +423,7 @@ function renderCourseMatcher(container) {
         ${clusterOptions.map((c) => `<option value="${c}" ${AppState.decideFilters.cluster === c ? 'selected' : ''}>${c === 'all' ? 'All Clusters' : CLUSTERS[c].short}</option>`).join('')}
       </select>
       <select class="form-control" aria-label="Filter by qualification level" onchange="setDecideLevelFilter(this.value)">
-        ${levelOptions.map((l) => `<option value="${l}" ${AppState.decideFilters.level === l ? 'selected' : ''}>${l === 'all' ? 'All Levels' : levelLabels[l]}</option>`).join('')}
+        ${levelOptions.map((l) => `<option value="${l}" ${AppState.decideFilters.level === l ? 'selected' : ''}>${l === 'all' ? 'All Levels' : escapeHtml(LEVEL_LABELS[l] || l)}</option>`).join('')}
       </select>
       <select class="form-control" aria-label="Filter by learning mode" onchange="setDecideModeFilter(this.value)">
         ${modeOptions.map((m) => `<option value="${m}" ${AppState.decideFilters.mode === m ? 'selected' : ''}>${modeLabels[m]}</option>`).join('')}
@@ -416,8 +500,8 @@ function currentDecideResults() {
   // than the one on screen.
   const sorters = {
     match: (a, b) => b.match.score - a.match.score,
-    fees_low: (a, b) => a.course.total_fees_kes - b.course.total_fees_kes,
-    fees_high: (a, b) => b.course.total_fees_kes - a.course.total_fees_kes,
+    fees_low: (a, b) => byFee(a.course, b.course, 'asc'),
+    fees_high: (a, b) => byFee(a.course, b.course, 'desc'),
     duration: (a, b) => a.course.duration_months - b.course.duration_months
   };
 
@@ -481,7 +565,10 @@ function showMoreCourses() {
 function renderCourseCard(course, match) {
   const inst = institutionById(course.institution_id);
   const saved = AppState.savedCourses.includes(course.id);
-  const monthlyEstimate = Math.round(course.total_fees_kes / course.duration_months);
+  // Null when the institution publishes no fee — every derived cost line
+  // below is suppressed rather than rendered as "Ksh 0/month".
+  const feePublished = course.total_fees_kes != null;
+  const monthlyEstimate = feePublished ? Math.round(course.total_fees_kes / course.duration_months) : null;
 
   const isVerified = course.fees_confidence === 'verified';
 
@@ -489,7 +576,9 @@ function renderCourseCard(course, match) {
   // so an accommodation estimate would overstate the real cost for them.
   const requiresRelocation = course.mode !== 'online';
   const accomRate = inst?.has_hostel ? ACCOMMODATION_ESTIMATE_KES_PER_MONTH.onCampus : ACCOMMODATION_ESTIMATE_KES_PER_MONTH.offCampus;
-  const totalCostOfAttendance = requiresRelocation ? course.total_fees_kes + accomRate * course.duration_months : course.total_fees_kes;
+  const totalCostOfAttendance = !feePublished ? null
+    : requiresRelocation ? course.total_fees_kes + accomRate * course.duration_months
+    : course.total_fees_kes;
 
   return `
     <div class="card course-card">
@@ -499,6 +588,7 @@ function renderCourseCard(course, match) {
           const feas = feasibilitySignal(course, AppState.decideFilters.budgetMax);
           if (!feas) return '';
           const copy = {
+            unknown: 'Fee not published',
             within: 'Within budget',
             stretch: `Stretch · <span class="num">+${formatKes(feas.overBy)}</span>`,
             over: `Over budget · <span class="num">+${formatKes(feas.overBy)}</span>`
@@ -515,12 +605,12 @@ function renderCourseCard(course, match) {
         ${inst?.has_hostel ? '<span class="mini-tag">Hostel</span>' : ''}
       </div>
       <div class="meta-grid">
-        <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(course.level)}</div></div>
+        <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(LEVEL_LABELS[course.level] || course.level)}</div></div>
         <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${course.duration_months} mo</div></div>
-        <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value num">${formatKes(course.total_fees_kes)}</div></div>
+        <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value${feePublished ? ' num' : ''}">${feePublished ? formatKes(course.total_fees_kes) : 'Not published'}</div></div>
         <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
         <div class="meta-item"><div class="meta-label">Employment Rate ${estimateMark(course)}</div><div class="meta-value num is-estimate">${formatPercent(course.employment_rate)}</div></div>
-        <div class="meta-item"><div class="meta-label">Median Salary ${estimateMark(course)}</div><div class="meta-value num is-estimate">${formatKes(course.median_salary_kes)}/mo</div></div>
+        <div class="meta-item"><div class="meta-label">Median Salary ${estimateMark(course)}</div><div class="meta-value num is-estimate">${course.median_salary_kes == null ? 'N/A' : `${formatKes(course.median_salary_kes)}/mo`}</div></div>
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
@@ -530,12 +620,26 @@ function renderCourseCard(course, match) {
         return `<p class="text-muted text-sm mb-1">Tuition equals about <strong class="num">${pb}</strong> months of the illustrative median salary for this path — a rough return signal, not a promise.</p>`;
       })()}
       <p class="text-muted text-sm mb-1">Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
+      ${feePublished ? `
       <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
       <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation
         ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
         : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
-      }</p>
-      ${isVerified ? `<details class="fee-provenance"><summary>How this fee was verified</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}</p></details>` : ''}
+      }</p>` : `
+      <p class="text-muted text-sm mb-2"><strong>This centre does not publish its fees.</strong> County vocational training centres are usually the cheapest formal training available and often the only option without relocating — but you have to ring them to find out what it costs. Ask for the fee per term, what the county capitation covers, and whether tools or exam fees are separate. The Grade III trade test is charged by NITA on top of tuition.</p>`}
+      ${/* For the 29 courses priced off the government's consolidated public-TVET
+            fee, the tuition figure above is the PUBLISHED fee, not the invoice.
+            Capitation covers Ksh 30,000 a year and the published student balance
+            is Ksh 26,420 — so the number a family is actually asked for is a
+            fraction of what the card otherwise shows. Left unsaid, it makes
+            public TVET look further out of reach than it is, to precisely the
+            readers with the least room. Matched on the verification note rather
+            than on ownership, because KMTC is also a public TVET and prices off
+            its own national structure, not this one. */''}
+      ${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? `
+        <p class="text-sm mb-2"><strong>You are not asked for all of that.</strong> ${escapeHtml(PUBLIC_TVET_CAPITATION.reading)}</p>
+      ` : ''}
+      ${isVerified ? `<details class="fee-provenance"><summary>How this fee was verified</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.residual)}` : ''}</p></details>` : ''}
       <details class="match-why">
         <summary>Why ${match.score}% match?</summary>
         <ul>
@@ -702,21 +806,24 @@ function openCourseComparison() {
   // than making the reader scan and compare digits themselves.
   const rows = [
     { label: 'Institution', get: (c) => institutionById(c.institution_id)?.name || 'Unknown institution', wrap: true },
-    { label: 'Level', get: (c) => c.level },
+    { label: 'Level', get: (c) => LEVEL_LABELS[c.level] || c.level },
     { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true, raw: (c) => c.duration_months, better: 'min' },
-    { label: 'Tuition', get: (c) => formatKes(c.total_fees_kes), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
+    { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not published' : formatKes(c.total_fees_kes)), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
     // Shown, but deliberately given no `raw`/`better` — a shaded "best value"
     // cell is the app declaring a winner, and these figures are illustrative
     // for every course in the catalogue. Displaying an estimate is honest;
     // crowning one estimate over another is not.
     { label: 'Employment Rate (est.)', get: (c) => formatPercent(c.employment_rate), num: true },
-    { label: 'Median Salary (est.)', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true },
+    { label: 'Median Salary (est.)', get: (c) => (c.median_salary_kes == null ? 'N/A' : `${formatKes(c.median_salary_kes)}/mo`), num: true },
     { label: 'Match Score', get: (c) => `${computeCourseMatch(c).score}%`, num: true, raw: (c) => computeCourseMatch(c).score, better: 'max' }
   ];
   const bestValue = (row) => {
     if (!row.raw) return null;
-    const values = courses.map(row.raw);
+    // Nulls dropped before comparing. Math.min(...[67189, null]) is 0, which
+    // would have shaded an unpublished fee as the cheapest course on the
+    // table — the app crowning a winner on a figure it does not have.
+    const values = courses.map(row.raw).filter((v) => v != null);
     if (new Set(values).size < 2) return null; // all equal — nothing to mark
     return row.better === 'min' ? Math.min(...values) : Math.max(...values);
   };

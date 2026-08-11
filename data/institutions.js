@@ -128,6 +128,14 @@ const INSTITUTIONS = [
    * training within reach. Capped at 20 trainees per course, which is why
    * the trades it teaches are worth naming individually rather than assuming
    * a learner can get any of them. */
+  /* Two faith-based providers, added because the artisan tier had a floor
+   * below its floor. Both admit on KCPE alone or with no KCSE at all, which
+   * is a rung below the KUCCPS artisan minimum of grade E and the only
+   * documented route for a learner who never sat, or did not finish, Form
+   * Four. Mission and diocesan centres are a large part of Kenyan artisan
+   * training and none were in the catalogue. */
+  { id: 'donbosco_karen', name: 'Don Bosco Boys Technical Training Centre', ownership: 'private', type: 'tvet', location: 'Langata-Karen Road, Karen', county: 'Nairobi', accreditation: 'TVETA Registered · NITA-accredited trades (Salesians of Don Bosco)', website: 'https://donboscoboystown.org', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  { id: 'citc_nairobi', name: 'Christian Industrial Training Centre (CITC) Nairobi', ownership: 'private', type: 'tvet', location: 'Pumwani, Meru Road', county: 'Nairobi', accreditation: 'KNEC and NITA training and examination centre (Anglican Church of Kenya, Diocese of Nairobi)', website: 'https://citcnairobi.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
   { id: 'maralalvtc', name: 'Maralal Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Maralal', county: 'Samburu', accreditation: 'TVETA Registered (TVETA/PUBLIC/VTC/0090/2018)', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
 ];
 

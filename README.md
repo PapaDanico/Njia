@@ -79,8 +79,8 @@ important since many users share devices.
 │   └── help.js                 # Help page content
 ├── data/
 │   ├── questions.js       # Questionnaire sections + six career clusters
-│   ├── institutions.js     # 89 Kenyan institutions, all 47 counties
-│   ├── courses.js           # 192 places to apply · 98 distinct programmes
+│   ├── institutions.js     # 91 Kenyan institutions, all 47 counties
+│   ├── courses.js           # 202 places to apply · 106 distinct programmes
 │   ├── funding.js             # 12 funding sources
 │   └── labour-market.js        # Evidence layer (earnings, demand, trades, CBE)
 └── icons/                # PWA install icons (generated from brand logo)

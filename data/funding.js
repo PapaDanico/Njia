@@ -211,16 +211,36 @@ const FUNDING_SOURCES = [
  * capitation and the published balance, names the gap, and tells the reader to
  * get the actual invoice from the registrar.
  */
+/* The capitation structure a public-TVET family is actually billed against.
+ *
+ * This record previously reported the arithmetic as simply not closing:
+ * Ksh 67,189 less the Ksh 30,000 capitation leaves Ksh 37,189, not the
+ * Ksh 26,420 balance published alongside it. That was the wrong conclusion
+ * drawn from the right observation. The two figures belong to two different
+ * fee regimes, and subtracting across them is what failed — not the sources.
+ *
+ * Under the approved structure, the annual fee is Ksh 56,420, of which the
+ * government pays Ksh 30,000 as capitation and the trainee carries Ksh 26,420
+ * (raisable as a HELB loan). Those close exactly: 30,000 + 26,420 = 56,420.
+ * The consolidated fee effective May 2026 is Ksh 67,189 — Ksh 10,769 above
+ * the total that capitation plus the trainee balance was sized to cover.
+ *
+ * That residual is the number a family should be asking about, and it is the
+ * reason this record exists: the widely-republished "capitation 30,000,
+ * balance 26,420" pairing is quoted against the new fee all over the sector
+ * press, and read that way it understates what a trainee owes. */
 const PUBLIC_TVET_CAPITATION = {
-  source: 'Government consolidated public-TVET fee announcement effective May 2026 (Eastleigh Voice, Education News and sector coverage) and Ministry of Education TVET capitation reporting; the Ksh 30,000 per-trainee capitation has stood since FY 2018/19. Cross-reported August 2026.',
+  source: 'Government consolidated public-TVET fee announcement effective May 2026 (Eastleigh Voice, Education News and sector coverage), TVETA guidance on the approved annual fee for trainees placed by KUCCPS, and Ministry of Education TVET capitation reporting; the Ksh 30,000 per-trainee capitation has stood since FY 2018/19. Cross-reported August 2026.',
   consolidatedAnnualFeeKes: 67189,
+  approvedAnnualFeeKes: 56420,
   governmentCapitationKes: 30000,
   publishedStudentBalanceKes: 26420,
+  residualAboveFundedStructureKes: 10769,
   helbLoanKes: 40000,
   instalments: 2,
-  reading: 'The government pays Ksh 30,000 a year per trainee directly to the institution. The published expectation of the student or guardian is Ksh 26,420 a year, payable in two instalments — not the full consolidated fee shown as tuition.',
+  reading: 'The government pays Ksh 30,000 a year per trainee directly to the institution, and the published trainee balance is Ksh 26,420 a year, payable in two instalments and raisable as a HELB loan. You are not asked for the full fee shown as tuition.',
   helbNote: 'A HELB loan of Ksh 40,000 is available to TVET students, of which Ksh 26,420 covers the fee balance and the remainder goes to upkeep. Funding is not assured — see the TVET funding record for how sharply the funded share fell in 2025/26.',
-  unreconciled: 'Published figures do not add up: Ksh 67,189 less the Ksh 30,000 capitation leaves Ksh 37,189, not the Ksh 26,420 balance that is also published. Both numbers are reported consistently, so the gap is in the published arithmetic rather than in one source. Treat all three as indicative and ask the registrar for the actual invoice.'
+  residual: 'Ask about the gap. Capitation plus the trainee balance comes to Ksh 56,420, the approved annual fee — they close exactly. The consolidated fee effective May 2026 is Ksh 67,189, which is Ksh 10,769 higher. Published sources do not say who carries that difference, and the sector press quotes the 30,000/26,420 pairing against the new figure without noting it. Until capitation or the published balance is revised, treat Ksh 10,769 a year as the amount to raise with the registrar before you enrol.'
 };
 
 if (typeof module !== 'undefined' && module.exports) {

@@ -1088,3 +1088,95 @@ test('the artisan tier is not confined to a single institution or county', () =>
     assert.ok(byId.has(c.institution_id), `${c.id} points at unknown institution ${c.institution_id}`);
   }
 });
+
+/* ---------- templates cannot reference fields that do not exist ---------- */
+
+/* Renaming PUBLIC_TVET_CAPITATION.unreconciled to .residual left a live
+ * template in decide.js pointing at the old key. Nothing failed — the card
+ * simply rendered the string "undefined" to the user, on the very line whose
+ * job is to explain a fee discrepancy. Property access on a missing key is
+ * silent in JavaScript, so this needs a guard rather than vigilance. */
+test('every capitation field the UI renders actually exists', () => {
+  const decide = fs.readFileSync(path.join(root, 'js/decide.js'), 'utf8');
+  const CAP = grab('PUBLIC_TVET_CAPITATION');
+  const referenced = [...decide.matchAll(/PUBLIC_TVET_CAPITATION\.(\w+)/g)].map((m) => m[1]);
+
+  assert.ok(referenced.length > 0, 'expected the capitation record to be rendered somewhere');
+  for (const key of new Set(referenced)) {
+    assert.ok(key in CAP, `decide.js renders PUBLIC_TVET_CAPITATION.${key}, which does not exist`);
+    assert.notEqual(CAP[key], undefined, `PUBLIC_TVET_CAPITATION.${key} is undefined`);
+  }
+});
+
+/* The capitation figures must stay internally consistent. The earlier version
+ * of this record concluded the published arithmetic "did not add up", having
+ * subtracted the Ksh 26,420 trainee balance from the Ksh 67,189 consolidated
+ * fee. Those belong to two different fee regimes. Capitation plus the trainee
+ * balance equals the approved annual fee exactly; the consolidated fee sits
+ * above it by the residual. */
+test('the capitation arithmetic closes', () => {
+  const C = grab('PUBLIC_TVET_CAPITATION');
+  assert.equal(
+    C.governmentCapitationKes + C.publishedStudentBalanceKes, C.approvedAnnualFeeKes,
+    'capitation + trainee balance must equal the approved annual fee'
+  );
+  assert.equal(
+    C.consolidatedAnnualFeeKes - C.approvedAnnualFeeKes, C.residualAboveFundedStructureKes,
+    'the residual must be the consolidated fee less the approved fee'
+  );
+});
+
+/* ---------- the derived level filter holds for levels not yet invented ---------- */
+
+/* LEVEL_ORDER fixes the display order of levels this build knows about. A
+ * level added to data/courses.js but not to LEVEL_ORDER must still reach the
+ * dropdown — sorted last rather than silently dropped, which is the failure
+ * the hardcoded array produced in the first place. Exercised against a
+ * synthetic catalogue so it tests the derivation, not today's data. */
+test('a level missing from LEVEL_ORDER still reaches the filter', () => {
+  const decide = fs.readFileSync(path.join(root, 'js/decide.js'), 'utf8');
+  const derivation = decide.slice(decide.indexOf('const LEVEL_ORDER'),
+    decide.indexOf('function gradeRank'));
+
+  const run = (levels) => {
+    const ctx = vm.createContext({ COURSES: levels.map((l) => ({ level: l })) });
+    vm.runInContext(derivation, ctx);
+    return { levels: vm.runInContext('CATALOGUE_LEVELS', ctx), labels: vm.runInContext('LEVEL_LABELS', ctx) };
+  };
+
+  // Known levels come back in LEVEL_ORDER sequence, lowest entry bar first.
+  // .join() rather than deepEqual: an array built inside the vm realm is not
+  // reference-equal to a local one, which deepStrictEqual rejects.
+  assert.equal(run(['degree', 'artisan', 'diploma', 'certificate']).levels.join(),
+    'artisan,certificate,diploma,degree');
+
+  // An unknown level is kept, placed last, and deduplicated.
+  const r = run(['diploma', 'apprenticeship', 'artisan', 'apprenticeship']);
+  assert.equal(r.levels.join(), 'artisan,diploma,apprenticeship');
+
+  // Two unknowns tie on rank and fall back to alphabetical, so the order is
+  // stable rather than dependent on catalogue insertion order.
+  assert.equal(run(['zeta', 'degree', 'alpha']).levels.join(), 'degree,alpha,zeta');
+
+  // Empty catalogue must not throw or emit a phantom option.
+  assert.equal(run([]).levels.length, 0);
+
+  // The dropdown falls back to the raw value for an unlabelled level, so it
+  // renders "apprenticeship" rather than "undefined".
+  assert.equal(r.labels.apprenticeship, undefined);
+  assert.match(decide, /LEVEL_LABELS\[l\] \|\| l/, 'the filter needs a label fallback');
+});
+
+/* A single-sex institution must say so on the card face, not in a collapsed
+ * provenance note. Don Bosco Boys Technical Training Centre admits boys only;
+ * that fact first lived in verification_note, which renders inside a closed
+ * <details>, so a woman scrolling the artisan list would not have seen it
+ * until after applying. Restrictions on who may apply belong in description,
+ * which is always visible. */
+test('single-sex admission is stated where a learner will actually read it', () => {
+  const restricted = COURSES.filter((c) => /boys only|girls only|women only|men only/i.test(c.verification_note || ''));
+  for (const c of restricted) {
+    assert.match(c.description, /boys only|girls only|women only|men only/i,
+      `${c.id} restricts who may apply but says so only in the provenance note`);
+  }
+});

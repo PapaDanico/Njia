@@ -639,7 +639,7 @@ function renderCourseCard(course, match) {
       ${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? `
         <p class="text-sm mb-2"><strong>You are not asked for all of that.</strong> ${escapeHtml(PUBLIC_TVET_CAPITATION.reading)}</p>
       ` : ''}
-      ${isVerified ? `<details class="fee-provenance"><summary>How this fee was verified</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.unreconciled)}` : ''}</p></details>` : ''}
+      ${isVerified ? `<details class="fee-provenance"><summary>How this fee was verified</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.residual)}` : ''}</p></details>` : ''}
       <details class="match-why">
         <summary>Why ${match.score}% match?</summary>
         <ul>

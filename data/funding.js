@@ -14,6 +14,39 @@ const FUNDING_SOURCES = [
     description: 'Kenya moved to a new Higher Education Funding (HEF) model in 2025/26: instead of a flat loan, students are placed into funding bands (by household means-testing) that mix a government scholarship, a HELB loan, and a household contribution. Apply via the HEF portal, not the old HELB-only process.',
     coverage: 'Scholarship + loan + household contribution, split by funding band. Band 1 (highest need): about 70% government scholarship, 25% loan, and up to Ksh 60,000 upkeep. Band 5 (lowest need): about 30% scholarship, 30% loan, 40% household contribution, and up to Ksh 40,000 upkeep. The band is set by HELB\'s Means Testing Instrument, which weighs parental background, school type, family size, marginalisation and disability — not your grade.', max_amount_kes: 60000,
     eligibility: 'Kenyan citizen, admitted to a HEF-recognised university or TVET institution, means-tested via the HEF portal',
+    /* THE BAND IS APPEALABLE, AND ALMOST NOBODY APPEALS IT.
+     *
+     * The band decides whether a place is affordable at all — Band 1 carries
+     * roughly a 70% scholarship, Band 5 roughly 30% with 40% falling on the
+     * household. It is set by an instrument reading declared household
+     * circumstances, so it can be set wrong, and there is a formal route to
+     * contest it. The Court of Appeal expressly required students to be told
+     * they may appeal a category they are dissatisfied with.
+     *
+     * Njia described how the bands work and never mentioned they can be
+     * challenged, which is the one action available to someone the model has
+     * placed out of reach. */
+    bandAppeal: 'The band you are placed in can be appealed. It is set by the Means Testing Instrument reading your declared household circumstances, so it can be wrong — and the difference between Band 1 and Band 5 is roughly 40% of your fees. If your circumstances were misread or have changed, lodge an appeal through the HEF portal within the published appeal window rather than accepting the category.',
+    /* THE MODEL IS OPERATING UNDER A STAY, NOT A SETTLED RULING.
+     *
+     * On 20 December 2024, in Petition 412 of 2023, the High Court declared
+     * the model unconstitutional — no public participation, no legal
+     * foundation, discriminatory in effect. The Court of Appeal stayed
+     * execution of that judgment, which is why the model still runs, but it
+     * has NOT ruled on the constitutional question and the appeal is
+     * unresolved.
+     *
+     * This is not editorialising. The Universities Fund itself states the
+     * model "may be subject to changes depending on the outcome of the
+     * ongoing court appeal process", and the Court directed that current
+     * beneficiaries and new applicants be told exactly that. Njia presented
+     * the bands as settled fact, which is the one thing the funder and the
+     * court both said not to do.
+     *
+     * No date is given for the stay: sources consulted disagreed on it, and a
+     * wrong date on a legal claim is worse than no date. The judgment date and
+     * petition number are firm. */
+    legalStatus: 'This model is running under a court stay, not a settled ruling. In Petition 412 of 2023 the High Court declared it unconstitutional on 20 December 2024, for want of public participation and legal foundation. The Court of Appeal stayed that judgment — which is why the model still operates — but has not decided the constitutional question, and the appeal is still pending. The Universities Fund says outright that the model may change depending on the outcome. Apply through it, because it is what exists today; do not build a multi-year plan on the assumption that these bands survive unchanged.',
     min_grade: 'D+', application_deadline: 'Rolling, opens with each intake',
     website: 'https://helb.co.ke', application_url: 'https://portal.helb.co.ke',
     requirements: ['National ID', 'Admission letter', 'Parent/guardian ID', 'HEF means-testing form'],

@@ -811,6 +811,13 @@ function renderFundingCard(f, userGrade) {
         <div class="meta-item"><div class="meta-label">Deadline</div><div class="meta-value">${escapeHtml(f.application_deadline || 'Rolling')}</div></div>
       </div>
       <p class="text-muted text-sm mb-1"><strong>Requirements:</strong> ${f.requirements.map(escapeHtml).join(', ')}</p>
+      ${/* Two fields that only HELB/HEF carries today, both surfaced rather
+            than left in the data. The appeal route is the single action
+            available to someone the band has priced out, and the legal status
+            is a disclosure the funder and the Court of Appeal both said to
+            make — a caveat that lives only in a source file protects nobody. */''}
+      ${f.bandAppeal ? `<p class="text-sm mb-1"><strong>Your band can be appealed.</strong> ${escapeHtml(f.bandAppeal)}</p>` : ''}
+      ${f.legalStatus ? `<details class="inline-detail"><summary>The legal status of this model — read before planning around it</summary><p class="text-sm">${escapeHtml(f.legalStatus)}</p></details>` : ''}
       ${f.interest_rate ? `<p class="text-muted text-sm mb-1"><strong>Interest:</strong> ${escapeHtml(f.interest_rate)} · <strong>Repayment:</strong> ${escapeHtml(f.repayment_period || 'N/A')}</p>` : ''}
       ${f.website ? `<a href="${escapeHtml(f.website)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm mt-1" style="display:inline-flex">Visit Website ↗</a>` : ''}
     </div>

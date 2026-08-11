@@ -1122,3 +1122,57 @@ Kirinyaga's courses away, and the suite fails.
 
 Catalogue after this pass: **174 places to apply · 80 distinct programmes · 88
 institutions · 47 of 47 counties.**
+
+## The funding model Njia sends people to is under appeal
+
+Njia's HELB/HEF record described the funding bands as settled fact. They are not.
+
+| | |
+| --- | --- |
+| Petition | **412 of 2023** |
+| High Court judgment | **20 December 2024** — model declared **unconstitutional** for want of public participation and legal foundation, and discriminatory in effect |
+| Court of Appeal | **Stayed** execution of that judgment — which is why the model still operates |
+| Constitutional question | **Undecided.** The appeal is pending |
+
+The Universities Fund states on its own site that the model *"may be subject to
+changes depending on the outcome of the ongoing court appeal process"*, and the
+Court directed that current beneficiaries **and new applicants** be told exactly
+that.
+
+So presenting the bands as fixed was the one thing both the funder and the court
+said not to do. `legalStatus` now travels with the record and renders on the
+funding card behind a disclosure titled *"read before planning around it"* — the
+advice being: apply through it, because it is what exists today; do not build a
+multi-year plan on the assumption these bands survive unchanged.
+
+**No date is given for the stay.** Sources consulted disagreed on it, and a wrong
+date on a legal claim is worse than no date. The judgment date and petition
+number are firm and are what the record cites.
+
+### The band can be appealed, and Njia never said so
+
+The band decides whether a place is affordable at all — roughly a 70%
+scholarship at Band 1 against 30% at Band 5, with 40% falling on the household.
+It is set by the Means Testing Instrument reading *declared* household
+circumstances, so **it can be set wrong**, and there is a formal route to contest
+it. The Court of Appeal expressly required students to be told they may appeal a
+category they are dissatisfied with.
+
+Njia explained how the bands work and never mentioned they can be challenged —
+which is the single action available to someone the model has priced out of a
+place they were offered. `bandAppeal` now says so, and stays visible on the card
+rather than sitting behind disclosure, because it is the actionable half.
+
+*Source: Universities Fund (universitiesfund.go.ke) reporting of the Court of
+Appeal decision and its own "subject to change" notice; High Court Petition 412
+of 2023; contemporaneous Kenyan legal and education reporting. Cross-reported
+August 2026.*
+
+### A weak guard, caught and strengthened
+
+The first version of the test asserted that the string `f.legalStatus` appeared
+in `decide.js`. Disabling the branch to `${false ? ... }` left that identifier
+sitting in the dead template, so the guard passed while the caveat had stopped
+reaching the page. It now matches the **conditional** (`${f.legalStatus ?`),
+which is what actually fails when the field stops rendering. Both guards
+re-verified by disabling each branch in turn.

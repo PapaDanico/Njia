@@ -1180,3 +1180,24 @@ test('single-sex admission is stated where a learner will actually read it', () 
       `${c.id} restricts who may apply but says so only in the provenance note`);
   }
 });
+
+/* KUCCPS sets the artisan minimum at KCSE grade E, which is still a floor: a
+ * learner who never sat KCSE, or left before Form Four, clears none of it.
+ * Faith-based and mission centres are the documented route that does not ask
+ * for one — CITC admits on a KCPE certificate, YMCA takes school leavers who
+ * did not finish, St. Kizito teaches primary school leavers, Don Bosco admits
+ * by interview. If that tier ever disappears from the catalogue, the app is
+ * back to telling those learners there is nothing for them. */
+test('the catalogue keeps a route for a learner with no KCSE at all', () => {
+  const openEntry = COURSES.filter((c) => !c.min_grade);
+  const byId = new Map(INSTITUTIONS.map((i) => [i.id, i]));
+
+  assert.ok(openEntry.length >= 10, `only ${openEntry.length} courses require no KCSE`);
+  // Not just short online certificates — a trade, taught in person.
+  const trades = openEntry.filter((c) => c.level === 'artisan' && c.mode !== 'online');
+  assert.ok(trades.length >= 10, `only ${trades.length} in-person artisan routes need no KCSE`);
+  assert.ok(new Set(trades.map((c) => c.institution_id)).size >= 3,
+    'the no-KCSE route must not depend on a single provider');
+  assert.ok(new Set(trades.map((c) => byId.get(c.institution_id)?.county)).size >= 2,
+    'the no-KCSE route must exist in more than one county');
+});

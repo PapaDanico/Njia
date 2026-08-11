@@ -377,6 +377,22 @@ function renderLabourMarketCard(primaryCluster) {
         </div>
       ` : ''}
 
+      ${typeof ENTERPRISE_CAPITAL !== 'undefined' ? (() => {
+        const cap = ENTERPRISE_CAPITAL;
+        return `
+        <div class="informal-note">
+          <p class="text-sm mb-1"><strong>If you will create your own work, the question is what you can raise.</strong> ${escapeHtml(cap.theMisconception)}</p>
+          <p class="text-sm"><strong>Start early:</strong> ${escapeHtml(cap.theAdvice)}</p>
+          <details class="inline-detail"><summary>What the Youth Enterprise Fund actually lends, and the Hustler Fund terms</summary>
+            <p class="text-sm">The <strong>${escapeHtml(cap.realCapital.name)}</strong> lends ${money(cap.realCapital.startupLoanKes)} to start, and from ${money(cap.realCapital.expansionFromKes)} up to ${money(cap.realCapital.expansionCeilingKes)} to expand, for ages ${cap.realCapital.ageRange[0]}–${cap.realCapital.ageRange[1]}. ${escapeHtml(cap.realCapital.interest)}</p>
+            <p class="text-sm mt-1"><strong>The gate:</strong> ${escapeHtml(cap.realCapital.theGate)} ${escapeHtml(cap.realCapital.whereToApply)}</p>
+            <p class="text-sm mt-1"><strong>Hustler Fund, in proportion:</strong> ${escapeHtml(cap.hustlerFund.reading)}</p>
+            <p class="text-sm mt-1"><strong>On the default rate you have seen:</strong> ${escapeHtml(cap.hustlerFund.defaultDispute)}</p>
+            <p class="text-sm mt-1"><strong>Expect this to move:</strong> ${escapeHtml(cap.honestLimit)}</p>
+          </details>
+        </div>
+      `; })() : ''}
+
       ${typeof ATTACHMENT !== 'undefined' && ATTACHMENT.clusters.includes(primaryCluster) ? `
         <div class="absorption-note">
           <span class="caption">The step inside your course that most people plan for too late</span>

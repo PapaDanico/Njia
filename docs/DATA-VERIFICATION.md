@@ -653,3 +653,69 @@ The gate is deliberately stated twice — a short form that stays visible in the
 collapsed card, and the mechanics behind progressive disclosure — so that a
 reader who never expands the block still cannot come away thinking the hard
 part is getting a visa. A real route, and a narrow one.
+
+## Capitalising yourself — the gap Njia's own headline finding left open
+
+`INFORMAL_ECONOMY` says 83.8% of Kenyan workers are informal and 87.2% of last
+year's new jobs were too. That is a statement that **most readers of this
+platform will create their own work rather than be hired into it** — and Njia
+then said nothing at all about capitalising yourself. The single most likely
+path was the one path unserved.
+
+### The correction that has to come first
+
+The Hustler Fund is what almost everyone names, and **it is not business
+capital.**
+
+| | |
+| --- | --- |
+| Average loan | **~Ksh 300** |
+| Repayment tenure | **14 days** |
+| Product range | Ksh 500 – 50,000 |
+| Annual interest | 8% — genuinely the cheapest credit in the country |
+| Savings withheld | 5% of the amount borrowed |
+
+It is not dismissed: the rate is real and the forced-savings component is
+useful. But a fortnight loan of a few hundred shillings smooths a bad week — it
+does not buy stock, tools or a lease. Analysts read the average ticket size as
+a measure of how thin household margins are, not as evidence of enterprise.
+
+### Why the default rate is published as both 15% and 64%
+
+Both numbers are real, and they measure different things:
+
+- **~15–20%** — share of the *value* lent that is currently unpaid
+- **The large majority** — share of *borrowers* who have ever fallen behind
+
+Njia ships both denominators rather than picking the one that suits the
+argument, and a test asserts neither can be dropped. A reader who has seen one
+headline needs to know why they have also seen the other.
+
+### The instrument that actually finances a business
+
+| | |
+| --- | --- |
+| Fund | Youth Enterprise Development Fund (est. 2006) |
+| Age | 18–34 |
+| Rausha (startup) | Ksh 100,000 |
+| Inua (expansion) | From Ksh 200,000, graduating to Ksh 1,000,000 |
+| Cost | **Interest-free**, one-time 5% management fee deducted before disbursement |
+| **The gate** | Group loans: ≥5 members, 70% youth, youth leadership, active bank account, registration certificate from Registrar of Societies or Social Services. Individuals: a registered business |
+| Where | Sub-county/constituency HQ, any Huduma Centre, or youthfund.go.ke |
+
+The gate is **a group and a certificate, not a credit score** — which is the
+part worth knowing early, because assembling five members and a registration
+takes months. That is the actionable line, and it is the one kept visible in
+the collapsed card.
+
+*Source: Hustler Fund published terms and disbursement reporting; Youth
+Enterprise Development Fund loan products and eligibility (youthfund.go.ke);
+Kenyan economic analysis of Hustler Fund outcomes. Cross-reported August 2026.
+Confidence: `cross-reported`.*
+
+**Honest limit, and it is a live one:** government has announced a **Biashara
+Fund** merging the Youth, Uwezo and Women Enterprise funds. As of 2026 the
+individual funds still operate and the consolidation is unfinished, so the
+branding and the forms will change. The copy says to confirm current terms at
+the constituency office before planning around any figure, and a test asserts
+that caveat cannot be dropped.

@@ -333,6 +333,59 @@ const LOAN_REALITY = {
   theAction: 'If you borrow, start paying the Ksh 1,500 minimum the month grace ends, employed or not. It is the single cheapest thing you can do with this information.'
 };
 
+/* THE GAP LEFT BY NJIA'S OWN HEADLINE FINDING.
+ *
+ * INFORMAL_ECONOMY says 83.8% of Kenyan workers are informal and 87.2% of
+ * last year's new jobs were too. That is a statement that most readers of
+ * this platform will create their own work rather than be hired into it.
+ * Njia then said nothing whatsoever about capitalising yourself — which
+ * left the single most likely path unserved.
+ *
+ * The central correction is that the Hustler Fund, which is what almost
+ * everyone names first, is not business capital. The average loan is about
+ * Ksh 300 on a 14-day clock. It is a consumption instrument, and research
+ * reads its scale as a measure of precarity rather than of enterprise.
+ *
+ * On the default rate: published figures range from 15% to 64% and both
+ * are defensible, because they measure different things — share of VALUE
+ * currently unpaid versus share of BORROWERS who have ever fallen behind.
+ * Njia states both denominators rather than picking the number that suits
+ * the argument, because a reader who has seen one headline needs to know
+ * why they have also seen the other.
+ *
+ * YEDF is the instrument that actually finances a business. It is
+ * interest-free, and it is gated on a group and a registration certificate
+ * rather than on a credit score — which is the part worth knowing early,
+ * because assembling five people and a registration takes months.
+ */
+const ENTERPRISE_CAPITAL = {
+  source: 'Hustler Fund published terms and disbursement reporting; Youth Enterprise Development Fund (youthfund.go.ke) loan products and eligibility; Kenyan economic analysis of Hustler Fund outcomes; cross-reported August 2026',
+  whyThisIsHere: 'Most new work in Kenya is self-created, not hired. If that is where you are heading, the question is not which employer — it is what you can raise, and on what terms.',
+  theMisconception: 'The Hustler Fund is the first thing most people name, and it is not business capital. The average loan is around Ksh 300, repayable in 14 days.',
+  hustlerFund: {
+    averageLoanKes: 300,
+    productRangeKes: [500, 50000],
+    annualInterestPct: 8,
+    tenureDays: 14,
+    savingsWithheldPct: 5,
+    reading: 'At 8% a year it is the cheapest credit in the country, and 5% of what you borrow is held as savings, which is genuinely useful. But a Ksh 300 loan on a fortnight clock smooths a bad week; it does not buy stock, tools or a lease. Analysts read the average ticket size as a measure of how thin household margins are, not as evidence of enterprise.',
+    defaultDispute: 'You will see the default rate quoted as anything from 15% to 64%. Both are real numbers measuring different things: roughly 15-20% of the value lent is currently unpaid, while the large majority of the millions who have ever borrowed have fallen behind at some point. Neither figure tells you whether it is right for you — the tenure does.'
+  },
+  realCapital: {
+    name: 'Youth Enterprise Development Fund',
+    established: 2006,
+    ageRange: [18, 34],
+    startupLoanKes: 100000,
+    expansionFromKes: 200000,
+    expansionCeilingKes: 1000000,
+    interest: 'Interest-free. A one-time 5% management fee is deducted from the approved amount before disbursement.',
+    theGate: 'Group loans need at least five members, 70% of them youth, youth leadership, an active bank account, and a registration certificate from the Registrar of Societies or the Social Services department. Individuals need a registered business.',
+    whereToApply: 'At your sub-county or constituency headquarters, at any Huduma Centre, or through youthfund.go.ke. An officer at constituency level takes you through vetting and training.'
+  },
+  theAdvice: 'The gate is a group and a registration certificate, not a credit score. Both take months to assemble, so start them while you are still studying rather than the week you need the money.',
+  honestLimit: 'Government announced a Biashara Fund merging the Youth, Uwezo and Women Enterprise funds into one. As of 2026 the individual funds are still operating and the consolidation is unfinished, so expect the branding and the forms to change under you. Confirm current terms at the constituency office before planning around a figure.'
+};
+
 /* Whole-economy anchors, 2025. Same source and same provenance caveat. */
 const LABOUR_MARKET_ANCHORS = {
   averageAnnualEarningsKes: 988200,
@@ -782,5 +835,5 @@ const LABOUR_MOBILITY = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, ATTACHMENT, LABOUR_MOBILITY };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, ATTACHMENT, LABOUR_MOBILITY, ENTERPRISE_CAPITAL };
 }

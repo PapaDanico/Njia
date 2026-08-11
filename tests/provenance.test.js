@@ -48,6 +48,7 @@ const COMPETITION_REALITY = grab('COMPETITION_REALITY');
 const PRIOR_LEARNING = grab('PRIOR_LEARNING');
 const ATTACHMENT = grab('ATTACHMENT');
 const LABOUR_MOBILITY = grab('LABOUR_MOBILITY');
+const ENTERPRISE_CAPITAL = grab('ENTERPRISE_CAPITAL');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -483,4 +484,44 @@ test('attachment is presented as mandatory and contested, not as a formality', (
 
   const clusters = [...new Set(COURSES.map((c) => c.cluster))];
   for (const c of a.clusters) assert.ok(clusters.includes(c), `attachment maps to unknown cluster ${c}`);
+});
+
+test('enterprise capital corrects the Hustler Fund before recommending anything', () => {
+  // INFORMAL_ECONOMY says most new work is self-created. This record is the
+  // answer to that, and its first job is a correction: the Hustler Fund is
+  // what everyone names, and at ~Ksh 300 on a 14-day clock it is a
+  // consumption instrument. Recommending capital without saying so would
+  // point the most likely reader at the least suitable product.
+  const c = ENTERPRISE_CAPITAL;
+  assert.match(c.theMisconception, /not business capital/i);
+  assert.equal(c.hustlerFund.averageLoanKes, 300);
+  assert.equal(c.hustlerFund.tenureDays, 14);
+
+  // Both default denominators must ship together. Quoting either alone is
+  // the thing that makes the published range look like an error.
+  assert.match(c.hustlerFund.defaultDispute, /15/, 'the value-based rate must be stated');
+  assert.match(c.hustlerFund.defaultDispute, /64/, 'the borrower-based rate must be stated');
+  assert.match(c.hustlerFund.defaultDispute, /value/i);
+  assert.match(c.hustlerFund.defaultDispute, /borrow/i);
+
+  // The Hustler Fund is criticised, not dismissed — it has genuinely the
+  // cheapest rate in the country and a forced-savings component.
+  assert.equal(c.hustlerFund.annualInterestPct, 8);
+  assert.equal(c.hustlerFund.savingsWithheldPct, 5);
+
+  // The real instrument, and the gate that is worth months of lead time.
+  const r = c.realCapital;
+  assert.ok(r.startupLoanKes < r.expansionFromKes, 'startup must be the smaller product');
+  assert.ok(r.expansionFromKes < r.expansionCeilingKes, 'expansion must have headroom');
+  assert.deepEqual([...r.ageRange], [18, 34]);
+  assert.match(r.theGate, /five members|5 members/i);
+  assert.match(r.theGate, /registration certificate/i);
+  assert.match(r.interest, /interest-free/i);
+  assert.match(r.interest, /5%/, 'the management fee must travel with "interest-free"');
+  assert.match(c.theAdvice, /not a credit score/i);
+
+  // The funds are mid-merger. Shipping amounts without that caveat would
+  // send someone to an office where the forms have changed.
+  assert.match(c.honestLimit, /Biashara/i);
+  assert.match(c.honestLimit, /confirm|unfinished|change/i);
 });

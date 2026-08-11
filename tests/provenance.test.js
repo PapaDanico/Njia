@@ -777,3 +777,32 @@ test('the exported report card carries the legend the screen carries', () => {
   // that already reports goals.
   assert.match(emitted, /applications complete/, 'applications must be reported, not only goals');
 });
+
+test('the catalogue reaches every county, and Samburu is not empty', () => {
+  // KMTC's campuses carried this catalogue from 12 counties to 45, and the two
+  // it does not serve — Kirinyaga and Samburu — sat open as "structurally
+  // hard". That was true of the KMTC route, not of the counties: each has its
+  // own registered public TVET college.
+  //
+  // Samburu is the one this guard exists for. It is among the counties where a
+  // young person is least likely to be near any tertiary institution, and a
+  // filter that silently returned nothing told them there was nothing.
+  const COUNTIES = ['Baringo', 'Bomet', 'Bungoma', 'Busia', 'Elgeyo-Marakwet', 'Embu', 'Garissa',
+    'Homa Bay', 'Isiolo', 'Kajiado', 'Kakamega', 'Kericho', 'Kiambu', 'Kilifi', 'Kirinyaga', 'Kisii',
+    'Kisumu', 'Kitui', 'Kwale', 'Laikipia', 'Lamu', 'Machakos', 'Makueni', 'Mandera', 'Marsabit',
+    'Meru', 'Migori', 'Mombasa', "Murang'a", 'Nairobi', 'Nakuru', 'Nandi', 'Narok', 'Nyamira',
+    'Nyandarua', 'Nyeri', 'Samburu', 'Siaya', 'Taita-Taveta', 'Tana River', 'Tharaka-Nithi',
+    'Trans Nzoia', 'Turkana', 'Uasin Gishu', 'Vihiga', 'Wajir', 'West Pokot'];
+
+  const covered = new Set(INSTITUTIONS.map((i) => i.county));
+  const missing = COUNTIES.filter((c) => !covered.has(c));
+  assert.deepEqual(missing, [], `counties with no institution: ${missing.join(', ')}`);
+
+  // An institution with no courses is a pin on a map, not an option. Every
+  // county must actually return something a person can apply to.
+  const withCourses = new Set(
+    INSTITUTIONS.filter((i) => COURSES.some((c) => c.institution_id === i.id)).map((i) => i.county)
+  );
+  const empty = COUNTIES.filter((c) => !withCourses.has(c));
+  assert.deepEqual(empty, [], `counties whose institutions carry no courses: ${empty.join(', ')}`);
+});

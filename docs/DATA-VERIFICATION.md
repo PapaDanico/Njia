@@ -1081,3 +1081,44 @@ about Kenya, not a gap to be filled with the nearest available number.
 *This re-test changes no data. It is recorded because the restriction it
 supports is a deliberate reduction in what the app will do, and a restriction is
 only as defensible as the evidence that it is still necessary.*
+
+## The last two counties — 45 of 47 becomes 47 of 47
+
+KMTC's campuses carried this catalogue from 12 counties to 45. The two it does
+not serve, **Kirinyaga** and **Samburu**, were left open in this register as
+"structurally hard".
+
+That was true of the KMTC route. It was not true of the counties. Each has its
+own registered public TVET college, and finding them took two searches.
+
+| County | Institution | Location | Programmes added |
+| --- | --- | --- | --- |
+| Kirinyaga | Mwea Technical and Vocational College | Wang'uru, off the Nairobi–Embu highway | Certificates in General Agriculture, ICT, Automotive Engineering |
+| Samburu | Samburu Technical and Vocational College | Archers Post | Diplomas in ICT, Electrical Engineering and Tourism Management; Certificate in Tour Guide Operations |
+
+Both are TVETA-registered public institutions. Only programmes named in the
+sources were added — no course list was inferred from what a college of that
+type "usually" offers.
+
+**Fees** use the same basis as every other public TVET record here: the
+government's consolidated annual public-TVET fee of Ksh 67,189, scaled by
+duration, with the existing verification note attached unchanged. **Entry
+grades** follow the published KUCCPS thresholds — C- and above for diploma, D
+plain and above for certificate. **Outcomes remain `illustrative`**, as they are
+for all 174 records.
+
+### Why Samburu was the one worth the effort
+
+It is among the counties where a young person is least likely to be within
+reach of any tertiary institution. A catalogue that silently returned nothing
+for Samburu did not read as "we have no data" — it read as *there is nothing
+here*. Archers Post has a public college running diplomas.
+
+A test now asserts all 47 counties are present **and** that every county's
+institutions actually carry courses, because an institution with no programmes
+is a pin on a map rather than something to apply to. Both halves were
+negative-tested: move the Samburu college to another county, or reassign
+Kirinyaga's courses away, and the suite fails.
+
+Catalogue after this pass: **174 places to apply · 80 distinct programmes · 88
+institutions · 47 of 47 counties.**

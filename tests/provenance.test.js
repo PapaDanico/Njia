@@ -777,3 +777,104 @@ test('the exported report card carries the legend the screen carries', () => {
   // that already reports goals.
   assert.match(emitted, /applications complete/, 'applications must be reported, not only goals');
 });
+
+test('the catalogue reaches every county, and Samburu is not empty', () => {
+  // KMTC's campuses carried this catalogue from 12 counties to 45, and the two
+  // it does not serve — Kirinyaga and Samburu — sat open as "structurally
+  // hard". That was true of the KMTC route, not of the counties: each has its
+  // own registered public TVET college.
+  //
+  // Samburu is the one this guard exists for. It is among the counties where a
+  // young person is least likely to be near any tertiary institution, and a
+  // filter that silently returned nothing told them there was nothing.
+  const COUNTIES = ['Baringo', 'Bomet', 'Bungoma', 'Busia', 'Elgeyo-Marakwet', 'Embu', 'Garissa',
+    'Homa Bay', 'Isiolo', 'Kajiado', 'Kakamega', 'Kericho', 'Kiambu', 'Kilifi', 'Kirinyaga', 'Kisii',
+    'Kisumu', 'Kitui', 'Kwale', 'Laikipia', 'Lamu', 'Machakos', 'Makueni', 'Mandera', 'Marsabit',
+    'Meru', 'Migori', 'Mombasa', "Murang'a", 'Nairobi', 'Nakuru', 'Nandi', 'Narok', 'Nyamira',
+    'Nyandarua', 'Nyeri', 'Samburu', 'Siaya', 'Taita-Taveta', 'Tana River', 'Tharaka-Nithi',
+    'Trans Nzoia', 'Turkana', 'Uasin Gishu', 'Vihiga', 'Wajir', 'West Pokot'];
+
+  const covered = new Set(INSTITUTIONS.map((i) => i.county));
+  const missing = COUNTIES.filter((c) => !covered.has(c));
+  assert.deepEqual(missing, [], `counties with no institution: ${missing.join(', ')}`);
+
+  // An institution with no courses is a pin on a map, not an option. Every
+  // county must actually return something a person can apply to.
+  const withCourses = new Set(
+    INSTITUTIONS.filter((i) => COURSES.some((c) => c.institution_id === i.id)).map((i) => i.county)
+  );
+  const empty = COUNTIES.filter((c) => !withCourses.has(c));
+  assert.deepEqual(empty, [], `counties whose institutions carry no courses: ${empty.join(', ')}`);
+});
+
+test('the HEF record says the model is under appeal, and that bands can be appealed', () => {
+  // Two separate obligations, both previously missing.
+  const hef = FUNDING_SOURCES.find((f) => f.id === 'f001');
+  assert.ok(hef, 'the HELB/HEF record must exist');
+
+  // 1. LEGAL STATUS. The High Court declared this model unconstitutional in
+  //    Petition 412 of 2023 on 20 December 2024. It runs today only because
+  //    the Court of Appeal stayed that judgment; the constitutional question
+  //    is undecided. The Universities Fund says the model may change, and the
+  //    Court directed that applicants be told so. Presenting the bands as
+  //    settled is the one thing both the funder and the court said not to do.
+  assert.ok(hef.legalStatus, 'the court position must travel with the record');
+  assert.match(hef.legalStatus, /stay/i, 'the stay is why the model still operates');
+  assert.match(hef.legalStatus, /unconstitutional/i);
+  assert.match(hef.legalStatus, /412 of 2023/, 'the petition must be citable');
+  assert.match(hef.legalStatus, /20 December 2024/, 'the judgment date must be exact');
+  assert.match(hef.legalStatus, /pending|not decided|has not decided/i,
+    'an unresolved appeal must not read as resolved');
+
+  // 2. THE APPEAL ROUTE. The band decides affordability — roughly 70% covered
+  //    at Band 1 against 30% at Band 5 — and it is set by an instrument
+  //    reading declared circumstances, so it can be wrong. It is the only
+  //    action available to someone the model has placed out of reach.
+  assert.ok(hef.bandAppeal, 'the band appeal route must be stated');
+  assert.match(hef.bandAppeal, /appeal/i);
+  assert.match(hef.bandAppeal, /portal|window/i, 'where and when to appeal is the actionable part');
+
+  // Both must reach the page. A caveat that lives only in a data file
+  // protects nobody.
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  // Match the CONDITIONAL, not merely the identifier. Asserting that the
+  // string "f.legalStatus" appears somewhere passes even when the branch has
+  // been disabled to `${false ? ...}` — the identifier survives inside the
+  // dead template. Checking the guard expression itself is what actually
+  // fails when the field stops reaching the page.
+  assert.match(decide, /\$\{f\.legalStatus \?/, 'legal status must be conditionally rendered');
+  assert.match(decide, /\$\{f\.bandAppeal \?/, 'the appeal route must be conditionally rendered');
+});
+
+test('the cannot-afford-it answer orders the actions and admits what is unknown', () => {
+  // The most acute moment this app can meet someone in: placed, and unable to
+  // raise the household contribution. The answer is only useful if it is
+  // ordered — appeal the band first because it is free and most overlooked,
+  // stack bursaries second, talk to the institution third — and only honest
+  // if it says plainly what is not published.
+  const help = fs.readFileSync(path.join(root, 'js', 'help.js'), 'utf8');
+  const q = help.split('\n').find((l) => l.includes('we cannot raise the money'));
+  assert.ok(q, 'the answer must exist');
+
+  // Ordering: the band appeal must come before the deferment conversation.
+  const appealAt = q.indexOf('Appeal your band');
+  const deferAt = q.indexOf('Deferment is arranged');
+  assert.ok(appealAt > -1 && deferAt > -1, 'both steps must be present');
+  assert.ok(appealAt < deferAt, 'the free, overlooked fix must be offered before deferment');
+
+  // Deferment is an institution matter, not a KUCCPS one. Sending someone to
+  // the wrong desk in a week that decides their year is a real cost.
+  assert.match(q, /not with KUCCPS/i, 'deferment must be routed to the institution');
+  assert.match(q, /before the reporting date/i, 'timing is the actionable part');
+
+  // The unknown, stated as an unknown. Neither "your place is held" nor "you
+  // will lose it" is publicly established, and guessing either way is worse
+  // than saying so.
+  assert.match(q, /will not guess/i, 'the gap must be named as a gap');
+  assert.match(q, /not assume it is held/i);
+  assert.match(q, /not assume it is lost/i);
+
+  // It must not read as blame. Someone in this position already believes they
+  // failed; the record is that the funding model produces this outcome.
+  assert.match(q, /not a personal failure/i);
+});

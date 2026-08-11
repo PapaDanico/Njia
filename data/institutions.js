@@ -108,6 +108,21 @@ const INSTITUTIONS = [
   { id: 'kmtc_kajiado', name: 'Kenya Medical Training College (KMTC) — Kajiado Campus', ownership: 'public', type: 'tvet', location: 'Kajiado', county: 'Kajiado', accreditation: 'TVETA Registered', website: 'https://kmtc.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
   { id: 'kmtc_kisii', name: 'Kenya Medical Training College (KMTC) — Kisii Campus', ownership: 'public', type: 'tvet', location: 'Kisii', county: 'Kisii', accreditation: 'TVETA Registered', website: 'https://kmtc.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
   { id: 'kmtc_eldoret', name: 'Kenya Medical Training College (KMTC) — Eldoret Campus', ownership: 'public', type: 'tvet', location: 'Eldoret', county: 'Uasin Gishu', accreditation: 'TVETA Registered', website: 'https://kmtc.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+
+  /* THE LAST TWO COUNTIES.
+   *
+   * KMTC's 98 campuses carried this catalogue from 12 counties to 45, and the
+   * two it does not serve were the two Njia could not reach: Kirinyaga and
+   * Samburu. Both were left open as "structurally hard" — which was true only
+   * of the KMTC route, not of the counties. Each has a registered public TVET
+   * college of its own.
+   *
+   * Samburu matters most. It is among the counties where a young person is
+   * least likely to be within reach of any tertiary institution, and a
+   * catalogue that silently returned nothing for Samburu told them there was
+   * nothing — when Archers Post has a public college running diplomas. */
+  { id: 'mweatvc', name: 'Mwea Technical and Vocational College', ownership: 'public', type: 'tvet', location: "Wang'uru", county: 'Kirinyaga', accreditation: 'TVETA Registered', website: 'https://mweatvc.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  { id: 'samburutvc', name: 'Samburu Technical and Vocational College', ownership: 'public', type: 'tvet', location: 'Archers Post', county: 'Samburu', accreditation: 'TVETA Registered', website: 'https://kuccps.net', modes: ['full_time'], has_workstudy: false, has_hostel: true },
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

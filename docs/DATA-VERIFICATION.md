@@ -1081,3 +1081,153 @@ about Kenya, not a gap to be filled with the nearest available number.
 *This re-test changes no data. It is recorded because the restriction it
 supports is a deliberate reduction in what the app will do, and a restriction is
 only as defensible as the evidence that it is still necessary.*
+
+## The last two counties — 45 of 47 becomes 47 of 47
+
+KMTC's campuses carried this catalogue from 12 counties to 45. The two it does
+not serve, **Kirinyaga** and **Samburu**, were left open in this register as
+"structurally hard".
+
+That was true of the KMTC route. It was not true of the counties. Each has its
+own registered public TVET college, and finding them took two searches.
+
+| County | Institution | Location | Programmes added |
+| --- | --- | --- | --- |
+| Kirinyaga | Mwea Technical and Vocational College | Wang'uru, off the Nairobi–Embu highway | Certificates in General Agriculture, ICT, Automotive Engineering |
+| Samburu | Samburu Technical and Vocational College | Archers Post | Diplomas in ICT, Electrical Engineering and Tourism Management; Certificate in Tour Guide Operations |
+
+Both are TVETA-registered public institutions. Only programmes named in the
+sources were added — no course list was inferred from what a college of that
+type "usually" offers.
+
+**Fees** use the same basis as every other public TVET record here: the
+government's consolidated annual public-TVET fee of Ksh 67,189, scaled by
+duration, with the existing verification note attached unchanged. **Entry
+grades** follow the published KUCCPS thresholds — C- and above for diploma, D
+plain and above for certificate. **Outcomes remain `illustrative`**, as they are
+for all 174 records.
+
+### Why Samburu was the one worth the effort
+
+It is among the counties where a young person is least likely to be within
+reach of any tertiary institution. A catalogue that silently returned nothing
+for Samburu did not read as "we have no data" — it read as *there is nothing
+here*. Archers Post has a public college running diplomas.
+
+A test now asserts all 47 counties are present **and** that every county's
+institutions actually carry courses, because an institution with no programmes
+is a pin on a map rather than something to apply to. Both halves were
+negative-tested: move the Samburu college to another county, or reassign
+Kirinyaga's courses away, and the suite fails.
+
+Catalogue after this pass: **174 places to apply · 80 distinct programmes · 88
+institutions · 47 of 47 counties.**
+
+## The funding model Njia sends people to is under appeal
+
+Njia's HELB/HEF record described the funding bands as settled fact. They are not.
+
+| | |
+| --- | --- |
+| Petition | **412 of 2023** |
+| High Court judgment | **20 December 2024** — model declared **unconstitutional** for want of public participation and legal foundation, and discriminatory in effect |
+| Court of Appeal | **Stayed** execution of that judgment — which is why the model still operates |
+| Constitutional question | **Undecided.** The appeal is pending |
+
+The Universities Fund states on its own site that the model *"may be subject to
+changes depending on the outcome of the ongoing court appeal process"*, and the
+Court directed that current beneficiaries **and new applicants** be told exactly
+that.
+
+So presenting the bands as fixed was the one thing both the funder and the court
+said not to do. `legalStatus` now travels with the record and renders on the
+funding card behind a disclosure titled *"read before planning around it"* — the
+advice being: apply through it, because it is what exists today; do not build a
+multi-year plan on the assumption these bands survive unchanged.
+
+**No date is given for the stay.** Sources consulted disagreed on it, and a wrong
+date on a legal claim is worse than no date. The judgment date and petition
+number are firm and are what the record cites.
+
+### The band can be appealed, and Njia never said so
+
+The band decides whether a place is affordable at all — roughly a 70%
+scholarship at Band 1 against 30% at Band 5, with 40% falling on the household.
+It is set by the Means Testing Instrument reading *declared* household
+circumstances, so **it can be set wrong**, and there is a formal route to contest
+it. The Court of Appeal expressly required students to be told they may appeal a
+category they are dissatisfied with.
+
+Njia explained how the bands work and never mentioned they can be challenged —
+which is the single action available to someone the model has priced out of a
+place they were offered. `bandAppeal` now says so, and stays visible on the card
+rather than sitting behind disclosure, because it is the actionable half.
+
+*Source: Universities Fund (universitiesfund.go.ke) reporting of the Court of
+Appeal decision and its own "subject to change" notice; High Court Petition 412
+of 2023; contemporaneous Kenyan legal and education reporting. Cross-reported
+August 2026.*
+
+### A weak guard, caught and strengthened
+
+The first version of the test asserted that the string `f.legalStatus` appeared
+in `decide.js`. Disabling the branch to `${false ? ... }` left that identifier
+sitting in the dead template, so the guard passed while the caveat had stopped
+reaching the page. It now matches the **conditional** (`${f.legalStatus ?`),
+which is what actually fails when the field stops rendering. Both guards
+re-verified by disabling each branch in turn.
+
+## Placed, and unable to pay — the question Njia had no answer for
+
+This follows directly from the funding-model work above. The band assigns a
+household contribution, and **students are documented as deferring specifically
+because that contribution could not be raised.** Njia explained the bands, added
+the appeal route, and still had nothing for the person already past that point.
+
+The answer is ordered deliberately, because the order is the advice:
+
+1. **Appeal the band.** Free, reversible, and the most overlooked. Roughly 40%
+   of fees separate the top band from the bottom.
+2. **Stack the other sources.** NG-CDF and county bursaries sit alongside HEF,
+   and most bursary applications fail on missing documents rather than on merit.
+3. **Talk to the institution before the reporting date.** Deferment is arranged
+   with the college or university — **not with KUCCPS** — and each has its own
+   form and rules. Registrars can also stage payments across a term.
+
+A test asserts step 1 precedes step 3, that deferment is routed to the
+institution rather than KUCCPS, and that the timing phrase survives. Sending
+someone to the wrong desk in the week that decides their year is a real cost.
+
+### What is deliberately unanswered
+
+**Whether, and for how long, a deferred student keeps their KUCCPS placement is
+not published anywhere we can point to.** The copy says so outright and tells
+the reader to assume neither — get the answer from the institution in writing
+before the deadline. A test pins both halves of that ("do not assume it is
+held", "do not assume it is lost"), because a comforting guess here costs
+someone a year.
+
+### Tone is load-bearing here
+
+Someone reading this already believes they have failed. The record is that the
+funding model produces this outcome at scale — so the answer opens by saying it
+is common and not a personal failure, and a test asserts that line stays. It
+closes by weighing the honest alternative: a TVET place that can actually be
+paid for, and that ladders, beats a university place abandoned in second year.
+
+*Source: Kenyan education reporting on deferment driven by the household
+contribution, institutional deferral procedures, and the Ministry's 2024
+nullification and revision of fee structures issued to KUCCPS-placed students.
+Cross-reported August 2026.*
+
+### Three badly-built probes, and what they cost
+
+Negative-testing this answer took four attempts. The first swapped two step
+headings but left the body text in place; the second inserted the phrase being
+searched for immediately before its own anchor; both "passed" and neither had
+violated anything. Only the third — lifting the whole deferment sentence and
+re-inserting it ahead of the appeal step, with an assertion that the violation
+was real before running the suite — actually exercised the guard.
+
+**A negative test is only as good as the violation it constructs.** A probe that
+fails to violate looks identical to a guard that holds.

@@ -1082,10 +1082,10 @@ test('the artisan tier is not confined to a single institution or county', () =>
   assert.ok(artisan.length > 0, 'the artisan tier must exist');
   assert.ok(institutions.size >= 2, `artisan courses sit at only ${institutions.size} institution(s)`);
   // A ratchet, not a target. It started at 2 when the tier covered four
-  // counties; it is 6 now that the tier covers eight. Raise it as coverage
-  // grows, never lower it to make a change pass — the whole point is that
-  // reach cannot quietly regress.
-  assert.ok(counties.size >= 6, `artisan courses reach only ${counties.size} county/counties`);
+  // counties, went to 6 at eight, and is 9 now the tier covers eleven. Raise
+  // it as coverage grows, never lower it to make a change pass — the whole
+  // point is that reach cannot quietly regress.
+  assert.ok(counties.size >= 9, `artisan courses reach only ${counties.size} county/counties`);
   // Every artisan record must resolve to a real institution — a typo in
   // institution_id would otherwise render as "Unknown institution".
   for (const c of artisan) {
@@ -1329,4 +1329,33 @@ test('artisan entry grades reflect what each institution publishes', () => {
       /KUCCPS|KCPE|mean grade|entry|minimum|admission|interview|school leaver|primary/i.test(c.verification_note || ''),
       `${c.id} gives no basis for its entry requirement`);
   }
+});
+
+/* Counting artisan counties is not the same as counting counties where the
+ * learner this tier exists for can actually apply.
+ *
+ * Most polytechnics publish an artisan bar of D or D-, above the KUCCPS floor
+ * of E, so a county can hold artisan records that an E-grade learner still does
+ * not meet. The metric that matters is the one measured from the learner's
+ * side: how many counties contain something they qualify for. It moved 5 to 6
+ * when four polytechnics were added, and 6 to 9 only once the Vocational
+ * Training Centres — which admit on a KCPE certificate — came in.
+ *
+ * A ratchet on the same terms as the county guard above. */
+test('an E-grade learner can apply somewhere in a meaningful number of counties', () => {
+  const ORDER = ['E', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A'];
+  const byId = new Map(INSTITUTIONS.map((i) => [i.id, i]));
+  const reachable = COURSES.filter((c) => !c.min_grade || ORDER.indexOf('E') >= ORDER.indexOf(c.min_grade));
+  const counties = new Set(reachable.map((c) => byId.get(c.institution_id)?.county));
+
+  assert.ok(counties.size >= 9,
+    `an E-grade learner has options in only ${counties.size} counties`);
+
+  // Reach has to mean trades, not only the open-entry short certificates that
+  // made the original count look survivable. Five OUK online certificates in
+  // one county was the state this whole line of work started from.
+  const artisanCounties = new Set(
+    reachable.filter((c) => c.level === 'artisan').map((c) => byId.get(c.institution_id)?.county));
+  assert.ok(artisanCounties.size >= 8,
+    `an E-grade learner reaches artisan training in only ${artisanCounties.size} counties`);
 });

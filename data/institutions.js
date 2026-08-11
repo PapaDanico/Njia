@@ -140,6 +140,19 @@ const INSTITUTIONS = [
   { id: 'donbosco_karen', name: 'Don Bosco Boys Technical Training Centre', ownership: 'private', type: 'tvet', location: 'Langata-Karen Road, Karen', county: 'Nairobi', accreditation: 'TVETA Registered · NITA-accredited trades (Salesians of Don Bosco)', website: 'https://donboscoboystown.org', modes: ['full_time'], has_workstudy: false, has_hostel: true },
   { id: 'citc_nairobi', name: 'Christian Industrial Training Centre (CITC) Nairobi', ownership: 'private', type: 'tvet', location: 'Pumwani, Meru Road', county: 'Nairobi', accreditation: 'KNEC and NITA training and examination centre (Anglican Church of Kenya, Diocese of Nairobi)', website: 'https://citcnairobi.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
   { id: 'maralalvtc', name: 'Maralal Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Maralal', county: 'Samburu', accreditation: 'TVETA Registered (TVETA/PUBLIC/VTC/0090/2018)', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
+
+  /* Vocational Training Centres — the tier below the polytechnics, and the one
+   * that actually admits at the bottom of the range. County VTCs (still widely
+   * called youth or village polytechnics) are TVETA-regulated and mostly take
+   * KCPE graduates or KCSE D- and E, which is a full grade band below what the
+   * national polytechnics publish.
+   *
+   * Both counties below previously held a KMTC campus and nothing else, so
+   * their entire catalogue presence taught medicine at entry bars a low-scoring
+   * learner cannot reach. These are their first non-medical, low-entry
+   * institutions. */
+  { id: 'kitalevtc', name: 'Kitale Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Kitale', county: 'Trans Nzoia', accreditation: 'Public Vocational Training Centre · KNEC and NITA examination centre', website: 'https://transnzoia.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
+  { id: 'kilifisaidia', name: 'Kilifi Saidia College', ownership: 'private', type: 'tvet', location: 'Kilifi', county: 'Kilifi', accreditation: 'TVETA Registered and Licensed · NITA trade-test centre', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

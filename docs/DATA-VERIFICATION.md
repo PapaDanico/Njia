@@ -884,11 +884,24 @@ What *is* verified: choices are made through the Ministry portal at
 parent through the Head of Junior School, at least two weeks before the January
 reporting date.
 
-*Source: Ministry of Education CBE senior school framework, KNEC Grade 10 subject
-selection guidelines, and 2026 transition coverage. Cross-reported August 2026.
-Confidence: `cross-reported` — `selection.education.go.ke` is blocked by this
-environment's egress proxy, as are all `.go.ke` domains tried this session, so
-the primary source could not be read directly.*
+*Source: Ministry of Education Grade 10 Selection and Placement System
+(selection.education.go.ke), KICD Basic Education Curriculum Framework and senior
+school curriculum designs, KNEC senior school placement material, and KUCCPS
+degree cluster documentation. Retrieved August 2026 via search indexing of those
+publishers. Confidence: `cross-reported`.*
+
+> **Correction to an earlier version of this section.** It stated that
+> `selection.education.go.ke` "is blocked by this environment's egress proxy, as
+> are all `.go.ke` domains tried this session, so the primary source could not be
+> read directly." That was too broad and it stopped research that should have
+> continued. **`WebFetch` is blocked for these hosts; domain-restricted search is
+> not.** Searching the publishers directly returned materially better material —
+> the Ministry's coded subject-combination table, the pathway *track* structure,
+> the curriculum framework's intended pathway spread, and the KUCCPS degree
+> cluster document. What remains true is narrower: the PDFs themselves could not
+> be read line by line here, so figures are attributed to the publisher rather
+> than quoted from the document, and a test asserts that limitation travels with
+> the source string.
 
 ### Timing
 
@@ -897,3 +910,61 @@ around **2029**. Nothing here is broken for today's KCSE users. It was worth
 doing now because Njia was silent for every parent or older sibling advising a
 Grade 9 student today — and because `CBE_PATHWAYS` had been sitting in the
 dataset **exported but never rendered anywhere**, which this also fixes.
+
+## CBE, second pass — what searching the publishers directly turned up
+
+Three findings the first pass missed, and one correction to its reasoning.
+
+### The unit of choice is narrower than a pathway
+
+A pathway is only the top level. Inside it sits a **track**, and inside that a
+**coded three-subject combination** — and a school offers only some of them.
+
+| Pathway | Tracks |
+| --- | --- |
+| STEM | Pure Sciences · Applied Sciences · Technical Studies |
+| Social Sciences | Humanities · Business Studies · Languages · Foreign Languages · Religious Education |
+| Arts and Sports Science | Performing and Visual Arts · Sports Science |
+
+**The school you are placed in narrows your combination as much as the pathway
+does.** That is the actionable part, and it argues for checking which
+combinations a school actually offers *before* ranking it among your twelve
+choices.
+
+### The spread is a design target, not an accident
+
+The Basic Education Curriculum Framework expects roughly **60%** of senior
+school learners in STEM, **25%** in languages and social sciences, and **15%**
+in sports science and the performing and visual arts.
+
+This is recorded as `intendedSpread` and rendered explicitly as *"a planning
+target rather than a measured result"* — it describes how the system was built,
+not where the first cohort landed. A test fails if that framing is dropped,
+because this project has spent its life removing figures that read as
+measurements when they are not.
+
+What it usefully tells a reader: choosing outside STEM puts you in a minority
+the system planned for, not a mistake — and choosing STEM puts you in the stream
+intended to be the most crowded.
+
+### The no-filter reasoning was wrong, and is now precise
+
+The earlier record said filtering was refused because the pathway-to-programme
+map "is not published in a form worth trusting". **Both halves of it are
+published:**
+
+1. **CBE side** — the Ministry's full pathway/track/subject-combination table,
+   with codes, at `selection.education.go.ke`.
+2. **Placement side** — the KUCCPS degree cluster document, giving every
+   programme's four required cluster subjects.
+
+What genuinely does not exist is **the bridge**: an authoritative account of how
+a CBE three-subject combination will satisfy cluster requirements that are still
+written in KCSE subjects, for the first cohort reaching placement around 2029.
+
+The decision not to filter stands — but for the accurate reason. Njia will not
+invent the bridge, because that is precisely the rule that would decide whether
+someone's options get hidden from them. A test now asserts the word "bridge"
+survives in the stated reason and that the old overstated wording cannot return,
+since a vaguer reason invites a future contributor to "fix" it by building the
+filter on a guess.

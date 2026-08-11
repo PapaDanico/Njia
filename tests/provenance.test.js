@@ -643,10 +643,53 @@ test('Njia records what it does not know about pathways, and refuses to gate on 
   //    unsourced pathway-to-programme map into the matcher would repeat the
   //    exact fault this test file exists to prevent — invented data deciding
   //    what a person sees. Guard that the decision stays deliberate.
+  // The reason has to stay precise. An earlier draft said the mapping "is
+  // not published", which was wrong — both halves are. What is missing is the
+  // bridge between CBE subject combinations and KUCCPS cluster requirements
+  // still written in KCSE subjects. A vaguer reason invites someone to
+  // "fix" it by building the filter on a guess.
   assert.match(p.whyNjiaDoesNotFilter, /does not filter/i);
-  assert.match(p.whyNjiaDoesNotFilter, /verified|published/i);
+  assert.match(p.whyNjiaDoesNotFilter, /bridge/i, 'the missing piece must be named as the bridge, not the whole map');
+  assert.match(p.whyNjiaDoesNotFilter, /KUCCPS/, 'the placement-side source must be credited as published');
+  assert.ok(!/not published in a form worth trusting/i.test(p.whyNjiaDoesNotFilter),
+    'the old overstated reason must not come back');
 
   const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
   assert.ok(!/CBE_PATHWAYS|\bpathway\b/i.test(decide),
     'Decide must not filter or score on CBE pathway until the subject mapping is sourced');
+});
+
+test('pathways carry their tracks, and the design target is labelled as a target', () => {
+  // You do not pick a pathway. You pick a coded three-subject combination
+  // inside a track inside a pathway, and only from what your school offers —
+  // so the tracks have to be present or the record describes the wrong unit.
+  const p = CBE_PATHWAYS;
+  for (const pathway of p.pathways) {
+    assert.ok(Array.isArray(pathway.tracks) && pathway.tracks.length > 0,
+      `pathway ${pathway.name} has no tracks`);
+  }
+  assert.match(p.choiceUnit, /combination/i);
+  assert.match(p.choiceUnit, /school/i, 'the school-level constraint is the part people miss');
+
+  // 60/25/15 is a curriculum-framework planning target, not an observed
+  // placement outcome. Njia has spent this project removing figures that read
+  // as measurements when they are not, so this one must say what it is.
+  const spread = p.intendedSpread;
+  assert.equal(spread.stemPct + spread.socialSciencesAndLanguagesPct + spread.artsAndSportsPct, 100,
+    'the intended spread must account for the whole cohort');
+  assert.match(p.intendedSpreadReading, /target|not a measured|planning/i,
+    'the design target must not read as a measured outcome');
+});
+
+test('CBE provenance credits the publisher and admits the documents were not read', () => {
+  // WebFetch is blocked for these hosts in this environment; search indexing
+  // of the same publishers is not. That distinction matters: the figures are
+  // attributed to the Ministry, KICD, KNEC and KUCCPS, but no PDF was read
+  // line by line here, and the source string has to say so rather than imply
+  // a direct reading.
+  const src = CBE_PATHWAYS.source;
+  assert.match(src, /selection\.education\.go\.ke/);
+  assert.match(src, /KUCCPS/);
+  assert.match(src, /could not be read directly|search indexing/i,
+    'the retrieval limitation must travel with the source');
 });

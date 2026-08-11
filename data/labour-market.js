@@ -224,14 +224,25 @@ const PLACEMENT_MECHANICS = {
  * the cluster model both have to answer it eventually.
  */
 const CBE_PATHWAYS = {
-  source: 'Ministry of Education CBE senior school framework and 2026 transition coverage, cross-reported August 2026',
+  source: 'Ministry of Education Grade 10 Selection and Placement System (selection.education.go.ke), KICD Basic Education Curriculum Framework and senior school curriculum designs, KNEC senior school placement material, and KUCCPS degree cluster documentation. Retrieved via search indexing of those publishers August 2026 — the documents themselves could not be read directly from this environment, so figures are attributed to the publisher rather than quoted from the PDF.',
   liveFrom: 'January 2026 — the first Grade 10 cohort',
   decisionPoint: 'Grade 10, at roughly age 14–15, on KJSEA results',
   pathways: [
-    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', clusters: ['tech', 'numbers'] },
-    { name: 'Social Sciences', covers: 'Humanities, business, languages and policy-facing subjects', clusters: ['people', 'business', 'carer'] },
-    { name: 'Arts and Sports Science', covers: 'Creative, performance and sports subjects', clusters: ['creator'] }
+    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', tracks: ['Pure Sciences', 'Applied Sciences', 'Technical Studies'], clusters: ['tech', 'numbers'] },
+    { name: 'Social Sciences', covers: 'Humanities, business, languages and policy-facing subjects', tracks: ['Humanities', 'Business Studies', 'Languages', 'Foreign Languages', 'Religious Education'], clusters: ['people', 'business', 'carer'] },
+    { name: 'Arts and Sports Science', covers: 'Creative, performance and sports subjects', tracks: ['Performing and Visual Arts', 'Sports Science'], clusters: ['creator'] }
   ],
+  // A pathway is not the unit you actually pick. You pick a TRACK inside it,
+  // and then a coded three-subject combination inside that. The Ministry
+  // publishes the full combination table with codes; schools then offer only
+  // some of them, which is why the school you are placed in constrains the
+  // combination you can take just as much as the pathway does.
+  choiceUnit: 'You do not choose a pathway so much as a coded three-subject combination inside a track inside a pathway — and only from the combinations your school actually offers.',
+  // Policy design target from the Basic Education Curriculum Framework — an
+  // intended distribution, NOT an observed outcome. Stated as design because
+  // no placement result for the first cohort has been verified here.
+  intendedSpread: { stemPct: 60, socialSciencesAndLanguagesPct: 25, artsAndSportsPct: 15 },
+  intendedSpreadReading: 'The curriculum framework expects roughly 60% of senior school learners in STEM, 25% in languages and social sciences, and 15% in sports science and the performing and visual arts. This is a planning target, not a measured result — but it tells you the system is built to push the majority toward STEM, so choosing outside it means being in a minority by design rather than by accident.',
   commonCore: 'English, Kiswahili or Kenyan Sign Language, community service learning and physical education are taken by everyone, alongside three pathway subjects.',
   subjectCount: 7,
   // The correction, and the reason this record exists at all. Njia already
@@ -246,14 +257,23 @@ const CBE_PATHWAYS = {
   whatIsNotPublished: 'What is much less clearly published is whether, and how, a learner can switch pathway once senior school has actually begun. Njia has not found an authoritative public answer, so it does not offer one — ask the school and the portal directly rather than assume either way.',
   implication: 'A Grade 10 pathway choice now narrows what is reachable at Grade 12. Njia currently meets people after KCSE, which under this system is after the decisive choice has already been made.',
   // Deliberate scope limit, recorded so it is a decision rather than an
-  // oversight. Njia does NOT filter or gate its catalogue on pathway. Doing
-  // that needs a verified pathway-subject-to-programme mapping, and no such
-  // mapping has been sourced to a standard that should decide what a person
-  // can see. Encoding a guess into the matcher would repeat exactly the fault
-  // this dataset was rebuilt to remove. Inform, do not gate — until the
-  // mapping is sourced, and until the first CBE cohort actually reaches
-  // placement, which is not before roughly 2029.
-  whyNjiaDoesNotFilter: 'Njia explains the constraint but does not filter courses by pathway. Doing so would need a verified map from pathway subjects to each programme\'s required subjects, and that map is not published in a form worth trusting with someone\'s options. An honest warning beats a confident filter built on a guess.'
+  // oversight — and stated precisely, because an earlier draft of this record
+  // got the reason wrong. It claimed the mapping "is not published". Both
+  // halves of it are:
+  //
+  //   1. CBE side — the Ministry publishes the full pathway/track/subject
+  //      combination table, with codes, at selection.education.go.ke.
+  //   2. Placement side — KUCCPS publishes its degree cluster document, which
+  //      gives every programme's four required cluster subjects.
+  //
+  // What genuinely does not exist yet is the BRIDGE between them: an
+  // authoritative statement of how a CBE three-subject combination will
+  // satisfy KUCCPS cluster-subject requirements for the first cohort to reach
+  // placement. KUCCPS's published requirements are written for KCSE subjects.
+  // Building the bridge ourselves would mean inventing the single rule that
+  // decides whether someone's options are shown or hidden, which is exactly
+  // the fault this dataset was rebuilt to remove. Inform, do not gate.
+  whyNjiaDoesNotFilter: 'Njia explains the constraint but does not filter courses by pathway. Both halves of the mapping are published — the Ministry\'s subject-combination table, and the KUCCPS degree cluster document listing each programme\'s four required subjects. What is not published is the bridge: how a CBE subject combination will satisfy cluster requirements that are still written in KCSE subjects. Njia will not invent that rule, because it is the rule that would decide whether your options get hidden from you. A warning you can act on beats a filter built on a guess.'
 };
 
 /* THE PLACEMENT CALENDAR. Dates, not prose, so the app can work out what is

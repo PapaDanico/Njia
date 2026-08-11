@@ -504,3 +504,36 @@ cohort performance, and meeting it still does not guarantee a place.
 Njia previously said "your grade meets it" with a positive signal and stopped
 there. A student reads that as "I am in". For the single most consequential
 claim this app makes, that was too little of the truth.
+
+
+## Where the room actually is — the mechanism behind the capacity paradox
+
+`EDUCATION_PIPELINE` records that middle-level colleges hold over 1.1 million
+places against 293,869 placements. This is how that happens in practice.
+
+| Fills first | What happened | Where the room is |
+| --- | --- | --- |
+| Medicine and surgery, degree nursing, pharmacy, architecture, engineering | **Removed from the KUCCPS portal outright** once slots were exhausted in the *first* application window, which closed 6 May | Roughly **1.1 million vacancies** remained across national polytechnics and specialised training institutions |
+
+*Source: KUCCPS 2026 placement cycle reporting, cross-reported August 2026. The
+1.1 million figure independently corroborates the 1,132,531 middle-level
+capacity recorded from the placement data.*
+
+The cap is not arbitrary and the register says so: professional regulators —
+the Medical Practitioners and Dentists Council, the Engineers Board — limit
+intake so students-per-lecturer and students-per-laboratory ratios stay
+workable. **The cap protects the quality of the qualification you would be
+getting.**
+
+**The distinction that matters most for this catalogue:** degree nursing is
+among the most oversubscribed programmes in the country, while the KMTC diploma
+route into the same profession runs at campuses in 45 counties and is genuinely
+reachable. Same field, completely different odds. Njia ships 60+ KMTC nursing
+records; if that distinction were ever dropped the catalogue would start reading
+as a promise it cannot keep, so a test enforces it.
+
+Naming the closed door without naming the open one is discouragement rather than
+navigation, so a test also requires the alternative and an actual instruction —
+apply early, because competitive programmes close in the first window rather
+than at the published deadline, and put a reachable second and third choice on
+the form rather than three versions of the same long shot.

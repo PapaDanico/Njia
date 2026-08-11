@@ -44,6 +44,7 @@ const ENTRY_PAY = grab('ENTRY_PAY');
 const LOAN_REALITY = grab('LOAN_REALITY');
 const CBE_PATHWAYS = grab('CBE_PATHWAYS');
 const PLACEMENT_CALENDAR = grab('PLACEMENT_CALENDAR');
+const COMPETITION_REALITY = grab('COMPETITION_REALITY');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -399,4 +400,22 @@ test('CBE pathways map onto clusters the app actually has', () => {
   // Every cluster must be reachable from some pathway, or a learner on that
   // pathway would find part of the catalogue unexplained.
   for (const c of clusters) assert.ok(mapped.has(c), `cluster "${c}" is reachable from no CBE pathway`);
+});
+
+test('the oversubscribed list ships with where the room actually is', () => {
+  // Naming the courses that fill first is only useful next to the alternative.
+  // Telling a student medicine is full, and stopping, is discouragement; telling
+  // them 1.1 million places sat open in polytechnics is navigation.
+  const c = COMPETITION_REALITY;
+  assert.ok(c.fillFirst.length >= 4);
+  assert.ok(c.whereTheRoomIs && /1.1 million|polytechnic/i.test(c.whereTheRoomIs),
+    'the alternative must be named, not just the closed door');
+  assert.ok(c.action && c.action.length > 60, 'there must be an instruction, not only a diagnosis');
+  // The cap is a quality safeguard, not an obstacle — saying so keeps the tone
+  // honest rather than resentful.
+  assert.match(c.whyCapped, /regulator|ratio|quality/i);
+  // Degree nursing is listed as oversubscribed while the catalogue is full of
+  // KMTC diploma nursing. If that distinction is ever dropped the catalogue
+  // starts reading as a promise it cannot keep.
+  assert.match(c.theSameFieldTwice, /diploma/i);
 });

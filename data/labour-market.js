@@ -120,6 +120,36 @@ const INFORMAL_ECONOMY = {
   reading: 'Five in six working Kenyans are in the informal sector, and it absorbed 87% of last year\'s new jobs. Formal salary figures describe the smaller share. Plan for a pathway that works either way — a qualification that lets you be hired *and* lets you trade on your own account is worth more here than one that only does the first.'
 };
 
+/* WHERE THE ROOM ACTUALLY IS — the mechanism behind the capacity paradox.
+ *
+ * EDUCATION_PIPELINE records that middle-level colleges hold over 1.1 million
+ * places against 293,869 placements. This is how that happens in practice.
+ *
+ * In the 2026 cycle, medicine, nursing, pharmacy and engineering were removed
+ * from the KUCCPS portal outright once their slots were exhausted in the first
+ * window. Those courses attract the most applicants nationally and have the
+ * least government-funded capacity — and the limit is not arbitrary: regulators
+ * (the Medical Practitioners and Dentists Council, the Engineers Board) cap
+ * intake so the ratio of students to laboratory equipment and lecturers stays
+ * workable. Meanwhile roughly 1.1 million vacancies sat open across national
+ * polytechnics and specialised training institutions.
+ *
+ * The distinction a user needs: degree nursing is among the most oversubscribed
+ * programmes in the country, while the KMTC diploma route into the same
+ * profession runs at campuses in 45 counties and is reachable. Same field,
+ * completely different odds. This is not an argument for lowering ambition — it
+ * is an argument for knowing which door is open before the window closes.
+ */
+const COMPETITION_REALITY = {
+  source: 'KUCCPS 2026 placement cycle reporting, cross-reported August 2026',
+  fillFirst: ['Medicine and surgery', 'Nursing (degree)', 'Pharmacy', 'Architecture', 'Engineering'],
+  whatHappens: 'These were removed from the portal entirely once slots were exhausted in the first application window, which closed on 6 May.',
+  whyCapped: 'Intake is capped by professional regulators — the Medical Practitioners and Dentists Council, the Engineers Board — so that students-per-lecturer and students-per-laboratory ratios stay workable. The cap protects the quality of the qualification you would be getting.',
+  whereTheRoomIs: 'Roughly 1.1 million vacancies remained across national polytechnics and specialised training institutions.',
+  theSameFieldTwice: 'Degree nursing is among the most oversubscribed programmes in the country. The KMTC diploma route into the same profession runs at campuses in 45 counties and is reachable. Same field, completely different odds.',
+  action: 'Apply early — the competitive programmes close in the first window, not at the published deadline. And put a reachable second and third choice on the form rather than three versions of the same long shot.'
+};
+
 /* HOW DEGREE PLACEMENT ACTUALLY WORKS — and why a mean grade is not the answer.
  *
  * Njia stores a `min_grade` per course and tells the user whether they meet it.
@@ -667,5 +697,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY };
 }

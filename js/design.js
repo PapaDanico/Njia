@@ -109,6 +109,16 @@ function renderOdysseyAnchors(plan) {
     .slice()
     .sort((a, b) => (savedSet.has(b.id) ? 1 : 0) - (savedSet.has(a.id) ? 1 : 0));
 
+  // Course names are not unique across the catalogue: KMTC teaches the same
+  // programmes at every campus, so "Diploma in KRCHN" is 44 separate records.
+  // Labelling options by name alone rendered 44 identical lines and made the
+  // choice blind — the institution is the only thing distinguishing them.
+  const instById = new Map(INSTITUTIONS.map((i) => [i.id, i]));
+  const optionLabel = (c) => {
+    const home = instById.get(c.institution_id);
+    return home ? `${c.name} — ${home.name}` : c.name;
+  };
+
   const course = plan.courseId ? COURSES.find((c) => c.id === plan.courseId) : null;
   const inst = course ? INSTITUTIONS.find((i) => i.id === course.institution_id) : null;
 
@@ -125,7 +135,7 @@ function renderOdysseyAnchors(plan) {
         <label class="caption" for="odyssey-course-${plan.id}">Anchor course</label>
         <select id="odyssey-course-${plan.id}" class="form-control" style="width:100%;margin-top:0.3rem" onchange="updateOdysseyCourse('${plan.id}', this.value)">
           <option value="">Not set</option>
-          ${courseOptions.map((c) => `<option value="${c.id}" ${plan.courseId === c.id ? 'selected' : ''}>${savedSet.has(c.id) ? '★ ' : ''}${escapeHtml(c.name)}</option>`).join('')}
+          ${courseOptions.map((c) => `<option value="${c.id}" ${plan.courseId === c.id ? 'selected' : ''}>${savedSet.has(c.id) ? '★ ' : ''}${escapeHtml(optionLabel(c))}</option>`).join('')}
         </select>
       </div>
       <div>

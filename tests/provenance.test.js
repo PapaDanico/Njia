@@ -525,3 +525,26 @@ test('enterprise capital corrects the Hustler Fund before recommending anything'
   assert.match(c.honestLimit, /Biashara/i);
   assert.match(c.honestLimit, /confirm|unfinished|change/i);
 });
+
+test('every course is distinguishable by name plus institution', () => {
+  // Course names are NOT unique: KMTC teaches identical programmes at every
+  // campus, so "Diploma in KRCHN" is 44 separate records. The Odyssey anchor
+  // picker used to label options by name alone, which rendered 44 identical
+  // lines and made the choice blind. Name + institution is the pairing that
+  // disambiguates, so it has to stay unique.
+  const byId = new Map(INSTITUTIONS.map((i) => [i.id, i]));
+  const labels = new Map();
+  for (const c of COURSES) {
+    const home = byId.get(c.institution_id);
+    const label = home ? `${c.name} — ${home.name}` : c.name;
+    labels.set(label, (labels.get(label) || 0) + 1);
+  }
+  const collisions = [...labels.entries()].filter(([, n]) => n > 1);
+  assert.deepEqual(collisions, [], `ambiguous picker labels: ${collisions.map(([l, n]) => `${n}x ${l}`).join('; ')}`);
+
+  // And confirm the premise the fix rests on — bare names really do collide,
+  // so this test is guarding something real rather than a hypothetical.
+  const names = new Map();
+  for (const c of COURSES) names.set(c.name, (names.get(c.name) || 0) + 1);
+  assert.ok(Math.max(...names.values()) > 1, 'bare course names are expected to collide');
+});

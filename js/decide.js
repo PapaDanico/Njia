@@ -374,7 +374,8 @@ function renderCourseMatcher(container) {
       <p class="decide-count"><strong class="num">${filtered.length}</strong> of <span class="num">${COURSES.length}</span> courses match your filters${gradeOpenPct != null ? ` · your grade opens <strong class="num">${gradeOpenPct}%</strong> of the catalogue` : ''}</p>
       ${filtered.length === 0
         ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
-        : `<div class="results-grid">${filtered.slice(0, AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE).map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>
+        : `<p class="decide-caveat text-muted text-sm">Cost-of-attendance totals below are illustrative and vary by town — plan against them, don't rely on them.</p>
+           <div class="results-grid">${filtered.slice(0, AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE).map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>
            ${filtered.length > (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)
              ? `<div class="results-more"><button type="button" class="btn btn-secondary" onclick="showMoreCourses()">Show ${Math.min(DECIDE_PAGE_SIZE, filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE))} more · ${filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)} remaining</button></div>`
              : ''}`
@@ -517,10 +518,10 @@ function renderCourseCard(course, match) {
       <p class="text-muted text-sm mb-1">Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
       <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
       <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation
-        ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total. Varies by town — plan, don't rely on this figure.`
+        ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
         : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
       }</p>
-      ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(course.verification_note)}</p>` : ''}
+      ${isVerified ? `<details class="fee-provenance"><summary>How this fee was verified</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}</p></details>` : ''}
       <details class="match-why">
         <summary>Why ${match.score}% match?</summary>
         <ul>

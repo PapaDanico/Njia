@@ -719,3 +719,42 @@ individual funds still operate and the consolidation is unfinished, so the
 branding and the forms will change. The copy says to confirm current terms at
 the constituency office before planning around any figure, and a test asserts
 that caveat cannot be dropped.
+
+## Repetition audit, second pass — and the bug it uncovered
+
+Measured against the live DOM in its **collapsed default state** across all
+seven pages (the first pass wrongly force-expanded every `<details>`, which
+counted text no user ever sees).
+
+| Repeated string | Before | After |
+| --- | --- | --- |
+| `Diploma in Kenya Registered Community Health Nursing (KRCHN)` | **133x** | 3x |
+| `Varies by town — plan, don't rely on this figure.` | 19x | 1x |
+| Consolidated public-TVET fee provenance note | 7x | collapsed per card |
+
+### The 133x was not a copy problem
+
+It was the Odyssey **anchor-course picker**. Course names are not unique —
+KMTC teaches identical programmes at every campus, so *Diploma in KRCHN* is
+**44 separate records**. The picker labelled options by `course.name` alone,
+so it rendered 44 identical lines and a user choosing an anchor course was
+choosing blind. Options are now labelled `name — institution`, which takes
+duplicate labels across the whole 167-course catalogue from **44 to zero**.
+A test asserts that pairing stays unique, and also asserts that bare names
+still collide, so the guard cannot quietly become vacuous.
+
+The residual 3x is the three Odyssey plan selectors each listing the
+catalogue — inherent to having three plans, and now distinguishable.
+
+### Provenance was not stripped to win the count
+
+127 of 167 courses carry a fee-verification note, but there are only **8
+distinct notes** — 86 of them the same KMTC one. Rendering it open on every
+card meant reading the same paragraph down the whole grid. It is now inside a
+collapsed `<details class="fee-provenance">` **on the card**, so it still
+travels wherever the card goes (comparison, saved views) rather than being
+hoisted to a page-level footnote that a detached card would lose.
+
+The one line genuinely moved is the cost-of-attendance caveat, which is
+generic advice rather than provenance: it now sits once above the grid, where
+it correctly applies to every card at once.

@@ -1186,6 +1186,21 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 /* ---------- "Why this match?" breakdown ----------
  * The match score explains itself factor by factor — trust in the
  * algorithm comes from showing the working, not from the number. */
+/* Fee provenance travels with every card, but 86 of the 127 sourced courses
+ * share one KMTC note — rendering it open on each card meant reading the same
+ * paragraph down the whole grid. Collapsed, the provenance is still attached
+ * to the card (so it survives comparison and saved views) without repeating. */
+.fee-provenance { margin-bottom: 0.6rem; font-size: 0.78rem; }
+.fee-provenance summary {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 0.2rem 0;
+}
+.fee-provenance summary:hover { text-decoration: underline; }
+.fee-provenance p { margin-top: 0.35rem; font-style: italic; }
+.decide-caveat { margin-bottom: 0.75rem; }
+
 .match-why { margin-bottom: 0.9rem; font-size: 0.82rem; }
 .match-why summary {
   cursor: pointer;

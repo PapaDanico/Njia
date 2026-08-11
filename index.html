@@ -7,17 +7,28 @@
   <meta name="description" content="Njia helps Kenyan youth make evidence-based career pathway decisions using a research-backed career psychology and life-design method, combined with Kenyan institutional data.">
   <meta name="theme-color" content="#faf9f5">
 
-  <!-- Open Graph / social share preview (WhatsApp, Facebook, etc.) -->
+  <!-- This app is served on two hosts: the custom domain and the Netlify
+       subdomain it deploys to. Identical content on two addresses with no
+       stated preference is duplicate content — search engines pick a winner
+       themselves, and every inbound link splits its weight between the two.
+       The canonical names njiacareerpathways.work as the real address, which
+       is also the primary domain set on the Netlify side. -->
+  <link rel="canonical" href="https://njiacareerpathways.work/">
+
+  <!-- Open Graph / social share preview (WhatsApp, Facebook, etc.)
+       These were absolute .netlify.app URLs, so every share of the custom
+       domain — the one actually being promoted — advertised the deploy
+       subdomain instead, and pulled its preview image from there. -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Njia — Data-Driven Career Pathway for Kenyan Youth">
   <meta property="og:description" content="A free, evidence-based career diagnostic built on research-backed career psychology and life-design methods — matched against real Kenyan courses, fees and funding.">
-  <meta property="og:image" content="https://njiacareerpathways.netlify.app/icons/og-image.jpg">
-  <meta property="og:url" content="https://njiacareerpathways.netlify.app/">
+  <meta property="og:image" content="https://njiacareerpathways.work/icons/og-image.jpg">
+  <meta property="og:url" content="https://njiacareerpathways.work/">
   <meta property="og:site_name" content="Njia">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Njia — Data-Driven Career Pathway for Kenyan Youth">
   <meta name="twitter:description" content="A free, evidence-based career diagnostic built on research-backed career psychology and life-design methods — matched against real Kenyan courses, fees and funding.">
-  <meta name="twitter:image" content="https://njiacareerpathways.netlify.app/icons/og-image.jpg">
+  <meta name="twitter:image" content="https://njiacareerpathways.work/icons/og-image.jpg">
 
   <link rel="manifest" href="./manifest.json">
   <link rel="icon" href="./icons/icon-192x192.png">

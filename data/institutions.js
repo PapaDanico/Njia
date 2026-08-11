@@ -123,6 +123,12 @@ const INSTITUTIONS = [
    * nothing — when Archers Post has a public college running diplomas. */
   { id: 'mweatvc', name: 'Mwea Technical and Vocational College', ownership: 'public', type: 'tvet', location: "Wang'uru", county: 'Kirinyaga', accreditation: 'TVETA Registered', website: 'https://mweatvc.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true },
   { id: 'samburutvc', name: 'Samburu Technical and Vocational College', ownership: 'public', type: 'tvet', location: 'Archers Post', county: 'Samburu', accreditation: 'TVETA Registered', website: 'https://kuccps.net', modes: ['full_time'], has_workstudy: false, has_hostel: true },
+  /* A county vocational training centre rather than a college or polytechnic
+   * — the tier below TVC, and for most of rural Kenya the only formal trade
+   * training within reach. Capped at 20 trainees per course, which is why
+   * the trades it teaches are worth naming individually rather than assuming
+   * a learner can get any of them. */
+  { id: 'maralalvtc', name: 'Maralal Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Maralal', county: 'Samburu', accreditation: 'TVETA Registered (TVETA/PUBLIC/VTC/0090/2018)', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

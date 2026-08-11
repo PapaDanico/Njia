@@ -1014,3 +1014,77 @@ test('every level in the catalogue is offered by the level filter', () => {
     assert.ok(labels.includes(`${level}:`), `level "${level}" has no LEVEL_LABELS entry`);
   }
 });
+
+/* ---------- an unpublished fee is a state, not a zero ---------- */
+
+/* County vocational training centres are where a learner with no money and no
+ * ability to relocate actually goes, and most of them publish no fee structure
+ * — Maralal VTC directs enquiries to its admissions office. Recording that as
+ * null is the honest option; recording it as 0, or copying a polytechnic's fee
+ * across, would be inventing the number that matters most.
+ *
+ * Null then has to be handled everywhere, because JavaScript makes the wrong
+ * answer the default one: `null <= budgetMax` is true, `Math.min(x, null)` is
+ * 0, and `x - null` is NaN. */
+test('a course with no published fee never claims to be affordable', () => {
+  const unpriced = COURSES.filter((c) => c.total_fees_kes == null);
+  assert.ok(unpriced.length > 0, 'fixture assumes at least one unpriced course exists');
+
+  const decide = fs.readFileSync(path.join(root, 'js/decide.js'), 'utf8');
+
+  // feasibilitySignal must branch on null BEFORE the <= comparison, or every
+  // unpriced course reports "within budget" and earns the affordability bonus.
+  const feas = decide.slice(decide.indexOf('function feasibilitySignal'));
+  const nullGuard = feas.indexOf("course.total_fees_kes == null");
+  const comparison = feas.indexOf("course.total_fees_kes <= budgetMax");
+  assert.ok(nullGuard !== -1, 'feasibilitySignal must handle an unpublished fee');
+  assert.ok(nullGuard < comparison,
+    'the null check must precede the <= comparison — null <= n is true in JS');
+
+  // Fee sorting must not subtract null (NaN makes sort order undefined).
+  assert.match(decide, /function byFee\(a, b, dir\)/, 'fee sorting must route through byFee');
+  assert.doesNotMatch(decide, /fees_low: \(a, b\) => a\.course\.total_fees_kes - b\.course\.total_fees_kes/,
+    'raw subtraction reintroduces NaN ordering for unpublished fees');
+
+  // "Cheapest in catalogue" must skip nulls: Math.min(x, null) is 0.
+  assert.match(decide, /c\.total_fees_kes == null \? min : Math\.min/,
+    'the cheapest-course figure must ignore unpublished fees');
+
+  // The comparison table must not crown an unpublished fee as best value.
+  assert.match(decide, /courses\.map\(row\.raw\)\.filter\(\(v\) => v != null\)/,
+    'best-value must drop nulls before Math.min/Math.max');
+});
+
+/* An unpriced record must not quietly carry invented outcomes either. No tracer
+ * study covers a county VTC, so copying a national polytechnic's illustrative
+ * employment rate onto one would invent a figure for exactly the institutions a
+ * reader is least able to check. */
+test('unpriced courses do not carry invented outcome figures', () => {
+  for (const c of COURSES.filter((x) => x.total_fees_kes == null)) {
+    assert.equal(c.employment_rate, null, `${c.id} has no published fee but an employment rate`);
+    assert.equal(c.median_salary_kes, null, `${c.id} has no published fee but a median salary`);
+    assert.ok(/does not publish|publishes no fee/i.test(c.verification_note || ''),
+      `${c.id} must say in its verification_note why the fee is absent`);
+  }
+});
+
+/* The artisan tier was first added entirely at one national polytechnic in
+ * Nairobi. That is a poor answer for a catalogue that covers 47/47 counties:
+ * the learner most likely to need an artisan route is the least able to fund a
+ * move to Kabete. A tier that exists only in the capital is a tier most of its
+ * intended users cannot reach. */
+test('the artisan tier is not confined to a single institution or county', () => {
+  const artisan = COURSES.filter((c) => c.level === 'artisan');
+  const byId = new Map(INSTITUTIONS.map((i) => [i.id, i]));
+  const institutions = new Set(artisan.map((c) => c.institution_id));
+  const counties = new Set(artisan.map((c) => byId.get(c.institution_id)?.county));
+
+  assert.ok(artisan.length > 0, 'the artisan tier must exist');
+  assert.ok(institutions.size >= 2, `artisan courses sit at only ${institutions.size} institution(s)`);
+  assert.ok(counties.size >= 2, `artisan courses reach only ${counties.size} county/counties`);
+  // Every artisan record must resolve to a real institution — a typo in
+  // institution_id would otherwise render as "Unknown institution".
+  for (const c of artisan) {
+    assert.ok(byId.has(c.institution_id), `${c.id} points at unknown institution ${c.institution_id}`);
+  }
+});

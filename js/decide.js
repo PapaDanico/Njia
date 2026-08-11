@@ -375,6 +375,34 @@ function renderCourseMatcher(container) {
   `;
 }
 
+/* The filtered, scored, sorted result set. Extracted so that appending a page
+ * in showMoreCourses() derives exactly the same list the renderer used — if
+ * these two ever diverged, "Show more" would append cards from a different
+ * ordering than the ones already on screen. */
+function currentDecideResults() {
+  const f = AppState.decideFilters;
+  const ownership = f.ownership || 'all';
+  const matchesCluster = (c) => f.cluster === 'all' || c.cluster === f.cluster;
+  const matchesMode = (c) => f.mode === 'any' || c.mode === f.mode;
+  const matchesLevel = (c) => f.level === 'all' || c.level === f.level;
+  const matchesCounty = (c) => f.county === 'all' || institutionById(c.institution_id)?.county === f.county;
+  const matchesSaved = (c) => !f.savedOnly || AppState.savedCourses.includes(c.id);
+  const matchesOwnership = (c) => ownership === 'all' || institutionById(c.institution_id)?.ownership === ownership;
+
+  const sorters = {
+    match: (a, b) => b.match.score - a.match.score,
+    fees_low: (a, b) => a.course.total_fees_kes - b.course.total_fees_kes,
+    fees_high: (a, b) => b.course.total_fees_kes - a.course.total_fees_kes,
+    employment: (a, b) => (b.course.employment_rate ?? 0) - (a.course.employment_rate ?? 0),
+    duration: (a, b) => a.course.duration_months - b.course.duration_months
+  };
+
+  return COURSES
+    .filter((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && matchesCounty(c) && matchesSaved(c) && matchesOwnership(c))
+    .map((c) => ({ course: c, match: computeCourseMatch(c) }))
+    .sort(sorters[f.sortBy] || sorters.match);
+}
+
 /* The catalogue reaches 45 counties, which means a filtered list can run to
  * well over a hundred cards. Rendering them all cost 450-530ms on a mid-range
  * Android at 4x CPU throttle — and that fires on every filter change, which is
@@ -387,10 +415,43 @@ function renderCourseMatcher(container) {
  * different result sets. */
 const DECIDE_PAGE_SIZE = 24;
 
+/* Appends the next page rather than re-rendering the tab.
+ *
+ * Re-rendering cost 138ms at 4x CPU throttle and, worse, destroyed the button
+ * the user had just activated — focus fell to <body>, so a keyboard user who
+ * tabbed to "Show more" and pressed Enter was thrown back to the top of the
+ * tab order with the list they had just expanded now unreachable without
+ * re-tabbing the whole page. axe cannot detect that; only pressing the button
+ * finds it.
+ *
+ * Appending keeps the button in the DOM, so focus stays where the user put it,
+ * and only the new cards are built. */
 function showMoreCourses() {
-  AppState.decideFilters.visibleCount = (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE) + DECIDE_PAGE_SIZE;
+  const grid = document.querySelector('.results-grid');
+  const moreWrap = document.querySelector('.results-more');
+  const prev = AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE;
+  const next = prev + DECIDE_PAGE_SIZE;
+  AppState.decideFilters.visibleCount = next;
   saveState();
-  renderDecideTabContent();
+
+  // No grid to append to (shouldn't happen) — fall back to a full render.
+  if (!grid || !moreWrap) { renderDecideTabContent(); return; }
+
+  const filtered = currentDecideResults();
+  grid.insertAdjacentHTML('beforeend',
+    filtered.slice(prev, next).map(({ course, match }) => renderCourseCard(course, match)).join(''));
+
+  const remaining = filtered.length - next;
+  if (remaining <= 0) {
+    // Nothing left: remove the control, but move focus somewhere sensible first
+    // so it does not fall to <body> when the button disappears.
+    const lastCard = grid.querySelector('.course-card:last-of-type');
+    moreWrap.remove();
+    if (lastCard) { lastCard.setAttribute('tabindex', '-1'); lastCard.focus({ preventScroll: true }); }
+  } else {
+    moreWrap.querySelector('button').textContent =
+      `Show ${Math.min(DECIDE_PAGE_SIZE, remaining)} more · ${remaining} remaining`;
+  }
 }
 
 function renderCourseCard(course, match) {

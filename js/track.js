@@ -72,11 +72,20 @@ function renderTrackTabContent() {
 }
 
 /* ---------- OKRs ---------- */
+/* An OKR with no key results is not on track — there is nothing to track.
+ *
+ * The creation form requires at least one key result, so this only arises from
+ * state saved before `keyResults` existed, which normalizeState() repairs to an
+ * empty array. Without this guard such an OKR reports "on-track", can never
+ * reach "done" because there is nothing to complete, and silently flips to
+ * "at-risk" after 30 days with nothing the user can do to move it. Same shape
+ * as the empty-steps application bug, on its sibling. */
 function okrStatus(okr) {
-  const total = okr.keyResults.length;
-  const done = okr.keyResults.filter((k) => k.done).length;
-  if (total > 0 && done === total) return 'done';
-  if (done / (total || 1) < 0.34 && daysSince(okr.createdAt) > 30) return 'at-risk';
+  const keyResults = Array.isArray(okr.keyResults) ? okr.keyResults : [];
+  if (keyResults.length === 0) return 'needs-key-results';
+  const done = keyResults.filter((k) => k.done).length;
+  if (done === keyResults.length) return 'done';
+  if (done / keyResults.length < 0.34 && daysSince(okr.createdAt) > 30) return 'at-risk';
   return 'on-track';
 }
 
@@ -111,6 +120,7 @@ function renderOkrsTab(container) {
         <option value="on-track" ${statusFilter === 'on-track' ? 'selected' : ''}>On Track</option>
         <option value="at-risk" ${statusFilter === 'at-risk' ? 'selected' : ''}>At Risk</option>
         <option value="done" ${statusFilter === 'done' ? 'selected' : ''}>Done</option>
+        <option value="needs-key-results" ${statusFilter === 'needs-key-results' ? 'selected' : ''}>Needs key results</option>
       </select>
       <label class="caption" style="margin:0;font-weight:500" for="okr-sort-filter">Sort:</label>
       <select id="okr-sort-filter" class="form-control" onchange="setOkrSortBy(this.value)">
@@ -130,7 +140,7 @@ function renderOkrItem(okr) {
   const status = okrStatus(okr);
   const done = okr.keyResults.filter((k) => k.done).length;
   const pct = Math.round((done / (okr.keyResults.length || 1)) * 100);
-  const statusLabels = { 'on-track': 'On Track', 'at-risk': 'At Risk', done: 'Done' };
+  const statusLabels = { 'on-track': 'On Track', 'at-risk': 'At Risk', done: 'Done', 'needs-key-results': 'Add key results' };
 
   return `
     <div class="card okr-item">
@@ -154,14 +164,14 @@ function openOkrModal() {
   openModal(`
     <h2 class="mb-2">New Quarterly OKR</h2>
     <label class="caption" for="okr-title">Objective</label>
-    <input type="text" id="okr-title" class="form-control" placeholder="e.g. Get accepted into a Counselling Diploma programme" style="width:100%;margin:0.4rem 0 0.8rem">
+    <input type="text" id="okr-title" maxlength="150" class="form-control" placeholder="e.g. Get accepted into a Counselling Diploma programme" style="width:100%;margin:0.4rem 0 0.8rem">
       <select class="odyssey-suggest form-control mt-1" aria-label="Insert an objective template"
         onchange="applyOkrTemplate(this.value, this)">
         <option value="">Stuck? Insert an objective…</option>
         ${OKR_TEMPLATES.map((t) => `<option value="${escapeHtml(t.objective)}">${escapeHtml(t.objective)}</option>`).join('')}
       </select>
     <label class="caption">Key Results (one per line, 2–3 recommended)</label>
-    <textarea class="q-input mt-1" id="okr-key-results" placeholder="Shortlist 5 institutions&#10;Sit and pass entrance requirements&#10;Submit HELB application"></textarea>
+    <textarea class="q-input mt-1" id="okr-key-results" maxlength="800" placeholder="Shortlist 5 institutions&#10;Sit and pass entrance requirements&#10;Submit HELB application"></textarea>
     <button type="button" class="btn btn-primary mt-2" onclick="createOkr()">Create OKR</button>
   `);
 }

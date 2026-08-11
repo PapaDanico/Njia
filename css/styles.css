@@ -2107,3 +2107,12 @@ body.modal-open { overflow: hidden; }
 .inline-detail { margin-top: var(--space-2); }
 .inline-detail > summary { color: var(--warn-ink); }
 .inline-detail p { color: var(--warn-ink); }
+
+/* An OKR with no key results. Uses the warn triplet rather than the at-risk
+   danger styling: nothing has gone wrong, there is simply nothing to measure
+   yet, and the label says what to do about it. */
+.status-badge.needs-key-results {
+  background: var(--warn-soft);
+  color: var(--warn-ink);
+  border: 1px solid var(--warn-border);
+}

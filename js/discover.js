@@ -71,7 +71,7 @@ function renderDiscoverQuestion(el) {
   } else if (q.type === 'text') {
     const val = existingAnswer ? existingAnswer.value : '';
     bodyHtml = `
-      <textarea class="q-input" id="discover-text-input" placeholder="${escapeHtml(q.placeholder || '')}">${escapeHtml(val)}</textarea>
+      <textarea class="q-input" id="discover-text-input" maxlength="1000" placeholder="${escapeHtml(q.placeholder || '')}">${escapeHtml(val)}</textarea>
       <button type="button" class="voice-btn" id="voice-btn" onclick="toggleVoiceInput()">
         ${icon('mic')} <span id="voice-btn-label">Speak your answer</span>
       </button>

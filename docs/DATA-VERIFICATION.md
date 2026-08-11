@@ -206,3 +206,58 @@ the count below.
 Fees and funding calls change **annually**. Every record's note carries
 its verification date; re-verify each record before the KCSE results
 release (typically January), when traffic peaks.
+
+
+## Research method — what is reachable, and what is not
+
+This matters because the platform's whole claim is verifiability, so the
+limits of the sourcing have to be as legible as the figures.
+
+**Direct fetching of primary sources is blocked.** Seventeen domains were
+tested by two independent methods (`WebFetch` and `curl` through the session
+proxy), including `weforum.org`, `knbs.or.ke`, `kmtc.ac.ke`, `cue.or.ke`,
+`tveta.go.ke`, `kuccps.net`, `helb.co.ke`, `ilo.org`, `data.worldbank.org`,
+`unesco.org`, `oxfordmartin.ox.ac.uk` and `odi.org`. Every one returns **403 —
+organisation policy denial**, logged by the proxy itself. Control domains
+(`api.github.com`, `registry.npmjs.org`) return 200, so the proxy is working;
+the denial is policy, not failure.
+
+**Search-with-domain-restriction is the channel that works.** Restricting a
+web search to an authoritative domain returns that publisher's own pages and
+their content, even though the pages cannot be fetched directly. That is how
+the WEF Future of Jobs 2025 figures, the Sub-Saharan Africa regional cut and
+the WEF Kenya digital-economy study were sourced.
+
+**Every figure is therefore `cross-reported`, not `primary`.** Nothing here
+was read from a source PDF. Where numbers disagree across reports, the
+disagreement is recorded rather than resolved by preference. Anyone with
+direct access should read the primary releases and upgrade the tier — and must
+not promote a figure without having read it.
+
+### Corrections this research pass forced
+
+| Claim | Was | Now |
+| --- | --- | --- |
+| BPO employment | "more than 60,000 directly" | Reported between ~7,000 and 60,000 depending on definition — all three counts named |
+| Job growth rankings | Percentage list only (AI, fintech, big data) | Both lists; the absolute list (nursing, teaching, frontline) shown alongside |
+| Graphic design | Absent | Named as fastest-declining, driven by generative AI — Njia lists design courses |
+| Placement framing | "~30% placed via KUCCPS" | Middle-level capacity 1,132,531 against 293,869 placed |
+
+The BPO correction is the one worth dwelling on. Njia shipped the largest of
+three circulating figures with no note that it was the broadest definition —
+flattering the sector by nearly an order of magnitude against the narrowest
+count, in a record a young person might plan around. It was caught only by
+going to the WEF's own Kenya study rather than stopping at secondary coverage.
+
+### The finding that reframes the platform
+
+Middle-level colleges hold capacity for **1,132,531** students. Placements
+across every institution type totalled **293,869**. Roughly four in five
+middle-level places go unfilled while young people conclude there is nothing
+for them.
+
+Njia has always asserted that the problem is information rather than scarcity.
+This is the first time that claim has been evidenced, and it is now the lead
+statistic on the landing page. `tests/provenance.test.js` fails if the
+capacity-to-placement gap ever inverts — because if it does, the premise needs
+rewriting, not the number massaging.

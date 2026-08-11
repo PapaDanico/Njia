@@ -32,6 +32,9 @@ const YOUTH_EMPLOYMENT_MEASURES = grab('YOUTH_EMPLOYMENT_MEASURES');
 const KENYA_DEMAND_SIGNALS = grab('KENYA_DEMAND_SIGNALS');
 const AUTOMATION_EXPOSURE = grab('AUTOMATION_EXPOSURE');
 const METHOD_LINEAGE = grab('METHOD_LINEAGE');
+const EDUCATION_PIPELINE = grab('EDUCATION_PIPELINE');
+const FUTURE_OF_WORK = grab('FUTURE_OF_WORK');
+const AFRICA_OUTLOOK = grab('AFRICA_OUTLOOK');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -196,4 +199,48 @@ test('course ids are unique', () => {
     assert.ok(!seen.has(c.id), `duplicate course id ${c.id}`);
     seen.add(c.id);
   }
+});
+
+/* ---------- the evidence base is internally consistent ---------- */
+
+test('the education pipeline adds up and keeps its capacity finding', () => {
+  const e = EDUCATION_PIPELINE;
+  assert.ok(e.qualifiedForDegree < e.kcseCandidates, 'more qualified than sat is impossible');
+  assert.ok(e.degreePlacements <= e.totalPlaced, 'degree placements cannot exceed total placements');
+  assert.ok(e.scoredDorBelow < e.kcseCandidates);
+  // The finding the whole platform rests on: places are not the scarce thing.
+  assert.ok(e.middleLevelCapacity > e.totalPlaced * 3,
+    'the capacity-vs-placement gap is the platform premise — if this ever inverts, the premise needs rewriting, not the number massaging');
+  const pct = (e.qualifiedForDegree / e.kcseCandidates) * 100;
+  assert.ok(Math.abs(pct - e.qualifiedForDegreePct) < 0.1, `stated ${e.qualifiedForDegreePct}% vs computed ${pct.toFixed(2)}%`);
+  assert.ok(e.readings.length >= 4);
+  for (const r of e.readings) assert.ok(r.detail && r.detail.length > 60, `"${r.finding}" is not explained`);
+});
+
+test('both job-growth rankings are kept, never just the tech one', () => {
+  // WEF ranks growth two ways. By percentage it is AI and fintech; by actual
+  // jobs added it is nursing, teaching and frontline work. Dropping the second
+  // list would quietly tell a future nurse their pathway is second-rate.
+  assert.ok(FUTURE_OF_WORK.growthByPercentage.length >= 5);
+  assert.ok(FUTURE_OF_WORK.growthByAbsoluteNumbers.length >= 4);
+  assert.ok(/nursing/i.test(FUTURE_OF_WORK.growthByAbsoluteNumbers.join(' ')),
+    'nursing is in the absolute-growth list and the catalogue is full of it');
+  assert.ok(/teacher/i.test(FUTURE_OF_WORK.growthByAbsoluteNumbers.join(' ')));
+  assert.ok(FUTURE_OF_WORK.absoluteVsPercentage.length > 60, 'the distinction must be explained, not just listed');
+});
+
+test('declining roles are shown, including the ones Njia teaches', () => {
+  // Graphic design moved from moderately growing to fastest declining. Njia
+  // lists design courses, so hiding this would be self-serving.
+  const d = FUTURE_OF_WORK.decliningRoles.join(' ');
+  assert.ok(/graphic designer/i.test(d), 'graphic design decline must not be dropped');
+  assert.ok(/clerical|data entry|cashier/i.test(d));
+  assert.ok(FUTURE_OF_WORK.decliningNote.length > 60);
+});
+
+test('regional optimism ships with its caveat', () => {
+  // "Africa is the most optimistic region" is about employers' view of the
+  // talent pool, not any one person's hiring odds.
+  assert.ok(AFRICA_OUTLOOK.caveat && AFRICA_OUTLOOK.caveat.length > 40);
+  assert.ok(AFRICA_OUTLOOK.source.includes('World Economic Forum'));
 });

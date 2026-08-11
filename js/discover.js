@@ -342,8 +342,23 @@ function renderLabourMarketCard(primaryCluster) {
       ${renderAutomationBlock(primaryCluster)}
 
       <h3 class="mt-2 mb-1">The skills that keep paying</h3>
-      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.skillChurn)} ${escapeHtml(FUTURE_OF_WORK.interpretation)}</p>
-      <p class="text-muted text-sm">Fastest-growing globally: ${FUTURE_OF_WORK.fastestGrowingSkills.map((s) => escapeHtml(s)).join(' · ')}</p>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.skillChurn)} ${escapeHtml(FUTURE_OF_WORK.topCoreSkill)}</p>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.interpretation)}</p>
+      <p class="text-muted text-sm mb-2">Fastest-growing globally: ${FUTURE_OF_WORK.fastestGrowingSkills.map((s) => escapeHtml(s)).join(' · ')}</p>
+
+      <h3 class="mt-2 mb-1">Which jobs are actually growing</h3>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.absoluteVsPercentage)}</p>
+      <div class="growth-split">
+        <div>
+          <span class="caption">Fastest by percentage</span>
+          <p class="text-muted text-sm">${FUTURE_OF_WORK.growthByPercentage.slice(0, 5).map((r) => escapeHtml(r)).join(' · ')}</p>
+        </div>
+        <div>
+          <span class="caption">Most jobs added</span>
+          <p class="text-muted text-sm">${FUTURE_OF_WORK.growthByAbsoluteNumbers.map((r) => escapeHtml(r)).join(' · ')}</p>
+        </div>
+      </div>
+      <p class="text-muted text-sm mt-1"><strong>Declining:</strong> ${FUTURE_OF_WORK.decliningRoles.map((r) => escapeHtml(r)).join(' · ')}. ${escapeHtml(FUTURE_OF_WORK.decliningNote)}</p>
 
       <p class="text-muted text-sm mt-2">Earnings: ${escapeHtml(LABOUR_MARKET_ANCHORS.source)}. Skills outlook: ${escapeHtml(FUTURE_OF_WORK.source)} (global scope). Figures were cross-checked across independent reports rather than read from the primary release — see the Methodology note in Help.</p>
     </div>

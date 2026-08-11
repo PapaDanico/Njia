@@ -429,9 +429,14 @@ const LANDING_EVIDENCE = [
     source: 'Source: KUCCPS / Ministry of Education, reported July 2026.'
   },
   {
-    num: '~30%', label: 'placed via KUCCPS, 2025/26 cycle',
-    body: '293,869 of 993,226 candidates secured a university or college place through the formal placement system — the rest navigate TVET, certificates, or gap years with far less structured guidance.',
-    source: 'Source: KUCCPS 2025/26 placement results, July 2026.'
+    // The single most important number on this page. Middle-level colleges hold
+    // capacity for 1,132,531 students; 293,869 were placed. The places are not
+    // the scarce thing, which is the whole reason this platform exists — and
+    // until this cycle's figures were sourced, Njia asserted that rather than
+    // showing it.
+    num: '1,132,531', label: 'middle-level places available · 293,869 filled',
+    body: 'Middle-level colleges — diploma, certificate and artisan — have capacity for over 1.1 million students. Across every institution type, 293,869 candidates were placed. Roughly four in five places go unfilled while young people conclude there is nothing for them. The shortage is not of places. It is of a way to find them, price them, and pay for them.',
+    source: 'Sources: KUCCPS 2025/26 placement reporting; middle-level capacity per KUCCPS, cross-reported August 2026.'
   },
   {
     // Deliberately shows the range, not one number. Kenyan youth unemployment

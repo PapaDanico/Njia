@@ -134,10 +134,39 @@ const YOUTH_EMPLOYMENT_MEASURES = [
  * applying a global projection to Nairobi without saying so is how these
  * reports get misused. */
 const FUTURE_OF_WORK = {
-  source: 'World Economic Forum, Future of Jobs Report 2025',
+  source: 'World Economic Forum, Future of Jobs Report 2025 (survey of 1,000+ employers representing over 14 million workers)',
   scope: 'global',
-  headline: '170 million new roles created and 92 million displaced by 2030 — a net gain of 78 million.',
-  skillChurn: '39% of existing skill sets are expected to be transformed or outdated between 2025 and 2030.',
+  headline: '170 million new roles created and 92 million displaced by 2030 — a net gain of 78 million, with 22% of all jobs disrupted.',
+  skillChurn: '39% of existing skill sets are expected to be transformed or outdated between 2025 and 2030, and 63% of employers already name the skills gap as their single biggest barrier.',
+  topCoreSkill: 'Analytical thinking is the top core skill, named essential by seven in ten employers, followed by resilience/flexibility/agility and then leadership and social influence.',
+
+  /* The distinction that matters most for a Kenyan school-leaver, and the one
+   * every summary of this report drops.
+   *
+   * WEF publishes two different growth rankings. By *percentage* growth the
+   * list is tech: AI and machine learning specialists, fintech engineers, big
+   * data specialists. Those roles grow fast off a small base, and they are what
+   * every article quotes.
+   *
+   * By *absolute numbers* — actual jobs added — the list is frontline, care and
+   * education: farmworkers, delivery drivers, construction workers, nursing
+   * professionals, secondary school teachers.
+   *
+   * For someone choosing a course in Kenya, the absolute list is the honest
+   * one. It is also, almost exactly, what this catalogue is full of. Showing
+   * only the percentage list would quietly tell a future nurse or teacher that
+   * their pathway is second-rate, when the evidence says the opposite. */
+  growthByPercentage: ['AI and machine learning specialists', 'Big data specialists', 'FinTech engineers', 'Software and applications developers', 'Security management specialists', 'Autonomous and electric vehicle specialists', 'Environmental and renewable energy engineers'],
+  growthByAbsoluteNumbers: ['Farmworkers', 'Delivery drivers', 'Construction workers', 'Nursing professionals', 'Secondary school teachers'],
+  absoluteVsPercentage: 'Tech roles grow fastest in percentage terms, off a small base. Frontline, care and education roles add the most actual jobs. Both are true; only one is a realistic plan for most school-leavers.',
+
+  /* Declining roles, and the change worth flagging: graphic design was a
+   * moderately *growing* job in the 2023 edition and is now among the fastest
+   * declining, driven by generative AI. Njia lists design courses, so this
+   * belongs in front of anyone choosing one. */
+  decliningRoles: ['Cashiers and ticket clerks', 'Administrative assistants and executive secretaries', 'Postal service clerks', 'Bank tellers', 'Data entry clerks', 'Graphic designers', 'Legal secretaries'],
+  decliningNote: 'Clerical and secretarial work shows the largest decline in absolute numbers. Graphic design is the notable mover — a moderately growing role in the 2023 edition, now among the fastest declining as generative AI reshapes the work.',
+  technologyEffects: 'Broadening digital access is expected to create 19 million jobs and displace 9 million by 2030; AI and information processing to create 11 million and displace 9 million.',
   fastestGrowingSkills: [
     'AI and big data',
     'Networks and cybersecurity',
@@ -149,6 +178,19 @@ const FUTURE_OF_WORK = {
   interpretation: 'The two fastest-growing skill families are cognitive (analytical thinking, critical assessment) and socio-emotional (resilience, flexibility, leadership) — not any single tool. This is the evidence base for Njia treating adaptability as a career asset rather than a soft extra.'
 };
 
+/* Sub-Saharan Africa, from WEF's regional cut. Kept distinct from both the
+ * global projection and the Kenya-specific signals, because collapsing the
+ * three is how these reports get misused. */
+const AFRICA_OUTLOOK = {
+  source: 'World Economic Forum, Future of Jobs Report 2025 — Sub-Saharan Africa regional findings',
+  talentOptimism: 'Almost half of Sub-Saharan African employers expect talent availability to improve between 2025 and 2030, against 29% globally — the most optimistic region in the survey.',
+  demographics: 'The region\'s population is projected to rise 79% over the next 30 years to 2.2 billion, the demographic dividend behind that optimism.',
+  risingSkills: 'AI, big data and technological literacy are rising fastest in demand, with cybersecurity and networks close behind; flexibility, agility and creative thinking are rising alongside them.',
+  kenyaIctIntensity: '18.4% of all employment in Kenya is in occupations with high ICT intensity.',
+  kenyaHiringGap: 'Kenyan business executives report innovation and risk-taking as the core management skills hardest to recruit for.',
+  caveat: 'Regional optimism is not a personal guarantee. It describes employers\' expectations of the talent pool, not any individual\'s odds of being hired.'
+};
+
 /* Kenya-specific demand signals, kept separate from the global projection. */
 const KENYA_DEMAND_SIGNALS = [
   {
@@ -157,8 +199,15 @@ const KENYA_DEMAND_SIGNALS = [
     clusters: ['tech', 'numbers']
   },
   {
-    signal: 'BPO and IT-enabled services employ more than 60,000 people directly',
-    note: 'One of the few sectors offering formal entry roles to candidates without a degree; Kenya has a national BPO policy pushing further growth.',
+    // Three figures circulate and they are not interchangeable. The WEF's own
+    // Kenya study counts roughly 7,000 in BPO proper — voice and transactional
+    // back-office. Around 40,000 jobs are reported as created in the sector
+    // recently. The ICT Authority's 60,000+ counts "BPO and IT-enabled
+    // services", a much wider net including gig and platform work. Njia shipped
+    // the largest number alone, which flattered the sector by nearly an order
+    // of magnitude against the narrowest count. All three are stated here.
+    signal: 'BPO employment is reported between about 7,000 and 60,000 depending on what is counted',
+    note: 'Roughly 7,000 work in BPO proper — voice and transactional back-office (World Economic Forum, Kenya digital economy study, 2025). About 40,000 jobs are reported as created in the wider sector. The ICT Authority\'s 60,000+ figure covers "BPO and IT-enabled services", including gig and platform work. Government targets 500,000. It remains one of the few sectors with formal entry roles that do not require a degree — but plan against the narrow number, not the headline.',
     clusters: ['business', 'tech']
   },
   {
@@ -187,6 +236,55 @@ const KENYA_DEMAND_SIGNALS = [
     clusters: ['tech']
   }
 ];
+
+/* The education pipeline, 2025 cycle — and the finding that reframes Njia.
+ *
+ * Middle-level colleges hold capacity for 1,132,531 students. Placements
+ * across every institution type came to 293,869. Capacity is not the binding
+ * constraint on Kenyan youth education — roughly four out of five middle-level
+ * places go unfilled while young people conclude there is nowhere for them.
+ *
+ * That is the entire premise of this platform, and until now it was asserted
+ * rather than evidenced. The problem Njia addresses is not scarcity of places.
+ * It is that a school-leaver cannot see what exists, what it costs, whether
+ * they qualify, or how to pay for it. Every figure below is sourced.
+ */
+const EDUCATION_PIPELINE = {
+  source: 'KNEC 2025 KCSE results (released 9 January 2026) and KUCCPS 2025/26 placement reporting, cross-reported August 2026',
+  kcseCandidates: 993226,
+  qualifiedForDegree: 270715,
+  qualifiedForDegreePct: 27.18,
+  scoredDorBelow: 359144,
+  scoredA: 1932,
+  totalPlaced: 293869,
+  degreePlacements: 202133,
+  kmtcPlacements: 28246,
+  degreeQualifiedWhoChoseTvet: 8915,
+  middleLevelCapacity: 1132531,
+  /* The lines Njia should actually say out loud. */
+  readings: [
+    {
+      finding: 'Capacity is not the constraint',
+      detail: 'Middle-level colleges can hold 1,132,531 students. Placements across all institution types totalled 293,869. The places exist; what is missing is a way to find them, price them and pay for them.'
+    },
+    {
+      finding: 'Most candidates are not competing for degrees at all',
+      detail: '270,715 of 993,226 candidates — 27.18% — reached the C+ needed for direct university entry. The other 72.82% are choosing among diplomas, certificates and artisan courses, which is where the catalogue is deepest.'
+    },
+    {
+      finding: '359,144 candidates scored D or below',
+      detail: 'More than a third of the cohort. Most career guidance is written as though this group does not exist. They are precisely who the no-minimum-grade and certificate entries are for.'
+    },
+    {
+      finding: 'KMTC is the largest single non-degree destination',
+      detail: '28,246 candidates were placed at the Kenya Medical Training College — more than Kenya School of Law, Utalii College and the teacher training colleges combined, several times over. It teaches the same national curriculum at campuses in 45 of the 47 counties.'
+    },
+    {
+      finding: 'Choosing TVET over a degree you qualified for is still rare',
+      detail: 'Only 8,915 of those who earned a degree place chose TVET instead. Prestige, not evidence, is doing much of the deciding.'
+    }
+  ]
+};
 
 /* Automation exposure — deliberately presented as a genuine disagreement.
  *
@@ -290,5 +388,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK };
 }

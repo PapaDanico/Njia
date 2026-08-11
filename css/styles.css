@@ -2044,3 +2044,12 @@ body.modal-open { overflow: hidden; }
   transition: top 0.15s ease;
 }
 .skip-link:focus { top: var(--space-3); }
+
+/* Two growth rankings side by side. The percentage list is the one every
+   article quotes; the absolute list is the one a school-leaver can act on.
+   Showing them together is the whole point — separating them visually stops
+   the tech list reading as "the" answer. */
+.growth-split { display: grid; gap: var(--space-4); margin-top: var(--space-3); }
+@media (min-width: 640px) { .growth-split { grid-template-columns: 1fr 1fr; } }
+.growth-split > div { padding: var(--space-4); background: var(--surface-2, var(--surface)); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.growth-split p { margin-top: var(--space-1); max-width: none; }

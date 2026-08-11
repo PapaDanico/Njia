@@ -611,3 +611,42 @@ test('breadth and reach are counted as separate claims', () => {
     }
   }
 });
+
+test('the CBE pathway record names the gate that closes at fourteen', () => {
+  // Njia already teaches two gates: a mean grade decides whether you may
+  // apply, cluster points decide placement. Under CBE a third sits ahead of
+  // both — the three pathway subjects taken at Grade 10 ARE the subjects a
+  // degree later requires. It is the only one of the three that cannot be
+  // recovered from, so the record must say so in those terms.
+  const p = CBE_PATHWAYS;
+  assert.ok(p.theConstraint, 'the subject constraint must be stated');
+  assert.match(p.theConstraint, /subject/i);
+  assert.match(p.theConstraint, /grade/i, 'it must contrast against grades, which are recoverable');
+  assert.match(p.theConstraint, /cannot|never/i, 'the irreversibility is the whole point');
+
+  // The actionable half: where it is chosen, and that changing it has a window.
+  assert.match(p.wherePathwaysAreChosen, /selection\.education\.go\.ke/);
+  assert.match(p.changingIt, /Head of Junior School/i);
+  assert.match(p.changingIt, /two weeks/i, 'the deadline is the actionable detail');
+});
+
+test('Njia records what it does not know about pathways, and refuses to gate on it', () => {
+  // Two disciplines, both of which have to survive future editing.
+  const p = CBE_PATHWAYS;
+
+  // 1. The post-enrolment switching rules were searched for and not found.
+  //    Silence would read as "cannot be changed"; a guess would be invention.
+  assert.ok(p.whatIsNotPublished, 'the known gap must be recorded, not left silent');
+  assert.match(p.whatIsNotPublished, /not found|less clearly published/i);
+
+  // 2. Njia informs but does not filter the catalogue by pathway. Encoding an
+  //    unsourced pathway-to-programme map into the matcher would repeat the
+  //    exact fault this test file exists to prevent — invented data deciding
+  //    what a person sees. Guard that the decision stays deliberate.
+  assert.match(p.whyNjiaDoesNotFilter, /does not filter/i);
+  assert.match(p.whyNjiaDoesNotFilter, /verified|published/i);
+
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  assert.ok(!/CBE_PATHWAYS|\bpathway\b/i.test(decide),
+    'Decide must not filter or score on CBE pathway until the subject mapping is sourced');
+});

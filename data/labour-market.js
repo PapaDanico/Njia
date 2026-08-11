@@ -233,7 +233,27 @@ const CBE_PATHWAYS = {
     { name: 'Arts and Sports Science', covers: 'Creative, performance and sports subjects', clusters: ['creator'] }
   ],
   commonCore: 'English, Kiswahili or Kenyan Sign Language, community service learning and physical education are taken by everyone, alongside three pathway subjects.',
-  implication: 'A Grade 10 pathway choice now narrows what is reachable at Grade 12. Njia currently meets people after KCSE, which under this system is after the decisive choice has already been made.'
+  subjectCount: 7,
+  // The correction, and the reason this record exists at all. Njia already
+  // teaches that a mean grade decides whether you may apply while weighted
+  // cluster points decide placement. Under CBE there is a third gate that sits
+  // ahead of both, and it closes at fourteen: the three pathway subjects you
+  // take ARE the subjects a degree later requires. No grade substitutes for a
+  // subject you never sat.
+  theConstraint: 'Your three pathway subjects become the subjects a degree programme later requires of you. That makes the Grade 10 choice a harder gate than any grade: an A in Social Sciences subjects does not open engineering, because the engineering cluster asks for subjects that pathway does not teach. Grades can be improved. A subject you never took cannot be.',
+  wherePathwaysAreChosen: 'Through the Ministry of Education selection portal at selection.education.go.ke, with career guidance from the school before choices are finalised.',
+  changingIt: 'There is a window and it closes. A parent requests a change through the Head of Junior School, and the guidance published for the first cohort required this at least two weeks before the January reporting date.',
+  whatIsNotPublished: 'What is much less clearly published is whether, and how, a learner can switch pathway once senior school has actually begun. Njia has not found an authoritative public answer, so it does not offer one — ask the school and the portal directly rather than assume either way.',
+  implication: 'A Grade 10 pathway choice now narrows what is reachable at Grade 12. Njia currently meets people after KCSE, which under this system is after the decisive choice has already been made.',
+  // Deliberate scope limit, recorded so it is a decision rather than an
+  // oversight. Njia does NOT filter or gate its catalogue on pathway. Doing
+  // that needs a verified pathway-subject-to-programme mapping, and no such
+  // mapping has been sourced to a standard that should decide what a person
+  // can see. Encoding a guess into the matcher would repeat exactly the fault
+  // this dataset was rebuilt to remove. Inform, do not gate — until the
+  // mapping is sourced, and until the first CBE cohort actually reaches
+  // placement, which is not before roughly 2029.
+  whyNjiaDoesNotFilter: 'Njia explains the constraint but does not filter courses by pathway. Doing so would need a verified map from pathway subjects to each programme\'s required subjects, and that map is not published in a form worth trusting with someone\'s options. An honest warning beats a confident filter built on a guess.'
 };
 
 /* THE PLACEMENT CALENDAR. Dates, not prose, so the app can work out what is

@@ -825,3 +825,75 @@ it now reads **Free**.
 
 *Each of the three new guards was negative-tested — reintroduce the violation
 and the suite fails 1, restore and it passes 85.*
+
+## The CBE pathway decision — settled, and what was decided
+
+This was carried as an open scope question for several rounds. It is now closed.
+
+### The finding that settled it
+
+Under CBE, learners take **7 subjects** at senior school: 4 core (English,
+Kiswahili or KSL, Community Service Learning, Physical Education) plus **3
+pathway subjects**. And those three pathway subjects **become the subjects a
+degree programme later requires.**
+
+That makes the Grade 10 choice a harder gate than any grade. Njia already
+teaches two gates:
+
+| Gate | What it decides | Recoverable? |
+| --- | --- | --- |
+| Mean grade | Whether you may **apply** | Yes — retake |
+| Weighted cluster points | **Placement**, ranked against every applicant | Yes — improve subjects |
+| **CBE pathway subjects** | **Which programmes require subjects you hold** | **No** |
+
+An A in Social Sciences subjects does not open engineering, because the
+engineering cluster asks for subjects that pathway does not teach. **Grades can
+be improved. A subject you never sat cannot be.**
+
+### What was decided
+
+**Njia does not become a Grade 10 pathway diagnostic.** Njia's own evidence card
+states that vocational interests only reach adult stability (r ≈ .70) at ages
+25–30, and that interest–choice alignment *dips* at decision points. Building an
+interest-based diagnostic for 14-year-olds would contradict the research the
+platform cites on its own results page. The Decide module — fees, funding,
+placement, cut-offs — is also meaningless to someone in Grade 9.
+
+**Njia does state the constraint, plainly, where someone will meet it.** This is
+the third correction in the same family and it is recorded as such in the Help
+answer, which explicitly ties it back to the grade/cluster-points correction.
+
+**Njia does not filter the catalogue by pathway** — recorded in
+`whyNjiaDoesNotFilter` and enforced by a test that fails if `decide.js` ever
+references pathway. Filtering needs a verified map from each pathway's subjects
+to every programme's required subjects. No such map is published in a form worth
+trusting with someone's options, and a confident filter built on a guess would
+quietly hide courses a person can actually do. **Inform, do not gate.** That
+restriction is written to be lifted the moment the mapping is sourced.
+
+### What is deliberately not answered
+
+Whether, and how, a learner can switch pathway **once senior school has already
+begun** is not clearly published. It was searched for and not found. Silence
+would read as "cannot be changed"; a guess would be invention. The record carries
+`whatIsNotPublished`, a test asserts it survives, and the Help answer says
+outright that Njia will not guess and to ask the school and the portal directly.
+
+What *is* verified: choices are made through the Ministry portal at
+`selection.education.go.ke`, and a change before reporting is requested by a
+parent through the Head of Junior School, at least two weeks before the January
+reporting date.
+
+*Source: Ministry of Education CBE senior school framework, KNEC Grade 10 subject
+selection guidelines, and 2026 transition coverage. Cross-reported August 2026.
+Confidence: `cross-reported` — `selection.education.go.ke` is blocked by this
+environment's egress proxy, as are all `.go.ke` domains tried this session, so
+the primary source could not be read directly.*
+
+### Timing
+
+The first CBE cohort entered Grade 10 in January 2026 and reaches placement
+around **2029**. Nothing here is broken for today's KCSE users. It was worth
+doing now because Njia was silent for every parent or older sibling advising a
+Grade 9 student today — and because `CBE_PATHWAYS` had been sitting in the
+dataset **exported but never rendered anywhere**, which this also fixes.

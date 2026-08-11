@@ -676,6 +676,17 @@ test('pathways carry their tracks, and the design target is labelled as a target
   assert.match(p.choiceUnit, /combination/i);
   assert.match(p.choiceUnit, /school/i, 'the school-level constraint is the part people miss');
 
+  // Scale makes the school constraint concrete. 161 is sourced for STEM only;
+  // the other two pathways' counts were not found, so no system-wide total may
+  // be quoted — summing or extrapolating would be a guess dressed as
+  // arithmetic, which is the failure mode this file exists to prevent.
+  assert.equal(p.stemCombinationCount, 161);
+  assert.match(p.scaleReading, /STEM/, 'the count must be attributed to STEM specifically');
+  assert.match(p.scaleReading, /not sourced|does not quote a total/i,
+    'the missing counts for the other pathways must be admitted');
+  assert.ok(!/\btotal of \d|\ball three pathways carry \d/i.test(p.scaleReading),
+    'no system-wide combination total may be asserted');
+
   // 60/25/15 is a curriculum-framework planning target, not an observed
   // placement outcome. Njia has spent this project removing figures that read
   // as measurements when they are not, so this one must say what it is.

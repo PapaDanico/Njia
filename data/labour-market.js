@@ -279,6 +279,13 @@ const CBE_PATHWAYS = {
   // some of them, which is why the school you are placed in constrains the
   // combination you can take just as much as the pathway does.
   choiceUnit: 'You do not choose a pathway so much as a coded three-subject combination inside a track inside a pathway — and only from the combinations your school actually offers.',
+  // Scale, which is what makes the school constraint concrete rather than
+  // abstract. 161 combinations exist inside STEM alone; no single school
+  // offers anything approaching that. Counts for the other two pathways have
+  // not been sourced, so only the STEM figure is stated — a total would be a
+  // guess dressed as arithmetic.
+  stemCombinationCount: 161,
+  scaleReading: 'STEM alone carries 161 subject combinations across its three tracks. No school offers anywhere near all of them, which is why the schools you rank decide your real options as much as the pathway does. Njia has not sourced combination counts for Social Sciences or Arts and Sports Science, so it does not quote a total.',
   // Policy design target from the Basic Education Curriculum Framework — an
   // intended distribution, NOT an observed outcome. Stated as design because
   // no placement result for the first cohort has been verified here.

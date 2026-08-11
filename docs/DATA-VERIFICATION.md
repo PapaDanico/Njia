@@ -1032,3 +1032,15 @@ from "regulated", and this record must not quietly promote one to the other.
 *Source: Kenyan specialist education press reporting on the Ministry of
 Education senior school mathematics structure and Grade 10 subject registration,
 cross-reported August 2026. Confidence: `cross-reported`.*
+
+### Scale — what makes the school constraint concrete
+
+**STEM alone carries 161 subject combinations** across its three tracks. No
+school offers anywhere close to that, which is precisely why the twelve schools
+a learner ranks decide their real options as much as the pathway does.
+
+Combination counts for Social Sciences and Arts and Sports Science were **not
+found**. Njia therefore quotes the STEM figure only and states the gap — a
+system-wide total would be a guess dressed as arithmetic. A test asserts the
+count is attributed to STEM specifically, that the missing counts are admitted,
+and **fails if any system-wide total is ever asserted**.

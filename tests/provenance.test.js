@@ -1379,8 +1379,23 @@ test('an E-grade learner can apply somewhere in a meaningful number of counties'
  * sitting in the collapsed provenance note — the same treatment that Don Bosco
  * admitting boys only already gets. */
 test('teacher training records carry the employment queue in the description', () => {
-  const teaching = COURSES.filter((c) => /Teacher Education/i.test(c.name));
-  assert.ok(teaching.length > 0, 'the teacher training pathway must exist');
+  /* Scoped to /Teacher Education/i this guard covered only the six diploma
+   * records added alongside it, and passed while three Bachelor of Education
+   * degrees already in the catalogue claimed employment rates of 70-72% with
+   * no warning at all — for the same TSC labour market. A learner comparing a
+   * B.Ed against the diploma would have seen "70%" on one and a queue warning
+   * on the other, and reasonably chosen the degree.
+   *
+   * Guarding what you just wrote rather than the category it belongs to is the
+   * same mistake the domain guard made when it checked index.html and left the
+   * share URL broken. The scope is the pathway.
+   *
+   * Bachelor of Technology Education is deliberately outside it: that trains
+   * TVET instructors, employed by training institutions rather than TSC, so
+   * the school-teacher backlog does not describe its market and applying this
+   * warning there would be its own inaccuracy. */
+  const teaching = COURSES.filter((c) => /Teacher Education|Bachelor of Education/i.test(c.name));
+  assert.ok(teaching.length >= 9, `only ${teaching.length} teaching records matched — has the naming changed?`);
 
   for (const c of teaching) {
     // Not merely present — leading. A caveat below the fold is a caveat most

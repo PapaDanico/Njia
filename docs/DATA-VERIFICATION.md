@@ -537,3 +537,34 @@ navigation, so a test also requires the alternative and an actual instruction â€
 apply early, because competitive programmes close in the first window rather
 than at the published deadline, and put a reachable second and third choice on
 the form rather than three versions of the same long shot.
+
+
+## Bursaries fail on paperwork, not on merit
+
+The most useful thing found about bursaries is not an amount. It is that
+**most applications fail on missing documents**, and that incomplete forms are
+commonly disqualified outright rather than returned for correction.
+
+Njia listed three or four requirements per bursary. Both the NG-CDF and county
+records now carry the full checklist:
+
+- Application form (local NG-CDF office, or ward/county office)
+- Fee structure from the institution
+- Admission or continuing-student letter
+- **Chief or local administrator letter** confirming ward/county residency (county bursaries)
+- **Student national ID or birth certificate**
+- **Parent/guardian national ID**
+- **Latest performance report or transcript**
+- **Form taken back to the school/college to be confirmed and stamped**
+- If orphaned or living with disability: death certificate, or a letter from the chief or a community leader
+
+Plus the instruction that actually changes the outcome: write in clear CAPITAL
+letters and do not submit an incomplete form.
+
+*Source: NG-CDF and county bursary application guidance, cross-reported August
+2026. Requirements are process rather than amounts, so they generalise across
+counties; the county record remains `illustrative` on its figures.*
+
+This is the cheapest possible improvement to a real disbursement rate. A young
+person who assembles nine documents before starting, rather than discovering the
+ninth after the deadline, is materially more likely to be funded.

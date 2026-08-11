@@ -210,6 +210,19 @@ const COURSES = [
   { id: 'c171', name: 'Certificate in Community Health Assistant', institution_id: 'kmtc_eldoret', cluster: 'carer', level: 'certificate', duration_months: 12, total_fees_kes: 82200, min_grade: 'D+', intake_months: ['January', 'September'], mode: 'full_time', employment_rate: 0.64, median_salary_kes: 18000, description: 'One-year entry point into community health work that ladders into the KRCHN diploma. Lower grade requirement than the diploma, and available in most counties.', career_paths: ['Community Health Assistant', 'Public Health Assistant'], outcomes_confidence: 'illustrative', fees_confidence: 'verified', verification_note: 'KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying.' },
 ];
 
+/* The catalogue holds one record per programme-at-institution. That is the
+ * right shape for "where could I apply" — a KMTC diploma in Nairobi and the
+ * same diploma in Kisumu are genuinely different options, with different
+ * commutes and different competition.
+ *
+ * It is the wrong shape for "how many courses are there". KMTC teaches one
+ * national programme set across 44 campuses, so counting records as courses
+ * overstates the catalogue's breadth by more than twice. Both numbers are
+ * true and they answer different questions, so every surface that quotes one
+ * has to say which it means: DISTINCT_PROGRAMMES is breadth, COURSES.length
+ * is the number of places you could send an application. */
+const DISTINCT_PROGRAMMES = new Set(COURSES.map((c) => c.name)).size;
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { COURSES };
+  module.exports = { COURSES, DISTINCT_PROGRAMMES };
 }

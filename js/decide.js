@@ -84,12 +84,16 @@ function renderDecidePage() {
       <aside class="module-header-aside">
         <p class="decide-rail-title">Catalogue coverage</p>
         <div class="coverage-grid">
-          <div><span class="coverage-num num">${COURSES.length}</span><span class="coverage-label">courses</span></div>
+          <div><span class="coverage-num num">${DISTINCT_PROGRAMMES}</span><span class="coverage-label">distinct programmes</span></div>
+          <div><span class="coverage-num num">${COURSES.length}</span><span class="coverage-label">places to apply</span></div>
           <div><span class="coverage-num num">${INSTITUTIONS.length}</span><span class="coverage-label">institutions</span></div>
           <div><span class="coverage-num num">${counties.size}</span><span class="coverage-label">counties</span></div>
           <div><span class="coverage-num num">${levels.size}</span><span class="coverage-label">qualification levels</span></div>
           <div><span class="coverage-num num">${FUNDING_SOURCES.length}</span><span class="coverage-label">funding sources</span></div>
-          <div><span class="coverage-num num">${formatKes(cheapest).replace('Ksh ', '')}</span><span class="coverage-label">lowest tuition (Ksh)</span></div>
+          ${/* Two OUK short courses genuinely cost nothing. Rendering that as
+                a bare "0" reads as missing data rather than as the useful fact
+                it is, so it says Free. */''}
+          <div><span class="coverage-num num">${cheapest === 0 ? 'Free' : formatKes(cheapest).replace('Ksh ', '')}</span><span class="coverage-label">${cheapest === 0 ? 'lowest tuition in the catalogue' : 'lowest tuition (Ksh)'}</span></div>
         </div>
         <p class="coverage-note">Every figure computed from the dataset this build ships.</p>
       </aside>
@@ -273,15 +277,23 @@ function renderCourseMatcher(container) {
     ? Math.round((COURSES.filter((c) => meetsGradeRequirement(grade, c.min_grade)).length / COURSES.length) * 100)
     : null;
 
-  const sortBy = AppState.decideFilters.sortBy || 'match';
-  const sortOptions = { match: 'Best Match', fees_low: 'Lowest Fees', fees_high: 'Highest Fees', employment: 'Highest Employment (est.)', duration: 'Shortest Duration' };
-  // 'employment' ranks on an estimated figure, never a measured one. The label
-  // in sortOptions says so — do not shorten it back to "Employment Rate".
+  const sortOptions = { match: 'Best Match', fees_low: 'Lowest Fees', fees_high: 'Highest Fees', duration: 'Shortest Duration' };
+  // Anyone who had 'employment' selected when it was removed still carries it
+  // in saved state. Fall back rather than render a select with nothing
+  // selected — which would show "Best Match" while state said otherwise.
+  const sortBy = Object.hasOwn(sortOptions, AppState.decideFilters.sortBy) ? AppState.decideFilters.sortBy : 'match';
+  if (sortBy !== AppState.decideFilters.sortBy) { AppState.decideFilters.sortBy = sortBy; saveState(); }
+  // There is deliberately no "sort by employment rate" here. Every
+  // employment_rate in the catalogue is illustrative — Kenya publishes no
+  // per-course graduate outcomes, so not one of them has been measured.
+  // Labelling the option "(est.)" was the old mitigation and it was not
+  // enough: the label qualifies the number while the ordering still presents
+  // a ranking the data cannot support. Sorting is a stronger claim than
+  // display, so outcomes may be shown (marked est.) and may not rank.
   const sorters = {
     match: (a, b) => b.match.score - a.match.score,
     fees_low: (a, b) => a.course.total_fees_kes - b.course.total_fees_kes,
     fees_high: (a, b) => b.course.total_fees_kes - a.course.total_fees_kes,
-    employment: (a, b) => (b.course.employment_rate ?? 0) - (a.course.employment_rate ?? 0),
     duration: (a, b) => a.course.duration_months - b.course.duration_months
   };
   filtered.sort(sorters[sortBy] || sorters.match);
@@ -371,7 +383,7 @@ function renderCourseMatcher(container) {
     </aside>
 
     <div class="decide-results">
-      <p class="decide-count"><strong class="num">${filtered.length}</strong> of <span class="num">${COURSES.length}</span> courses match your filters${gradeOpenPct != null ? ` · your grade opens <strong class="num">${gradeOpenPct}%</strong> of the catalogue` : ''}</p>
+      <p class="decide-count"><strong class="num">${filtered.length}</strong> of <span class="num">${COURSES.length}</span> places to apply match your filters${gradeOpenPct != null ? ` · your grade opens <strong class="num">${gradeOpenPct}%</strong> of them` : ''}</p>
       ${filtered.length === 0
         ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
         : `<p class="decide-caveat text-muted text-sm">Cost-of-attendance totals below are illustrative and vary by town — plan against them, don't rely on them.</p>
@@ -399,11 +411,13 @@ function currentDecideResults() {
   const matchesSaved = (c) => !f.savedOnly || AppState.savedCourses.includes(c.id);
   const matchesOwnership = (c) => ownership === 'all' || institutionById(c.institution_id)?.ownership === ownership;
 
+  // Mirrors renderDecideTabContent's sorters — no outcome-based ordering.
+  // If these two ever drift, "Show more" appends from a different ordering
+  // than the one on screen.
   const sorters = {
     match: (a, b) => b.match.score - a.match.score,
     fees_low: (a, b) => a.course.total_fees_kes - b.course.total_fees_kes,
     fees_high: (a, b) => b.course.total_fees_kes - a.course.total_fees_kes,
-    employment: (a, b) => (b.course.employment_rate ?? 0) - (a.course.employment_rate ?? 0),
     duration: (a, b) => a.course.duration_months - b.course.duration_months
   };
 
@@ -692,8 +706,12 @@ function openCourseComparison() {
     { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true, raw: (c) => c.duration_months, better: 'min' },
     { label: 'Tuition', get: (c) => formatKes(c.total_fees_kes), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
-    { label: 'Employment Rate (est.)', get: (c) => formatPercent(c.employment_rate), num: true, raw: (c) => c.employment_rate ?? -1, better: 'max' },
-    { label: 'Median Salary (est.)', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true, raw: (c) => c.median_salary_kes ?? -1, better: 'max' },
+    // Shown, but deliberately given no `raw`/`better` — a shaded "best value"
+    // cell is the app declaring a winner, and these figures are illustrative
+    // for every course in the catalogue. Displaying an estimate is honest;
+    // crowning one estimate over another is not.
+    { label: 'Employment Rate (est.)', get: (c) => formatPercent(c.employment_rate), num: true },
+    { label: 'Median Salary (est.)', get: (c) => `${formatKes(c.median_salary_kes)}/mo`, num: true },
     { label: 'Match Score', get: (c) => `${computeCourseMatch(c).score}%`, num: true, raw: (c) => computeCourseMatch(c).score, better: 'max' }
   ];
   const bestValue = (row) => {

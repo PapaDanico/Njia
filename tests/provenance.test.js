@@ -25,6 +25,7 @@ for (const file of ['data/institutions.js', 'data/courses.js', 'data/funding.js'
 }
 const grab = (name) => vm.runInContext(name, context);
 const COURSES = grab('COURSES');
+const DISTINCT_PROGRAMMES = grab('DISTINCT_PROGRAMMES');
 const INSTITUTIONS = grab('INSTITUTIONS');
 const FUNDING_SOURCES = grab('FUNDING_SOURCES');
 const SECTOR_EARNINGS = grab('SECTOR_EARNINGS');
@@ -547,4 +548,66 @@ test('every course is distinguishable by name plus institution', () => {
   const names = new Map();
   for (const c of COURSES) names.set(c.name, (names.get(c.name) || 0) + 1);
   assert.ok(Math.max(...names.values()) > 1, 'bare course names are expected to collide');
+});
+
+test('no course carries a measured outcome, so nothing may rank on one', () => {
+  // The premise both guards below depend on. If Kenya ever publishes
+  // per-course graduate outcomes and records start arriving as 'verified',
+  // this fails loudly — which is the point. The restriction is a response to
+  // the data being illustrative, not a permanent design opinion.
+  const levels = new Set(COURSES.map((c) => c.outcomes_confidence));
+  assert.deepEqual([...levels], ['illustrative'],
+    'outcomes are no longer uniformly illustrative — revisit the sort and comparison restrictions');
+});
+
+test('the Decide sort offers no ordering built on illustrative outcomes', () => {
+  // Sorting is a stronger claim than display: it tells the user "this one
+  // first". Labelling the option "(est.)" qualified the number while the
+  // ordering still asserted a ranking the data cannot support.
+  const src = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  const sortOptionsLines = src.split('\n').filter((l) => l.includes('const sortOptions'));
+  assert.ok(sortOptionsLines.length > 0, 'sortOptions must exist to be checked');
+  for (const line of sortOptionsLines) {
+    assert.ok(!/employment|salary|outcome/i.test(line),
+      `sort menu offers an outcome-based ordering: ${line.trim()}`);
+  }
+  // And no comparator keyed on the outcome fields anywhere in the module.
+  assert.ok(!/^\s*employment:\s*\(a, b\)/m.test(src), 'an employment comparator is still defined');
+  assert.ok(!/median_salary_kes\s*\?\?\s*0\)\s*-/.test(src), 'a salary comparator is still defined');
+});
+
+test('the comparison table shows outcome estimates but crowns no winner', () => {
+  // A shaded "best value" cell is the app declaring a winner. Displaying an
+  // estimate is honest; ranking one estimate above another is not, so the
+  // outcome rows must carry no `better`/`raw` pair while the rows built on
+  // verified fee and duration data still do.
+  const src = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  for (const label of ['Employment Rate (est.)', 'Median Salary (est.)']) {
+    const row = src.split('\n').find((l) => l.includes(`label: '${label}'`));
+    assert.ok(row, `comparison row ${label} not found`);
+    assert.ok(!/better:/.test(row), `${label} still marks a best value`);
+    assert.ok(!/raw:/.test(row), `${label} still exposes a raw value for ranking`);
+  }
+  const tuition = src.split('\n').find((l) => l.includes("label: 'Tuition'"));
+  assert.match(tuition, /better: 'min'/, 'verified fee data should still mark a best value');
+});
+
+test('breadth and reach are counted as separate claims', () => {
+  // 167 records across 73 programme names: counting records as "courses"
+  // overstates breadth more than twofold, because KMTC teaches one national
+  // programme set at 44 campuses. Both numbers are true and answer different
+  // questions, so no surface may quote one while implying the other.
+  assert.equal(DISTINCT_PROGRAMMES, new Set(COURSES.map((c) => c.name)).size);
+  assert.ok(DISTINCT_PROGRAMMES < COURSES.length,
+    'if these ever match, the duplicate-campus shape has changed — recheck the copy');
+
+  for (const file of ['app.js', 'decide.js']) {
+    const src = fs.readFileSync(path.join(root, 'js', file), 'utf8');
+    for (const line of src.split('\n')) {
+      if (!line.includes('COURSES.length')) continue;
+      if (line.trimStart().startsWith('*') || line.trimStart().startsWith('//')) continue;
+      assert.ok(!/\bcourses\b/.test(line),
+        `${file} labels a record count as "courses": ${line.trim()}`);
+    }
+  }
 });

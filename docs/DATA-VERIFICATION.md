@@ -758,3 +758,70 @@ hoisted to a page-level footnote that a detached card would lose.
 The one line genuinely moved is the cost-of-attendance caveat, which is
 generic advice rather than provenance: it now sits once above the grid, where
 it correctly applies to every card at once.
+
+## Two claims Njia was making that its own data does not support
+
+### 1. "167 courses" was breadth inflated more than twofold
+
+| | |
+| --- | --- |
+| Course records | **167** |
+| Distinct programme names | **73** |
+| Institutions | 83 of 86 carry courses |
+| Counties | 45 of 47 |
+
+The catalogue holds one record per *programme-at-institution*. That is the right
+shape for **"where could I apply"** — a KMTC diploma in Nairobi and the same
+diploma in Kisumu are genuinely different options, with different commutes and
+different competition. It is the wrong shape for **"how many courses are
+there"**, because KMTC teaches one national programme set across 44 campuses.
+
+Both numbers are true; they answer different questions. Every surface now says
+which it means:
+
+- Landing: *"73 distinct programmes across 6 career clusters, offered at 167
+  places you could apply"*
+- Coverage rail: `73 distinct programmes` / `167 places to apply`
+- Results: *"X of 167 **places to apply** match your filters"*
+
+A test scans `app.js` and `decide.js` and fails if any non-comment line pairs
+`COURSES.length` with the word "courses". It also asserts
+`DISTINCT_PROGRAMMES < COURSES.length`, so if the duplicate-campus shape ever
+changes the copy gets rechecked rather than silently going stale.
+
+### 2. Illustrative outcomes were still ranking results
+
+Fees are **125 of 167 verified (75%)**. Outcomes are **0% verified** — every
+`outcomes_confidence` in the catalogue is `illustrative`, because Kenya
+publishes no per-course graduate outcomes (confirmed negatively against TVETA,
+the education ministry and KIPPRA).
+
+Those figures were nonetheless doing two ranking jobs:
+
+- **A "Highest Employment (est.)" sort option.** The `(est.)` label was the
+  earlier mitigation and it was not enough. A label qualifies the *number*
+  while the ordering still asserts a *ranking* the data cannot support.
+  **Removed.**
+- **A shaded "best value" cell** on the Employment Rate and Median Salary rows
+  of the comparison table. A shaded cell is the app declaring a winner between
+  two invented figures. **Removed** — the values still show, marked `est.`
+
+The principle, now encoded in tests: **sorting is a stronger claim than
+display.** An estimate may be shown when it is marked as one; it may not decide
+what comes first.
+
+This closes the exact failure recorded at the top of `tests/provenance.test.js`
+— *"an invented employment rate rendering under a Verified badge, sorting the
+results list, and picking the comparison table's winner."* The badge was fixed
+earlier in the project; the sorting and the winner were not, until now.
+
+Returning users whose saved state still holds `sortBy: 'employment'` are healed
+to `match` on render, so the dropdown cannot show one thing while state says
+another.
+
+**Also corrected:** the coverage rail rendered lowest tuition as a bare `0`,
+which reads as missing data. Two OUK short courses genuinely cost nothing, so
+it now reads **Free**.
+
+*Each of the three new guards was negative-tested — reintroduce the violation
+and the suite fails 1, restore and it passes 85.*

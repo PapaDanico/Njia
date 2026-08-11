@@ -1081,7 +1081,11 @@ test('the artisan tier is not confined to a single institution or county', () =>
 
   assert.ok(artisan.length > 0, 'the artisan tier must exist');
   assert.ok(institutions.size >= 2, `artisan courses sit at only ${institutions.size} institution(s)`);
-  assert.ok(counties.size >= 2, `artisan courses reach only ${counties.size} county/counties`);
+  // A ratchet, not a target. It started at 2 when the tier covered four
+  // counties; it is 6 now that the tier covers eight. Raise it as coverage
+  // grows, never lower it to make a change pass — the whole point is that
+  // reach cannot quietly regress.
+  assert.ok(counties.size >= 6, `artisan courses reach only ${counties.size} county/counties`);
   // Every artisan record must resolve to a real institution — a typo in
   // institution_id would otherwise render as "Unknown institution".
   for (const c of artisan) {
@@ -1279,4 +1283,50 @@ test('robots.txt and sitemap.xml exist, agree, and parse', () => {
   const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
   assert.ok(!/robots\.txt|sitemap\.xml/.test(sw),
     'crawler files must stay out of the offline cache');
+});
+
+/* Artisan entry grades are not uniform, and flattening them is the tempting
+ * error. KUCCPS sets the national artisan floor at E, but institutions publish
+ * their own bars above it: Eldoret states D, Sigalagala D-, Meru D- or KCPE,
+ * Kabete E. A well-meaning tidy-up that set every artisan record to the
+ * national floor would read as consistent and be wrong in a way that costs the
+ * learner something real — KUCCPS artisan applicants get only four choices, so
+ * an overstated eligibility does not merely disappoint, it burns one of four.
+ *
+ * Grade never hides a course from the results list (only cluster, mode, level,
+ * county and ownership filter), so recording the stricter published figure
+ * costs no visibility. There is no upside to flattening and a direct cost. */
+test('artisan entry grades reflect what each institution publishes', () => {
+  const artisan = COURSES.filter((c) => c.level === 'artisan');
+  const grades = new Set(artisan.map((c) => String(c.min_grade)));
+
+  assert.ok(grades.size >= 3,
+    `every artisan record shares ${grades.size} entry value(s) — institutions publish different bars, from KCPE-only to D`);
+
+  // No artisan record may sit below the KUCCPS national floor of E. A value
+  // beneath it would be a data-entry slip, not an institutional policy.
+  const ORDER = ['E', 'D-', 'D', 'D+', 'C-', 'C', 'C+', 'B-', 'B', 'B+', 'A-', 'A'];
+  const belowFloor = artisan.filter((c) => c.min_grade !== null && ORDER.indexOf(c.min_grade) < ORDER.indexOf('E'));
+  assert.equal(belowFloor.map((c) => c.id).join(', '), '', 'artisan records below the KUCCPS floor of E');
+
+  // Anything above D+ is not an artisan bar — it is a craft or diploma
+  // requirement pasted onto the wrong tier.
+  const tooHigh = artisan.filter((c) => c.min_grade !== null && ORDER.indexOf(c.min_grade) > ORDER.indexOf('D+'));
+  assert.equal(tooHigh.map((c) => `${c.id} (${c.min_grade})`).join(', '), '',
+    'artisan records demanding more than D+ — that is a craft-level bar on an artisan record');
+
+  // Every artisan record states its grade basis, because every one of them
+  // departs from a single national rule.
+  //
+  // The first version of this alternation matched only the KUCCPS/grade
+  // vocabulary and failed 11 records at Don Bosco and St. Kizito. Those
+  // records were right and the test was wrong: they admit by interview, or
+  // take primary school leavers, and say so explicitly — "Admission is by
+  // interview rather than a KCSE grade, so min_grade is null". An open-entry
+  // provider states its basis in the language of admission, not of grades.
+  for (const c of artisan) {
+    assert.ok(
+      /KUCCPS|KCPE|mean grade|entry|minimum|admission|interview|school leaver|primary/i.test(c.verification_note || ''),
+      `${c.id} gives no basis for its entry requirement`);
+  }
 });

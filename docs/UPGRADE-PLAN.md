@@ -89,9 +89,9 @@ figures at the level they actually exist: the sector.
 | Open University of Kenya programmes, fee-verified | Done — 16 records |
 | Free / no-minimum-grade entry points | Done — first in the catalogue |
 | Catalogue growth | Done — 73 → 81 courses, 30 → 38 fee-verified |
-| Coverage of CUE's ~88 degree-awarding institutions | **Open — 43 covered** |
-| County coverage | **Open — 12 of 47** |
-| Per-institution fee structures for illustrative courses | **Open** |
+| Coverage of CUE's ~88 degree-awarding institutions | **Open — 86 institutions covered overall** |
+| County coverage | **Done — 45 of 47** (KMTC has no campus in Kirinyaga or Samburu) |
+| Per-institution fee structures for illustrative courses | **Open — 125 of 167 verified (75%)** |
 
 OUK deserves its own note. It is the most accessible institution in the
 catalogue for a Njia user: fully online, so no relocation or hostel cost;
@@ -102,12 +102,21 @@ platform ships.
 
 ## Phase 4 — What remains, and why
 
-**Widening beyond 43 institutions and 12 counties.** This is the largest
-open item and it is a sourcing problem, not an effort problem. Doing it
-honestly means per-institution fee structures from registrars or official
-fee-structure documents. Bulk-importing names without fees would inflate the
-catalogue while lowering the share of records anyone can trust — the
-opposite of the direction this plan sets.
+**County coverage — solved, and worth recording how.** This was the largest
+open item, described here as a sourcing problem rather than an effort problem:
+per-campus fees would mean one registrar call per institution. The way through
+was to stop treating every institution as a separate sourcing task and find the
+families that are *centrally priced*. KMTC publishes one national fee structure
+across 98 campuses in 45 counties; public TVET now charges one consolidated
+government-set annual fee. Two sources, forty-five counties. Coverage went from
+12 counties to 45 and the verified share went **up**, 47% to 75%, because
+everything added came with a published fee.
+
+The remaining gap is distinct programmes rather than places. A student in any
+of 45 counties can now find something near home; a student wanting an unusual
+specialism still mostly has to look at the big urban institutions. Closing that
+does need per-institution sourcing, and bulk-importing names without fees would
+still inflate the catalogue while lowering the share anyone can trust.
 
 **Upgrading provenance from cross-reported to primary.** Every figure in the
 evidence layer was cross-checked across independent outlets reporting a

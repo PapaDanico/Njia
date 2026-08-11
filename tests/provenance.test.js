@@ -151,6 +151,24 @@ test('every module names the method it is built on', () => {
   }
 });
 
+test('a nationally-priced programme costs the same at every campus', () => {
+  // KMTC publishes one fee structure for all 98 campuses, so the same
+  // programme at the same duration must not differ by location. Nairobi
+  // carried a pre-source estimate of Ksh 280,000 for the KRCHN diploma while
+  // every other campus showed the published Ksh 238,200 — the kind of drift
+  // that makes a user think relocating is cheaper when it is not.
+  const kmtc = COURSES.filter((c) => c.institution_id.startsWith('kmtc'));
+  const byProgramme = new Map();
+  for (const c of kmtc) {
+    const key = `${c.name.toLowerCase().trim()}::${c.duration_months}`;
+    if (!byProgramme.has(key)) byProgramme.set(key, new Set());
+    byProgramme.get(key).add(c.total_fees_kes);
+  }
+  for (const [key, fees] of byProgramme) {
+    assert.equal(fees.size, 1, `${key} has ${fees.size} different fees across KMTC campuses: ${[...fees].join(', ')}`);
+  }
+});
+
 /* ---------- catalogue integrity ---------- */
 
 test('every course points at an institution that exists', () => {

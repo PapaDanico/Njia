@@ -293,3 +293,45 @@ test('the service worker does not cache files that no longer exist', () => {
       `sw.js caches ${rel}, which does not exist — install would fail and the app would never go offline`);
   }
 });
+
+/* ---------- locality ----------
+ * Added when the catalogue reached 45 counties. KMTC teaches the same
+ * programmes at campuses nationwide, so without a locality factor a student
+ * in Kisumu would see the Lodwar campus ranked level with the one down the
+ * road. Studying near home is frequently the difference between affordable
+ * and impossible: relocation means rent, transport and losing family support.
+ */
+
+test('a course in the user\'s county outranks the same course elsewhere', () => {
+  const course = COURSES.find((c) => c.institution_id === 'kmtc_turkana');
+  const base = { hasResults: true, primary: course.cluster, secondary: null, grade: 'A', budgetMax: null };
+  const home = scoreCourseMatch(course, { ...base, homeCounty: 'Turkana', courseCounty: 'Turkana' });
+  const away = scoreCourseMatch(course, { ...base, homeCounty: 'Kisumu', courseCounty: 'Turkana' });
+  assert.ok(home.score > away.score, `local ${home.score} should beat distant ${away.score}`);
+});
+
+test('locality says why, not just how much', () => {
+  const course = COURSES.find((c) => c.institution_id === 'kmtc_turkana');
+  const base = { hasResults: true, primary: course.cluster, secondary: null, grade: 'A', budgetMax: null };
+  const away = scoreCourseMatch(course, { ...base, homeCounty: 'Kisumu', courseCounty: 'Turkana' });
+  const factor = away.breakdown.find((b) => b.factor === 'Location');
+  assert.ok(factor, 'a location penalty must be explained in the breakdown');
+  assert.match(factor.detail, /accommodation|travel/i, 'the reason must name the real cost, not just the distance');
+});
+
+test('with no county selected, locality is silent rather than guessed', () => {
+  // "All Counties" means there is no home location. Inventing one would be
+  // worse than staying silent, so no Location factor should appear at all.
+  const course = COURSES.find((c) => c.institution_id === 'kmtc_turkana');
+  const r = scoreCourseMatch(course, { hasResults: true, primary: course.cluster, secondary: null, grade: 'A', budgetMax: null, homeCounty: null, courseCounty: 'Turkana' });
+  assert.equal(r.breakdown.filter((b) => b.factor === 'Location').length, 0);
+});
+
+test('locality never pushes a score outside 0-100', () => {
+  for (const c of COURSES.slice(0, 40)) {
+    for (const [h, cc] of [['Nairobi', 'Nairobi'], ['Nairobi', 'Turkana']]) {
+      const r = scoreCourseMatch(c, { hasResults: true, primary: c.cluster, secondary: null, grade: 'E', budgetMax: 1, homeCounty: h, courseCounty: cc });
+      assert.ok(r.score >= 0 && r.score <= 100, `${c.id} scored ${r.score}`);
+    }
+  }
+});

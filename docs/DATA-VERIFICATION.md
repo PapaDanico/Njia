@@ -27,14 +27,34 @@ source and date.
 
 ## Catalogue size (August 2026)
 
-81 courses across 43 institutions in 12 counties, covering all six
-clusters and all three qualification levels. The expansion added real
+167 courses across 86 institutions in **45 of Kenya's 47 counties**,
+covering all six clusters and all three qualification levels. No county with
+coverage has fewer than two courses. The expansion added real
 CUE-chartered universities and TVETA-registered national polytechnics;
 public-TVET fees are anchored to the verified consolidated annual fee,
 which is why the verified count grew with the catalogue rather than being
 diluted by it.
 
-**38 of 81 course records now carry verified fees.** The Open University
+**125 of 167 course records now carry verified fees (75%).**
+
+The county expansion came from a single structural insight: two institution
+families have *government-set uniform fees*, so covering them does not require
+one registrar call per campus. KMTC operates 98 campuses across 45 of the 47
+counties under one published national fee structure (Ksh 82,200 in Year 1,
+Ksh 78,000 thereafter), and public TVET now charges one consolidated annual
+fee set by government. That is what took coverage from 12 counties to 45
+without lowering the verified share — it raised it, from 47% to 75%.
+
+The two counties still absent are **Kirinyaga and Samburu**, and that is a real
+boundary rather than an arbitrary stopping point: they are the only two
+counties where KMTC has no campus.
+
+Note what this expansion is and is not. The same programme appears at many
+campuses, so the course count grew faster than the range of distinct
+programmes. That is the point — a student in Turkana filtering by their own
+county previously saw nothing at all, and now sees a KRCHN diploma and a
+community health certificate they can actually reach without relocating. It is
+coverage of *access*, not of curriculum variety. The Open University
 of Kenya accounts for 16 of them, all fee-verified — it is the most
 accessible institution in the catalogue for a Njia user: fully online, so
 no relocation or hostel cost, CUE-accredited, KUCCPS/HELB eligible, and

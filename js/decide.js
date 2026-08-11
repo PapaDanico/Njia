@@ -124,7 +124,7 @@ function renderDecideTabContent() {
  * It also returns a factor-by-factor breakdown that renderCourseCard shows
  * under "Why this match?", so the score is explainable, not an oracle. */
 function scoreCourseMatch(course, profile) {
-  const { hasResults, primary, secondary, grade, budgetMax } = profile;
+  const { hasResults, primary, secondary, grade, budgetMax, homeCounty, courseCounty } = profile;
   const breakdown = [];
   let score = 40;
   if (hasResults) {
@@ -140,6 +140,28 @@ function scoreCourseMatch(course, profile) {
     }
   } else {
     breakdown.push({ factor: 'Career fit', detail: 'Complete Discover to personalise this — without your results every course starts from the same baseline.', effect: 'neutral' });
+  }
+
+  // Locality. The catalogue now reaches 45 counties, largely because KMTC
+  // teaches the same programmes at campuses nationwide. That is the point of
+  // the expansion, but it means an identical course exists in dozens of
+  // places, and without this a student in Kisumu would see the Lodwar campus
+  // ranked exactly level with the one down the road. Studying near home is
+  // often the difference between affordable and impossible — relocation means
+  // rent, transport and being away from family support.
+  //
+  // Applied only when a county is actually selected: with "All Counties" there
+  // is no home location to measure against, and inventing one would be worse
+  // than staying silent.
+  if (homeCounty && courseCounty) {
+    if (courseCounty === homeCounty) {
+      score += 3;
+      breakdown.push({ factor: 'Location', detail: `Taught in ${courseCounty} — no relocation, so no rent or transport on top of fees.`, effect: 'up' });
+    } else {
+      score -= 3;
+      breakdown.push({ factor: 'Location', detail: `Taught in ${courseCounty}, away from ${homeCounty} — budget for accommodation and travel on top of the fee.`, effect: 'down' });
+    }
+    score = Math.max(0, Math.min(100, score));
   }
 
   const eligible = meetsGradeRequirement(grade, course.min_grade);
@@ -197,7 +219,11 @@ function computeCourseMatch(course) {
     primary: results?.primary,
     secondary: results?.secondary,
     grade: getEffectiveGrade(),
-    budgetMax: AppState.decideFilters.budgetMax
+    budgetMax: AppState.decideFilters.budgetMax,
+    // Only meaningful once a county is chosen. Left null for "All Counties",
+    // where there is no home location to rank against.
+    homeCounty: AppState.decideFilters.county !== 'all' ? AppState.decideFilters.county : null,
+    courseCounty: institutionById(course.institution_id)?.county || null
   });
 }
 
@@ -339,11 +365,32 @@ function renderCourseMatcher(container) {
       <p class="decide-count"><strong class="num">${filtered.length}</strong> of <span class="num">${COURSES.length}</span> courses match your filters${gradeOpenPct != null ? ` · your grade opens <strong class="num">${gradeOpenPct}%</strong> of the catalogue` : ''}</p>
       ${filtered.length === 0
         ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
-        : `<div class="results-grid">${filtered.map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>`
+        : `<div class="results-grid">${filtered.slice(0, AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE).map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>
+           ${filtered.length > (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)
+             ? `<div class="results-more"><button type="button" class="btn btn-secondary" onclick="showMoreCourses()">Show ${Math.min(DECIDE_PAGE_SIZE, filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE))} more · ${filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)} remaining</button></div>`
+             : ''}`
       }
     </div>
     </div>
   `;
+}
+
+/* The catalogue reaches 45 counties, which means a filtered list can run to
+ * well over a hundred cards. Rendering them all cost 450-530ms on a mid-range
+ * Android at 4x CPU throttle — and that fires on every filter change, which is
+ * the core interaction of the core module. Rendering a page at a time keeps it
+ * responsive; the count line above still reports the true total, so nothing is
+ * hidden, only deferred.
+ *
+ * The counter lives in decideFilters so it resets naturally whenever a filter
+ * changes (each setter clears it) rather than leaking a stale offset between
+ * different result sets. */
+const DECIDE_PAGE_SIZE = 24;
+
+function showMoreCourses() {
+  AppState.decideFilters.visibleCount = (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE) + DECIDE_PAGE_SIZE;
+  saveState();
+  renderDecideTabContent();
 }
 
 function renderCourseCard(course, match) {
@@ -420,52 +467,62 @@ function renderCourseCard(course, match) {
 
 function setDecideClusterFilter(cluster) {
   AppState.decideFilters.cluster = cluster;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideBudgetFilter(value) {
   AppState.decideFilters.budgetMax = Number(value) >= 750000 ? null : Number(value);
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideOwnershipFilter(value) {
   AppState.decideFilters.ownership = value;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 
 function setDecideGradeFilter(value) {
   AppState.decideFilters.grade = value || null;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideCountyFilter(county) {
   AppState.decideFilters.county = county;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideLevelFilter(level) {
   AppState.decideFilters.level = level;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideModeFilter(mode) {
   AppState.decideFilters.mode = mode;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function toggleDecideSavedOnly() {
   AppState.decideFilters.savedOnly = !AppState.decideFilters.savedOnly;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function setDecideSortBy(sortBy) {
   AppState.decideFilters.sortBy = sortBy;
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }
 function clearDecideFilters() {
   AppState.decideFilters = { ...AppState.decideFilters, cluster: 'all', budgetMax: null, mode: 'any', county: 'all', level: 'all', ownership: 'all', savedOnly: false };
+  AppState.decideFilters.visibleCount = DECIDE_PAGE_SIZE;
   saveState();
   renderDecideTabContent();
 }

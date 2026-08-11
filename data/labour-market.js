@@ -726,6 +726,61 @@ const SKILLS_MISMATCH = {
   sources: ['British Council, Higher Education Graduate Employability (Kenya)', 'Kenyan university employability research, cross-reported 2023–2026']
 };
 
+/* SKILLS_MISMATCH names "an attachment" as one of the things that closes the
+ * employability gap, and until now Njia left it at that — as though it were a
+ * thing that simply happens to you. It is not. Industrial attachment is a
+ * *mandatory* component of most university and TVET programmes, it is
+ * competitive, and students routinely discover this in the term it is due.
+ *
+ * The actionable part is that there is a single national portal for it, run
+ * by NITA, and almost nobody entering a course is told about it at the point
+ * where knowing early would help. Registering in year one costs nothing and
+ * removes a scramble later.
+ *
+ * The 55,000 figure is NITA's own placement throughput, not the number of
+ * places available on demand — stated as scale, never as a guarantee. */
+const ATTACHMENT = {
+  source: 'National Industrial Training Authority (NITA) industrial attachment scheme and Kenyan TVET/university programme requirements, cross-reported August 2026',
+  isMandatory: 'Industrial attachment is a mandatory component of most university and TVET programmes in Kenya — not an optional extra you can decide against later.',
+  placedPerYear: 55000,
+  scale: 'NITA facilitates placement for more than 55,000 students a year across public and private institutions.',
+  theCompetition: 'Places are contested. Thousands of students chase attachments in the same government bodies, state corporations and large firms every intake, and the institution does not guarantee you one.',
+  whereToApply: 'NITA runs a national portal (ITAP), reached from nita.go.ke under Our Services → Industrial Attachment. You create an account, verify by email, and apply from there. Large employers such as KRA and Kenya Power also advertise their own intakes on fixed cycles.',
+  theAdvice: 'Register in your first year, not the term the attachment is due. It costs nothing, and it converts a scramble into a queue you are already in.',
+  whyItCompounds: 'Attachment is often the first real entry to the labour market, and a share of students are eventually hired by the organisation that took them. It is the cheapest experience you will ever acquire, and it is already built into your course.',
+  honestLimit: 'The supply of quality places has not kept pace with enrolment, which is why the State Department for TVET is now pushing to bring industry into institutions rather than send every student out. Plan for the search to be real work.',
+  clusters: ['tech', 'business', 'creator', 'carer', 'people', 'numbers']
+};
+
+/* The most misreported career story in Kenya, and a case study in why this
+ * file exists.
+ *
+ * In September 2024 Kenya and Germany signed a Migration and Mobility
+ * Partnership in Berlin. Kenyan headlines reported it as Germany opening
+ * 250,000 jobs to Kenyans. That number is NOT in the agreement. Germany's
+ * Interior Ministry publicly denied that the deal specifies any quota; the
+ * figure came from Kenya's presidency describing an aspiration.
+ *
+ * Njia ships the correction as the headline finding, because a young person
+ * making a plan around 250,000 guaranteed openings is making it around
+ * something that does not exist. The agreement is real and genuinely useful.
+ * The gate is not a quota — it is German language and formal recognition of
+ * your qualification, and both take years to clear, not weeks.
+ *
+ * `theNumberYouHeard` must never be dropped when this record is rendered. */
+const LABOUR_MOBILITY = {
+  source: 'ILO reporting on the Kenya–Germany bilateral labour agreement; Kenya–Germany Migration and Mobility Partnership signed Berlin, 13 September 2024; German Skilled Immigration Act guidance, cross-reported August 2026',
+  agreement: 'Kenya and Germany signed a Migration and Mobility Partnership in Berlin on 13 September 2024, covering labour mobility, apprenticeship, student training, worker welfare and return.',
+  theNumberYouHeard: 'You have probably seen "Germany opens 250,000 jobs to Kenyans". That number is not in the agreement. Germany\'s Interior Ministry stated publicly that the deal specifies no quota at all — the figure came from Kenya\'s presidency describing an ambition. Treat it as a hope, not a vacancy list.',
+  whatIsRealInIt: 'Germany waives its labour-market test for skilled workers from Kenya, grants a residence permit once you hold an approved job, and issues long-stay visas for study and vocational training (Ausbildung), with a route to work there afterwards.',
+  sectors: ['Healthcare and nursing', 'Engineering', 'IT', 'Transport', 'Hospitality'],
+  theRealGate: 'German language and formal recognition of your qualification — not the agreement. Both take years to clear, not weeks.',
+  theGateDetail: 'Regulated professions such as nursing require German at B1–B2 depending on the federal state, plus formal recognition of your Kenyan qualification (Anerkennung), which takes up to four months once your documents are complete, usually alongside a concrete job offer.',
+  theOpening: 'Since 1 March 2024 a Recognition Partnership lets you enter Germany and complete the recognition procedure there rather than finishing it first. IT specialists can qualify on demonstrated skill without a formal qualification.',
+  honestReading: 'This is a real route and a narrow one. It rewards people who start German early and keep their certificates, transcripts and registration documents in order. It is not a plan for next year, and it is not a substitute for a plan in Kenya.',
+  clusters: ['carer', 'tech', 'numbers', 'business']
+};
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, ATTACHMENT, LABOUR_MOBILITY };
 }

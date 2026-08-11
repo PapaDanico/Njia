@@ -46,6 +46,8 @@ const CBE_PATHWAYS = grab('CBE_PATHWAYS');
 const PLACEMENT_CALENDAR = grab('PLACEMENT_CALENDAR');
 const COMPETITION_REALITY = grab('COMPETITION_REALITY');
 const PRIOR_LEARNING = grab('PRIOR_LEARNING');
+const ATTACHMENT = grab('ATTACHMENT');
+const LABOUR_MOBILITY = grab('LABOUR_MOBILITY');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -433,4 +435,52 @@ test('Recognition of Prior Learning ships with its honest limit', () => {
   assert.ok(r.whyItMatters.length > 60, 'the payoff must be concrete, not vague encouragement');
   const clusters = [...new Set(COURSES.map((c) => c.cluster))];
   for (const c of r.clusters) assert.ok(clusters.includes(c), `RPL maps to unknown cluster ${c}`);
+});
+
+test('the Germany route always ships with the correction to the number', () => {
+  // The single highest-risk record in the dataset. Kenyan headlines reported
+  // the September 2024 Migration and Mobility Partnership as "Germany opens
+  // 250,000 jobs to Kenyans". Germany's Interior Ministry denied that any
+  // quota is in the agreement. A young person planning around 250,000
+  // guaranteed openings is planning around something that does not exist,
+  // so the correction is not optional context — it is the headline, and it
+  // must name the number it is correcting.
+  const m = LABOUR_MOBILITY;
+  assert.ok(m.theNumberYouHeard, 'the correction must exist');
+  assert.match(m.theNumberYouHeard, /250,000/, 'the correction must name the figure it corrects');
+  assert.match(m.theNumberYouHeard, /not in the agreement|no quota/i);
+
+  // The gate is language and recognition, not the treaty. If this record
+  // ever renders as "Germany is hiring" without that, it misleads.
+  // The gate is stated twice by design: a short form that stays visible in
+  // the collapsed card, and the mechanics behind progressive disclosure.
+  // Both must survive, or the block reads as "Germany is hiring".
+  assert.match(m.theRealGate, /German/, 'the language requirement must be visible');
+  assert.match(m.theRealGate, /recognition/i, 'qualification recognition must be visible');
+  assert.match(m.theGateDetail, /B1|B2/, 'the language level belongs in the detail');
+  assert.match(m.theGateDetail, /Anerkennung/i, 'the recognition procedure must be named');
+  assert.match(m.honestReading, /narrow|not a substitute|not a plan for next year/i);
+
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const c of m.clusters) assert.ok(clusters.includes(c), `mobility maps to unknown cluster ${c}`);
+});
+
+test('attachment is presented as mandatory and contested, not as a formality', () => {
+  // SKILLS_MISMATCH already named "an attachment" as a thing that closes the
+  // employability gap. Naming it without saying it is compulsory, competitive
+  // and centrally administered is what left students discovering it late.
+  const a = ATTACHMENT;
+  assert.match(a.isMandatory, /mandatory/i);
+  assert.ok(a.theCompetition.length > 60, 'the competition must be described, not implied');
+  assert.match(a.whereToApply, /NITA|ITAP/, 'the actual portal must be named');
+  assert.match(a.theAdvice, /first year/i, 'the timing advice is the actionable part');
+  assert.ok(a.honestLimit.length > 60, 'the supply shortfall must travel with the scheme');
+
+  // 55,000 is NITA's throughput, not a guarantee of a place on demand.
+  assert.equal(typeof a.placedPerYear, 'number');
+  assert.ok(a.placedPerYear > 0 && a.placedPerYear < 1000000, 'placement scale must be plausible');
+  assert.ok(!/guarantee[ds]? you|assured/i.test(a.scale), 'throughput must not read as a guarantee');
+
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const c of a.clusters) assert.ok(clusters.includes(c), `attachment maps to unknown cluster ${c}`);
 });

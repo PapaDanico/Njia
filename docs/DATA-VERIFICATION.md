@@ -598,3 +598,58 @@ This completes a chain the dataset had already half-drawn: informal majority →
 certification premium → **the mechanism for crossing it**. It ships with its
 limit attached, because sending someone to a service that may not operate in
 their county is worse than saying nothing.
+
+## The attachment nobody plans for
+
+`SKILLS_MISMATCH` already named "an attachment" as one of the things that
+closes the employability gap — and then said nothing more, as though it were
+something that happens to you. It is not.
+
+| | |
+| --- | --- |
+| Status | **Mandatory** in most university and TVET programmes — not an optional extra |
+| Who administers it | NITA, via a national portal (ITAP) at nita.go.ke → Our Services → Industrial Attachment |
+| Scale | NITA facilitates **55,000+** placements a year, public and private sector |
+| The competition | Thousands chase the same state corporations and large firms each intake; the institution does not guarantee a place |
+| The actionable part | **Register in year one, not the term it falls due** |
+| The honest limit | Supply of good places has not kept pace with enrolment — the State Department for TVET is now pushing to bring industry into institutions instead |
+
+*Source: NITA industrial attachment scheme and Kenyan TVET/university programme
+requirements, cross-reported August 2026. Confidence: `cross-reported`. The
+55,000 figure is NITA's own placement throughput and is stated as scale, never
+as availability on demand — a test asserts the copy cannot read as a guarantee.*
+
+## Working abroad: the correction is the headline
+
+This is the highest-risk record in the dataset, and it is in Njia specifically
+because it is misreported.
+
+Kenya and Germany signed a Migration and Mobility Partnership in Berlin on
+**13 September 2024**. Kenyan coverage reported it as *"Germany opens 250,000
+jobs to Kenyans."*
+
+**That number is not in the agreement.** Germany's Interior Ministry stated
+publicly that the deal specifies no quota. The figure came from Kenya's
+presidency describing an ambition.
+
+Njia leads with the correction rather than burying it, because a young person
+planning around 250,000 guaranteed openings is planning around something that
+does not exist. A test asserts the correction names the figure it corrects and
+cannot be dropped from the record.
+
+| | |
+| --- | --- |
+| What is genuinely in it | No German labour-market test for skilled workers from Kenya; residence permit once an approved job is held; long-stay visas for study and vocational training (Ausbildung) with a route to work afterwards |
+| Where demand is | Healthcare and nursing, engineering, IT, transport, hospitality |
+| **The actual gate** | German language and formal recognition of the qualification — *not* the agreement |
+| Detail | Regulated professions (e.g. nursing) need German at **B1–B2** depending on federal state, plus recognition (*Anerkennung*), up to four months once documents are complete, usually with a concrete job offer |
+| The 2024 opening | Since 1 March 2024 a Recognition Partnership permits entry before recognition is complete; IT specialists can qualify on demonstrated skill without a formal qualification |
+
+*Source: ILO reporting on the Kenya–Germany bilateral labour agreement; the
+signed Migration and Mobility Partnership; German Skilled Immigration Act
+guidance. Cross-reported August 2026. Confidence: `cross-reported`.*
+
+The gate is deliberately stated twice — a short form that stays visible in the
+collapsed card, and the mechanics behind progressive disclosure — so that a
+reader who never expands the block still cannot come away thinking the hard
+part is getting a visa. A real route, and a narrow one.

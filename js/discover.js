@@ -316,6 +316,7 @@ function renderLabourMarketCard(primaryCluster) {
   const absorption = typeof ABSORPTION_GAP !== 'undefined' ? ABSORPTION_GAP.sectors.filter((a) => a.clusters.includes(primaryCluster)) : [];
   const trades = typeof SKILLED_TRADES !== 'undefined' && SKILLED_TRADES.clusters.includes(primaryCluster);
   const digital = typeof DIGITAL_WORK !== 'undefined' && DIGITAL_WORK.clusters.includes(primaryCluster);
+  const mobility = typeof LABOUR_MOBILITY !== 'undefined' && LABOUR_MOBILITY.clusters.includes(primaryCluster);
   if (!sectors.length && !signals.length && !entry.length) return '';
 
   const money = (n) => `Ksh ${n.toLocaleString()}`;
@@ -373,6 +374,32 @@ function renderLabourMarketCard(primaryCluster) {
         <div class="informal-note">
           <p class="text-sm mb-1"><strong>${INFORMAL_ECONOMY.informalSharePct}% of Kenyan workers are informal</strong> — ${(INFORMAL_ECONOMY.informalWorkers / 1000000).toFixed(1)}m against ${(INFORMAL_ECONOMY.formalWorkers / 1000000).toFixed(1)}m in formal wage jobs, and ${INFORMAL_ECONOMY.newJobsInformalPct}% of last year's new jobs.</p>
           <p class="text-sm">${escapeHtml(INFORMAL_ECONOMY.reading)}</p>
+        </div>
+      ` : ''}
+
+      ${typeof ATTACHMENT !== 'undefined' && ATTACHMENT.clusters.includes(primaryCluster) ? `
+        <div class="absorption-note">
+          <span class="caption">The step inside your course that most people plan for too late</span>
+          <p class="text-sm mt-1 mb-1">${escapeHtml(ATTACHMENT.isMandatory)}</p>
+          <p class="text-sm"><strong>Do this early:</strong> ${escapeHtml(ATTACHMENT.theAdvice)}</p>
+          <details class="inline-detail"><summary>Where to register, and why it is contested</summary>
+            <p class="text-sm">${escapeHtml(ATTACHMENT.whereToApply)}</p>
+            <p class="text-sm mt-1">${escapeHtml(ATTACHMENT.theCompetition)} ${escapeHtml(ATTACHMENT.scale)} ${escapeHtml(ATTACHMENT.honestLimit)}</p>
+          </details>
+        </div>
+      ` : ''}
+
+      ${mobility ? `
+        <div class="absorption-note">
+          <span class="caption">Working abroad — start with the number that is wrong</span>
+          <p class="text-sm mt-1 mb-1">${escapeHtml(LABOUR_MOBILITY.theNumberYouHeard)}</p>
+          <p class="text-sm mb-1"><strong>What is real:</strong> ${escapeHtml(LABOUR_MOBILITY.whatIsRealInIt)}</p>
+          <p class="text-sm"><strong>The actual gate:</strong> ${escapeHtml(LABOUR_MOBILITY.theRealGate)}</p>
+          <details class="inline-detail"><summary>What clearing that gate actually involves</summary>
+            <p class="text-sm">${escapeHtml(LABOUR_MOBILITY.theGateDetail)}</p>
+            <p class="text-sm mt-1">${escapeHtml(LABOUR_MOBILITY.theOpening)}</p>
+            <p class="text-sm mt-1">${escapeHtml(LABOUR_MOBILITY.honestReading)}</p>
+          </details>
         </div>
       ` : ''}
 

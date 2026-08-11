@@ -2067,3 +2067,18 @@ body.modal-open { overflow: hidden; }
 }
 .informal-note p { max-width: var(--prose-max); color: var(--text-secondary); }
 .informal-note p:last-child { margin-bottom: 0; }
+
+/* The absorption note. A shortage of posts is not the same as an opening you
+   can walk into, and in health and teaching the two have come apart. Styled as
+   a distinct panel because the "and yet" is the part a reader most needs to
+   register, not skim past. */
+.absorption-note {
+  border: 1px solid var(--warn-border);
+  background: var(--warn-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+}
+.absorption-note p { color: var(--warn-ink); max-width: var(--prose-max); }
+.absorption-note .caption { color: var(--warn-ink); }
+.absorption-note p:last-child { margin-bottom: 0; }

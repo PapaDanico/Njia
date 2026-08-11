@@ -339,6 +339,15 @@ function renderLabourMarketCard(primaryCluster) {
         </div>
       `).join('')}
 
+      ${typeof ABSORPTION_GAP !== 'undefined' ? ABSORPTION_GAP.sectors.filter((a) => a.clusters.includes(primaryCluster)).map((a) => `
+        <div class="absorption-note">
+          <span class="caption">${escapeHtml(a.sector)} — shortage is not the same as hiring</span>
+          <p class="text-sm mt-1 mb-1">${escapeHtml(a.shortage)}</p>
+          <p class="text-sm mb-1"><strong>And yet:</strong> ${escapeHtml(a.reality)}</p>
+          <p class="text-sm"><strong>So:</strong> ${escapeHtml(a.planning)}</p>
+        </div>
+      `).join('') : ''}
+
       ${typeof SKILLED_TRADES !== 'undefined' && SKILLED_TRADES.clusters.includes(primaryCluster) ? `
         <h3 class="mt-2 mb-1">The trades are short of people</h3>
         <p class="text-secondary text-sm mb-1">${escapeHtml(SKILLED_TRADES.supplyGap)} ${escapeHtml(SKILLED_TRADES.demandSignal)}</p>

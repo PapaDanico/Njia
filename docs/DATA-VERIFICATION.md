@@ -318,3 +318,28 @@ of it. `tests/provenance.test.js` fails if the caution stops naming the day
 rate, the irregularity, or the certification condition — because presenting a
 day rate as monthly income would be the same false precision this register
 exists to remove, just in the flattering direction.
+
+
+## The absorption gap — vacancy is not hiring
+
+The correction that keeps the rest of this register honest.
+
+| Sector | The shortage | And yet |
+| --- | --- | --- |
+| Health | Needs 311,060 workers, has 234,140 — 76,920 posts unfilled. Nurse ratio 22.7 per 10,000 against WHO's 25, and the 60 needed for UHC. Gap projected to widen 49% to 114,352 by 2031. | Thousands of trained nurses are unemployed or underemployed, waiting on delayed public-sector absorption. The constraint is the hiring budget, not the need. |
+| Teaching | TSC estimates a shortage of ~96,345 teachers (38,054 primary, 58,291 post-primary); junior schools alone short 72,000+. | Much hiring is on internship rather than permanent and pensionable terms, driving rejected posts, low morale and litigation. |
+
+*Sources: Kenya health labour market modelling 2021–2035; TSC staffing reporting; cross-reported August 2026.*
+
+Njia now carries KMTC nursing across 45 counties and names health and education
+as Kenya's largest employers. All true — and quoting only the shortage would
+tell a seventeen-year-old that a nursing diploma leads straight to a job. That
+is the same true-but-incomplete failure as quoting the widest BPO figure.
+
+Both facts hold at once. The shortage is real and is a reason to train. The
+absorption delay is real and is a reason to plan for it: private and
+faith-based facilities, county contracts and NGO roles absorb faster than
+national public hiring. `tests/provenance.test.js` fails if any sector states a
+shortage without an absorption reality and a planning instruction beside it,
+and specifically requires the `carer` cluster — which carries the nursing
+expansion — to be covered.

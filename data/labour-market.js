@@ -413,6 +413,51 @@ const METHOD_LINEAGE = [
   }
 ];
 
+/* THE ABSORPTION GAP — vacancy is not the same as hiring.
+ *
+ * This is the correction that keeps the rest of this file honest. Njia now
+ * carries KMTC nursing across 45 counties and names health and education as
+ * Kenya's largest employers. All true. But a shortage of posts is not the same
+ * as an opening you can walk into, and in both sectors the two have come
+ * apart:
+ *
+ *   Health: Kenya needs 311,060 health workers and has 234,140 — a gap of
+ *   76,920. And yet thousands of qualified nurses are unemployed, waiting on
+ *   public-sector hiring that is budget-constrained rather than demand-
+ *   constrained.
+ *
+ *   Teaching: a shortage of about 96,345 teachers, with junior schools alone
+ *   short 72,000. And yet intern posts go rejected, because the Commission
+ *   cannot afford to convert interns to permanent and pensionable terms.
+ *
+ * Both facts are real at once. A platform that quoted only the shortage would
+ * be telling a seventeen-year-old that a nursing diploma leads straight to a
+ * job, which is the same true-but-incomplete failure as quoting the widest BPO
+ * figure. The shortage is real and it is a reason to train. The absorption
+ * delay is also real and it is a reason to plan for it — private and
+ * faith-based facilities, county contracts, NGO roles, and the possibility of
+ * a wait.
+ */
+const ABSORPTION_GAP = {
+  source: 'Kenya health labour market modelling (2021–2035) and TSC staffing reporting, cross-reported August 2026',
+  sectors: [
+    {
+      sector: 'Health and nursing',
+      shortage: 'Kenya needs 311,060 health workers against a supply of 234,140 — 75.3% of need met, 76,920 posts unfilled. The nurse-to-population ratio has risen to 22.7 per 10,000 but remains below the WHO-recommended 25, and far below the 60 needed for universal health coverage. The gap is projected to widen by 49% to 114,352 by 2031.',
+      reality: 'Thousands of trained nurses are nonetheless unemployed or underemployed, waiting on delayed public-sector absorption. The constraint is the hiring budget, not the need.',
+      planning: 'Train for it — the need is real and growing. But plan for the wait: private and faith-based facilities, county contracts and NGO roles absorb faster than national public hiring, and a first post may not be the one you expected.',
+      clusters: ['carer']
+    },
+    {
+      sector: 'Teaching',
+      shortage: 'The Teachers Service Commission estimates a shortage of about 96,345 teachers — 38,054 in primary and 58,291 in post-primary. Junior schools alone are short at least 72,000, and recruitment drives run in the tens of thousands.',
+      reality: 'Much of the hiring is on internship terms rather than permanent and pensionable, because of budget limits. That has driven rejected posts, low morale and litigation.',
+      planning: 'Education remains Kenya\'s single largest formal wage employer and the shortage is genuine. Go in knowing the likely first step is an internship rather than a permanent post, and check the terms before you count on the salary.',
+      clusters: ['carer', 'people']
+    }
+  ]
+};
+
 /* SKILLED TRADES — the hardest evidence against prestige bias in this file.
  *
  * Only 8,915 candidates who earned a degree place chose TVET instead. The
@@ -454,5 +499,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP };
 }

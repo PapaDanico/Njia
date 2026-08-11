@@ -37,6 +37,7 @@ const FUTURE_OF_WORK = grab('FUTURE_OF_WORK');
 const AFRICA_OUTLOOK = grab('AFRICA_OUTLOOK');
 const INFORMAL_ECONOMY = grab('INFORMAL_ECONOMY');
 const SKILLED_TRADES = grab('SKILLED_TRADES');
+const ABSORPTION_GAP = grab('ABSORPTION_GAP');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -278,4 +279,23 @@ test('artisan day rates never render as though they were salaries', () => {
   for (const c of t.clusters) {
     assert.ok([...new Set(COURSES.map((x) => x.cluster))].includes(c), `trades map to unknown cluster ${c}`);
   }
+});
+
+test('a shortage is never shown without the absorption reality beside it', () => {
+  // Health needs 76,920 more workers while thousands of trained nurses wait on
+  // budget-constrained hiring. Teaching is short 96,345 while intern posts go
+  // rejected. Quoting only the shortage would tell a seventeen-year-old that a
+  // nursing diploma leads straight to a job — the same true-but-incomplete
+  // failure as quoting the widest BPO figure.
+  assert.ok(ABSORPTION_GAP.sectors.length >= 2);
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const a of ABSORPTION_GAP.sectors) {
+    assert.ok(a.shortage && a.shortage.length > 80, `${a.sector} shortage is not substantiated`);
+    assert.ok(a.reality && a.reality.length > 60, `${a.sector} states a shortage with no absorption reality`);
+    assert.ok(a.planning && a.planning.length > 60, `${a.sector} gives no planning instruction`);
+    for (const c of a.clusters) assert.ok(clusters.includes(c), `${a.sector} maps to unknown cluster ${c}`);
+  }
+  // Carer is the cluster carrying 60+ KMTC nursing records; it must be covered.
+  assert.ok(ABSORPTION_GAP.sectors.some((a) => a.clusters.includes('carer')),
+    'the carer cluster carries the nursing expansion and must show the absorption gap');
 });

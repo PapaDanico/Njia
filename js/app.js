@@ -427,9 +427,14 @@ const LANDING_EVIDENCE = [
     source: 'Source: KUCCPS 2025/26 placement results, July 2026.'
   },
   {
-    num: '15.25%', label: 'youth unemployment (ages 15–24), 2025',
-    body: 'A mismatched or unresearched course choice does not just cost fees — it compounds an already difficult youth labour market.',
-    source: 'Source: World Bank, modeled ILO estimate (via Statista), 2025.'
+    // Deliberately shows the range, not one number. Kenyan youth unemployment
+    // is reported anywhere from ~12% to ~67% purely on definition — age band,
+    // and whether "unemployed" means the strict ILO test or the far broader
+    // "not in adequate employment". A platform that picks the scariest figure
+    // to make its own case is doing the thing Njia exists to correct.
+    num: '15%–67%', label: 'youth unemployment, depending on what you count',
+    body: 'The strict measure (ages 15–24, actively job-hunting) is about 15%. The fresh-graduate band, 20–29, runs near 32%. The broadest measure — ages 15–34 without adequate employment, including underemployment and informal work below skill level — reaches around 67%. All three are real; they answer different questions. Njia shows you which is which rather than picking the one that makes the strongest headline.',
+    source: 'Sources: modelled ILO estimate, 2025; Kenyan labour force analysis; broad-measure reporting of KNBS data.'
   },
   {
     num: '8,915', label: 'degree-qualifiers who chose TVET instead',
@@ -475,7 +480,7 @@ function renderNjiaNumbersCard() {
         </div>
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${verifiedCount}/${totalRecords}</span>
-          <span class="landing-numbers-label">records independently verified</span>
+          <span class="landing-numbers-label">records with fees or terms cross-checked against a named source</span>
         </div>
       </div>
       <p class="landing-numbers-note">Computed from the dataset this app actually ships — not marketing copy. See Methodology for what "verified" means.</p>
@@ -729,7 +734,7 @@ function renderHomePage() {
           <p>Njia is an independent, free career-pathway tool for Kenyan youth — unaffiliated with KUCCPS, HELB or any institution. It fuses career psychology, life design and life-portfolio planning with real Kenyan course, fee and funding data, and computes everything on your device. Institution and funder names appear because they are real public bodies, not because of any partnership. Data marked ✓ Verified has been cross-checked against a named public source; everything else is illustrative and should be confirmed before you decide.</p>
         </section>
 
-        <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Course, fee and funding data inside the app is illustrative pending verification — see Methodology.</p>
+        <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Fees and funding terms are cross-checked against named, dated sources where the badge says so. Employment rates and salaries are estimates, not measurements — Kenya publishes no graduate outcomes per course. See Methodology.</p>
         <div class="landing-footer-bottom">
           <div>
             <a href="#" onclick="openAboutModal();return false">About</a><a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="navigateTo('help');return false">Help</a><a href="#" onclick="openFaqModal();return false">FAQ</a>

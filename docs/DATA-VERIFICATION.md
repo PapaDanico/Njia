@@ -1231,3 +1231,59 @@ was real before running the suite — actually exercised the guard.
 
 **A negative test is only as good as the violation it constructs.** A probe that
 fails to violate looks identical to a guard that holds.
+
+## The offline claim, tested rather than trusted
+
+Njia asserts "works fully offline" in five places, including a direct FAQ
+answer: *"Only for your first visit. After that, Njia works fully offline."*
+Nobody had verified it.
+
+**It holds.** Driven against a real installed build with the network cut:
+
+| | |
+| --- | --- |
+| Service worker | installs, activates, takes control on first visit |
+| Offline reload | succeeds |
+| Data available | 174 courses, 88 institutions |
+| User state | saved courses and completed profile both survive |
+| All seven modules | render offline |
+| Console errors | none |
+
+### The other half of the contract: do existing users get updates?
+
+More consequential than the offline claim, because every data correction in
+this register is invisible to an installed user whose worker never updates.
+Also verified end to end by deploying a new `CACHE_VERSION` against an
+installed build: the update is detected, a banner offers it, the new worker is
+held in `waiting` rather than activating under the user, and on accept it
+activates and purges the old cache.
+
+### What that found
+
+**Two deploys with a tab left open stack two permanent banners.** `updatefound`
+fires once per deploy, and unlike `showToast()` this banner has no duration and
+no dismiss control — "Reload" is the only exit — so duplicates accumulate rather
+than fade. Measured: two `CACHE_VERSION` bumps without a reload gave two toasts
+unguarded, one guarded. Not hypothetical for this project, which shipped six
+cache bumps in a single session.
+
+**The README described the worker as "cache-first offline strategy."** That is
+backwards for app code and is precisely the misreading `sw.js`'s own header
+comment exists to prevent — a pure cache-first shell can never show a deployed
+update. It is network-first for app code, cache-first only for icons.
+
+### A false finding, and how it was caught
+
+The first probe reported two toasts for a *single* deploy. It queried
+`'.toast, [class*="toast"]'`, which matched **the container and its only
+child** — and a container's `innerText` equals that child's. There was no
+duplicate; `containerChildren` was 1 throughout.
+
+The guard was written before that was noticed, with a comment asserting a
+verified single-deploy duplicate. That comment was false. Rather than delete
+the guard or leave the claim standing, the real scenario was tested — two
+deploys, tab open — which **does** produce duplicates, and the comment now
+describes what was actually measured.
+
+*Fourth harness-produced false finding this session. The pattern is consistent:
+the app was right and the probe was wrong. Check the fixture before the code.*

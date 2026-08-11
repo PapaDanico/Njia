@@ -964,8 +964,26 @@ window.addEventListener('online', () => {
 function showUpdateAvailableToast(registration) {
   const container = document.getElementById('toast-container');
   if (!container) return;
+  // Only ever one update banner.
+  //
+  // A single deploy produces a single toast — that path was measured and is
+  // fine. The case this guards is TWO deploys while a tab stays open, which
+  // fires `updatefound` once per deploy and, unguarded, appends a second
+  // identical banner. Measured against a real installed build: two
+  // CACHE_VERSION bumps with no reload gave two toasts without this line and
+  // one with it.
+  //
+  // It matters because these are not ordinary toasts. showToast() takes a
+  // duration and fades; this one carries no timeout and no dismiss control,
+  // so "Reload" is the only way to clear it. Duplicates do not expire, they
+  // accumulate — and a burst of deploys is exactly when they arrive.
+  //
+  // Guarded here rather than on the listener so every path into this function
+  // is covered, whatever future code calls it.
+  if (container.querySelector('[data-update-toast]')) return;
   const toast = document.createElement('div');
   toast.className = 'toast info';
+  toast.setAttribute('data-update-toast', '');
   toast.innerHTML = `
     <span aria-hidden="true">⬆️</span>
     <span>A new version of Njia is ready.</span>

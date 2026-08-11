@@ -67,7 +67,7 @@ important since many users share devices.
 ```
 ├── index.html          # App shell, page containers, script loading order
 ├── manifest.json        # PWA manifest
-├── sw.js                 # Service Worker — cache-first offline strategy
+├── sw.js                 # Service Worker — network-first for app code, cache-first for icons
 ├── css/styles.css        # Full design system (warm paper/ink/terracotta theme)
 ├── js/
 │   ├── app.js            # AppState, routing, toast/modal, home page

@@ -878,3 +878,30 @@ test('the cannot-afford-it answer orders the actions and admits what is unknown'
   // failed; the record is that the funding model produces this outcome.
   assert.match(q, /not a personal failure/i);
 });
+
+test('the update banner cannot stack, and the README describes the real strategy', () => {
+  // Measured, not assumed: two CACHE_VERSION bumps with a tab left open fire
+  // `updatefound` twice and, unguarded, append two identical banners. Unlike
+  // showToast() this one has no duration and no dismiss control — "Reload" is
+  // the only exit — so duplicates accumulate rather than fade. A burst of
+  // deploys is exactly when they arrive; this project shipped six cache bumps
+  // in a single session.
+  const app = fs.readFileSync(path.join(root, 'js', 'app.js'), 'utf8');
+  const start = app.indexOf('function showUpdateAvailableToast');
+  assert.ok(start > -1, 'the update toast function must exist');
+  const fn = app.slice(start, app.indexOf('\n}', start));
+
+  assert.match(fn, /data-update-toast/, 'the banner must be identifiable to guard against');
+  assert.match(fn, /querySelector\('\[data-update-toast\]'\)\)\s*return/,
+    'a second banner must be refused before it is appended');
+
+  // The README described the worker as "cache-first", which is backwards for
+  // app code and is the misreading sw.js's own header exists to prevent: a
+  // pure cache-first shell can never show a deployed update.
+  const readme = fs.readFileSync(path.join(root, 'README.md'), 'utf8');
+  const swLine = readme.split('\n').find((l) => l.includes('sw.js'));
+  assert.ok(swLine, 'the README must document sw.js');
+  assert.match(swLine, /network-first/i, 'app code is network-first');
+  assert.ok(!/^.*Service Worker — cache-first offline strategy/.test(swLine),
+    'the old backwards description must not return');
+});

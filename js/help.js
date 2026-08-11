@@ -80,6 +80,16 @@ const HELP_TUTORIALS = [
 
 const HELP_FAQ = [
   {
+    group: 'The system you are in',
+    items: [
+      ['I am in Grade 10 under CBC. What does the pathway choice mean for me?', 'Kenya\'s first competency-based cohort entered senior school in January 2026. You choose one of three pathways at Grade 10 — <strong>STEM</strong> (science, technology, engineering, maths), <strong>Social Sciences</strong> (humanities, business, languages) or <strong>Arts and Sports Science</strong> — on your KJSEA results. Everyone still takes English, Kiswahili or KSL, community service learning and physical education, plus three pathway subjects. The choice shapes which courses are open to you at Grade 12, so it is worth treating as a career decision and not just a subject preference. Njia\'s clusters map onto it: STEM leads toward the tech and numbers clusters, Social Sciences toward people, business and care, Arts and Sports toward the creator cluster.'],
+      ['Does meeting a course\'s minimum grade mean I will get in?', 'No, and this is the most common misunderstanding. For a <strong>degree</strong>, the mean grade (C+ and above) decides whether you may <em>apply</em>. Placement itself is decided on <strong>weighted cluster points</strong> — your performance in the four subjects that specific programme requires, ranked against every other applicant, to three decimal places. Certificates and diplomas are much closer to a straight grade requirement.'],
+      ['What is a cut-off point, really?', 'It is the cluster score of the <em>last student placed</em> in that programme last cycle — an outcome, not a bar set in advance. It moves every year with demand, institutional capacity and how the cohort performed. Use last year\'s cut-offs to judge how competitive a course is; never treat one as a score to aim at, because the number you are aiming at no longer exists. Meeting it does not guarantee placement either — capacity and competition still decide.'],
+      ['How do I find my own cluster points?', 'Do not try to calculate them by hand. The KUCCPS student portal computes them for you and shows them directly against each programme you are considering.'],
+      ['I missed the main KUCCPS window. Is it over?', 'No. The main application window runs around April to May, but it is not the only door. Inter-institutional transfer, the KMTC September intake and Kenya Utalii have their own deadlines, and <strong>TVET placement is continuous</strong> rather than a single annual exercise — colleges report from May onward. The Application Clock on the home page shows which windows are open today and how many days are left.']
+    ]
+  },
+  {
     group: 'Getting started',
     items: [
       ['Is Njia really free?', 'Yes — completely free. No signup, no account, no ads, no paywall, no “premium” tier. Nothing is being upsold to you.'],

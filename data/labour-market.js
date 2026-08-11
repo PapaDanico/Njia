@@ -120,6 +120,35 @@ const INFORMAL_ECONOMY = {
   reading: 'Five in six working Kenyans are in the informal sector, and it absorbed 87% of last year\'s new jobs. Formal salary figures describe the smaller share. Plan for a pathway that works either way — a qualification that lets you be hired *and* lets you trade on your own account is worth more here than one that only does the first.'
 };
 
+/* HOW DEGREE PLACEMENT ACTUALLY WORKS — and why a mean grade is not the answer.
+ *
+ * Njia stores a `min_grade` per course and tells the user whether they meet it.
+ * For certificates and diplomas that is close enough. For degrees it is not,
+ * and the gap matters:
+ *
+ *   KUCCPS places degree applicants on WEIGHTED CLUSTER POINTS — computed from
+ *   performance in the four subjects that specific programme requires, measured
+ *   against the best candidates, to three decimal places. Every programme sits
+ *   in one of about 18-20 subject clusters.
+ *
+ *   A CUT-OFF POINT is not a threshold set in advance. It is the cluster score
+ *   of the LAST student competitively placed in that programme last cycle. It
+ *   moves every year with demand, institutional capacity and how the cohort
+ *   performed.
+ *
+ * Two consequences a student needs stated plainly. Meeting the mean grade makes
+ * you eligible to apply, not placed. And chasing last year's cut-off is chasing
+ * a number that no longer exists — it was an outcome, not a target.
+ */
+const PLACEMENT_MECHANICS = {
+  source: 'KUCCPS placement guidance and 2026 cycle explainers, cross-reported August 2026',
+  meanGradeRole: 'The mean grade (C+ and above for degrees) determines whether you may apply at all.',
+  clusterPointsRole: 'Placement itself is decided on weighted cluster points — your performance in the four subjects that programme requires, ranked against every other applicant, to three decimal places.',
+  cutOffTruth: 'A cut-off point is the cluster score of the last student placed in that programme last cycle, not a bar set in advance. It changes every year with demand, capacity and cohort performance.',
+  doesNotGuarantee: 'Meeting the cut-off does not guarantee placement — programme capacity and competition still decide.',
+  practicalAdvice: 'Do not compute cluster points by hand. The KUCCPS student portal calculates yours and shows them directly. Use last year\'s cut-offs to gauge how competitive a programme is, never as a score to aim at.'
+};
+
 /* THE STRUCTURAL CHANGE UNDER NJIA'S FEET.
  *
  * Kenya's first competency-based cohort entered senior school in January 2026.
@@ -638,5 +667,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS };
 }

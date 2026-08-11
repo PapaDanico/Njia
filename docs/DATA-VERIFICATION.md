@@ -480,3 +480,27 @@ which placement windows are genuinely open **from dates**, because a hardcoded
 TVET is deliberately the longest-open route, and a test fails if it ever stops
 being — it is the door that stays open after the main cycle closes, which is
 exactly the message a student who missed the window needs.
+
+
+## How degree placement actually works — a correction to Njia's own model
+
+Njia stores a `min_grade` per course and told the user whether they met it. For
+certificates and diplomas that is close enough. For degrees it was misleading.
+
+| Concept | What it actually is |
+| --- | --- |
+| Mean grade (C+ for degrees) | Decides whether you may **apply** |
+| Weighted cluster points | Decides **placement** — performance in the four subjects that programme requires, ranked against every applicant, to three decimal places |
+| Cut-off point | The cluster score of the **last student placed** last cycle. An outcome, not a bar set in advance |
+
+*Source: KUCCPS placement guidance and 2026 cycle explainers, cross-reported August 2026.*
+
+Two consequences now stated plainly in the app. **Meeting the mean grade makes
+you eligible to apply, not placed** — the "Why this match?" breakdown says so
+for degree courses specifically. And **chasing last year's cut-off is chasing a
+number that no longer exists**; it moves annually with demand, capacity and
+cohort performance, and meeting it still does not guarantee a place.
+
+Njia previously said "your grade meets it" with a positive signal and stopped
+there. A student reads that as "I am in". For the single most consequential
+claim this app makes, that was too little of the truth.

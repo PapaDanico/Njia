@@ -175,7 +175,16 @@ function scoreCourseMatch(course, profile) {
     // difference between "confirmed eligible" and "eligibility unverified".
     breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade} — set your grade in the filters to confirm you qualify.`, effect: 'neutral' });
   } else if (course.min_grade) {
-    breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade} — your grade (${grade}) meets it.`, effect: 'up' });
+    // For a degree, meeting the mean grade makes you eligible to *apply* — it
+    // does not mean you will be placed. KUCCPS decides degree placement on
+    // weighted cluster points across the four subjects that programme requires,
+    // and the "cut-off" is whatever the last student placed last cycle scored.
+    // Saying "your grade meets it" and stopping there reads as "you're in",
+    // which is the single most consequential thing this app could get wrong.
+    const detail = course.level === 'degree'
+      ? `Requires ${course.min_grade} — your grade (${grade}) meets it, so you can apply. Degree placement is decided on weighted cluster points in the four subjects this course requires, not on mean grade alone.`
+      : `Requires ${course.min_grade} — your grade (${grade}) meets it.`;
+    breakdown.push({ factor: 'Grade eligibility', detail, effect: 'up' });
   } else {
     breakdown.push({ factor: 'Grade eligibility', detail: 'No minimum grade requirement.', effect: 'up' });
   }

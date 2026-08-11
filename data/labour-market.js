@@ -413,6 +413,38 @@ const METHOD_LINEAGE = [
   }
 ];
 
+/* DIGITAL WORK — real, growing, and oversold in roughly equal measure.
+ *
+ * "Learn digital skills and earn online" is marketed hard to Kenyan youth, and
+ * the participation numbers are genuinely large: digital work involvement grew
+ * from about 600,000 in 2019 to 2.4 million by 2023, and Ajira Digital has
+ * trained roughly 391,000 young people.
+ *
+ * The earnings tell a more sober story. Among digital content participants the
+ * share earning any income rose from 5% to 28% — which also means roughly
+ * seven in ten trained participants were earning nothing from it. Average
+ * monthly earnings rose to about Ksh 7,766, well under the formal-sector
+ * figures elsewhere in this file.
+ *
+ * And there is a connection worth stating plainly, because nobody selling
+ * these courses will: the entry-level digital work most commonly trained for —
+ * transcription, data entry — is the same category the WEF Future of Jobs
+ * Report puts among the fastest *declining* roles as generative AI matures.
+ * Training for it is not worthless, but it is training toward a shrinking
+ * floor, and the escape is upward into work AI does not do well.
+ */
+const DIGITAL_WORK = {
+  source: 'Ajira Digital programme reporting and Kenyan digital-economy coverage, cross-reported August 2026',
+  participantsInDigitalWork: { 2019: 600000, 2023: 2400000 },
+  ajiraTrained: 391000,
+  ictCentres: 400,
+  shareEarningIncomePct: { before: 5, after: 28 },
+  averageMonthlyEarningsKes: { before: 2600, after: 7766 },
+  honestReading: 'Participation is real and large, but roughly seven in ten trained participants were not earning from it, and average monthly earnings of about Ksh 7,766 sit well below the formal-sector figures elsewhere here. Treat online work as a supplement or a starting rung, not as a plan that replaces a qualification.',
+  aiCaution: 'The entry-level digital work most commonly trained for — transcription and data entry — is in the same category the WEF puts among the fastest declining roles as generative AI matures. It is not worthless, but it is a shrinking floor. The way up is toward work that is harder to automate: client relationships, judgement, specialist domains.',
+  clusters: ['tech', 'numbers', 'creator', 'business']
+};
+
 /* THE ABSORPTION GAP — vacancy is not the same as hiring.
  *
  * This is the correction that keeps the rest of this file honest. Njia now
@@ -499,5 +531,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK };
 }

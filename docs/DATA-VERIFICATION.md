@@ -343,3 +343,34 @@ national public hiring. `tests/provenance.test.js` fails if any sector states a
 shortage without an absorption reality and a planning instruction beside it,
 and specifically requires the `carer` cluster — which carries the nursing
 expansion — to be covered.
+
+
+## Online work — real, growing, and oversold
+
+| Measure | Figure |
+| --- | --- |
+| Kenyans in digital work | ~600,000 (2019) → **2.4 million (2023)** |
+| Trained through Ajira Digital | ~391,000 |
+| Government ICT centres | 400+ |
+| Share of participants earning any income | 5% → **28%** |
+| Average monthly earnings | Ksh 2,600 → **Ksh 7,766** |
+
+*Source: Ajira Digital programme reporting and Kenyan digital-economy coverage, cross-reported August 2026.*
+
+"Learn digital skills and earn online" is marketed hard to Kenyan youth, and
+participation is genuinely large. The earnings are more sober: the share
+earning any income rose to 28%, which also means **roughly seven in ten trained
+participants were earning nothing from it**, and average monthly earnings of
+about Ksh 7,766 sit well below the formal-sector figures elsewhere in this
+register.
+
+**The connection nobody selling these courses will make:** the entry-level
+digital work most commonly trained for — transcription and data entry — is the
+same category the WEF Future of Jobs Report puts among the **fastest declining**
+roles as generative AI matures. It is not worthless, but it is a shrinking
+floor, and the way up is toward work that is harder to automate: client
+relationships, judgement, specialist domains.
+
+A test enforces that the AI caution names both the decline and the specific
+roles, and cross-checks that those roles still appear in the declining list —
+so the two datasets cannot drift apart and leave the claim unsupported.

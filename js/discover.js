@@ -339,6 +339,15 @@ function renderLabourMarketCard(primaryCluster) {
         </div>
       `).join('')}
 
+      ${typeof DIGITAL_WORK !== 'undefined' && DIGITAL_WORK.clusters.includes(primaryCluster) ? `
+        <div class="absorption-note">
+          <span class="caption">Online work — real, and oversold</span>
+          <p class="text-sm mt-1 mb-1">Kenyans in digital work grew from about ${(DIGITAL_WORK.participantsInDigitalWork[2019] / 1000000).toFixed(1)}m in 2019 to ${(DIGITAL_WORK.participantsInDigitalWork[2023] / 1000000).toFixed(1)}m by 2023, and roughly ${DIGITAL_WORK.ajiraTrained.toLocaleString()} have been trained through Ajira Digital.</p>
+          <p class="text-sm mb-1"><strong>And yet:</strong> ${escapeHtml(DIGITAL_WORK.honestReading)}</p>
+          <p class="text-sm"><strong>Watch this:</strong> ${escapeHtml(DIGITAL_WORK.aiCaution)}</p>
+        </div>
+      ` : ''}
+
       ${typeof ABSORPTION_GAP !== 'undefined' ? ABSORPTION_GAP.sectors.filter((a) => a.clusters.includes(primaryCluster)).map((a) => `
         <div class="absorption-note">
           <span class="caption">${escapeHtml(a.sector)} — shortage is not the same as hiring</span>

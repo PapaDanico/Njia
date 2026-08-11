@@ -38,6 +38,7 @@ const AFRICA_OUTLOOK = grab('AFRICA_OUTLOOK');
 const INFORMAL_ECONOMY = grab('INFORMAL_ECONOMY');
 const SKILLED_TRADES = grab('SKILLED_TRADES');
 const ABSORPTION_GAP = grab('ABSORPTION_GAP');
+const DIGITAL_WORK = grab('DIGITAL_WORK');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -298,4 +299,23 @@ test('a shortage is never shown without the absorption reality beside it', () =>
   // Carer is the cluster carrying 60+ KMTC nursing records; it must be covered.
   assert.ok(ABSORPTION_GAP.sectors.some((a) => a.clusters.includes('carer')),
     'the carer cluster carries the nursing expansion and must show the absorption gap');
+});
+
+test('online work is shown with its earnings reality and its AI exposure', () => {
+  // "Learn digital skills and earn online" is marketed hard to Kenyan youth.
+  // Participation is genuinely large, but roughly seven in ten trained
+  // participants earn nothing from it, and the entry-level work most commonly
+  // trained for — transcription, data entry — is what WEF puts among the
+  // fastest declining roles under generative AI. Both must ship with it.
+  const d = DIGITAL_WORK;
+  assert.ok(d.shareEarningIncomePct.after < 50,
+    'if most participants now earn, the "oversold" framing needs revisiting rather than keeping');
+  assert.ok(d.averageMonthlyEarningsKes.after > 0);
+  assert.ok(d.honestReading.length > 80, 'the earnings reality must be stated, not implied');
+  assert.match(d.aiCaution, /declin/i, 'the AI caution must name the decline');
+  assert.match(d.aiCaution, /transcription|data entry/i, 'it must name the specific roles being trained for');
+  // The roles named here must actually appear in the WEF declining list, or the
+  // two datasets have drifted apart and the connection is no longer supported.
+  const declining = FUTURE_OF_WORK.decliningRoles.join(' ').toLowerCase();
+  assert.ok(/data entry/.test(declining), 'the AI caution leans on the declining-roles list; keep them consistent');
 });

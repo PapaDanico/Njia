@@ -1176,3 +1176,58 @@ sitting in the dead template, so the guard passed while the caveat had stopped
 reaching the page. It now matches the **conditional** (`${f.legalStatus ?`),
 which is what actually fails when the field stops rendering. Both guards
 re-verified by disabling each branch in turn.
+
+## Placed, and unable to pay — the question Njia had no answer for
+
+This follows directly from the funding-model work above. The band assigns a
+household contribution, and **students are documented as deferring specifically
+because that contribution could not be raised.** Njia explained the bands, added
+the appeal route, and still had nothing for the person already past that point.
+
+The answer is ordered deliberately, because the order is the advice:
+
+1. **Appeal the band.** Free, reversible, and the most overlooked. Roughly 40%
+   of fees separate the top band from the bottom.
+2. **Stack the other sources.** NG-CDF and county bursaries sit alongside HEF,
+   and most bursary applications fail on missing documents rather than on merit.
+3. **Talk to the institution before the reporting date.** Deferment is arranged
+   with the college or university — **not with KUCCPS** — and each has its own
+   form and rules. Registrars can also stage payments across a term.
+
+A test asserts step 1 precedes step 3, that deferment is routed to the
+institution rather than KUCCPS, and that the timing phrase survives. Sending
+someone to the wrong desk in the week that decides their year is a real cost.
+
+### What is deliberately unanswered
+
+**Whether, and for how long, a deferred student keeps their KUCCPS placement is
+not published anywhere we can point to.** The copy says so outright and tells
+the reader to assume neither — get the answer from the institution in writing
+before the deadline. A test pins both halves of that ("do not assume it is
+held", "do not assume it is lost"), because a comforting guess here costs
+someone a year.
+
+### Tone is load-bearing here
+
+Someone reading this already believes they have failed. The record is that the
+funding model produces this outcome at scale — so the answer opens by saying it
+is common and not a personal failure, and a test asserts that line stays. It
+closes by weighing the honest alternative: a TVET place that can actually be
+paid for, and that ladders, beats a university place abandoned in second year.
+
+*Source: Kenyan education reporting on deferment driven by the household
+contribution, institutional deferral procedures, and the Ministry's 2024
+nullification and revision of fee structures issued to KUCCPS-placed students.
+Cross-reported August 2026.*
+
+### Three badly-built probes, and what they cost
+
+Negative-testing this answer took four attempts. The first swapped two step
+headings but left the body text in place; the second inserted the phrase being
+searched for immediately before its own anchor; both "passed" and neither had
+violated anything. Only the third — lifting the whole deferment sentence and
+re-inserting it ahead of the appeal step, with an assertion that the violation
+was real before running the suite — actually exercised the guard.
+
+**A negative test is only as good as the violation it constructs.** A probe that
+fails to violate looks identical to a guard that holds.

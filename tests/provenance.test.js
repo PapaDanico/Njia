@@ -845,3 +845,36 @@ test('the HEF record says the model is under appeal, and that bands can be appea
   assert.match(decide, /\$\{f\.legalStatus \?/, 'legal status must be conditionally rendered');
   assert.match(decide, /\$\{f\.bandAppeal \?/, 'the appeal route must be conditionally rendered');
 });
+
+test('the cannot-afford-it answer orders the actions and admits what is unknown', () => {
+  // The most acute moment this app can meet someone in: placed, and unable to
+  // raise the household contribution. The answer is only useful if it is
+  // ordered — appeal the band first because it is free and most overlooked,
+  // stack bursaries second, talk to the institution third — and only honest
+  // if it says plainly what is not published.
+  const help = fs.readFileSync(path.join(root, 'js', 'help.js'), 'utf8');
+  const q = help.split('\n').find((l) => l.includes('we cannot raise the money'));
+  assert.ok(q, 'the answer must exist');
+
+  // Ordering: the band appeal must come before the deferment conversation.
+  const appealAt = q.indexOf('Appeal your band');
+  const deferAt = q.indexOf('Deferment is arranged');
+  assert.ok(appealAt > -1 && deferAt > -1, 'both steps must be present');
+  assert.ok(appealAt < deferAt, 'the free, overlooked fix must be offered before deferment');
+
+  // Deferment is an institution matter, not a KUCCPS one. Sending someone to
+  // the wrong desk in a week that decides their year is a real cost.
+  assert.match(q, /not with KUCCPS/i, 'deferment must be routed to the institution');
+  assert.match(q, /before the reporting date/i, 'timing is the actionable part');
+
+  // The unknown, stated as an unknown. Neither "your place is held" nor "you
+  // will lose it" is publicly established, and guessing either way is worse
+  // than saying so.
+  assert.match(q, /will not guess/i, 'the gap must be named as a gap');
+  assert.match(q, /not assume it is held/i);
+  assert.match(q, /not assume it is lost/i);
+
+  // It must not read as blame. Someone in this position already believes they
+  // failed; the record is that the funding model produces this outcome.
+  assert.match(q, /not a personal failure/i);
+});

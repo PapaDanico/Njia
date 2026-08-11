@@ -120,6 +120,53 @@ const INFORMAL_ECONOMY = {
   reading: 'Five in six working Kenyans are in the informal sector, and it absorbed 87% of last year\'s new jobs. Formal salary figures describe the smaller share. Plan for a pathway that works either way — a qualification that lets you be hired *and* lets you trade on your own account is worth more here than one that only does the first.'
 };
 
+/* THE STRUCTURAL CHANGE UNDER NJIA'S FEET.
+ *
+ * Kenya's first competency-based cohort entered senior school in January 2026.
+ * Under 8-4-4 every learner followed a broadly similar curriculum to KCSE and
+ * chose afterwards — which is the world Njia was designed for. Under CBE the
+ * learner picks one of three pathways at Grade 10, on their KJSEA results, and
+ * that choice shapes the subjects they take, the skills they build and the
+ * courses open to them at Grade 12.
+ *
+ * The decision Njia exists to support has moved roughly three years earlier.
+ * That is not a data point, it is a scope question for the platform, and it is
+ * recorded here rather than in a strategy document because the catalogue and
+ * the cluster model both have to answer it eventually.
+ */
+const CBE_PATHWAYS = {
+  source: 'Ministry of Education CBE senior school framework and 2026 transition coverage, cross-reported August 2026',
+  liveFrom: 'January 2026 — the first Grade 10 cohort',
+  decisionPoint: 'Grade 10, at roughly age 14–15, on KJSEA results',
+  pathways: [
+    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', clusters: ['tech', 'numbers'] },
+    { name: 'Social Sciences', covers: 'Humanities, business, languages and policy-facing subjects', clusters: ['people', 'business', 'carer'] },
+    { name: 'Arts and Sports Science', covers: 'Creative, performance and sports subjects', clusters: ['creator'] }
+  ],
+  commonCore: 'English, Kiswahili or Kenyan Sign Language, community service learning and physical education are taken by everyone, alongside three pathway subjects.',
+  implication: 'A Grade 10 pathway choice now narrows what is reachable at Grade 12. Njia currently meets people after KCSE, which under this system is after the decisive choice has already been made.'
+};
+
+/* THE PLACEMENT CALENDAR. Dates, not prose, so the app can work out what is
+ * actually open today rather than shipping a claim that quietly goes stale.
+ * Every window below is for the 2026 cycle. */
+const PLACEMENT_CALENDAR = [
+  { name: 'KUCCPS main application (degree, diploma, certificate, TVET)', opens: '2026-04-07', closes: '2026-05-06',
+    note: 'The main window for the 2025 KCSE cohort.' },
+  { name: 'KUCCPS second call — revise your choices', opens: '2026-05-16', closes: '2026-05-22',
+    note: 'For applicants not placed in the first round.' },
+  { name: 'KMTC March intake application', opens: '2026-01-07', closes: '2026-01-27',
+    note: 'KMTC runs its own intake cycles through KUCCPS.' },
+  { name: 'Inter-institutional transfer', opens: '2026-06-01', closes: '2026-08-14',
+    note: 'If you were placed somewhere you cannot take up, this is the route to move.' },
+  { name: 'Kenya Utalii College (Ronald Ngala, Kilifi)', opens: '2026-06-01', closes: '2026-08-23',
+    note: 'Separate deadline from the main cycle.' },
+  { name: 'KMTC September intake', opens: '2026-07-01', closes: '2026-09-30',
+    note: 'Opens after university placement completes — a second chance for the 2025 cohort.' },
+  { name: 'TVET placement (continuous)', opens: '2026-05-01', closes: '2026-12-31',
+    note: 'TVET admission is continuous rather than a single annual exercise, and colleges report from May. This is the door that stays open longest.' }
+];
+
 /* THE YARDSTICK. Every figure in this file should be read against this.
  * Regulation of Wages (General) (Amendment) Order 2026, Gazette Supplement
  * No. 128, Legal Notices 95 and 96, in effect from 1 May 2026. */
@@ -591,5 +638,5 @@ const SKILLS_MISMATCH = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR };
 }

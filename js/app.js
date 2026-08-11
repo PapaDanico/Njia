@@ -514,13 +514,36 @@ const LANDING_TOOLS = {
   ]
 };
 
+/* Placement windows that are actually open today, computed from dates rather
+ * than written as prose — a hardcoded "applications close in May" quietly
+ * becomes a lie in June. Sorted by urgency so the thing about to close leads.
+ * Falls back to funding deadlines when no placement window is open. */
+function openPlacementWindows(now = new Date()) {
+  if (typeof PLACEMENT_CALENDAR === 'undefined') return [];
+  const day = 24 * 60 * 60 * 1000;
+  return PLACEMENT_CALENDAR
+    .map((w) => ({ ...w, daysLeft: Math.ceil((new Date(w.closes + 'T23:59:59') - now) / day) }))
+    .filter((w) => new Date(w.opens) <= now && w.daysLeft >= 0)
+    .sort((a, b) => a.daysLeft - b.daysLeft);
+}
+
 function renderApplicationClock() {
+  const open = openPlacementWindows().slice(0, 3);
   const rows = FUNDING_SOURCES
     .filter((f) => f.data_confidence === 'verified' && f.application_deadline)
-    .slice(0, 4);
+    .slice(0, open.length ? 1 : 4);
   return `
     <div class="landing-clock-card">
       <p class="landing-clock-title">The Application Clock</p>
+      ${open.map((w) => `
+        <div class="landing-clock-row">
+          ${icon('calendar')}
+          <div>
+            <div class="landing-clock-name">${escapeHtml(w.name)}</div>
+            <div class="landing-clock-when">${w.daysLeft === 0 ? 'Closes today' : w.daysLeft === 1 ? 'Closes tomorrow' : `${w.daysLeft} days left`} · closes ${escapeHtml(w.closes)}</div>
+          </div>
+        </div>
+      `).join('')}
       ${rows.map((f) => `
         <div class="landing-clock-row">
           ${icon('calendar')}

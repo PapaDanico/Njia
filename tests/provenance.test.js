@@ -42,6 +42,8 @@ const DIGITAL_WORK = grab('DIGITAL_WORK');
 const MINIMUM_WAGE = grab('MINIMUM_WAGE');
 const ENTRY_PAY = grab('ENTRY_PAY');
 const LOAN_REALITY = grab('LOAN_REALITY');
+const CBE_PATHWAYS = grab('CBE_PATHWAYS');
+const PLACEMENT_CALENDAR = grab('PLACEMENT_CALENDAR');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -360,4 +362,41 @@ test('the loan trap is stated with the action that defuses it', () => {
     'the trap depends on job search outlasting grace');
   assert.ok(l.theAction && l.theAction.length > 60, 'never state the trap without the action');
   assert.match(l.theAction, /minimum/i, 'the action must name the minimum payment');
+});
+
+test('placement windows are real dates that open before they close', () => {
+  // The clock computes what is open from these dates. A hardcoded "applications
+  // close in May" quietly becomes a lie in June; dates cannot.
+  assert.ok(PLACEMENT_CALENDAR.length >= 5);
+  for (const w of PLACEMENT_CALENDAR) {
+    const opens = new Date(w.opens), closes = new Date(w.closes);
+    assert.ok(!Number.isNaN(opens.getTime()), `${w.name} has an unparseable open date`);
+    assert.ok(!Number.isNaN(closes.getTime()), `${w.name} has an unparseable close date`);
+    assert.ok(opens < closes, `${w.name} closes before it opens`);
+    assert.ok(w.note && w.note.length > 20, `${w.name} has no explanation`);
+  }
+  // TVET is the door that stays open longest, and that is the point of it —
+  // if it ever stops being the latest-closing window, the copy saying so needs
+  // rewriting.
+  const latest = [...PLACEMENT_CALENDAR].sort((a, b) => new Date(b.closes) - new Date(a.closes))[0];
+  assert.match(latest.name, /TVET/i, 'TVET should be the longest-open route');
+});
+
+test('CBE pathways map onto clusters the app actually has', () => {
+  // The decision Njia supports moved to Grade 10 under CBE. The pathway-to-
+  // cluster mapping is how the platform will eventually meet learners there,
+  // so it must stay valid against the real cluster list.
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  assert.equal(CBE_PATHWAYS.pathways.length, 3, 'CBE defines three senior-school pathways');
+  const mapped = new Set();
+  for (const pth of CBE_PATHWAYS.pathways) {
+    assert.ok(pth.clusters.length > 0, `${pth.name} maps to no cluster`);
+    for (const c of pth.clusters) {
+      assert.ok(clusters.includes(c), `${pth.name} maps to unknown cluster ${c}`);
+      mapped.add(c);
+    }
+  }
+  // Every cluster must be reachable from some pathway, or a learner on that
+  // pathway would find part of the catalogue unexplained.
+  for (const c of clusters) assert.ok(mapped.has(c), `cluster "${c}" is reachable from no CBE pathway`);
 });

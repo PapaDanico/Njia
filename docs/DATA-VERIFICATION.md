@@ -434,3 +434,49 @@ rewritten.
 **Visible text fell from ~1,000 words to 260–486 per cluster**, every cluster
 now leads with a real starting figure, and repeated-phrase counts are at or
 near zero. Nothing was lost; it is one tap away instead of a wall to scroll.
+
+
+## The structural change under Njia's feet
+
+Kenya's first competency-based cohort entered senior school in **January 2026**.
+
+Under 8-4-4 every learner followed a broadly similar curriculum to KCSE and
+chose afterwards — the world Njia was designed for. Under CBE the learner picks
+one of three pathways at **Grade 10, at roughly age 14–15**, on their KJSEA
+results, and that choice shapes the subjects they take and the courses open to
+them at Grade 12.
+
+| Pathway | Covers | Njia clusters |
+| --- | --- | --- |
+| STEM | Science, technology, engineering, mathematics | tech, numbers |
+| Social Sciences | Humanities, business, languages, policy | people, business, carer |
+| Arts and Sports Science | Creative, performance, sports | creator |
+
+**The decision Njia exists to support has moved roughly three years earlier.**
+Njia currently meets people after KCSE, which under this system is *after the
+decisive choice has already been made*. That is a scope question rather than a
+data point, and it is recorded here because the catalogue and the cluster model
+both have to answer it eventually. A test keeps the pathway-to-cluster mapping
+valid and requires every cluster to be reachable from some pathway.
+
+## The placement calendar — dates, not prose
+
+The Application Clock previously showed only funding deadlines. It now computes
+which placement windows are genuinely open **from dates**, because a hardcoded
+"applications close in May" quietly becomes a lie in June.
+
+| Window | Opens | Closes |
+| --- | --- | --- |
+| KUCCPS main application | 2026-04-07 | 2026-05-06 |
+| KUCCPS second call | 2026-05-16 | 2026-05-22 |
+| KMTC March intake | 2026-01-07 | 2026-01-27 |
+| Inter-institutional transfer | 2026-06-01 | 2026-08-14 |
+| Kenya Utalii College (Kilifi) | 2026-06-01 | 2026-08-23 |
+| KMTC September intake | 2026-07-01 | 2026-09-30 |
+| TVET placement (continuous) | 2026-05-01 | 2026-12-31 |
+
+*Source: KUCCPS 2026 cycle announcements, cross-reported August 2026.*
+
+TVET is deliberately the longest-open route, and a test fails if it ever stops
+being — it is the door that stays open after the main cycle closes, which is
+exactly the message a student who missed the window needs.

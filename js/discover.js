@@ -33,7 +33,7 @@ function renderDiscoverIntro(el) {
       <p>A 20-minute adaptive diagnostic across the Four Elements of career clarity — <strong>Identity, Community, Necessity, Horizon</strong> — the same model executive coaches use to help leaders find real direction, now built for you.</p>
     </div>
     <div class="card">
-      <h3 class="mb-1">What to expect</h3>
+      <h2 class="mb-1">What to expect</h2>
       <p class="text-secondary text-sm">Answer honestly, not aspirationally. There are no wrong answers — some questions ask about constraints like budget and timeline so your recommendations are actually realistic for you.</p>
     </div>
     <button type="button" class="btn btn-primary" onclick="startDiscoverQuestionnaire()">Begin Discovery →</button>
@@ -247,6 +247,73 @@ function finishQuestionnaire() {
   renderDiscoverPage();
 }
 
+/* Full cluster spread — every cluster with its share of total points, not
+ * just the top two. Users routinely sit close between three clusters, and
+ * hiding that flattens a real finding into a label. Pure, so it is tested. */
+function clusterSpread(ranked, totalPoints) {
+  const total = totalPoints || 1;
+  return ranked.map(([id, pts], i) => ({
+    id,
+    points: pts,
+    share: Math.round((pts / total) * 100),
+    rank: i + 1
+  }));
+}
+
+/* The labour-market reality check, filtered to the user's matched cluster.
+ *
+ * Interest fit answers "what suits me". This answers "what does that pay, and
+ * who is actually hiring" — the question every Kenyan parent asks next, and
+ * the one a career tool that ducks it has no business calling itself
+ * evidence-based.
+ *
+ * Every earnings figure ships with its entryReality caveat, because a sector
+ * average includes consultants and principals and is emphatically not a
+ * school-leaver's starting salary. The caveat is not decoration; rendering
+ * the number without it would repeat the fabricated-statistics failure this
+ * whole layer exists to correct. tests/provenance.test.js enforces that the
+ * caveat exists on every record.
+ */
+function renderLabourMarketCard(primaryCluster) {
+  if (typeof SECTOR_EARNINGS === 'undefined') return '';
+  const sectors = SECTOR_EARNINGS.filter((s) => s.clusters.includes(primaryCluster));
+  const signals = KENYA_DEMAND_SIGNALS.filter((s) => s.clusters.includes(primaryCluster));
+  if (!sectors.length && !signals.length) return '';
+
+  const monthly = (annual) => formatKes(Math.round(annual / 12));
+
+  return `
+    <div class="card evidence-card">
+      <span class="caption">The labour market you are entering</span>
+      <h2 class="mb-1 mt-1">What this field actually pays — and who is hiring</h2>
+      <p class="text-secondary text-sm mb-2">Kenya publishes earnings by <em>sector</em>, not by course. These are averages across formal wage employment, so read them as where a career can reach, not where it starts.</p>
+
+      ${sectors.map((s) => `
+        <div class="sector-row">
+          <div class="sector-row-head">
+            <span class="sector-name">${escapeHtml(s.sector)}</span>
+            <span class="sector-figure num">${monthly(s.annualKes)}<span class="sector-per">/mo avg</span></span>
+          </div>
+          <p class="sector-reality">${escapeHtml(s.entryReality)}</p>
+        </div>
+      `).join('')}
+
+      ${signals.length ? `
+        <h3 class="mt-2 mb-1">Demand signals in Kenya right now</h3>
+        <ul class="evidence-list">
+          ${signals.map((s) => `<li><strong>${escapeHtml(s.signal)}.</strong> ${escapeHtml(s.note)}</li>`).join('')}
+        </ul>
+      ` : ''}
+
+      <h3 class="mt-2 mb-1">The skills that keep paying</h3>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.skillChurn)} ${escapeHtml(FUTURE_OF_WORK.interpretation)}</p>
+      <p class="text-muted text-sm">Fastest-growing globally: ${FUTURE_OF_WORK.fastestGrowingSkills.map((s) => escapeHtml(s)).join(' · ')}</p>
+
+      <p class="text-muted text-sm mt-2">Earnings: ${escapeHtml(LABOUR_MARKET_ANCHORS.source)}. Skills outlook: ${escapeHtml(FUTURE_OF_WORK.source)} (global scope). Figures were cross-checked across independent reports rather than read from the primary release — see the Methodology note in Help.</p>
+    </div>
+  `;
+}
+
 function renderDiscoverResults(el) {
   const { ranked, primary, secondary, elementScores, constraints } = AppState.questionnaire.results;
   const primaryC = CLUSTERS[primary];
@@ -270,11 +337,11 @@ function renderDiscoverResults(el) {
     <div class="print-only">${renderShareableReportHTML()}</div>
 
     <div class="discover-full-results">
-      <h2 class="mb-2">This is what the data says about you</h2>
+      <h1 class="mb-2">This is what the data says about you</h1>
 
       <div class="cluster-primary">
-        <span class="cluster-badge" style="background:${primaryC.color}22;color:${primaryC.color}">Primary Cluster</span>
-        <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
+        <span class="cluster-badge" style="background:${primaryC.color}22;color:var(--cluster-${primary}-ink)">Primary Cluster</span>
+        <h2 style="color:var(--cluster-${primary}-ink)">${primaryC.name}</h2>
         <p class="text-secondary text-sm mt-1">${primaryC.description}</p>
         <div class="cluster-tags">${primaryC.paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
         ${(() => {
@@ -292,12 +359,12 @@ function renderDiscoverResults(el) {
 
       <div class="card">
         <span class="caption">Secondary Cluster</span>
-        <h3 style="color:${secondaryC.color}" class="mt-1">${secondaryC.name}</h3>
+        <h2 style="color:var(--cluster-${secondary}-ink)" class="mt-1">${secondaryC.name}</h2>
         <p class="text-secondary text-sm mt-1">${secondaryC.description}</p>
       </div>
 
       <div class="card">
-        <h3 class="mb-2">Four Elements — Clarity Scores</h3>
+        <h2 class="mb-2">Four Elements — Clarity Scores</h2>
         ${Object.entries(elementScores).map(([key, score]) => `
           <div class="score-row">
             <div class="score-label"><span>${elementLabels[key]}</span><span class="num">${score}%</span></div>
@@ -308,10 +375,39 @@ function renderDiscoverResults(el) {
         <p class="text-muted text-sm mt-1">The fourth Element, Necessity, is shown below as your actual constraints rather than a clarity score.</p>
       </div>
 
-      ${constraintRows ? `<div class="card"><h3 class="mb-1">Necessity — Your Constraints</h3><p class="text-muted text-sm mb-2">The fourth Element. These feed the Decide module's course matcher directly.</p><div class="meta-grid">${constraintRows}</div></div>` : ''}
+      <div class="card">
+        <h2 class="mb-1">Your full cluster spread</h2>
+        <p class="text-muted text-sm mb-2">All six clusters, by share of your total points. Clusters within a few points of each other are effectively tied — treat them as live options, not runners-up.</p>
+        <div class="spread-list">
+          ${clusterSpread(AppState.questionnaire.results.ranked, AppState.questionnaire.results.totalPoints).map((row) => `
+            <div class="spread-row${row.rank <= 2 ? ' spread-top' : ''}">
+              <span class="spread-rank num">${row.rank}</span>
+              <span class="spread-name">${escapeHtml(CLUSTERS[row.id].name)}</span>
+              <span class="spread-bar"><span class="spread-fill" style="width:${row.share}%;background:${CLUSTERS[row.id].color}"></span></span>
+              <span class="spread-share num">${row.share}%</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="card evidence-card">
+        <span class="caption">How much weight to put on this</span>
+        <h2 class="mb-1 mt-1">An interest profile is a strong start, not a verdict</h2>
+        <ul class="evidence-list">
+          <li><strong>Interests predict what you choose and stick with better than how satisfied you will be.</strong> Across 53 studies, the match between interests and job only correlates about <span class="num">r&nbsp;=&nbsp;.17</span> with job satisfaction — roughly 3–6% of the variation. It is a real signal, and a modest one.</li>
+          <li><strong>At your age, interests are still settling.</strong> Vocational interests keep firming up through the late teens and only reach their adult stability (about <span class="num">r&nbsp;=&nbsp;.70</span>) around ages 25–30. This is exactly why Njia asks you to design <em>three</em> futures rather than commit to one.</li>
+          <li><strong>Alignment often dips right at the decision point.</strong> Research on students tracks interest–choice alignment rising through school and then dropping in the final year, under the pressure of imminent applications. If your result feels less certain than you expected, that is a documented pattern, not a personal failing.</li>
+          <li><strong>Fit only pays off with action.</strong> Congruence predicts good outcomes when people act on it — informational interviews, prototypes, applications. The Connect and Track modules exist for that reason.</li>
+        </ul>
+        <p class="text-muted text-sm mt-2">Sources: Tsabari, Tziner &amp; Meir (2005) meta-analysis of congruence and satisfaction; Low, Yoon, Roberts &amp; Rounds (2005) on interest stability; Nye, Su, Rounds &amp; Drasgow (2012) on interests and performance; Super's stages of vocational development (crystallisation 14–18, specification 18–21). See Methodology for how these shape the Njia Method.</p>
+      </div>
+
+      ${renderLabourMarketCard(primary)}
+
+      ${constraintRows ? `<div class="card"><h2 class="mb-1">Necessity — Your Constraints</h2><p class="text-muted text-sm mb-2">The fourth Element. These feed the Decide module's course matcher directly.</p><div class="meta-grid">${constraintRows}</div></div>` : ''}
 
       <div class="card">
-        <h3 class="mb-2">All Clusters</h3>
+        <h2 class="mb-2">All Clusters</h2>
         <div class="cluster-secondary-list">
           ${ranked.map(([id, pts]) => `
             <div class="cluster-row">
@@ -422,7 +518,7 @@ function openReportPreviewModal() {
   const html = renderShareableReportHTML();
   if (!html) return;
   openModal(`
-    <h3 class="mb-2">Preview &amp; Share</h3>
+    <h2 class="mb-2">Preview &amp; Share</h2>
     <p class="text-secondary text-sm mb-2">Screenshot this card to share directly, or use a button below.</p>
     ${html}
     <div class="btn-row mt-3">
@@ -506,7 +602,7 @@ function downloadReportPDF() {
 
 function confirmRetakeQuestionnaire() {
   openModal(`
-    <h3 class="mb-2">Retake Discovery?</h3>
+    <h2 class="mb-2">Retake Discovery?</h2>
     <p class="text-secondary mb-3">This clears your previous answers and results. Your saved courses, Odyssey Plans and OKRs are not affected.</p>
     <div class="btn-row">
       <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>

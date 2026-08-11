@@ -19,7 +19,7 @@
   --primary-light: #f7e9e0;
   --secondary: #55802d;      /* leaf green, deepened for light bg */
   --accent: #ed8b2d;         /* brand gold — reserved for dark bands */
-  --accent-ink: #b8631a;     /* gold's text-on-light variant */
+  --accent-ink: #8a5310;     /* gold's text-on-light variant — AA-safe at small sizes on all light surfaces */
   --danger: #c0392b;
   --purple: #8b5cf6;
   --pink: #ec4899;
@@ -70,7 +70,11 @@
   --nav-h: 64px;
   --content-max: 600px;
   --sidebar-w: 240px;
-  --page-max: 960px;
+  /* Content width. --page-max is the working width for data-dense modules;
+   * --prose-max keeps running text at a readable measure inside it, so a
+   * wide page never turns body copy into a 1200px line. */
+  --page-max: 1280px;
+  --prose-max: 68ch;
 
   /* ---- Structural tokens (Kanda discipline: component rules reference
    * tokens, never raw values — if you're typing a hex or px in a
@@ -104,6 +108,22 @@
   --danger-soft: rgba(192, 57, 43, 0.1);
   --danger-ink: #a02e20;
   --danger-border: rgba(192, 57, 43, 0.3);
+
+  /* Cluster inks — the cluster palette in data/questions.js is tuned for
+   * fills (bars, dots, tints). These are its text-safe counterparts, one
+   * per scheme, so a cluster name never drops under the AA floor. */
+  --cluster-carer-ink: #9c1f56;
+  --cluster-creator-ink: #8a5310;
+  --cluster-business-ink: #46691f;
+  --cluster-tech-ink: #0a5f81;
+  --cluster-people-ink: #5a34ab;
+  --cluster-numbers-ink: #a02e20;
+
+  /* Odyssey plan accents — one per life. Light values sit on white cards;
+   * the dark scheme lifts each to clear the AA floor on the espresso card. */
+  --plan-life1: #0e7ba6;
+  --plan-life2: #55802d;
+  --plan-life3: #8a5310;
 
   /* Neutral veils */
   --ink-veil: rgba(31, 30, 29, 0.08);
@@ -161,6 +181,17 @@
   --danger-ink: #eb9a8e;
   --danger-border: rgba(224, 104, 90, 0.4);
 
+  --cluster-carer-ink: #f191b9;
+  --cluster-creator-ink: #e3b075;
+  --cluster-business-ink: #a5c583;
+  --cluster-tech-ink: #74c6e6;
+  --cluster-people-ink: #bba4f2;
+  --cluster-numbers-ink: #eb9a8e;
+
+  --plan-life1: #6fc3e4;
+  --plan-life2: #a5c583;
+  --plan-life3: #e3b075;
+
   --ink-veil: rgba(240, 236, 227, 0.1);
   --scrim: rgba(0, 0, 0, 0.6);
   --header-veil: rgba(22, 19, 15, 0.92);
@@ -191,6 +222,10 @@
 
 /* ---------- Reset ---------- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
+/* The UA rule for [hidden] is display:none at the lowest specificity, so any
+   component rule setting display (.btn, .filter-row) silently defeats it.
+   Restore it here so `el.hidden = true` is reliable everywhere. */
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -213,6 +248,10 @@ h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.01em; line-height: 1.
 h1 { font-size: var(--text-xl-fluid); font-weight: 700; }
 h2 { font-size: 1.5rem; font-weight: 700; }
 h3 { font-size: 1.25rem; font-weight: 700; }
+/* Module card/section headings are semantically level 2 (they sit under
+ * the page h1) but keep the level-3 visual scale — semantics and type
+ * scale are separate concerns. */
+.card > h2, .empty-state h2, .help-tutorial-head h2, .course-card h2 { font-size: 1.25rem; }
 small, .caption { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); }
 .text-sm { font-size: 0.85rem; }
 .text-muted { color: var(--text-muted); }
@@ -363,13 +402,24 @@ svg.icon {
 .header-btn:hover { background: var(--bg-card); }
 
 .header-actions { display: flex; align-items: center; gap: 0.4rem; }
+/* The hamburger holds both glyphs and swaps them from aria-expanded.
+ * Replacing its innerHTML on click used to destroy the very node the
+ * click was dispatched on, so the outside-click handler below could no
+ * longer recognise the target as the toggle and closed the menu again
+ * the instant it opened. Never mutate an element out from under an
+ * in-flight event. */
+.nav-toggle .icon-close { display: none; }
+.nav-toggle[aria-expanded="true"] .icon-menu { display: none; }
+.nav-toggle[aria-expanded="true"] .icon-close { display: inline-block; }
+.nav-back { display: none; }
+body:not([data-page="home"]) .nav-back { display: flex; }
 
 /* ---------- Landing nav (header) + mobile menu — home page only.
    Hidden by default everywhere; body[data-page="home"] (set by
    renderRoute) reveals the hamburger on mobile and the full nav row +
    CTA on desktop, so module pages keep their existing minimal header. */
 .landing-nav, .landing-cta-header, .nav-toggle { display: none; }
-body[data-page="home"] .nav-toggle { display: flex; }
+.nav-toggle { display: flex; }
 
 .landing-nav { align-items: center; gap: 1.75rem; }
 .landing-nav-link {
@@ -471,9 +521,9 @@ body[data-page="home"] .nav-toggle { display: flex; }
 .mobile-menu .menu-icon .icon { width: 18px; height: 18px; }
 
 @media (min-width: 1024px) {
-  body[data-page="home"] .landing-nav { display: flex; }
+  .landing-nav { display: flex; }
   body[data-page="home"] .header-actions .landing-cta-header { display: inline-flex; }
-  body[data-page="home"] .nav-toggle { display: none; }
+  .nav-toggle { display: none; }
   .mobile-menu { display: none !important; }
 }
 
@@ -567,59 +617,69 @@ main {
 }
 
 /* =====================================================================
-   DESKTOP SHELL — the full redesign: restructure #app into a header-bar
-   + sidebar-nav + content grid instead of the single centered column
-   above — pure CSS, no HTML changes, since .app-header/#install-banner/
-   main/.bottom-nav are already siblings in that DOM order inside #app;
-   grid-template-areas just repositions them visually. Needs the sidebar
-   nav's 240px plus genuinely spacious 2-column grids, which is why it
-   waits for 1024px rather than sharing the tier above.
+   DESKTOP SHELL — Kanda anatomy: one slim top nav with grouped
+   dropdowns on every page, no sidebar. The bottom nav is a phone
+   affordance (thumb reach on the low-end Android devices Njia targets)
+   and disappears at desktop widths, where the top nav's two module
+   groups take over. Content centers on --page-max.
    ===================================================================== */
 @media (min-width: 1024px) {
-  #app {
-    max-width: none;
-    display: grid;
-    grid-template-columns: var(--sidebar-w) 1fr;
-    grid-template-areas:
-      "header header"
-      "banner banner"
-      "nav    main";
-    grid-template-rows: auto auto 1fr;
-  }
-  .app-header { grid-area: header; padding: 0 1.5rem; }
-  #install-banner { grid-area: banner; }
-  main { grid-area: main; padding-bottom: 1rem; }
-
-  .bottom-nav {
-    grid-area: nav;
-    position: sticky;
-    top: var(--header-h);
-    left: auto; bottom: auto; transform: none;
-    width: 100%; max-width: none;
-    height: calc(100vh - var(--header-h));
-    align-self: start;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.35rem;
-    padding: 1.5rem 0.75rem;
-    border-top: none;
-    border-right: 1px solid var(--border);
-  }
-  .nav-item {
-    flex: none;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 0.75rem;
-    padding: 0 0.9rem;
-    height: 48px;
-  }
-  .nav-item .nav-label { font-size: 0.85rem; }
-  .nav-item.active::before { display: none; }
-  .nav-item.active::after { top: 0; bottom: 0; left: 0; right: 0; border-radius: var(--radius-md); }
-  .nav-item.has-badge .nav-icon::after { top: 2px; right: -6px; }
+  #app { max-width: none; }
+  .app-header { padding: 0 1.5rem; }
+  main { padding-bottom: 1rem; }
+  .bottom-nav { display: none; }
 
   .page { max-width: var(--page-max); margin: 0 auto; padding: 2rem 2.5rem; }
   #page-home.page { max-width: none; margin: 0; padding: 0 !important; }
+
+  /* Running text stays at a readable measure even though the page is wide.
+   * Cards, grids and tables are free to use the full width. */
+  .page > p.text-secondary,
+  .page > .data-disclaimer,
+  .page > .page-eyebrow + h1 + p { max-width: var(--prose-max); }
+
+  /* The three Odyssey lives belong side by side — comparing futures is the
+   * whole point of the exercise, and stacking them hid the comparison. */
+  .odyssey-plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; align-items: start; }
+  .odyssey-plan-grid .card { margin-bottom: 0; }
+  .odyssey-plan-grid .odyssey-anchor-row { flex-direction: column; gap: 0.5rem; }
+  .odyssey-plan-grid .odyssey-anchor-row > div { min-width: 0; }
+
+  /* Discover results: findings left, constraints and actions right. */
+  .discover-results-grid { display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 1.5rem; align-items: start; }
+  .discover-results-grid > * { min-width: 0; }
+  .discover-results-aside { position: sticky; top: calc(var(--header-h) + 1rem); }
+}
+
+/* =====================================================================
+   WIDE DESKTOP — Decide gets a persistent filter rail instead of filters
+   stacked above the results. The rail is the single biggest space win:
+   it turns the dead left gutter into working chrome and keeps every
+   filter visible while the user scrolls a long catalogue.
+   ===================================================================== */
+@media (min-width: 1100px) {
+  .decide-layout { display: grid; grid-template-columns: 260px 1fr; gap: 1.75rem; align-items: start; }
+  .decide-rail {
+    position: sticky;
+    top: calc(var(--header-h) + 1rem);
+    display: flex; flex-direction: column; gap: 0.75rem;
+    padding: 1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    max-height: calc(100vh - var(--header-h) - 2rem);
+    overflow-y: auto;
+  }
+  .decide-rail .filter-toolbar { flex-direction: column; align-items: stretch; gap: 0.6rem; margin-bottom: 0; }
+  .decide-rail .filter-toolbar .form-control { width: 100%; max-width: none; flex: none; }
+  .decide-rail .filter-spacer { display: none; }
+  .decide-rail .card { margin-bottom: 0; border: none; box-shadow: none; padding: 0; background: transparent; }
+  .decide-rail-title {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1.4px; color: var(--text-muted);
+  }
+  .decide-results { min-width: 0; }
 
   /* Full-width buttons are a phone tap-target pattern; stretched across
    * the desktop content column they read as unfinished. Size to content
@@ -918,6 +978,11 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   align-items: start;
 }
 .results-grid .card { margin-bottom: 0; }
+/* Denser catalogue on desktop. Declared after the base rule above because
+ * a media query adds no specificity — source order is what decides. */
+@media (min-width: 1024px) {
+  .results-grid { grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 1.1rem; }
+}
 .match-badge {
   display: inline-block;
   background: var(--secondary);
@@ -931,14 +996,33 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .verified-badge {
   display: inline-block;
   background: var(--success-soft);
-  color: var(--secondary);
-  border: 1px solid var(--secondary);
+  color: var(--success-ink);
+  border: 1px solid var(--success-border);
   font-size: 0.68rem;
   font-weight: 700;
   padding: 0.18rem 0.55rem;
   border-radius: 999px;
   margin-bottom: 0.5rem;
 }
+/* Estimate marker. Deliberately quiet but never invisible: these figures sit
+ * beside verified ones, and the whole point is that a reader can tell which
+ * is which at a glance. Uses the warn triplet, not raw colour, so it holds
+ * the AA floor in both schemes. */
+.est-mark {
+  display: inline-block;
+  background: var(--warn-soft);
+  color: var(--warn-ink);
+  border: 1px solid var(--warn-border);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+  margin-left: 0.3rem;
+  vertical-align: middle;
+}
+.meta-value.is-estimate { opacity: 0.92; }
 .course-card .institution-name { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
 /* Ledger rows — label left, value right, hairline dividers, no box — the
  * ledger/breakdown-table treatment every "family" site uses for financial
@@ -1120,6 +1204,185 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .match-why li.match-why-up { border-left-color: var(--secondary); }
 .match-why li.match-why-down { border-left-color: var(--danger); }
 
+/* ---------- Landing: two tracks + tool grids (Kanda anatomy) ---------- */
+.landing-track-grid { display: grid; gap: 1rem; margin-top: 1.25rem; }
+@media (min-width: 768px) { .landing-track-grid { grid-template-columns: 1fr 1fr; } }
+.landing-track-card {
+  background: var(--landing-card);
+  border: 1px solid var(--landing-border);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+}
+.landing-track-card.track-make { border-left-color: var(--secondary); }
+.landing-track-eyebrow {
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.4px;
+  color: var(--primary-dark);
+}
+.landing-track-card.track-make .landing-track-eyebrow { color: var(--success-ink); }
+.landing-track-card h3 { margin: 0.3rem 0 0.35rem; }
+.landing-track-card p { font-size: 0.88rem; color: var(--landing-ink-muted); }
+.landing-track-count { display: inline-block; margin-top: 0.6rem; font-size: 0.8rem; font-weight: 700; color: var(--primary-dark); }
+
+.landing-tool-section { margin-top: 2.5rem; }
+/* Tool grid — the landing page's main index of what Njia actually does.
+   Measured against the Kanda reference: cards there carry noticeably more
+   internal air and a title that reads as a heading rather than a label.
+   Njia's were 16px padding around a 15.2px title in a 377px card, which is
+   why the page read denser than the target even though the structure
+   already matched. Spacing goes through the scale tokens, never raw px. */
+.landing-tool-grid { display: grid; gap: var(--space-4); margin-top: var(--space-5); }
+@media (min-width: 768px) { .landing-tool-grid { grid-template-columns: repeat(3, 1fr); } }
+.landing-tool-card {
+  display: flex; gap: var(--space-4); align-items: flex-start;
+  background: var(--landing-card);
+  border: 1px solid var(--landing-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  text-align: left; width: 100%;
+  color: var(--landing-ink);
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.landing-tool-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.landing-tool-card .icon-disc { width: 42px; height: 42px; margin: 0; flex-shrink: 0; color: var(--primary); }
+.landing-tool-card .icon-disc .icon { width: 20px; height: 20px; }
+.landing-tool-card h3 { font-size: 1rem; font-weight: 650; margin-bottom: var(--space-1); letter-spacing: -0.01em; }
+.landing-tool-card p { font-size: 0.85rem; color: var(--landing-ink-muted); line-height: 1.55; }
+.landing-tool-arrow { margin-left: auto; color: var(--primary); align-self: center; flex-shrink: 0; }
+
+
+/* ---------- Module header: intro left, live coverage panel right ----------
+ * Running text keeps a readable measure, so on a wide screen the right of
+ * the header was dead space. It now carries the dataset's own numbers. */
+.module-header-aside { display: none; }
+.coverage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1rem; margin-top: 0.6rem; }
+.coverage-grid > div { display: flex; flex-direction: column; gap: 0.1rem; }
+.coverage-num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.15rem; font-weight: 700; color: var(--primary-dark); line-height: 1.1; }
+.coverage-label { font-size: 0.72rem; color: var(--text-muted); }
+.coverage-note { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+@media (min-width: 1100px) {
+  .module-header { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start; }
+  .module-header-main { min-width: 0; }
+  .module-header-aside {
+    display: block;
+    padding: 1.1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+}
+
+/* ---------- Header brand lockup (Kanda pattern) ----------
+ * Mark + wordmark + a descriptor line, so the header says what this is
+ * without spending a nav slot on it. The descriptor drops on phones
+ * where the space genuinely is not there. */
+.logo-lockup { display: flex; flex-direction: column; line-height: 1.05; }
+.logo-word { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; }
+.logo-descriptor {
+  display: none;
+  font-size: 0.6rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+@media (min-width: 720px) { .logo-descriptor { display: block; } }
+/* Nav sits hard right against the utility icons rather than floating. */
+@media (min-width: 1024px) { .landing-nav { margin-left: auto; margin-right: 1.25rem; } }
+
+/* ---------- Help page ---------- */
+.help-columns { display: grid; gap: 1rem; }
+@media (min-width: 900px) { .help-columns { grid-template-columns: 1fr 1fr; align-items: start; } }
+.help-group .caption { display: block; margin-bottom: 0.35rem; }
+.help-qa { border-bottom: 1px solid var(--border); padding: 0.15rem 0; }
+.help-qa:last-child { border-bottom: none; }
+.help-qa summary {
+  cursor: pointer; padding: 0.6rem 0;
+  font-weight: 600; font-size: 0.9rem; color: var(--text-primary);
+}
+.help-qa summary:hover { color: var(--primary-dark); }
+.help-qa p { font-size: 0.86rem; color: var(--text-secondary); padding: 0 0 0.7rem; line-height: 1.6; }
+.help-tutorial-head { display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 0.75rem; }
+.help-tutorial-head .icon-disc { margin: 0; flex-shrink: 0; color: var(--primary); }
+.help-steps { margin: 0 0 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.55rem; }
+.help-steps li { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6; padding-left: 0.3rem; }
+.glossary-list { display: flex; flex-direction: column; gap: 0.7rem; }
+.glossary-row { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.9rem; align-items: baseline; }
+.glossary-row dt { font-weight: 700; font-size: 0.85rem; color: var(--primary-dark); }
+.glossary-row dd { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; }
+@media (max-width: 560px) { .glossary-row { grid-template-columns: 1fr; gap: 0.15rem; } }
+.link-btn { background: none; border: none; padding: 0; color: var(--primary-dark); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: inherit; }
+
+/* ---------- Footer learn tiles (Kanda pattern) ---------- */
+.footer-learn { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(248,250,252,0.14); }
+.footer-learn-grid { display: grid; gap: 0.75rem; margin-top: 0.9rem; }
+@media (min-width: 700px) { .footer-learn-grid { grid-template-columns: repeat(4, 1fr); } }
+.footer-learn-tile {
+  text-align: left; width: 100%;
+  padding: 0.85rem 1rem;
+  background: rgba(248,250,252,0.05);
+  border: 1px solid rgba(248,250,252,0.14);
+  border-radius: var(--radius-md);
+  color: #f8fafc;
+}
+.footer-learn-tile:hover { background: rgba(248,250,252,0.1); }
+.footer-learn-tile strong { display: block; font-size: 0.88rem; margin-bottom: 0.15rem; }
+.footer-learn-tile span { font-size: 0.75rem; color: rgba(248,250,252,0.6); line-height: 1.4; }
+.footer-about { margin-top: 1.75rem; }
+.footer-about p { font-size: 0.82rem; color: rgba(248,250,252,0.66); line-height: 1.6; max-width: 62ch; }
+
+.course-tagline { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.4rem 0 0.2rem; }
+.mini-tag {
+  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.4px;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem; border-radius: var(--radius-sm);
+  background: var(--ink-veil); color: var(--text-secondary);
+}
+.mini-public { background: var(--success-soft); color: var(--success-ink); }
+.mini-private { background: var(--primary-soft); color: var(--primary-dark); }
+.mini-online { background: var(--warn-soft); color: var(--warn-ink); }
+
+/* ---------- Suggestion menus ----------
+ * A filler control, not a state control: it drops a starting phrase into
+ * the field beside it and resets itself. Styled quieter than a real
+ * input so it never reads as the primary way to answer. */
+.odyssey-year-field { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+.odyssey-suggest {
+  font-size: 0.78rem;
+  padding: 0.35rem 0.6rem;
+  min-height: 40px;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border-style: dashed;
+}
+.odyssey-suggest:focus { color: var(--text-primary); }
+
+/* ---------- Analytical result components ---------- */
+.decide-count { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.9rem; }
+
+.spread-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.spread-row { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; }
+.spread-rank { width: 1.2rem; color: var(--text-muted); font-size: 0.78rem; flex-shrink: 0; }
+.spread-name { width: 8.5rem; flex-shrink: 0; color: var(--text-secondary); }
+.spread-row.spread-top .spread-name { color: var(--text-primary); font-weight: 600; }
+.spread-bar { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-input); overflow: hidden; min-width: 40px; }
+.spread-fill { display: block; height: 100%; border-radius: 999px; }
+.spread-share { width: 2.6rem; text-align: right; flex-shrink: 0; color: var(--text-secondary); }
+
+.evidence-card { border-left: 3px solid var(--primary); }
+.evidence-list { list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.evidence-list li {
+  font-size: 0.86rem; line-height: 1.55; color: var(--text-secondary);
+  padding-left: 0.9rem; border-left: 2px solid var(--border);
+}
+.evidence-list strong { color: var(--text-primary); }
+
+@media (max-width: 560px) {
+  .spread-name { width: 6.5rem; font-size: 0.8rem; }
+}
+
 /* ---------- Mentor cards ---------- */
 .mentor-card { display: flex; gap: 0.85rem; align-items: center; }
 .mentor-avatar {
@@ -1276,10 +1539,67 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-block-tight { padding: 1.5rem 1.25rem; }
 
 .landing-hero {
-  padding: 2.5rem 1.25rem 2rem;
+  padding: 2.5rem 1.25rem 2.25rem;
   text-align: left;
-  background: radial-gradient(120% 100% at 0% 0%, rgba(180,85,45,0.07), rgba(237,139,45,0.05) 45%, transparent 70%);
+  /* Kanda hero anatomy in Njia's palette: deep navy ground with warm
+   * terracotta/gold radials, cream type, gold accent word. */
+  background:
+    radial-gradient(120% 120% at 88% 0%, rgba(237, 139, 45, 0.16), transparent 55%),
+    radial-gradient(110% 110% at 0% 100%, rgba(180, 85, 45, 0.2), transparent 60%),
+    var(--landing-dark);
+  color: #f8fafc;
 }
+.landing-hero .landing-hero-logo { mix-blend-mode: normal; border-radius: 12px; }
+.landing-hero .landing-h1 { color: #f8fafc; }
+.landing-hero .landing-sub { color: rgba(248, 250, 252, 0.82); }
+.landing-hero .landing-proverb { color: rgba(248, 250, 252, 0.7); border-left-color: var(--accent); }
+.landing-hero .status-pill { background: rgba(248, 250, 252, 0.08); border-color: rgba(248, 250, 252, 0.2); color: rgba(248, 250, 252, 0.85); }
+.landing-hero .landing-trust-item { color: rgba(248, 250, 252, 0.75); }
+.landing-hero .btn-outline-dark { color: #f8fafc; border-color: rgba(248, 250, 252, 0.4); }
+.landing-hero .btn-outline-dark:hover { background: rgba(248, 250, 252, 0.1); }
+.landing-hero-eyebrow {
+  font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.6px;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+/* Floating utility card — Kanda's "Regulatory Clock" pattern, powered by
+ * Njia's verified funding deadlines. */
+.landing-clock-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(248, 250, 252, 0.18);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  color: #f8fafc;
+}
+.landing-clock-title {
+  font-size: 0.7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.landing-clock-row {
+  display: flex; gap: 0.6rem; align-items: flex-start;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(248, 250, 252, 0.12);
+}
+.landing-clock-row:last-of-type { border-bottom: none; margin-bottom: 0.4rem; }
+.landing-clock-row .icon { width: 15px; height: 15px; color: var(--accent); margin-top: 0.15rem; flex-shrink: 0; }
+.landing-clock-name { font-weight: 600; font-size: 0.85rem; line-height: 1.35; }
+.landing-clock-when { font-size: 0.74rem; color: rgba(248, 250, 252, 0.65); margin-top: 0.1rem; }
+.landing-clock-btn {
+  width: 100%;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(248, 250, 252, 0.35);
+  background: transparent;
+  color: #f8fafc;
+  font-weight: 600; font-size: 0.85rem;
+}
+.landing-clock-btn:hover { background: rgba(248, 250, 252, 0.1); }
 .landing-hero-logo {
   width: 64px; height: 64px; object-fit: contain; margin-bottom: 1.25rem;
   mix-blend-mode: multiply;
@@ -1335,10 +1655,10 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-cta-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
 .btn-gold {
   background: var(--primary);
-  color: #fff;
+  color: var(--on-fill);
   font-weight: 700;
 }
-.btn-gold:hover { background: #a34b26; }
+.btn-gold:hover { background: var(--primary-deep); }
 .btn-outline-dark {
   background: transparent;
   border: 1.5px solid var(--landing-ink);
@@ -1374,7 +1694,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 /* A styled <p>, not a heading — this card sits directly beside the hero's
  * h1 with no h2 in between (the page's next real heading is much further
  * down), so an h3 here would skip a level and fail heading-order. */
-.landing-numbers-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; margin-bottom: 1.1rem; color: var(--landing-ink); }
+.landing-numbers-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; line-height: 1.3; margin-bottom: 1.1rem; color: var(--landing-ink); }
 .landing-numbers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.25rem; margin-bottom: 1.1rem; }
 .landing-numbers-item { display: flex; flex-direction: column; gap: 0.2rem; }
 .landing-numbers-figure { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.6rem; font-weight: 700; color: var(--primary-dark); line-height: 1; }
@@ -1527,7 +1847,19 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   font-size: 0.75rem; color: #94a3b8;
   border-top: 1px solid #334155; padding-top: 1.25rem;
 }
-.landing-footer-bottom a { color: #94a3b8; margin-right: 1rem; }
+.landing-footer-bottom a {
+  color: #94a3b8;
+  /* Was a bare 14px-tall inline link: under the WCAG 2.2 target-size
+   * floor and awkward to hit on a phone. Padding gives it a real
+   * hit area without changing how the row reads. */
+  display: inline-flex; align-items: center;
+  min-height: 32px;
+  padding: 0 0.55rem;
+  margin: 0 0.35rem 0 -0.55rem;
+  border-radius: var(--radius-sm);
+}
+.landing-footer-bottom a:hover { background: rgba(248,250,252,0.08); color: #f8fafc; }
+.landing-footer-bottom > div { display: flex; flex-wrap: wrap; align-items: center; }
 
 @media (min-width: 480px) {
   .landing-cta-row { flex-direction: row; }
@@ -1673,3 +2005,14 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   .report-card { padding: 0; border: none; }
   .report-columns { grid-template-columns: 1fr 1fr; }
 }
+
+/* Labour-market card — sector earnings with their entry caveat.
+   The caveat is body-weight, not fine print: it is the difference between
+   informing a school-leaver and misleading one. */
+.sector-row { padding: var(--space-3) 0; border-bottom: 1px solid var(--border); }
+.sector-row:last-of-type { border-bottom: none; }
+.sector-row-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
+.sector-name { font-weight: 600; }
+.sector-figure { font-weight: 700; color: var(--text); white-space: nowrap; }
+.sector-per { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-left: 0.2rem; }
+.sector-reality { color: var(--text-secondary); font-size: 0.9rem; margin-top: var(--space-1); max-width: var(--prose-max); }

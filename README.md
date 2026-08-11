@@ -12,6 +12,11 @@ Built as vanilla HTML/CSS/JS — no framework, no build step, no npm install
 required to run it. Works offline after first load, installs to the home
 screen, and runs on low-end Android devices with intermittent connectivity.
 
+> **Verification status is tracked record-by-record in
+> [docs/DATA-VERIFICATION.md](docs/DATA-VERIFICATION.md)** — what
+> "verified" means, the source hierarchy, and the registrar-call
+> protocol for the records that still need a human.
+
 ## ⚠️ Data verification checklist — read before any real launch
 
 **Course fees, employment rates, salaries, and funding amounts/deadlines in

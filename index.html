@@ -77,6 +77,7 @@
       <symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
       <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
       <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+      <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
       <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.3 17.7-1.4 1.4"/><path d="m19.1 4.9-1.4 1.4"/></symbol>
       <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
     </defs>
@@ -90,59 +91,65 @@
   </noscript>
   <div id="app">
     <header class="app-header">
+      <button type="button" class="header-btn nav-back" aria-label="Back to home" onclick="navigateTo('home')"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
       <div class="logo">
         <img class="logo-mark" src="./icons/logo-mark-light-128.png" alt="" aria-hidden="true" width="28" height="28" decoding="async">
-        <span>Njia</span>
+        <span class="logo-lockup">
+          <span class="logo-word">Njia</span>
+          <span class="logo-descriptor">Career Pathways · Kenya</span>
+        </span>
         <span id="header-page-label" class="header-page-label" aria-live="polite"></span>
       </div>
 
-      <nav class="landing-nav" id="landing-nav" aria-label="Site sections">
-        <a href="#" class="landing-nav-link" onclick="scrollToLanding('landing-evidence');return false">Why Njia</a>
-        <a href="#" class="landing-nav-link" onclick="scrollToLanding('landing-process');return false">The Method</a>
+      <nav class="landing-nav" aria-label="Site sections">
         <div class="landing-nav-dropdown">
-          <button type="button" class="landing-nav-link landing-nav-dropdown-btn" id="modules-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleModulesDropdown()">
-            Modules <span class="caret" aria-hidden="true">▾</span>
+          <button type="button" class="landing-nav-link landing-nav-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(this)">
+            Find your path <span class="caret" aria-hidden="true">▾</span>
           </button>
-          <div class="landing-nav-dropdown-menu" id="modules-dropdown-menu" role="menu">
-            <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('discover')">
-              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg></span>
-              <span><strong>Discover</strong><small>20-minute diagnostic across the Four Elements</small></span>
-            </button>
-            <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('design')">
-              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg></span>
-              <span><strong>Design</strong><small>Sketch three futures with the Odyssey Plan</small></span>
-            </button>
-            <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('decide')">
-              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span>
-              <span><strong>Decide</strong><small>Match courses and funding to your budget</small></span>
-            </button>
-            <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('connect')">
-              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
-              <span><strong>Connect</strong><small>Outreach messages for real conversations</small></span>
-            </button>
-            <button type="button" role="menuitem" onclick="closeModulesDropdown();navigateTo('track')">
-              <span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span>
-              <span><strong>Track</strong><small>Quarterly OKRs and an application tracker</small></span>
-            </button>
+          <div class="landing-nav-dropdown-menu" role="menu">
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('discover')"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg></span><span><strong>Discover</strong><small>20-minute diagnostic across the Four Elements</small></span></button>
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('design')"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg></span><span><strong>Design</strong><small>Sketch three futures with the Odyssey Plan</small></span></button>
           </div>
         </div>
-        <a href="#" class="landing-nav-link" onclick="openFaqModal();return false">FAQ</a>
+        <div class="landing-nav-dropdown">
+          <button type="button" class="landing-nav-link landing-nav-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(this)">
+            Make it happen <span class="caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="landing-nav-dropdown-menu" role="menu">
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('decide')"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span><span><strong>Decide</strong><small>Match courses and funding to your budget</small></span></button>
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('connect')"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span><span><strong>Connect</strong><small>Outreach messages for real conversations</small></span></button>
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('track')"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span><span><strong>Track</strong><small>Quarterly OKRs and an application tracker</small></span></button>
+          </div>
+        </div>
+        <div class="landing-nav-dropdown">
+          <button type="button" class="landing-nav-link landing-nav-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(this)">
+            Learn <span class="caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="landing-nav-dropdown-menu" role="menu">
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();goHomeAndScroll('landing-evidence')"><span><strong>Why Njia</strong><small>The evidence base behind the method</small></span></button>
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();goHomeAndScroll('landing-process')"><span><strong>The Method</strong><small>Two tracks, five tools</small></span></button>
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('help')"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg></span><span><strong>Help &amp; FAQ</strong><small>Tutorials, straight answers and a glossary</small></span></button>
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();openMethodologyModal()"><span><strong>Methodology &amp; sources</strong><small>How every figure is arrived at</small></span></button>
+          </div>
+        </div>
+        <a href="#" class="landing-nav-link" onclick="goToSavedCourses();return false">Saved</a>
       </nav>
 
       <div class="header-actions">
         <button type="button" class="btn btn-primary btn-sm landing-cta-header" id="header-cta-btn" onclick="navigateTo('discover')">Start Discovery</button>
         <button type="button" class="header-btn" id="theme-btn" aria-label="Switch colour theme" onclick="toggleTheme()"><svg class="icon" aria-hidden="true"><use href="#i-moon"/></svg></button>
         <button type="button" class="header-btn" id="privacy-btn" aria-label="Privacy and data" onclick="openPrivacyModal()"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></button>
-        <button type="button" class="header-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+        <button type="button" class="header-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()"><svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu"/></svg><svg class="icon icon-close" aria-hidden="true"><use href="#i-x"/></svg></button>
       </div>
     </header>
 
     <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile site menu">
       <a href="#" onclick="scrollAndCloseMenu('landing-evidence');return false">Why Njia</a>
       <a href="#" onclick="scrollAndCloseMenu('landing-process');return false">The Method</a>
-      <p class="mobile-menu-label">Modules</p>
+      <p class="mobile-menu-label">Find your path</p>
       <a href="#" onclick="navigateAndCloseMenu('discover');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg></span> Discover</a>
       <a href="#" onclick="navigateAndCloseMenu('design');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-pen"/></svg></span> Design</a>
+      <p class="mobile-menu-label">Make it happen</p>
       <a href="#" onclick="navigateAndCloseMenu('decide');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span> Decide</a>
       <a href="#" onclick="navigateAndCloseMenu('connect');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span> Connect</a>
       <a href="#" onclick="navigateAndCloseMenu('track');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span> Track</a>
@@ -165,6 +172,7 @@
       <div class="page" id="page-decide"></div>
       <div class="page" id="page-connect"></div>
       <div class="page" id="page-track"></div>
+      <div class="page" id="page-help"></div>
     </main>
 
     <nav class="bottom-nav" aria-label="Main navigation">
@@ -228,6 +236,7 @@
   <script src="./data/institutions.js"></script>
   <script src="./data/courses.js"></script>
   <script src="./data/funding.js"></script>
+  <script src="./data/labour-market.js"></script>
 
   <!-- App shell + modules -->
   <script src="./js/app.js"></script>
@@ -236,6 +245,7 @@
   <script src="./js/decide.js"></script>
   <script src="./js/connect.js"></script>
   <script src="./js/track.js"></script>
+  <script src="./js/help.js"></script>
 
   <script>
     function openAboutModal() {

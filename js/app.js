@@ -24,7 +24,7 @@ const defaultState = () => ({
   // accidentally drop or corrupt unrelated modules' selections. Also holds
   // each module's active sub-tab, so — like Decide's own activeTab — it
   // survives navigating away and back instead of resetting to the first tab.
-  viewFilters: { okrStatus: 'all', okrSort: 'recent', appStatus: 'all', appSort: 'recent', prototypeCluster: null, designActiveTab: 'odyssey', trackActiveTab: 'okrs' }
+  viewFilters: { okrStatus: 'all', okrSort: 'recent', appStatus: 'all', appSort: 'recent', prototypeCluster: null, designActiveTab: 'odyssey', trackActiveTab: 'okrs', helpTab: 'faq' }
 });
 
 // Nested containers whose individual keys should survive a schema change —
@@ -56,11 +56,65 @@ function loadState() {
         merged[key] = Object.assign(defaultState()[key], parsed[key]);
       }
     });
-    return merged;
+    return normalizeState(merged);
   } catch (err) {
     console.warn('Njia: could not read saved state, starting fresh.', err);
     return defaultState();
   }
+}
+
+/* Repair the shape of a loaded state before any module renders from it.
+ *
+ * Njia is an installed PWA that updates itself in place, so a returning user
+ * can arrive carrying state written by an older version whose collections had
+ * a different shape — and a renderer that does `app.steps.every(...)` on an
+ * entry saved before `steps` existed throws, leaving that module a blank page
+ * with no way back except clearing site data (which silently destroys
+ * everything else they saved). Persisted state is untrusted input; validate it
+ * once, here, rather than guarding every read site forever.
+ *
+ * Repair beats discard: an entry missing a field gets the field back and keeps
+ * the user's work. Only entries too malformed to identify are dropped.
+ *
+ * The three helpers below are function declarations, not `const` arrows, on purpose:
+ * loadState() runs at module load (line ~45), which is *above* this point in
+ * source order. `const` bindings sit in the temporal dead zone until execution
+ * reaches them, so arrow versions would throw ReferenceError inside
+ * normalizeState — and loadState's own catch would swallow it and hand back
+ * defaultState(), silently wiping the user's saved work on every single load.
+ */
+function asArray(value) { return Array.isArray(value) ? value : []; }
+function asObjects(value) { return asArray(value).filter((entry) => entry && typeof entry === 'object'); }
+function asStrings(value) { return asArray(value).filter((entry) => typeof entry === 'string'); }
+
+function normalizeState(state) {
+  state.savedCourses = asStrings(state.savedCourses);
+  state.gravityProblems = asObjects(state.gravityProblems);
+  state.prototypeChecklist = asObjects(state.prototypeChecklist);
+  state.mentors = asObjects(state.mentors);
+
+  state.applications = asObjects(state.applications).map((app) => ({
+    ...app,
+    steps: asObjects(app.steps).map((step) => ({ ...step, done: step.done === true }))
+  }));
+
+  state.okrs = asObjects(state.okrs).map((okr) => ({
+    ...okr,
+    keyResults: asObjects(okr.keyResults).map((kr) => ({ ...kr, done: kr.done === true }))
+  }));
+
+  // A plan is identified by its template id; an unrecognised one can't be
+  // rendered meaningfully, so it goes. `years` is padded, never truncated —
+  // shortening it would delete something the user typed.
+  state.odysseyPlans = asObjects(state.odysseyPlans)
+    .filter((plan) => typeof plan.id === 'string')
+    .map((plan) => {
+      const years = asArray(plan.years).map((year) => (typeof year === 'string' ? year : ''));
+      while (years.length < 5) years.push('');
+      return { ...plan, years };
+    });
+
+  return state;
 }
 
 function saveState() {
@@ -81,7 +135,7 @@ function resetState() {
 }
 
 /* ---------- Routing ---------- */
-const PAGES = ['home', 'discover', 'design', 'decide', 'connect', 'track'];
+const PAGES = ['home', 'discover', 'design', 'decide', 'connect', 'track', 'help'];
 
 function navigateTo(pageId) {
   if (!PAGES.includes(pageId)) return;
@@ -92,7 +146,7 @@ function navigateTo(pageId) {
   renderRoute({ focusHeading: true });
 }
 
-const PAGE_LABELS = { home: '', discover: 'Discover', design: 'Design', decide: 'Decide', connect: 'Connect', track: 'Track' };
+const PAGE_LABELS = { home: '', discover: 'Discover', design: 'Design', decide: 'Decide', connect: 'Connect', track: 'Track', help: 'Help' };
 
 // Nudge toward Track when there's saved-but-unstarted work — a subtle
 // signal, not a notification count. Reactive to njia-state-changed too,
@@ -113,18 +167,38 @@ function updateHeaderCta() {
   if (mobileBtn) mobileBtn.textContent = `${text} →`;
 }
 
-/* ---------- Landing header: nav dropdown + mobile menu ---------- */
-function toggleModulesDropdown() {
-  const btn = document.getElementById('modules-dropdown-btn');
-  const menu = document.getElementById('modules-dropdown-menu');
-  if (!btn || !menu) return;
-  const isOpen = menu.classList.toggle('open');
-  btn.setAttribute('aria-expanded', String(isOpen));
+/* ---------- Header: grouped nav dropdowns + mobile menu ---------- */
+function closeNavDropdowns() {
+  document.querySelectorAll('.landing-nav-dropdown-menu.open').forEach((m) => m.classList.remove('open'));
+  document.querySelectorAll('.landing-nav-dropdown-btn[aria-expanded="true"]').forEach((b) => b.setAttribute('aria-expanded', 'false'));
 }
 
-function closeModulesDropdown() {
-  document.getElementById('modules-dropdown-menu')?.classList.remove('open');
-  document.getElementById('modules-dropdown-btn')?.setAttribute('aria-expanded', 'false');
+function toggleNavDropdown(btn) {
+  const menu = btn.parentElement?.querySelector('.landing-nav-dropdown-menu');
+  if (!menu) return;
+  const wasOpen = menu.classList.contains('open');
+  closeNavDropdowns();
+  if (!wasOpen) {
+    menu.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+
+// Kept as an alias — navigateTo() and the document click handler call it.
+function closeModulesDropdown() { closeNavDropdowns(); }
+
+/* Learn-menu links target landing sections; from a module page, go home
+ * first and scroll once the landing has rendered. */
+function goHomeAndScroll(id) {
+  if (AppState.currentPage !== 'home') navigateTo('home');
+  requestAnimationFrame(() => scrollToLanding(id));
+}
+
+/* The Application Clock CTA and funding links land directly on the
+ * Decide module's Funding tab. */
+function goToFundingTab() {
+  AppState.decideFilters.activeTab = 'funding';
+  navigateTo('decide');
 }
 
 function toggleMobileMenu() {
@@ -133,7 +207,6 @@ function toggleMobileMenu() {
   if (!menu || !toggle) return;
   const isOpen = menu.classList.toggle('open');
   toggle.setAttribute('aria-expanded', String(isOpen));
-  toggle.innerHTML = icon(isOpen ? 'x' : 'menu');
 }
 
 function closeMobileMenu() {
@@ -141,7 +214,7 @@ function closeMobileMenu() {
   const toggle = document.getElementById('nav-toggle');
   if (!menu || !menu.classList.contains('open')) return;
   menu.classList.remove('open');
-  if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.innerHTML = icon('menu'); }
+  if (toggle) toggle.setAttribute('aria-expanded', 'false');
 }
 
 function navigateAndCloseMenu(page) {
@@ -186,7 +259,8 @@ function renderRoute({ focusHeading = false } = {}) {
     design: window.renderDesignPage,
     decide: window.renderDecidePage,
     connect: window.renderConnectPage,
-    track: window.renderTrackPage
+    track: window.renderTrackPage,
+    help: window.renderHelpPage
   };
   const renderFn = renderers[AppState.currentPage];
   if (typeof renderFn === 'function') renderFn();
@@ -331,7 +405,7 @@ function emptyState(iconName, title, description, ctaLabel, ctaOnClick) {
   return `
     <div class="empty-state">
       <div class="icon-disc" aria-hidden="true">${icon(iconName)}</div>
-      <h3>${escapeHtml(title)}</h3>
+      <h2>${escapeHtml(title)}</h2>
       <p>${escapeHtml(description)}</p>
       ${ctaLabel ? `<button type="button" class="btn btn-primary" style="width:auto;display:inline-flex" onclick="${ctaOnClick}">${escapeHtml(ctaLabel)}</button>` : ''}
     </div>`;
@@ -353,9 +427,14 @@ const LANDING_EVIDENCE = [
     source: 'Source: KUCCPS 2025/26 placement results, July 2026.'
   },
   {
-    num: '15.25%', label: 'youth unemployment (ages 15–24), 2025',
-    body: 'A mismatched or unresearched course choice does not just cost fees — it compounds an already difficult youth labour market.',
-    source: 'Source: World Bank, modeled ILO estimate (via Statista), 2025.'
+    // Deliberately shows the range, not one number. Kenyan youth unemployment
+    // is reported anywhere from ~12% to ~67% purely on definition — age band,
+    // and whether "unemployed" means the strict ILO test or the far broader
+    // "not in adequate employment". A platform that picks the scariest figure
+    // to make its own case is doing the thing Njia exists to correct.
+    num: '15%–67%', label: 'youth unemployment, depending on what you count',
+    body: 'The strict measure (ages 15–24, actively job-hunting) is about 15%. The fresh-graduate band, 20–29, runs near 32%. The broadest measure — ages 15–34 without adequate employment, including underemployment and informal work below skill level — reaches around 67%. All three are real; they answer different questions. Njia shows you which is which rather than picking the one that makes the strongest headline.',
+    source: 'Sources: modelled ILO estimate, 2025; Kenyan labour force analysis; broad-measure reporting of KNBS data.'
   },
   {
     num: '8,915', label: 'degree-qualifiers who chose TVET instead',
@@ -378,14 +457,14 @@ const LANDING_PROCESS = [
 function renderNjiaNumbersCard() {
   const clusterCount = Object.keys(CLUSTERS).length;
   const countyCount = new Set(INSTITUTIONS.map((i) => i.county)).size;
-  const verifiedCount = COURSES.filter((c) => c.data_confidence === 'verified').length
+  const verifiedCount = COURSES.filter((c) => c.fees_confidence === 'verified').length
     + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
   const totalRecords = COURSES.length + FUNDING_SOURCES.length;
 
   return `
     <div class="landing-numbers-card">
       <span class="landing-numbers-eyebrow">Njia in numbers</span>
-      <p class="landing-numbers-title">What's actually in the app right now</p>
+      <h2 class="landing-numbers-title">What's actually in the app right now</h2>
       <div class="landing-numbers-grid">
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${COURSES.length}</span>
@@ -401,10 +480,45 @@ function renderNjiaNumbersCard() {
         </div>
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${verifiedCount}/${totalRecords}</span>
-          <span class="landing-numbers-label">records independently verified</span>
+          <span class="landing-numbers-label">records with fees or terms cross-checked against a named source</span>
         </div>
       </div>
       <p class="landing-numbers-note">Computed from the dataset this app actually ships — not marketing copy. See Methodology for what "verified" means.</p>
+    </div>
+  `;
+}
+
+/* The Application Clock — Kanda's "Regulatory Clock" pattern powered by
+ * Njia's verified funding records: real deadlines, sourced and dated. */
+const LANDING_TOOLS = {
+  find: [
+    { page: 'discover', icon: 'compass', title: 'Discover', body: 'A 20-minute adaptive diagnostic across the Four Elements — with a signal-strength readout, not just a label.' },
+    { page: 'design', icon: 'pen', title: 'Design', body: 'Sketch three five-year futures side by side, then name the constraints you can and cannot design around.' }
+  ],
+  make: [
+    { page: 'decide', icon: 'chart', title: 'Decide', body: 'Courses and funding matched to your grades and budget — every match score explains itself.' },
+    { page: 'connect', icon: 'users', title: 'Connect', body: 'Respectful outreach messages and a safety checklist for talking to people already doing the work.' },
+    { page: 'track', icon: 'trend', title: 'Track', body: 'Quarterly OKRs and an application tracker, so the plan survives contact with the term calendar.' }
+  ]
+};
+
+function renderApplicationClock() {
+  const rows = FUNDING_SOURCES
+    .filter((f) => f.data_confidence === 'verified' && f.application_deadline)
+    .slice(0, 4);
+  return `
+    <div class="landing-clock-card">
+      <p class="landing-clock-title">The Application Clock</p>
+      ${rows.map((f) => `
+        <div class="landing-clock-row">
+          ${icon('calendar')}
+          <div>
+            <div class="landing-clock-name">${escapeHtml(f.name)}</div>
+            <div class="landing-clock-when">${escapeHtml(f.application_deadline)}</div>
+          </div>
+        </div>
+      `).join('')}
+      <button type="button" class="landing-clock-btn" onclick="goToFundingTab()">Open all funding deadlines →</button>
     </div>
   `;
 }
@@ -421,6 +535,7 @@ function renderHomePage() {
       <section class="landing-hero">
         <div class="landing-hero-main">
           <img class="landing-hero-logo" src="./icons/logo-mark-light-256.png" alt="Njia" width="64" height="64" decoding="async">
+          <p class="landing-hero-eyebrow">Career pathway intelligence · Kenya</p>
           <span class="status-pill mb-2"><span class="dot" aria-hidden="true"></span>Research-backed method · Real Kenyan data · Always free</span>
           <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
           <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
@@ -437,7 +552,7 @@ function renderHomePage() {
           ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">You're matched as <strong style="color:var(--landing-ink)">${CLUSTERS[primaryCluster].name}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
         </div>
         <div class="landing-hero-aside">
-          ${renderNjiaNumbersCard()}
+          ${renderApplicationClock()}
         </div>
       </section>
 
@@ -488,20 +603,48 @@ function renderHomePage() {
       </section>
 
       <section class="landing-block" id="landing-process">
-        <span class="landing-eyebrow">THE NJIA METHOD</span>
-        <h2 class="landing-h2">Five steps from confusion to a funded plan</h2>
-        <p class="landing-h2-sub">Each step is a full module in the app — open any of them directly.</p>
-        <div class="landing-process-list">
-          ${LANDING_PROCESS.map((p, i) => `
-            <div class="landing-process-card">
-              <div class="landing-process-num">${i + 1}</div>
-              <div>
-                <h3>${escapeHtml(p.title)}</h3>
-                <p>${escapeHtml(p.body)}</p>
-                <a href="#" class="landing-link" onclick="navigateTo('${p.page}');return false">Open ${p.page[0].toUpperCase()}${p.page.slice(1)} →</a>
-              </div>
-            </div>
-          `).join('')}
+        <span class="landing-eyebrow">TWO TRACKS</span>
+        <h2 class="landing-h2">Which side of the decision are you on?</h2>
+        <p class="landing-h2-sub">Every tool is free, works offline, and computes on your device. Start wherever your question is.</p>
+        <div class="landing-track-grid">
+          <div class="landing-track-card">
+            <span class="landing-track-eyebrow">Find your path</span>
+            <h3>Still deciding what you're for</h3>
+            <p>A research-backed diagnostic and a life-design canvas — for when the question is "which direction?", not "which college?".</p>
+            <span class="landing-track-count">2 tools →</span>
+          </div>
+          <div class="landing-track-card track-make">
+            <span class="landing-track-eyebrow">Make it happen</span>
+            <h3>Direction chosen, now execute</h3>
+            <p>Courses, fees and funding matched to your grades and budget, outreach to real people, and follow-through tracking.</p>
+            <span class="landing-track-count">3 tools →</span>
+          </div>
+        </div>
+
+        <div class="landing-tool-section">
+          <span class="landing-eyebrow" style="color:var(--primary-dark)">FIND YOUR PATH</span>
+          <div class="landing-tool-grid">
+            ${LANDING_TOOLS.find.map((t) => `
+              <button type="button" class="landing-tool-card" onclick="navigateTo('${t.page}')">
+                <span class="icon-disc" aria-hidden="true">${icon(t.icon)}</span>
+                <span><h3>${escapeHtml(t.title)}</h3><p>${escapeHtml(t.body)}</p></span>
+                <span class="landing-tool-arrow" aria-hidden="true">→</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="landing-tool-section">
+          <span class="landing-eyebrow" style="color:var(--success-ink)">MAKE IT HAPPEN</span>
+          <div class="landing-tool-grid">
+            ${LANDING_TOOLS.make.map((t) => `
+              <button type="button" class="landing-tool-card" onclick="navigateTo('${t.page}')">
+                <span class="icon-disc" aria-hidden="true">${icon(t.icon)}</span>
+                <span><h3>${escapeHtml(t.title)}</h3><p>${escapeHtml(t.body)}</p></span>
+                <span class="landing-tool-arrow" aria-hidden="true">→</span>
+              </button>
+            `).join('')}
+          </div>
         </div>
       </section>
 
@@ -521,14 +664,21 @@ function renderHomePage() {
         </div>
       </section>
 
+      <section class="landing-block" id="landing-privacy">
+        <span class="landing-eyebrow">PRIVACY BY ARCHITECTURE</span>
+        <h2 class="landing-h2">We cannot see your answers, because there is nowhere for them to go.</h2>
+        <p class="landing-h2-sub">No accounts, no tracking, no analytics. Everything you enter — questionnaire answers, plans, saved courses — lives in this browser's local storage and is computed on your device. The only exception: the optional Feedback and Partner forms below, sent to us only if you submit them. Use "Clear My Data" (the header lock) any time, especially on a shared phone.</p>
+        <div class="btn-row" style="max-width:420px">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openPrivacyModal()">Privacy &amp; your data</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openMethodologyModal()">Method &amp; sources</button>
+        </div>
+        <div class="mt-3">${renderNjiaNumbersCard()}</div>
+      </section>
+
       <section class="landing-dark landing-final-cta">
         <h2 class="landing-h2">Start with clarity. It's free.</h2>
         <p class="landing-sub">Your answers never leave your device. No account, no cost, about 20 minutes.</p>
         <button type="button" class="btn btn-gold" style="width:auto;display:inline-flex;margin-top:0.5rem" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
-        <div class="landing-guarantee-box">
-          <span aria-hidden="true">${icon('lock')}</span>
-          <span><strong>Privacy guarantee.</strong> Everything you enter — questionnaire answers, plans, saved courses — stays in this browser's local storage, not on a server. (The only exception: the optional Feedback and Partner forms in the footer, sent to us only if you submit them.) Use "Clear My Data" (header lock icon) any time, especially on a shared device.</span>
-        </div>
       </section>
 
       <footer class="landing-footer">
@@ -543,7 +693,8 @@ function renderHomePage() {
           </div>
           <div class="landing-footer-col">
             <p class="footer-col-label">Learn</p>
-            <button type="button" onclick="openFaqModal()">FAQ</button>
+            <button type="button" onclick="navigateTo('help')">Help, tutorials &amp; glossary</button>
+            <button type="button" onclick="openFaqModal()">Quick FAQ</button>
             <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
             <button type="button" onclick="openAboutModal()">About Njia</button>
             <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
@@ -560,10 +711,33 @@ function renderHomePage() {
             <button type="button" onclick="openTermsModal()">Terms of Use</button>
           </div>
         </div>
-        <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Course, fee and funding data inside the app is illustrative pending verification — see Methodology.</p>
+        <section class="footer-learn">
+          <p class="footer-col-label">Learn the ground</p>
+          <div class="footer-learn-grid">
+            <button type="button" class="footer-learn-tile" onclick="navigateTo('help')">
+              <strong>Help &amp; tutorials</strong><span>Step-by-step walkthroughs for every module</span>
+            </button>
+            <button type="button" class="footer-learn-tile" onclick="AppState.viewFilters.helpTab='glossary';navigateTo('help')">
+              <strong>Glossary</strong><span>KUCCPS, HEF, TVETA and the rest, in plain language</span>
+            </button>
+            <button type="button" class="footer-learn-tile" onclick="openMethodologyModal()">
+              <strong>Method &amp; sources</strong><span>How every figure is arrived at, and its limits</span>
+            </button>
+            <button type="button" class="footer-learn-tile" onclick="goToFundingTab()">
+              <strong>Application clock</strong><span>Funding windows, with the current cycle noted</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="footer-about">
+          <p class="footer-col-label">About Njia</p>
+          <p>Njia is an independent, free career-pathway tool for Kenyan youth — unaffiliated with KUCCPS, HELB or any institution. It fuses career psychology, life design and life-portfolio planning with real Kenyan course, fee and funding data, and computes everything on your device. Institution and funder names appear because they are real public bodies, not because of any partnership. Data marked ✓ Verified has been cross-checked against a named public source; everything else is illustrative and should be confirmed before you decide.</p>
+        </section>
+
+        <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Fees and funding terms are cross-checked against named, dated sources where the badge says so. Employment rates and salaries are estimates, not measurements — Kenya publishes no graduate outcomes per course. See Methodology.</p>
         <div class="landing-footer-bottom">
           <div>
-            <a href="#" onclick="openAboutModal();return false">About</a><a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="openFaqModal();return false">FAQ</a>
+            <a href="#" onclick="openAboutModal();return false">About</a><a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="navigateTo('help');return false">Help</a><a href="#" onclick="openFaqModal();return false">FAQ</a>
           </div>
           <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
         </div>
@@ -601,7 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (e) => {
     const menu = document.getElementById('mobile-menu');
     const toggle = document.getElementById('nav-toggle');
-    if (menu && menu.classList.contains('open') && !menu.contains(e.target) && e.target !== toggle) {
+    if (menu && menu.classList.contains('open') && !menu.contains(e.target) && !toggle?.contains(e.target)) {
       closeMobileMenu();
     }
     if (!e.target.closest('.landing-nav-dropdown')) closeModulesDropdown();

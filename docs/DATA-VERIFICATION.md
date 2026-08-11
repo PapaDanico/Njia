@@ -1044,3 +1044,40 @@ found**. Njia therefore quotes the STEM figure only and states the gap — a
 system-wide total would be a guess dressed as arithmetic. A test asserts the
 count is attributed to STEM specifically, that the missing counts are admitted,
 and **fails if any system-wide total is ever asserted**.
+
+## Re-testing the negative that the sorting restriction rests on
+
+Every `outcomes_confidence` in the catalogue is `illustrative` because Kenya
+publishes no per-course graduate outcomes. That negative is load-bearing: it is
+the reason the Decide sort offers no outcome-based ordering and the comparison
+table crowns no winner on employment or salary.
+
+A negative finding reached by a method that was itself limited is worth exactly
+as much as the method. Since domain-restricted search turned out to reach
+publishers that direct fetch could not — see the correction in the CBE section —
+the finding was **re-tested in August 2026** against KUCCPS, TVETA, KNBS, the
+Commission for University Education, KIPPRA and the Ministry of Education.
+
+**It holds.** No Kenyan dataset giving employment rate or earnings *by course or
+programme* was found. What the publishers carry is enrolment and programme
+listings, not outcomes.
+
+### The trap in those results, recorded because it is an easy mistake
+
+The search surfaced tracer studies with precise, quotable employment figures —
+for example **"97% of graduates employed, 75% within one month, 86% in permanent
+positions."**
+
+That study is **Tanzanian** — nursing graduates of Kairuki University in Dar es
+Salaam. Others returned were Ethiopian and Indonesian. They are real studies
+with real numbers, they appear in a search scoped to Kenyan education
+publishers, and dropping one into a Kenyan course record would produce exactly
+the failure this dataset was rebuilt to remove: a foreign, single-institution
+figure rendering as though it described a Kenyan programme.
+
+Njia takes none of them. The absence of Kenyan per-course outcome data is a fact
+about Kenya, not a gap to be filled with the nearest available number.
+
+*This re-test changes no data. It is recorded because the restriction it
+supports is a deliberate reduction in what the app will do, and a restriction is
+only as defensible as the evidence that it is still necessary.*

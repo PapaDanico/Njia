@@ -187,5 +187,24 @@ function loadTrack() {
   });
   ctx.globalThis = ctx;
   vm.runInContext(fs.readFileSync(path.join(root, 'js/track.js'), 'utf8'), ctx, { filename: 'js/track.js' });
-  return { applicationStatus: vm.runInContext('applicationStatus', ctx) };
+  return { applicationStatus: vm.runInContext('applicationStatus', ctx), okrStatus: vm.runInContext('okrStatus', ctx) };
 }
+
+/* ---------- an OKR with no key results is not on track ---------- */
+
+test('an OKR with no key results reports needs-key-results, never on-track', () => {
+  // Same shape as the empty-steps application bug, on its sibling. The creation
+  // form requires a key result, so this only arises from state saved before
+  // `keyResults` existed — which normalizeState() repairs to an empty array.
+  // Without the guard such an OKR reads "on-track", can never reach "done"
+  // because there is nothing to complete, and flips to "at-risk" after 30 days
+  // with nothing the user can do to move it.
+  const { okrStatus } = loadTrack();
+  const old = new Date(Date.now() - 60 * 864e5).toISOString();
+  assert.equal(okrStatus({ id: 'o1', keyResults: [], createdAt: old }), 'needs-key-results');
+  assert.equal(okrStatus({ id: 'o2', createdAt: old }), 'needs-key-results', 'a missing array must not throw');
+  assert.equal(okrStatus({ id: 'o3', keyResults: 'nope', createdAt: old }), 'needs-key-results');
+  assert.equal(okrStatus({ id: 'o4', keyResults: [{ done: true }], createdAt: old }), 'done');
+  assert.equal(okrStatus({ id: 'o5', keyResults: [{ done: false }], createdAt: old }), 'at-risk');
+  assert.equal(okrStatus({ id: 'o6', keyResults: [{ done: false }], createdAt: new Date().toISOString() }), 'on-track');
+});

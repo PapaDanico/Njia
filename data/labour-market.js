@@ -120,6 +120,142 @@ const INFORMAL_ECONOMY = {
   reading: 'Five in six working Kenyans are in the informal sector, and it absorbed 87% of last year\'s new jobs. Formal salary figures describe the smaller share. Plan for a pathway that works either way — a qualification that lets you be hired *and* lets you trade on your own account is worth more here than one that only does the first.'
 };
 
+/* RECOGNITION OF PRIOR LEARNING — the route for people who already have the skill.
+ *
+ * Njia's entire model assumes you are choosing a course. For a large share of
+ * the people it is built for, that is the wrong question. Kenya's informal
+ * sector holds 83.8% of the workforce — mechanics, masons, tailors, welders,
+ * cooks — many of whom are already competent and simply have no paper that says
+ * so.
+ *
+ * This closes a loop the rest of this file already half-draws:
+ *
+ *   1. Five in six working Kenyans are informal (INFORMAL_ECONOMY).
+ *   2. A *certified* artisan earns Ksh 2,500-3,000 a day; uncertified work pays
+ *      a fraction of it (SKILLED_TRADES). The certificate is what earns the rate.
+ *   3. RPL is how you get that certificate for skills you already have, without
+ *      going back to school for years you cannot afford.
+ *
+ * That is the single most useful thing this platform can tell a working
+ * twenty-five-year-old with ten years on the tools and nothing to show for it.
+ */
+const PRIOR_LEARNING = {
+  source: 'TVETA / KNQA Recognition of Prior Learning Policy Framework (June 2021) and ILO reporting on RPL implementation, cross-reported August 2026',
+  whatItIs: 'A structured assessment that certifies skills, knowledge and competence you gained through work, informal training or life experience, and converts them toward a formal qualification.',
+  whoItIsFor: 'Artisans, technicians and tradespeople already working — the jua kali sector — who are competent but hold no certificate.',
+  whoRunsIt: 'Led by TVETA with the Kenya National Qualifications Authority and ILO support. The push came from the Federation of Kenya Employers and the Kenya Jua Kali Association, who identified the need to validate informal skills.',
+  scaleSoFar: 'Over 600 certificates awarded under the programme so far — real but early, so expect to have to ask for it rather than find it advertised.',
+  whyItMatters: 'A certified artisan commands Ksh 2,500-3,000 a day; uncertified work pays a fraction of the same job. If you already have the skill, certification is the shortest distance between what you can do and what you get paid for it.',
+  honestLimit: 'This is a young programme. Coverage across trades and counties is uneven, and you may need to approach TVETA or an accredited assessment centre directly. It is not yet a national service you can simply sign up to online.',
+  clusters: ['tech', 'business', 'creator', 'carer']
+};
+
+/* WHERE THE ROOM ACTUALLY IS — the mechanism behind the capacity paradox.
+ *
+ * EDUCATION_PIPELINE records that middle-level colleges hold over 1.1 million
+ * places against 293,869 placements. This is how that happens in practice.
+ *
+ * In the 2026 cycle, medicine, nursing, pharmacy and engineering were removed
+ * from the KUCCPS portal outright once their slots were exhausted in the first
+ * window. Those courses attract the most applicants nationally and have the
+ * least government-funded capacity — and the limit is not arbitrary: regulators
+ * (the Medical Practitioners and Dentists Council, the Engineers Board) cap
+ * intake so the ratio of students to laboratory equipment and lecturers stays
+ * workable. Meanwhile roughly 1.1 million vacancies sat open across national
+ * polytechnics and specialised training institutions.
+ *
+ * The distinction a user needs: degree nursing is among the most oversubscribed
+ * programmes in the country, while the KMTC diploma route into the same
+ * profession runs at campuses in 45 counties and is reachable. Same field,
+ * completely different odds. This is not an argument for lowering ambition — it
+ * is an argument for knowing which door is open before the window closes.
+ */
+const COMPETITION_REALITY = {
+  source: 'KUCCPS 2026 placement cycle reporting, cross-reported August 2026',
+  fillFirst: ['Medicine and surgery', 'Nursing (degree)', 'Pharmacy', 'Architecture', 'Engineering'],
+  whatHappens: 'These were removed from the portal entirely once slots were exhausted in the first application window, which closed on 6 May.',
+  whyCapped: 'Intake is capped by professional regulators — the Medical Practitioners and Dentists Council, the Engineers Board — so that students-per-lecturer and students-per-laboratory ratios stay workable. The cap protects the quality of the qualification you would be getting.',
+  whereTheRoomIs: 'Roughly 1.1 million vacancies remained across national polytechnics and specialised training institutions.',
+  theSameFieldTwice: 'Degree nursing is among the most oversubscribed programmes in the country. The KMTC diploma route into the same profession runs at campuses in 45 counties and is reachable. Same field, completely different odds.',
+  action: 'Apply early — the competitive programmes close in the first window, not at the published deadline. And put a reachable second and third choice on the form rather than three versions of the same long shot.'
+};
+
+/* HOW DEGREE PLACEMENT ACTUALLY WORKS — and why a mean grade is not the answer.
+ *
+ * Njia stores a `min_grade` per course and tells the user whether they meet it.
+ * For certificates and diplomas that is close enough. For degrees it is not,
+ * and the gap matters:
+ *
+ *   KUCCPS places degree applicants on WEIGHTED CLUSTER POINTS — computed from
+ *   performance in the four subjects that specific programme requires, measured
+ *   against the best candidates, to three decimal places. Every programme sits
+ *   in one of about 18-20 subject clusters.
+ *
+ *   A CUT-OFF POINT is not a threshold set in advance. It is the cluster score
+ *   of the LAST student competitively placed in that programme last cycle. It
+ *   moves every year with demand, institutional capacity and how the cohort
+ *   performed.
+ *
+ * Two consequences a student needs stated plainly. Meeting the mean grade makes
+ * you eligible to apply, not placed. And chasing last year's cut-off is chasing
+ * a number that no longer exists — it was an outcome, not a target.
+ */
+const PLACEMENT_MECHANICS = {
+  source: 'KUCCPS placement guidance and 2026 cycle explainers, cross-reported August 2026',
+  meanGradeRole: 'The mean grade (C+ and above for degrees) determines whether you may apply at all.',
+  clusterPointsRole: 'Placement itself is decided on weighted cluster points — your performance in the four subjects that programme requires, ranked against every other applicant, to three decimal places.',
+  cutOffTruth: 'A cut-off point is the cluster score of the last student placed in that programme last cycle, not a bar set in advance. It changes every year with demand, capacity and cohort performance.',
+  doesNotGuarantee: 'Meeting the cut-off does not guarantee placement — programme capacity and competition still decide.',
+  practicalAdvice: 'Do not compute cluster points by hand. The KUCCPS student portal calculates yours and shows them directly. Use last year\'s cut-offs to gauge how competitive a programme is, never as a score to aim at.'
+};
+
+/* THE STRUCTURAL CHANGE UNDER NJIA'S FEET.
+ *
+ * Kenya's first competency-based cohort entered senior school in January 2026.
+ * Under 8-4-4 every learner followed a broadly similar curriculum to KCSE and
+ * chose afterwards — which is the world Njia was designed for. Under CBE the
+ * learner picks one of three pathways at Grade 10, on their KJSEA results, and
+ * that choice shapes the subjects they take, the skills they build and the
+ * courses open to them at Grade 12.
+ *
+ * The decision Njia exists to support has moved roughly three years earlier.
+ * That is not a data point, it is a scope question for the platform, and it is
+ * recorded here rather than in a strategy document because the catalogue and
+ * the cluster model both have to answer it eventually.
+ */
+const CBE_PATHWAYS = {
+  source: 'Ministry of Education CBE senior school framework and 2026 transition coverage, cross-reported August 2026',
+  liveFrom: 'January 2026 — the first Grade 10 cohort',
+  decisionPoint: 'Grade 10, at roughly age 14–15, on KJSEA results',
+  pathways: [
+    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', clusters: ['tech', 'numbers'] },
+    { name: 'Social Sciences', covers: 'Humanities, business, languages and policy-facing subjects', clusters: ['people', 'business', 'carer'] },
+    { name: 'Arts and Sports Science', covers: 'Creative, performance and sports subjects', clusters: ['creator'] }
+  ],
+  commonCore: 'English, Kiswahili or Kenyan Sign Language, community service learning and physical education are taken by everyone, alongside three pathway subjects.',
+  implication: 'A Grade 10 pathway choice now narrows what is reachable at Grade 12. Njia currently meets people after KCSE, which under this system is after the decisive choice has already been made.'
+};
+
+/* THE PLACEMENT CALENDAR. Dates, not prose, so the app can work out what is
+ * actually open today rather than shipping a claim that quietly goes stale.
+ * Every window below is for the 2026 cycle. */
+const PLACEMENT_CALENDAR = [
+  { name: 'KUCCPS main application (degree, diploma, certificate, TVET)', opens: '2026-04-07', closes: '2026-05-06',
+    note: 'The main window for the 2025 KCSE cohort.' },
+  { name: 'KUCCPS second call — revise your choices', opens: '2026-05-16', closes: '2026-05-22',
+    note: 'For applicants not placed in the first round.' },
+  { name: 'KMTC March intake application', opens: '2026-01-07', closes: '2026-01-27',
+    note: 'KMTC runs its own intake cycles through KUCCPS.' },
+  { name: 'Inter-institutional transfer', opens: '2026-06-01', closes: '2026-08-14',
+    note: 'If you were placed somewhere you cannot take up, this is the route to move.' },
+  { name: 'Kenya Utalii College (Ronald Ngala, Kilifi)', opens: '2026-06-01', closes: '2026-08-23',
+    note: 'Separate deadline from the main cycle.' },
+  { name: 'KMTC September intake', opens: '2026-07-01', closes: '2026-09-30',
+    note: 'Opens after university placement completes — a second chance for the 2025 cohort.' },
+  { name: 'TVET placement (continuous)', opens: '2026-05-01', closes: '2026-12-31',
+    note: 'TVET admission is continuous rather than a single annual exercise, and colleges report from May. This is the door that stays open longest.' }
+];
+
 /* THE YARDSTICK. Every figure in this file should be read against this.
  * Regulation of Wages (General) (Amendment) Order 2026, Gazette Supplement
  * No. 128, Legal Notices 95 and 96, in effect from 1 May 2026. */
@@ -195,6 +331,59 @@ const LOAN_REALITY = {
   averageYearsToFirstJob: 5,
   theTrap: 'Grace runs 12 months. The penalty for not starting is Ksh 5,000 a month — more than three times the Ksh 1,500 minimum payment HELB accepts from someone unemployed or underemployed. A graduate who takes the average five years to find work, and does nothing, is exposed to years of penalties that dwarf the payment that would have prevented them.',
   theAction: 'If you borrow, start paying the Ksh 1,500 minimum the month grace ends, employed or not. It is the single cheapest thing you can do with this information.'
+};
+
+/* THE GAP LEFT BY NJIA'S OWN HEADLINE FINDING.
+ *
+ * INFORMAL_ECONOMY says 83.8% of Kenyan workers are informal and 87.2% of
+ * last year's new jobs were too. That is a statement that most readers of
+ * this platform will create their own work rather than be hired into it.
+ * Njia then said nothing whatsoever about capitalising yourself — which
+ * left the single most likely path unserved.
+ *
+ * The central correction is that the Hustler Fund, which is what almost
+ * everyone names first, is not business capital. The average loan is about
+ * Ksh 300 on a 14-day clock. It is a consumption instrument, and research
+ * reads its scale as a measure of precarity rather than of enterprise.
+ *
+ * On the default rate: published figures range from 15% to 64% and both
+ * are defensible, because they measure different things — share of VALUE
+ * currently unpaid versus share of BORROWERS who have ever fallen behind.
+ * Njia states both denominators rather than picking the number that suits
+ * the argument, because a reader who has seen one headline needs to know
+ * why they have also seen the other.
+ *
+ * YEDF is the instrument that actually finances a business. It is
+ * interest-free, and it is gated on a group and a registration certificate
+ * rather than on a credit score — which is the part worth knowing early,
+ * because assembling five people and a registration takes months.
+ */
+const ENTERPRISE_CAPITAL = {
+  source: 'Hustler Fund published terms and disbursement reporting; Youth Enterprise Development Fund (youthfund.go.ke) loan products and eligibility; Kenyan economic analysis of Hustler Fund outcomes; cross-reported August 2026',
+  whyThisIsHere: 'Most new work in Kenya is self-created, not hired. If that is where you are heading, the question is not which employer — it is what you can raise, and on what terms.',
+  theMisconception: 'The Hustler Fund is the first thing most people name, and it is not business capital. The average loan is around Ksh 300, repayable in 14 days.',
+  hustlerFund: {
+    averageLoanKes: 300,
+    productRangeKes: [500, 50000],
+    annualInterestPct: 8,
+    tenureDays: 14,
+    savingsWithheldPct: 5,
+    reading: 'At 8% a year it is the cheapest credit in the country, and 5% of what you borrow is held as savings, which is genuinely useful. But a Ksh 300 loan on a fortnight clock smooths a bad week; it does not buy stock, tools or a lease. Analysts read the average ticket size as a measure of how thin household margins are, not as evidence of enterprise.',
+    defaultDispute: 'You will see the default rate quoted as anything from 15% to 64%. Both are real numbers measuring different things: roughly 15-20% of the value lent is currently unpaid, while the large majority of the millions who have ever borrowed have fallen behind at some point. Neither figure tells you whether it is right for you — the tenure does.'
+  },
+  realCapital: {
+    name: 'Youth Enterprise Development Fund',
+    established: 2006,
+    ageRange: [18, 34],
+    startupLoanKes: 100000,
+    expansionFromKes: 200000,
+    expansionCeilingKes: 1000000,
+    interest: 'Interest-free. A one-time 5% management fee is deducted from the approved amount before disbursement.',
+    theGate: 'Group loans need at least five members, 70% of them youth, youth leadership, an active bank account, and a registration certificate from the Registrar of Societies or the Social Services department. Individuals need a registered business.',
+    whereToApply: 'At your sub-county or constituency headquarters, at any Huduma Centre, or through youthfund.go.ke. An officer at constituency level takes you through vetting and training.'
+  },
+  theAdvice: 'The gate is a group and a registration certificate, not a credit score. Both take months to assemble, so start them while you are still studying rather than the week you need the money.',
+  honestLimit: 'Government announced a Biashara Fund merging the Youth, Uwezo and Women Enterprise funds into one. As of 2026 the individual funds are still operating and the consolidation is unfinished, so expect the branding and the forms to change under you. Confirm current terms at the constituency office before planning around a figure.'
 };
 
 /* Whole-economy anchors, 2025. Same source and same provenance caveat. */
@@ -590,6 +779,61 @@ const SKILLS_MISMATCH = {
   sources: ['British Council, Higher Education Graduate Employability (Kenya)', 'Kenyan university employability research, cross-reported 2023–2026']
 };
 
+/* SKILLS_MISMATCH names "an attachment" as one of the things that closes the
+ * employability gap, and until now Njia left it at that — as though it were a
+ * thing that simply happens to you. It is not. Industrial attachment is a
+ * *mandatory* component of most university and TVET programmes, it is
+ * competitive, and students routinely discover this in the term it is due.
+ *
+ * The actionable part is that there is a single national portal for it, run
+ * by NITA, and almost nobody entering a course is told about it at the point
+ * where knowing early would help. Registering in year one costs nothing and
+ * removes a scramble later.
+ *
+ * The 55,000 figure is NITA's own placement throughput, not the number of
+ * places available on demand — stated as scale, never as a guarantee. */
+const ATTACHMENT = {
+  source: 'National Industrial Training Authority (NITA) industrial attachment scheme and Kenyan TVET/university programme requirements, cross-reported August 2026',
+  isMandatory: 'Industrial attachment is a mandatory component of most university and TVET programmes in Kenya — not an optional extra you can decide against later.',
+  placedPerYear: 55000,
+  scale: 'NITA facilitates placement for more than 55,000 students a year across public and private institutions.',
+  theCompetition: 'Places are contested. Thousands of students chase attachments in the same government bodies, state corporations and large firms every intake, and the institution does not guarantee you one.',
+  whereToApply: 'NITA runs a national portal (ITAP), reached from nita.go.ke under Our Services → Industrial Attachment. You create an account, verify by email, and apply from there. Large employers such as KRA and Kenya Power also advertise their own intakes on fixed cycles.',
+  theAdvice: 'Register in your first year, not the term the attachment is due. It costs nothing, and it converts a scramble into a queue you are already in.',
+  whyItCompounds: 'Attachment is often the first real entry to the labour market, and a share of students are eventually hired by the organisation that took them. It is the cheapest experience you will ever acquire, and it is already built into your course.',
+  honestLimit: 'The supply of quality places has not kept pace with enrolment, which is why the State Department for TVET is now pushing to bring industry into institutions rather than send every student out. Plan for the search to be real work.',
+  clusters: ['tech', 'business', 'creator', 'carer', 'people', 'numbers']
+};
+
+/* The most misreported career story in Kenya, and a case study in why this
+ * file exists.
+ *
+ * In September 2024 Kenya and Germany signed a Migration and Mobility
+ * Partnership in Berlin. Kenyan headlines reported it as Germany opening
+ * 250,000 jobs to Kenyans. That number is NOT in the agreement. Germany's
+ * Interior Ministry publicly denied that the deal specifies any quota; the
+ * figure came from Kenya's presidency describing an aspiration.
+ *
+ * Njia ships the correction as the headline finding, because a young person
+ * making a plan around 250,000 guaranteed openings is making it around
+ * something that does not exist. The agreement is real and genuinely useful.
+ * The gate is not a quota — it is German language and formal recognition of
+ * your qualification, and both take years to clear, not weeks.
+ *
+ * `theNumberYouHeard` must never be dropped when this record is rendered. */
+const LABOUR_MOBILITY = {
+  source: 'ILO reporting on the Kenya–Germany bilateral labour agreement; Kenya–Germany Migration and Mobility Partnership signed Berlin, 13 September 2024; German Skilled Immigration Act guidance, cross-reported August 2026',
+  agreement: 'Kenya and Germany signed a Migration and Mobility Partnership in Berlin on 13 September 2024, covering labour mobility, apprenticeship, student training, worker welfare and return.',
+  theNumberYouHeard: 'You have probably seen "Germany opens 250,000 jobs to Kenyans". That number is not in the agreement. Germany\'s Interior Ministry stated publicly that the deal specifies no quota at all — the figure came from Kenya\'s presidency describing an ambition. Treat it as a hope, not a vacancy list.',
+  whatIsRealInIt: 'Germany waives its labour-market test for skilled workers from Kenya, grants a residence permit once you hold an approved job, and issues long-stay visas for study and vocational training (Ausbildung), with a route to work there afterwards.',
+  sectors: ['Healthcare and nursing', 'Engineering', 'IT', 'Transport', 'Hospitality'],
+  theRealGate: 'German language and formal recognition of your qualification — not the agreement. Both take years to clear, not weeks.',
+  theGateDetail: 'Regulated professions such as nursing require German at B1–B2 depending on the federal state, plus formal recognition of your Kenyan qualification (Anerkennung), which takes up to four months once your documents are complete, usually alongside a concrete job offer.',
+  theOpening: 'Since 1 March 2024 a Recognition Partnership lets you enter Germany and complete the recognition procedure there rather than finishing it first. IT specialists can qualify on demonstrated skill without a formal qualification.',
+  honestReading: 'This is a real route and a narrow one. It rewards people who start German early and keep their certificates, transcripts and registration documents in order. It is not a plan for next year, and it is not a substitute for a plan in Kenya.',
+  clusters: ['carer', 'tech', 'numbers', 'business']
+};
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, ATTACHMENT, LABOUR_MOBILITY, ENTERPRISE_CAPITAL };
 }

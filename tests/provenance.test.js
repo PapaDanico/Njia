@@ -42,6 +42,13 @@ const DIGITAL_WORK = grab('DIGITAL_WORK');
 const MINIMUM_WAGE = grab('MINIMUM_WAGE');
 const ENTRY_PAY = grab('ENTRY_PAY');
 const LOAN_REALITY = grab('LOAN_REALITY');
+const CBE_PATHWAYS = grab('CBE_PATHWAYS');
+const PLACEMENT_CALENDAR = grab('PLACEMENT_CALENDAR');
+const COMPETITION_REALITY = grab('COMPETITION_REALITY');
+const PRIOR_LEARNING = grab('PRIOR_LEARNING');
+const ATTACHMENT = grab('ATTACHMENT');
+const LABOUR_MOBILITY = grab('LABOUR_MOBILITY');
+const ENTERPRISE_CAPITAL = grab('ENTERPRISE_CAPITAL');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -360,4 +367,184 @@ test('the loan trap is stated with the action that defuses it', () => {
     'the trap depends on job search outlasting grace');
   assert.ok(l.theAction && l.theAction.length > 60, 'never state the trap without the action');
   assert.match(l.theAction, /minimum/i, 'the action must name the minimum payment');
+});
+
+test('placement windows are real dates that open before they close', () => {
+  // The clock computes what is open from these dates. A hardcoded "applications
+  // close in May" quietly becomes a lie in June; dates cannot.
+  assert.ok(PLACEMENT_CALENDAR.length >= 5);
+  for (const w of PLACEMENT_CALENDAR) {
+    const opens = new Date(w.opens), closes = new Date(w.closes);
+    assert.ok(!Number.isNaN(opens.getTime()), `${w.name} has an unparseable open date`);
+    assert.ok(!Number.isNaN(closes.getTime()), `${w.name} has an unparseable close date`);
+    assert.ok(opens < closes, `${w.name} closes before it opens`);
+    assert.ok(w.note && w.note.length > 20, `${w.name} has no explanation`);
+  }
+  // TVET is the door that stays open longest, and that is the point of it —
+  // if it ever stops being the latest-closing window, the copy saying so needs
+  // rewriting.
+  const latest = [...PLACEMENT_CALENDAR].sort((a, b) => new Date(b.closes) - new Date(a.closes))[0];
+  assert.match(latest.name, /TVET/i, 'TVET should be the longest-open route');
+});
+
+test('CBE pathways map onto clusters the app actually has', () => {
+  // The decision Njia supports moved to Grade 10 under CBE. The pathway-to-
+  // cluster mapping is how the platform will eventually meet learners there,
+  // so it must stay valid against the real cluster list.
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  assert.equal(CBE_PATHWAYS.pathways.length, 3, 'CBE defines three senior-school pathways');
+  const mapped = new Set();
+  for (const pth of CBE_PATHWAYS.pathways) {
+    assert.ok(pth.clusters.length > 0, `${pth.name} maps to no cluster`);
+    for (const c of pth.clusters) {
+      assert.ok(clusters.includes(c), `${pth.name} maps to unknown cluster ${c}`);
+      mapped.add(c);
+    }
+  }
+  // Every cluster must be reachable from some pathway, or a learner on that
+  // pathway would find part of the catalogue unexplained.
+  for (const c of clusters) assert.ok(mapped.has(c), `cluster "${c}" is reachable from no CBE pathway`);
+});
+
+test('the oversubscribed list ships with where the room actually is', () => {
+  // Naming the courses that fill first is only useful next to the alternative.
+  // Telling a student medicine is full, and stopping, is discouragement; telling
+  // them 1.1 million places sat open in polytechnics is navigation.
+  const c = COMPETITION_REALITY;
+  assert.ok(c.fillFirst.length >= 4);
+  assert.ok(c.whereTheRoomIs && /1.1 million|polytechnic/i.test(c.whereTheRoomIs),
+    'the alternative must be named, not just the closed door');
+  assert.ok(c.action && c.action.length > 60, 'there must be an instruction, not only a diagnosis');
+  // The cap is a quality safeguard, not an obstacle — saying so keeps the tone
+  // honest rather than resentful.
+  assert.match(c.whyCapped, /regulator|ratio|quality/i);
+  // Degree nursing is listed as oversubscribed while the catalogue is full of
+  // KMTC diploma nursing. If that distinction is ever dropped the catalogue
+  // starts reading as a promise it cannot keep.
+  assert.match(c.theSameFieldTwice, /diploma/i);
+});
+
+test('Recognition of Prior Learning ships with its honest limit', () => {
+  // RPL is the route for someone who already has the skill — the majority
+  // case in an economy where 83.8% of work is informal. But it is a young
+  // programme with uneven coverage, and sending someone to chase a service
+  // that may not exist in their county without warning them is worse than
+  // not mentioning it.
+  const r = PRIOR_LEARNING;
+  assert.ok(r.honestLimit && r.honestLimit.length > 60, 'the maturity caveat must be substantive');
+  assert.match(r.honestLimit, /uneven|young|not yet/i);
+  assert.ok(r.whyItMatters.length > 60, 'the payoff must be concrete, not vague encouragement');
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const c of r.clusters) assert.ok(clusters.includes(c), `RPL maps to unknown cluster ${c}`);
+});
+
+test('the Germany route always ships with the correction to the number', () => {
+  // The single highest-risk record in the dataset. Kenyan headlines reported
+  // the September 2024 Migration and Mobility Partnership as "Germany opens
+  // 250,000 jobs to Kenyans". Germany's Interior Ministry denied that any
+  // quota is in the agreement. A young person planning around 250,000
+  // guaranteed openings is planning around something that does not exist,
+  // so the correction is not optional context — it is the headline, and it
+  // must name the number it is correcting.
+  const m = LABOUR_MOBILITY;
+  assert.ok(m.theNumberYouHeard, 'the correction must exist');
+  assert.match(m.theNumberYouHeard, /250,000/, 'the correction must name the figure it corrects');
+  assert.match(m.theNumberYouHeard, /not in the agreement|no quota/i);
+
+  // The gate is language and recognition, not the treaty. If this record
+  // ever renders as "Germany is hiring" without that, it misleads.
+  // The gate is stated twice by design: a short form that stays visible in
+  // the collapsed card, and the mechanics behind progressive disclosure.
+  // Both must survive, or the block reads as "Germany is hiring".
+  assert.match(m.theRealGate, /German/, 'the language requirement must be visible');
+  assert.match(m.theRealGate, /recognition/i, 'qualification recognition must be visible');
+  assert.match(m.theGateDetail, /B1|B2/, 'the language level belongs in the detail');
+  assert.match(m.theGateDetail, /Anerkennung/i, 'the recognition procedure must be named');
+  assert.match(m.honestReading, /narrow|not a substitute|not a plan for next year/i);
+
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const c of m.clusters) assert.ok(clusters.includes(c), `mobility maps to unknown cluster ${c}`);
+});
+
+test('attachment is presented as mandatory and contested, not as a formality', () => {
+  // SKILLS_MISMATCH already named "an attachment" as a thing that closes the
+  // employability gap. Naming it without saying it is compulsory, competitive
+  // and centrally administered is what left students discovering it late.
+  const a = ATTACHMENT;
+  assert.match(a.isMandatory, /mandatory/i);
+  assert.ok(a.theCompetition.length > 60, 'the competition must be described, not implied');
+  assert.match(a.whereToApply, /NITA|ITAP/, 'the actual portal must be named');
+  assert.match(a.theAdvice, /first year/i, 'the timing advice is the actionable part');
+  assert.ok(a.honestLimit.length > 60, 'the supply shortfall must travel with the scheme');
+
+  // 55,000 is NITA's throughput, not a guarantee of a place on demand.
+  assert.equal(typeof a.placedPerYear, 'number');
+  assert.ok(a.placedPerYear > 0 && a.placedPerYear < 1000000, 'placement scale must be plausible');
+  assert.ok(!/guarantee[ds]? you|assured/i.test(a.scale), 'throughput must not read as a guarantee');
+
+  const clusters = [...new Set(COURSES.map((c) => c.cluster))];
+  for (const c of a.clusters) assert.ok(clusters.includes(c), `attachment maps to unknown cluster ${c}`);
+});
+
+test('enterprise capital corrects the Hustler Fund before recommending anything', () => {
+  // INFORMAL_ECONOMY says most new work is self-created. This record is the
+  // answer to that, and its first job is a correction: the Hustler Fund is
+  // what everyone names, and at ~Ksh 300 on a 14-day clock it is a
+  // consumption instrument. Recommending capital without saying so would
+  // point the most likely reader at the least suitable product.
+  const c = ENTERPRISE_CAPITAL;
+  assert.match(c.theMisconception, /not business capital/i);
+  assert.equal(c.hustlerFund.averageLoanKes, 300);
+  assert.equal(c.hustlerFund.tenureDays, 14);
+
+  // Both default denominators must ship together. Quoting either alone is
+  // the thing that makes the published range look like an error.
+  assert.match(c.hustlerFund.defaultDispute, /15/, 'the value-based rate must be stated');
+  assert.match(c.hustlerFund.defaultDispute, /64/, 'the borrower-based rate must be stated');
+  assert.match(c.hustlerFund.defaultDispute, /value/i);
+  assert.match(c.hustlerFund.defaultDispute, /borrow/i);
+
+  // The Hustler Fund is criticised, not dismissed — it has genuinely the
+  // cheapest rate in the country and a forced-savings component.
+  assert.equal(c.hustlerFund.annualInterestPct, 8);
+  assert.equal(c.hustlerFund.savingsWithheldPct, 5);
+
+  // The real instrument, and the gate that is worth months of lead time.
+  const r = c.realCapital;
+  assert.ok(r.startupLoanKes < r.expansionFromKes, 'startup must be the smaller product');
+  assert.ok(r.expansionFromKes < r.expansionCeilingKes, 'expansion must have headroom');
+  assert.deepEqual([...r.ageRange], [18, 34]);
+  assert.match(r.theGate, /five members|5 members/i);
+  assert.match(r.theGate, /registration certificate/i);
+  assert.match(r.interest, /interest-free/i);
+  assert.match(r.interest, /5%/, 'the management fee must travel with "interest-free"');
+  assert.match(c.theAdvice, /not a credit score/i);
+
+  // The funds are mid-merger. Shipping amounts without that caveat would
+  // send someone to an office where the forms have changed.
+  assert.match(c.honestLimit, /Biashara/i);
+  assert.match(c.honestLimit, /confirm|unfinished|change/i);
+});
+
+test('every course is distinguishable by name plus institution', () => {
+  // Course names are NOT unique: KMTC teaches identical programmes at every
+  // campus, so "Diploma in KRCHN" is 44 separate records. The Odyssey anchor
+  // picker used to label options by name alone, which rendered 44 identical
+  // lines and made the choice blind. Name + institution is the pairing that
+  // disambiguates, so it has to stay unique.
+  const byId = new Map(INSTITUTIONS.map((i) => [i.id, i]));
+  const labels = new Map();
+  for (const c of COURSES) {
+    const home = byId.get(c.institution_id);
+    const label = home ? `${c.name} — ${home.name}` : c.name;
+    labels.set(label, (labels.get(label) || 0) + 1);
+  }
+  const collisions = [...labels.entries()].filter(([, n]) => n > 1);
+  assert.deepEqual(collisions, [], `ambiguous picker labels: ${collisions.map(([l, n]) => `${n}x ${l}`).join('; ')}`);
+
+  // And confirm the premise the fix rests on — bare names really do collide,
+  // so this test is guarding something real rather than a hypothetical.
+  const names = new Map();
+  for (const c of COURSES) names.set(c.name, (names.get(c.name) || 0) + 1);
+  assert.ok(Math.max(...names.values()) > 1, 'bare course names are expected to collide');
 });

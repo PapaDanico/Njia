@@ -175,7 +175,16 @@ function scoreCourseMatch(course, profile) {
     // difference between "confirmed eligible" and "eligibility unverified".
     breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade} — set your grade in the filters to confirm you qualify.`, effect: 'neutral' });
   } else if (course.min_grade) {
-    breakdown.push({ factor: 'Grade eligibility', detail: `Requires ${course.min_grade} — your grade (${grade}) meets it.`, effect: 'up' });
+    // For a degree, meeting the mean grade makes you eligible to *apply* — it
+    // does not mean you will be placed. KUCCPS decides degree placement on
+    // weighted cluster points across the four subjects that programme requires,
+    // and the "cut-off" is whatever the last student placed last cycle scored.
+    // Saying "your grade meets it" and stopping there reads as "you're in",
+    // which is the single most consequential thing this app could get wrong.
+    const detail = course.level === 'degree'
+      ? `Requires ${course.min_grade} — your grade (${grade}) meets it, so you can apply. Degree placement is decided on weighted cluster points in the four subjects this course requires, not on mean grade alone.`
+      : `Requires ${course.min_grade} — your grade (${grade}) meets it.`;
+    breakdown.push({ factor: 'Grade eligibility', detail, effect: 'up' });
   } else {
     breakdown.push({ factor: 'Grade eligibility', detail: 'No minimum grade requirement.', effect: 'up' });
   }
@@ -365,7 +374,8 @@ function renderCourseMatcher(container) {
       <p class="decide-count"><strong class="num">${filtered.length}</strong> of <span class="num">${COURSES.length}</span> courses match your filters${gradeOpenPct != null ? ` · your grade opens <strong class="num">${gradeOpenPct}%</strong> of the catalogue` : ''}</p>
       ${filtered.length === 0
         ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
-        : `<div class="results-grid">${filtered.slice(0, AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE).map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>
+        : `<p class="decide-caveat text-muted text-sm">Cost-of-attendance totals below are illustrative and vary by town — plan against them, don't rely on them.</p>
+           <div class="results-grid">${filtered.slice(0, AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE).map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>
            ${filtered.length > (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)
              ? `<div class="results-more"><button type="button" class="btn btn-secondary" onclick="showMoreCourses()">Show ${Math.min(DECIDE_PAGE_SIZE, filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE))} more · ${filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)} remaining</button></div>`
              : ''}`
@@ -373,6 +383,34 @@ function renderCourseMatcher(container) {
     </div>
     </div>
   `;
+}
+
+/* The filtered, scored, sorted result set. Extracted so that appending a page
+ * in showMoreCourses() derives exactly the same list the renderer used — if
+ * these two ever diverged, "Show more" would append cards from a different
+ * ordering than the ones already on screen. */
+function currentDecideResults() {
+  const f = AppState.decideFilters;
+  const ownership = f.ownership || 'all';
+  const matchesCluster = (c) => f.cluster === 'all' || c.cluster === f.cluster;
+  const matchesMode = (c) => f.mode === 'any' || c.mode === f.mode;
+  const matchesLevel = (c) => f.level === 'all' || c.level === f.level;
+  const matchesCounty = (c) => f.county === 'all' || institutionById(c.institution_id)?.county === f.county;
+  const matchesSaved = (c) => !f.savedOnly || AppState.savedCourses.includes(c.id);
+  const matchesOwnership = (c) => ownership === 'all' || institutionById(c.institution_id)?.ownership === ownership;
+
+  const sorters = {
+    match: (a, b) => b.match.score - a.match.score,
+    fees_low: (a, b) => a.course.total_fees_kes - b.course.total_fees_kes,
+    fees_high: (a, b) => b.course.total_fees_kes - a.course.total_fees_kes,
+    employment: (a, b) => (b.course.employment_rate ?? 0) - (a.course.employment_rate ?? 0),
+    duration: (a, b) => a.course.duration_months - b.course.duration_months
+  };
+
+  return COURSES
+    .filter((c) => matchesCluster(c) && matchesMode(c) && matchesLevel(c) && matchesCounty(c) && matchesSaved(c) && matchesOwnership(c))
+    .map((c) => ({ course: c, match: computeCourseMatch(c) }))
+    .sort(sorters[f.sortBy] || sorters.match);
 }
 
 /* The catalogue reaches 45 counties, which means a filtered list can run to
@@ -387,10 +425,43 @@ function renderCourseMatcher(container) {
  * different result sets. */
 const DECIDE_PAGE_SIZE = 24;
 
+/* Appends the next page rather than re-rendering the tab.
+ *
+ * Re-rendering cost 138ms at 4x CPU throttle and, worse, destroyed the button
+ * the user had just activated — focus fell to <body>, so a keyboard user who
+ * tabbed to "Show more" and pressed Enter was thrown back to the top of the
+ * tab order with the list they had just expanded now unreachable without
+ * re-tabbing the whole page. axe cannot detect that; only pressing the button
+ * finds it.
+ *
+ * Appending keeps the button in the DOM, so focus stays where the user put it,
+ * and only the new cards are built. */
 function showMoreCourses() {
-  AppState.decideFilters.visibleCount = (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE) + DECIDE_PAGE_SIZE;
+  const grid = document.querySelector('.results-grid');
+  const moreWrap = document.querySelector('.results-more');
+  const prev = AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE;
+  const next = prev + DECIDE_PAGE_SIZE;
+  AppState.decideFilters.visibleCount = next;
   saveState();
-  renderDecideTabContent();
+
+  // No grid to append to (shouldn't happen) — fall back to a full render.
+  if (!grid || !moreWrap) { renderDecideTabContent(); return; }
+
+  const filtered = currentDecideResults();
+  grid.insertAdjacentHTML('beforeend',
+    filtered.slice(prev, next).map(({ course, match }) => renderCourseCard(course, match)).join(''));
+
+  const remaining = filtered.length - next;
+  if (remaining <= 0) {
+    // Nothing left: remove the control, but move focus somewhere sensible first
+    // so it does not fall to <body> when the button disappears.
+    const lastCard = grid.querySelector('.course-card:last-of-type');
+    moreWrap.remove();
+    if (lastCard) { lastCard.setAttribute('tabindex', '-1'); lastCard.focus({ preventScroll: true }); }
+  } else {
+    moreWrap.querySelector('button').textContent =
+      `Show ${Math.min(DECIDE_PAGE_SIZE, remaining)} more · ${remaining} remaining`;
+  }
 }
 
 function renderCourseCard(course, match) {
@@ -447,10 +518,10 @@ function renderCourseCard(course, match) {
       <p class="text-muted text-sm mb-1">Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
       <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
       <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation
-        ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total. Varies by town — plan, don't rely on this figure.`
+        ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
         : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
       }</p>
-      ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(course.verification_note)}</p>` : ''}
+      ${isVerified ? `<details class="fee-provenance"><summary>How this fee was verified</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}</p></details>` : ''}
       <details class="match-why">
         <summary>Why ${match.score}% match?</summary>
         <ul>

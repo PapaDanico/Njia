@@ -71,7 +71,7 @@ function renderDiscoverQuestion(el) {
   } else if (q.type === 'text') {
     const val = existingAnswer ? existingAnswer.value : '';
     bodyHtml = `
-      <textarea class="q-input" id="discover-text-input" placeholder="${escapeHtml(q.placeholder || '')}">${escapeHtml(val)}</textarea>
+      <textarea class="q-input" id="discover-text-input" maxlength="1000" placeholder="${escapeHtml(q.placeholder || '')}">${escapeHtml(val)}</textarea>
       <button type="button" class="voice-btn" id="voice-btn" onclick="toggleVoiceInput()">
         ${icon('mic')} <span id="voice-btn-label">Speak your answer</span>
       </button>
@@ -316,6 +316,7 @@ function renderLabourMarketCard(primaryCluster) {
   const absorption = typeof ABSORPTION_GAP !== 'undefined' ? ABSORPTION_GAP.sectors.filter((a) => a.clusters.includes(primaryCluster)) : [];
   const trades = typeof SKILLED_TRADES !== 'undefined' && SKILLED_TRADES.clusters.includes(primaryCluster);
   const digital = typeof DIGITAL_WORK !== 'undefined' && DIGITAL_WORK.clusters.includes(primaryCluster);
+  const mobility = typeof LABOUR_MOBILITY !== 'undefined' && LABOUR_MOBILITY.clusters.includes(primaryCluster);
   if (!sectors.length && !signals.length && !entry.length) return '';
 
   const money = (n) => `Ksh ${n.toLocaleString()}`;
@@ -362,7 +363,10 @@ function renderLabourMarketCard(primaryCluster) {
       ${trades ? `
         <div class="informal-note">
           <p class="text-sm mb-1"><strong>The trades are short of people.</strong> ${escapeHtml(SKILLED_TRADES.supplyGap)} Certified day rates have risen from ${range(SKILLED_TRADES.dayRate2012Kes[0], SKILLED_TRADES.dayRate2012Kes[1])} in 2012 to <strong>${range(SKILLED_TRADES.dayRateKes[0], SKILLED_TRADES.dayRateKes[1])} a day</strong>.</p>
-          <p class="text-sm">${escapeHtml(SKILLED_TRADES.caution)}</p>
+          <p class="text-sm mb-1">${escapeHtml(SKILLED_TRADES.caution)}</p>
+          ${typeof PRIOR_LEARNING !== 'undefined' ? `
+            <p class="text-sm"><strong>Already have the skill but no certificate?</strong> <strong>Recognition of Prior Learning</strong> is how you get one without going back to school: ${escapeHtml(PRIOR_LEARNING.whatItIs.charAt(0).toLowerCase() + PRIOR_LEARNING.whatItIs.slice(1))} ${escapeHtml(PRIOR_LEARNING.scaleSoFar)} Help explains who to approach.</p>
+          ` : ''}
         </div>
       ` : ''}
 
@@ -370,6 +374,48 @@ function renderLabourMarketCard(primaryCluster) {
         <div class="informal-note">
           <p class="text-sm mb-1"><strong>${INFORMAL_ECONOMY.informalSharePct}% of Kenyan workers are informal</strong> — ${(INFORMAL_ECONOMY.informalWorkers / 1000000).toFixed(1)}m against ${(INFORMAL_ECONOMY.formalWorkers / 1000000).toFixed(1)}m in formal wage jobs, and ${INFORMAL_ECONOMY.newJobsInformalPct}% of last year's new jobs.</p>
           <p class="text-sm">${escapeHtml(INFORMAL_ECONOMY.reading)}</p>
+        </div>
+      ` : ''}
+
+      ${typeof ENTERPRISE_CAPITAL !== 'undefined' ? (() => {
+        const cap = ENTERPRISE_CAPITAL;
+        return `
+        <div class="informal-note">
+          <p class="text-sm mb-1"><strong>If you will create your own work, the question is what you can raise.</strong> ${escapeHtml(cap.theMisconception)}</p>
+          <p class="text-sm"><strong>Start early:</strong> ${escapeHtml(cap.theAdvice)}</p>
+          <details class="inline-detail"><summary>What the Youth Enterprise Fund actually lends, and the Hustler Fund terms</summary>
+            <p class="text-sm">The <strong>${escapeHtml(cap.realCapital.name)}</strong> lends ${money(cap.realCapital.startupLoanKes)} to start, and from ${money(cap.realCapital.expansionFromKes)} up to ${money(cap.realCapital.expansionCeilingKes)} to expand, for ages ${cap.realCapital.ageRange[0]}–${cap.realCapital.ageRange[1]}. ${escapeHtml(cap.realCapital.interest)}</p>
+            <p class="text-sm mt-1"><strong>The gate:</strong> ${escapeHtml(cap.realCapital.theGate)} ${escapeHtml(cap.realCapital.whereToApply)}</p>
+            <p class="text-sm mt-1"><strong>Hustler Fund, in proportion:</strong> ${escapeHtml(cap.hustlerFund.reading)}</p>
+            <p class="text-sm mt-1"><strong>On the default rate you have seen:</strong> ${escapeHtml(cap.hustlerFund.defaultDispute)}</p>
+            <p class="text-sm mt-1"><strong>Expect this to move:</strong> ${escapeHtml(cap.honestLimit)}</p>
+          </details>
+        </div>
+      `; })() : ''}
+
+      ${typeof ATTACHMENT !== 'undefined' && ATTACHMENT.clusters.includes(primaryCluster) ? `
+        <div class="absorption-note">
+          <span class="caption">The step inside your course that most people plan for too late</span>
+          <p class="text-sm mt-1 mb-1">${escapeHtml(ATTACHMENT.isMandatory)}</p>
+          <p class="text-sm"><strong>Do this early:</strong> ${escapeHtml(ATTACHMENT.theAdvice)}</p>
+          <details class="inline-detail"><summary>Where to register, and why it is contested</summary>
+            <p class="text-sm">${escapeHtml(ATTACHMENT.whereToApply)}</p>
+            <p class="text-sm mt-1">${escapeHtml(ATTACHMENT.theCompetition)} ${escapeHtml(ATTACHMENT.scale)} ${escapeHtml(ATTACHMENT.honestLimit)}</p>
+          </details>
+        </div>
+      ` : ''}
+
+      ${mobility ? `
+        <div class="absorption-note">
+          <span class="caption">Working abroad — start with the number that is wrong</span>
+          <p class="text-sm mt-1 mb-1">${escapeHtml(LABOUR_MOBILITY.theNumberYouHeard)}</p>
+          <p class="text-sm mb-1"><strong>What is real:</strong> ${escapeHtml(LABOUR_MOBILITY.whatIsRealInIt)}</p>
+          <p class="text-sm"><strong>The actual gate:</strong> ${escapeHtml(LABOUR_MOBILITY.theRealGate)}</p>
+          <details class="inline-detail"><summary>What clearing that gate actually involves</summary>
+            <p class="text-sm">${escapeHtml(LABOUR_MOBILITY.theGateDetail)}</p>
+            <p class="text-sm mt-1">${escapeHtml(LABOUR_MOBILITY.theOpening)}</p>
+            <p class="text-sm mt-1">${escapeHtml(LABOUR_MOBILITY.honestReading)}</p>
+          </details>
         </div>
       ` : ''}
 

@@ -109,6 +109,16 @@ function renderOdysseyAnchors(plan) {
     .slice()
     .sort((a, b) => (savedSet.has(b.id) ? 1 : 0) - (savedSet.has(a.id) ? 1 : 0));
 
+  // Course names are not unique across the catalogue: KMTC teaches the same
+  // programmes at every campus, so "Diploma in KRCHN" is 44 separate records.
+  // Labelling options by name alone rendered 44 identical lines and made the
+  // choice blind — the institution is the only thing distinguishing them.
+  const instById = new Map(INSTITUTIONS.map((i) => [i.id, i]));
+  const optionLabel = (c) => {
+    const home = instById.get(c.institution_id);
+    return home ? `${c.name} — ${home.name}` : c.name;
+  };
+
   const course = plan.courseId ? COURSES.find((c) => c.id === plan.courseId) : null;
   const inst = course ? INSTITUTIONS.find((i) => i.id === course.institution_id) : null;
 
@@ -125,7 +135,7 @@ function renderOdysseyAnchors(plan) {
         <label class="caption" for="odyssey-course-${plan.id}">Anchor course</label>
         <select id="odyssey-course-${plan.id}" class="form-control" style="width:100%;margin-top:0.3rem" onchange="updateOdysseyCourse('${plan.id}', this.value)">
           <option value="">Not set</option>
-          ${courseOptions.map((c) => `<option value="${c.id}" ${plan.courseId === c.id ? 'selected' : ''}>${savedSet.has(c.id) ? '★ ' : ''}${escapeHtml(c.name)}</option>`).join('')}
+          ${courseOptions.map((c) => `<option value="${c.id}" ${plan.courseId === c.id ? 'selected' : ''}>${savedSet.has(c.id) ? '★ ' : ''}${escapeHtml(optionLabel(c))}</option>`).join('')}
         </select>
       </div>
       <div>
@@ -234,7 +244,7 @@ function renderOdysseyTab(container) {
         <div class="odyssey-year-row">
           <div class="odyssey-year-badge">Y${i + 1}</div>
           <div class="odyssey-year-field">
-          <input type="text" id="odyssey-year-${plan.id}-${i}" value="${escapeHtml(val)}" placeholder="What are you doing in year ${i + 1}?"
+          <input type="text" id="odyssey-year-${plan.id}-${i}" maxlength="200" value="${escapeHtml(val)}" placeholder="What are you doing in year ${i + 1}?"
             onchange="updateOdysseyYear('${plan.id}', ${i}, this.value)" aria-label="${plan.label} year ${i + 1}">
             <select class="odyssey-suggest form-control" aria-label="Insert a suggestion for ${plan.label} year ${i + 1}"
               onchange="applyOdysseySuggestion('${plan.id}', ${i}, this.value, this)">
@@ -428,9 +438,9 @@ function renderGravityTab(container) {
         ${Object.entries(GRAVITY_CATEGORIES).map(([key, label]) => `<option value="${key}">${label}</option>`).join('')}
       </select>
       <label class="caption mt-2" for="gravity-problem" style="display:block">The constraint</label>
-      <textarea class="q-input mt-1" id="gravity-problem" placeholder="e.g. I cannot afford a 4-year degree right now"></textarea>
+      <textarea class="q-input mt-1" id="gravity-problem" maxlength="600" placeholder="e.g. I cannot afford a 4-year degree right now"></textarea>
       <label class="caption mt-2" for="gravity-reframe" style="display:block">Your reframe (a certificate-to-diploma ladder? evening classes? work-study?)</label>
-      <textarea class="q-input mt-1" id="gravity-reframe" placeholder="e.g. Start with a KMTC certificate, work part-time, upgrade to the diploma in year 2"></textarea>
+      <textarea class="q-input mt-1" id="gravity-reframe" maxlength="600" placeholder="e.g. Start with a KMTC certificate, work part-time, upgrade to the diploma in year 2"></textarea>
       <select class="odyssey-suggest form-control mt-1" aria-label="Insert a common reframe"
         onchange="applyGravityReframe(this.value, this)">
         <option value="">Stuck? Insert a common reframe…</option>

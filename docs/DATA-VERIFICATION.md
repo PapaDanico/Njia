@@ -434,3 +434,327 @@ rewritten.
 **Visible text fell from ~1,000 words to 260–486 per cluster**, every cluster
 now leads with a real starting figure, and repeated-phrase counts are at or
 near zero. Nothing was lost; it is one tap away instead of a wall to scroll.
+
+
+## The structural change under Njia's feet
+
+Kenya's first competency-based cohort entered senior school in **January 2026**.
+
+Under 8-4-4 every learner followed a broadly similar curriculum to KCSE and
+chose afterwards — the world Njia was designed for. Under CBE the learner picks
+one of three pathways at **Grade 10, at roughly age 14–15**, on their KJSEA
+results, and that choice shapes the subjects they take and the courses open to
+them at Grade 12.
+
+| Pathway | Covers | Njia clusters |
+| --- | --- | --- |
+| STEM | Science, technology, engineering, mathematics | tech, numbers |
+| Social Sciences | Humanities, business, languages, policy | people, business, carer |
+| Arts and Sports Science | Creative, performance, sports | creator |
+
+**The decision Njia exists to support has moved roughly three years earlier.**
+Njia currently meets people after KCSE, which under this system is *after the
+decisive choice has already been made*. That is a scope question rather than a
+data point, and it is recorded here because the catalogue and the cluster model
+both have to answer it eventually. A test keeps the pathway-to-cluster mapping
+valid and requires every cluster to be reachable from some pathway.
+
+## The placement calendar — dates, not prose
+
+The Application Clock previously showed only funding deadlines. It now computes
+which placement windows are genuinely open **from dates**, because a hardcoded
+"applications close in May" quietly becomes a lie in June.
+
+| Window | Opens | Closes |
+| --- | --- | --- |
+| KUCCPS main application | 2026-04-07 | 2026-05-06 |
+| KUCCPS second call | 2026-05-16 | 2026-05-22 |
+| KMTC March intake | 2026-01-07 | 2026-01-27 |
+| Inter-institutional transfer | 2026-06-01 | 2026-08-14 |
+| Kenya Utalii College (Kilifi) | 2026-06-01 | 2026-08-23 |
+| KMTC September intake | 2026-07-01 | 2026-09-30 |
+| TVET placement (continuous) | 2026-05-01 | 2026-12-31 |
+
+*Source: KUCCPS 2026 cycle announcements, cross-reported August 2026.*
+
+TVET is deliberately the longest-open route, and a test fails if it ever stops
+being — it is the door that stays open after the main cycle closes, which is
+exactly the message a student who missed the window needs.
+
+
+## How degree placement actually works — a correction to Njia's own model
+
+Njia stores a `min_grade` per course and told the user whether they met it. For
+certificates and diplomas that is close enough. For degrees it was misleading.
+
+| Concept | What it actually is |
+| --- | --- |
+| Mean grade (C+ for degrees) | Decides whether you may **apply** |
+| Weighted cluster points | Decides **placement** — performance in the four subjects that programme requires, ranked against every applicant, to three decimal places |
+| Cut-off point | The cluster score of the **last student placed** last cycle. An outcome, not a bar set in advance |
+
+*Source: KUCCPS placement guidance and 2026 cycle explainers, cross-reported August 2026.*
+
+Two consequences now stated plainly in the app. **Meeting the mean grade makes
+you eligible to apply, not placed** — the "Why this match?" breakdown says so
+for degree courses specifically. And **chasing last year's cut-off is chasing a
+number that no longer exists**; it moves annually with demand, capacity and
+cohort performance, and meeting it still does not guarantee a place.
+
+Njia previously said "your grade meets it" with a positive signal and stopped
+there. A student reads that as "I am in". For the single most consequential
+claim this app makes, that was too little of the truth.
+
+
+## Where the room actually is — the mechanism behind the capacity paradox
+
+`EDUCATION_PIPELINE` records that middle-level colleges hold over 1.1 million
+places against 293,869 placements. This is how that happens in practice.
+
+| Fills first | What happened | Where the room is |
+| --- | --- | --- |
+| Medicine and surgery, degree nursing, pharmacy, architecture, engineering | **Removed from the KUCCPS portal outright** once slots were exhausted in the *first* application window, which closed 6 May | Roughly **1.1 million vacancies** remained across national polytechnics and specialised training institutions |
+
+*Source: KUCCPS 2026 placement cycle reporting, cross-reported August 2026. The
+1.1 million figure independently corroborates the 1,132,531 middle-level
+capacity recorded from the placement data.*
+
+The cap is not arbitrary and the register says so: professional regulators —
+the Medical Practitioners and Dentists Council, the Engineers Board — limit
+intake so students-per-lecturer and students-per-laboratory ratios stay
+workable. **The cap protects the quality of the qualification you would be
+getting.**
+
+**The distinction that matters most for this catalogue:** degree nursing is
+among the most oversubscribed programmes in the country, while the KMTC diploma
+route into the same profession runs at campuses in 45 counties and is genuinely
+reachable. Same field, completely different odds. Njia ships 60+ KMTC nursing
+records; if that distinction were ever dropped the catalogue would start reading
+as a promise it cannot keep, so a test enforces it.
+
+Naming the closed door without naming the open one is discouragement rather than
+navigation, so a test also requires the alternative and an actual instruction —
+apply early, because competitive programmes close in the first window rather
+than at the published deadline, and put a reachable second and third choice on
+the form rather than three versions of the same long shot.
+
+
+## Bursaries fail on paperwork, not on merit
+
+The most useful thing found about bursaries is not an amount. It is that
+**most applications fail on missing documents**, and that incomplete forms are
+commonly disqualified outright rather than returned for correction.
+
+Njia listed three or four requirements per bursary. Both the NG-CDF and county
+records now carry the full checklist:
+
+- Application form (local NG-CDF office, or ward/county office)
+- Fee structure from the institution
+- Admission or continuing-student letter
+- **Chief or local administrator letter** confirming ward/county residency (county bursaries)
+- **Student national ID or birth certificate**
+- **Parent/guardian national ID**
+- **Latest performance report or transcript**
+- **Form taken back to the school/college to be confirmed and stamped**
+- If orphaned or living with disability: death certificate, or a letter from the chief or a community leader
+
+Plus the instruction that actually changes the outcome: write in clear CAPITAL
+letters and do not submit an incomplete form.
+
+*Source: NG-CDF and county bursary application guidance, cross-reported August
+2026. Requirements are process rather than amounts, so they generalise across
+counties; the county record remains `illustrative` on its figures.*
+
+This is the cheapest possible improvement to a real disbursement rate. A young
+person who assembles nine documents before starting, rather than discovering the
+ninth after the deadline, is materially more likely to be funded.
+
+## The route for people who already have the skill
+
+Njia's whole model assumed the user is choosing what to study. But 83.8% of
+Kenyan workers are informal, and the day-rate data already showed the sharpest
+fact in the trades: **the certificate is what earns the rate.** A competent
+mason without paper and a certified one doing the identical job are paid
+differently. Njia had nothing to say to the first person.
+
+**Recognition of Prior Learning (RPL)** is the route, and it is badly
+under-advertised.
+
+| | |
+| --- | --- |
+| What it is | A structured assessment that certifies skills, knowledge and competence gained through work, informal training or life experience, and converts them toward a formal qualification |
+| Who it is for | Artisans, technicians and tradespeople already working — the jua kali sector — competent but holding no certificate |
+| Who runs it | TVETA with the Kenya National Qualifications Authority and ILO support; pushed for by the Federation of Kenya Employers and the Kenya Jua Kali Association |
+| Scale so far | **Over 600 certificates** awarded under the programme |
+| The honest limit | A young programme. Coverage across trades and counties is uneven. Not yet a national service you can sign up to online — expect to approach TVETA or an accredited assessment centre directly |
+
+*Source: TVETA / KNQA Recognition of Prior Learning Policy Framework (June 2021)
+and ILO reporting on RPL implementation, cross-reported August 2026. Confidence:
+`cross-reported`. The 600-certificate figure is the weakest element — it is a
+programme-to-date total with no published per-county or per-trade breakdown, so
+Njia states it as "real but early" rather than as coverage.*
+
+This completes a chain the dataset had already half-drawn: informal majority →
+certification premium → **the mechanism for crossing it**. It ships with its
+limit attached, because sending someone to a service that may not operate in
+their county is worse than saying nothing.
+
+## The attachment nobody plans for
+
+`SKILLS_MISMATCH` already named "an attachment" as one of the things that
+closes the employability gap — and then said nothing more, as though it were
+something that happens to you. It is not.
+
+| | |
+| --- | --- |
+| Status | **Mandatory** in most university and TVET programmes — not an optional extra |
+| Who administers it | NITA, via a national portal (ITAP) at nita.go.ke → Our Services → Industrial Attachment |
+| Scale | NITA facilitates **55,000+** placements a year, public and private sector |
+| The competition | Thousands chase the same state corporations and large firms each intake; the institution does not guarantee a place |
+| The actionable part | **Register in year one, not the term it falls due** |
+| The honest limit | Supply of good places has not kept pace with enrolment — the State Department for TVET is now pushing to bring industry into institutions instead |
+
+*Source: NITA industrial attachment scheme and Kenyan TVET/university programme
+requirements, cross-reported August 2026. Confidence: `cross-reported`. The
+55,000 figure is NITA's own placement throughput and is stated as scale, never
+as availability on demand — a test asserts the copy cannot read as a guarantee.*
+
+## Working abroad: the correction is the headline
+
+This is the highest-risk record in the dataset, and it is in Njia specifically
+because it is misreported.
+
+Kenya and Germany signed a Migration and Mobility Partnership in Berlin on
+**13 September 2024**. Kenyan coverage reported it as *"Germany opens 250,000
+jobs to Kenyans."*
+
+**That number is not in the agreement.** Germany's Interior Ministry stated
+publicly that the deal specifies no quota. The figure came from Kenya's
+presidency describing an ambition.
+
+Njia leads with the correction rather than burying it, because a young person
+planning around 250,000 guaranteed openings is planning around something that
+does not exist. A test asserts the correction names the figure it corrects and
+cannot be dropped from the record.
+
+| | |
+| --- | --- |
+| What is genuinely in it | No German labour-market test for skilled workers from Kenya; residence permit once an approved job is held; long-stay visas for study and vocational training (Ausbildung) with a route to work afterwards |
+| Where demand is | Healthcare and nursing, engineering, IT, transport, hospitality |
+| **The actual gate** | German language and formal recognition of the qualification — *not* the agreement |
+| Detail | Regulated professions (e.g. nursing) need German at **B1–B2** depending on federal state, plus recognition (*Anerkennung*), up to four months once documents are complete, usually with a concrete job offer |
+| The 2024 opening | Since 1 March 2024 a Recognition Partnership permits entry before recognition is complete; IT specialists can qualify on demonstrated skill without a formal qualification |
+
+*Source: ILO reporting on the Kenya–Germany bilateral labour agreement; the
+signed Migration and Mobility Partnership; German Skilled Immigration Act
+guidance. Cross-reported August 2026. Confidence: `cross-reported`.*
+
+The gate is deliberately stated twice — a short form that stays visible in the
+collapsed card, and the mechanics behind progressive disclosure — so that a
+reader who never expands the block still cannot come away thinking the hard
+part is getting a visa. A real route, and a narrow one.
+
+## Capitalising yourself — the gap Njia's own headline finding left open
+
+`INFORMAL_ECONOMY` says 83.8% of Kenyan workers are informal and 87.2% of last
+year's new jobs were too. That is a statement that **most readers of this
+platform will create their own work rather than be hired into it** — and Njia
+then said nothing at all about capitalising yourself. The single most likely
+path was the one path unserved.
+
+### The correction that has to come first
+
+The Hustler Fund is what almost everyone names, and **it is not business
+capital.**
+
+| | |
+| --- | --- |
+| Average loan | **~Ksh 300** |
+| Repayment tenure | **14 days** |
+| Product range | Ksh 500 – 50,000 |
+| Annual interest | 8% — genuinely the cheapest credit in the country |
+| Savings withheld | 5% of the amount borrowed |
+
+It is not dismissed: the rate is real and the forced-savings component is
+useful. But a fortnight loan of a few hundred shillings smooths a bad week — it
+does not buy stock, tools or a lease. Analysts read the average ticket size as
+a measure of how thin household margins are, not as evidence of enterprise.
+
+### Why the default rate is published as both 15% and 64%
+
+Both numbers are real, and they measure different things:
+
+- **~15–20%** — share of the *value* lent that is currently unpaid
+- **The large majority** — share of *borrowers* who have ever fallen behind
+
+Njia ships both denominators rather than picking the one that suits the
+argument, and a test asserts neither can be dropped. A reader who has seen one
+headline needs to know why they have also seen the other.
+
+### The instrument that actually finances a business
+
+| | |
+| --- | --- |
+| Fund | Youth Enterprise Development Fund (est. 2006) |
+| Age | 18–34 |
+| Rausha (startup) | Ksh 100,000 |
+| Inua (expansion) | From Ksh 200,000, graduating to Ksh 1,000,000 |
+| Cost | **Interest-free**, one-time 5% management fee deducted before disbursement |
+| **The gate** | Group loans: ≥5 members, 70% youth, youth leadership, active bank account, registration certificate from Registrar of Societies or Social Services. Individuals: a registered business |
+| Where | Sub-county/constituency HQ, any Huduma Centre, or youthfund.go.ke |
+
+The gate is **a group and a certificate, not a credit score** — which is the
+part worth knowing early, because assembling five members and a registration
+takes months. That is the actionable line, and it is the one kept visible in
+the collapsed card.
+
+*Source: Hustler Fund published terms and disbursement reporting; Youth
+Enterprise Development Fund loan products and eligibility (youthfund.go.ke);
+Kenyan economic analysis of Hustler Fund outcomes. Cross-reported August 2026.
+Confidence: `cross-reported`.*
+
+**Honest limit, and it is a live one:** government has announced a **Biashara
+Fund** merging the Youth, Uwezo and Women Enterprise funds. As of 2026 the
+individual funds still operate and the consolidation is unfinished, so the
+branding and the forms will change. The copy says to confirm current terms at
+the constituency office before planning around any figure, and a test asserts
+that caveat cannot be dropped.
+
+## Repetition audit, second pass — and the bug it uncovered
+
+Measured against the live DOM in its **collapsed default state** across all
+seven pages (the first pass wrongly force-expanded every `<details>`, which
+counted text no user ever sees).
+
+| Repeated string | Before | After |
+| --- | --- | --- |
+| `Diploma in Kenya Registered Community Health Nursing (KRCHN)` | **133x** | 3x |
+| `Varies by town — plan, don't rely on this figure.` | 19x | 1x |
+| Consolidated public-TVET fee provenance note | 7x | collapsed per card |
+
+### The 133x was not a copy problem
+
+It was the Odyssey **anchor-course picker**. Course names are not unique —
+KMTC teaches identical programmes at every campus, so *Diploma in KRCHN* is
+**44 separate records**. The picker labelled options by `course.name` alone,
+so it rendered 44 identical lines and a user choosing an anchor course was
+choosing blind. Options are now labelled `name — institution`, which takes
+duplicate labels across the whole 167-course catalogue from **44 to zero**.
+A test asserts that pairing stays unique, and also asserts that bare names
+still collide, so the guard cannot quietly become vacuous.
+
+The residual 3x is the three Odyssey plan selectors each listing the
+catalogue — inherent to having three plans, and now distinguishable.
+
+### Provenance was not stripped to win the count
+
+127 of 167 courses carry a fee-verification note, but there are only **8
+distinct notes** — 86 of them the same KMTC one. Rendering it open on every
+card meant reading the same paragraph down the whole grid. It is now inside a
+collapsed `<details class="fee-provenance">` **on the card**, so it still
+travels wherever the card goes (comparison, saved views) rather than being
+hoisted to a page-level footnote that a detached card would lose.
+
+The one line genuinely moved is the cost-of-attendance caveat, which is
+generic advice rather than provenance: it now sits once above the grid, where
+it correctly applies to every card at once.

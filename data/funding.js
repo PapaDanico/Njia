@@ -59,12 +59,12 @@ const FUNDING_SOURCES = [
   },
   {
     id: 'f005', name: 'National Government Constituency Development Fund (NG-CDF) Bursary', type: 'bursary',
-    description: 'Constituency-level bursary disbursed to needy secondary, TVET and university students through the local NG-CDF office.',
+    description: 'Constituency-level bursary disbursed to needy secondary, TVET and university students through the local NG-CDF office. Most bursary applications fail on missing documents rather than on merit — assemble the full list below before you start, write in clear CAPITAL letters, and do not submit an incomplete form, because incomplete forms are commonly disqualified outright.',
     coverage: 'Partial tuition, paid directly to the institution', max_amount_kes: 30000,
     eligibility: 'Resident of the constituency, demonstrated financial need; open to secondary, TVET and university students',
     min_grade: null, application_deadline: 'Varies by constituency — 2025/26 application notices are published on ngcdf.go.ke',
     website: 'https://ngcdf.go.ke', application_url: null,
-    requirements: ['Application form from local NG-CDF office', 'Fee structure', 'Admission/school letter'],
+    requirements: ['Application form from the local NG-CDF office', 'Fee structure from the institution', 'Admission or continuing-student letter', 'Student national ID or birth certificate', 'Parent/guardian national ID', 'Latest performance report or transcript', 'Form taken back to the school/college to be confirmed and stamped', 'If orphaned or living with disability: death certificate, or a letter from the chief or a community leader'],
     interest_rate: null, repayment_period: null,
     data_confidence: 'verified',
     verification_note: 'Award range (typically Ksh 5,000-30,000 per student per year, varying by constituency; some constituencies report up to 50,000), payment direct to institutions, and the 2025/26 application cycle confirmed via ngcdf.go.ke public notices and bursary guides, August 2026. Your constituency\'s actual range depends on its allocation — confirm at the local NG-CDF office.'
@@ -76,7 +76,7 @@ const FUNDING_SOURCES = [
     eligibility: 'County resident, financial need, enrolled in a recognised institution',
     min_grade: null, application_deadline: 'Varies by county, typically per financial year',
     website: null, application_url: null,
-    requirements: ['County bursary application form', 'Fee structure', 'Admission letter', 'Chief\'s letter'],
+    requirements: ['County bursary application form (ward or county office)', 'Fee structure from the institution', 'Admission or continuing-student letter', 'Chief or local administrator letter confirming you live in that ward/county', 'Student national ID or birth certificate', 'Parent/guardian national ID', 'Latest performance report or transcript', 'Form taken back to the school/college to be confirmed and stamped', 'If orphaned or living with disability: death certificate, or a letter from a community leader'],
     interest_rate: null, repayment_period: null,
     data_confidence: 'illustrative'
   },

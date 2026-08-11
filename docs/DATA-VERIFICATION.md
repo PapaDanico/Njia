@@ -1287,3 +1287,54 @@ describes what was actually measured.
 
 *Fourth harness-produced false finding this session. The pattern is consistent:
 the app was right and the probe was wrong. Check the fixture before the code.*
+
+## The budget penalty was flat, and ranking depended on it
+
+An external audit of the live site flagged this, and driving the app confirmed
+it: a course **Ksh 10,000** above budget and one **Ksh 810,000** above it both
+scored **15**. Identical.
+
+For this catalogue that is backwards. Fees run from free to over Ksh 800,000,
+and the entire reason over-budget courses are *shown* rather than hidden is that
+something slightly out of reach may be reachable with a bursary while something
+ten times over is not. A flat penalty discarded that distinction at exactly the
+moment the ranking needed it.
+
+The penalty now scales with the size of the gap, and — more importantly — is
+read from the **same `feasibilitySignal`** the card renders, so the score and
+the badge cannot drift apart. A course the card calls a "stretch" can no longer
+be scored as unreachable.
+
+Measured against a completed profile, budget Ksh 90,000:
+
+| Tuition | Gap | Score |
+| --- | --- | --- |
+| 80,000 | within | **95** |
+| 95,000 | +5,000 | **85** |
+| 110,000 | +20,000 | **80** |
+| 180,000 | +90,000 | **55** |
+| 400,000 | +310,000 | 55 |
+| 900,000 | +810,000 | 55 |
+
+The curve starts at 8 for a near miss and caps at 40 once tuition is double the
+budget. **The cap is deliberate:** past 2×, "further out of reach" stops
+carrying useful ranking information, and the card still names the exact gap in
+shillings either way.
+
+### Two things this broke, and what they taught
+
+**It broke every test in `scoring.test.js` at once.** The first version formatted
+the shortfall with `formatKes()`, which lives in `app.js` — and
+`scoreCourseMatch` is deliberately AppState- and document-free so the harness can
+load it into a bare vm context with only the data files. That header comment
+exists for a reason and reaching past it cost 5 failing tests. Formatted inline
+instead; the purity contract holds.
+
+**One existing test pinned the defect.** *"over budget costs 25 points but never
+goes negative"* asserted `score === 70` — the flat penalty, written down as
+intended behaviour. It was rewritten rather than deleted: the two properties
+that actually matter (being over budget costs something; the score has a floor at
+zero) are kept, and the magic number is gone.
+
+*Both new guards negative-tested: restore the flat −25 and two tests fail;
+remove the shilling amount from the copy and one fails.*

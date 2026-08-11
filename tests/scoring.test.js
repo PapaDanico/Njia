@@ -152,11 +152,23 @@ test('failing the grade requirement caps the score at 20', () => {
   assert.ok(!m.eligible);
 });
 
-test('over budget costs 25 points but never goes negative', () => {
+test('over budget costs points in proportion, and never goes negative', () => {
+  // This used to assert a flat -25 (score exactly 70). The penalty is now
+  // proportional to the size of the gap — see the proportionality tests
+  // below for why — so the fixed number is gone while the two properties
+  // that actually matter are kept: being over budget costs something, and
+  // the score has a floor at zero.
   const p = { hasResults: true, primary: 'tech', secondary: 'carer', grade: 'B', budgetMax: 100000 };
-  assert.equal(scoreCourseMatch(course(), p).score, 70);
+
+  // The fixture course is Ksh 200,000 against a Ksh 100,000 budget — exactly
+  // double, which is where the penalty curve caps at 40.
+  const doubled = scoreCourseMatch(course(), p).score;
+  const withinBudget = scoreCourseMatch(course(), { ...p, budgetMax: null }).score;
+  assert.ok(doubled < withinBudget, 'being over budget must cost something');
+  assert.equal(doubled, withinBudget - 40, 'at 2x budget the penalty is capped at 40');
+
   const floor = scoreCourseMatch(course({ cluster: 'business' }), { ...p, grade: 'D' });
-  assert.ok(floor.score >= 0);
+  assert.ok(floor.score >= 0, 'the score must never go negative');
 });
 
 test('unknown grade against a requirement flags gradeUnconfirmed but stays eligible', () => {
@@ -334,4 +346,50 @@ test('locality never pushes a score outside 0-100', () => {
       assert.ok(r.score >= 0 && r.score <= 100, `${c.id} scored ${r.score}`);
     }
   }
+});
+
+/* ---------- budget penalty proportionality ---------- */
+
+test('the budget penalty scales with how far over, not merely that it is over', () => {
+  // It used to be a flat -25 for any overage. Measured against the live app,
+  // a course Ksh 10,000 above budget and one Ksh 810,000 above it both scored
+  // 15 — identical. For a catalogue whose fees run from free to over
+  // Ksh 800,000 that is backwards: showing over-budget courses instead of
+  // hiding them is only useful if a near miss ranks above a wild miss, since
+  // the near miss is the one a bursary can close.
+  const p = { hasResults: true, primary: 'tech', secondary: 'carer', grade: 'A', budgetMax: 90_000 };
+  const at = (fees) => scoreCourseMatch(course({ total_fees_kes: fees, min_grade: null }), p);
+
+  const within = at(80_000).score;
+  const near = at(95_000).score;      // Ksh 5,000 over
+  const mid = at(140_000).score;      // Ksh 50,000 over
+  const far = at(400_000).score;      // Ksh 310,000 over
+
+  assert.ok(within > near, 'within budget must beat over budget');
+  assert.ok(near > mid, 'a near miss must rank above a bigger miss');
+  assert.ok(mid > far, 'the penalty must keep scaling through the mid range');
+  assert.notEqual(near, far, 'the flat-penalty regression must not return');
+
+  // The gap that matters most: a Ksh 5,000 miss versus a Ksh 310,000 miss.
+  assert.ok(near - far >= 15, `near miss and wild miss are only ${near - far} apart`);
+});
+
+test('the budget breakdown states the actual gap and reads from the feasibility bands', () => {
+  // Score and badge must not drift: both are derived from feasibilitySignal,
+  // so a course the card calls a "stretch" cannot be scored as unreachable.
+  const p = { hasResults: true, primary: 'tech', secondary: 'carer', grade: 'A', budgetMax: 90_000 };
+  const note = (fees) => scoreCourseMatch(course({ total_fees_kes: fees, min_grade: null }), p)
+    .breakdown.find((b) => b.factor === 'Budget');
+
+  const stretch = note(100_000);
+  assert.match(stretch.detail, /stretch/i, 'within 25% over is a stretch, not a long shot');
+  assert.match(stretch.detail, /10,000/, 'the actual shortfall must be named');
+  assert.equal(stretch.effect, 'down');
+
+  const longShot = note(500_000);
+  assert.match(longShot.detail, /long shot/i);
+  assert.match(longShot.detail, /410,000/, 'the actual shortfall must be named');
+
+  const ok = note(50_000);
+  assert.equal(ok.effect, 'up');
 });

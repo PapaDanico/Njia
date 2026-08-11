@@ -194,11 +194,41 @@ function scoreCourseMatch(course, profile) {
   }
 
   if (budgetMax != null) {
-    if (course.total_fees_kes > budgetMax) {
-      score = Math.max(0, score - 25);
-      breakdown.push({ factor: 'Budget', detail: 'Tuition is above your maximum budget — shown as a stretch rather than hidden.', effect: 'down' });
-    } else {
+    /* The penalty scales with HOW FAR over budget, and is read from the same
+     * feasibilitySignal the card renders, so the score and the badge cannot
+     * drift apart.
+     *
+     * It used to be a flat -25 for any overage at all. That made a course
+     * Ksh 10,000 above budget rank identically to one Ksh 810,000 above it —
+     * measured, both scored 15 — which is precisely backwards for this
+     * catalogue. Fees here run from free to over Ksh 800,000, and the whole
+     * point of showing over-budget courses rather than hiding them is that
+     * something slightly out of reach may be reachable with a bursary while
+     * something ten times over is not. A flat penalty threw that distinction
+     * away at the moment the ranking needed it.
+     *
+     * The curve starts at 8 for a near miss and caps at 40 once tuition is
+     * double the budget — past that, "further out of reach" stops carrying
+     * useful information. */
+    const feas = feasibilitySignal(course, budgetMax);
+    if (feas.level === 'within') {
       breakdown.push({ factor: 'Budget', detail: 'Tuition fits within your maximum budget.', effect: 'up' });
+    } else {
+      const penalty = Math.min(40, Math.round(8 + (feas.overBy / budgetMax) * 32));
+      score = Math.max(0, score - penalty);
+      // Formatted inline rather than through formatKes(). That helper lives in
+      // app.js, and scoreCourseMatch is deliberately AppState- and
+      // document-free so tests/scoring.test.js can load it into a bare vm
+      // context with only the data files — see that file's header. Reaching
+      // for the helper here broke every test in it at once.
+      const gap = `Ksh ${feas.overBy.toLocaleString('en-KE')}`;
+      breakdown.push({
+        factor: 'Budget',
+        detail: feas.level === 'stretch'
+          ? `${gap} above your budget — a stretch, and the kind of gap a bursary can close.`
+          : `${gap} above your budget — shown rather than hidden, but treat it as a long shot without funding.`,
+        effect: 'down'
+      });
     }
   }
 

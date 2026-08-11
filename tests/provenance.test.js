@@ -50,6 +50,7 @@ const PRIOR_LEARNING = grab('PRIOR_LEARNING');
 const ATTACHMENT = grab('ATTACHMENT');
 const LABOUR_MOBILITY = grab('LABOUR_MOBILITY');
 const ENTERPRISE_CAPITAL = grab('ENTERPRISE_CAPITAL');
+const TEACHER_LABOUR_MARKET = grab('TEACHER_LABOUR_MARKET');
 
 /* ---------- provenance is per-field, and claims are backed ---------- */
 
@@ -1358,4 +1359,60 @@ test('an E-grade learner can apply somewhere in a meaningful number of counties'
     reachable.filter((c) => c.level === 'artisan').map((c) => byId.get(c.institution_id)?.county));
   assert.ok(artisanCounties.size >= 8,
     `an E-grade learner reaches artisan training in only ${artisanCounties.size} counties`);
+});
+
+/* ---------- teaching is listed with the queue attached ---------- */
+
+/* Njia held no teacher training colleges at all, while teaching is one of the
+ * largest destinations for a C-grade learner. Filling that gap is only
+ * defensible with the employment reality attached.
+ *
+ * TSC employs about 431,831 teachers and has roughly 369,430 more trained,
+ * registered and jobless — nearly nine waiting for every ten working — while
+ * public schools are simultaneously short about 96,345 teachers. Both figures
+ * are true and they describe different things: the shortage is of funded
+ * posts, the backlog is of qualified people. A learner shown only the shortage
+ * would conclude teaching is a safe bet, which is the opposite of what the
+ * numbers say.
+ *
+ * So the warning leads the description, where it cannot be missed, rather than
+ * sitting in the collapsed provenance note — the same treatment that Don Bosco
+ * admitting boys only already gets. */
+test('teacher training records carry the employment queue in the description', () => {
+  const teaching = COURSES.filter((c) => /Teacher Education/i.test(c.name));
+  assert.ok(teaching.length > 0, 'the teacher training pathway must exist');
+
+  for (const c of teaching) {
+    // Not merely present — leading. A caveat below the fold is a caveat most
+    // readers never reach.
+    assert.match(c.description.slice(0, 120), /369,000 trained teachers|not the safe default/,
+      `${c.id} does not lead with the employment queue`);
+  }
+
+  // Njia's other records carry illustrative outcome estimates. Against a
+  // backlog this size an invented employment rate is not merely unmeasured,
+  // it is actively misleading — so these must stay null.
+  const invented = teaching.filter((c) => c.employment_rate !== null || c.median_salary_kes !== null);
+  assert.equal(invented.map((c) => c.id).join(', '), '',
+    'teacher training records must not carry invented outcome figures');
+});
+
+test('the teacher labour market record states both sides of the paradox', () => {
+  const T = TEACHER_LABOUR_MARKET;
+  assert.ok(T, 'TEACHER_LABOUR_MARKET must be exported');
+
+  // The shortage figure alone reads as opportunity. Only the pair is honest.
+  assert.ok(T.registeredUnemployedTeachers > 0 && T.fundedPostShortage > 0,
+    'both the backlog and the funded-post shortage must be recorded');
+  assert.ok(T.registeredUnemployedTeachers > T.fundedPostShortage,
+    'the backlog is the larger number — if that inverts, re-check the source');
+  assert.match(T.theParadox, /funded posts/,
+    'the paradox must explain that the shortage is of posts, not of people');
+
+  // theRatio is prose derived from two numbers; prose drifts when numbers
+  // change. Nearly nine per ten is 0.86 — assert the arithmetic still supports
+  // the wording rather than trusting the sentence.
+  const ratio = T.registeredUnemployedTeachers / T.tscEmployedTeachers;
+  assert.ok(ratio > 0.8 && ratio < 0.95,
+    `ratio is ${ratio.toFixed(2)} — the "nearly nine per ten" wording no longer matches`);
 });

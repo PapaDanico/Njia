@@ -922,6 +922,37 @@ const LABOUR_MOBILITY = {
   clusters: ['carer', 'tech', 'numbers', 'business']
 };
 
+
+/* TEACHING — the pathway with the largest gap between training and hiring.
+ *
+ * This record exists because Njia was about to add teacher training colleges
+ * and it would have been irresponsible to list them without it. Teaching looks
+ * like one of the safest choices a C-grade learner can make. The numbers say
+ * something harder.
+ *
+ * The two figures below are not in tension by accident: the shortage is of
+ * *funded posts* that Treasury has not paid for, while the backlog is of
+ * *qualified people* waiting for those posts to exist. Both are true at once,
+ * and a learner told only the shortage figure would draw exactly the wrong
+ * conclusion. */
+const TEACHER_LABOUR_MARKET = {
+  source: 'Teachers Service Commission figures reported by Education Cabinet Secretary Julius Ogamba, October 2025, with the funded-shortage and internship-ruling figures cross-reported in Kenyan education press through 2026.',
+  tscEmployedTeachers: 431831,
+  registeredUnemployedTeachers: 369430,
+  fundedPostShortage: 96345,
+  internshipRulingAffected: 44000,
+  backlogTrend: [
+    { figure: 314000, note: 'reported against 46,000 advertised TSC slots' },
+    { figure: 343000, note: 'reported as still jobless despite TSC registration' },
+    { figure: 369430, note: 'stated by the Education Cabinet Secretary, October 2025' }
+  ],
+  theParadox: 'Kenya has roughly 369,000 trained, TSC-registered teachers without a teaching job, and at the same time a shortage of about 96,000 teachers in public schools. The shortage is of funded posts, not of qualified people. Training more teachers does not close it; only budgeted hiring does.',
+  theRatio: 'For every ten teachers TSC employs, nearly nine more are registered and waiting. Registration is not employment, and completing the diploma does not put you in a classroom.',
+  theInternshipRuling: 'A court declared the TSC internship programme illegal, which left about 44,000 trained teachers who had been serving as interns without that route. Internship had been the main way new graduates got into a school at all.',
+  honestReading: 'This is not an argument against teaching. It is an argument against choosing it because it sounds safe. Go in knowing the queue is long, ask what the recent hiring numbers actually were rather than the shortage figure, and have a second use for the qualification - private schools, tutoring, county ECDE, or teaching abroad - rather than assuming a TSC posting follows the certificate.',
+  clusters: ['carer', 'people']
+};
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, ATTACHMENT, LABOUR_MOBILITY, ENTERPRISE_CAPITAL };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, ATTACHMENT, LABOUR_MOBILITY, ENTERPRISE_CAPITAL, TEACHER_LABOUR_MARKET };
 }

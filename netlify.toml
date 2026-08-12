@@ -8,10 +8,44 @@
   command = "echo 'Njia has no build step - deploying repository root as-is'"
   publish = "."
 
-# The Lighthouse plugin (installed via the dashboard) runs in report-only
-# mode: file-declared inputs take precedence over UI-configured inputs, so
-# score thresholds can never fail a deploy. Scores still appear on every
-# deploy for tracking against the >90 target.
+# WHAT ACTUALLY RUNS AT BUILD TIME
+#
+# Three plugins run on every deploy, and only one of them is visible here.
+# The other two are registered in the Netlify dashboard and appear nowhere in
+# this repository, so the resolved config in a build log is the only place the
+# full set is written down:
+#
+#   @netlify/plugin-lighthouse   origin: config  (declared below)
+#   @netlify/plugin-sitemap      origin: ui
+#   netlify-plugin-debug-cache   origin: ui
+#
+# @netlify/plugin-sitemap writes sitemap.xml into the publish directory, which
+# is this repository root — where the hand-written sitemap.xml already sits, so
+# the generated file probably replaces it. Low stakes in practice: Njia is a
+# single page, so the plugin would emit roughly the same single entry. Worth a
+# glance at what /sitemap.xml actually serves, mainly to confirm the URL names
+# the custom domain rather than the deploy subdomain; not worth worrying about.
+#
+# The plugins are also the only reason npm runs during a deploy at all. On
+# 12 August 2026 a production build failed with npm ECONNRESET installing into
+# .netlify/plugins — a site with no package.json, no lockfile and an echo for a
+# build command, stopped by registry connectivity. A retry of the same commit
+# and the same config succeeded, so this was a transient blip rather than a
+# standing fault. It is still a failure mode a fully static site would not
+# otherwise have, which is a reason to keep the plugin list short rather than a
+# reason to panic.
+#
+# The Lighthouse plugin runs in report-only mode: fail_deploy_on_score_thresholds
+# keeps a score dip from failing a deploy, while the scores still appear on
+# every build for tracking against the >90 target. That earns its keep — it is
+# the only outside measurement this project gets. Read those scores with some
+# tolerance, though: the same tree measured Performance 96 on one run and 98 on
+# the next, so a couple of points is noise, not a regression.
+#
+# Corrected here: this block previously described Lighthouse as "installed via
+# the dashboard". It is not — the resolved config shows origin: config, from
+# the declaration below. That wrong note sent a live incident investigation
+# after a duplicate registration that never existed.
 [[plugins]]
   package = "@netlify/plugin-lighthouse"
   [plugins.inputs]

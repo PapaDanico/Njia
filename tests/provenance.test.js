@@ -1514,3 +1514,31 @@ test('the report shortlist adds no vertical lines in print', () => {
       `the county-as-block rule is in "@media${m[1].trim()}" — it must be scoped to screen or it applies to print`);
   }
 });
+
+/* ---------- the deploy stays buildless ---------- */
+
+/* A production build failed on 12 August 2026 with npm ECONNRESET while
+ * installing build plugins — on a site with no package.json, no lockfile, and
+ * an echo for a build command. Nothing in the repository needs npm; the
+ * plugins are the only reason it runs at all.
+ *
+ * That is the standing fragility, and it gets worse the moment anything here
+ * acquires a dependency. These assertions are cheap insurance on the two
+ * properties that keep a deploy from having anything to go wrong: no install
+ * step, and no build step. */
+test('the site stays dependency-free and buildless', () => {
+  for (const f of ['package.json', 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml']) {
+    assert.ok(!fs.existsSync(path.join(root, f)),
+      `${f} exists — Njia is deliberately dependency-free, and every install is a way for a deploy to fail`);
+  }
+
+  const toml = fs.readFileSync(path.join(root, 'netlify.toml'), 'utf8');
+  // publish must stay the repository root: every asset path in the app is
+  // relative, and a subdirectory publish would serve an empty site.
+  assert.match(toml, /^\s*publish\s*=\s*"\."/m, 'publish must remain the repository root');
+  // The build command must remain a no-op. A real command here would give a
+  // buildless site something to fail at.
+  const cmd = toml.match(/^\s*command\s*=\s*"([^"]*)"/m);
+  assert.ok(cmd, 'netlify.toml must pin a build command so a dashboard setting cannot replace it');
+  assert.match(cmd[1], /^echo /, `build command is ${JSON.stringify(cmd[1])} — it must stay a no-op`);
+});

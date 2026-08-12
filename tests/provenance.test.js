@@ -27,6 +27,7 @@ const grab = (name) => vm.runInContext(name, context);
 const CLUSTERS = grab('CLUSTERS');
 const QUESTIONNAIRE = grab('QUESTIONNAIRE');
 const COURSES = grab('COURSES');
+const CATALOGUE_ROLES = grab('CATALOGUE_ROLES');
 const DISTINCT_PROGRAMMES = grab('DISTINCT_PROGRAMMES');
 const INSTITUTIONS = grab('INSTITUTIONS');
 const FUNDING_SOURCES = grab('FUNDING_SOURCES');
@@ -1654,5 +1655,103 @@ test("Maker's advertised paths are backed by real courses", () => {
   for (const path of CLUSTERS.maker.paths) {
     const stem = path.toLowerCase().split(/[ /&]+/)[0];
     assert.ok(haystack.includes(stem), `Maker advertises "${path}" with nothing behind it`);
+  }
+});
+
+/* ---------- Aspiration vs. supply ----------
+ *
+ * CLUSTERS[x].paths is hand-written. That is fine for describing a cluster,
+ * and deliberately kept aspirational, but it was doing a second job nobody
+ * had checked: paths[0] became the role in five years of Odyssey plan
+ * suggestions. The creator cluster listed Graphic Design, Journalism, Fashion
+ * Design, Architecture and Film & Media while its courses taught hairdressing,
+ * beauty therapy and catering, so a creator learner designed a life around
+ * graphic design that the catalogue could not start them on. CATALOGUE_ROLES
+ * is the measured counterpart, and these guard the split between the two.
+ */
+test('CATALOGUE_ROLES covers every cluster with something real', () => {
+  for (const id of Object.keys(CLUSTERS)) {
+    const roles = CATALOGUE_ROLES[id];
+    assert.ok(Array.isArray(roles) && roles.length,
+      `Cluster "${id}" has no catalogue roles — the Odyssey plan would fall back to "the field"`);
+    assert.ok(roles[0].courses >= 1,
+      `Cluster "${id}" leads with "${roles[0].role}" backed by ${roles[0].courses} courses`);
+  }
+});
+
+test('CATALOGUE_ROLES counts match the catalogue they claim to count', () => {
+  for (const [id, roles] of Object.entries(CATALOGUE_ROLES)) {
+    const pool = COURSES.filter((c) => c.cluster === id);
+    for (const { role, courses } of roles) {
+      const actual = pool.filter((c) => (c.career_paths || []).includes(role)).length;
+      assert.equal(courses, actual,
+        `${id}/"${role}" claims ${courses} courses, catalogue has ${actual}`);
+    }
+  }
+});
+
+/* Ordering must not depend on which record happened to be typed first.
+ * An array index deciding which career leads is the precise defect that was
+ * fixed in the cluster tie-break; the same mistake is available here. */
+test('CATALOGUE_ROLES ordering is deterministic, not insertion order', () => {
+  for (const [id, roles] of Object.entries(CATALOGUE_ROLES)) {
+    for (let i = 1; i < roles.length; i++) {
+      const prev = roles[i - 1];
+      const cur = roles[i];
+      assert.ok(prev.courses > cur.courses
+        || (prev.courses === cur.courses && prev.role.toLowerCase() < cur.role.toLowerCase()),
+        `${id}: "${prev.role}" (${prev.courses}) precedes "${cur.role}" (${cur.courses}) out of order`);
+    }
+  }
+});
+
+/* The two surfaces that a learner walks away with. The report is the sheet
+ * handed to whoever is being asked for fees, so the job titles on it must be
+ * ones the catalogue can train for; the results screen must show the measured
+ * line rather than presenting the aspirational tags alone as an offer. */
+test('the report and results screen are sourced from measured roles', () => {
+  const src = fs.readFileSync(path.join(root, 'js', 'discover.js'), 'utf8');
+  assert.ok(/report-paths[\s\S]{0,400}CATALOGUE_ROLES/.test(src),
+    'The exported report still tags the learner with hand-written cluster paths');
+  assert.ok(/CATALOGUE_ROLES\[primary\][\s\S]{0,700}cluster-supply/.test(src),
+    'The results screen shows aspirational tags with no measured counterpart');
+  assert.ok(src.includes('cluster-tags-label'),
+    'The aspirational tags are unlabelled, so they read as an offer');
+});
+
+test('the Odyssey plan builds on roles the catalogue can start a learner on', () => {
+  const src = fs.readFileSync(path.join(root, 'js', 'design.js'), 'utf8');
+  const fn = src.slice(src.indexOf('function odysseySuggestions'));
+  assert.ok(fn.includes('CATALOGUE_ROLES'),
+    'odysseySuggestions does not consult the catalogue');
+  assert.ok(!/const role\s*=\s*cluster\?\.paths/.test(fn),
+    'odysseySuggestions still takes its role from the aspirational paths list');
+});
+
+/* "working as a Accounting" shipped for months. The roles are real job titles
+ * now, several of them initialisms, so the article has to follow pronunciation
+ * rather than spelling. Executed rather than pattern-matched: the function is
+ * self-contained, so the test runs the real one. */
+test('the Odyssey plan says "an HR Assistant", not "a HR Assistant"', () => {
+  const src = fs.readFileSync(path.join(root, 'js', 'design.js'), 'utf8');
+  const start = src.indexOf('function articleFor');
+  assert.ok(start > -1, 'articleFor is gone — the a/an handling went with it');
+  const body = src.slice(start, src.indexOf('\n}', start) + 2);
+  const articleFor = vm.runInNewContext(`${body}; articleFor`);
+
+  for (const [noun, want] of [
+    ['HR Assistant', 'an'], ['ICT Support Assistant', 'an'], ['M&E Assistant', 'an'],
+    ['Accounts Assistant', 'an'], ['Electrical Artisan', 'an'], ['Auditing Assistant', 'an'],
+    ['Carpenter', 'a'], ['Registered Nurse', 'a'], ['Tailor', 'a'], ['Welder', 'a'],
+    ['Beauty Therapist', 'a'], ['Data Analyst', 'a']
+  ]) {
+    assert.equal(articleFor(noun), want, `"${articleFor(noun)} ${noun}" is wrong`);
+  }
+
+  // Every role the app can actually reach must read correctly, not just the samples.
+  for (const roles of Object.values(CATALOGUE_ROLES)) {
+    for (const { role } of roles) {
+      assert.match(articleFor(role), /^an?$/, `articleFor("${role}") returned nothing usable`);
+    }
   }
 });

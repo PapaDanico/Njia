@@ -481,6 +481,57 @@ const COURSES = [
  * is the number of places you could send an application. */
 const DISTINCT_PROGRAMMES = new Set(COURSES.map((c) => c.name)).size;
 
+/* What a cluster can actually route a learner into, measured from the
+ * catalogue rather than asserted.
+ *
+ * CLUSTERS[x].paths is hand-written and aspirational: it names the fields a
+ * cluster points toward, including ones Njia cannot place anybody in yet.
+ * That is a legitimate thing to publish — a learner should hear that their
+ * type leads toward architecture — but it was being read as an offer. The
+ * creator cluster listed Graphic Design, Journalism, Fashion Design,
+ * Architecture and Film & Media while its 22 courses taught hairdressing,
+ * beauty therapy and catering; not one declared field was in the catalogue.
+ * Worse, paths[0] was silently the role in five years of Odyssey plan
+ * suggestions, so a learner sorted into numbers designed a life around
+ * "Accounting" and a creator around "Graphic Design".
+ *
+ * This is the measured counterpart: the career_paths actually attached to
+ * courses in the catalogue, ordered by how many courses lead to each. It
+ * cannot drift from the catalogue because it is computed from it.
+ *
+ * The count is courses-that-lead-here, not job openings — the same KMTC
+ * programme taught on 44 campuses contributes 44, because each is a real
+ * place to apply. Ties break alphabetically and not by insertion order:
+ * letting array position decide an ordering is the exact bug that put one
+ * career ahead of another for no reason (see the tie-break in computeClusterScores).
+ *
+ * The tie-break compares lowercased strings directly rather than calling
+ * localeCompare, which sorts by the host's ICU collation and can therefore
+ * order two roles differently in Node than in a browser. Case-folding first
+ * keeps "Technical Teacher" ahead of "TVET Trainer" the way a reader expects,
+ * without making the output depend on which machine rendered it. */
+const CATALOGUE_ROLES = (() => {
+  const counts = {};
+  for (const course of COURSES) {
+    const forCluster = counts[course.cluster] || (counts[course.cluster] = new Map());
+    for (const role of course.career_paths || []) {
+      forCluster.set(role, (forCluster.get(role) || 0) + 1);
+    }
+  }
+  const ordered = {};
+  for (const [cluster, roleCounts] of Object.entries(counts)) {
+    ordered[cluster] = [...roleCounts.entries()]
+      .sort((a, b) => {
+        if (b[1] !== a[1]) return b[1] - a[1];
+        const left = a[0].toLowerCase();
+        const right = b[0].toLowerCase();
+        return left < right ? -1 : left > right ? 1 : 0;
+      })
+      .map(([role, courses]) => ({ role, courses }));
+  }
+  return ordered;
+})();
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { COURSES, DISTINCT_PROGRAMMES };
+  module.exports = { COURSES, DISTINCT_PROGRAMMES, CATALOGUE_ROLES };
 }

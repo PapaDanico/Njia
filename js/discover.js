@@ -523,7 +523,24 @@ function renderDiscoverResults(el) {
         <span class="cluster-badge" style="background:${primaryC.color}22;color:var(--cluster-${primary}-ink)">Primary Cluster</span>
         <h2 style="color:var(--cluster-${primary}-ink)">${primaryC.name}</h2>
         <p class="text-secondary text-sm mt-1">${primaryC.description}</p>
+        <p class="cluster-tags-label">Fields this cluster points toward</p>
         <div class="cluster-tags">${primaryC.paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
+        ${(() => {
+          /* The tags above are aspirational and stay that way — a learner
+             should hear that their type leads toward architecture even while
+             Njia holds no architecture course. What was dishonest was letting
+             them read as an offer. This line is the measured other half:
+             what the catalogue can actually train you for, counted from it.
+             Where the two disagree — creator points at Graphic Design and
+             Journalism, and holds hairdressing and catering — the learner now
+             sees the gap instead of discovering it in the Decide module. */
+          const roles = CATALOGUE_ROLES[primary] || [];
+          if (!roles.length) return '';
+          const places = COURSES.filter((c) => c.cluster === primary).length;
+          return `<p class="cluster-supply"><strong>In Njia's catalogue today:</strong> ${
+            roles.slice(0, 5).map((r) => `${escapeHtml(r.role)} <span class="num">${r.courses}</span>`).join(', ')
+          } — from ${places} course${places === 1 ? '' : 's'} you could apply to. Counted from the catalogue, not chosen by hand.</p>`;
+        })()}
         ${(() => {
           const conf = matchConfidence(ranked);
           const confCopy = {
@@ -690,7 +707,14 @@ function renderShareableReportHTML() {
         <span class="report-primary-label" style="color:${primaryC.color}">Primary Match</span>
         <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
         <p>${primaryC.description}</p>
-        <div class="report-paths">${primaryC.paths.slice(0, 4).map((p) => `<span class="report-path-tag">${escapeHtml(p)}</span>`).join('')}</div>
+        <!-- Measured roles, not primaryC.paths. The report is the sheet a
+             learner hands to a parent or a sponsor to argue for fees, so the
+             job titles on it have to be ones the catalogue can actually train
+             them for. Same four tags, same height — the one-page fit holds. -->
+        <div class="report-paths">${((CATALOGUE_ROLES[primary] || []).length
+          ? CATALOGUE_ROLES[primary].slice(0, 4).map((r) => r.role)
+          : primaryC.paths.slice(0, 4)
+        ).map((label) => `<span class="report-path-tag">${escapeHtml(label)}</span>`).join('')}</div>
       </div>
 
       ${isTie

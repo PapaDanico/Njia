@@ -2003,6 +2003,32 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .report-chip { font-size: 0.76rem; background: #f2efe7; color: #52504a; padding: 0.2rem 0.6rem; border-radius: 6px; }
 
 .report-courses ul { list-style: disc; padding-left: 1.2rem; font-size: 0.88rem; color: #52504a; line-height: 1.5; }
+
+/* The shortlist table. Fixed colours like the rest of this card because it
+ * prints — a theme-dependent grey can come out invisible on paper.
+ *
+ * Row rules only, no vertical lines and no zebra fill: this sits inside a
+ * document a reader scans down one column at a time, and a full grid would add
+ * ink without adding structure. Tuition and Entry are right-aligned so the
+ * figures line up as digits rather than as text. */
+.report-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; color: #52504a; }
+.report-table th {
+  text-align: left; font-size: 0.66rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px; color: #6b6862;
+  padding: 0 0.5rem 0.3rem 0; border-bottom: 1px solid #d9d4c7;
+}
+.report-table td { padding: 0.35rem 0.5rem 0.35rem 0; border-bottom: 1px solid #f0ece2; vertical-align: top; line-height: 1.35; }
+.report-table tr:last-child td { border-bottom: none; }
+.report-table th:last-child, .report-table td:last-child { padding-right: 0; }
+.report-table .ra { text-align: right; white-space: nowrap; }
+/* A course the learner does not yet qualify for is still listed — grades can be
+ * improved and requirements change — so this is a muted marker, not a warning
+ * colour. Weight, not alarm. */
+.report-table .report-ineligible { color: #8a5b52; font-weight: 600; }
+/* .report-legend carries a negative top margin so it tucks under a section
+ * title. Directly beneath a table that pulls it against the last row, where it
+ * reads as an unruled sixth entry rather than as a note about the column. */
+.report-courses .report-table + .report-legend { margin-top: 0.5rem; }
 .report-progress { margin-top: 0.55rem; }
 .report-progress-line { font-size: 0.88rem; color: #52504a; margin-bottom: 0.7rem; }
 

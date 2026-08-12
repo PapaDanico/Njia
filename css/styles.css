@@ -882,7 +882,33 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   letter-spacing: 0.5px;
   margin-bottom: 0.6rem;
 }
-.cluster-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin-top: 0.75rem; }
+/* The tags are aspirational and the line under them is measured, so the two
+ * must not look like one list. The label says which is which; .cluster-supply
+ * carries the quieter, factual weight of a footnote rather than a promise. */
+.cluster-tags-label {
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-align: center;
+}
+.cluster-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin-top: 0.35rem; }
+.cluster-supply {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  text-align: left;
+}
+/* No opacity here. Dimming these counts to 0.75 read as a tasteful de-emphasis
+ * and measured 3.84:1 against the card — under the 4.5:1 floor for text this
+ * size. The count is the evidence in this line; it is the last thing that
+ * should be hard to read. Weight carries the hierarchy instead. */
+.cluster-supply .num { font-variant-numeric: tabular-nums; font-weight: 600; }
 .tag {
   background: var(--bg-card);
   border-radius: 999px;

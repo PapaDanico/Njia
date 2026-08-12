@@ -158,12 +158,34 @@ function renderOdysseyAnchors(plan) {
  * starting phrase, drawn from the plan's own anchor course and cluster
  * where it has them, which lands in the field still fully editable.
  * Fast on a phone, and the words remain the user's own. */
+
+/* "a" or "an", decided by how the word is *said* rather than how it starts.
+ * The roles these wrap are real job titles from the catalogue, and several
+ * are initialisms: "an HR Assistant" and "an ICT Support Technician" are
+ * correct because the letters are pronounced aitch and eye, while "a KMTC
+ * placement" is correct because that one is said as letters beginning with
+ * a consonant sound. Getting this wrong is small, but it lands in a plan
+ * the learner is meant to read back as their own words. */
+function articleFor(noun) {
+  const first = String(noun).trim().split(/\s+/)[0] || '';
+  const isInitialism = /^[A-Z&]{2,}$/.test(first);
+  return (isInitialism ? 'AEFHILMNORSX'.includes(first[0]) : 'aeiou'.includes(first.toLowerCase()[0]))
+    ? 'an'
+    : 'a';
+}
+
 function odysseySuggestions(plan, yearIndex) {
   const course = plan.courseId ? COURSES.find((c) => c.id === plan.courseId) : null;
   const inst = course ? INSTITUTIONS.find((i) => i.id === course.institution_id) : null;
-  const cluster = plan.cluster ? CLUSTERS[plan.cluster] : null;
-  const role = cluster?.paths?.[0] || 'the field';
-  const role2 = cluster?.paths?.[1] || role;
+  /* The role comes from CATALOGUE_ROLES, not CLUSTERS[x].paths. The paths
+   * are field names a learner cannot be shadowed by or employed as — this
+   * line used to produce "working as a Accounting" — and worse, they are
+   * aspirational, so a numbers learner planned five years around accounting
+   * when the catalogue's accounting supply is two courses. These are the
+   * job titles the catalogue can actually lead to, most-available first. */
+  const roles = (plan.cluster && CATALOGUE_ROLES[plan.cluster]) || [];
+  const role = roles[0]?.role || 'the field';
+  const role2 = roles[1]?.role || role;
   const courseName = course ? course.name : 'the course I choose';
   const where = inst ? inst.name.replace(/\s*\(.*\)\s*/, '') : 'my chosen institution';
 
@@ -172,14 +194,14 @@ function odysseySuggestions(plan, yearIndex) {
       `Start ${courseName}${inst ? ' at ' + where : ''}`,
       'Work and save toward first-year fees',
       'Apply for HEF funding and a county bursary',
-      `Volunteer or shadow someone in ${role} to test the fit`,
+      `Volunteer or shadow ${articleFor(role)} ${role} to test the fit`,
       'Retake or improve the subjects holding me back'
     ],
     [
       `Complete year one of ${courseName} and keep my grades up`,
       'Take part-time work related to the field',
       'Secure funding for the next year of fees',
-      `Talk to two people already working as a ${role}`
+      `Talk to two people already working as ${articleFor(role)} ${role}`
     ],
     [
       `Finish ${courseName}`,
@@ -188,13 +210,13 @@ function odysseySuggestions(plan, yearIndex) {
       'Decide whether to ladder into the next qualification'
     ],
     [
-      `Working in a first ${role} role`,
+      `Working my first job as ${articleFor(role)} ${role}`,
       'Ladder up to the next qualification',
       'Save toward further study or equipment',
-      `Move toward ${role2} work`
+      `Move toward work as ${articleFor(role2)} ${role2}`
     ],
     [
-      `Established in ${role} work`,
+      `Established as ${articleFor(role)} ${role}`,
       'Specialise or take on supervision',
       'Start something of my own in this field',
       'Mentor someone starting where I started'

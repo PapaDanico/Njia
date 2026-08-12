@@ -42,12 +42,13 @@ function meetsGradeRequirement(userGrade, minGrade) {
   return gradeRank(userGrade) >= gradeRank(minGrade);
 }
 
-/* Marks any figure whose provenance is 'illustrative'. Outcome figures are
- * estimates on every record — see the provenance notice in data/courses.js —
- * so this must never be dropped for visual tidiness. */
-function estimateMark(course) {
-  return course.outcomes_confidence === 'verified' ? '' : '<span class="est-mark" title="Estimated — not measured. Kenya does not publish graduate outcomes per course.">est.</span>';
-}
+/* estimateMark() stood here. It stamped "est." on any outcome figure whose
+ * provenance was illustrative, with a tooltip explaining that Kenya publishes
+ * no per-course graduate outcomes — and its own comment said it must never be
+ * dropped for visual tidiness. It has not been: the figures it qualified were
+ * fabricated for every record, so they were removed rather than labelled, and
+ * a marker with nothing left to mark is dead code. The tooltip's point now
+ * lives in data/courses.js, where the fields are held permanently null. */
 
 function institutionById(id) {
   return INSTITUTIONS.find((i) => i.id === id);
@@ -297,11 +298,55 @@ function byFee(a, b, dir) {
 
 /* How many months of the median graduate salary the tuition costs. A blunt
  * but honest return signal: a 12-month certificate that costs two months of
- * pay is a different proposition from a degree that costs fourteen. Pure. */
+ * pay is a different proposition from a degree that costs fourteen. Pure.
+ *
+ * Retained because it is the correct arithmetic and it is unit-tested, but
+ * nothing in the catalogue feeds it any more: every median_salary_kes was
+ * invented and is now null, so this returns null for every real course. No
+ * caller renders it. If per-course salary data is ever published and sourced,
+ * this is ready; until then it is a function waiting for evidence. */
 function paybackMonths(course) {
   if (!course.median_salary_kes || !course.total_fees_kes) return null;
   return Math.round((course.total_fees_kes / course.median_salary_kes) * 10) / 10;
 }
+
+/* The same signal, standing on sourced ground.
+ *
+ * Every per-course employment_rate and median_salary_kes in this catalogue was
+ * illustrative — not one had been measured, because Kenya publishes no
+ * per-course graduate outcomes. Marking them "(est.)" qualified each number
+ * while leaving the *differences* between them intact, and the differences
+ * were the fabrication: a learner reading 88% against 45% takes that as a
+ * reason to choose, and there was nothing underneath it.
+ *
+ * ENTRY_PAY is different in kind. It is sourced — TSC CBA scales, published
+ * artisan day rates — and each band is a range attached to a named role and
+ * employer type rather than a point estimate per course.
+ *
+ * The course card deliberately shows NO pay figure at all, and arriving there
+ * took two wrong turns worth recording, because both looked like fixes.
+ *
+ * The first replaced the per-course salary with the cluster's lowest-floor
+ * ENTRY_PAY band, on the reasoning that the conservative end is the honest one
+ * to plan against. It printed "entry pay for Nurse (KRCHN diploma), private
+ * hospital" underneath a Diploma in Counselling Psychology — a real, sourced,
+ * correctly-cited figure attached to a job the course does not lead to.
+ * Swapping a fabricated number for an accurate but mislabelled one is not an
+ * improvement.
+ *
+ * The second widened it to a cluster span, low floor to high ceiling, with the
+ * roles named as examples. That produced "entry pay ... Ksh 20,000–70,000" for
+ * carer, where the 70,000 comes from a band whose own note reads "around five
+ * years in". The bands are not commensurable: some are entry level, one is
+ * mid-career, and the cluster tags are coarse enough that numbers and creator
+ * both resolve to freelance digital work. Averaging them into a range strips
+ * the very caveats that make each one true.
+ *
+ * ENTRY_PAY is already presented properly on the results screen, one band at a
+ * time, each with its role and its note intact — which is the only form in
+ * which it is honest. A course card cannot summarise it without lying, so it
+ * does not try. Tuition is on the card and is verified; what that tuition buys
+ * is a question the evidence layer answers in its own words. */
 
 function computeCourseMatch(course) {
   const results = AppState.questionnaire.results;
@@ -609,16 +654,9 @@ function renderCourseCard(course, match) {
         <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${course.duration_months} mo</div></div>
         <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value${feePublished ? ' num' : ''}">${feePublished ? formatKes(course.total_fees_kes) : 'Not published'}</div></div>
         <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
-        <div class="meta-item"><div class="meta-label">Employment Rate ${estimateMark(course)}</div><div class="meta-value num is-estimate">${formatPercent(course.employment_rate)}</div></div>
-        <div class="meta-item"><div class="meta-label">Median Salary ${estimateMark(course)}</div><div class="meta-value num is-estimate">${course.median_salary_kes == null ? 'N/A' : `${formatKes(course.median_salary_kes)}/mo`}</div></div>
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
-      ${(() => {
-        const pb = paybackMonths(course);
-        if (pb == null) return '';
-        return `<p class="text-muted text-sm mb-1">Tuition equals about <strong class="num">${pb}</strong> months of the illustrative median salary for this path — a rough return signal, not a promise.</p>`;
-      })()}
       <p class="text-muted text-sm mb-1">Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
       ${feePublished ? `
       <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} months${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
@@ -810,12 +848,20 @@ function openCourseComparison() {
     { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true, raw: (c) => c.duration_months, better: 'min' },
     { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not published' : formatKes(c.total_fees_kes)), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
-    // Shown, but deliberately given no `raw`/`better` — a shaded "best value"
-    // cell is the app declaring a winner, and these figures are illustrative
-    // for every course in the catalogue. Displaying an estimate is honest;
-    // crowning one estimate over another is not.
-    { label: 'Employment Rate (est.)', get: (c) => formatPercent(c.employment_rate), num: true },
-    { label: 'Median Salary (est.)', get: (c) => (c.median_salary_kes == null ? 'N/A' : `${formatKes(c.median_salary_kes)}/mo`), num: true },
+    /* There were two more rows here: "Employment Rate (est.)" and "Median
+     * Salary (est.)". They were shown without best-value shading, on the
+     * reasoning that displaying an estimate is honest while crowning one is
+     * not. That reasoning was sound and still did not go far enough — side by
+     * side in a comparison table is precisely where a fabricated difference
+     * gets read as a finding. Not one of those figures had been measured, so
+     * the rows are gone rather than qualified.
+     *
+     * Nothing replaces them here. A sourced cluster pay band was tried and
+     * removed — see entryPayBand's epitaph above — because collapsing bands
+     * that range from entry level to five years in produces a range that is
+     * false in a new way. The pay evidence is on the results screen, one band
+     * at a time with its note. This table compares what is actually
+     * comparable: cost, length, entry bar, and fit. */
     { label: 'Match Score', get: (c) => `${computeCourseMatch(c).score}%`, num: true, raw: (c) => computeCourseMatch(c).score, better: 'max' }
   ];
   const bestValue = (row) => {

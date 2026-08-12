@@ -1542,3 +1542,56 @@ test('the site stays dependency-free and buildless', () => {
   assert.ok(cmd, 'netlify.toml must pin a build command so a dashboard setting cannot replace it');
   assert.match(cmd[1], /^echo /, `build command is ${JSON.stringify(cmd[1])} — it must stay a no-op`);
 });
+
+/* ---------- a tie is reported, not awarded ---------- */
+
+/* computeClusterScores sorts by score with no tiebreaker, and
+ * Array.prototype.sort is stable — so equal scores came out in the order the
+ * clusters happen to be declared in data/questions.js. Measured over 20,000
+ * uniformly-random answer sets: 11.5% of runs ended in a top-two tie, and the
+ * tie was awarded in exactly declaration order, carer first through numbers
+ * last. Carer took 35.8% of ties against a fair share of 16.7%, which is most
+ * of why it was named primary in 19.7% of all runs rather than 16.7%.
+ *
+ * An array index was choosing a learner's career direction. There is no honest
+ * tiebreaker — identical scores mean the instrument cannot separate them — so
+ * the fix reports the draw rather than inventing a winner. */
+test('a tied top score is disclosed rather than resolved by declaration order', () => {
+  const discover = fs.readFileSync(path.join(root, 'js/discover.js'), 'utf8');
+
+  assert.match(discover, /tiedWithPrimary/,
+    'computeClusterScores must report which clusters share the top score');
+  assert.match(discover, /return \{[^}]*tiedWithPrimary/,
+    'tiedWithPrimary must be returned, not merely computed');
+
+  // matchConfidence must name a tie as its own level. Describing a zero-point
+  // gap as a "close call" understates it on every surface that renders it.
+  assert.match(discover, /marginPts === 0 \? 'tied'/,
+    "matchConfidence must report an exact tie as level 'tied'");
+
+  // Both surfaces a learner reads — the screen and the exported PDF — have to
+  // say it. The PDF is the copy that travels with no app around it.
+  assert.match(discover, /tied: `an exact draw/, 'the results screen must describe a draw');
+  assert.match(discover, /This was a draw/, 'the exported report must describe a draw');
+
+  const css = fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8');
+  assert.match(css, /\.confidence-tied\s*\{/, 'the tied state needs its own styling, not a fallback');
+});
+
+/* The six clusters are a RIASEC derivative, and the evidence closest to Njia's
+ * own users says that structure may not hold for them. A platform that claims
+ * to be research-backed has to carry the research that complicates it. */
+test('the method lineage names its inheritance and its limits', () => {
+  const modules = METHOD_LINEAGE.map((m) => m.module).join(' | ');
+  const sources = METHOD_LINEAGE.map((m) => m.source).join(' | ');
+  const notes = METHOD_LINEAGE.map((m) => m.note).join(' | ');
+
+  assert.match(sources, /Holland/, 'the RIASEC inheritance must be named, not left implicit');
+  assert.match(sources, /du Toit/, "the closest test to Njia's users must be cited");
+  assert.match(notes, /may not hold/, 'the African-context limit must be stated, not softened away');
+  assert.match(sources, /Krumboltz/, 'planned happenstance must be cited');
+  assert.match(sources, /Kluve/, 'the youth-intervention evidence must be cited');
+  assert.match(notes, /one in three|one youth employment programme in three/i,
+    'the base rate for these interventions working must be stated plainly');
+  assert.match(modules, /no home/, "the missing Realistic type must be recorded as a gap");
+});

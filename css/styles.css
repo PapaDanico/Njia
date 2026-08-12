@@ -2029,6 +2029,42 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * title. Directly beneath a table that pulls it against the last row, where it
  * reads as an unruled sixth entry rather than as a note about the column. */
 .report-courses .report-table + .report-legend { margin-top: 0.5rem; }
+
+/* County stays INLINE by default, including in print. Dropping it to its own
+ * line everywhere added one line per row and pushed the PDF onto a second
+ * page — measured, not guessed: report height went 795px to 873px and the page
+ * count went 1 to 2. One page is the whole requirement for this deliverable, so
+ * the second line is a phone-screen affordance only (see the max-width block
+ * below), and at A4 width the institution and its county share a line. */
+.report-inst-county { color: #6b6862; }
+.report-inst-county::before { content: ' · '; }
+
+/* The on-screen preview at phone width. The table is only ~322px there, and
+ * four columns of prose wrapped the institution to five lines.
+ *
+ * Deliberately NOT the usual display:block responsive-table trick — that
+ * strips the table's semantics from the accessibility tree, and this app holds
+ * a clean axe sweep. Instead the two narrow numeric columns tighten, the type
+ * steps down slightly, and long institution names are allowed to break rather
+ * than force the column wider. Scoped to `screen` so print is untouched: the
+ * PDF renders at A4 width where the four columns have room. */
+@media screen and (max-width: 520px) {
+  .report-table { font-size: 0.72rem; }
+  .report-table th { font-size: 0.6rem; letter-spacing: 0.3px; }
+  .report-table td { padding-right: 0.35rem; }
+  /* Aggressive breaking on the two prose columns only. Applied to every cell it
+     split "Not published" across lines as "publishe / d" — a broken word reads
+     as a rendering fault and undermines the one cell whose whole job is to be
+     unambiguous about a missing fee. */
+  .report-table td:first-child, .report-table td:nth-child(2) { overflow-wrap: break-word; }
+  /* The numeric columns wrap between words but never inside one. */
+  .report-table .ra { white-space: normal; overflow-wrap: normal; word-break: keep-all; }
+  /* County to its own line here, where the column is ~90px wide and the middot
+     separator routinely ended up orphaned at a line break. Screen only — in
+     print this stays inline to keep the report on one page. */
+  .report-inst-county { display: block; font-size: 0.92em; }
+  .report-inst-county::before { content: none; }
+}
 .report-progress { margin-top: 0.55rem; }
 .report-progress-line { font-size: 0.88rem; color: #52504a; margin-bottom: 0.7rem; }
 

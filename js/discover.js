@@ -732,7 +732,11 @@ function renderShareableReportHTML() {
                   : `${escapeHtml(c.min_grade)}${eligible === null ? '' : eligible ? ' ✓' : ' ✕'}`;
                 return `<tr>
                   <td>${escapeHtml(c.name)}</td>
-                  <td>${escapeHtml(inst ? `${inst.name}${inst.county ? ` · ${inst.county}` : ''}` : '—')}</td>
+                  ${/* County in its own span rather than concatenated with a
+                        separator, so narrow screens can drop it to a second
+                        line instead of wrapping the institution name mid-word.
+                        Two elements, one cell — the table keeps its semantics. */''}
+                  <td>${inst ? `${escapeHtml(inst.name)}${inst.county ? `<span class="report-inst-county">${escapeHtml(inst.county)}</span>` : ''}` : '—'}</td>
                   <td class="ra">${escapeHtml(fee)}</td>
                   <td class="ra${eligible === false ? ' report-ineligible' : ''}">${gradeCell}</td>
                 </tr>`;

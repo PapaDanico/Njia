@@ -1483,3 +1483,34 @@ test('the report shortlist carries the facts a reader needs to act on', () => {
   assert.match(table, /meetsGradeRequirement/,
     'the Entry column must compare each course against the learner\'s own grade');
 });
+
+/* One page is the whole requirement for this deliverable, and the constraint is
+ * easy to break from a direction that looks like an improvement. Moving the
+ * county to its own line under each institution read better — and added one
+ * line per row, taking the report from 795px to 873px and the PDF from one page
+ * to two. Measured, not guessed.
+ *
+ * The real check is a rendered page count, which needs a browser and so lives
+ * in the drive script rather than here. What this guards is the specific shape
+ * of that regression: any rule that grows a table row must be scoped to screen,
+ * because print has no spare vertical room. */
+test('the report shortlist adds no vertical lines in print', () => {
+  const css = fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8');
+
+  // The county span must be inline by default. A bare `display: block` outside
+  // a screen-scoped block applies to print too.
+  const base = css.match(/\.report-inst-county\s*\{[^}]*\}/);
+  assert.ok(base, '.report-inst-county must be styled');
+  assert.ok(!/display:\s*block/.test(base[0]),
+    '.report-inst-county must not be display:block by default — it costs a line per row in print');
+
+  // Where it does become a block, that rule has to sit inside a screen-only
+  // media query. `@media (max-width: …)` without `screen` still matches print.
+  const blockRules = [...css.matchAll(/@media([^{]*)\{((?:[^{}]|\{[^{}]*\})*)\}/g)]
+    .filter((m) => /\.report-inst-county\s*\{[^}]*display:\s*block/.test(m[2]));
+  assert.ok(blockRules.length > 0, 'the phone treatment for the county line must exist');
+  for (const m of blockRules) {
+    assert.match(m[1], /\bscreen\b/,
+      `the county-as-block rule is in "@media${m[1].trim()}" — it must be scoped to screen or it applies to print`);
+  }
+});

@@ -1165,6 +1165,9 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .confidence-clear { border-left-color: var(--secondary); }
 .confidence-moderate { border-left-color: var(--accent-ink); }
 .confidence-close, .confidence-unclear { border-left-color: var(--danger); }
+/* A tie is not a failure state and not a near-miss — it is the instrument
+   reporting that two clusters are genuinely level. Neutral, not alarming. */
+.confidence-tied { border-left-color: var(--accent-ink); }
 
 .feas-chip {
   display: inline-flex; align-items: center;

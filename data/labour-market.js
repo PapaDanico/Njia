@@ -734,6 +734,26 @@ const AUTOMATION_EXPOSURE = {
  * where they can go and read it themselves. */
 const METHOD_LINEAGE = [
   {
+    module: 'Discover — the six clusters and what they inherit',
+    source: "Holland's RIASEC typology; du Toit & de Bruin (2002), 'The Structural Validity of Holland's R-I-A-S-E-C Model of Vocational Personality Types for Young Black South African Men and Women'",
+    note: "Njia's six clusters map recognisably onto Holland's six types — Carer to Social, Creator to Artistic, Business Builder to Enterprising, Tech Navigator to Investigative, Numbers Professional to Conventional. That inheritance brings RIASEC's evidence base and its limits together. The limit that matters most here: du Toit and de Bruin tested the circular-order structure on young Black South Africans and found it may not hold for that population. It is the closest published test to Njia's own users, and it says the six-type structure is not safely assumed in this context. Treat a cluster as a prompt for conversation, not a classification."
+  },
+  {
+    module: 'Discover — the type with no home',
+    source: "Holland's Realistic type, against Njia's cluster set",
+    note: "RIASEC's Realistic type — hands-on, practical, tools and machines — has no cluster of its own here, so the artisan trades sit under the Tech Navigator. A learner who is practical but not technological has no archetype that describes them, which is a live gap given that the trades are the fastest route into paid work for the lowest-scoring learners. Recorded rather than papered over: the cluster set is six because Holland's was six, not because six is right for Kenya."
+  },
+  {
+    module: 'Design — planning for a system that does not place most applicants',
+    source: 'Krumboltz, Planned Happenstance Learning Theory; Mitchell, Levin & Krumboltz (1999)',
+    note: "Around 30% of KUCCPS applicants are placed. A method built on executing a chosen plan describes what happens to a minority. Planned happenstance treats unplanned events as the normal case and names five skills for using them — curiosity, persistence, flexibility, optimism and risk-taking. This is why the Design module prototypes three futures rather than committing to one, and why an application that does not land is treated as information rather than failure."
+  },
+  {
+    module: 'Whole platform — what career interventions actually change',
+    source: 'Kluve et al. (2017), Campbell Systematic Reviews / 3ie SR37, "Interventions to improve the labour market outcomes of youth"',
+    note: "The honest headline is that roughly one youth employment programme in three shows a positive significant impact. Effects are larger in low- and middle-income countries and for those at greatest risk of exclusion, which is Njia's audience. What raises the odds in those settings: combining components rather than doing one thing, including soft skills, and ending in a certificate. That last finding is why this platform argues so hard that the certificate is what earns the artisan day rate — it is not a slogan, it is the intervention literature."
+  },
+  {
     module: 'Design — Odyssey Plans, prototyping, gravity problems',
     source: 'Stanford Life Design Lab; Burnett & Evans, "Designing Your Life"',
     note: 'Three parallel five-year futures, prototyped rather than committed to. The point of three is that it defeats the single-path thinking that makes a wrong choice feel final.'

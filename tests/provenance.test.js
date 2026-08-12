@@ -20,10 +20,12 @@ const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
 const context = vm.createContext({ console, module: { exports: {} } });
-for (const file of ['data/institutions.js', 'data/courses.js', 'data/funding.js', 'data/labour-market.js']) {
+for (const file of ['data/questions.js', 'data/institutions.js', 'data/courses.js', 'data/funding.js', 'data/labour-market.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
 }
 const grab = (name) => vm.runInContext(name, context);
+const CLUSTERS = grab('CLUSTERS');
+const QUESTIONNAIRE = grab('QUESTIONNAIRE');
 const COURSES = grab('COURSES');
 const DISTINCT_PROGRAMMES = grab('DISTINCT_PROGRAMMES');
 const INSTITUTIONS = grab('INSTITUTIONS');
@@ -1594,4 +1596,63 @@ test('the method lineage names its inheritance and its limits', () => {
   assert.match(notes, /one in three|one youth employment programme in three/i,
     'the base rate for these interventions working must be stated plainly');
   assert.match(modules, /no home/, "the missing Realistic type must be recorded as a gap");
+});
+
+/* ---------- the seventh cluster is a whole cluster, not a label ---------- */
+
+/* Holland's Realistic type — hands-on, tools, machines, building and repairing
+ * — had no cluster here, and the questionnaire had no option describing that
+ * disposition. The only "fixing" answer in sixteen questions was "fixing a
+ * phone, computer, or learning a coding tutorial", scored purely as tech. A
+ * learner who is excellent with their hands had nothing to select, so they
+ * answered around it and were sorted somewhere else — while the artisan trades
+ * sat under Tech Navigator, which describes systems and code, not welding.
+ *
+ * Adding the cluster without the rest is worse than not adding it: a cluster
+ * with no questionnaire voice can never score, and a cluster with no evidence
+ * renders a heading with nothing under it. These assert the whole thing
+ * arrived. */
+test('the Maker cluster can actually be reached and is not a dead end', () => {
+  assert.ok(CLUSTERS.maker, 'the Maker cluster must exist');
+
+  // It must be last. Object.keys order is what unbroken ties fall through, so
+  // a new cluster at the front would change which name shows first on every
+  // pre-existing tie.
+  const keys = Object.keys(CLUSTERS);
+  assert.equal(keys[keys.length - 1], 'maker',
+    'maker must be declared last so it does not displace existing tie ordering');
+
+  // A cluster with no questionnaire voice scores zero forever.
+  const scoring = QUESTIONNAIRE.flatMap((s) => s.questions).filter((q) => (q.options || []).length);
+  const voices = scoring.filter((q) => q.options.some((o) => o.scores && o.scores.maker));
+  assert.ok(voices.length >= 6,
+    `only ${voices.length} questions offer a Maker answer — it cannot compete on that`);
+
+  // And it must not be an artisan-only ghetto. The whole ladder argument in
+  // this codebase is artisan to craft to diploma; a cluster that dead-ends at
+  // artisan tells the lowest-scoring learners their ceiling is fixed.
+  const pool = COURSES.filter((c) => c.cluster === 'maker');
+  assert.ok(pool.length > 20, `Maker holds only ${pool.length} courses`);
+  const levels = new Set(pool.map((c) => c.level));
+  assert.ok(levels.has('artisan') && levels.size >= 3,
+    `Maker spans only ${[...levels].join(', ')} — it must ladder above artisan`);
+});
+
+/* Maker's career paths were built from the career_paths actually attached to
+ * its courses, which is why it is the one cluster whose headline path is not
+ * thinner than the catalogue behind it. That is the standard the other six are
+ * measured against, so it should not quietly regress. */
+test("Maker's advertised paths are backed by real courses", () => {
+  const pool = COURSES.filter((c) => c.cluster === 'maker');
+  const haystack = pool.map((c) => `${c.name} ${(c.career_paths || []).join(' ')}`).join(' | ').toLowerCase();
+  const first = CLUSTERS.maker.paths[0].toLowerCase().split(/[ /&]+/)[0];
+  const hits = pool.filter((c) =>
+    `${c.name} ${(c.career_paths || []).join(' ')}`.toLowerCase().includes(first)).length;
+  assert.ok(hits >= 5,
+    `Maker leads with "${CLUSTERS.maker.paths[0]}" but only ${hits} courses match it`);
+  // Every advertised path should find something, not just the first.
+  for (const path of CLUSTERS.maker.paths) {
+    const stem = path.toLowerCase().split(/[ /&]+/)[0];
+    assert.ok(haystack.includes(stem), `Maker advertises "${path}" with nothing behind it`);
+  }
 });

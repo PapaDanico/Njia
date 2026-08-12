@@ -48,6 +48,43 @@ const CLUSTERS = {
     color: '#c0392b',
     description: 'You are energised by clarity in data and structure in chaos. Numbers tell you a story that words cannot.',
     paths: ['Accounting', 'Finance', 'Statistics', 'Banking', 'Actuarial Science']
+  },
+
+  /* THE SEVENTH CLUSTER, AND WHY IT IS A CORRECTION RATHER THAN AN ADDITION.
+   *
+   * The other six map onto Holland's RIASEC types — Carer to Social, Creator to
+   * Artistic, Business Builder to Enterprising, Tech Navigator to
+   * Investigative, Numbers Professional to Conventional. Holland's remaining
+   * type, Realistic — hands-on, tools, machines, building and repairing — had
+   * no cluster here at all.
+   *
+   * That absence was not neutral. The questionnaire contained no option about
+   * working with your hands: the only "fixing" answer in sixteen questions was
+   * "fixing a phone, computer, or learning a coding tutorial", scored purely as
+   * tech. A learner who is excellent with tools had nothing to select that
+   * described them, so they answered around it and were sorted somewhere else.
+   * Meanwhile the 76 artisan trades in the catalogue sat under Tech Navigator,
+   * which describes systems and code, not welding.
+   *
+   * The trades are the fastest route into paid work for the lowest-scoring
+   * learners, and this platform argues that case in its own evidence layer.
+   * Having no way to detect the disposition that suits them was the widest gap
+   * in the diagnostic.
+   *
+   * Declared LAST on purpose. Object.keys order is what unbroken ties used to
+   * fall through, and although a tie is now disclosed rather than silently
+   * awarded, putting a new cluster first would still have made it the name
+   * shown first on every existing tie. Last place is the position that changes
+   * nobody's prior result.
+   *
+   * Paths come from the career_paths actually attached to the artisan records,
+   * by frequency — not from a brochure. */
+  maker: {
+    name: 'The Maker',
+    short: 'Maker',
+    color: '#7a5c2e',
+    description: 'You are energised by working with your hands and seeing a real thing finished. Tools, materials and machines make sense to you, and you would rather build or repair something than describe it.',
+    paths: ['Carpentry & Joinery', 'Welding & Fabrication', 'Electrical Installation', 'Motor Vehicle Mechanics', 'Plumbing', 'Tailoring & Garment Making']
   }
 };
 
@@ -71,8 +108,9 @@ const QUESTIONNAIRE = [
           { text: 'Figure out who will pay for it and how', scores: { business: 2, numbers: 1 } },
           { text: 'Look for the most efficient way to organise the work', scores: { tech: 2, numbers: 1 } },
           { text: 'Assign roles and set the direction', scores: { people: 2, business: 1 } },
-          { text: 'Build a budget or timeline spreadsheet', scores: { numbers: 2, tech: 1 } }
-        ]
+          { text: 'Build a budget or timeline spreadsheet', scores: { numbers: 2, tech: 1 } },
+        { text: "Get the physical things ready — the space, materials and equipment", scores: { maker: 2 } }
+      ]
       },
       {
         id: 'id_2',
@@ -86,8 +124,9 @@ const QUESTIONNAIRE = [
           { text: 'Trying to sell something or grow a small hustle', scores: { business: 2 } },
           { text: 'Fixing a phone, computer, or learning a coding tutorial', scores: { tech: 2 } },
           { text: 'Organising an event or leading a youth group activity', scores: { people: 2 } },
-          { text: 'Tracking your M-Pesa spending or building a savings plan', scores: { numbers: 2 } }
-        ]
+          { text: 'Tracking your M-Pesa spending or building a savings plan', scores: { numbers: 2 } },
+        { text: "Repairing something around the home, or helping in a workshop or shamba", scores: { maker: 2 } }
+      ]
       },
       {
         id: 'id_3',
@@ -101,8 +140,9 @@ const QUESTIONNAIRE = [
           { text: "I'm always thinking about how to make money from an idea", scores: { business: 1 } },
           { text: 'I enjoy figuring out how things work under the hood', scores: { tech: 1 } },
           { text: 'People often ask me to make the final decision', scores: { people: 1 } },
-          { text: 'I feel calm when things are measured and precise', scores: { numbers: 1 } }
-        ]
+          { text: 'I feel calm when things are measured and precise', scores: { numbers: 1 } },
+        { text: "I'd rather be judged on something I built than something I said", scores: { maker: 1 } }
+      ]
       },
       {
         id: 'id_4',
@@ -116,8 +156,9 @@ const QUESTIONNAIRE = [
           { text: 'Business Studies / Geography', scores: { business: 1, numbers: 1 } },
           { text: 'Mathematics / Physics / Computer Studies', scores: { tech: 1, numbers: 1 } },
           { text: 'History / CRE / Social subjects', scores: { people: 1, carer: 1 } },
-          { text: 'Agriculture / Home Science', scores: { carer: 1, business: 1 } }
-        ]
+          { text: 'Agriculture / Home Science', scores: { carer: 1, business: 1 } },
+        { text: "Technical subjects — woodwork, metalwork, technical drawing, building construction", scores: { maker: 2 } }
+      ]
       },
       {
         id: 'id_5',
@@ -148,8 +189,9 @@ const QUESTIONNAIRE = [
           { text: 'The one chasing the deal or the client', scores: { business: 2 } },
           { text: 'The one solving the technical problem', scores: { tech: 2 } },
           { text: 'The one running the meeting', scores: { people: 2 } },
-          { text: 'The one tracking the numbers', scores: { numbers: 2 } }
-        ]
+          { text: 'The one tracking the numbers', scores: { numbers: 2 } },
+        { text: "The one who actually builds or fixes the thing", scores: { maker: 2 } }
+      ]
       },
       {
         id: 'co_2',
@@ -163,8 +205,9 @@ const QUESTIONNAIRE = [
           { text: 'A startup or your own business', scores: { business: 2 } },
           { text: 'A tech company or IT department', scores: { tech: 2 } },
           { text: 'A government office or large organisation', scores: { people: 2 } },
-          { text: 'A bank, audit firm, or finance department', scores: { numbers: 2 } }
-        ]
+          { text: 'A bank, audit firm, or finance department', scores: { numbers: 2 } },
+        { text: "A workshop, garage, or building site", scores: { maker: 2 } }
+      ]
       },
       {
         id: 'co_3',
@@ -178,8 +221,9 @@ const QUESTIONNAIRE = [
           { text: 'Negotiating and persuading', scores: { business: 2 } },
           { text: 'Mostly independently, with occasional check-ins', scores: { tech: 2 } },
           { text: 'Leading and coordinating groups', scores: { people: 2 } },
-          { text: 'Behind the scenes, precise and quiet', scores: { numbers: 2 } }
-        ]
+          { text: 'Behind the scenes, precise and quiet', scores: { numbers: 2 } },
+        { text: "Working alongside people on a task, more than talking about it", scores: { maker: 1, carer: 1 } }
+      ]
       },
       {
         id: 'co_4',
@@ -276,8 +320,9 @@ const QUESTIONNAIRE = [
           { text: 'Owning something — a business, an asset, financial freedom', scores: { business: 2 } },
           { text: 'Being known as excellent at solving hard technical problems', scores: { tech: 2 } },
           { text: 'Leading an organisation or a team that does great work', scores: { people: 2 } },
-          { text: 'Financial stability and being trusted with important decisions', scores: { numbers: 2 } }
-        ]
+          { text: 'Financial stability and being trusted with important decisions', scores: { numbers: 2 } },
+        { text: "Having a trade nobody can take from me, and my own tools", scores: { maker: 2 } }
+      ]
       },
       {
         id: 'ho_2',
@@ -299,8 +344,9 @@ const QUESTIONNAIRE = [
           { text: 'Never having ownership over my income', scores: { business: 1 } },
           { text: 'A career with no growth in skills or technology', scores: { tech: 1 } },
           { text: 'Never being trusted to lead', scores: { people: 1 } },
-          { text: 'A career with no structure or clear progression', scores: { numbers: 1 } }
-        ]
+          { text: 'A career with no structure or clear progression', scores: { numbers: 1 } },
+        { text: "Never learning to make or fix anything with my own hands", scores: { maker: 1 } }
+      ]
       }
     ]
   }

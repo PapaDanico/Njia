@@ -118,6 +118,11 @@
   --cluster-tech-ink: #0a5f81;
   --cluster-people-ink: #5a34ab;
   --cluster-numbers-ink: #a02e20;
+  /* Maker — the seventh cluster. Teal, because the six existing hues already
+     claim magenta, amber, green, blue, violet and red, and a near-duplicate
+     would make two clusters indistinguishable on a bar chart. 7.09:1 on paper,
+     comfortably past the AA floor the others sit at. */
+  --cluster-maker-ink: #175f57;
 
   /* Odyssey plan accents — one per life. Light values sit on white cards;
    * the dark scheme lifts each to clear the AA floor on the espresso card. */
@@ -187,6 +192,7 @@
   --cluster-tech-ink: #74c6e6;
   --cluster-people-ink: #bba4f2;
   --cluster-numbers-ink: #eb9a8e;
+  --cluster-maker-ink: #86d3c7;
 
   --plan-life1: #6fc3e4;
   --plan-life2: #a5c583;

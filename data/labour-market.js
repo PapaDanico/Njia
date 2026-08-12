@@ -228,7 +228,7 @@ const CBE_PATHWAYS = {
   liveFrom: 'January 2026 — the first Grade 10 cohort',
   decisionPoint: 'Grade 10, at roughly age 14–15, on KJSEA results',
   pathways: [
-    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', clusters: ['tech', 'numbers'],
+    { name: 'STEM', covers: 'Science, technology, engineering and mathematics subjects', clusters: ['tech', 'numbers', 'maker'],
       tracks: [
         { name: 'Pure Sciences', subjects: ['Physics', 'Chemistry', 'Biology', 'General Science'], rule: 'Take at least two from this list, plus one more from anywhere in STEM.' },
         { name: 'Applied Sciences', subjects: ['Computer Science', 'Home Science', 'Agriculture'], rule: 'Take at least two from this list; the third may come from another STEM track.' },
@@ -358,6 +358,12 @@ const MINIMUM_WAGE = {
  * include consultants and principals; these are entry figures, which is the
  * number a school-leaver is really asking for. */
 const ENTRY_PAY = [
+  {
+    role: 'Certified artisan (building or mechanical trade), site or garage work',
+    monthlyKes: [30000, 36000],
+    note: 'Derived arithmetic rather than a surveyed salary: the certified artisan day rate of Ksh 2,500\u20133,000 at roughly twelve working days a month, which is what irregular site work often looks like. Steady work pushes it well above this and uncertified work pays a fraction of it. Read it as a day rate, not a salary \u2014 there is no employer pension, paid leave or sick pay behind it.',
+    clusters: ['maker']
+  },
   {
     role: 'Nurse (KRCHN diploma), private hospital',
     monthlyKes: [20000, 35000],
@@ -584,6 +590,11 @@ const AFRICA_OUTLOOK = {
 /* Kenya-specific demand signals, kept separate from the global projection. */
 const KENYA_DEMAND_SIGNALS = [
   {
+    signal: 'Fewer than 2,000 trained plumbers, painters and masons nationally',
+    note: 'Against roughly 5,000 engineers and architects, in a construction sector where two-thirds of developers name skilled-worker shortage as the main brake on activity. Demand for construction professionals is projected to rise from 260,000 to over 410,000 by 2035. SKILLED_TRADES carries the day rates this shortage supports.',
+    clusters: ['maker']
+  },
+  {
     signal: 'ICT roles account for roughly 13–15% of formal job postings',
     note: 'The sector grew over 6% in 2024, outpacing the wider economy — the fastest-expanding formal employer in the country.',
     clusters: ['tech', 'numbers']
@@ -703,6 +714,11 @@ const AUTOMATION_EXPOSURE = {
    * is why this is worth surfacing per-cluster rather than as a general
    * warning nobody can act on. */
   bottlenecks: [
+    {
+      barrier: 'Manual dexterity in unstructured settings',
+      meaning: 'Working with hands, tools and materials in places that are never twice the same \u2014 a roof, an engine bay, a stranger\u2019s wiring. This is among the persistent engineering bottlenecks Frey and Osborne identify, and it is why the building and mechanical trades sit low on automation rankings while clerical work sits high.',
+      clusters: ['maker']
+    },
     {
       barrier: 'Social intelligence',
       meaning: 'Negotiation, persuasion, care, and reading people. Persistently hard to automate.',

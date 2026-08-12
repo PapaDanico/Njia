@@ -580,20 +580,64 @@ test('the Decide sort offers no ordering built on illustrative outcomes', () => 
   assert.ok(!/median_salary_kes\s*\?\?\s*0\)\s*-/.test(src), 'a salary comparator is still defined');
 });
 
-test('the comparison table shows outcome estimates but crowns no winner', () => {
-  // A shaded "best value" cell is the app declaring a winner. Displaying an
-  // estimate is honest; ranking one estimate above another is not, so the
-  // outcome rows must carry no `better`/`raw` pair while the rows built on
-  // verified fee and duration data still do.
+test('the comparison table carries no fabricated outcome figures at all', () => {
+  /* This guard used to allow the outcome rows so long as they crowned no
+   * winner — displaying an estimate is honest, ranking one is not. That did
+   * not go far enough. A comparison table is where a difference between two
+   * numbers gets read as a finding, and every per-course employment rate and
+   * median salary in this catalogue was invented, so the differences were the
+   * fabrication. The rows are gone, and this now fails if they return. */
   const src = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
-  for (const label of ['Employment Rate (est.)', 'Median Salary (est.)']) {
-    const row = src.split('\n').find((l) => l.includes(`label: '${label}'`));
-    assert.ok(row, `comparison row ${label} not found`);
-    assert.ok(!/better:/.test(row), `${label} still marks a best value`);
-    assert.ok(!/raw:/.test(row), `${label} still exposes a raw value for ranking`);
+  for (const label of ['Employment Rate', 'Median Salary']) {
+    assert.ok(!src.includes(`label: '${label}`),
+      `the comparison table has reintroduced a "${label}" row built on unmeasured data`);
   }
   const tuition = src.split('\n').find((l) => l.includes("label: 'Tuition'"));
   assert.match(tuition, /better: 'min'/, 'verified fee data should still mark a best value');
+  // Tuition stays: it is verified per course and genuinely comparable.
+  assert.ok(src.includes("label: 'Tuition'"), 'the table no longer compares cost');
+});
+
+test('no per-course outcome figure survives in the catalogue', () => {
+  /* The fields are kept rather than deleted so that the guards written around
+   * them keep their meaning, but nothing may put a number back in them: there
+   * is no source that could justify one. Kenya publishes no per-course
+   * graduate outcomes, which the app says on its own evidence page. */
+  const withRate = COURSES.filter((c) => c.employment_rate != null);
+  const withSalary = COURSES.filter((c) => c.median_salary_kes != null);
+  assert.equal(withRate.length, 0,
+    `${withRate.length} courses carry an employment_rate again (e.g. ${withRate[0]?.id}) — nothing can source one`);
+  assert.equal(withSalary.length, 0,
+    `${withSalary.length} courses carry a median_salary_kes again (e.g. ${withSalary[0]?.id})`);
+});
+
+test('the course card claims no pay figure of its own', () => {
+  const src = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  assert.ok(!/meta-label">Employment Rate/.test(src),
+    'the course card renders a per-course employment rate again');
+  assert.ok(!/meta-label">Median Salary/.test(src),
+    'the course card renders a per-course median salary again');
+  /* Nor a synthesised one. Deriving a per-course pay figure from ENTRY_PAY was
+   * tried twice and was wrong both times: the bands range from entry level to
+   * five years in, and the cluster tags are coarse, so any collapse of them
+   * into one number or range drops the caveat that made each band true. */
+  // Comments are stripped first: the reasoning above is recorded in decide.js
+  // in prose that names ENTRY_PAY, and a guard that trips on its own
+  // explanation would only teach the next person to delete the explanation.
+  const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  assert.ok(!/ENTRY_PAY/.test(code),
+    'decide.js is deriving a pay figure from ENTRY_PAY again — the bands do not collapse honestly');
+});
+
+test('the evidence layer shows each pay band with its own caveat', () => {
+  /* The bands are only honest one at a time: "Entry level. Faster to get than
+   * a public post" and "around five years in" are what stop 20,000 and 70,000
+   * being read as one range. If the note is ever dropped for tidiness, the
+   * numbers become the same lie a summary would have told. */
+  const src = fs.readFileSync(path.join(root, 'js', 'discover.js'), 'utf8');
+  const block = src.slice(src.indexOf('ENTRY_PAY'), src.indexOf('ENTRY_PAY') + 3000);
+  assert.ok(/pay-role/.test(block), 'the evidence layer no longer names the role behind each band');
+  assert.ok(/e\.note/.test(block), 'the evidence layer prints pay bands without their notes');
 });
 
 test('breadth and reach are counted as separate claims', () => {

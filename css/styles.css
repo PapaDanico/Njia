@@ -440,7 +440,12 @@ body:not([data-page="home"]) .nav-back { display: flex; }
 }
 .landing-nav-link:hover, .landing-nav-link:focus-visible { color: var(--primary-dark); }
 .landing-nav-dropdown { position: relative; }
-.landing-nav-dropdown-btn .caret { font-size: 0.7rem; transition: transform 0.15s ease; opacity: 0.6; }
+/* 0.7, not 0.6. The caret is aria-hidden, so axe passes over it as decorative
+ * and the sweep never complained — but it is the only visual cue that this nav
+ * item opens a menu, which puts it under WCAG 1.4.11 non-text contrast at 3:1.
+ * At 0.6 it composited to 2.89:1 on --bg in light mode, just under. 0.7 gives
+ * 3.61:1 and is not perceptibly heavier. */
+.landing-nav-dropdown-btn .caret { font-size: 0.7rem; transition: transform 0.15s ease; opacity: 0.7; }
 .landing-nav-dropdown-btn[aria-expanded="true"] .caret,
 .landing-nav-dropdown:hover .caret, .landing-nav-dropdown:focus-within .caret { transform: rotate(180deg); opacity: 1; }
 .landing-nav-dropdown-menu {

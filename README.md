@@ -107,6 +107,33 @@ are pure functions with unit tests — no npm install needed:
 node --test tests/*.test.js
 ```
 
+That suite also guards data provenance and colour contrast. The contrast
+checks parse the palette straight out of `css/styles.css` and compute WCAG
+ratios in plain Node, so a token that drops below AA fails the build with
+no browser involved. Anything that dims text with `opacity` has to be
+declared in the `DIMMED` list in `tests/contrast.test.js` with its measured
+effective ratio — a rule added after a count was dimmed to `0.75` and
+shipped at 3.84:1, under the 4.5:1 floor.
+
+### Accessibility sweep (optional, needs a browser)
+
+`tests/a11y-sweep.mjs` runs axe-core over 32 states — seven pages plus the
+questionnaire's results screen, at two viewports and both colour schemes.
+It is **not** part of `node --test`, because it needs tooling this project
+deliberately does not depend on. Supply that out-of-tree:
+
+```bash
+python3 -m http.server 8106 &
+npm i --no-save --prefix /tmp/njia-a11y playwright axe-core
+NODE_PATH=/tmp/njia-a11y/node_modules node tests/a11y-sweep.mjs
+```
+
+It exits `2` when the tooling is missing, `1` on violations *or* on any
+state it could not reach, and `0` only when every state was genuinely
+scanned. That distinction is the point: the sweep this replaced reported
+"28 states, 0 violations" for weeks while never completing the
+questionnaire, so it had never once looked at the results screen.
+
 ## Deploying to Netlify
 
 1. Push this repository to GitHub (or drag-and-drop the folder in the

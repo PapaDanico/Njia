@@ -619,7 +619,7 @@ function renderShareableReportHTML() {
   const savedCourses = AppState.savedCourses
     .map((id) => COURSES.find((c) => c.id === id))
     .filter(Boolean)
-    .slice(0, 3);
+    .slice(0, 5);
 
   const doneOkrs = countDoneOkrs();
 
@@ -638,7 +638,15 @@ function renderShareableReportHTML() {
   return `
     <div class="report-card">
       <div class="report-header">
-        <img src="./icons/logo-lockup-report.png" alt="Njia" width="180" height="85" decoding="async" loading="lazy">
+        ${/* NOT loading="lazy". This image lives inside .print-only, which is
+              display:none until print media applies. A lazy image in a hidden
+              subtree never enters the viewport, so the browser never fetches
+              it — measured: naturalWidth 0, zero network requests — and by the
+              time print CSS reveals the block there is no opportunity left to
+              load. Every PDF exported before this shipped with no brand mark
+              at all, which is the one element telling a parent, school or
+              bursary office where the document came from. */''}
+        <img src="./icons/logo-lockup-report.png" alt="Njia" width="180" height="85" decoding="sync">
         <div class="report-header-meta">
           <span class="report-eyebrow">Career Pathway Report</span>
           <span class="report-date">${dateStr}</span>
@@ -688,10 +696,54 @@ function renderShareableReportHTML() {
           </div>` : ''}
       </div>
 
+      ${/* This was a bulleted list of bare course names, and it was the
+            thinnest section on the page while holding the most useful data
+            Njia has. "Diploma in Counselling Psychology" tells a parent or a
+            bursary officer nothing they can act on: not where it is taught,
+            not what it costs, not whether the learner's grade clears the bar.
+            All of that is already in the catalogue.
+
+            A table, because these are four facts about each of several rows
+            and a reader needs to compare them down a column. Entry grade
+            carries an explicit tick or cross against the learner's own grade —
+            eligibility is the first question anyone asks of a shortlist, and
+            making the reader compute it from two numbers is a poor use of the
+            one page. Unpriced records say so rather than showing a blank cell
+            that reads as free. */''}
       ${savedCourses.length ? `
         <div class="report-courses">
-          <span class="report-section-title">Considering</span>
-          <ul>${savedCourses.map((c) => `<li>${escapeHtml(c.name)}</li>`).join('')}</ul>
+          <span class="report-section-title">Courses You Are Considering</span>
+          <table class="report-table">
+            <thead>
+              <tr><th>Course</th><th>Institution</th><th class="ra">Tuition</th><th class="ra">Entry</th></tr>
+            </thead>
+            <tbody>
+              ${savedCourses.map((c) => {
+                const inst = INSTITUTIONS.find((i) => i.id === c.institution_id);
+                const fee = c.total_fees_kes === null || c.total_fees_kes === undefined
+                  ? 'Not published'
+                  : `Ksh ${c.total_fees_kes.toLocaleString('en-KE')}`;
+                // meetsGradeRequirement lives in decide.js. Guarded so the
+                // report still renders if it is ever built before that module.
+                const known = constraints.grade && typeof meetsGradeRequirement === 'function';
+                const eligible = known ? meetsGradeRequirement(constraints.grade, c.min_grade) : null;
+                const gradeCell = !c.min_grade
+                  ? 'Open'
+                  : `${escapeHtml(c.min_grade)}${eligible === null ? '' : eligible ? ' ✓' : ' ✕'}`;
+                return `<tr>
+                  <td>${escapeHtml(c.name)}</td>
+                  ${/* County in its own span rather than concatenated with a
+                        separator, so narrow screens can drop it to a second
+                        line instead of wrapping the institution name mid-word.
+                        Two elements, one cell — the table keeps its semantics. */''}
+                  <td>${inst ? `${escapeHtml(inst.name)}${inst.county ? `<span class="report-inst-county">${escapeHtml(inst.county)}</span>` : ''}` : '—'}</td>
+                  <td class="ra">${escapeHtml(fee)}</td>
+                  <td class="ra${eligible === false ? ' report-ineligible' : ''}">${gradeCell}</td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+          ${constraints.grade ? `<p class="report-legend">Entry column compares each course's minimum grade against your ${escapeHtml(constraints.grade)}. ✓ you meet it, ✕ you do not — a course you do not yet qualify for is still listed, because grades can be improved and requirements change.</p>` : ''}
         </div>` : ''}
 
       ${/* The card reported goals and silently omitted applications, which are

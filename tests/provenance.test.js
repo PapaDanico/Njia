@@ -1431,3 +1431,86 @@ test('the teacher labour market record states both sides of the paradox', () => 
   assert.ok(ratio > 0.8 && ratio < 0.95,
     `ratio is ${ratio.toFixed(2)} — the "nearly nine per ten" wording no longer matches`);
 });
+
+/* ---------- the exported PDF is the copy that travels ---------- */
+
+/* The report leaves the app. It goes to a parent, a school, a bursary office —
+ * readers with no app around it to fill in gaps. Two defects were found by
+ * generating one and looking at it.
+ *
+ * The brand mark was loading="lazy" inside .print-only, which is display:none
+ * until print media applies. A lazy image in a hidden subtree never enters the
+ * viewport, so it was never fetched — measured naturalWidth 0 and zero network
+ * requests — and print CSS reveals the block far too late to load it. Every
+ * PDF exported shipped with no logo: no indication of where the document came
+ * from. */
+test('the report logo is not lazy-loaded out of the PDF', () => {
+  const discover = fs.readFileSync(path.join(root, 'js/discover.js'), 'utf8');
+  const header = discover.match(/<div class="report-header">[\s\S]*?<\/div>/);
+  assert.ok(header, 'the report must have a header block');
+  const img = header[0].match(/<img[^>]*>/);
+  assert.ok(img, 'the report header must carry the brand mark');
+  assert.ok(!/loading=["']lazy["']/.test(img[0]),
+    'the report logo must not be lazy-loaded — it sits in a display:none subtree and will never be fetched');
+
+  // The print block must stay display:none on screen and visible in print, or
+  // the report renders twice on the page.
+  const css = fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8');
+  assert.match(css, /\.print-only\s*\{\s*display:\s*none/, '.print-only must be hidden on screen');
+  assert.match(css, /\.print-only\s*\{\s*display:\s*block\s*!important/, '.print-only must be shown in print');
+});
+
+/* The shortlist was a bulleted list of bare course names — the thinnest section
+ * on the page, carrying the most decision-relevant data Njia holds. A course
+ * name alone tells a bursary officer nothing: not where it is taught, not what
+ * it costs, not whether the learner's grade clears the bar. */
+test('the report shortlist carries the facts a reader needs to act on', () => {
+  const discover = fs.readFileSync(path.join(root, 'js/discover.js'), 'utf8');
+  const block = discover.match(/report-courses[\s\S]*?report-progress/);
+  assert.ok(block, 'the report must have a shortlist section');
+  const table = block[0];
+
+  for (const col of ['Course', 'Institution', 'Tuition', 'Entry']) {
+    assert.ok(table.includes(`<th`) && new RegExp(`>${col}<`).test(table),
+      `the shortlist must have a ${col} column`);
+  }
+  // An unpriced course must say so. A blank cell reads as free, which is the
+  // same failure the Decide cards were fixed for.
+  assert.match(table, /Not published/,
+    'unpriced courses must say so rather than rendering an empty fee cell');
+  // Eligibility is the first question anyone asks of a shortlist; the reader
+  // should not have to compare two grades themselves.
+  assert.match(table, /meetsGradeRequirement/,
+    'the Entry column must compare each course against the learner\'s own grade');
+});
+
+/* One page is the whole requirement for this deliverable, and the constraint is
+ * easy to break from a direction that looks like an improvement. Moving the
+ * county to its own line under each institution read better — and added one
+ * line per row, taking the report from 795px to 873px and the PDF from one page
+ * to two. Measured, not guessed.
+ *
+ * The real check is a rendered page count, which needs a browser and so lives
+ * in the drive script rather than here. What this guards is the specific shape
+ * of that regression: any rule that grows a table row must be scoped to screen,
+ * because print has no spare vertical room. */
+test('the report shortlist adds no vertical lines in print', () => {
+  const css = fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8');
+
+  // The county span must be inline by default. A bare `display: block` outside
+  // a screen-scoped block applies to print too.
+  const base = css.match(/\.report-inst-county\s*\{[^}]*\}/);
+  assert.ok(base, '.report-inst-county must be styled');
+  assert.ok(!/display:\s*block/.test(base[0]),
+    '.report-inst-county must not be display:block by default — it costs a line per row in print');
+
+  // Where it does become a block, that rule has to sit inside a screen-only
+  // media query. `@media (max-width: …)` without `screen` still matches print.
+  const blockRules = [...css.matchAll(/@media([^{]*)\{((?:[^{}]|\{[^{}]*\})*)\}/g)]
+    .filter((m) => /\.report-inst-county\s*\{[^}]*display:\s*block/.test(m[2]));
+  assert.ok(blockRules.length > 0, 'the phone treatment for the county line must exist');
+  for (const m of blockRules) {
+    assert.match(m[1], /\bscreen\b/,
+      `the county-as-block rule is in "@media${m[1].trim()}" — it must be scoped to screen or it applies to print`);
+  }
+});

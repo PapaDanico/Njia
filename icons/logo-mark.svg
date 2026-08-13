@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="Njia">
+  <!-- Njia means "path", and the product exists for one moment: the fork a
+       learner reaches after KCSE, where both ways look identical from where
+       they stand.
+
+       The mark is that fork with one way marked. The geometry stays balanced
+       — an off-balance version of this stops reading as a route and starts
+       reading as a twig — and the asymmetry that matters is carried by the
+       single filled point instead. One branch resolves; the other stays open
+       and unmarked, because Njia names a secondary cluster too and never
+       claims the road not taken is closed.
+
+       Monoline, single colour, currentColor, so the mark takes the ink of
+       whatever it sits in — terracotta on paper, cream on navy — and holds
+       its silhouette at 16px in a browser tab. -->
+  <g stroke="currentColor" stroke-width="5.5" stroke-linecap="round" fill="none">
+    <!-- Where you are now. -->
+    <path d="M24 43V28"/>
+    <!-- The two ways on, leaving at one point so the junction reads as a
+         single decision rather than two unrelated lines. -->
+    <path d="M24 28C24 20.5 19.5 16 12.5 12.5"/>
+    <path d="M24 28C24 20.5 28.5 16 35.5 12.5"/>
+  </g>
+  <!-- The way found. One point, on one branch. -->
+  <circle cx="35.5" cy="12.5" r="4.4" fill="currentColor"/>
+</svg>

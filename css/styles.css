@@ -381,25 +381,21 @@ svg.icon {
   font-size: 0.95rem;
   color: var(--text-secondary);
 }
+/* The mark is drawn in currentColor, so it needs no per-scheme asset and
+ * no compositing tricks. What stood here was a mix-blend-mode: multiply on
+ * light grounds, to blend the cream plate baked into the old PNG artwork
+ * into the paper, plus a set of dark-scheme overrides to stop that same
+ * trick sinking the plate into mud on the footer. All of it existed to
+ * hide the fact that the mark was a rectangle of pixels rather than a
+ * shape. It is a shape now. */
 .logo-mark {
   width: 28px; height: 28px;
-  object-fit: contain;
   flex-shrink: 0;
   display: block;
+  color: var(--primary);
 }
-/* The mark assets carry a cream (#f5f2ea) plate. multiply blends that
- * plate into any light surface, so the artwork sits directly on the
- * paper with no visible square. Scoped to light contexts only — on the
- * dark footer the same trick would sink the art into black. */
-.app-header .logo-mark { mix-blend-mode: multiply; }
-/* On dark grounds multiply sinks the cream plate into mud — show the
- * plate as a small rounded badge instead. */
-:root[data-theme="dark"] .app-header .logo-mark,
-:root[data-theme="dark"] .landing-hero-logo,
-:root[data-theme="dark"] .logo-mark {
-  mix-blend-mode: normal;
-  border-radius: 6px;
-}
+.app-header .logo-mark { color: var(--primary); }
+.landing-hero-logo { color: var(--accent); }
 .header-btn {
   width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
@@ -2069,6 +2065,19 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   margin-bottom: 1.2rem;
   padding-bottom: 1rem;
   border-bottom: 2px solid #e6e2d7;
+}
+/* Fixed colours, not tokens: the report is printed, and a sheet handed to a
+ * bursary office should not change ink because the reader had dark mode on. */
+.report-lockup { display: flex; align-items: center; gap: 0.6rem; }
+.report-lockup svg { color: #b4552d; flex-shrink: 0; }
+.report-lockup-text { display: flex; flex-direction: column; line-height: 1.15; }
+.report-lockup-text strong {
+  font-family: var(--serif); font-size: 1.35rem; font-weight: 700;
+  color: #1f1e1d; letter-spacing: -0.02em;
+}
+.report-lockup-text span {
+  font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.09em;
+  color: #52504a;
 }
 .report-header img { width: 180px; height: auto; flex-shrink: 0; }
 .report-header-meta { text-align: right; }

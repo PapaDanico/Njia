@@ -569,7 +569,7 @@ function renderHomePage() {
 
       <section class="landing-hero">
         <div class="landing-hero-main">
-          <img class="landing-hero-logo" src="./icons/logo-mark-light-256.png" alt="Njia" width="64" height="64" decoding="async">
+          <svg class="landing-hero-logo" viewBox="0 0 48 48" width="64" height="64" role="img" aria-label="Njia"><use href="#i-njia"/></svg>
           <p class="landing-hero-eyebrow">Career pathway intelligence · Kenya</p>
           <span class="status-pill mb-2"><span class="dot" aria-hidden="true"></span>Research-backed method · Real Kenyan data · Always free</span>
           <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
@@ -719,7 +719,7 @@ function renderHomePage() {
       <footer class="landing-footer">
         <div class="landing-footer-grid">
           <div class="landing-footer-brand">
-            <div class="flex items-center gap-1"><img class="logo-mark" src="./icons/logo-mark-128.png" alt="" aria-hidden="true" width="28" height="28" decoding="async" loading="lazy"><strong style="color:#f8fafc">Njia</strong></div>
+            <div class="flex items-center gap-1"><svg class="logo-mark" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true" style="color:#f8fafc"><use href="#i-njia"/></svg><strong style="color:#f8fafc">Njia</strong></div>
             <p>Data-driven career pathway guidance for Kenyan youth, built on research-backed career psychology and life-design methods.</p>
           </div>
           <div class="landing-footer-col">

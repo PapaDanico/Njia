@@ -1491,14 +1491,27 @@ test('the teacher labour market record states both sides of the paradox', () => 
  * requests — and print CSS reveals the block far too late to load it. Every
  * PDF exported shipped with no logo: no indication of where the document came
  * from. */
-test('the report logo is not lazy-loaded out of the PDF', () => {
+test('the report carries a brand mark that cannot fail to load', () => {
+  /* This guard used to require an <img> in the report header that was not
+   * lazy-loaded, because the mark sits in a display:none subtree and a lazy
+   * image there is never fetched — every PDF exported before that fix went
+   * out with no mark at all. The requirement was always "the mark is there
+   * when the sheet prints"; a non-lazy <img> was just one way to get it.
+   * The mark is inline vector now, which cannot fail to load because there
+   * is nothing to fetch, so the guard checks the requirement and still
+   * rejects a return to a lazily-fetched bitmap. */
   const discover = fs.readFileSync(path.join(root, 'js/discover.js'), 'utf8');
-  const header = discover.match(/<div class="report-header">[\s\S]*?<\/div>/);
-  assert.ok(header, 'the report must have a header block');
-  const img = header[0].match(/<img[^>]*>/);
-  assert.ok(img, 'the report header must carry the brand mark');
-  assert.ok(!/loading=["']lazy["']/.test(img[0]),
-    'the report logo must not be lazy-loaded — it sits in a display:none subtree and will never be fetched');
+  const start = discover.indexOf('<div class="report-header">');
+  assert.ok(start > -1, 'the report must have a header block');
+  const header = discover.slice(start, discover.indexOf('report-header-meta', start));
+  const inlineMark = /<use\s+href="#i-njia"/.test(header);
+  const img = header.match(/<img[^>]*>/);
+  assert.ok(inlineMark || img,
+    'the report header carries no brand mark — it is the one element telling a bursary office where the sheet came from');
+  if (img) {
+    assert.ok(!/loading=["']lazy["']/.test(img[0]),
+      'the report logo must not be lazy-loaded — it sits in a display:none subtree and will never be fetched');
+  }
 
   // The print block must stay display:none on screen and visible in print, or
   // the report renders twice on the page.
@@ -1811,4 +1824,39 @@ test('the catalogue notice does not point at a badge that no longer exists', () 
     'the catalogue notice renders an est. badge again, but nothing marks figures est. any more');
   assert.ok(!/^\.est-mark\s*\{/m.test(css),
     'the .est-mark style is back without anything rendering it');
+});
+
+test('the brand mark is the same drawing in both places it is defined', () => {
+  /* The mark lives twice: as icons/logo-mark.svg, which the PWA icon
+   * generator and any external use read, and as the #i-njia sprite symbol,
+   * which every in-app surface renders. Two copies of a drawing drift —
+   * that is exactly how the old mark ended up as four PNGs that had to be
+   * kept in step by hand. Compare the geometry, not the formatting. */
+  const geometry = (src) => {
+    const paths = [...src.matchAll(/<path\s+d="([^"]+)"/g)].map((m) => m[1].replace(/\s+/g, ' ').trim());
+    const circles = [...src.matchAll(/<circle\s+cx="([^"]+)"\s+cy="([^"]+)"\s+r="([^"]+)"/g)]
+      .map((m) => m.slice(1, 4).join(','));
+    return { paths, circles };
+  };
+  const file = fs.readFileSync(path.join(root, 'icons', 'logo-mark.svg'), 'utf8');
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const symbol = html.slice(html.indexOf('<symbol id="i-njia"'));
+  const inline = symbol.slice(0, symbol.indexOf('</symbol>'));
+
+  const a = geometry(file), b = geometry(inline);
+  assert.ok(a.paths.length >= 3, 'logo-mark.svg no longer contains the mark');
+  assert.deepEqual(b.paths, a.paths, 'the #i-njia symbol and icons/logo-mark.svg draw different paths');
+  assert.deepEqual(b.circles, a.circles, 'the marked terminal differs between the two definitions');
+});
+
+test('nothing renders the retired logo bitmaps', () => {
+  /* The mark is vector now. The old PNG pair-per-scheme existed only
+   * because a raster mark cannot take the page's ink, and leaving a
+   * reference behind would quietly reintroduce the asset it replaced. */
+  for (const file of ['index.html', 'js/app.js', 'js/discover.js', 'css/styles.css']) {
+    const src = fs.readFileSync(path.join(root, file), 'utf8');
+    const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/<!--[\s\S]*?-->/g, '');
+    assert.ok(!/logo-mark-(light-)?\d+\.png|logo-lockup-report\.png/.test(code),
+      `${file} still references a retired logo bitmap`);
+  }
 });

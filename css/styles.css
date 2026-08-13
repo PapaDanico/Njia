@@ -668,6 +668,19 @@ main {
   .page > .data-disclaimer,
   .page > .page-eyebrow + h1 + p { max-width: var(--prose-max); }
 
+  /* Module intros stop being centred on desktop.
+   *
+   * .hero is centred with a 420px measure, which is right on a phone and
+   * wrong at 1440px: it put a narrow centred column above a full-width
+   * card, so the module title and the content under it shared no
+   * alignment, and the eye had to jump back to the left margin to start
+   * reading. Left-aligned on the same axis as everything below, with a
+   * proper measure, the intro reads as the head of the page rather than a
+   * separate centred object floating above it. */
+  .page > .hero { text-align: left; padding-left: 0; padding-right: 0; }
+  .page > .hero .icon-disc { margin-left: 0; margin-right: 0; }
+  .page > .hero p { max-width: var(--prose-max); margin-left: 0; }
+
   /* The three Odyssey lives belong side by side — comparing futures is the
    * whole point of the exercise, and stacking them hid the comparison. */
   .odyssey-plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; align-items: start; }

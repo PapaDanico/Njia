@@ -61,10 +61,13 @@
    * point. */
   --shadow-card: 0 1px 2px rgba(31, 30, 29, 0.04), 0 4px 14px rgba(31, 30, 29, 0.05);
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  /* Opened up one step across the board. 8/12/16 corners on a 20px-padded
+   * box read as a 2010 admin panel; the softer geometry is most of what
+   * separates "form" from "surface" at a glance. */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 22px;
 
   --header-h: 60px;
   --nav-h: 64px;
@@ -87,10 +90,23 @@
   --space-12: 48px; --space-16: 64px;
 
   /* Fluid display sizes — a fixed 28px headline is a phone headline
-   * shown on a desktop. */
-  --text-lg-fluid: clamp(1.25rem, 2.2vw, 1.5rem);
-  --text-xl-fluid: clamp(1.6rem, 3vw, 2.05rem);
-  --text-2xl-fluid: clamp(1.9rem, 4.2vw, 2.75rem);
+   * shown on a desktop.
+   *
+   * Widened deliberately. The old scale ran from 13.6px body to a 24px h2,
+   * which meant that on an interior page nothing was more than about 1.7x
+   * anything else. A page where every element is nearly the same size has
+   * no hierarchy to read, so the eye falls back on borders to find the
+   * structure — which is why the app had become a wall of outlined boxes
+   * and read like a printed report from 2003. Scale carries the hierarchy
+   * now, and the boxes can stop shouting. */
+  --text-lg-fluid: clamp(1.3rem, 2.2vw, 1.6rem);
+  --text-xl-fluid: clamp(1.75rem, 3.4vw, 2.5rem);
+  --text-2xl-fluid: clamp(2.1rem, 5vw, 3.4rem);
+  --text-3xl-fluid: clamp(2.6rem, 6.5vw, 4.5rem);
+  /* Large type needs negative tracking to stop looking spaced-out, and
+   * tighter leading so a two-line headline reads as one object. */
+  --display-tracking: -0.028em;
+  --display-leading: 1.06;
 
   /* Action-colour states + text-on-fill */
   --primary-deep: #a34b26;
@@ -250,10 +266,13 @@ input[type="range"] { accent-color: var(--primary); }
 
 /* Display type is serif — the single strongest "premium editorial"
  * signal available without shipping a webfont. Body stays sans. */
-h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.01em; line-height: 1.25; }
-h1 { font-size: var(--text-xl-fluid); font-weight: 700; }
-h2 { font-size: 1.5rem; font-weight: 700; }
-h3 { font-size: 1.25rem; font-weight: 700; }
+h1, h2, h3 { font-family: var(--serif); letter-spacing: -0.018em; line-height: 1.14; }
+h1 { font-size: var(--text-xl-fluid); font-weight: 700; letter-spacing: var(--display-tracking); line-height: var(--display-leading); }
+/* Fluid rather than a fixed 1.5rem: a section heading that is 24px on a
+ * 390px phone and still 24px on a 1440px desktop is why the desktop
+ * layout read as a scaled-up phone page. */
+h2 { font-size: var(--text-lg-fluid); font-weight: 700; }
+h3 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.012em; }
 /* Module card/section headings are semantically level 2 (they sit under
  * the page h1) but keep the level-3 visual scale — semantics and type
  * scale are separate concerns. */
@@ -649,6 +668,19 @@ main {
   .page > .data-disclaimer,
   .page > .page-eyebrow + h1 + p { max-width: var(--prose-max); }
 
+  /* Module intros stop being centred on desktop.
+   *
+   * .hero is centred with a 420px measure, which is right on a phone and
+   * wrong at 1440px: it put a narrow centred column above a full-width
+   * card, so the module title and the content under it shared no
+   * alignment, and the eye had to jump back to the left margin to start
+   * reading. Left-aligned on the same axis as everything below, with a
+   * proper measure, the intro reads as the head of the page rather than a
+   * separate centred object floating above it. */
+  .page > .hero { text-align: left; padding-left: 0; padding-right: 0; }
+  .page > .hero .icon-disc { margin-left: 0; margin-right: 0; }
+  .page > .hero p { max-width: var(--prose-max); margin-left: 0; }
+
   /* The three Odyssey lives belong side by side — comparing futures is the
    * whole point of the exercise, and stacking them hid the comparison. */
   .odyssey-plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; align-items: start; }
@@ -703,16 +735,25 @@ main {
 }
 
 /* ---------- Cards ---------- */
+/* Cards carry their edge with light, not with a line.
+ *
+ * Every card used to be a 1px hairline box, so a page of eight cards was
+ * eight rectangles of identical weight and the eye had nothing to rank.
+ * A soft shadow separates a card from paper just as clearly and stops
+ * competing for attention with the content inside it. The hairline stays
+ * in the dark scheme, where shadow on a near-black ground is invisible
+ * and an edge is the only thing that reads. */
 .card {
   background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem;
-  margin-bottom: 1rem;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xl);
+  padding: clamp(1.25rem, 2.4vw, 1.9rem);
+  margin-bottom: var(--space-5);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
-.card:hover { transform: translateY(-2px); border-color: var(--border-light); box-shadow: var(--shadow-md); }
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+:root[data-theme="dark"] .card { border-color: var(--border); }
 .card-tap { cursor: pointer; }
 
 /* ---------- Hero ---------- */
@@ -1045,20 +1086,12 @@ textarea.q-input::placeholder { color: var(--text-muted); }
  * beside verified ones, and the whole point is that a reader can tell which
  * is which at a glance. Uses the warn triplet, not raw colour, so it holds
  * the AA floor in both schemes. */
-.est-mark {
-  display: inline-block;
-  background: var(--warn-soft);
-  color: var(--warn-ink);
-  border: 1px solid var(--warn-border);
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  padding: 0.05rem 0.3rem;
-  border-radius: 4px;
-  margin-left: 0.3rem;
-  vertical-align: middle;
-}
+/* .est-mark stood here — the amber "EST." pill that sat beside every
+ * employment rate and salary. Those figures were deleted rather than
+ * labelled, and the last reference to the badge was in a sentence telling
+ * readers to look out for it. Nothing renders it now, so the style goes
+ * too; a badge with nothing to badge is how a stylesheet starts drifting
+ * from what the app actually shows. */
 .meta-value.is-estimate { opacity: 0.92; }
 .course-card .institution-name { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
 /* Ledger rows — label left, value right, hairline dividers, no box — the
@@ -1371,8 +1404,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .link-btn { background: none; border: none; padding: 0; color: var(--primary-dark); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: inherit; }
 
 /* ---------- Footer learn tiles (Kanda pattern) ---------- */
-.footer-learn { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(248,250,252,0.14); }
-.footer-learn-grid { display: grid; gap: 0.75rem; margin-top: 0.9rem; }
+.footer-learn { margin-top: 3rem; padding-top: 2.25rem; border-top: 1px solid rgba(248,250,252,0.14); }
+.footer-learn-grid { display: grid; gap: 0.9rem; margin-top: 1.25rem; }
 @media (min-width: 700px) { .footer-learn-grid { grid-template-columns: repeat(4, 1fr); } }
 .footer-learn-tile {
   text-align: left; width: 100%;
@@ -1385,7 +1418,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .footer-learn-tile:hover { background: rgba(248,250,252,0.1); }
 .footer-learn-tile strong { display: block; font-size: 0.88rem; margin-bottom: 0.15rem; }
 .footer-learn-tile span { font-size: 0.75rem; color: rgba(248,250,252,0.6); line-height: 1.4; }
-.footer-about { margin-top: 1.75rem; }
+.footer-about { margin-top: 2.75rem; }
 .footer-about p { font-size: 0.82rem; color: rgba(248,250,252,0.66); line-height: 1.6; max-width: 62ch; }
 
 .course-tagline { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.4rem 0 0.2rem; }
@@ -1579,19 +1612,29 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 
 .landing-serif { font-family: var(--serif); }
 
+/* Seven of these appear down the landing page, all identical. At 700
+ * weight in the action colour each one shouted as loudly as the heading
+ * it introduced, which is how a page ends up with no hierarchy despite
+ * having plenty of labels. Muted and lightened: a signpost, not a
+ * headline. The heading underneath now carries the section. */
 .landing-eyebrow {
   display: block;
   font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
   text-transform: uppercase;
-  color: var(--primary-dark);
-  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.9rem;
 }
 .landing-dark .landing-eyebrow { color: var(--accent); }
 
-.landing-block { padding: 2.5rem 1.25rem; }
-.landing-block-tight { padding: 1.5rem 1.25rem; }
+/* Section rhythm. 2.5rem of padding meant a dozen sections ran together
+ * into one continuous texture, so the page had no joints and the reader
+ * had no idea when one argument ended and the next began. Space is what
+ * separates sections on a modern page; borders were doing that job here
+ * and doing it badly. */
+.landing-block { padding: clamp(3rem, 7vw, 6.5rem) 1.25rem; }
+.landing-block-tight { padding: clamp(2rem, 4vw, 3.5rem) 1.25rem; }
 
 .landing-hero {
   padding: 2.5rem 1.25rem 2.25rem;
@@ -1697,14 +1740,22 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   box-shadow: var(--shadow-sm);
 }
 .landing-teaser-box a { color: var(--primary-dark); font-weight: 600; }
+/* Was a fixed 1.5rem, which is a phone-sized heading that never grew —
+ * the single biggest reason the desktop page read as an enlarged mobile
+ * screen with nothing to look at. */
 .landing-h2 {
   font-family: var(--serif);
-  font-size: 1.5rem;
-  line-height: 1.3;
+  font-size: var(--text-xl-fluid);
+  line-height: var(--display-leading);
+  letter-spacing: var(--display-tracking);
   font-weight: 700;
   color: var(--landing-ink);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
+  max-width: 22ch;
 }
+/* The lede under a section heading is doing real work and was set at
+ * 0.95rem, smaller than the body text it introduces. */
+.landing-h2-sub { font-size: clamp(1rem, 1.35vw, 1.15rem); line-height: 1.6; }
 .landing-h2-sub { color: var(--landing-ink-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 50ch; }
 
 .landing-cta-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
@@ -1860,11 +1911,18 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-example-card ol { list-style: decimal; padding-left: 1.2rem; }
 .landing-example-card li { margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--landing-ink); }
 
+/* The last thing on the page asks for the click, and it was getting the
+ * same 2.75rem of room as any other band — so it arrived as one more
+ * stripe in a dark run of four rather than as a moment. */
 .landing-final-cta {
   text-align: center;
-  padding: 2.75rem 1.25rem;
+  padding: clamp(3.5rem, 7vw, 6.5rem) 1.25rem;
 }
-.landing-final-cta .landing-h2 { color: #f8fafc; }
+/* margin-inline:auto because .landing-h2 now carries a 22ch measure, and
+ * a max-width without auto margins silently left-aligns a heading inside
+ * a centred block — which is exactly what happened here: the headline sat
+ * hard left above a centred paragraph and a centred button. */
+.landing-final-cta .landing-h2 { color: #f8fafc; margin-inline: auto; }
 .landing-final-cta .landing-sub { color: #cbd5e1; margin-left: auto; margin-right: auto; }
 .landing-guarantee-box {
   display: flex; gap: 0.75rem; align-items: flex-start;
@@ -1878,13 +1936,18 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: #e2e8f0;
 }
 
+/* The footer is four stacked regions in one dark run — links, the learn
+ * tiles, the about text, the legal line. Each was separated by about a
+ * rem, which made the whole thing read as a single undifferentiated slab
+ * of small type. The type stays small, as footer type should; the space
+ * between the regions is what tells them apart. */
 .landing-footer {
   background: var(--landing-dark);
   color: #cbd5e1;
-  padding: 2.5rem 1.25rem 1.5rem;
+  padding: clamp(3rem, 5vw, 4.5rem) 1.25rem 2rem;
 }
-.landing-footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.75rem; margin-bottom: 2rem; }
-.landing-footer-brand p { font-size: 0.85rem; color: #94a3b8; margin-top: 0.5rem; max-width: 32ch; }
+.landing-footer-grid { display: grid; grid-template-columns: 1fr; gap: 2.25rem; margin-bottom: 2.75rem; }
+.landing-footer-brand p { font-size: 0.85rem; color: #94a3b8; margin-top: 0.5rem; max-width: 32ch; line-height: 1.65; }
 .landing-footer-col .footer-col-label {
   font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;
   color: #94a3b8; margin-bottom: 0.75rem;

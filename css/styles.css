@@ -1404,8 +1404,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .link-btn { background: none; border: none; padding: 0; color: var(--primary-dark); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: inherit; }
 
 /* ---------- Footer learn tiles (Kanda pattern) ---------- */
-.footer-learn { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(248,250,252,0.14); }
-.footer-learn-grid { display: grid; gap: 0.75rem; margin-top: 0.9rem; }
+.footer-learn { margin-top: 3rem; padding-top: 2.25rem; border-top: 1px solid rgba(248,250,252,0.14); }
+.footer-learn-grid { display: grid; gap: 0.9rem; margin-top: 1.25rem; }
 @media (min-width: 700px) { .footer-learn-grid { grid-template-columns: repeat(4, 1fr); } }
 .footer-learn-tile {
   text-align: left; width: 100%;
@@ -1418,7 +1418,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .footer-learn-tile:hover { background: rgba(248,250,252,0.1); }
 .footer-learn-tile strong { display: block; font-size: 0.88rem; margin-bottom: 0.15rem; }
 .footer-learn-tile span { font-size: 0.75rem; color: rgba(248,250,252,0.6); line-height: 1.4; }
-.footer-about { margin-top: 1.75rem; }
+.footer-about { margin-top: 2.75rem; }
 .footer-about p { font-size: 0.82rem; color: rgba(248,250,252,0.66); line-height: 1.6; max-width: 62ch; }
 
 .course-tagline { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.4rem 0 0.2rem; }
@@ -1911,9 +1911,12 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-example-card ol { list-style: decimal; padding-left: 1.2rem; }
 .landing-example-card li { margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--landing-ink); }
 
+/* The last thing on the page asks for the click, and it was getting the
+ * same 2.75rem of room as any other band — so it arrived as one more
+ * stripe in a dark run of four rather than as a moment. */
 .landing-final-cta {
   text-align: center;
-  padding: 2.75rem 1.25rem;
+  padding: clamp(3.5rem, 7vw, 6.5rem) 1.25rem;
 }
 /* margin-inline:auto because .landing-h2 now carries a 22ch measure, and
  * a max-width without auto margins silently left-aligns a heading inside
@@ -1933,13 +1936,18 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: #e2e8f0;
 }
 
+/* The footer is four stacked regions in one dark run — links, the learn
+ * tiles, the about text, the legal line. Each was separated by about a
+ * rem, which made the whole thing read as a single undifferentiated slab
+ * of small type. The type stays small, as footer type should; the space
+ * between the regions is what tells them apart. */
 .landing-footer {
   background: var(--landing-dark);
   color: #cbd5e1;
-  padding: 2.5rem 1.25rem 1.5rem;
+  padding: clamp(3rem, 5vw, 4.5rem) 1.25rem 2rem;
 }
-.landing-footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.75rem; margin-bottom: 2rem; }
-.landing-footer-brand p { font-size: 0.85rem; color: #94a3b8; margin-top: 0.5rem; max-width: 32ch; }
+.landing-footer-grid { display: grid; grid-template-columns: 1fr; gap: 2.25rem; margin-bottom: 2.75rem; }
+.landing-footer-brand p { font-size: 0.85rem; color: #94a3b8; margin-top: 0.5rem; max-width: 32ch; line-height: 1.65; }
 .landing-footer-col .footer-col-label {
   font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;
   color: #94a3b8; margin-bottom: 0.75rem;

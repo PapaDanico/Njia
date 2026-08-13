@@ -1799,3 +1799,16 @@ test('the Odyssey plan says "an HR Assistant", not "a HR Assistant"', () => {
     }
   }
 });
+
+test('the catalogue notice does not point at a badge that no longer exists', () => {
+  /* The notice told readers "no figure marked est. has been measured" and
+   * rendered the est. pill inline as an example, months after — and then
+   * hours after — the figures it qualified were removed. Copy that
+   * describes a marker outlives the marker unless something checks. */
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  const css = fs.readFileSync(path.join(root, 'css', 'styles.css'), 'utf8');
+  assert.ok(!/class="est-mark"/.test(decide),
+    'the catalogue notice renders an est. badge again, but nothing marks figures est. any more');
+  assert.ok(!/^\.est-mark\s*\{/m.test(css),
+    'the .est-mark style is back without anything rendering it');
+});

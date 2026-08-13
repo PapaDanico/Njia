@@ -97,7 +97,12 @@ function renderDecidePage() {
         <p class="text-secondary mb-2">Every recommendation answers three questions: Do I qualify? Can I afford it? Will it lead to work I care about?</p>
         <div class="data-disclaimer">
           ${icon('alert')}
-          <span><strong>${verifiedCount} of ${totalCount} records</strong> have fees or terms cross-checked against a named public source — look for the ✓ Fees verified badge. <strong>Employment rates and salaries are estimates, not measurements</strong>: Kenya does not publish graduate outcomes per course, so no figure marked <span class="est-mark">est.</span> has been measured. Always confirm fees with the institution before deciding.</span>
+          <!-- This sentence used to end "no figure marked est. has been
+               measured", and rendered the est. badge inline as an example.
+               Both outlived the thing they described: the employment rates
+               and salaries were removed rather than labelled, so the copy
+               was pointing at a marker that no longer appears anywhere. -->
+          <span><strong>${verifiedCount} of ${totalCount} records</strong> have fees or terms cross-checked against a named public source — look for the ✓ Fees verified badge. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. Always confirm fees with the institution before deciding.</span>
         </div>
       </div>
       <aside class="module-header-aside">

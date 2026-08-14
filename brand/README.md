@@ -33,6 +33,15 @@ foot — a different silhouette, which is the whole of what a mark is recognised
 by at 16px. `icons/logo-mark.svg` and the `#i-njia` sprite were redrawn to the
 sheets and the four PNGs regenerated from them.
 
+## `icons/og-image.jpg` now has a generator too
+
+It did not, which is why it kept the retired shield mark after the redraw while
+every other raster was correct within minutes. It is the picture WhatsApp shows
+when someone forwards a Njia link — the app's main distribution channel — so it
+was the worst possible file to leave hand-made. Rebuild with
+`node tools/build-og-image.mjs`, and note that social platforms cache share
+cards hard: re-scrape the URL in the Facebook/WhatsApp debugger after a change.
+
 ## These are not app assets
 
 They live in `brand/`, deliberately outside `icons/`. Nothing in the app

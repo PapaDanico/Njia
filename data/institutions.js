@@ -249,6 +249,18 @@ const INSTITUTIONS = [
   { id: 'kigari_ttc', name: "St. Mark's Teachers Training College, Kigari", ownership: 'public', type: 'ttc', location: 'Kigari', county: 'Embu', accreditation: 'Public TTC · approved for the Diploma in Primary Teacher Education (KNEC assessed)', website: 'https://tsc.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'ttc_consolidated' },
   { id: 'eregi_ttc', name: "St. Augustine Teachers Training College, Eregi", ownership: 'public', type: 'ttc', location: 'Eregi', county: 'Kakamega', accreditation: 'Public TTC · approved for the Diploma in Primary Teacher Education (KNEC assessed)', website: 'https://tsc.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'ttc_consolidated' },
   { id: 'kilimambogo_ttc', name: "St. John's Teachers Training College, Kilimambogo", ownership: 'public', type: 'ttc', location: 'Kilimambogo', county: 'Kiambu', accreditation: 'Public TTC · approved for the Diploma in Primary Teacher Education (KNEC assessed)', website: 'https://tsc.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'ttc_consolidated' },
+  /* THE ONLY MINING SCHOOL IN THE COUNTRY, AND IT WAS NOT IN THE CATALOGUE.
+   *
+   * Mining and quarrying grew 14.9% in 2025, faster than any other sector in
+   * the KNBS Economic Survey, and Njia held exactly one record that touched it
+   * — a geothermal drilling certificate. Searching for the training routes
+   * turned up something more useful than a sourcing gap: Kenya's formal mining
+   * provision is essentially this one university, and it is degree-only.
+   *
+   * TTU is CUE-chartered, KUCCPS institution 1091, and describes itself as the
+   * pioneer institution for mining and mineral processing engineering in the
+   * region; the government has designated it a mining centre of excellence. */
+  { id: 'ttu', name: 'Taita Taveta University', ownership: 'public', type: 'university', location: 'Voi', county: 'Taita-Taveta', accreditation: 'CUE Chartered · KUCCPS institution 1091 · designated mining centre of excellence', website: 'https://ttu.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'public_university' },
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

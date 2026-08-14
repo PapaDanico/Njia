@@ -192,8 +192,17 @@ const SECTOR_QA = {
      * double-counted under energy — the old register tested every sector's
      * pattern independently, so a geothermal drilling course was mining AND
      * energy AND anything else that matched, and every sector's coverage looked
-     * better than it was. There is exactly one. */
-    gap: 'The fastest-growing sector in the KNBS Economic Survey 2026 — mining and quarrying expanded 14.9% in 2025, ahead of every other sector — and Njia carries a single record, a geothermal drilling certificate, not open below a C-. Quarrying and small-scale mining employ large numbers informally across Kajiado, Machakos, Taita-Taveta and the coast, and none of that has a sourced training route here. This is the widest gap between what the economy is doing and what the catalogue offers.',
+     * better than it was.
+     *
+     * The gap was then researched rather than left declared, and the search
+     * produced a finding instead of a fix. Kenya's formal mining provision is
+     * essentially one university. There is no TVET CDACC mining or quarrying
+     * curriculum to point at and no county-polytechnic route that could be
+     * sourced. So the floor stays unmet and the gap stays open: adding Taita
+     * Taveta closed the "Njia has not looked" half of it and left the half that
+     * matters, which is that the country trains almost nobody for this below
+     * degree level. */
+    gap: 'The fastest-growing sector in the KNBS Economic Survey 2026 — mining and quarrying expanded 14.9% in 2025, ahead of every other sector — and it is degree-or-nothing. Njia now lists Taita Taveta University, Kenya\'s designated mining centre of excellence and effectively its only mining school, but every mining route there is a five-year degree gated behind competitive engineering cluster points. A search for sub-degree provision found none to source: no TVET CDACC mining or quarrying curriculum, and no county polytechnic route. Meanwhile quarrying and small-scale mining employ large numbers informally across Kajiado, Machakos, Taita-Taveta and the coast. The gap is no longer that Njia has not looked; it is that a learner without a C+ has no formal way into the sector adding capacity fastest.',
     source: 'KNBS Economic Survey 2026; TVET CDACC extractives curricula'
   },
   personal: {

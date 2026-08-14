@@ -463,12 +463,22 @@ const ENTRY_PAY = [
  * the September 2026 intake. Njia says that plainly rather than picking a
  * winner — an app that guesses here would be guessing about somebody's debt. */
 const UNIVERSITY_FUNDING_TRANSITION = {
-  source: 'Tertiary Education Placement and Funding Bill 2026; presidential announcement July 2026 and subsequent official clarification; Kenyan education-sector reporting through mid-August 2026',
+  source: 'Tertiary Education, Placement and Funding Bill 2026, gazetted 24 July 2026 and sponsored by the National Assembly Majority Leader; presidential announcement July 2026 and subsequent official clarification; Kenyan education-sector reporting through mid-August 2026',
   status: 'In transition and not yet settled. Treat every fee figure in this app as the sticker price, not as what you will be asked to pay.',
+  /* THE LEGISLATIVE STATE, CHECKED RATHER THAN ASSUMED.
+   *
+   * This record used to say only that Parliament "had not passed the Bill when
+   * this was written", which decays into uselessness the moment anyone reads it
+   * a month later. The stage is now named, so a reader can tell how far off a
+   * decision is — and so that the next person to check knows exactly what to
+   * check for. */
+  legislativeStage: 'Gazetted 24 July 2026 and read in the National Assembly, then committed to the Departmental Committee on Education for public participation. It is one of six education Bills moving together. It has NOT been voted on, and committee stage is several steps short of law.',
+  whatItCreates: 'A single Tertiary Education Funding Authority absorbing HELB, the Universities Fund and the TVET Funding Board. KUCCPS is strengthened as the placement body for every tertiary institution, and placement is separated from funding: you would be admitted on merit and apply for the money as a separate process.',
+  theTimingProblem: 'The September 2026 intake arrives before this can plausibly finish committee stage, public participation and both readings. That means first-year students are likely to be placed under one funding model and legislated into another partway through their course. Ask which model your intake is being billed under, and get it in writing.',
   whatChanged: 'The 2023 model sorted students into need bands and split the cost between a government scholarship you keep, a HELB loan you repay, and a household contribution. The proposed replacement covers 100% of the cost for every placed student — and records all of it as a loan.',
   theMisreading: '"Full funding" was widely reported as university becoming free. It is not free. Full funding means the state pays the institution now and you repay the state later. A grant is money you keep; this is money you owe.',
   whatItMeansForYou: 'If the Bill passes as drafted, you will not be asked for fees at the gate — and you will graduate owing the full cost of your course rather than a means-tested share of it. For a student who would have been in the highest-need band, that is a larger debt than the old model, not a smaller one.',
-  theUncertainty: 'Parliament had not passed the Bill when this was written, first-year students were due to report within weeks, and the institutions themselves did not know which model would govern the September 2026 intake. Anyone who tells you the answer with confidence today is guessing.',
+  theUncertainty: 'The Bill sits at committee stage, first-year students are due to report within weeks, and the institutions themselves do not know which model will govern the September 2026 intake. Anyone who tells you the answer with confidence today is guessing. Worth knowing how normal that is: this would be Kenya\'s fifth university funding system in forty years.',
   whatToDo: 'Do not choose a course on the assumption that it is now free. Ask the institution what it is billing for your intake, ask whether you are being funded under the old model or the new one, and get the answer in writing before you commit. If any part of it is a loan, read LOAN_REALITY below — the repayment terms are the part nobody reads until it is too late.',
   alsoAffectsTvet: 'This is not only a university story. The Bill folds the TVET Funding Board into the same authority, so the consolidated Ksh 67,189 TVET fee sits under the same reform.',
   clusters: ['carer', 'maker', 'creator', 'business', 'tech', 'people', 'numbers']

@@ -2606,3 +2606,57 @@ p, li { text-wrap: pretty; }
   min-height: 48px;   /* Lighthouse and Material both test 48, not Apple's 44 */
   padding-block: 0.15rem;
 }
+
+/* The eligibility notice is good news, not a caveat, so it does not inherit
+ * the amber warning treatment of the disclaimer above it. Forest green: the
+ * brand's affirmative colour, 6.75:1 on the cream. */
+.data-disclaimer-open {
+  background: var(--success-soft);
+  border-color: var(--success-border);
+  color: var(--text-primary);
+  margin-top: 0.75rem;
+}
+.data-disclaimer-open > span:first-child { color: var(--secondary); }
+
+/* The derived-fee badge has to read as weaker than the published one without
+ * reading as a warning — the national rate is sourced and real, it just is not
+ * this college's own price list. So: outline instead of the forest-green fill.
+ *
+ * The outline was first drawn in --accent (ochre) and measured 2.84:1 against
+ * the card in light mode, under the 3:1 floor that WCAG 1.4.11 sets for
+ * non-text. That matters more here than it looks: the border is the ONLY thing
+ * separating this badge from the stronger one, so a border a reader cannot see
+ * turns "worked out from a national rule" into "published by the college".
+ * Ochre is fill-only in this palette for exactly this reason. --text-secondary
+ * carries the outline instead, at 8.19:1 light and 11.75:1 dark. */
+.verified-badge-derived {
+  background: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+}
+
+/* The funding-transition notice. This one IS a warning — unlike the TVET
+ * eligibility notice, which is good news in forest green — because a reader
+ * acting on the "university is free now" headline is about to make a debt
+ * decision on a misreading. Terracotta at 7.40:1 on the cream. */
+.data-disclaimer-alert {
+  background: var(--danger-soft);
+  border-color: var(--primary);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+.data-disclaimer-alert > span:first-child {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* "Fee not confirmed" is not a verification state, so it must not read like
+ * one: no tick, no fill, and the muted ink rather than the primary. It has to
+ * stay legible though — it is a caveat about a number the reader is otherwise
+ * about to trust, so it is text, not decoration. */
+.verified-badge-unsourced {
+  background: transparent;
+  border: 1px dashed var(--text-muted);
+  color: var(--text-secondary);
+  font-weight: 500;
+}

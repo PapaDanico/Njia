@@ -696,7 +696,19 @@ function renderShareableReportHTML() {
               load. Every PDF exported before this shipped with no brand mark
               at all, which is the one element telling a parent, school or
               bursary office where the document came from. */''}
-        <img src="./icons/logo-lockup-report.png" alt="Njia" width="180" height="85" decoding="sync">
+        <!-- Drawn rather than fetched. The lockup used to be a 180x85 PNG,
+             and getting it to appear in the exported PDF at all took a fight
+             (see the note above about lazy loading). Vector markup in the
+             same document cannot fail to load, has nothing to decode before
+             print, and prints at the printer's resolution instead of at 2x
+             screen density. -->
+        <div class="report-lockup">
+          <svg viewBox="0 0 64 96" width="28" height="42" role="img" aria-label="Njia"><use href="#i-njia"/></svg>
+          <span class="report-lockup-text">
+            <strong>Njia</strong>
+            <span>Career Pathways · Kenya</span>
+          </span>
+        </div>
         <div class="report-header-meta">
           <span class="report-eyebrow">Career Pathway Report</span>
           <span class="report-date">${dateStr}</span>

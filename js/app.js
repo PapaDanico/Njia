@@ -569,7 +569,7 @@ function renderHomePage() {
 
       <section class="landing-hero">
         <div class="landing-hero-main">
-          <img class="landing-hero-logo" src="./icons/logo-mark-light-256.png" alt="Njia" width="64" height="64" decoding="async">
+          <svg class="landing-hero-logo" viewBox="0 0 64 96" width="43" height="64" role="img" aria-label="Njia"><use href="#i-njia"/></svg>
           <p class="landing-hero-eyebrow">Career pathway intelligence · Kenya</p>
           <span class="status-pill mb-2"><span class="dot" aria-hidden="true"></span>Research-backed method · Real Kenyan data · Always free</span>
           <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
@@ -617,9 +617,11 @@ function renderHomePage() {
       </section>
 
       <section class="landing-block" id="landing-evidence">
-        <span class="landing-eyebrow">THE GAP NJIA CLOSES</span>
-        <h2 class="landing-h2">What the data actually says about Kenyan youth and career choice</h2>
-        <p class="landing-h2-sub">Every number below is cited — not a vibe. This is the evidence base the questionnaire and course matcher are built on.</p>
+        <div class="landing-block-head">
+          <span class="landing-eyebrow">THE GAP NJIA CLOSES</span>
+          <h2 class="landing-h2">What the data actually says about Kenyan youth and career choice</h2>
+          <p class="landing-h2-sub">Every number below is cited — not a vibe. This is the evidence base the questionnaire and course matcher are built on.</p>
+        </div>
         <div class="landing-evidence-grid">
           ${LANDING_EVIDENCE.map((s) => `
             <div class="landing-evidence-card">
@@ -638,9 +640,11 @@ function renderHomePage() {
       </section>
 
       <section class="landing-block" id="landing-process">
-        <span class="landing-eyebrow">TWO TRACKS</span>
-        <h2 class="landing-h2">Which side of the decision are you on?</h2>
-        <p class="landing-h2-sub">Every tool is free, works offline, and computes on your device. Start wherever your question is.</p>
+        <div class="landing-block-head">
+          <span class="landing-eyebrow">TWO TRACKS</span>
+          <h2 class="landing-h2">Which side of the decision are you on?</h2>
+          <p class="landing-h2-sub">Every tool is free, works offline, and computes on your device. Start wherever your question is.</p>
+        </div>
         <div class="landing-track-grid">
           <div class="landing-track-card">
             <span class="landing-track-eyebrow">Find your path</span>
@@ -684,9 +688,11 @@ function renderHomePage() {
       </section>
 
       <section class="landing-block">
-        <span class="landing-eyebrow">A WORKED EXAMPLE</span>
-        <h2 class="landing-h2">What a complete pathway looks like</h2>
-        <p class="landing-h2-sub">This is an illustrative walkthrough, not a real user or testimonial — Njia is newly built and has no user outcomes to report yet.</p>
+        <div class="landing-block-head">
+          <span class="landing-eyebrow">A WORKED EXAMPLE</span>
+          <h2 class="landing-h2">What a complete pathway looks like</h2>
+          <p class="landing-h2-sub">This is an illustrative walkthrough, not a real user or testimonial — Njia is newly built and has no user outcomes to report yet.</p>
+        </div>
         <div class="landing-example-card">
           <span class="landing-example-tag">Hypothetical · "Shakinah"</span>
           <ol>
@@ -700,9 +706,11 @@ function renderHomePage() {
       </section>
 
       <section class="landing-block" id="landing-privacy">
-        <span class="landing-eyebrow">PRIVACY BY ARCHITECTURE</span>
-        <h2 class="landing-h2">We cannot see your answers, because there is nowhere for them to go.</h2>
-        <p class="landing-h2-sub">No accounts, no tracking, no analytics. Everything you enter — questionnaire answers, plans, saved courses — lives in this browser's local storage and is computed on your device. The only exception: the optional Feedback and Partner forms below, sent to us only if you submit them. Use "Clear My Data" (the header lock) any time, especially on a shared phone.</p>
+        <div class="landing-block-head">
+          <span class="landing-eyebrow">PRIVACY BY ARCHITECTURE</span>
+          <h2 class="landing-h2">We cannot see your answers, because there is nowhere for them to go.</h2>
+          <p class="landing-h2-sub">No accounts, no tracking, no analytics. Everything you enter — questionnaire answers, plans, saved courses — lives in this browser's local storage and is computed on your device. The only exception: the optional Feedback and Partner forms below, sent to us only if you submit them. Use "Clear My Data" (the header lock) any time, especially on a shared phone.</p>
+        </div>
         <div class="btn-row" style="max-width:420px">
           <button type="button" class="btn btn-secondary btn-sm" onclick="openPrivacyModal()">Privacy &amp; your data</button>
           <button type="button" class="btn btn-secondary btn-sm" onclick="openMethodologyModal()">Method &amp; sources</button>
@@ -716,10 +724,11 @@ function renderHomePage() {
         <button type="button" class="btn btn-gold" style="width:auto;display:inline-flex;margin-top:0.5rem" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
       </section>
 
+      <div class="brand-rule" aria-hidden="true"></div>
       <footer class="landing-footer">
         <div class="landing-footer-grid">
           <div class="landing-footer-brand">
-            <div class="flex items-center gap-1"><img class="logo-mark" src="./icons/logo-mark-128.png" alt="" aria-hidden="true" width="28" height="28" decoding="async" loading="lazy"><strong style="color:#f8fafc">Njia</strong></div>
+            <div class="flex items-center gap-1"><svg class="logo-mark" viewBox="0 0 64 96" width="19" height="28" aria-hidden="true"><use href="#i-njia"/></svg><strong style="color:#F5E9D4">Njia</strong></div>
             <p>Data-driven career pathway guidance for Kenyan youth, built on research-backed career psychology and life-design methods.</p>
           </div>
           <div class="landing-footer-col">

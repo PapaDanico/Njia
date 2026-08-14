@@ -35,10 +35,25 @@ and an invented one prompts a plan.
 Rules that the test suite enforces, and why:
 
 - **Five fee bases partition the catalogue exactly** — `published`,
-  `national`, `illustrative`, `unpublished`, `unsourced`. They must sum to
+  `derived`, `illustrative`, `unpublished`, `unsourced`. They must sum to
   `COURSES.length`. A sixth, unnamed outcome once hid 48 records that were
   displaying a precise tuition figure with no badge and no mention in the
   provenance paragraph.
+- **`published` is a declared claim, never a default.** A record earns the
+  strongest badge — "✓ Fee published by the college" — only by setting
+  `fee_observed: true`, meaning someone read that total off the institution's
+  own schedule for that course. Everything else falls to `derived`. This used
+  to be inferred by matching four phrases in `verification_note`, which meant
+  the strongest claim in the app was the fall-through case: eleven records
+  said "annual rate across the course duration" instead of "scaled to course
+  duration" and were promoted a tier for it. If you add a record, do not
+  reach for `fee_observed` to make a number look better — a synonym must
+  under-claim, never over-claim.
+- **A caveat in the note does not reach the reader.** Ksh 560,000 rendered on
+  a UoN degree under a verification tick while the note beneath it called the
+  figure a four-year mid-range estimate. If the number is not the thing you
+  can defend, remove the number; prose underneath it does not qualify what a
+  card displays to the shilling.
 - **A fee of 0 must claim to be free in words, with a source.** Otherwise a
   missing value masquerades as the most precise figure in the catalogue.
 - **A record with no fee must say *which kind* of absence it is** — the

@@ -484,7 +484,7 @@ function renderNjiaNumbersCard() {
    * same words, which is what happens when a claim is computed twice instead of
    * once. */
   const publishedCount = COURSES.filter((c) => feeBasis(c) === 'published').length;
-  const nationalCount = COURSES.filter((c) => feeBasis(c) === 'national').length;
+  const derivedCount = COURSES.filter((c) => feeBasis(c) === 'derived').length;
   /* Courses, not courses + funding sources. The old denominator added the 12
    * funding records to a numerator counted over course fees, so the ratio
    * compared two different populations — and the same mixed denominator on the
@@ -513,7 +513,7 @@ function renderNjiaNumbersCard() {
         </div>
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${publishedCount}/${totalRecords}</span>
-          <span class="landing-numbers-label">courses whose fee the institution itself publishes, checked against that source — plus ${nationalCount} worked out from a national fee rule. Decide names all five provenance groups and what each one is worth.</span>
+          <span class="landing-numbers-label">courses whose fee the institution itself publishes for that course, read off its own schedule — plus ${derivedCount} worked out by applying a published rate. Decide names all five provenance groups and what each one is worth.</span>
         </div>
       </div>
       <p class="landing-numbers-note">Computed from the dataset this app actually ships — not marketing copy. See Methodology for what "verified" means.</p>

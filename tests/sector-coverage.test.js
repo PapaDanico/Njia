@@ -275,7 +275,7 @@ const feeBasis = vm.runInNewContext(`${extractFn(decideSource, 'feeBasis')}; fee
 
 /* The five outcomes the app renders a badge for. Exhaustive by assertion
  * below, not by hope. */
-const FEE_BASES = ['published', 'national', 'illustrative', 'unpublished', 'unsourced'];
+const FEE_BASES = ['published', 'derived', 'illustrative', 'unpublished', 'unsourced'];
 
 test('every course lands in exactly one named fee basis', () => {
   /* THE GUARD THAT WAS MISSING.
@@ -305,6 +305,75 @@ test('every course lands in exactly one named fee basis', () => {
     + 'Whatever the page says about "all N of them" is then false.');
 });
 
+/* THE STRONGEST BADGE MUST NOT BE THE DEFAULT.
+ *
+ * feeBasis used to award 'published' — "✓ Fee published by the college" — to
+ * any verified record whose note did NOT contain one of four phrases. The
+ * strongest provenance claim in the app was the fall-through case, so a record
+ * earned it by wording rather than by evidence.
+ *
+ * It broke quietly. Eleven records described the identical operation in
+ * unblessed words — "that annual rate across the course duration", "Total here
+ * = annual fee x 4 years" — and every Open University of Kenya degree in the
+ * catalogue told readers the university published a total it had never quoted.
+ * The records were honest, the arithmetic was right, and the badge was wrong.
+ *
+ * 'published' is now an explicit fee_observed: true. These two tests guard the
+ * two halves of that: that the flag stays scarce and defensible, and that the
+ * inversion itself is not quietly undone.
+ */
+const DERIVATION_LANGUAGE = /\b(derived from|scaled to|multiplied (out )?by|pro-rated|annual (fee|rate)[^.]{0,40}(x|times|across|over) |per year[^.]{0,30}(x|times|across|over) |annualised)\b/i;
+const HEDGE_LANGUAGE = /\b(mid-range|midrange|estimate|estimated|approximate|approximation|indicative|assumed|roughly Ksh[\d, -]+(\/|per )(year|yr|semester|term))\b/i;
+
+test('a fee is only badged "published by the college" when the record says it was observed', () => {
+  const claimed = COURSES.filter((c) => c.fee_observed === true);
+
+  /* Scarcity is the point. The flag exists so the strong claim is deliberate;
+   * if it ever spreads across the catalogue it has become the default again by
+   * another route, and the badge stops meaning anything. */
+  assert.ok(claimed.length > 0, 'no record claims fee_observed — the published basis is now unreachable');
+  assert.ok(claimed.length < COURSES.length * 0.2,
+    `${claimed.length} of ${COURSES.length} records claim their fee was read off the institution's `
+    + 'own schedule. That is the proportion the original audit disproved — re-check them '
+    + 'individually before raising this bound.');
+
+  for (const c of claimed) {
+    assert.equal(feeBasis(c), 'published',
+      `${c.id} sets fee_observed but classifies as '${feeBasis(c)}'`);
+    assert.ok(c.total_fees_kes != null,
+      `${c.id} claims its fee was observed on the institution's schedule, but carries no fee`);
+    assert.ok(c.verification_note,
+      `${c.id} claims its fee was observed but names no source for the observation`);
+
+    const derives = (c.verification_note.match(DERIVATION_LANGUAGE) || [])[0] || null;
+    assert.equal(derives, null,
+      `${c.id} claims the institution publishes this exact total, but its own note describes a `
+      + `calculation ("${derives}"). A figure worked out from a rate belongs in the `
+      + "'derived' basis — that is what the badge distinction is for.");
+
+    const hedges = (c.verification_note.match(HEDGE_LANGUAGE) || [])[0] || null;
+    assert.equal(hedges, null,
+      `${c.id} claims the institution publishes this exact total, but its own note hedges it `
+      + `("${hedges}"). This is how Ksh 560,000 rendered under a verification tick at `
+      + 'the University of Nairobi while the note beneath called it a mid-range estimate: a caveat '
+      + 'written in prose does not reach the reader looking at the number.');
+  }
+});
+
+test('the published basis is a declared claim, never the fall-through', () => {
+  /* Reading the shipped source, because the failure being guarded is a shape
+   * of code rather than a value in the data: the moment 'published' goes back
+   * to being what happens when nothing else matches, every future record with
+   * unfamiliar wording over-claims again and nothing in this file would see it. */
+  assert.match(decideSource, /fee_observed === true \? 'published' : 'derived'/,
+    "feeBasis no longer derives 'published' from an explicit fee_observed flag. If the "
+    + 'classification is inferred from the wording of verification_note again, a synonym silently '
+    + 'promotes a record to the strongest badge in the app — which is exactly how every OUK degree '
+    + 'came to claim a published fee.');
+  assert.ok(!/\.test\(course\.verification_note[^)]*\)\s*\?\s*'derived'/.test(decideSource),
+    'the fee basis is being decided by pattern-matching the note again');
+});
+
 test('the Decide notice reports every basis, over the catalogue and nothing else', () => {
   for (const basis of FEE_BASES) {
     assert.ok(decideSource.includes(`${basis}:`), `FEE_BASIS_BADGE has no entry for '${basis}'`);
@@ -316,7 +385,7 @@ test('the Decide notice reports every basis, over the catalogue and nothing else
     'the fee-provenance denominator has gone back to mixing courses with funding sources');
   assert.match(decideSource, /const totalCount = COURSES\.length/,
     'the fee-provenance total must be counted over courses alone');
-  for (const name of ['publishedCount', 'nationalCount', 'illustrativeCount', 'unpublishedCount', 'unsourcedCount']) {
+  for (const name of ['publishedCount', 'derivedCount', 'illustrativeCount', 'unpublishedCount', 'unsourcedCount']) {
     assert.ok(decideSource.includes(`\${${name}}`), `the notice no longer prints ${name}`);
   }
 });
@@ -347,7 +416,7 @@ test('the catalogue notice states the real split, not one flattering total', () 
   const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
   assert.ok(!/have fees or terms cross-checked against a named public source/.test(decide),
     'the notice has reverted to the single overstated total');
-  for (const name of ['publishedCount', 'nationalCount', 'unpublishedCount']) {
+  for (const name of ['publishedCount', 'derivedCount', 'unpublishedCount']) {
     assert.ok(decide.includes(name), `the notice no longer reports ${name}`);
   }
 });

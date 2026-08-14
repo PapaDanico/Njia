@@ -139,13 +139,45 @@ function feeBasis(course) {
     return 'illustrative';
   }
   if (course.total_fees_kes == null) return 'unpublished';
-  return /derived from|scaled to course duration|multiplied out by course length|pro-rated/i
-    .test(course.verification_note || '') ? 'national' : 'published';
+  /* THE STRONG CLAIM NOW HAS TO BE DECLARED, NOT INFERRED FROM PROSE.
+   *
+   * This line used to read the verification_note and look for one of four
+   * phrases — 'derived from', 'scaled to course duration', 'multiplied out by
+   * course length', 'pro-rated' — treating a match as 'derived' and anything
+   * else as 'published'. The strongest badge in the app was therefore the
+   * DEFAULT, awarded to any record whose note happened not to use one of four
+   * blessed wordings.
+   *
+   * It failed exactly as that design predicts. Eleven records said "that annual
+   * rate across the course duration" or "Total here = annual fee x 4 years" —
+   * the same operation, different words — and so rendered "✓ Fee published by
+   * the college" on a figure no college published: every Open University of
+   * Kenya degree in the catalogue. A synonym moved a record up a provenance
+   * tier, silently, and no test could see it because the record was internally
+   * consistent and the arithmetic was right.
+   *
+   * So the default is inverted. 'published' is now an explicit claim a record
+   * has to make — fee_observed: true, meaning someone read this figure off the
+   * institution's own schedule for this course — and everything else falls to
+   * 'derived', which is the weaker statement. A new record with novel wording
+   * now under-claims instead of over-claiming, which is the only direction this
+   * failure is allowed to run. Fourteen records carry the flag; the guard in
+   * tests/sector-coverage.test.js refuses it to any note that describes a
+   * calculation or hedges the figure. */
+  return course.fee_observed === true ? 'published' : 'derived';
 }
 
 const FEE_BASIS_BADGE = {
   published: '<span class="verified-badge" title="This college publishes this fee for this course, and it was checked against that source.">✓ Fee published by the college</span>',
-  national: '<span class="verified-badge verified-badge-derived" title="Worked out from the national fee rule for this type of institution, not from this college\'s own price list. Colleges vary — confirm before you plan around it.">✓ Fee from the national rate</span>',
+  /* Named for the operation, not for one source of it. This bucket was called
+   * 'national' and its badge said "Fee from the national rate", which was true
+   * of the public-TVET and KMTC records that filled it and false of the eleven
+   * that joined it once the classification was fixed: OUK's degrees are an
+   * annual rate the university itself publishes, multiplied by course length.
+   * What every member has in common is not where the rate came from — it is
+   * that the total on the card was CALCULATED rather than read off a price list
+   * for this course, which is the part a reader has to weigh. */
+  derived: '<span class="verified-badge verified-badge-derived" title="Worked out by applying a published rate to this course — a national fee rule for this type of institution, or the institution\'s own annual rate multiplied by course length. The rate is sourced; this exact total was not quoted for this course. Confirm before you plan around it.">✓ Fee worked out from a published rate</span>',
   /* No badge for 'unpublished': the feasibility chip beside it already says
    * "Fee not published", and a tick mark next to a blank figure is the exact
    * thing this change exists to stop. */
@@ -252,7 +284,7 @@ function renderDecidePage() {
     return acc;
   }, {});
   const publishedCount = feeBasisCounts.published || 0;
-  const nationalCount = feeBasisCounts.national || 0;
+  const derivedCount = feeBasisCounts.derived || 0;
   const illustrativeCount = feeBasisCounts.illustrative || 0;
   const unpublishedCount = feeBasisCounts.unpublished || 0;
   const unsourcedCount = feeBasisCounts.unsourced || 0;
@@ -286,7 +318,7 @@ function renderDecidePage() {
                above the words "Not published". The three states are now named
                separately, because a learner about to commit two hundred
                thousand shillings should be told which one they are reading. -->
-          <span><strong>Where each fee comes from — all ${totalCount} of them.</strong> <strong>${publishedCount}</strong> carry a figure the institution itself publishes, checked against that source. <strong>${nationalCount}</strong> are worked out from a national fee rule — the government's consolidated Ksh 67,189 for public TVET, or KMTC's own published schedule — which is real and sourced, but is not the same as that college quoting that price for that course. <strong>${illustrativeCount}</strong> show a figure that is sourced but is not the college's own price for that course, marked <em>Illustrative — see the note</em>, and the note on each one says where the number came from. <strong>${unpublishedCount}</strong> publish no fee at all and say so rather than showing a guess. <strong>${unsourcedCount}</strong> are older records carrying a figure with no citation at all; those are marked <em>Fee not confirmed</em> and no new record is allowed to ship that way. Those five groups are the whole catalogue — they add to ${totalCount}, and a test fails the build if they ever stop adding up. Separately, ${fundingVerified} of the ${FUNDING_SOURCES.length} funding sources have had their terms checked against a named public source. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. Confirm the fee with the institution before you decide — always, but especially on the three middle groups.</span>
+          <span><strong>Where each fee comes from — all ${totalCount} of them.</strong> <strong>${publishedCount}</strong> carry a figure the institution itself publishes for that course, read off its own schedule. <strong>${derivedCount}</strong> were worked out by applying a published rate to the course — the government's consolidated Ksh 67,189 for public TVET, KMTC's own published schedule, or a university's annual fee multiplied by the length of the course. The rate behind each is real and sourced; the total shown was calculated, not quoted for that course. <strong>${illustrativeCount}</strong> show a figure that is sourced but is not the college's own price for that course, marked <em>Illustrative — see the note</em>, and the note on each one says where the number came from. <strong>${unpublishedCount}</strong> publish no fee at all and say so rather than showing a guess. <strong>${unsourcedCount}</strong> are older records carrying a figure with no citation at all; those are marked <em>Fee not confirmed</em> and no new record is allowed to ship that way. Those five groups are the whole catalogue — they add to ${totalCount}, and a test fails the build if they ever stop adding up. Separately, ${fundingVerified} of the ${FUNDING_SOURCES.length} funding sources have had their terms checked against a named public source. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. Confirm the fee with the institution before you decide — always, but especially on the three middle groups.</span>
         </div>
         <div class="data-disclaimer data-disclaimer-open">
           <!-- Placed here rather than in the evidence layer on purpose: this is
@@ -952,7 +984,7 @@ function renderCourseCard(course, match) {
       ${inst && inst.fee_regime === 'public_university' && feePublished && typeof UNIVERSITY_FUNDING_TRANSITION !== 'undefined' ? `
         <p class="text-sm mb-2"><strong>Public university fees do not work like a price list.</strong> The single per-programme cost was retired in 2023 for a model that sets what you pay from your assessed household means, and Parliament is mid-way through changing it again — so treat the figure above as an order of magnitude, not a bill. ${escapeHtml(UNIVERSITY_FUNDING_TRANSITION.legislativeStage.split('.')[0])}. Ask the university what your intake is being billed and under which model, in writing.</p>
       ` : ''}
-      ${course.verification_note ? `<details class="fee-provenance"><summary>${basis === 'unpublished' ? 'Why there is no fee here' : basis === 'national' ? 'Where this fee comes from' : 'How this fee was checked'}</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.residual)}` : ''}</p></details>` : ''}
+      ${course.verification_note ? `<details class="fee-provenance"><summary>${basis === 'unpublished' ? 'Why there is no fee here' : basis === 'derived' ? 'How this fee was worked out' : 'How this fee was checked'}</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.residual)}` : ''}</p></details>` : ''}
       ${/* WHERE THIS SITS IN THE ECONOMY.
            *
            * Njia could tell a learner a course costs Ksh 67,189 and needs a C-,

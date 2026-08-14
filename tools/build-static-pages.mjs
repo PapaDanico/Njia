@@ -1,4 +1,4 @@
-/* Njia — generate one static, crawlable page per county.
+/* Njia — generate the static, crawlable pages: one per county, one per grade.
  *
  * WHY THIS EXISTS.
  *
@@ -31,6 +31,15 @@
  * static files it did not build. tests/seo.test.js fails the build if these
  * pages fall behind the data they describe.
  *
+ * ONE SCRIPT, BECAUSE ONE SITEMAP.
+ *
+ * County pages and grade pages are separate ideas but a single sitemap.xml
+ * lists both, and two scripts writing the same file would clobber each other
+ * depending on which ran last. So this owns every generated page and the
+ * sitemap together. It was called build-county-pages.mjs while it only made
+ * counties; a name that describes half of what a script does is the kind of
+ * thing this repository spends its comments apologising for.
+ *
  * WHAT THESE PAGES MUST NOT BECOME.
  *
  * Doorway pages. Each one has to be genuinely useful to a person who lands on
@@ -40,7 +49,7 @@
  * an app is the thing search engines are right to punish, and the thing this
  * project would deserve to be punished for.
  *
- * RUN:  node tools/build-county-pages.mjs
+ * RUN:  node tools/build-static-pages.mjs
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -280,6 +289,189 @@ ${counties.map((c) => `  <li><a href="/counties/${slug(c)}/">${esc(c)}</a></li>`
 `;
 }
 
+
+/* GRADE PAGES — the question this audience actually types.
+ *
+ * "What can I do with a D+?" is the single most-asked version of the thing
+ * Njia answers, and until now there was no page for it. The county pages rank
+ * for place; these rank for the constraint the reader is stuck with.
+ *
+ * NOT one page per grade. A page for A, A-, B+ or B would list 429-436 of the
+ * 436 courses, which is the same page four times over — duplicate content, and
+ * exactly the doorway pattern the county pages were built to avoid. A page
+ * earns its place only where the grade genuinely narrows the catalogue, which
+ * in practice means C and below:
+ *
+ *   C+ 425/436 (97%)   near-identical to the full list — not generated
+ *   C  351 (80%)  C- 318 (73%)  D+ 212 (49%)  D 145 (33%)  D- 96 (22%)  E 92 (21%)
+ *
+ * The cut is at 85% reachable. It is a judgement, and it is written down here
+ * rather than left implicit so the next person can move it deliberately. */
+const GRADE_PAGE_MAX_SHARE = 0.85;
+
+const GRADE_SLUG = {
+  'C+': 'c-plus', C: 'c-plain', 'C-': 'c-minus',
+  'D+': 'd-plus', D: 'd-plain', 'D-': 'd-minus', E: 'e'
+};
+const GRADE_PHRASE = {
+  'C+': 'C+', C: 'C plain', 'C-': 'C-', 'D+': 'D+', D: 'D plain', 'D-': 'D-', E: 'E'
+};
+/* "a E" reads as a typo to exactly the reader this page is for. Only E takes
+ * "an" among the grades that get a page — the rest start with a consonant
+ * sound — so this is a lookup rather than a vowel rule. */
+const GRADE_ARTICLE = (g) => (g === 'E' ? 'an' : 'a');
+
+function reachableAt(grade) {
+  return COURSES.filter((c) => rank(grade) <= rank(c.min_grade))
+    .map((c) => ({ course: c, inst: instById.get(c.institution_id) }))
+    .filter((r) => r.inst);
+}
+
+function gradePage(grade, rows) {
+  const phrase = GRADE_PHRASE[grade];
+  const counties = [...new Set(rows.map((r) => r.inst.county))].sort();
+  const levels = [...new Set(rows.map((r) => r.course.level))];
+  const byLevel = levels.map((l) => `${rows.filter((r) => r.course.level === l).length} ${LEVEL_LABEL[l].toLowerCase()}`);
+
+  const title = `Courses you can do with ${GRADE_ARTICLE(grade)} ${phrase} in KCSE — ${rows.length} options | Njia`;
+  const desc = `${rows.length} Kenyan courses open to a KCSE mean grade of ${phrase}, across `
+    + `${counties.length} counties, with fees and institutions. Free and evidence-based.`;
+
+  /* Grouped by county so the reader can find the ones near them, which is the
+     second question after "what can I do at all". */
+  const groups = counties.map((county) => {
+    const inCounty = rows.filter((r) => r.inst.county === county)
+      .sort((a, b) => a.course.name.localeCompare(b.course.name));
+    return `
+  <h3>${esc(county)} <span class="count">${inCounty.length}</span></h3>
+  <div class="wrap"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <tbody>${inCounty.map(({ course: c, inst: i }) => `
+      <tr><th scope="row">${esc(c.name)}</th><td>${esc(i.name)}</td>
+      <td>${esc(LEVEL_LABEL[c.level] || c.level)}</td>
+      <td>${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
+      <td>${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td></tr>`).join('')}
+    </tbody>
+  </table></div>`;
+  }).join('');
+
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [{
+      '@type': 'Question',
+      name: `What courses can I do with ${GRADE_ARTICLE(grade)} ${phrase} in KCSE?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `Njia lists ${rows.length} courses open to a KCSE mean grade of ${phrase}, across `
+          + `${counties.length} Kenyan counties — ${byLevel.join(', ')}. TVET placement accepts any KCSE `
+          + `grade from A to E from anyone who sat the exam from 2000 onward, and intake runs continuously `
+          + `rather than in one annual window.`
+      }
+    }]
+  };
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${SITE}/grades/${GRADE_SLUG[grade]}/">
+<meta property="og:title" content="${esc(`Courses you can do with ${GRADE_ARTICLE(grade)} ${phrase} in Kenya`)}">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:image" content="${SITE}/icons/og-image.jpg">
+<meta property="og:url" content="${SITE}/grades/${GRADE_SLUG[grade]}/">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+  body { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.1rem 4rem; }
+  table { width: 100%; border-collapse: collapse; margin: .6rem 0 1.4rem; font-size: .92rem; }
+  th, td { text-align: left; padding: .5rem .45rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
+  thead th { font-size: .76rem; text-transform: uppercase; letter-spacing: .07em; }
+  tbody th { font-weight: 600; }
+  h3 { margin-top: 1.8rem; }
+  .count { font-size: .8rem; font-weight: 400; opacity: .7; }
+  .open { font-weight: 700; }
+  .muted { opacity: .7; }
+  .wrap { overflow-x: auto; }
+  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
+         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
+  .lede { font-size: 1.05rem; }
+</style>
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
+</head>
+<body>
+<a href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+
+<h1>Courses you can do with ${GRADE_ARTICLE(grade)} ${esc(phrase)}</h1>
+
+<p class="lede"><strong>${rows.length} courses</strong> across
+<strong>${counties.length} counties</strong> are open to a KCSE mean grade of ${esc(phrase)} —
+${byLevel.join(', ')}.</p>
+
+<p><strong>TVET placement takes any KCSE grade, A to E</strong>, from anyone who sat the exam
+from 2000 onward — not only this year's candidates. Intake runs continuously rather than in a
+single annual window, so a closed university deadline is not the end of the cycle.</p>
+
+<p><a class="cta" href="/#decide">Filter these by county and budget &rarr;</a>
+<a class="cta" href="/#discover">Find which of them suits you</a></p>
+
+${groups}
+
+<h2>About these figures</h2>
+<p>Entry grades are what the institution publishes, and published requirements sometimes
+conflict — where they do, Njia shows the lower bar and tells you to confirm, because a reader
+told to check keeps their options and a reader shown nothing does not. Fees are tuition only.
+Confirm both with the institution before you decide.</p>
+
+<footer>
+  <p><a href="/grades/">All grades</a> &middot; <a href="/counties/">Browse by county</a> &middot;
+     <a href="/">Njia home</a></p>
+</footer>
+</body>
+</html>
+`;
+}
+
+function gradeIndexPage(grades) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What can I study with my KCSE grade? | Njia</title>
+<meta name="description" content="Kenyan courses grouped by the KCSE mean grade they accept, from C plain down to E, with fees and institutions.">
+<link rel="canonical" href="${SITE}/grades/">
+<link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+  body { max-width: 48rem; margin: 0 auto; padding: 1.5rem 1.1rem 4rem; }
+  li { margin: .5rem 0; font-size: 1.02rem; }
+  .cta { display: inline-block; margin: .5rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
+         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+<a href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<h1>What can I study with my KCSE grade?</h1>
+<p><strong>TVET placement takes any grade, A to E</strong>, from anyone who sat KCSE from 2000
+onward, and intake runs continuously. Pick your grade to see every course Njia lists that
+accepts it.</p>
+<ul>
+${grades.map(([g, n]) => `  <li><a href="/grades/${GRADE_SLUG[g]}/">${esc(GRADE_PHRASE[g])}</a> — ${n} courses</li>`).join('\n')}
+</ul>
+<p>Grades above C+ are not listed separately because almost the whole catalogue is open to
+them — <a href="/#decide">use Decide</a> to filter by county, budget and interest instead.</p>
+<p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
+</body>
+</html>
+`;
+}
+
 const counties = [...byCounty.keys()].sort();
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
@@ -291,17 +483,33 @@ for (const county of counties) {
 }
 fs.writeFileSync(path.join(OUT, 'index.html'), indexPage(counties));
 
+const GRADES_OUT = path.join(root, 'grades');
+fs.rmSync(GRADES_OUT, { recursive: true, force: true });
+fs.mkdirSync(GRADES_OUT, { recursive: true });
+const gradePages = [];
+for (const grade of Object.keys(GRADE_SLUG)) {
+  const rows = reachableAt(grade);
+  if (rows.length / COURSES.length > GRADE_PAGE_MAX_SHARE) continue;
+  const dir = path.join(GRADES_OUT, GRADE_SLUG[grade]);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), gradePage(grade, rows));
+  gradePages.push([grade, rows.length]);
+}
+fs.writeFileSync(path.join(GRADES_OUT, 'index.html'), gradeIndexPage(gradePages));
+
 /* The sitemap is generated with them rather than maintained by hand, because a
  * hand-maintained list of 48 URLs is a list that goes stale. */
 const today = process.env.NJIA_BUILD_DATE || new Date().toISOString().slice(0, 10);
 const urls = [
   { loc: `${SITE}/`, priority: '1.0', changefreq: 'weekly' },
   { loc: `${SITE}/counties/`, priority: '0.8', changefreq: 'weekly' },
+  { loc: `${SITE}/grades/`, priority: '0.9', changefreq: 'weekly' },
+  ...gradePages.map(([g]) => ({ loc: `${SITE}/grades/${GRADE_SLUG[g]}/`, priority: '0.8', changefreq: 'monthly' })),
   ...counties.map((c) => ({ loc: `${SITE}/counties/${slug(c)}/`, priority: '0.7', changefreq: 'monthly' }))
 ];
 fs.writeFileSync(path.join(root, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <!--
-  GENERATED by tools/build-county-pages.mjs — do not hand-edit.
+  GENERATED by tools/build-static-pages.mjs — do not hand-edit.
 
   Njia's app is a single page, but the catalogue underneath it is not, and for
   a long time neither was crawlable: everything rendered client-side, so a
@@ -326,4 +534,5 @@ ${urls.map((u) => `  <url>
 `);
 
 console.log(`wrote counties/index.html + ${counties.length} county pages`);
+console.log(`wrote grades/index.html + ${gradePages.length} grade pages: ${gradePages.map(([g, n]) => `${g}=${n}`).join(' ')}`);
 console.log(`wrote sitemap.xml with ${urls.length} URLs (lastmod ${today})`);

@@ -81,7 +81,7 @@ A learner does not search "career pathway platform". They search "TVET courses
 in Turkana", "courses I can do with a D plain", "KMTC September intake". There
 was nothing to rank.
 
-`tools/build-county-pages.mjs` generates one static page per county, committed
+`tools/build-static-pages.mjs` generates a page per county and per grade, committed
 like the icons and the share card, guarded by `tests/seo.test.js`. Rules:
 
 - **They must never become doorway pages.** Each carries its county's real
@@ -94,6 +94,14 @@ like the icons and the share card, guarded by `tests/seo.test.js`. Rules:
   leaves 48 pages unlinked to a crawler. It lives in `<noscript>`, because a
   second skip link tripped axe on all 32 states.
 - Regenerate whenever the catalogue changes; the mtime guard fails otherwise.
+- **A grade page is only generated where the grade narrows the catalogue** —
+  the cut is 85% reachable. Pages for A, A-, B+ and B would list 429–436 of 436
+  courses each: the same page four times, which is duplicate content and the
+  doorway pattern by another route. C and below is also where the question is
+  actually asked.
+- **Course identity is (name, institution), not name.** Five institutions run a
+  "Bachelor of Science in Nursing" at B, B, C, C+ and C+; a name-only test
+  flagged the C page for listing the B ones when it was correct.
 
 ## Measurement: count steps, never people
 

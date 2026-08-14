@@ -1839,9 +1839,20 @@ test('the brand mark is the same drawing in both places it is defined', () => {
    * that is exactly how the old mark ended up as four PNGs that had to be
    * kept in step by hand. Compare the geometry, not the formatting. */
   const geometry = (src) => {
-    const paths = [...src.matchAll(/<path\s+d="([^"]+)"/g)].map((m) => m[1].replace(/\s+/g, ' ').trim());
-    const circles = [...src.matchAll(/<circle\s+cx="([^"]+)"\s+cy="([^"]+)"\s+r="([^"]+)"/g)]
-      .map((m) => m.slice(1, 4).join(','));
+    /* Attribute order is formatting, so the extractor must not depend on it.
+     * The first version required d= immediately after <path, and adding a
+     * class to the shield outline — a purely presentational change, for the
+     * standalone favicon's dark-scheme rule — dropped that path from one side
+     * of the comparison and failed a guard that claims to ignore formatting.
+     * Match the tag, then pull the attribute out of it. */
+    const attr = (tag, name) => (tag.match(new RegExp(`${name}="([^"]+)"`)) || [])[1];
+    const paths = [...src.matchAll(/<path\b[^>]*>/g)]
+      .map((m) => attr(m[0], 'd'))
+      .filter(Boolean)
+      .map((d) => d.replace(/\s+/g, ' ').trim());
+    const circles = [...src.matchAll(/<circle\b[^>]*>/g)]
+      .map((m) => ['cx', 'cy', 'r'].map((n) => attr(m[0], n)).join(','))
+      .filter((c) => !c.includes('undefined'));
     return { paths, circles };
   };
   const file = fs.readFileSync(path.join(root, 'icons', 'logo-mark.svg'), 'utf8');

@@ -89,7 +89,11 @@ const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PAT
  * "Use the stacked lockup for vertical or narrow spaces."
  * Clear space is the height of the N, per the sheet's usage notes. */
 {
-  const page = await browser.newPage({ viewport: { width: 640, height: 720 }, deviceScaleFactor: 2 });
+  /* colorScheme pinned: the mark carries an @media (prefers-color-scheme: dark)
+   * rule for its standalone favicon use, and inlined here it would otherwise
+   * follow whatever scheme the build machine happens to be in — turning this
+   * lockup's outline cream on a cream ground. */
+  const page = await browser.newPage({ viewport: { width: 640, height: 720 }, deviceScaleFactor: 2, colorScheme: 'light' });
   await page.setContent(shell(`
     <div id="a" style="width:640px;padding:64px 0;display:flex;flex-direction:column;
                        align-items:center;gap:6px;background:${CREAM}">
@@ -108,7 +112,7 @@ const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PAT
  * The shield edge switches to cream through --mark-edge, which is exactly why
  * the mark was built with that custom property instead of a second file. */
 {
-  const page = await browser.newPage({ viewport: { width: 640, height: 720 }, deviceScaleFactor: 2 });
+  const page = await browser.newPage({ viewport: { width: 640, height: 720 }, deviceScaleFactor: 2, colorScheme: 'dark' });
   await page.setContent(shell(`
     <div id="a" style="width:640px;padding:64px 0;display:flex;flex-direction:column;
                        align-items:center;gap:6px;background:#241002;--mark-edge:${CREAM}">
@@ -129,7 +133,7 @@ const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PAT
  * card and has to earn a click. Do not swap one for the other. */
 {
   const W = 1600, H = 900;
-  const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
+  const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1, colorScheme: 'light' });
   await page.setContent(shell(`
     <div id="a" style="width:${W}px;height:${H}px;background:${CREAM};display:flex;
                        flex-direction:column;justify-content:space-between">

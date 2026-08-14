@@ -8,6 +8,26 @@
        from a 16px browser tab to a 512px app icon, and so the fields can be
        recoloured for the dark variant without a second file. The colours are
        the brand hexes exactly, not approximations. -->
+  <style>
+    /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile.
+     *
+     * Nothing supplies --mark-edge outside the app, so the outline falls back
+     * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16,
+     * 32, 48 and 64px, the shield edge disappeared into the ground completely.
+     * The mark still read, because the terracotta field and the cream road
+     * carry it, but the drawing lost its silhouette.
+     *
+     * This rule is inert inside the app: there the #i-njia sprite symbol in
+     * index.html is a separate copy that takes --mark-edge from the page, and
+     * it does not carry this stylesheet. The drift guard in
+     * tests/provenance.test.js compares path geometry rather than styling, so
+     * the two stay legitimately different in presentation and identical in
+     * shape. */
+    @media (prefers-color-scheme: dark) {
+      .mark-edge { stroke: #F5E9D4; }
+    }
+  </style>
+
   <defs>
     <clipPath id="njia-shield">
       <path d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"/>
@@ -39,6 +59,6 @@
         stroke-linecap="round" stroke-linejoin="round"/>
 
   <!-- Shield outline, drawn last so it sits over every field edge. -->
-  <path d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"
+  <path class="mark-edge" d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"
         fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="4.5" stroke-linejoin="round"/>
 </svg>

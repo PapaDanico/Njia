@@ -261,6 +261,27 @@ const INSTITUTIONS = [
    * pioneer institution for mining and mineral processing engineering in the
    * region; the government has designated it a mining centre of excellence. */
   { id: 'ttu', name: 'Taita Taveta University', ownership: 'public', type: 'university', location: 'Voi', county: 'Taita-Taveta', accreditation: 'CUE Chartered · KUCCPS institution 1091 · designated mining centre of excellence', website: 'https://ttu.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'public_university' },
+  /* FAITH-BASED PROVISION, AND THE HALF OF IT THAT WAS MISSING.
+   *
+   * An audit prompted by a reader's question found twelve Christian-linked
+   * institutions already listed — CUEA, St Kizito, Baraka, three Catholic
+   * teacher training colleges — and not one Muslim institution anywhere in the
+   * catalogue. Njia serves the whole country, including the coast and the
+   * north-east, and it was showing those learners nothing from their own
+   * institutions.
+   *
+   * Umma is the first Islamic chartered university in Kenya, and it sits in
+   * Kajiado — one of the pastoralist counties this catalogue has been working
+   * to reach. Uzima is the Catholic gap on the other side: an Archdiocese of
+   * Kisumu foundation, CUEA-affiliated, accredited by the Clinical Officers
+   * Council, and one of the few places offering a clinical medicine diploma
+   * outside KMTC.
+   *
+   * Both are private and set their own fees. Neither publishes a schedule
+   * reachable from here, so every record carries no figure rather than a
+   * guessed one. */
+  { id: 'umma', name: 'Umma University', ownership: 'private', type: 'university', location: 'Kajiado (Nairobi–Namanga highway), with a Thika campus', county: 'Kajiado', accreditation: 'CUE Chartered · KUCCPS-approved · the first Islamic chartered university in Kenya', website: 'https://umma.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'private_own_rate' },
+  { id: 'uzima', name: 'Uzima University', ownership: 'private', type: 'university', location: 'Kisumu', county: 'Kisumu', accreditation: 'CUE accredited · CUEA-affiliated · Clinical Officers Council accredited · founded by the Archdiocese of Kisumu', website: 'https://uzimauniversity.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'private_own_rate' },
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

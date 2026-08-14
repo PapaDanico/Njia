@@ -809,6 +809,28 @@ function renderCourseCard(course, match) {
       ${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? `
         <p class="text-sm mb-2"><strong>You are not asked for all of that.</strong> ${escapeHtml(PUBLIC_TVET_CAPITATION.reading)}</p>
       ` : ''}
+      ${/* WHAT A PUBLIC UNIVERSITY "FEE" EVEN MEANS NOW.
+           *
+           * 18 records at public universities carry a figure with no citation,
+           * and an audit of them found something worse than a missing source:
+           * the number is the wrong SHAPE. The Differentiated Unit Cost, which
+           * is what a single per-programme price used to mean, was retired in
+           * May 2023 for the Student-Centred Funding Model, under which what a
+           * given student pays depends on their assessed means band — and a
+           * further change is before Parliament right now.
+           *
+           * So a reader looking at one figure for a public university degree is
+           * reading a sticker price for a thing that stopped having one. This
+           * says so beside the number.
+           *
+           * Deliberately rendered as a note and NOT as a verification_note on
+           * the records: adding a note to those 18 would flip their badge from
+           * "Fee not confirmed" to "Illustrative — see the note", which is a
+           * softer claim about a figure nobody has checked. The caveat belongs
+           * next to the fee; the warning stays exactly as loud as it was. */''}
+      ${inst && inst.fee_regime === 'public_university' && feePublished && typeof UNIVERSITY_FUNDING_TRANSITION !== 'undefined' ? `
+        <p class="text-sm mb-2"><strong>Public university fees do not work like a price list.</strong> The single per-programme cost was retired in 2023 for a model that sets what you pay from your assessed household means, and Parliament is mid-way through changing it again — so treat the figure above as an order of magnitude, not a bill. ${escapeHtml(UNIVERSITY_FUNDING_TRANSITION.legislativeStage.split('.')[0])}. Ask the university what your intake is being billed and under which model, in writing.</p>
+      ` : ''}
       ${course.verification_note ? `<details class="fee-provenance"><summary>${basis === 'unpublished' ? 'Why there is no fee here' : basis === 'national' ? 'Where this fee comes from' : 'How this fee was checked'}</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.residual)}` : ''}</p></details>` : ''}
       ${/* WHERE THIS SITS IN THE ECONOMY.
            *

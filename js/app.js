@@ -117,6 +117,67 @@ function normalizeState(state) {
   return state;
 }
 
+/* COUNTING HOW MANY PEOPLE GET SOMEWHERE, WITHOUT LEARNING ANYTHING ABOUT THEM.
+ *
+ * Njia had no usage measurement at all, deliberately. That is a defensible
+ * position right up until someone asks the question that decides whether this
+ * project continues: how many young people actually finished the diagnostic?
+ * With no answer, Njia cannot be funded, cannot be adopted by a school, and
+ * goes stale — which serves a reader far worse than being counted does.
+ *
+ * So this is the smallest thing that answers it. A milestone requests a static
+ * marker file from Njia's own origin. Netlify's server-side analytics then
+ * reports how many times each path was requested. That is the whole mechanism.
+ *
+ * What it CANNOT collect, by construction rather than by promise:
+ *
+ *   - No identifier of any kind. No session id, no device id, no cookie, no
+ *     localStorage key, nothing derived from the state. Two milestones from
+ *     one person are indistinguishable from one each from two people, which
+ *     means no funnel can ever be traced back to an individual.
+ *   - No content. Not the answers, not the cluster result, not which course
+ *     was saved. The event name is fixed at the call site and is the entire
+ *     payload — hence no query string, no body, and a guard in
+ *     tests/analytics.test.js that fails the build if either appears.
+ *   - Nothing a web server was not already recording. Netlify has logged every
+ *     request for index.html since day one. This adds paths, not surveillance.
+ *
+ * Do Not Track and Global Privacy Control are honoured, and the failure mode is
+ * silence: offline readers are simply not counted. That undercounts exactly the
+ * audience Njia cares most about, so treat every figure this produces as a
+ * floor. The alternative — queueing events in storage until the device
+ * reconnects — would mean keeping a record of behaviour on the reader's phone,
+ * which is a worse trade than an undercount.
+ *
+ * The privacy modal in index.html says all of this in the reader's words. If
+ * you add a milestone, say so there too: an accurate promise that nobody
+ * updated is how this project's other defects started. */
+const MILESTONES = ['diagnostic-completed', 'course-saved', 'application-started', 'report-downloaded'];
+
+function recordMilestone(name) {
+  /* An unknown name would request a path that does not exist, so the event
+   * would be invisible in analytics AND log a 404 — failing silently in the
+   * one direction that looks like "nobody got there". Better to be loud in
+   * the console during development and do nothing in production. */
+  if (!MILESTONES.includes(name)) {
+    console.warn(`recordMilestone: no marker file for '${name}' — add public/m/${name}.txt`);
+    return;
+  }
+  try {
+    const dnt = navigator.doNotTrack === '1' || window.doNotTrack === '1'
+      || navigator.msDoNotTrack === '1' || navigator.globalPrivacyControl === true;
+    if (dnt) return;
+    /* keepalive so the request survives the page being closed on the same
+     * tick; no-store so neither the browser nor the service worker can serve
+     * it from cache and hide the second visit. Errors are swallowed whole:
+     * a counter must never be able to break the app it is counting. */
+    fetch(`./m/${name}.txt`, { method: 'GET', cache: 'no-store', keepalive: true })
+      .catch(() => {});
+  } catch (err) {
+    /* Deliberately empty. */
+  }
+}
+
 function saveState() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(AppState));

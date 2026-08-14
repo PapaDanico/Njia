@@ -328,9 +328,16 @@
     function openPrivacyModal() {
       openModal(`
         <h3 class="mb-2">Your Data & Privacy</h3>
-        <p class="text-secondary text-sm mb-2">Everything you enter in Njia — questionnaire answers, plans, saved courses, OKRs — stays on this device in your browser's local storage. Nothing is sent to a server or shared with anyone.</p>
-        <p class="text-secondary text-sm mb-2"><strong>The one exception:</strong> if you choose to submit the optional Feedback or Partner Inquiry form, whatever you type into that form is sent to us — that's the only data that ever leaves your device, and only if you actively submit it.</p>
-        <p class="text-secondary text-sm mb-2">Njia doesn't use cookies, trackers, or analytics scripts of any kind — there's nothing running in the background collecting behaviour data.</p>
+        <p class="text-secondary text-sm mb-2">Everything you enter in Njia — questionnaire answers, plans, saved courses, OKRs — stays on this device in your browser's local storage. None of it is sent to a server or shared with anyone.</p>
+        <p class="text-secondary text-sm mb-2"><strong>The only thing you type that ever leaves:</strong> if you choose to submit the optional Feedback or Partner Inquiry form, whatever you type into that form is sent to us — that's the only data that ever leaves your device, and only if you actively submit it.</p>
+        <p class="text-secondary text-sm mb-2">Njia doesn't use cookies, trackers, or any third-party analytics — no Google, no Facebook, nothing from outside this app is loaded or told anything about you.</p>
+        <!-- This paragraph used to read "no analytics of any kind — nothing
+             running in the background collecting behaviour data". That stopped
+             being true the moment milestone counting shipped, and a promise
+             nobody updated is worse than one that was never made. The rule this
+             project applies to fee figures applies to its own claims. -->
+        <p class="text-secondary text-sm mb-2"><strong>The one thing Njia does count.</strong> When someone finishes the questionnaire, saves a course, starts an application or downloads a report, Njia asks its own server for a small file named after that step. All that gets recorded is that the step happened — <em>once more than yesterday</em>. Nothing about you goes with it: no name, no device or session number, no answers, not even which course. Two steps from you look exactly like one step from two different people, so there is no trail back to anybody. It is the same kind of record any website keeps of a page being opened.</p>
+        <p class="text-secondary text-sm mb-2">Why at all: without knowing how many young people actually reach the end, Njia cannot be funded or taken up by a school, and it goes out of date. If your browser sends "Do Not Track" or Global Privacy Control, Njia counts nothing. Offline, it counts nothing either.</p>
         <p class="text-secondary text-sm mb-2">Switching phones? Export a backup below and import it on the new device — nothing here syncs automatically.</p>
         <div class="btn-row mb-2">
           <button type="button" class="btn btn-secondary" onclick="exportMyData()">⬇ Export Backup</button>

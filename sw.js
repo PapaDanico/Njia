@@ -7,7 +7,7 @@
  * data — bump CACHE_VERSION on every deploy that changes cached files.
  */
 
-const CACHE_VERSION = 'njia-v117';
+const CACHE_VERSION = 'njia-v118';
 const ICON_ASSETS = [
   './icons/icon-192x192.png', './icons/icon-512x512.png',
   './icons/icon-maskable-192.png', './icons/icon-maskable-512.png',
@@ -62,6 +62,16 @@ self.addEventListener('message', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+  /* Milestone markers are counted by the SERVER, so the one thing this worker
+   * must never do is answer one. Cached or precached, the second and every
+   * later visit would be served locally, the request would never leave the
+   * device, and the count would silently flatten to roughly the number of
+   * first-ever installs — an undercount that looks exactly like low usage.
+   * Left entirely alone: no respondWith, so the browser goes to the network
+   * itself and simply fails when offline, which is the intended behaviour.
+   * These are also absent from CACHE_ASSETS for the same reason. */
+  if (new URL(event.request.url).pathname.includes('/m/')) return;
 
   const isIcon = ICON_ASSETS.some((path) => event.request.url.endsWith(path.replace('./', '/')));
 

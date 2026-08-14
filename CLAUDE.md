@@ -66,6 +66,40 @@ Rules that the test suite enforces, and why:
   per-programme price to quote.
 - **Never repeat one figure across unrelated institutions.** See below.
 
+## Measurement: count steps, never people
+
+Njia takes exactly one usage measurement. A milestone — questionnaire finished,
+course saved, application started, report downloaded — requests a static marker
+file from `/m/`, and Netlify's server-side analytics reports how many times each
+path was asked for. That is the whole mechanism.
+
+The properties that make it acceptable are enforced in
+`tests/analytics.test.js`, not promised in a comment:
+
+- **The path is the entire message.** No query string, no body, no second
+  argument at any call site. `recordMilestone()` may not touch `AppState`,
+  `localStorage`, `uid()` or a timestamp — anything that could correlate two
+  requests into a session turns a count into a trail.
+- **Every name has a marker file and every marker file is fired.** A missing
+  file 404s and reads as "nobody got there", which is a wrong answer that looks
+  like a real one.
+- **The service worker must never answer `/m/`.** Cached, every visit after the
+  first is served locally and the count collapses to first-installs.
+- **`robots.txt` excludes `/m/`.** A crawler fetching a marker is
+  indistinguishable from a school-leaver reaching that step, and it errs in the
+  flattering direction.
+- **The privacy modal says all of it in the reader's words.** It used to promise
+  "no analytics of any kind"; that sentence was withdrawn rather than left
+  standing with a caveat elsewhere, and a test fails the build if it returns.
+
+Fire on the state *transition*, never on the render — `finishQuestionnaire()`,
+not the results page, which re-renders on every reload of a completed
+questionnaire and would count one person many times.
+
+Figures are a **floor**: DNT and Global Privacy Control suppress everything, and
+offline readers are never counted. Queueing events until a device reconnects
+would mean storing behaviour on a reader's phone, which is the worse trade.
+
 ## The placeholder trap
 
 An audit found **Ksh 420,000 on twelve different degrees** at twelve different

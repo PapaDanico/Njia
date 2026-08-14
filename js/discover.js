@@ -312,6 +312,10 @@ function finishQuestionnaire() {
     computedAt: new Date().toISOString()
   };
   saveState();
+  /* The headline number: how many people actually finish. Fired here rather
+   * than on the results render, which also runs on every reload of a completed
+   * questionnaire and would count one person many times. */
+  recordMilestone('diagnostic-completed');
   showToast('Discovery complete! Here are your results.', 'success');
   renderDiscoverPage();
 }
@@ -987,6 +991,7 @@ function shareReportWhatsApp() {
 }
 
 function downloadReportPDF() {
+  recordMilestone('report-downloaded');
   showToast('Opening print dialog — choose "Save as PDF" as the destination.', 'info');
   setTimeout(() => window.print(), 300);
 }

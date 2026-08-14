@@ -37,6 +37,7 @@ function renderTrackPage() {
   const doneOkrs = AppState.okrs.filter((o) => okrStatus(o) === 'done').length;
 
   el.innerHTML = `
+    <div class="module-rail">
     <p class="page-eyebrow">Module 05 · Track</p>
     <h1 class="mb-1">Track</h1>
     <p class="text-secondary mb-2">Plans mean nothing without follow-through.</p>
@@ -45,6 +46,7 @@ function renderTrackPage() {
       <div class="stat"><div class="value">${AppState.okrs.length}</div><div class="label">OKRs</div></div>
       <div class="stat"><div class="value">${doneOkrs}</div><div class="label">OKRs Done</div></div>
       <div class="stat"><div class="value">${doneApplications}/${AppState.applications.length}</div><div class="label">Apps Done</div></div>
+    </div>
     </div>
 
     <div class="odyssey-tabs">

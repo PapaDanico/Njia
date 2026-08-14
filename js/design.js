@@ -47,9 +47,11 @@ function renderDesignPage() {
   if (!el) return;
 
   el.innerHTML = `
-    <p class="page-eyebrow">Module 02 · Design</p>
-    <h1 class="mb-1">Design</h1>
-    <p class="text-secondary mb-2">Design multiple viable futures, not just one — a life-design approach built for exploring options before committing.</p>
+    <div class="module-rail">
+      <p class="page-eyebrow">Module 02 · Design</p>
+      <h1 class="mb-1">Design</h1>
+      <p class="text-secondary mb-2">Design multiple viable futures, not just one — a life-design approach built for exploring options before committing.</p>
+    </div>
     <div class="odyssey-tabs" role="tablist">
       ${[['odyssey', 'map', 'Odyssey'], ['portfolio', 'scale', 'Portfolio'], ['prototype', 'check-circle', 'Prototype'], ['gravity', 'mountain', 'Gravity']].map(([key, ic, label]) => `
         <button type="button" class="odyssey-tab ${AppState.viewFilters.designActiveTab === key ? 'active' : ''}" role="tab" onclick="setDesignTab('${key}')">${icon(ic)}${label}</button>

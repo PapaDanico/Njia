@@ -38,9 +38,11 @@ function renderConnectPage() {
   const cluster = AppState.questionnaire.results?.primary;
 
   el.innerHTML = `
-    <p class="page-eyebrow">Module 04 · Connect</p>
-    <h1 class="mb-1">Connect</h1>
-    <p class="text-secondary mb-2">No algorithm replaces a real conversation. This module helps you prototype your path by talking to real people.</p>
+    <div class="module-rail">
+      <p class="page-eyebrow">Module 04 · Connect</p>
+      <h1 class="mb-1">Connect</h1>
+      <p class="text-secondary mb-2">No algorithm replaces a real conversation. This module helps you prototype your path by talking to real people.</p>
+    </div>
 
     <div class="card">
       <span class="caption">Who to look for</span>

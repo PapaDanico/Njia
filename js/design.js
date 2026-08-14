@@ -200,6 +200,15 @@ function odysseySuggestions(plan, yearIndex) {
   const role = roles_[0]?.role || GENERIC_ROLE;
   const role2 = roles_[1]?.role || role;
   const asRole = (r) => (r === GENERIC_ROLE ? 'in the field' : `as ${articleFor(r)} ${r}`);
+  /* Two more sites needed the same treatment and did not get it the first time.
+   * asRole() was written for the year-4 and year-5 lines, where the break was
+   * loudest, and the year-1 and year-2 lines went on calling articleFor(role)
+   * directly — so "Volunteer or shadow a the field to test the fit" and "Talk to
+   * two people already working as a the field" were still rendering, to every
+   * learner who opens Design before picking a course, which is all of them.
+   *
+   * aRole() is the noun-phrase form: something you can shadow. */
+  const aRole = (r) => (r === GENERIC_ROLE ? 'someone working in the field' : `${articleFor(r)} ${r}`);
   const courseName = course ? course.name : 'the course I choose';
   const where = inst ? inst.name.replace(/\s*\(.*\)\s*/, '') : 'my chosen institution';
 
@@ -208,14 +217,14 @@ function odysseySuggestions(plan, yearIndex) {
       `Start ${courseName}${inst ? ' at ' + where : ''}`,
       'Work and save toward first-year fees',
       'Apply for HEF funding and a county bursary',
-      `Volunteer or shadow ${articleFor(role)} ${role} to test the fit`,
+      `Volunteer or shadow ${aRole(role)} to test the fit`,
       'Retake or improve the subjects holding me back'
     ],
     [
       `Complete year one of ${courseName} and keep my grades up`,
       'Take part-time work related to the field',
       'Secure funding for the next year of fees',
-      `Talk to two people already working as ${articleFor(role)} ${role}`
+      `Talk to two people already working ${asRole(role)}`
     ],
     [
       `Finish ${courseName}`,

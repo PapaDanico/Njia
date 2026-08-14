@@ -1003,17 +1003,31 @@ textarea.q-input::placeholder { color: var(--text-muted); }
  * One contained control instead of loose full-width pills: a bordered
  * track with flat segments, active segment takes the ink fill (the
  * family's deliberate selected-state, see token comment at the top). */
+/* WRAPS RATHER THAN OVERFLOWS.
+ *
+ * This strip was `display: flex` with `flex: 1` children and no wrap. A flex
+ * item defaults to `min-width: auto`, so it will not shrink below its own text
+ * — four tabs with icons need about 112px each and a 360px phone offers 328,
+ * which pushed the last tab 22px past the viewport and gave the whole Help page
+ * a horizontal scrollbar. It survived every earlier sweep because the overflow
+ * check ran on Design, whose labels are shorter.
+ *
+ * `flex: 1 1 auto` plus wrap lays out as many as fit and moves the rest to a
+ * second row, which fills the pill instead of escaping it. The alternative —
+ * shrinking the labels or dropping the icons — hides information to protect a
+ * single row, and the row is not the point. */
 .odyssey-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
   margin-bottom: 1rem;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: 1.25rem;
   padding: 4px;
 }
 .odyssey-tab {
-  flex: 1;
+  flex: 1 1 auto;
   display: inline-flex; align-items: center; justify-content: center;
   gap: 0.45rem;
   background: transparent;
@@ -1030,8 +1044,14 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .odyssey-tab:hover { color: var(--text-primary); }
 .odyssey-tab.active { background: var(--ink); color: var(--ink-contrast); }
 .odyssey-tab .icon { width: 1em; height: 1em; }
+/* Narrow phones: trim the horizontal padding first, so a strip that would
+ * otherwise wrap for the sake of a few pixels stays on one row. Wrapping is the
+ * fallback, not the goal. */
+@media (max-width: 479px) {
+  .odyssey-tab { padding: 0.55rem 0.65rem; gap: 0.3rem; }
+}
 @media (min-width: 1024px) {
-  .odyssey-tabs { display: inline-flex; }
+  .odyssey-tabs { display: inline-flex; flex-wrap: nowrap; border-radius: 999px; }
   .odyssey-tab { flex: none; padding: 0.55rem 1.4rem; }
 }
 /* Anchor selects (cluster / course / confidence) sit in one wrapping row

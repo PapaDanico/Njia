@@ -161,8 +161,12 @@ check('the cluster filter narrows the result set', numbersCount > 0 && numbersCo
 
 /* 3. Fee provenance is the core promise, so probe what a reader is told. */
 const basis = await page.evaluate(() => {
-  const counts = { published: 0, national: 0, unpublished: 0, estimate: 0 };
-  for (const c of COURSES) counts[feeBasis(c)] += 1;
+  /* Counted into a bare object rather than a fixed set of keys. Written with
+   * the four states that existed at the time, this produced `unsourced=NaN`
+   * the moment a fifth was added — a probe that silently mis-reports is the
+   * failure mode this file exists to avoid. */
+  const counts = {};
+  for (const c of COURSES) { const k = feeBasis(c); counts[k] = (counts[k] || 0) + 1; }
   const target = COURSES.find((c) => feeBasis(c) === 'unpublished');
   const inst = INSTITUTIONS.find((i) => i.id === target.institution_id);
   AppState.decideFilters.level = target.level;
@@ -176,12 +180,15 @@ const basis = await page.evaluate(() => {
   renderDecidePage();
   return {
     counts,
+    courseCount: COURSES.length,
     unpublishedShowsNoTick: !!card && !/✓ Fee (published|from)/.test(text),
     unpublishedSaysSo: /Not published/.test(text)
   };
 });
-check('every course classifies into a fee basis', Object.values(basis.counts).reduce((a, b) => a + b, 0) > 0,
-  Object.entries(basis.counts).map(([k, v]) => `${k}=${v}`).join(' '));
+const basisTotal = Object.values(basis.counts).reduce((a, b) => a + b, 0);
+check('every course classifies into exactly one fee basis',
+  basisTotal === basis.courseCount && Object.values(basis.counts).every(Number.isInteger),
+  Object.entries(basis.counts).map(([k, v]) => `${k}=${v}`).join(' ') + ` (total ${basisTotal}/${basis.courseCount})`);
 check('a course with no fee shows no verification tick', basis.unpublishedShowsNoTick);
 check('a course with no fee says the fee is not published', basis.unpublishedSaysSo);
 

@@ -437,6 +437,43 @@ const ENTRY_PAY = [
  * to avoid borrowing — it is a reason to know the minimum-payment rule, which
  * is the part that prevents it.
  */
+/* THE GROUND MOVING UNDER EVERY FUNDING FIGURE IN THIS APP, RIGHT NOW.
+ *
+ * Kenya is replacing how it pays for tertiary education for the fifth time in
+ * forty years, and the transition is live as this ships. The Tertiary Education
+ * Placement and Funding Bill 2026 would retire the 2023 Variable Scholarship
+ * and Loan Funding Model — the one that sorted students into need bands — and
+ * collapse HELB, the Universities Fund and the TVET Funding Board into a single
+ * Tertiary Education Funding Authority.
+ *
+ * The President announced that every qualifying student would receive full
+ * government funding, and the headline travelled as "university is free now".
+ * It is not. Officials clarified within days that the whole amount is recorded
+ * as a LOAN, repayable once the graduate finds work. Full funding and free are
+ * opposite things for anyone who has to repay it, and the difference is roughly
+ * the price of a house.
+ *
+ * This belongs in Njia for the same reason the Germany 250,000-jobs correction
+ * does: a young person is making a ten-year decision on a headline that says
+ * the opposite of the document underneath it.
+ *
+ * It is deliberately written to be honest about its own uncertainty. At the
+ * time of writing Parliament had not passed the Bill, first-years were due to
+ * report within weeks, and nobody could say which model would actually govern
+ * the September 2026 intake. Njia says that plainly rather than picking a
+ * winner — an app that guesses here would be guessing about somebody's debt. */
+const UNIVERSITY_FUNDING_TRANSITION = {
+  source: 'Tertiary Education Placement and Funding Bill 2026; presidential announcement July 2026 and subsequent official clarification; Kenyan education-sector reporting through mid-August 2026',
+  status: 'In transition and not yet settled. Treat every fee figure in this app as the sticker price, not as what you will be asked to pay.',
+  whatChanged: 'The 2023 model sorted students into need bands and split the cost between a government scholarship you keep, a HELB loan you repay, and a household contribution. The proposed replacement covers 100% of the cost for every placed student — and records all of it as a loan.',
+  theMisreading: '"Full funding" was widely reported as university becoming free. It is not free. Full funding means the state pays the institution now and you repay the state later. A grant is money you keep; this is money you owe.',
+  whatItMeansForYou: 'If the Bill passes as drafted, you will not be asked for fees at the gate — and you will graduate owing the full cost of your course rather than a means-tested share of it. For a student who would have been in the highest-need band, that is a larger debt than the old model, not a smaller one.',
+  theUncertainty: 'Parliament had not passed the Bill when this was written, first-year students were due to report within weeks, and the institutions themselves did not know which model would govern the September 2026 intake. Anyone who tells you the answer with confidence today is guessing.',
+  whatToDo: 'Do not choose a course on the assumption that it is now free. Ask the institution what it is billing for your intake, ask whether you are being funded under the old model or the new one, and get the answer in writing before you commit. If any part of it is a loan, read LOAN_REALITY below — the repayment terms are the part nobody reads until it is too late.',
+  alsoAffectsTvet: 'This is not only a university story. The Bill folds the TVET Funding Board into the same authority, so the consolidated Ksh 67,189 TVET fee sits under the same reform.',
+  clusters: ['carer', 'maker', 'creator', 'business', 'tech', 'people', 'numbers']
+};
+
 const LOAN_REALITY = {
   source: 'HELB published terms and repayment reporting; World Bank graduate transition data; cross-reported August 2026',
   interestRatePct: 4,
@@ -1063,5 +1100,5 @@ const TEACHER_LABOUR_MARKET = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, AVIATION_TRAINING, ATTACHMENT, LABOUR_MOBILITY, ENTERPRISE_CAPITAL, TEACHER_LABOUR_MARKET };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, UNIVERSITY_FUNDING_TRANSITION, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, AVIATION_TRAINING, ATTACHMENT, LABOUR_MOBILITY, ENTERPRISE_CAPITAL, TEACHER_LABOUR_MARKET };
 }

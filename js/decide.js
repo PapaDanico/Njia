@@ -88,7 +88,17 @@ const COURSE_INSTITUTION_IDS = new Set(COURSES.map((c) => c.institution_id));
  * would be a worse trade than reading the note that is already there — and
  * tests/provenance.test.js asserts every verified record classifies. */
 function feeBasis(course) {
-  if (course.fees_confidence !== 'verified') return 'estimate';
+  if (course.fees_confidence !== 'verified') {
+    /* 'unsourced' is the honest name for the oldest records in the catalogue:
+     * a precise figure — some as high as Ksh 720,000 — carrying no provenance
+     * note whatsoever. They are already flagged illustrative, so they never
+     * wore a verification badge, but a confident-looking number with nothing
+     * behind it is the weakest thing this app shows, and until now it looked
+     * identical to an estimate that had been reasoned about. It is capped:
+     * tests/sector-coverage.test.js forbids any NEW record shipping this way,
+     * so the count can only fall. */
+    return course.total_fees_kes != null && !course.verification_note ? 'unsourced' : 'estimate';
+  }
   if (course.total_fees_kes == null) return 'unpublished';
   return /derived from|scaled to course duration|multiplied out by course length|pro-rated/i
     .test(course.verification_note || '') ? 'national' : 'published';
@@ -101,6 +111,9 @@ const FEE_BASIS_BADGE = {
    * "Fee not published", and a tick mark next to a blank figure is the exact
    * thing this change exists to stop. */
   unpublished: '',
+  /* Deliberately not a tick. It tells a reader this particular number was never
+   * checked, which is the opposite claim to the two above it. */
+  unsourced: '<span class="verified-badge verified-badge-unsourced" title="This figure predates Njia\'s sourcing rules and carries no citation. Treat it as a rough guide only and confirm with the institution.">Fee not confirmed</span>',
   estimate: ''
 };
 const COUNTIES = [...new Set(INSTITUTIONS.filter((i) => COURSE_INSTITUTION_IDS.has(i.id)).map((i) => i.county))].sort();
@@ -129,6 +142,7 @@ function renderDecidePage() {
     + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
   const nationalCount = COURSES.filter((c) => feeBasis(c) === 'national').length;
   const unpublishedCount = COURSES.filter((c) => c.total_fees_kes == null).length;
+  const unsourcedCount = COURSES.filter((c) => feeBasis(c) === 'unsourced').length;
   const totalCount = COURSES.length + FUNDING_SOURCES.length;
 
   const counties = new Set(INSTITUTIONS.filter((i) => COURSE_INSTITUTION_IDS.has(i.id)).map((i) => i.county));
@@ -158,7 +172,7 @@ function renderDecidePage() {
                above the words "Not published". The three states are now named
                separately, because a learner about to commit two hundred
                thousand shillings should be told which one they are reading. -->
-          <span><strong>Where each fee comes from.</strong> <strong>${publishedCount} of ${totalCount} records</strong> carry a figure the institution itself publishes, checked against that source. Another <strong>${nationalCount}</strong> are worked out from a national fee rule — the government's consolidated Ksh 67,189 for public TVET, or KMTC's own published schedule — which is real and sourced, but is not the same as that college quoting that price for that course. <strong>${unpublishedCount}</strong> publish no fee at all and say so rather than showing a guess. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. Confirm the fee with the institution before you decide — always, but especially on the middle group.</span>
+          <span><strong>Where each fee comes from.</strong> <strong>${publishedCount} of ${totalCount} records</strong> carry a figure the institution itself publishes, checked against that source. Another <strong>${nationalCount}</strong> are worked out from a national fee rule — the government's consolidated Ksh 67,189 for public TVET, or KMTC's own published schedule — which is real and sourced, but is not the same as that college quoting that price for that course. <strong>${unpublishedCount}</strong> publish no fee at all and say so rather than showing a guess. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. A further <strong>${unsourcedCount}</strong> are older records carrying a figure with no citation at all; those are marked <em>Fee not confirmed</em> and no new record is allowed to ship that way. Confirm the fee with the institution before you decide — always, but especially on the middle group.</span>
         </div>
         <div class="data-disclaimer data-disclaimer-open">
           <!-- Placed here rather than in the evidence layer on purpose: this is
@@ -984,7 +998,24 @@ function renderFundingFinder(container) {
   let filtered = FUNDING_SOURCES;
   if (activeType !== 'all') filtered = filtered.filter((f) => f.type === activeType);
 
+  /* This sits above every funding card on purpose. Kenya is mid-way through
+   * replacing how tertiary education is paid for, the headline "full funding"
+   * was widely read as "free", and a reader who takes that at face value is
+   * planning a decade around the opposite of what the Bill says. Everything
+   * below this notice — every deadline, every award — is described under a
+   * model that may not govern the intake they are about to join. */
+  const transition = typeof UNIVERSITY_FUNDING_TRANSITION !== 'undefined' ? UNIVERSITY_FUNDING_TRANSITION : null;
+
   container.innerHTML = `
+    ${transition ? `
+    <div class="data-disclaimer data-disclaimer-alert">
+      <span aria-hidden="true">!</span>
+      <span><strong>"Full funding" does not mean free.</strong> ${escapeHtml(transition.theMisreading.split('. ').slice(2).join('. '))}
+      <br><strong>What is changing:</strong> ${escapeHtml(transition.whatChanged)}
+      <br><strong>What nobody can tell you yet:</strong> ${escapeHtml(transition.theUncertainty)}
+      <br><strong>What to do:</strong> ${escapeHtml(transition.whatToDo.split('. ').slice(0, 2).join('. '))}.
+      <span class="text-muted">${escapeHtml(transition.source)}</span></span>
+    </div>` : ''}
     <div class="card">
       <h2 class="mb-1">${icon('calendar')} Key Application Windows</h2>
       <p class="text-muted text-sm mb-2">Deadlines vary by funder and change yearly — always confirm the current cycle directly before your window closes.</p>

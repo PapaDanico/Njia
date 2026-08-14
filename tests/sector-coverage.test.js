@@ -247,3 +247,29 @@ test('no description claims to be the only or first of its kind when it is not',
       + rivals.map((c) => `${c.id} "${c.name}"`).join('; '));
   }
 });
+
+test('no new record ships a fee with no citation at all', () => {
+  /* 40 legacy records carry a precise figure — some as high as Ksh 720,000 —
+   * with no verification_note whatsoever. They are surfaced to readers as "Fee
+   * not confirmed" rather than quietly rendered like any other estimate. This
+   * caps the debt: the number may fall as records are sourced, never rise.
+   * If you are adding a course and this test fails, write the note. */
+  const LEGACY_CEILING = 40;
+  const unsourced = COURSES.filter((c) => c.total_fees_kes != null && !c.verification_note);
+  assert.ok(unsourced.length <= LEGACY_CEILING,
+    `${unsourced.length} records state a fee with no citation, above the legacy ceiling of `
+    + `${LEGACY_CEILING}. New records must carry a verification_note. Offenders: `
+    + unsourced.slice(0, 5).map((c) => `${c.id} "${c.name}" (Ksh ${c.total_fees_kes})`).join('; '));
+  if (unsourced.length < LEGACY_CEILING) {
+    console.log(`  note: unsourced fees down to ${unsourced.length}; lower LEGACY_CEILING to lock the gain.`);
+  }
+});
+
+test('the unsourced state is surfaced rather than hidden', () => {
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  assert.match(decide, /unsourced: '<span class="verified-badge verified-badge-unsourced"/,
+    'unsourced records must carry a visible caveat, not render like a reasoned estimate');
+  assert.ok(!/unsourced:\s*'<span[^>]*>✓/.test(decide),
+    'the unsourced badge must not use a tick — it is the opposite of a verification claim');
+  assert.match(decide, /unsourcedCount/, 'the catalogue notice must report the unsourced count');
+});

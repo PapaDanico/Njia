@@ -2634,3 +2634,29 @@ p, li { text-wrap: pretty; }
   border: 1px solid var(--text-secondary);
   color: var(--text-primary);
 }
+
+/* The funding-transition notice. This one IS a warning — unlike the TVET
+ * eligibility notice, which is good news in forest green — because a reader
+ * acting on the "university is free now" headline is about to make a debt
+ * decision on a misreading. Terracotta at 7.40:1 on the cream. */
+.data-disclaimer-alert {
+  background: var(--danger-soft);
+  border-color: var(--primary);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+.data-disclaimer-alert > span:first-child {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* "Fee not confirmed" is not a verification state, so it must not read like
+ * one: no tick, no fill, and the muted ink rather than the primary. It has to
+ * stay legible though — it is a caveat about a number the reader is otherwise
+ * about to trust, so it is text, not decoration. */
+.verified-badge-unsourced {
+  background: transparent;
+  border: 1px dashed var(--text-muted);
+  color: var(--text-secondary);
+  font-weight: 500;
+}

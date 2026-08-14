@@ -1112,6 +1112,33 @@ function renderFundingFinder(container) {
       </select>
     </div>
     <div class="results-grid">${filtered.map((f) => renderFundingCard(f, grade)).join('')}</div>
+
+    ${/* THE QUESTION THIS MODULE ENDS ON AND CANNOT ANSWER.
+         *
+         * Every card above tells a reader what exists and what it covers. None
+         * of them tells them where the rest comes from — and the rest is the
+         * part that actually decides whether a place is taken up. A bursary
+         * covering 60% still leaves a number someone has to find every term,
+         * out of a household budget, alongside whatever debt is already
+         * running. Njia has no view on that whatsoever, and pretending
+         * otherwise by saying "look for more bursaries" would be advice shaped
+         * by what this app happens to hold rather than by the question.
+         *
+         * Borrowed from a sister tool, which carries the mirror of this card
+         * for the same reason: it plans bond ladders and has nothing to say
+         * about the budget the monthly contribution comes out of.
+         *
+         * Stated as a sister tool, not an advert. Both products earn their
+         * trust by selling nothing, and a handoff written like marketing would
+         * spend exactly the credibility that makes either worth using. No
+         * affiliate parameters, no campaign tags — a link. */''}
+    <div class="wider-view">
+      <span class="wider-view-eyebrow">The wider picture</span>
+      <p class="wider-view-q">Njia can tell you what a course costs and what funding exists for it. It has nothing to say about where your family's share comes from.</p>
+      <p class="wider-view-a">A bursary that covers most of a fee still leaves a figure somebody has to find every term — out of a household budget, alongside whatever loan is already running. That is a different question from which course to choose, and "just save harder" is not an answer to a family already servicing debt at 20%. JiPange is our sister tool and it is built for that side of it: budgeting, debt, and what a monthly contribution actually costs you.</p>
+      <a class="btn btn-secondary btn-sm" href="https://jipangefinance.org/" target="_blank" rel="noopener noreferrer">Open JiPange <span aria-hidden="true">↗</span></a>
+      <p class="wider-view-note">Free, no account, and it sells nothing either. Njia earns nothing from this link.</p>
+    </div>
   `;
 }
 

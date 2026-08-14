@@ -84,6 +84,57 @@ function renderConnectPage() {
       </ul>
     </div>
 
+    ${/* THE CONVERSATION NJIA NEVER HELPED WITH.
+         *
+         * KUCCPS's own chief executive names parental expectation and peer
+         * pressure as the primary obstacle to sound course choice — learners
+         * pushed toward prestige courses that do not match their strengths, by
+         * the person who is usually also paying the fees.
+         *
+         * Njia had a diagnostic, a catalogue and an outreach script, and
+         * nothing at all for the conversation that actually decides most of
+         * this. The report is a results sheet; this is a different job.
+         *
+         * Deliberately NOT ammunition. Every line is an invitation to check a
+         * figure together, because a learner who "wins" this argument with a
+         * parent who still holds the fees has won nothing. The evidence is
+         * Njia's own, already sourced elsewhere in the app — it is assembled
+         * here rather than restated, so it cannot drift from the record. */''}
+    <div class="card">
+      <span class="caption">The hardest conversation</span>
+      <h2 class="mb-1">${icon('users')} Talking it through with the person paying</h2>
+      <p class="text-secondary text-sm mb-2">KUCCPS says parental expectation and peer pressure are the biggest single obstacle to young people choosing well — not grades, and not money. If someone who loves you is pushing a course that does not fit, that is the ordinary case, not a family failing. Below is what Njia knows, so you can check it together rather than argue about it.</p>
+
+      <div class="data-disclaimer data-disclaimer-open mb-2">
+        <span aria-hidden="true">↗</span>
+        <span><strong>Start here, because it surprises everyone.</strong> ${typeof COMPETITION_REALITY !== 'undefined' ? escapeHtml(COMPETITION_REALITY.theSameFieldTwice) : ''}</span>
+      </div>
+
+      <p class="text-secondary text-sm mb-1"><strong>Three figures worth checking together.</strong> Each one is sourced in this app — open Discover and Decide and read the source note beside it.</p>
+      <ul class="mt-1 mb-2">
+        ${typeof TEACHER_LABOUR_MARKET !== 'undefined' ? `
+        <li class="text-secondary text-sm mb-1">• <strong class="num">${TEACHER_LABOUR_MARKET.registeredUnemployedTeachers.toLocaleString('en-KE')}</strong> trained teachers are TSC-registered and waiting for a post. Teaching is the classic "safe" answer, and the shortage everyone quotes is a shortage of <em>funded posts</em>, not of qualified people.</li>` : ''}
+        ${typeof ENTRY_PAY !== 'undefined' ? (() => {
+          const artisan = ENTRY_PAY.find((p) => /artisan.*day rate/i.test(p.role));
+          const teacher = ENTRY_PAY.find((p) => /Teacher, TSC/i.test(p.role));
+          if (!artisan || !teacher) return '';
+          return `<li class="text-secondary text-sm mb-1">• A certified artisan on the current day rate earns about <strong class="num">Ksh ${artisan.monthlyKes[0].toLocaleString('en-KE')}–${artisan.monthlyKes[1].toLocaleString('en-KE')}</strong> a month in a worked month. A diploma-entry TSC teacher earns <strong class="num">Ksh ${teacher.monthlyKes[0].toLocaleString('en-KE')}–${teacher.monthlyKes[1].toLocaleString('en-KE')}</strong>. Both figures are real and both come with conditions — the artisan's assumes work is available that month, which is the honest catch.</li>`;
+        })() : ''}
+        ${typeof COMPETITION_REALITY !== 'undefined' ? `
+        <li class="text-secondary text-sm mb-1">• ${escapeHtml(COMPETITION_REALITY.whereTheRoomIs)} The prestige courses fill and close in the first window; the room is elsewhere, and elsewhere is not the same as worse.</li>` : ''}
+      </ul>
+
+      <p class="text-secondary text-sm mb-1"><strong>Four questions to ask each other.</strong> They work better than any figure, because they move the conversation from what to who-decides-what.</p>
+      <ul class="mt-1">
+        <li class="text-secondary text-sm mb-1">• What is the worry underneath this course — is it money, respect, or that I will struggle? Each one has a different answer.</li>
+        <li class="text-secondary text-sm mb-1">• If this course does not place me, what is the plan? A course that fills in the first window may not have a seat for me at all.</li>
+        <li class="text-secondary text-sm mb-1">• Can we look up the entry grade, the fee and the intake together, today, on the KUCCPS portal — rather than deciding on what we each think is true?</li>
+        <li class="text-secondary text-sm mb-1">• If I am wrong in two years, what does the ladder out look like? Njia shows certificate-to-diploma routes; a first choice is rarely a last one.</li>
+      </ul>
+
+      <p class="text-muted text-sm mt-2">Take the printable report from your Discover results into this conversation. It carries your result, the sources and the costs on one page, which is easier to talk about than a phone screen.</p>
+    </div>
+
     <div class="card">
       <div class="flex justify-between items-center mb-1">
         <h2>${icon('users')} Peer Cohorts</h2>

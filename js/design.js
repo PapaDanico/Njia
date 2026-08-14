@@ -186,8 +186,20 @@ function odysseySuggestions(plan, yearIndex) {
    * when the catalogue's accounting supply is two courses. These are the
    * job titles the catalogue can actually lead to, most-available first. */
   const roles = (plan.cluster && CATALOGUE_ROLES[plan.cluster]) || [];
-  const role = roles[0]?.role || 'the field';
-  const role2 = roles[1]?.role || role;
+  /* 'the field' is the fallback before a cluster is chosen, which is the state
+   * every learner opens this module in. It reads correctly after a preposition
+   * — "related to the field", "an attachment in the field" — and breaks the
+   * moment an article is put in front of it: the year-4 and year-5 suggestions
+   * rendered "Working my first job as a the field" and "Established as a the
+   * field" on first open, for everyone.
+   *
+   * asRole() keeps the article for a real job title and switches to a
+   * preposition for the generic case, so both readings are English. */
+  const GENERIC_ROLE = 'the field';
+  const roles_ = roles;
+  const role = roles_[0]?.role || GENERIC_ROLE;
+  const role2 = roles_[1]?.role || role;
+  const asRole = (r) => (r === GENERIC_ROLE ? 'in the field' : `as ${articleFor(r)} ${r}`);
   const courseName = course ? course.name : 'the course I choose';
   const where = inst ? inst.name.replace(/\s*\(.*\)\s*/, '') : 'my chosen institution';
 
@@ -212,13 +224,13 @@ function odysseySuggestions(plan, yearIndex) {
       'Decide whether to ladder into the next qualification'
     ],
     [
-      `Working my first job as ${articleFor(role)} ${role}`,
+      `Working my first job ${asRole(role)}`,
       'Ladder up to the next qualification',
       'Save toward further study or equipment',
-      `Move toward work as ${articleFor(role2)} ${role2}`
+      `Move toward work ${asRole(role2)}`
     ],
     [
-      `Established as ${articleFor(role)} ${role}`,
+      `Established ${asRole(role)}`,
       'Specialise or take on supervision',
       'Start something of my own in this field',
       'Mentor someone starting where I started'

@@ -262,10 +262,53 @@ function matchConfidence(ranked) {
   return { level, marginPts, marginPct };
 }
 
+/* HOW MUCH OF THIS RESULT IS THE INSTRUMENT, AND HOW MUCH IS ONE ANSWER?
+ *
+ * The confidence line reports the primary cluster's margin over the secondary.
+ * That is a real statistic and it answers the wrong question. A learner about
+ * to plan five years does not need to know how far ahead the winner finished;
+ * they need to know whether the winner would still have won on a slightly
+ * different day.
+ *
+ * This is a leave-one-out sensitivity check, which is the standard way to ask
+ * that of a small instrument. Drop each answer in turn, re-score the rest, and
+ * count how often the primary cluster survives. It is exact rather than
+ * sampled — the questionnaire is short enough to re-score completely — so the
+ * number is a measurement, not an estimate.
+ *
+ * Njia's questionnaire is a bespoke instrument. It inherits its structure from
+ * Holland's RIASEC, and du Toit and de Bruin's South African work supports that
+ * structure in an African sample, but this specific item set has never been
+ * psychometrically validated: no published alpha, no test-retest coefficient,
+ * no criterion study. That is stated in the methodology and it is the honest
+ * position. What this function does is the one reliability claim the app can
+ * make from its own evidence, on this learner's own answers, without borrowing
+ * a number from a study of a different instrument.
+ *
+ * Pure, so it is testable without a browser. */
+function primaryStability(answers) {
+  const ids = Object.keys(answers || {});
+  if (ids.length < 3) return null;
+  const base = computeClusterScores(answers).primary;
+  let held = 0;
+  for (const drop of ids) {
+    const subset = {};
+    for (const id of ids) if (id !== drop) subset[id] = answers[id];
+    if (computeClusterScores(subset).primary === base) held += 1;
+  }
+  const pct = Math.round((held / ids.length) * 100);
+  /* Bands are deliberately blunt. A result that survives every re-score is
+   * robust; one that flips on a third of them is a genuine tie the margin line
+   * would have hidden behind a single winner's name. */
+  const level = pct === 100 ? 'stable' : pct >= 80 ? 'mostly-stable' : pct >= 60 ? 'sensitive' : 'unstable';
+  return { held, of: ids.length, pct, level };
+}
+
 function finishQuestionnaire() {
   AppState.questionnaire.completed = true;
   AppState.questionnaire.results = {
     ...computeClusterScores(AppState.questionnaire.answers),
+    stability: primaryStability(AppState.questionnaire.answers),
     computedAt: new Date().toISOString()
   };
   saveState();
@@ -495,7 +538,7 @@ function renderLabourMarketCard(primaryCluster) {
 }
 
 function renderDiscoverResults(el) {
-  const { ranked, primary, secondary, elementScores, constraints } = AppState.questionnaire.results;
+  const { ranked, primary, secondary, elementScores, constraints, stability } = AppState.questionnaire.results;
   const primaryC = CLUSTERS[primary];
   const secondaryC = CLUSTERS[secondary];
 
@@ -553,6 +596,23 @@ function renderDiscoverResults(el) {
           return conf.level === 'tied'
             ? `<p class="confidence-line confidence-tied"><strong>Signal strength:</strong> ${confCopy}</p>`
             : `<p class="confidence-line confidence-${conf.level}"><strong>Signal strength:</strong> <span class="num">+${conf.marginPts} pts</span> (${conf.marginPct}%) over your secondary cluster — ${confCopy}</p>`;
+        })()}
+        ${(() => {
+          /* Sits directly under the margin line because the two answer
+             different questions and are easy to confuse. Margin says how far
+             ahead the winner finished; this says whether the winner survives
+             re-scoring without each answer in turn. A learner can have a wide
+             margin and an unstable result, or a narrow margin that never
+             flips — which is exactly why one number was not enough. */
+          const st = stability;
+          if (!st) return '';
+          const copy = {
+            stable: 'your result did not change once. Plan around it.',
+            'mostly-stable': 'your result is robust, with a few answers carrying real weight.',
+            sensitive: 'a handful of single answers can flip this. Read your full spread below before committing.',
+            unstable: 'single answers move this result. Treat the top two clusters as genuinely tied, and prototype both.'
+          }[st.level];
+          return `<p class="confidence-line confidence-${st.level === 'stable' ? 'strong' : st.level === 'mostly-stable' ? 'moderate' : 'close'}"><strong>Stability:</strong> re-scored <span class="num">${st.of}</span> times, each without one of your answers, your primary cluster held <span class="num">${st.held}</span> times (<span class="num">${st.pct}%</span>) — ${copy}</p>`;
         })()}
         <button type="button" class="btn btn-primary btn-sm mt-2" onclick="openReportPreviewModal()">${icon('image')} Preview &amp; Share Report</button>
       </div>

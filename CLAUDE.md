@@ -100,6 +100,32 @@ Figures are a **floor**: DNT and Global Privacy Control suppress everything, and
 offline readers are never counted. Queueing events until a device reconnects
 would mean storing behaviour on a reader's phone, which is the worse trade.
 
+## Under-claim on a figure. Never on an eligibility.
+
+"When sources conflict, record the more restrictive figure" is this project's
+instinct and it is usually right. It is **backwards for entry grades**.
+
+Quoting a **fee** high leaves a reader pleasantly surprised. Quoting a **grade**
+high removes the card from their screen altogether — the learner never discovers
+the course exists and cannot even ring up to ask. The conservative direction on
+money is the exclusionary direction on eligibility.
+
+Sixteen artisan records at Kisumu and Eldoret national polytechnics carried a
+minimum of D for exactly this reason, deliberately and with the reasoning
+written in the note. It hid two national polytechnics from the readers with the
+fewest options, and it was why those counties still read as blind while their
+polytechnics sat in the catalogue.
+
+**E is the KUCCPS national floor for artisan (Level 4) placement.** No artisan
+record may sit above it beyond the D- some institutions publish — guarded in
+`tests/sector-coverage.test.js`. Where sources genuinely conflict, show the
+course at E and put the conflict in the note: a reader told to confirm keeps
+their agency; a reader shown nothing does not.
+
+Before adding a course, check whether the institution is already listed. Kisumu
+National Polytechnic already had all five artisan courses that looked missing —
+the duplicate guard caught the attempt to add them again.
+
 ## Coverage: measure what a reader can reach, not what exists
 
 County coverage was tracked as "single-cluster counties". That metric flattered

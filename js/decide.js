@@ -87,8 +87,34 @@ const COURSE_INSTITUTION_IDS = new Set(COURSES.map((c) => c.institution_id));
  * computed rather than stored because re-editing 371 records to add a field
  * would be a worse trade than reading the note that is already there — and
  * tests/provenance.test.js asserts every verified record classifies. */
+/* THE BUCKET THAT WAS INVISIBLE, AND THE 51 RECORDS IT HID.
+ *
+ * The four categories above were reported to readers as though they covered the
+ * catalogue. They did not. 'estimate' was a silent fifth outcome that wore no
+ * badge and appeared in no total, and 48 courses fell into it while *displaying
+ * a precise tuition figure* — Kenya Utalii College's entire diploma range among
+ * them, at Ksh 180,000 each. Those are the very records whose mispricing
+ * started this whole classification. A reader who added the four published
+ * figures found 361 of 412; the missing 51 were never named.
+ *
+ * Every one of those 48 has a sourced note explaining precisely why its figure
+ * is illustrative. The information was in the record and the honesty was in the
+ * record. It simply never reached the surface, which for a reader is the same
+ * as it not existing.
+ *
+ * So 'illustrative' is now a named basis with its own badge, and the five
+ * outcomes below PARTITION the catalogue exactly — every course lands in one
+ * and no course lands in two. tests/provenance.test.js asserts the partition
+ * and asserts the totals rendered on the page sum to the catalogue, because the
+ * defect here was never a wrong number: it was a total that did not add up and
+ * nothing checking that it should. */
 function feeBasis(course) {
   if (course.fees_confidence !== 'verified') {
+    /* No figure at all — the same reader-facing fact as a verified absence, so
+     * the same bucket. Keeping these separate is what made `unpublishedCount`
+     * (89, counted on a null fee) disagree with the 'unpublished' basis (65,
+     * counted on the confidence flag) while both were called the same thing. */
+    if (course.total_fees_kes == null) return 'unpublished';
     /* 'unsourced' is the honest name for the oldest records in the catalogue:
      * a precise figure — some as high as Ksh 720,000 — carrying no provenance
      * note whatsoever. They are already flagged illustrative, so they never
@@ -97,7 +123,11 @@ function feeBasis(course) {
      * identical to an estimate that had been reasoned about. It is capped:
      * tests/sector-coverage.test.js forbids any NEW record shipping this way,
      * so the count can only fall. */
-    return course.total_fees_kes != null && !course.verification_note ? 'unsourced' : 'estimate';
+    if (!course.verification_note) return 'unsourced';
+    /* A figure, and a sourced note saying what it is and why the college's own
+     * price is not being quoted. Weaker than 'published', stronger than
+     * 'unsourced', and it must not go on wearing neither label. */
+    return 'illustrative';
   }
   if (course.total_fees_kes == null) return 'unpublished';
   return /derived from|scaled to course duration|multiplied out by course length|pro-rated/i
@@ -114,7 +144,11 @@ const FEE_BASIS_BADGE = {
   /* Deliberately not a tick. It tells a reader this particular number was never
    * checked, which is the opposite claim to the two above it. */
   unsourced: '<span class="verified-badge verified-badge-unsourced" title="This figure predates Njia\'s sourcing rules and carries no citation. Treat it as a rough guide only and confirm with the institution.">Fee not confirmed</span>',
-  estimate: ''
+  /* Not a tick, and not the "not confirmed" warning either — this figure was
+   * reasoned about from a named source, but the college does not publish that
+   * price for that course. Reusing either of the neighbouring badges would
+   * misstate it in one direction or the other. */
+  illustrative: '<span class="verified-badge verified-badge-illustrative" title="A sourced figure, but not this college\'s own published price for this course. The note on the course explains where it comes from and why. Confirm before you plan around it.">Illustrative — see the note</span>'
 };
 const COUNTIES = [...new Set(INSTITUTIONS.filter((i) => COURSE_INSTITUTION_IDS.has(i.id)).map((i) => i.county))].sort();
 
@@ -138,12 +172,27 @@ function renderDecidePage() {
   /* Split by what was actually checked rather than by the confidence flag. The
    * old single "verified" total was accurate arithmetic on a field, and a
    * considerable overstatement of the evidence — see feeBasis above. */
-  const publishedCount = COURSES.filter((c) => feeBasis(c) === 'published').length
-    + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
-  const nationalCount = COURSES.filter((c) => feeBasis(c) === 'national').length;
-  const unpublishedCount = COURSES.filter((c) => c.total_fees_kes == null).length;
-  const unsourcedCount = COURSES.filter((c) => feeBasis(c) === 'unsourced').length;
-  const totalCount = COURSES.length + FUNDING_SOURCES.length;
+  /* Counted straight off feeBasis, one bucket each, over COURSES alone.
+   *
+   * Both of those are corrections. The old totals mixed two record types —
+   * 9 verified FUNDING_SOURCES were added into the published count while the
+   * denominator added all 12 — and counted `unpublished` off a null fee rather
+   * than off the basis, so the number reported did not match the basis of the
+   * same name. Together with the unnamed fifth bucket that left 51 of 412
+   * records unaccounted for in the sentence below. Funding provenance is a
+   * separate claim about separate records and is now stated separately. */
+  const feeBasisCounts = COURSES.reduce((acc, c) => {
+    const b = feeBasis(c);
+    acc[b] = (acc[b] || 0) + 1;
+    return acc;
+  }, {});
+  const publishedCount = feeBasisCounts.published || 0;
+  const nationalCount = feeBasisCounts.national || 0;
+  const illustrativeCount = feeBasisCounts.illustrative || 0;
+  const unpublishedCount = feeBasisCounts.unpublished || 0;
+  const unsourcedCount = feeBasisCounts.unsourced || 0;
+  const totalCount = COURSES.length;
+  const fundingVerified = FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
 
   const counties = new Set(INSTITUTIONS.filter((i) => COURSE_INSTITUTION_IDS.has(i.id)).map((i) => i.county));
   const levels = new Set(COURSES.map((c) => c.level));
@@ -172,7 +221,7 @@ function renderDecidePage() {
                above the words "Not published". The three states are now named
                separately, because a learner about to commit two hundred
                thousand shillings should be told which one they are reading. -->
-          <span><strong>Where each fee comes from.</strong> <strong>${publishedCount} of ${totalCount} records</strong> carry a figure the institution itself publishes, checked against that source. Another <strong>${nationalCount}</strong> are worked out from a national fee rule — the government's consolidated Ksh 67,189 for public TVET, or KMTC's own published schedule — which is real and sourced, but is not the same as that college quoting that price for that course. <strong>${unpublishedCount}</strong> publish no fee at all and say so rather than showing a guess. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. A further <strong>${unsourcedCount}</strong> are older records carrying a figure with no citation at all; those are marked <em>Fee not confirmed</em> and no new record is allowed to ship that way. Confirm the fee with the institution before you decide — always, but especially on the middle group.</span>
+          <span><strong>Where each fee comes from — all ${totalCount} of them.</strong> <strong>${publishedCount}</strong> carry a figure the institution itself publishes, checked against that source. <strong>${nationalCount}</strong> are worked out from a national fee rule — the government's consolidated Ksh 67,189 for public TVET, or KMTC's own published schedule — which is real and sourced, but is not the same as that college quoting that price for that course. <strong>${illustrativeCount}</strong> show a figure that is sourced but is not the college's own price for that course, marked <em>Illustrative — see the note</em>, and the note on each one says where the number came from. <strong>${unpublishedCount}</strong> publish no fee at all and say so rather than showing a guess. <strong>${unsourcedCount}</strong> are older records carrying a figure with no citation at all; those are marked <em>Fee not confirmed</em> and no new record is allowed to ship that way. Those five groups are the whole catalogue — they add to ${totalCount}, and a test fails the build if they ever stop adding up. Separately, ${fundingVerified} of the ${FUNDING_SOURCES.length} funding sources have had their terms checked against a named public source. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. Confirm the fee with the institution before you decide — always, but especially on the three middle groups.</span>
         </div>
         <div class="data-disclaimer data-disclaimer-open">
           <!-- Placed here rather than in the evidence layer on purpose: this is
@@ -761,6 +810,34 @@ function renderCourseCard(course, match) {
         <p class="text-sm mb-2"><strong>You are not asked for all of that.</strong> ${escapeHtml(PUBLIC_TVET_CAPITATION.reading)}</p>
       ` : ''}
       ${course.verification_note ? `<details class="fee-provenance"><summary>${basis === 'unpublished' ? 'Why there is no fee here' : basis === 'national' ? 'Where this fee comes from' : 'How this fee was checked'}</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.residual)}` : ''}</p></details>` : ''}
+      ${/* WHERE THIS SITS IN THE ECONOMY.
+           *
+           * Njia could tell a learner a course costs Ksh 67,189 and needs a C-,
+           * and had nothing whatsoever to say about the industry on the other
+           * end of it. The KNBS sector research existed — it just lived in a
+           * test fixture marked "NOT SHIPPED" and no reader ever saw a line of
+           * it.
+           *
+           * The caution renders BESIDE the figure and not behind a disclosure,
+           * because a growth rate with the caveat one click away is a growth
+           * rate being used as a sales pitch. Mining at 14.9% is a rebound off
+           * a contraction, on a small base, in a sector that is mostly informal
+           * quarrying; a reader who gets the 14.9% without that has been
+           * misled by a true number. */''}
+      ${typeof sectorForCourse === 'function' ? (() => {
+        const sector = sectorForCourse(course);
+        if (!sector) return '';
+        const pace = sectorPace(sector);
+        return `
+        <details class="sector-context">
+          <summary>Where this sits in Kenya's economy</summary>
+          <p class="text-sm mb-1"><strong>${escapeHtml(sector.name)}.</strong> ${pace
+            ? `KNBS puts ${escapeHtml(sector.knbs.series.toLowerCase())} at <strong class="num">${pace.growth}%</strong> growth in ${ECONOMY.year}, against <strong class="num">${ECONOMY.gdpGrowth}%</strong> for the economy as a whole — ${escapeHtml(pace.label.toLowerCase())}.${sector.knbs.mapping === 'component' ? ' This training sector is one part of that broader series, not the whole of it.' : ''}`
+            : `KNBS publishes a ${escapeHtml(sector.knbs.series.toLowerCase())} series, but Njia has not sourced its ${ECONOMY.year} growth figure, so none is shown here rather than an estimate.`}</p>
+          <p class="text-muted text-sm mb-1">${escapeHtml(sector.caution)}</p>
+          <p class="text-muted text-sm">Qualifications in this sector are awarded by ${escapeHtml(sector.awardingBodies.join(', '))}. A sector growing fast is not a job offer — it is one input among the grade, the fee and the distance. Source: ${escapeHtml(ECONOMY.source)}</p>
+        </details>`;
+      })() : ''}
       <details class="match-why">
         <summary>Why ${match.score}% match?</summary>
         <ul>

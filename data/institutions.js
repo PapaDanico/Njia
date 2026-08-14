@@ -203,6 +203,30 @@ const INSTITUTIONS = [
    * Kenya's foremost agricultural university, listed and unusable. */
   { id: 'bukura', name: 'Bukura Agricultural College', ownership: 'public', type: 'tvet', location: 'Bukura, Kakamega', county: 'Kakamega', accreditation: 'State corporation established by an Act of Parliament · KUCCPS placement', website: 'https://bukuracollege.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'parastatal_own_rate' },
   { id: 'baraka', name: 'Baraka Agricultural College', ownership: 'private', type: 'tvet', location: 'Molo', county: 'Nakuru', accreditation: 'TVETA registered and licensed · TVET CDACC assessed', website: 'https://barakaagricollege.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'private_own_rate' },
+  /* AGRICULTURE WHERE THE ECONOMY ACTUALLY IS.
+   *
+   * The gap analysis found 31 of 47 counties offering exactly ONE interest
+   * cluster, and the thinnest — Turkana, Wajir, Mandera, Marsabit — offered a
+   * KMTC nursing diploma and a KMTC health certificate, nothing else. Those are
+   * pastoralist and agricultural economies being shown nursing or nothing.
+   *
+   * The Livestock Training Institute at Griftu is the answer to Wajir
+   * specifically: a government institute 70km from Wajir town, upgraded from
+   * the 1968 Griftu Pastoral Training Centre by executive order in September
+   * 2016, which has trained tens of thousands of pastoralists in the trade the
+   * county actually runs on. It was missing from a catalogue that had four
+   * aviation schools.
+   *
+   * Kenya School of Agriculture is a TVETA-licensed college under the State
+   * Department for Crops Development, KNEC-examined, running campuses that
+   * include Ugenya in Siaya — another single-cluster county. Only campuses
+   * confirmed across sources are listed; several more ATCs exist and are named
+   * as a declared gap rather than guessed at. */
+  { id: 'lti_wajir', name: 'Livestock Training Institute, Wajir (Griftu)', ownership: 'public', type: 'tvet', location: 'Griftu, Wajir West', county: 'Wajir', accreditation: 'Government institute established by executive order 2016 · formerly Griftu Pastoral Training Centre (1968)', website: 'https://ltiwajir.go.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'parastatal_own_rate' },
+  { id: 'ksa_wambugu', name: 'Kenya School of Agriculture — Wambugu Campus', ownership: 'public', type: 'tvet', location: 'Wambugu Farm, Nyeri', county: 'Nyeri', accreditation: 'State Department for Crops Development · TVETA licensed · KNEC examined', website: 'https://ksa.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'parastatal_own_rate' },
+  { id: 'ksa_ugenya', name: 'Kenya School of Agriculture — Ugenya Campus', ownership: 'public', type: 'tvet', location: 'Ugenya', county: 'Siaya', accreditation: 'State Department for Crops Development · TVETA licensed · KNEC examined', website: 'https://ksa.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'parastatal_own_rate' },
+  { id: 'ksa_papkonam', name: 'Kenya School of Agriculture — Pap Konam Campus', ownership: 'public', type: 'tvet', location: 'Pap Konam', county: 'Kisumu', accreditation: 'State Department for Crops Development · TVETA licensed · KNEC examined', website: 'https://ksa.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'parastatal_own_rate' },
+  { id: 'ksa_ainabkoi', name: 'Kenya School of Agriculture — Ainabkoi Campus', ownership: 'public', type: 'tvet', location: 'Ainabkoi', county: 'Uasin Gishu', accreditation: 'State Department for Crops Development · TVETA licensed · KNEC examined', website: 'https://ksa.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'parastatal_own_rate' },
   { id: 'rnuc', name: 'Ronald Ngala Utalii College', ownership: 'public', type: 'tvet', location: 'Kilifi', county: 'Kilifi', accreditation: 'State corporation under the Ministry of Tourism · KUCCPS placement', website: 'https://utalii.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'tourism_corporation' },
 
   /* TEACHER TRAINING COLLEGES — a whole institution type the catalogue was

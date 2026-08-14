@@ -62,11 +62,13 @@ everything here follows automatically.
 - **Seamless pattern tile** (sheet item 1). Nothing in the product needs a full
   tiled field yet. Build it when there is a surface asking for it, not before.
 
-## One discrepancy to resolve
+## The domain, decided
 
-The favicon sheet's browser mockup shows **`njia.or.ke`**. The live site is
-**`njiacareerpathways.work`**, which is what every canonical URL, the sitemap and
-the Open Graph tags point at. Nothing here was changed on the strength of a
-mockup — if `njia.or.ke` is the intended home, that is a domain migration with
-canonical, sitemap, manifest and OG consequences, and it should be done
-deliberately.
+The favicon sheet's browser mockup shows **`njia.or.ke`**. That is a mockup only.
+The site is and remains **`njiacareerpathways.work`** — the decision was taken
+deliberately, not by default, and no migration is planned. Every canonical URL,
+the sitemap, the manifest and the Open Graph tags point there and should stay
+pointing there.
+
+Recorded here so the mockup does not get mistaken for an instruction later.
+Nothing in this repository should be changed on the strength of it.

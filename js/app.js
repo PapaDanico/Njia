@@ -483,10 +483,16 @@ function renderNjiaNumbersCard() {
    * rule or had no fee at all. Two screens made the same overstatement in the
    * same words, which is what happens when a claim is computed twice instead of
    * once. */
-  const publishedCount = COURSES.filter((c) => feeBasis(c) === 'published').length
-    + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
+  const publishedCount = COURSES.filter((c) => feeBasis(c) === 'published').length;
   const nationalCount = COURSES.filter((c) => feeBasis(c) === 'national').length;
-  const totalRecords = COURSES.length + FUNDING_SOURCES.length;
+  /* Courses, not courses + funding sources. The old denominator added the 12
+   * funding records to a numerator counted over course fees, so the ratio
+   * compared two different populations — and the same mixed denominator on the
+   * Decide page left 51 of 412 records in no stated group at all. A fee basis
+   * is a claim about a course; funding provenance is a separate claim about a
+   * separate record, and it now gets its own line rather than being folded in
+   * to make a ratio look better. */
+  const totalRecords = COURSES.length;
 
   return `
     <div class="landing-numbers-card">
@@ -507,12 +513,129 @@ function renderNjiaNumbersCard() {
         </div>
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${publishedCount}/${totalRecords}</span>
-          <span class="landing-numbers-label">records whose fee the institution itself publishes, checked against that source — plus ${nationalCount} worked out from a national fee rule</span>
+          <span class="landing-numbers-label">courses whose fee the institution itself publishes, checked against that source — plus ${nationalCount} worked out from a national fee rule. Decide names all five provenance groups and what each one is worth.</span>
         </div>
       </div>
       <p class="landing-numbers-note">Computed from the dataset this app actually ships — not marketing copy. See Methodology for what "verified" means.</p>
     </div>
   `;
+}
+
+/* THE ECONOMY YOU'RE CHOOSING INTO.
+ *
+ * Njia's whole argument is that a course is a position in an economy, and until
+ * now the app never showed the economy. The KNBS sector research existed and
+ * sat in a test fixture marked "NOT SHIPPED"; a reader could learn a course
+ * costs Ksh 67,189 and needs a C- and nothing at all about the industry on the
+ * far end of it.
+ *
+ * Sorted by growth and computed from the shipped register — a sister tool's
+ * landing page derives every figure from the same JSON its calculators read,
+ * precisely so the marketing cannot drift from the product, and that discipline
+ * is worth more here than a prettier hand-written number. Sectors with no
+ * sourced figure are listed by name at the end rather than dropped: an omission
+ * a reader can see is research, an omission they cannot is an accident.
+ *
+ * The catalogue count sits beside the growth rate deliberately, and is labelled
+ * as what it is. Njia lists 113 health records because KMTC runs forty campuses,
+ * not because health is 28% of the economy — and putting our own supply skew on
+ * the landing page next to the national figures is the only honest way to show
+ * either. */
+function renderEconomySection() {
+  if (typeof SECTORS === 'undefined' || typeof ECONOMY === 'undefined') return '';
+
+  /* `routes`, not `courses`. These are catalogue records — places you could
+   * apply — and KMTC teaches one national programme set at forty-odd campuses,
+   * so calling them courses overstates breadth twofold. The table header and
+   * caption say "routes" for the same reason. */
+  const counted = SECTORS.map((s) => ({
+    sector: s,
+    pace: sectorPace(s),
+    routes: COURSES.filter((c) => sectorForCourse(c)?.id === s.id).length
+  }));
+  /* Sourced first, fastest at the top; unsourced sectors follow, in the table
+     rather than in a footnote.
+
+     They were relegated to a closing sentence in the first cut, and that hid
+     the single most useful row on the page: health has no KNBS figure here, and
+     it is 27% of Njia's catalogue. A reader comparing national growth against
+     our coverage cannot see the biggest distortion in the comparison if the
+     sector carrying it has been filtered out for lacking one of the two
+     columns. The growth cell says "not sourced" and the route count stands. */
+  const paced = counted.filter((r) => r.pace).sort((a, b) => b.pace.growth - a.pace.growth);
+  const unpaced = counted.filter((r) => !r.pace).sort((a, b) => b.routes - a.routes);
+  if (!paced.length) return '';
+
+  const catalogueSize = COURSES.length;
+  const routeCell = (routes) => `<td class="num">${routes >= MIN_SECTOR_SAMPLE
+    ? `${routes} <span class="econ-share">(${Math.round((routes / catalogueSize) * 100)}%)</span>`
+    : `${routes} <span class="econ-share">· too few to read as coverage</span>`}</td>`;
+
+  const nameCell = (sector, flag) => `<th scope="row">${escapeHtml(sector.name)}${flag}</th>`;
+  const componentFlag = ' <span class="econ-flag" title="This training sector is one part of a broader KNBS series, so the figure describes the neighbourhood rather than the sector itself.">part of a wider series</span>';
+
+  const rows = paced.map(({ sector, pace, routes }) => `
+    <tr>
+      ${nameCell(sector, sector.knbs.mapping === 'component' ? componentFlag : '')}
+      <td class="num econ-growth econ-${pace.level}">${pace.growth > 0 ? '+' : ''}${pace.growth}%</td>
+      ${/* MIN_SECTOR_SAMPLE, borrowed from a sister tool's auction analytics,
+           which will not publish a median from a handful of prints on the
+           grounds that a median of two numbers is an anecdote. Mining has one
+           record here, and "0.3% of the catalogue" invites a reader to
+           conclude something about mining when the only thing it describes is
+           our sourcing. Below the floor the count stands bare and says so. */''}
+      ${routeCell(routes)}
+    </tr>`).join('')
+    + unpaced.map(({ sector, routes }) => `
+    <tr class="econ-row-unsourced">
+      ${nameCell(sector, '')}
+      <td class="econ-unsourced" title="KNBS publishes a ${escapeHtml(sector.knbs.series)} series; Njia has not sourced its ${ECONOMY.year} figure, so none is shown rather than an estimate.">not sourced</td>
+      ${routeCell(routes)}
+    </tr>`).join('');
+
+  return `
+      <section class="landing-block" id="landing-economy">
+        <div class="landing-block-head">
+          <span class="landing-eyebrow">THE ECONOMY YOU'RE CHOOSING INTO</span>
+          <h2 class="landing-h2">A course is a position in an economy. <span class="hl-gold">Here is the economy.</span></h2>
+          <p class="landing-h2-sub">Kenya grew ${ECONOMY.gdpGrowth}% in ${ECONOMY.year}, down from ${ECONOMY.prevGdpGrowth}% the year before. Sector growth is measured against that — and set beside how many training routes Njia actually lists, because the second number is about us, not about the country.</p>
+        </div>
+
+        <div class="econ-figures">
+          <div class="econ-figure">
+            <span class="econ-figure-num num">${ECONOMY.newJobs.toLocaleString('en-KE')}</span>
+            <span class="econ-figure-label">new jobs in ${ECONOMY.year} — of which <strong>${ECONOMY.informalSharePct}%</strong> were informal</span>
+            <p>Two headlines circulated from this one survey: "822,100 new jobs" and "717,000 new jobs". They are the same number read two ways — ${ECONOMY.informalSharePct}% of ${ECONOMY.newJobs.toLocaleString('en-KE')} is roughly 717,000. Around <strong class="num">${formalNewJobs().toLocaleString('en-KE')}</strong> of the year's new posts were formal wage jobs. Plan for the economy you are entering, not the one in the headline.</p>
+          </div>
+          <div class="econ-figure">
+            <span class="econ-figure-num num">${ECONOMY.broadShares.find((b) => b.id === 'agriculture').share}%</span>
+            <span class="econ-figure-label">of GDP is agriculture — services are ${ECONOMY.broadShares.find((b) => b.id === 'services').share}%, industry ${ECONOMY.broadShares.find((b) => b.id === 'industry').share}%</span>
+            <p>Agriculture is close to a quarter of the economy and the country's largest employer, and it grew more slowly than the economy as a whole. Most of that work is on smallholdings rather than a payroll — which is an argument for agribusiness and processing, not an argument against the land.</p>
+          </div>
+          <div class="econ-figure">
+            <span class="econ-figure-num num">${ECONOMY.wageEmployment.toLocaleString('en-KE')}</span>
+            <span class="econ-figure-label">formal wage jobs in the whole country</span>
+            <p>Up from ${ECONOMY.prevWageEmployment.toLocaleString('en-KE')}, across a workforce of ${(ECONOMY.totalEmployment / 1e6).toFixed(1)} million. ${ECONOMY.largestFormalEmployers.map((e) => `${e.label} is the largest single formal employer at ${e.workers.toLocaleString('en-KE')}`).slice(0, 1)}. A formal salaried post is the exception in Kenya's labour market, not the default — which is why Njia costs a course against day rates and self-employment too.</p>
+          </div>
+        </div>
+
+        ${/* tabindex and a name on the scroll container, not just overflow-x.
+             A region that scrolls but cannot be focused is unreachable to
+             anyone driving the page from the keyboard — they can see a table
+             cut off at the viewport edge and have no way to move it. axe flags
+             it as scrollable-region-focusable, and it flagged this one. */''}
+        <div class="econ-table-wrap" tabindex="0" role="region" aria-label="Sector growth and Njia coverage, scrollable table">
+          <table class="econ-table">
+            <caption>Sector growth in ${ECONOMY.year} against ${ECONOMY.gdpGrowth}% for the whole economy, and how many of Njia's ${COURSES.length} training routes lead into each.</caption>
+            <thead>
+              <tr><th scope="col">Sector</th><th scope="col">Growth</th><th scope="col">Routes in Njia</th></tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+
+        <p class="econ-note"><strong>Read this carefully, because a true number can still mislead.</strong> Growth is not vacancies. Mining leads the table on a rebound from a contraction, on a small base, and most quarrying work is informal and unwaged. And the route count is a fact about Njia's sourcing, not about demand — health is over-represented because KMTC runs some forty campuses and we list every one. ${unpaced.length ? `The ${unpaced.length} sectors marked <em>not sourced</em> are ones where KNBS publishes a relevant series that Njia has not obtained; they carry no figure here rather than a borrowed one.` : ''} Source: ${escapeHtml(ECONOMY.source)}</p>
+      </section>`;
 }
 
 /* The Application Clock — Kanda's "Regulatory Clock" pattern powered by
@@ -652,6 +775,8 @@ function renderHomePage() {
         </div>
       </section>
 
+      ${renderEconomySection()}
+
       <section class="landing-quote-section">
         <p class="landing-quote">Most Kenyan youth aren't uninformed — they're <span class="hl-gold">unmatched.</span> The data exists. The pathway was never personalised.</p>
         <p class="landing-quote-caption">That gap — between available data and personal decisions — is what every module in Njia is built to close.</p>
@@ -745,9 +870,18 @@ function renderHomePage() {
       <div class="brand-rule" aria-hidden="true"></div>
       <footer class="landing-footer">
         <div class="landing-footer-grid">
+          ${/* The About paragraph used to sit in its own full-width region below
+               the column grid, in a 62ch measure with the other 60% of the row
+               empty, directly under a brand blurb that said the same thing in
+               shorter words. Two paragraphs of duplication cost roughly 200px
+               of footer.
+
+               It now IS the brand column. The height is free — the Learn column
+               beside it runs six links deep and sets the row height regardless —
+               and the duplicate blurb is gone rather than reworded. */''}
           <div class="landing-footer-brand">
             <div class="flex items-center gap-1"><svg class="logo-mark" viewBox="0 0 64 96" width="19" height="28" aria-hidden="true"><use href="#i-njia"/></svg><strong style="color:#F5E9D4">Njia</strong></div>
-            <p>Data-driven career pathway guidance for Kenyan youth, built on research-backed career psychology and life-design methods.</p>
+            <p>An independent, free career-pathway tool for Kenyan youth — unaffiliated with KUCCPS, HELB or any institution. It fuses career psychology, life design and life-portfolio planning with real Kenyan course, fee and funding data, and computes everything on your device. Institution and funder names appear because they are real public bodies, not because of any partnership.</p>
           </div>
           <div class="landing-footer-col">
             <p class="footer-col-label">Modules</p>
@@ -762,13 +896,16 @@ function renderHomePage() {
             <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
             <a href="https://helb.co.ke" target="_blank" rel="noopener noreferrer">HELB ↗</a>
           </div>
+          ${/* Company and Legal were two columns of two links each, sitting
+               beside a column of six. Four short columns of wildly uneven depth
+               left the right half of the grid empty below the second row while
+               the row itself was set by the tallest. Merged into one column of
+               four, the grid is three link columns of 5, 6 and 4 — and the
+               brand column gets the width the empty space was holding. */''}
           <div class="landing-footer-col">
-            <p class="footer-col-label">Company</p>
+            <p class="footer-col-label">Company &amp; legal</p>
             <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
             <button type="button" onclick="openFeedbackModal()">Give Feedback</button>
-          </div>
-          <div class="landing-footer-col">
-            <p class="footer-col-label">Legal</p>
             <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>
             <button type="button" onclick="openTermsModal()">Terms of Use</button>
           </div>
@@ -782,19 +919,20 @@ function renderHomePage() {
              tab, is not orphaned by this: the hero's Application Clock opens it
              directly, above the fold. -->
 
-        <section class="footer-about">
-          <p class="footer-col-label">About Njia</p>
-          <p>Njia is an independent, free career-pathway tool for Kenyan youth — unaffiliated with KUCCPS, HELB or any institution. It fuses career psychology, life design and life-portfolio planning with real Kenyan course, fee and funding data, and computes everything on your device. Institution and funder names appear because they are real public bodies, not because of any partnership. Data marked ✓ Verified has been cross-checked against a named public source; everything else is illustrative and should be confirmed before you decide.</p>
-        </section>
-
-        <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Fees and funding terms are cross-checked against named, dated sources where the badge says so. No course here carries an employment rate or a salary: Kenya publishes no graduate outcomes per course, so rather than print an estimate Njia prints nothing. See Methodology.</p>
         <!-- The seven-link row that stood here — About, Privacy, Terms,
              Methodology, Partners, Help, FAQ — repeated the column grid above
              it item for item, in shorter words. A footer that lists the same
              destination twice is not twice as navigable; it just takes longer
              to read past. The columns are the canonical navigation. -->
-        <div class="landing-footer-bottom">
-          <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
+        ${/* Sources and the legal line were two stacked full-width regions,
+             each with its own top rule and 1.25rem of padding, and each using
+             about a third of the width it was given. One region, two columns,
+             one rule. */''}
+        <div class="landing-footer-legal">
+          <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025 · KNBS Economic Survey 2026. Fees and funding terms are cross-checked against named, dated sources where the badge says so; Decide names all five provenance groups and what each is worth. No course here carries an employment rate or a salary: Kenya publishes no graduate outcomes per course, so rather than print an estimate Njia prints nothing. See Methodology.</p>
+          <div class="landing-footer-bottom">
+            <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
+          </div>
         </div>
       </footer>
     </div>

@@ -75,7 +75,20 @@
        lucide-style geometry hand-inlined on a 24-unit grid, 2px stroke,
        round caps, currentColor. Family design rule (see DESIGN.md): chrome
        gets these; emoji stays reserved for content voice only. -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <!-- NOT display:none, and that is load-bearing rather than fussy.
+       Chromium will not resolve a clip-path reference from inside a <use>
+       shadow clone when the sprite that defines it is display:none. The
+       reference is found — getComputedStyle reports url("#njia-leaf") — and it
+       simply does not clip, so the brand mark rendered with its colour fields
+       spilling out of the leaf as a full square on every in-app surface: the
+       header, the landing hero and the PDF report header. It shipped that way
+       for as long as the mark has existed, camouflaged by the hero's
+       border-radius, which rounded the spilling square into something that
+       read as a deliberate tile.
+       A zero-size overflow-hidden box hides the sprite just as completely,
+       takes no space and creates no scrollbar, and clips correctly. A guard in
+       tests/provenance.test.js fails the build if display:none returns. -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
     <defs>
       <!-- The brand mark, drawn to the supplied identity sheet. Kept as a
            sprite symbol rather than an <img> so it is one definition rather
@@ -85,27 +98,27 @@
            Synced from icons/logo-mark.svg — a guard fails if they diverge. -->
       <symbol id="i-njia" viewBox="0 0 64 96">
         <defs>
-            <clipPath id="njia-shield">
-              <path d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"/>
+            <clipPath id="njia-leaf">
+              <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/>
             </clipPath>
           </defs>
-          <g clip-path="url(#njia-shield)">
+          <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/>
+          <g clip-path="url(#njia-leaf)">
             <rect width="64" height="96" fill="#8B2500"/>
-            <path d="M0 54 64 68V96H0Z" fill="#3D1C02"/>
-            <path d="M33 52 64 40v25Z" fill="#C8860A"/>
+            <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/>
+            <path d="M32 50 64 38V62Z" fill="#C8860A"/>
           </g>
-          <g clip-path="url(#njia-shield)">
-            <path d="M25 90c-2-9 9-12 10-21 1-8-7-11-6-19 1-6 3-8 3-11" fill="none"
-                  stroke="#F5E9D4" stroke-width="7.5" stroke-linecap="round"/>
-            <path d="M25 90c-2-9 9-12 10-21 1-8-7-11-6-19 1-6 3-8 3-11" fill="none"
+          <g clip-path="url(#njia-leaf)">
+            <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none"
+                  stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/>
+            <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none"
                   stroke="#3D1C02" stroke-width="1" stroke-linecap="round"
-                  stroke-dasharray="2.5 4" opacity=".5"/>
+                  stroke-dasharray="2.5 4" opacity=".45"/>
           </g>
-          <path d="M32 41V17" fill="none" stroke="#F5E9D4" stroke-width="6" stroke-linecap="round"/>
-          <path d="m24.5 25 7.5-8.5 7.5 8.5" fill="none" stroke="#F5E9D4" stroke-width="6"
+          <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5"
                 stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"
-                fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="4.5" stroke-linejoin="round"/>
+          <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z"
+                fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/>
       </symbol>
       <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></symbol>
       <symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.6 8.4-2 5.2-5.2 2 2-5.2z"/></symbol>
@@ -328,9 +341,16 @@
     function openPrivacyModal() {
       openModal(`
         <h3 class="mb-2">Your Data & Privacy</h3>
-        <p class="text-secondary text-sm mb-2">Everything you enter in Njia — questionnaire answers, plans, saved courses, OKRs — stays on this device in your browser's local storage. Nothing is sent to a server or shared with anyone.</p>
-        <p class="text-secondary text-sm mb-2"><strong>The one exception:</strong> if you choose to submit the optional Feedback or Partner Inquiry form, whatever you type into that form is sent to us — that's the only data that ever leaves your device, and only if you actively submit it.</p>
-        <p class="text-secondary text-sm mb-2">Njia doesn't use cookies, trackers, or analytics scripts of any kind — there's nothing running in the background collecting behaviour data.</p>
+        <p class="text-secondary text-sm mb-2">Everything you enter in Njia — questionnaire answers, plans, saved courses, OKRs — stays on this device in your browser's local storage. None of it is sent to a server or shared with anyone.</p>
+        <p class="text-secondary text-sm mb-2"><strong>The only thing you type that ever leaves:</strong> if you choose to submit the optional Feedback or Partner Inquiry form, whatever you type into that form is sent to us — that's the only data that ever leaves your device, and only if you actively submit it.</p>
+        <p class="text-secondary text-sm mb-2">Njia doesn't use cookies, trackers, or any third-party analytics — no Google, no Facebook, nothing from outside this app is loaded or told anything about you.</p>
+        <!-- This paragraph used to read "no analytics of any kind — nothing
+             running in the background collecting behaviour data". That stopped
+             being true the moment milestone counting shipped, and a promise
+             nobody updated is worse than one that was never made. The rule this
+             project applies to fee figures applies to its own claims. -->
+        <p class="text-secondary text-sm mb-2"><strong>The one thing Njia does count.</strong> When someone finishes the questionnaire, saves a course, starts an application or downloads a report, Njia asks its own server for a small file named after that step. All that gets recorded is that the step happened — <em>once more than yesterday</em>. Nothing about you goes with it: no name, no device or session number, no answers, not even which course. Two steps from you look exactly like one step from two different people, so there is no trail back to anybody. It is the same kind of record any website keeps of a page being opened.</p>
+        <p class="text-secondary text-sm mb-2">Why at all: without knowing how many young people actually reach the end, Njia cannot be funded or taken up by a school, and it goes out of date. If your browser sends "Do Not Track" or Global Privacy Control, Njia counts nothing. Offline, it counts nothing either.</p>
         <p class="text-secondary text-sm mb-2">Switching phones? Export a backup below and import it on the new device — nothing here syncs automatically.</p>
         <div class="btn-row mb-2">
           <button type="button" class="btn btn-secondary" onclick="exportMyData()">⬇ Export Backup</button>

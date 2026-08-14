@@ -1101,6 +1101,8 @@ function toggleSavedCourse(courseId) {
   const nowSaved = idx === -1;
   if (nowSaved) {
     AppState.savedCourses.push(courseId);
+    // Only on save, never on un-save: a toggle would count indecision as interest.
+    recordMilestone('course-saved');
     showToast('Saved. We\'ll remind you to apply.', 'success');
   } else {
     AppState.savedCourses.splice(idx, 1);
@@ -1163,6 +1165,10 @@ function startApplicationForCourse(courseId) {
     ]
   });
   saveState();
+  /* The outcome that matters most, and the one a funder will ask for: someone
+   * moved from browsing to acting. Placed after the duplicate-application
+   * early return above, so re-opening an existing tracker is not re-counted. */
+  recordMilestone('application-started');
   showToast('Application tracker created — see it in Track.', 'success');
   navigateTo('track');
 }

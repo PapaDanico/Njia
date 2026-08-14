@@ -184,8 +184,41 @@ test('the PNG icons are rebuilt whenever the source mark changes', () => {
     + `${stale.join(', ')}. Run \`node tools/build-icons.mjs\` and bump CACHE_VERSION in sw.js.`);
 });
 
-test('the icon generator ships alongside the icons it generates', () => {
-  /* A build step nobody can find is a build step nobody runs. */
-  assert.ok(fs.existsSync(path.join(root, 'tools', 'build-icons.mjs')),
-    'tools/build-icons.mjs is gone, so the icons above can no longer be regenerated from the mark');
+/* EVERY RASTER OF THE MARK, NOT JUST THE FOUR IN icons/.
+ *
+ * The guard above covered the app icons and they were correct within minutes
+ * of the mark being redrawn. icons/og-image.jpg was not covered and had no
+ * generator at all — made once by hand and committed — so it kept the retired
+ * shield. That is the single most visible surface Njia has: it is the picture
+ * WhatsApp shows when a school-leaver forwards the link, which is how this app
+ * actually spreads. The brand/ lockups were in the same position.
+ *
+ * The lesson is not "remember to rebuild". It is that an artefact with no
+ * build step and no guard will drift, and the fix is to give it both. */
+test('every generated raster of the mark is rebuilt when the mark changes', () => {
+  const svgTime = fs.statSync(path.join(root, 'icons', 'logo-mark.svg')).mtimeMs;
+  const derived = [
+    'icons/og-image.jpg',
+    'brand/lockup-stacked.png',
+    'brand/lockup-stacked-dark.png',
+    'brand/social-banner-16x9.png'
+  ];
+  const stale = derived.filter((f) => fs.statSync(path.join(root, f)).mtimeMs < svgTime);
+  assert.deepEqual(stale, [],
+    `these still render the previous mark: ${stale.join(', ')}. `
+    + 'Run `node tools/build-og-image.mjs` and/or `node tools/build-brand-assets.mjs`. '
+    + 'og-image.jpg is the one that matters most — it is what a shared link looks like.');
+});
+
+test('the generators ship alongside the artefacts they generate', () => {
+  /* A build step nobody can find is a build step nobody runs — and one that
+   * never existed is why the share card went a rebrand out of date. */
+  for (const [tool, what] of [
+    ['build-icons.mjs', 'the PWA icons'],
+    ['build-og-image.mjs', 'the link-share card'],
+    ['build-brand-assets.mjs', 'the brand lockups and banner']
+  ]) {
+    assert.ok(fs.existsSync(path.join(root, 'tools', tool)),
+      `tools/${tool} is gone, so ${what} can no longer be regenerated from the mark`);
+  }
 });

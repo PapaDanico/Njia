@@ -1,0 +1,10 @@
+Njia milestone marker: report-downloaded
+
+This file exists to be requested, not to be read. When someone reaches this
+point in the app, Njia fetches this path so that the count of requests appears
+in server-side analytics.
+
+Nothing about the reader is sent with it — no identifier, no answers, no course
+name, no query string. The path you are looking at is the entire message.
+
+See the recordMilestone() comment in js/app.js and the privacy note in the app.

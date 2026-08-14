@@ -1898,8 +1898,17 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   font-weight: 600; font-size: 0.85rem;
 }
 .landing-clock-btn:hover { background: rgba(248, 250, 252, 0.1); }
+/* THE BOX HAS TO CARRY THE MARK'S OWN PROPORTIONS.
+ *
+ * This was 64x64 with object-fit: contain, which is two mistakes that hid each
+ * other. The mark's viewBox is 64x96 — a 2:3 portrait — so a square box was
+ * always wrong, and object-fit does nothing whatever on an inline <svg>: it
+ * applies to replaced elements (img, video), so it was never compensating for
+ * anything. The markup already carries width="43" height="64", the correct
+ * ratio; this rule overrode it. Sized to the mark instead of to a square, and
+ * the inert property dropped rather than left looking load-bearing. */
 .landing-hero-logo {
-  width: 64px; height: 64px; object-fit: contain; margin-bottom: 1.25rem;
+  width: 43px; height: 64px; margin-bottom: 1.25rem;
   mix-blend-mode: multiply;
   border-radius: 12px;
 }

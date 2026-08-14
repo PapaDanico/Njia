@@ -12,4 +12,17 @@
 User-agent: *
 Allow: /
 
+# The one exclusion, and it is not about privacy.
+#
+# /m/ holds milestone markers — empty-of-meaning text files that exist only to
+# be requested when a reader finishes the questionnaire, saves a course, starts
+# an application or downloads a report. The count of those requests is the only
+# usage measurement Njia takes.
+#
+# A crawler fetching them would be indistinguishable from a young person
+# reaching that step, so an indexed /m/ would report enthusiasm that is really
+# just Googlebot. Excluded to keep the numbers honest, not to hide anything:
+# the files say plainly what they are, and anyone may read them.
+Disallow: /m/
+
 Sitemap: https://njiacareerpathways.work/sitemap.xml

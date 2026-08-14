@@ -1866,6 +1866,46 @@ test('the brand mark is the same drawing in both places it is defined', () => {
   assert.deepEqual(b.circles, a.circles, 'the marked terminal differs between the two definitions');
 });
 
+test('the icon sprite is hidden without display:none, so the mark still clips', () => {
+  /* THE BUG THIS EXISTS TO STOP, WHICH SHIPPED FOR MONTHS.
+   *
+   * The brand mark clips its colour fields to the leaf with clip-path. In
+   * Chromium that reference does NOT resolve from inside a <use> shadow clone
+   * when the sprite defining it is display:none — and it fails silently:
+   * getComputedStyle still reports url("#njia-leaf"), the element is found in
+   * the DOM, and nothing throws. The fields simply render unclipped, so the
+   * mark appeared as a full square of terracotta, brown and gold on every
+   * in-app surface: header, landing hero, PDF report header.
+   *
+   * It went unnoticed because .landing-hero-logo carries border-radius, which
+   * rounded the spilling square into something that read as a deliberate tile.
+   * Confirmed by rendering the same symbol three ways — display:none, a
+   * zero-size overflow-hidden box, and inline without <use>: only the first
+   * failed, and the other two were pixel-identical.
+   *
+   * Any hiding technique that keeps the sprite rendered is fine. display:none
+   * is the one that is not. */
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const sprite = html.slice(0, html.indexOf('<symbol id="i-njia"'));
+  const open = sprite.lastIndexOf('<svg');
+  assert.notEqual(open, -1, 'the icon sprite <svg> has gone');
+  const tag = sprite.slice(open, sprite.indexOf('>', open) + 1);
+
+  assert.ok(!/display\s*:\s*none/.test(tag),
+    'the icon sprite is display:none again. Chromium will not resolve the mark\'s '
+    + 'clip-path from inside a <use> clone of a display:none sprite, and it fails '
+    + 'silently — the brand mark renders as a square of colour with the leaf outline '
+    + 'drawn over it, everywhere in the app at once. Hide it with '
+    + 'position:absolute;width:0;height:0;overflow:hidden instead.');
+
+  assert.match(tag, /width\s*:\s*0/,
+    'the icon sprite no longer collapses to zero width, so it now takes layout space');
+  assert.match(tag, /overflow\s*:\s*hidden/,
+    'the icon sprite can overflow, which risks a stray scrollbar from a 0x0 box');
+  assert.match(tag, /aria-hidden="true"/,
+    'the icon sprite is exposed to assistive technology — it is a definition store, not content');
+});
+
 test('nothing renders the retired logo bitmaps', () => {
   /* The mark is vector now. The old PNG pair-per-scheme existed only
    * because a raster mark cannot take the page's ink, and leaving a

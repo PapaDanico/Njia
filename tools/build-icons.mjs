@@ -2,7 +2,7 @@
  *
  * WHY THIS EXISTS.
  *
- * The brand mark was redrawn as a vector shield and icons/logo-mark.svg was
+ * The brand mark was redrawn as a vector leaf and icons/logo-mark.svg was
  * updated. The four PNGs were not, and nothing noticed for a day: the SVG
  * favicon is only used by browsers that prefer it, so a tab showed the new
  * mark while every PWA install, every apple-touch-icon and every browser
@@ -49,7 +49,25 @@ if (!chromium) {
   }
 }
 
-const CREAM = '#F5E9D4';
+/* THE PLATE IS TERRACOTTA, AND THAT FOLLOWS FROM THE MARK, NOT FROM TASTE.
+ *
+ * These icons sat on a cream plate, which was right for the old shield: it had
+ * no cream ring, so its dark outline carried the silhouette against any
+ * ground. The redrawn leaf does have one — a cream band between the outline
+ * and the coloured fields, which is what the brand sheets show — and a cream
+ * ring on a cream plate is invisible. The mark would have shipped with its
+ * defining feature dissolved into the background on every installed home
+ * screen.
+ *
+ * Earth brown was chosen by rendering the mark on all five brand colours and
+ * looking, rather than by picking the one the sheet lists first. On terracotta
+ * the mark's own terracotta field dissolves into the plate; on ochre gold the
+ * gold wedge does; cream loses the ring. On earth brown the dark outline
+ * merges into the plate and the CREAM RING becomes the silhouette, with the
+ * terracotta and gold fields separating cleanly inside it — the most legible
+ * of the five, and a dark plate is also the one that stands out in a launcher
+ * full of other apps. All five are sanctioned variants on the sheets. */
+const PLATE = '#3D1C02';
 const svg = fs.readFileSync(path.join(root, 'icons', 'logo-mark.svg'), 'utf8');
 
 /* The mark is portrait (64x96) and the icon is square, so it is centred with
@@ -72,7 +90,7 @@ const page = (size, inset, radius) => `<!doctype html><meta charset="utf-8">
   html,body{margin:0;padding:0;background:transparent}
   #plate{
     width:${size}px;height:${size}px;
-    background:${CREAM};
+    background:${PLATE};
     border-radius:${Math.round(size * radius)}px;
     display:flex;align-items:center;justify-content:center;
     box-sizing:border-box;
@@ -86,8 +104,10 @@ const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium'
 });
 /* Light scheme explicitly: logo-mark.svg carries a prefers-color-scheme rule
- * that swaps the shield outline to cream for dark browser chrome. On a cream
- * icon plate that would erase the silhouette entirely. */
+ * that swaps the leaf outline to cream for dark browser chrome. Rendering
+ * these under a dark scheme would bake that swap into the PNGs, giving every
+ * installed icon a cream outline against a cream ring — the silhouette gone
+ * for the second time, by a different route. */
 const ctx = await browser.newContext({ colorScheme: 'light', deviceScaleFactor: 1 });
 
 for (const { file, size, inset, radius } of TARGETS) {

@@ -161,7 +161,7 @@ const SECTORS = [
     name: 'Administration, HR and public service',
     awardingBodies: ['TVET CDACC', 'IHRM'],
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /human resource|office administration|public administration|secretar|records|project management|governance|events management|security|emotional intelligence|leadership|communication/i,
+    match: /human resource|office administration|public administration|secretar|records|project management|governance|events management|security|emotional intelligence|leadership|communication|disaster management|resilience/i,
     expect: 12,
     gap: '',
     source: 'TVET CDACC Human Resource Management Levels 5 and 6; Office Administration Levels 5 and 6'
@@ -171,7 +171,7 @@ const SECTORS = [
     name: 'Agriculture and agribusiness',
     awardingBodies: ['TVET CDACC', 'public universities'],
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /agri|farm|horticultur|animal|veterinar|food techn|fisher/i,
+    match: /agri|farm|horticultur|animal|veterinar|food techn|fisher|livestock|range management|pastoral/i,
     expect: 15,
     gap: 'Bukura publishes only its certificate fee, Baraka and Egerton publish nothing reachable, so most records here carry no figure. Aquaculture and agri-mechanisation are still unsourced.',
     source: 'TVET CDACC agriculture curricula'
@@ -245,6 +245,16 @@ const SECTORS = [
     expect: 2,
     gap: 'Only the LLB is present. The paralegal and legal-clerk routes below degree level are unsourced, and the Advocates Training Programme at the Kenya School of Law — the mandatory step after an LLB — is not represented at all.',
     source: 'Council of Legal Education; CUE-chartered law faculties'
+  },
+  {
+    id: 'mining',
+    name: 'Mining, quarrying and extractives',
+    awardingBodies: ['TVET CDACC', 'State Department for Mining', 'Kenya School of Mines'],
+    feeRegimes: ['tvet_consolidated', 'parastatal_own_rate', 'public_university'],
+    match: /mining|quarry|geolog|extract|drilling|petroleum/i,
+    expect: 10,
+    gap: 'The fastest-growing sector in the KNBS Economic Survey 2026 — mining and quarrying expanded 14.9% in 2025, ahead of every other sector — and Njia carries three records, none of them open below a C-. Quarrying and small-scale mining employ large numbers informally across Kajiado, Machakos, Taita-Taveta and the coast, and none of that has a sourced training route here. This is the widest gap between what the economy is doing and what the catalogue offers.',
+    source: 'KNBS Economic Survey 2026; TVET CDACC extractives curricula'
   },
   {
     id: 'personal',

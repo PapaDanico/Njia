@@ -153,6 +153,13 @@ const INSTITUTIONS = [
    * institutions. */
   { id: 'kitalevtc', name: 'Kitale Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Kitale', county: 'Trans Nzoia', accreditation: 'Public Vocational Training Centre · KNEC and NITA examination centre', website: 'https://transnzoia.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
   { id: 'kilifisaidia', name: 'Kilifi Saidia College', ownership: 'private', type: 'tvet', location: 'Kilifi', county: 'Kilifi', accreditation: 'TVETA Registered and Licensed · NITA trade-test centre', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false },
+  /* Opening for its pioneer intake in September 2026 with roughly 1,000 places,
+   * placed through KUCCPS. A brand-new public hospitality college on the coast
+   * matters disproportionately here: Kilifi previously offered one private
+   * college in this catalogue, and hospitality is the sector its local economy
+   * actually runs on. Like its Nairobi parent it is a Ministry of Tourism state
+   * corporation, so it is NOT on the consolidated public-TVET fee. */
+  { id: 'rnuc', name: 'Ronald Ngala Utalii College', ownership: 'public', type: 'tvet', location: 'Kilifi', county: 'Kilifi', accreditation: 'State corporation under the Ministry of Tourism · KUCCPS placement', website: 'https://utalii.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true },
 
   /* TEACHER TRAINING COLLEGES — a whole institution type the catalogue was
    * missing. Njia held zero TTCs against roughly 35 nationally, while teaching

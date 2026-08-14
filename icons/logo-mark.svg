@@ -1,19 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia">
-  <!-- The Njia mark, drawn to the supplied brand sheet: a pointed vertical
-       shield divided into terracotta, ochre gold and earth brown fields,
-       with a cream road winding up through it and straightening into an
-       arrow.
+  <!-- The Njia mark, drawn to the supplied brand sheets (Njia Brand Assets,
+       Njia Favicons, Roots & Routes).
+
+       THE SILHOUETTE IS A POINTED LEAF, NOT A SHIELD.
+
+       This file previously drew a shield — pointed at the top, rounded and
+       wide at the foot — and its own comment called it "a pointed vertical
+       shield". Every sheet supplied shows a mandorla: pointed at BOTH ends and
+       symmetric top to bottom. That is a different silhouette, and silhouette
+       is the whole of what a mark is recognised by at 16px. It was wrong
+       everywhere the mark appears: browser tab, installed app icon, in-app
+       chrome, PDF report header, social preview.
+
+       THE ROAD IS ONE RIBBON, NOT A ROAD PLUS AN ARROW.
+
+       Drawn as two paths that met end to end, it rendered as a winding blob
+       with a separate arrow floating above it — the join showed. On the sheets
+       it is a single continuous stroke that winds at the foot, straightens,
+       and ends in an open head. So it is one path here, and the head is the
+       only separate piece.
+
+       The sheets also show a cream ring between the dark outline and the
+       coloured fields, so the leaf is filled cream first, the fields are
+       clipped to an inset copy of the same curve, and the outline is stroked
+       last over everything.
 
        Redrawn as vector rather than cropped from the sheet so it stays sharp
        from a 16px browser tab to a 512px app icon, and so the fields can be
        recoloured for the dark variant without a second file. The colours are
-       the brand hexes exactly, not approximations. -->
+       the brand hexes exactly, not approximations — the sheet's usage notes
+       say not to alter the colours, proportions or elements. -->
   <style>
     /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile.
      *
      * Nothing supplies --mark-edge outside the app, so the outline falls back
      * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16,
-     * 32, 48 and 64px, the shield edge disappeared into the ground completely.
+     * 32, 48 and 64px, the leaf edge disappeared into the ground completely.
      * The mark still read, because the terracotta field and the cream road
      * carry it, but the drawing lost its silhouette.
      *
@@ -29,36 +51,43 @@
   </style>
 
   <defs>
-    <clipPath id="njia-shield">
-      <path d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"/>
+    <!-- The inset leaf the colour fields are clipped to. Same curve as the
+         outline, scaled about the centre, which is what leaves the cream ring
+         the sheets show rather than running the fields to the dark edge. -->
+    <clipPath id="njia-leaf">
+      <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/>
     </clipPath>
   </defs>
 
-  <g clip-path="url(#njia-shield)">
+  <!-- Cream body. Sits under the fields so the inset above reads as a ring. -->
+  <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/>
+
+  <g clip-path="url(#njia-leaf)">
     <!-- Terracotta ground -->
     <rect width="64" height="96" fill="#8B2500"/>
-    <!-- Earth brown lower field, on the diagonal the sheet shows -->
-    <path d="M0 54 64 68V96H0Z" fill="#3D1C02"/>
-    <!-- Ochre gold wedge on the right shoulder -->
-    <path d="M33 52 64 40v25Z" fill="#C8860A"/>
+    <!-- Earth brown lower field, on the near-horizontal division the sheet shows -->
+    <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/>
+    <!-- Ochre gold wedge, apex at the centre, opening to the right shoulder -->
+    <path d="M32 50 64 38V62Z" fill="#C8860A"/>
   </g>
 
-  <g clip-path="url(#njia-shield)">
-    <!-- The road: winds up from the foot of the shield, then straightens. -->
-    <path d="M25 90c-2-9 9-12 10-21 1-8-7-11-6-19 1-6 3-8 3-11" fill="none"
-          stroke="#F5E9D4" stroke-width="7.5" stroke-linecap="round"/>
+  <g clip-path="url(#njia-leaf)">
+    <!-- One ribbon: winds up from the foot, straightens, runs to the head. -->
+    <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none"
+          stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/>
     <!-- Dashed centre line, as on the sheet. -->
-    <path d="M25 90c-2-9 9-12 10-21 1-8-7-11-6-19 1-6 3-8 3-11" fill="none"
+    <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none"
           stroke="#3D1C02" stroke-width="1" stroke-linecap="round"
-          stroke-dasharray="2.5 4" opacity=".5"/>
+          stroke-dasharray="2.5 4" opacity=".45"/>
   </g>
 
-  <!-- The arrow the road becomes: straight shaft, open head. -->
-  <path d="M32 41V17" fill="none" stroke="#F5E9D4" stroke-width="6" stroke-linecap="round"/>
-  <path d="m24.5 25 7.5-8.5 7.5 8.5" fill="none" stroke="#F5E9D4" stroke-width="6"
+  <!-- The open head the ribbon ends in. -->
+  <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5"
         stroke-linecap="round" stroke-linejoin="round"/>
 
-  <!-- Shield outline, drawn last so it sits over every field edge. -->
-  <path class="mark-edge" d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"
-        fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="4.5" stroke-linejoin="round"/>
+  <!-- Leaf outline, drawn last so it sits over every field edge. Miter join,
+       not round: the tips are cusps, and a round join balloons them into dark
+       lobes that swallow the point the silhouette depends on. -->
+  <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z"
+        fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/>
 </svg>

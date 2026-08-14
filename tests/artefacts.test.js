@@ -27,6 +27,7 @@
  */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
@@ -208,6 +209,57 @@ test('every generated raster of the mark is rebuilt when the mark changes', () =
     `these still render the previous mark: ${stale.join(', ')}. `
     + 'Run `node tools/build-og-image.mjs` and/or `node tools/build-brand-assets.mjs`. '
     + 'og-image.jpg is the one that matters most — it is what a shared link looks like.');
+});
+
+/* THE SHARE-CARD URL MUST MATCH THE BYTES IT POINTS AT.
+ *
+ * Social platforms cache a share card against its URL and keep it. That is why
+ * rebuilding the card was not enough when the mark was redrawn: every link
+ * already in circulation kept the old picture, and the only remedy on offer was
+ * "re-scrape it in the Facebook debugger" — a manual step with no guard, that
+ * nobody can verify worked, and that has to be remembered every single time.
+ *
+ * The URL now carries a content hash, so a changed card is a changed URL and
+ * the platforms refetch on their own. That only holds while the hash in the
+ * markup actually matches the file. A stale hash is worse than no hash: it
+ * looks like cache-busting and busts nothing.
+ */
+test('the share-card URL carries the current hash of the share card', () => {
+  const jpg = fs.readFileSync(path.join(root, 'icons', 'og-image.jpg'));
+  const expected = crypto.createHash('sha256').update(jpg).digest('hex').slice(0, 10);
+
+  const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const refs = [...index.matchAll(/<meta (?:property="og:image"|name="twitter:image") content="([^"]+)"/g)]
+    .map((m) => m[1]);
+  assert.ok(refs.length >= 2, 'index.html no longer declares both og:image and twitter:image');
+
+  for (const url of refs) {
+    assert.ok(url.includes(`?v=${expected}`),
+      `the share-card URL is ${url}, but icons/og-image.jpg hashes to ${expected}. `
+      + 'Every link already shared points at a URL the platforms have cached against different '
+      + 'bytes. Run `node tools/build-og-image.mjs`, then `node tools/build-static-pages.mjs`.');
+  }
+
+  /* All 54 generated pages must carry the same URL. One stale page is one
+   * county whose shared links show the wrong card. */
+  const stale = [];
+  for (const dir of ['counties', 'grades']) {
+    const base = path.join(root, dir);
+    if (!fs.existsSync(base)) continue;
+    for (const sub of fs.readdirSync(base, { withFileTypes: true })) {
+      const file = sub.isDirectory()
+        ? path.join(base, sub.name, 'index.html')
+        : path.join(base, sub.name);
+      if (!file.endsWith('.html') || !fs.existsSync(file)) continue;
+      const html = fs.readFileSync(file, 'utf8');
+      const m = html.match(/<meta property="og:image" content="([^"]+)"/);
+      if (m && !m[1].includes(`?v=${expected}`)) stale.push(path.relative(root, file));
+    }
+  }
+  assert.deepEqual(stale.slice(0, 5), [],
+    `these generated pages point at an outdated share card: ${stale.slice(0, 5).join(', ')}`
+    + `${stale.length > 5 ? ` and ${stale.length - 5} more` : ''}. `
+    + 'Run `node tools/build-static-pages.mjs`.');
 });
 
 test('the generators ship alongside the artefacts they generate', () => {

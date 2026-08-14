@@ -216,6 +216,29 @@ invisible to a green suite and obvious one second after loading the app.
 Bump `CACHE_VERSION` in `sw.js` on every deploy. Icons are cache-first, so a
 stale version means readers keep the old ones.
 
+## A manual step is usually a missing build step
+
+The share card once needed a human to "re-scrape the URL in the Facebook
+debugger" after every change, because social platforms cache a card against its
+URL and keep it. That instruction had no guard, could not be verified, and had
+to be remembered every time.
+
+`icons/og-image.jpg` is now referenced with a content hash — `?v=<sha256[0:10]>`
+— written into `index.html` by `tools/build-og-image.mjs` and read back out of
+it by `tools/build-static-pages.mjs`, so 56 pages share one source of truth.
+Change the card and the URL changes; the platforms refetch on their own. Change
+nothing and the hash is identical, so nothing is invalidated for nothing.
+`tests/artefacts.test.js` fails the build if the hash stops matching the bytes,
+because a stale hash looks like cache-busting and busts nothing.
+
+Two things genuinely cannot be automated from here, and it is worth writing
+down why so nobody re-litigates it: **Google Search Console submission** and
+**reading Netlify Analytics**. Both need credentials this environment does not
+hold, and every external host is egress-blocked — `curl` to google.com,
+api.indexnow.org, bing.com and the site's own public URL all return 000. The
+Netlify MCP exposes projects, deploys, teams and extensions, and no analytics
+endpoint. Those two are the maintainer's; the rest should be a script.
+
 ## Regenerating the app icons
 
 `node tools/build-icons.mjs` rasterises `icons/logo-mark.svg` into the four

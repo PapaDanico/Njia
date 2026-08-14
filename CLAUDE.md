@@ -66,6 +66,35 @@ Rules that the test suite enforces, and why:
   per-programme price to quote.
 - **Never repeat one figure across unrelated institutions.** See below.
 
+## Findability is not the SEO score
+
+Lighthouse reported SEO 100 for months while the app was effectively invisible
+to the people it exists for. The score measures markup hygiene. It cannot see
+that a single-page app renders everything client-side, so a crawler got **987
+characters** of chrome and a sitemap with one URL.
+
+Netlify Analytics made the cost legible: over thirty days the top locations
+were the United States and Canada. For a Kenyan product that is developer
+traffic, Lighthouse runs and crawlers — not readers.
+
+A learner does not search "career pathway platform". They search "TVET courses
+in Turkana", "courses I can do with a D plain", "KMTC September intake". There
+was nothing to rank.
+
+`tools/build-county-pages.mjs` generates one static page per county, committed
+like the icons and the share card, guarded by `tests/seo.test.js`. Rules:
+
+- **They must never become doorway pages.** Each carries its county's real
+  course table, and where the lowest entry requirement is above E it tells the
+  reader outright that nothing on the page is open to them and points at the
+  TVETA register. A test enforces that sentence.
+- **Root-relative assets, absolute canonical.** Absolute stylesheet URLs render
+  every deploy preview unstyled.
+- **The app must link to them in the SERVED HTML** — a client-rendered link
+  leaves 48 pages unlinked to a crawler. It lives in `<noscript>`, because a
+  second skip link tripped axe on all 32 states.
+- Regenerate whenever the catalogue changes; the mtime guard fails otherwise.
+
 ## Measurement: count steps, never people
 
 Njia takes exactly one usage measurement. A milestone — questionnaire finished,

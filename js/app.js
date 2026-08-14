@@ -577,7 +577,7 @@ function renderNjiaNumbersCard() {
           <span class="landing-numbers-label">courses whose fee the institution itself publishes for that course, read off its own schedule — plus ${derivedCount} worked out by applying a published rate. Decide names all five provenance groups and what each one is worth.</span>
         </div>
       </div>
-      <p class="landing-numbers-note">Computed from the dataset this app actually ships — not marketing copy. See Methodology for what "verified" means.</p>
+      <p class="landing-numbers-note">Computed from the dataset this app actually ships — not marketing copy. See Methodology for what "verified" means. <a href="./counties/">Browse courses by county →</a></p>
     </div>
   `;
 }

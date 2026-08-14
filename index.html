@@ -160,6 +160,19 @@
       <h1>Njia</h1>
       <p>Data-driven career pathway guidance for Kenyan youth.</p>
       <p><strong>Njia needs JavaScript enabled to run.</strong> Please enable it in your browser settings and reload this page.</p>
+      <!-- The county pages are the one part of this site that works without
+           scripting, so this is the honest thing to offer a reader who has it
+           switched off — and it is also the internal link the 48 pages need in
+           the SERVED HTML. Reaching them only through a link the app renders
+           client-side would leave them unlinked to a crawler that does not
+           execute JavaScript, which is the pattern search engines read as a
+           doorway farm.
+           Placed here rather than as a second skip link: that version sat
+           outside every landmark and tripped axe on link-in-text-block and
+           region across all 32 states. Inside <noscript> it is invisible to a
+           scripted browser, present for everything else. -->
+      <p><a href="./counties/">Browse every course by county</a> — 47 county
+         pages listing entry grades and fees, readable without JavaScript.</p>
     </div>
   </noscript>
   <div id="app">

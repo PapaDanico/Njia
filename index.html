@@ -31,6 +31,12 @@
   <meta name="twitter:image" content="https://njiacareerpathways.work/icons/og-image.jpg">
 
   <link rel="manifest" href="./manifest.json">
+  <!-- SVG first: the mark is vector, so one 2.2KB file is crisp from a 16px
+       browser tab to a 256px bookmark tile, and browsers that support it never
+       download the bitmap. The PNG stays as the fallback for those that do not.
+       Serving only the 192px PNG meant every browser tab was a downscale of an
+       icon drawn for an app launcher. -->
+  <link rel="icon" type="image/svg+xml" href="./icons/logo-mark.svg">
   <link rel="icon" href="./icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">

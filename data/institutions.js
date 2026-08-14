@@ -315,6 +315,24 @@ const INSTITUTIONS = [
    * body, and the certificate ladders into a Kenyan diploma and then the London
    * CII qualifications. */
   { id: 'coi', name: 'College of Insurance', ownership: 'private', type: 'college', location: 'Red Cross Road, South C, Nairobi', county: 'Nairobi', accreditation: 'Established 1990 · the insurance industry\'s own training college for East and Central Africa · pathway to Kenyan and London (CII) insurance qualifications', website: 'https://coi.ac.ke', modes: ['full_time', 'evening'], has_workstudy: false, has_hostel: false, fee_regime: 'private_own_rate' },
+  /* THE COUNTY WITH TWO COURSES.
+   *
+   * An audit of cluster spread found 28 counties where a learner sees exactly
+   * one kind of work, and 24 of those are a single KMTC campus offering two
+   * health courses and nothing else. Turkana, Mandera, Garissa, Lamu, Tana
+   * River — the catalogue holds 413 courses and shows those readers two, while
+   * the Decide page tells them TVET placement runs "across 251 public
+   * colleges". Njia was naming the number and then hiding the colleges.
+   *
+   * North Eastern National Polytechnic is the fix for one of them, and it is a
+   * national polytechnic rather than a small institute: twenty departments,
+   * KUCCPS institution 1230, placing 2020-2025 KCSE graduates. It takes Garissa
+   * from two health courses to a spread across trades, IT and business.
+   *
+   * The other 23 counties are NOT fixed by this. What ships alongside is a
+   * notice that says so to the reader's face rather than letting a thin county
+   * read as an empty one. */
+  { id: 'nenap', name: 'North Eastern National Polytechnic (NENAP)', ownership: 'public', type: 'tvet', location: 'Innovation Campus, Garissa Township', county: 'Garissa', accreditation: 'Government-accredited national polytechnic · TVETA registered · KUCCPS institution 1230', website: 'https://northeasternpoly.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'tvet_consolidated' },
   { id: 'uzima', name: 'Uzima University', ownership: 'private', type: 'university', location: 'Kisumu', county: 'Kisumu', accreditation: 'CUE accredited · CUEA-affiliated · Clinical Officers Council accredited · founded by the Archdiocese of Kisumu', website: 'https://uzimauniversity.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'private_own_rate' },
 ];
 

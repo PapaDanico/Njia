@@ -674,6 +674,36 @@ function renderCourseMatcher(container) {
 
     <div class="decide-results">
       <p class="decide-count"><strong class="num">${filtered.length}</strong> of <span class="num">${COURSES.length}</span> places to apply match your filters${gradeOpenPct != null ? ` · your grade opens <strong class="num">${gradeOpenPct}%</strong> of them` : ''}</p>
+      ${/* WHEN A COUNTY LOOKS EMPTY, SAY WHOSE FAULT THAT IS.
+           *
+           * An audit of cluster spread found 28 counties where a learner sees
+           * exactly one kind of work — and in 24 of them that is a single KMTC
+           * campus offering two health courses. A reader in Turkana filtering to
+           * their county gets two nursing results and reasonably concludes there
+           * is nothing for them at home.
+           *
+           * That conclusion is wrong, and Njia was causing it. TVETA registers
+           * public colleges in every county and this very page tells readers
+           * placement runs across 251 of them. Njia lists a fraction. The honest
+           * move is not to pad the catalogue with programme lists nobody has
+           * verified — that is how the Ksh 420,000 placeholder happened — but to
+           * put the limit on screen where the empty result is, and point at the
+           * two registries that hold what Njia does not. */''}
+      ${(() => {
+        const county = AppState.decideFilters.county;
+        if (!county || county === 'all') return '';
+        const inCounty = COURSES.filter((c) => {
+          const i = INSTITUTIONS.find((x) => x.id === c.institution_id);
+          return i && i.county === county;
+        });
+        const clusters = new Set(inCounty.map((c) => c.cluster));
+        if (inCounty.length === 0 || clusters.size > 1) return '';
+        return `
+        <div class="data-disclaimer data-disclaimer-open mb-2">
+          <span aria-hidden="true">↗</span>
+          <span><strong>This is Njia's limit, not ${escapeHtml(county)}'s.</strong> Njia currently lists ${inCounty.length} course${inCounty.length === 1 ? '' : 's'} in ${escapeHtml(county)}, all in one field — but TVETA registers public colleges in every county in Kenya, and placement runs across 251 public colleges nationally. There is almost certainly a technical or vocational institute near you that this catalogue has not sourced yet. Search the <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA register</a> for accredited institutions in ${escapeHtml(county)}, and check the KUCCPS portal for what they are placing into this cycle. Do not read a short list here as a short list of options.</span>
+        </div>`;
+      })()}
       ${filtered.length === 0
         ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
         : `<p class="decide-caveat text-muted text-sm">Cost-of-attendance totals below are illustrative and vary by town — plan against them, don't rely on them.</p>

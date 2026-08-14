@@ -2582,3 +2582,27 @@ p, li { text-wrap: pretty; }
   #page-track > .odyssey-tabs { max-width: 26rem; margin-bottom: 1.25rem; }
   #page-connect > .odyssey-tabs, #page-design > .odyssey-tabs { max-width: 40rem; margin-bottom: 1.25rem; }
 }
+
+/* ---------- Tap targets in the footer ----------
+ *
+ * The footer column links were 26px tall. That is under every touch guideline
+ * (Apple 44, Material and Lighthouse 48) and it is the reason de-duplicating
+ * the footer cost two SEO points: the tile grid that was removed consisted of
+ * large, comfortably-sized buttons, so deleting it raised the proportion of
+ * undersized targets on the page even though it removed no good ones. The
+ * audit scores the ratio, not the count.
+ *
+ * Restoring the duplicate navigation to fix that would be optimising for the
+ * measurement. The links were always too small for a thumb — on a product
+ * whose users are overwhelmingly on phones — so they get sized properly
+ * instead, which fixes the audit and the usability problem it was pointing at.
+ */
+.landing-footer-col button,
+.landing-footer-col a,
+.landing-footer-links a,
+.landing-footer-links button {
+  display: flex;
+  align-items: center;
+  min-height: 48px;   /* Lighthouse and Material both test 48, not Apple's 44 */
+  padding-block: 0.15rem;
+}

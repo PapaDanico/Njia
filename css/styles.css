@@ -2529,3 +2529,34 @@ p, li { text-wrap: pretty; }
   .empty-state > p { max-width: 42ch; }
   .empty-state .btn { margin-top: 1rem; }
 }
+
+/* ---------- Module rail: give the wide screen a second column ----------
+ *
+ * Track was a single narrow column on a 1440px screen: heading, three small
+ * stat cards, a tab strip, a filter row and the list, each stacked at the far
+ * left with the whole right half of the page empty. Capping the stretched
+ * pieces stopped that looking absurd but did not put the width to work.
+ *
+ * The heading and the counters are context, not content — they belong beside
+ * the list rather than above it. .module-rail wraps them so the rail is one
+ * grid cell: the same lesson as the landing rail, where placing siblings in
+ * explicit rows let a tall content child size row 1 and push the heading
+ * underneath the very list it introduces. One wrapper makes that unavailable.
+ */
+@media (min-width: 1024px) {
+  #page-track {
+    display: grid;
+    grid-template-columns: minmax(14rem, 19rem) minmax(0, 1fr);
+    column-gap: clamp(2rem, 3vw, 3.25rem);
+    align-items: start;
+  }
+  #page-track > .module-rail { grid-column: 1; position: sticky; top: calc(var(--header-h) + 1.25rem); }
+  #page-track > :not(.module-rail) { grid-column: 2; }
+  /* In a 19rem rail the counters stack rather than sitting three abreast. */
+  #page-track > .module-rail .stats-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+  #page-track > .module-rail .stat { padding: 0.65rem 0.5rem; }
+  #page-track > .module-rail .stat .value { font-size: 1.15rem; }
+  /* Two tabs do not need a thousand pixels, and the strip was leaving a
+     dead band under itself at full width. */
+  #page-track > .odyssey-tabs { max-width: 26rem; margin-bottom: 1.25rem; }
+}

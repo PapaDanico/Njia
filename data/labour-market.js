@@ -939,6 +939,42 @@ const SKILLS_MISMATCH = {
  *
  * The 55,000 figure is NITA's own placement throughput, not the number of
  * places available on demand — stated as scale, never as a guarantee. */
+/* AVIATION, AND THE ONE NUMBER THAT DECIDES IT.
+ *
+ * Aviation is the sector young Kenyans ask about most and get told least about
+ * honestly. KCAA approves 28 training organisations and republishes the list
+ * twice a year, and most of them are flight schools clustered at Wilson
+ * Airport. A learner reading "28 approved schools" reasonably concludes the
+ * door is wide open.
+ *
+ * It is, but not at the price they are imagining. A private pilot licence runs
+ * roughly Ksh 1.7-2.0 million and the commercial licence adds about 4.5-5.5
+ * million on top, so the combined route lands near Ksh 6.5 million before
+ * medicals, KCAA charges, exams, equipment and extra hours. That is not a
+ * course fee, it is a mortgage, and no HELB product covers it.
+ *
+ * Njia therefore does not list pilot training as a catalogue course. Putting a
+ * six-million-shilling licence in the same filtered list as a Ksh 67,189
+ * certificate, sorted by "best match", would be a lie told by layout. What
+ * belongs in the catalogue is the rest of aviation — maintenance engineering,
+ * air traffic control, flight dispatch, cargo, security, ground handling and
+ * cabin crew — which is where the jobs actually are and which costs a fraction
+ * as much. Those records are in data/courses.js at EASA, Kenya Aeronautical
+ * College and KQ Pride Centre.
+ *
+ * The point of this record is to let a reader want to fly and still see the
+ * number before they build a life around it. */
+const AVIATION_TRAINING = {
+  source: 'KCAA register of Approved Training Organisations, republished twice yearly; Kenyan flight-school fee schedules cross-reported 2026',
+  approvedSchools: 28,
+  theRegister: 'KCAA publishes its list of Approved Training Organisations twice a year. Check any school against that list before you pay anything — approval is the difference between a licence and a receipt.',
+  whereTheyAre: 'Most sit at Wilson Airport in Nairobi, with others at Embakasi, Malindi, Mombasa, Nanyuki and Nyahururu.',
+  pilotCost: 'A private pilot licence costs roughly Ksh 1.7-2.0 million. The commercial licence adds about Ksh 4.5-5.5 million on top — around Ksh 6.5 million combined, before medicals, KCAA fees, exams, equipment and any extra flight hours.',
+  theHonestPart: 'No student loan product in Kenya covers pilot training. Almost everyone who completes it is funded by family, a sponsor or an airline cadet scheme, and cadet places are few and heavily contested.',
+  theOtherDoors: 'Aviation is not only pilots. Aircraft maintenance engineering, air traffic control, flight dispatch, air cargo, aviation security, ground handling and cabin crew are all licensed aviation careers, all trained in Kenya, and all cost a small fraction of a licence. Several accept a D+.',
+  clusters: ['maker', 'tech', 'business', 'people']
+};
+
 const ATTACHMENT = {
   source: 'National Industrial Training Authority (NITA) industrial attachment scheme and Kenyan TVET/university programme requirements, cross-reported August 2026',
   isMandatory: 'Industrial attachment is a mandatory component of most university and TVET programmes in Kenya — not an optional extra you can decide against later.',
@@ -949,6 +985,20 @@ const ATTACHMENT = {
   theAdvice: 'Register in your first year, not the term the attachment is due. It costs nothing, and it converts a scramble into a queue you are already in.',
   whyItCompounds: 'Attachment is often the first real entry to the labour market, and a share of students are eventually hired by the organisation that took them. It is the cheapest experience you will ever acquire, and it is already built into your course.',
   honestLimit: 'The supply of quality places has not kept pace with enrolment, which is why the State Department for TVET is now pushing to bring industry into institutions rather than send every student out. Plan for the search to be real work.',
+  /* Named hosts, added because research organisations kept being mistaken for
+   * training colleges. KALRO and ILRI do not teach courses you apply to with a
+   * KCSE grade — they host students who are already enrolled somewhere else.
+   * Listing them in the course catalogue would have been a category error: a
+   * learner filtering by level, entry grade and fee would have been shown a
+   * research placement where none of those three fields mean anything. They
+   * belong here, next to the requirement they actually satisfy. */
+  namedHosts: [
+    { name: 'ILRI (International Livestock Research Institute)', what: 'The only one of the 15 CGIAR centres devoted entirely to livestock research, based in Nairobi. Internships run up to about six months and carry a stipend and insurance.', openTo: 'Undergraduates with at least one full semester left, and — through partner arrangements — diploma, certificate and even senior secondary students. Worth reading twice if you assumed research was closed to you.' },
+    { name: 'KALRO (Kenya Agricultural and Livestock Research Organisation)', what: 'Kenya\'s national agricultural research body, running an annual internship intake across its institutes and centres countrywide.', openTo: 'Students and recent graduates in agriculture, livestock, food science and related fields. Agriculture is the largest employer in the country and the thinnest sector in this catalogue, so this is one of the few doors into it that does not require a fee.' },
+    { name: 'Kenya Power', what: 'One of the largest structured public-sector attachment programmes, with fixed application cycles.', openTo: 'Engineering, finance, business, procurement, human resource and environmental science students at university and TVET level.' },
+    { name: 'KRA (Kenya Revenue Authority)', what: 'Advertises its own industrial attachment intake by discipline, separately from the NITA portal.', openTo: 'University and TVET students across tax, customs, ICT, finance and administration disciplines.' }
+  ],
+  hostsCaveat: 'These are placements, not courses. You cannot enrol at KALRO or ILRI the way you enrol at a polytechnic — you apply while already studying somewhere, usually one to three months before the attachment period, and you compete for the place.',
   clusters: ['tech', 'business', 'creator', 'carer', 'people', 'numbers']
 };
 
@@ -1013,5 +1063,5 @@ const TEACHER_LABOUR_MARKET = {
 };
 
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, ATTACHMENT, LABOUR_MOBILITY, ENTERPRISE_CAPITAL, TEACHER_LABOUR_MARKET };
+  module.exports = { SECTOR_EARNINGS, LABOUR_MARKET_ANCHORS, YOUTH_EMPLOYMENT_MEASURES, FUTURE_OF_WORK, KENYA_DEMAND_SIGNALS, SKILLS_MISMATCH, AUTOMATION_EXPOSURE, METHOD_LINEAGE, EDUCATION_PIPELINE, AFRICA_OUTLOOK, INFORMAL_ECONOMY, SKILLED_TRADES, ABSORPTION_GAP, DIGITAL_WORK, MINIMUM_WAGE, ENTRY_PAY, LOAN_REALITY, CBE_PATHWAYS, PLACEMENT_CALENDAR, PLACEMENT_MECHANICS, COMPETITION_REALITY, PRIOR_LEARNING, AVIATION_TRAINING, ATTACHMENT, LABOUR_MOBILITY, ENTERPRISE_CAPITAL, TEACHER_LABOUR_MARKET };
 }

@@ -174,6 +174,62 @@ function getEffectiveGrade() {
   return bucket ? GRADE_BUCKET_DEFAULT[bucket] || null : null;
 }
 
+
+/* Precomputed once at load, not per render.
+ *
+ * The first cut ran INSTITUTIONS.find() inside a COURSES.filter() — 418 x 129
+ * lookups every time the Decide page drew, which is the kind of thing that
+ * costs nothing in a test and shows up as a five-point Lighthouse drop. It did:
+ * 98 to 93, well outside this site's 96-99 noise band, which is the whole
+ * reason that band is worth knowing.
+ *
+ * INSTITUTIONS and COURSES are static for the life of the page, so the county
+ * index is built once. */
+const COURSES_BY_COUNTY = (() => {
+  const instCounty = new Map(INSTITUTIONS.map((i) => [i.id, i.county]));
+  const map = new Map();
+  for (const c of COURSES) {
+    const county = instCounty.get(c.institution_id);
+    if (!county) continue;
+    if (!map.has(county)) map.set(county, []);
+    map.get(county).push(c);
+  }
+  return map;
+})();
+
+/* WHEN A COUNTY LOOKS EMPTY, SAY WHOSE FAULT THAT IS.
+ *
+ * An audit of cluster spread found 28 counties where a learner sees exactly one
+ * kind of work, and in 24 of them that is a single KMTC campus offering two
+ * health courses. A reader in Turkana filtering to their county gets two
+ * nursing results and reasonably concludes there is nothing for them at home.
+ *
+ * That conclusion is wrong, and Njia was causing it. TVETA's register lists
+ * roughly 2,368 accredited institutions across four tiers, and this very page
+ * tells readers placement runs across 251 public colleges. Njia lists a
+ * fraction of either.
+ *
+ * The honest move is not to pad the catalogue with programme lists nobody has
+ * verified — that is how twelve degrees came to be priced at Ksh 420,000 — but
+ * to put the limit on screen exactly where the short result appears, and name
+ * the tier most likely to be within walking distance. A VTC is community-level
+ * and takes artisan entrants; that is the one a reader with an E and no bus
+ * fare needs to know exists. */
+function countyThinnessNotice() {
+  const county = AppState.decideFilters.county;
+  if (!county || county === 'all') return '';
+  const inCounty = COURSES_BY_COUNTY.get(county) || [];
+  if (inCounty.length === 0) return '';
+  if (new Set(inCounty.map((c) => c.cluster)).size > 1) return '';
+  return `
+    <div class="data-disclaimer data-disclaimer-open mb-2">
+      <span aria-hidden="true">↗</span>
+      <span><strong>This is Njia's limit, not ${escapeHtml(county)}'s.</strong> Njia lists ${inCounty.length} course${inCounty.length === 1 ? '' : 's'} in ${escapeHtml(county)}, all in one field. Kenya has roughly <strong class="num">2,368</strong> accredited training institutions, and TVET placement runs across 251 public colleges — so a short list here is a gap in this catalogue, not a shortage where you live.
+      <br><strong>Look for these four, nearest first.</strong> A <em>vocational training centre</em> is community-level and takes artisan entrants, so it is the likeliest to be within reach and the likeliest to accept any KCSE grade. A <em>technical and vocational college</em> is county-level, running craft and diploma courses. A <em>technical training institute</em> runs certificates and diplomas. A <em>national polytechnic</em> is the top tier — there are 34 in the country.
+      <br>Search the <a href="https://tveta.go.ke/accredited-tvet-institutions/" target="_blank" rel="noopener noreferrer">TVETA register of accredited institutions</a> for ${escapeHtml(county)}, then check the KUCCPS portal for what they are placing into this cycle.</span>
+    </div>`;
+}
+
 function renderDecidePage() {
   const el = document.getElementById('page-decide');
   if (!el) return;
@@ -674,6 +730,22 @@ function renderCourseMatcher(container) {
 
     <div class="decide-results">
       <p class="decide-count"><strong class="num">${filtered.length}</strong> of <span class="num">${COURSES.length}</span> places to apply match your filters${gradeOpenPct != null ? ` · your grade opens <strong class="num">${gradeOpenPct}%</strong> of them` : ''}</p>
+      ${/* WHEN A COUNTY LOOKS EMPTY, SAY WHOSE FAULT THAT IS.
+           *
+           * An audit of cluster spread found 28 counties where a learner sees
+           * exactly one kind of work — and in 24 of them that is a single KMTC
+           * campus offering two health courses. A reader in Turkana filtering to
+           * their county gets two nursing results and reasonably concludes there
+           * is nothing for them at home.
+           *
+           * That conclusion is wrong, and Njia was causing it. TVETA registers
+           * public colleges in every county and this very page tells readers
+           * placement runs across 251 of them. Njia lists a fraction. The honest
+           * move is not to pad the catalogue with programme lists nobody has
+           * verified — that is how the Ksh 420,000 placeholder happened — but to
+           * put the limit on screen where the empty result is, and point at the
+           * two registries that hold what Njia does not. */''}
+      ${countyThinnessNotice()}
       ${filtered.length === 0
         ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
         : `<p class="decide-caveat text-muted text-sm">Cost-of-attendance totals below are illustrative and vary by town — plan against them, don't rely on them.</p>

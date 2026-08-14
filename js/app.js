@@ -879,9 +879,17 @@ function renderHomePage() {
                It now IS the brand column. The height is free — the Learn column
                beside it runs six links deep and sets the row height regardless —
                and the duplicate blurb is gone rather than reworded. */''}
+          ${/* SECOND CUT, AND THE PARAGRAPH WAS ALWAYS A DUPLICATE.
+               The footer carried an 85-word About paragraph — seven lines on
+               desktop and eleven on a phone — saying in shorter words what the
+               About modal two clicks away already says at length, with the
+               research basis and the funding position attached. Two copies of
+               the same text, and the worse one was the one taking the space.
+               A line that says what Njia is and is not, and a link to the copy
+               that goes further. */''}
           <div class="landing-footer-brand">
             <div class="flex items-center gap-1"><svg class="logo-mark" viewBox="0 0 64 96" width="19" height="28" aria-hidden="true"><use href="#i-njia"/></svg><strong style="color:#F5E9D4">Njia</strong></div>
-            <p>An independent, free career-pathway tool for Kenyan youth — unaffiliated with KUCCPS, HELB or any institution. It fuses career psychology, life design and life-portfolio planning with real Kenyan course, fee and funding data, and computes everything on your device. Institution and funder names appear because they are real public bodies, not because of any partnership.</p>
+            <p>Free career-pathway guidance for Kenyan youth. Independent — unaffiliated with KUCCPS, HELB or any institution — and everything computes on your device. <button type="button" class="footer-inline-link" onclick="openAboutModal()">Read more about Njia</button></p>
           </div>
           <div class="landing-footer-col">
             <p class="footer-col-label">Modules</p>
@@ -892,7 +900,11 @@ function renderHomePage() {
             <button type="button" onclick="navigateTo('help')">Help, tutorials &amp; glossary</button>
             <button type="button" onclick="openFaqModal()">Quick FAQ</button>
             <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
-            <button type="button" onclick="openAboutModal()">About Njia</button>
+            ${/* "About Njia" stood here and now lives in the brand paragraph
+                 above, so listing it again made this the only six-deep column
+                 — and a grid row is as tall as its tallest column, so one
+                 duplicate link was costing 48px of footer on every screen.
+                 The three columns are 5, 5 and 4 now rather than 5, 6 and 4. */''}
             <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
             <a href="https://helb.co.ke" target="_blank" rel="noopener noreferrer">HELB ↗</a>
           </div>
@@ -929,7 +941,13 @@ function renderHomePage() {
              about a third of the width it was given. One region, two columns,
              one rule. */''}
         <div class="landing-footer-legal">
-          <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025 · KNBS Economic Survey 2026. Fees and funding terms are cross-checked against named, dated sources where the badge says so; Decide names all five provenance groups and what each is worth. No course here carries an employment rate or a salary: Kenya publishes no graduate outcomes per course, so rather than print an estimate Njia prints nothing. See Methodology.</p>
+          ${/* Trimmed from 74 words to 38. The two claims that have to survive
+               are the source list, which is what makes the figures checkable,
+               and the refusal to print employment rates, which is the single
+               most load-bearing thing Njia says about itself. Everything else
+               here restated what the Decide page already explains beside the
+               badges it is describing. */''}
+          <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong> — Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. Decide names all five fee-provenance groups; see Methodology for the rest.</p>
           <div class="landing-footer-bottom">
             <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
           </div>

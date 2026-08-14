@@ -2148,7 +2148,10 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-footer {
   background: var(--landing-dark);
   color: #DDCCAE;
-  padding: clamp(2rem, 3vw, 2.75rem) 1.25rem 1.5rem;
+  /* Trimmed from clamp(2rem, 3vw, 2.75rem). At 1440 that was 43px of dead
+   * space above a footer this pass has been cutting from every other
+   * direction. */
+  padding: clamp(1.5rem, 2.2vw, 2rem) 1.25rem 1.5rem;
 }
 /* TWO COLUMNS FROM THE NARROWEST PHONE, NOT FROM 480px.
  *
@@ -2162,7 +2165,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * wraps to two lines and stays legible, which costs a line and saves a screen.
  * The tap targets are untouched — this changes how the lists are arranged, not
  * how big anything is to hit. */
-.landing-footer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; margin-bottom: 1.75rem; }
+.landing-footer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; margin-bottom: 1.25rem; }
 .landing-footer-brand { grid-column: 1 / -1; }
 /* Three lists in two columns leaves the third one alone on its own row with
  * the right half blank — the same waste this whole pass is about, just moved
@@ -2176,7 +2179,17 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   column-gap: 1rem;
   align-content: start;
 }
-.landing-footer-brand p { font-size: 0.85rem; color: #C9B693; margin-top: 0.5rem; max-width: 32ch; line-height: 1.65; }
+.landing-footer-brand p { font-size: 0.85rem; color: #C9B693; margin-top: 0.5rem; max-width: 40ch; line-height: 1.6; }
+/* An inline link that happens to be a button, because it opens a modal rather
+ * than navigating. Styled as text so the sentence reads as a sentence — but it
+ * still needs a real hit area, so the padding is vertical and negative-margined
+ * back out rather than pushing the line apart. */
+.footer-inline-link {
+  background: none; border: none; padding: 0.4rem 0; margin: -0.4rem 0;
+  font: inherit; color: #E8D8BA; text-decoration: underline;
+  text-underline-offset: 2px; cursor: pointer;
+}
+.footer-inline-link:hover { color: #F5E9D4; }
 .landing-footer-col .footer-col-label {
   font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;
   color: #C9B693; margin-bottom: 0.75rem;

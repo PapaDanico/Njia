@@ -297,10 +297,48 @@ const FEE_BASES = ['published', 'derived', 'illustrative', 'unpublished', 'unsou
 const GRADE_ORDER = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
 const gradeRank = (g) => (g == null ? GRADE_ORDER.length : GRADE_ORDER.indexOf(g));
 
-/* Where it stood when the ratchet went on: four counties fixed (Turkana, West
- * Pokot, Mandera, Marsabit), thirty-three still blind. Lower this number when
- * you close more; a test that only ever gets weaker is not a guard. */
-const E_GRADE_BLIND_COUNTIES = 33;
+/* Where it stands. Four counties were closed by listing county technical
+ * provision that had never been in the catalogue (Turkana, West Pokot,
+ * Mandera, Marsabit); two more by correcting entry grades that were recorded a
+ * tier too high at institutions already listed (Kisumu, Uasin Gishu). Lower
+ * this number when you close more; a test that only ever gets weaker is not a
+ * guard. */
+const E_GRADE_BLIND_COUNTIES = 31;
+
+/* UNDER-CLAIM ON A FIGURE. NEVER ON AN ELIGIBILITY.
+ *
+ * Sixteen artisan records at Kisumu and Eldoret national polytechnics carried
+ * a minimum of D. That was not an error — the notes said so explicitly, and
+ * gave the reasoning: published requirements conflicted, so the more
+ * restrictive figure was recorded "rather than the one that would flatter
+ * eligibility". The instinct is this project\'s own and it is usually right.
+ *
+ * It is backwards for this field. Quoting a FEE high leaves a reader
+ * pleasantly surprised. Quoting a GRADE high removes the card from their
+ * screen altogether, so the learner never discovers the course exists and
+ * cannot even ring up to ask. The conservative direction on money is the
+ * exclusionary direction on eligibility, and it was hiding two national
+ * polytechnics from the readers with the fewest options.
+ *
+ * E is the KUCCPS national floor for artisan (Level 4) placement, so no
+ * artisan record should sit above it by more than the D- some institutions
+ * publish. Where sources genuinely conflict, show the course and say so in
+ * the note — a reader told to confirm keeps their agency; a reader shown
+ * nothing does not.
+ */
+test('no artisan course is recorded above the national artisan entry floor', () => {
+  const ALLOWED = new Set(['E', 'D-', null, undefined]);
+  const tooHigh = COURSES
+    .filter((c) => c.level === 'artisan' && !ALLOWED.has(c.min_grade))
+    .map((c) => `${c.id} (${c.min_grade}) ${c.name}`);
+
+  assert.equal(tooHigh.length, 0,
+    'these artisan courses require better than the KUCCPS national artisan floor of E, and '
+    + 'the few institutions that publish a floor at all publish D- at most: '
+    + `${tooHigh.join('; ')}. A grade recorded too high does not under-claim — it removes the `
+    + 'card from the screen of the learner least likely to have another option. If a source '
+    + 'genuinely says otherwise, show the course at E and put the conflict in the note.');
+});
 
 test('no new county leaves its lowest-scoring learners with nothing', () => {
   const county = new Map(INSTITUTIONS.map((i) => [i.id, i.county]));
@@ -325,7 +363,7 @@ test('no new county leaves its lowest-scoring learners with nothing', () => {
   /* The four that were closed must stay closed. Naming them means a future
    * edit that quietly drops their artisan provision fails here rather than
    * hiding inside an aggregate that still looks fine. */
-  for (const fixed of ['Turkana', 'West Pokot', 'Mandera', 'Marsabit']) {
+  for (const fixed of ['Turkana', 'West Pokot', 'Mandera', 'Marsabit', 'Kisumu', 'Uasin Gishu']) {
     assert.ok(!blind.includes(fixed),
       `${fixed} has gone back to showing an E-grade learner nothing. It was closed `
       + 'deliberately with sourced county technical provision — do not remove it without '

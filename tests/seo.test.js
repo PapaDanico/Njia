@@ -37,7 +37,7 @@ test('every county with courses has a generated page, and no page is an orphan',
   const missing = counties.filter((c) => !fs.existsSync(path.join(countiesDir, slug(c), 'index.html')));
   assert.deepEqual(missing, [],
     `these counties have courses but no page: ${missing.join(', ')}. `
-    + 'Run `node tools/build-county-pages.mjs`.');
+    + 'Run `node tools/build-static-pages.mjs`.');
 
   const onDisk = fs.readdirSync(countiesDir, { withFileTypes: true })
     .filter((d) => d.isDirectory()).map((d) => d.name).sort();
@@ -61,7 +61,7 @@ test('county pages are rebuilt when the catalogue changes', () => {
     .slice(0, 6);
   assert.deepEqual(stale, [],
     `these county pages are older than the data they describe: ${stale.join(', ')}${stale.length === 6 ? ' …' : ''}. `
-    + 'Run `node tools/build-county-pages.mjs`.');
+    + 'Run `node tools/build-static-pages.mjs`.');
 });
 
 test('each county page carries that county\'s real courses, not a stub', () => {
@@ -103,10 +103,112 @@ test('a county that fails its lowest-scoring learners says so on the page', () =
   }
 });
 
+
+/* GRADE PAGES — same rules, plus the one that only applies to them.
+ *
+ * "What can I do with a D+?" is the question this audience actually types, and
+ * the pages exist to answer it. The failure mode is different from the county
+ * pages: a page per grade for A, A-, B+ and B would each list 429-436 of 436
+ * courses, which is the same page four times. That is duplicate content and
+ * the doorway pattern by another route, so pages are only generated where the
+ * grade genuinely narrows the catalogue.
+ */
+const GRADE_SLUG = {
+  'C+': 'c-plus', C: 'c-plain', 'C-': 'c-minus',
+  'D+': 'd-plus', D: 'd-plain', 'D-': 'd-minus', E: 'e'
+};
+const GRADE_PAGE_MAX_SHARE = 0.85;
+const gradesDir = path.join(root, 'grades');
+const ORDER = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
+const gradeRank = (g) => (g == null ? ORDER.length : ORDER.indexOf(g));
+const reachableAt = (g) => COURSES.filter((c) => gradeRank(g) <= gradeRank(c.min_grade));
+
+test('a grade page exists exactly where the grade narrows the catalogue', () => {
+  for (const [grade, dir] of Object.entries(GRADE_SLUG)) {
+    const share = reachableAt(grade).length / COURSES.length;
+    const exists = fs.existsSync(path.join(gradesDir, dir, 'index.html'));
+    if (share > GRADE_PAGE_MAX_SHARE) {
+      assert.ok(!exists,
+        `a page exists for ${grade}, which reaches ${Math.round(share * 100)}% of the catalogue. `
+        + 'That is near-identical to the full list and to every other high grade — duplicate '
+        + 'content, which is the doorway pattern the county pages were built to avoid.');
+    } else {
+      assert.ok(exists,
+        `${grade} reaches only ${Math.round(share * 100)}% of the catalogue but has no page. `
+        + 'Run `node tools/build-static-pages.mjs`.');
+    }
+  }
+  assert.ok(fs.existsSync(path.join(gradesDir, 'index.html')), 'the grades index is missing');
+});
+
+test('each grade page lists only courses that grade can actually enter', () => {
+  /* The whole promise of the page. One course above the reader's grade on a
+   * page titled "courses you can do with a D" is the same betrayal as an
+   * invented fee: it looks like an answer and it is not. */
+  const instById2 = new Map(INSTITUTIONS.map((i) => [i.id, i]));
+  for (const [grade, dir] of Object.entries(GRADE_SLUG)) {
+    const file = path.join(gradesDir, dir, 'index.html');
+    if (!fs.existsSync(file)) continue;
+    const html = fs.readFileSync(file, 'utf8');
+
+    /* Matched on the ROW, not the course name. Five institutions run a
+     * "Bachelor of Science in Nursing" at B, B, C, C+ and C+; a name-only
+     * check flagged the C page for listing the B ones when it was correctly
+     * listing only the C one. The identity of a course here is
+     * (name, institution), which is what the row carries. */
+    const rows = [...html.matchAll(/<tr>([\s\S]*?)<\/tr>/g)].map((m) => m[1]);
+    const listed = (c) => {
+      const i = instById2.get(c.institution_id);
+      const name = c.name.replace(/&/g, '&amp;');
+      const who = i.name.replace(/&/g, '&amp;');
+      return rows.some((r) => r.includes(`>${name}</th>`) && r.includes(`>${who}</td>`));
+    };
+
+    const unreachable = COURSES
+      .filter((c) => gradeRank(grade) > gradeRank(c.min_grade))
+      .filter((c) => instById2.get(c.institution_id))
+      .filter(listed);
+    assert.deepEqual(unreachable.map((c) => `${c.id} (${c.min_grade})`), [],
+      `the ${grade} page lists courses a ${grade} learner cannot enter`);
+
+    const expected = reachableAt(grade).filter((c) => instById2.get(c.institution_id));
+    const missing = expected.filter((c) => !listed(c)).map((c) => c.id);
+    assert.deepEqual(missing, [], `the ${grade} page is missing courses it should list: ${missing.join(', ')}`);
+  }
+});
+
+test('grade pages are rebuilt when the catalogue changes', () => {
+  const newest = Math.max(
+    fs.statSync(path.join(root, 'data', 'courses.js')).mtimeMs,
+    fs.statSync(path.join(root, 'data', 'institutions.js')).mtimeMs
+  );
+  const stale = Object.values(GRADE_SLUG)
+    .filter((d) => fs.existsSync(path.join(gradesDir, d, 'index.html')))
+    .filter((d) => fs.statSync(path.join(gradesDir, d, 'index.html')).mtimeMs < newest);
+  assert.deepEqual(stale, [],
+    `these grade pages are older than the data they describe: ${stale.join(', ')}. `
+    + 'Run `node tools/build-static-pages.mjs`.');
+});
+
+test('every grade page tells the reader TVET takes any grade', () => {
+  /* The single most useful fact for someone who scored badly, and the reason
+   * a low grade is not the end of the cycle. It belongs on the page they land
+   * on, not three clicks into the app. */
+  for (const dir of Object.values(GRADE_SLUG)) {
+    const file = path.join(gradesDir, dir, 'index.html');
+    if (!fs.existsSync(file)) continue;
+    const html = fs.readFileSync(file, 'utf8');
+    assert.match(html, /any KCSE grade, A to E/,
+      `the ${dir} page does not tell the reader TVET placement accepts any grade`);
+    assert.match(html, /2000 onward/,
+      `the ${dir} page does not say the door is open to earlier KCSE cohorts`);
+  }
+});
+
 test('the sitemap is generated from the pages that exist', () => {
   const xml = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
-  assert.match(xml, /GENERATED by tools\/build-county-pages\.mjs/,
-    'sitemap.xml has been hand-edited again — 49 URLs maintained by hand is a list that goes stale');
+  assert.match(xml, /GENERATED by tools\/build-static-pages\.mjs/,
+    'sitemap.xml has been hand-edited again — 56 URLs maintained by hand is a list that goes stale');
 
   for (const county of counties) {
     assert.ok(xml.includes(`/counties/${slug(county)}/`),
@@ -114,6 +216,11 @@ test('the sitemap is generated from the pages that exist', () => {
   }
   assert.ok(xml.includes('<loc>https://njiacareerpathways.work/</loc>'),
     'the sitemap no longer lists the app itself');
+  assert.ok(xml.includes('/grades/'), 'the sitemap does not list the grade pages');
+  for (const [grade, dir] of Object.entries(GRADE_SLUG)) {
+    if (!fs.existsSync(path.join(gradesDir, dir, 'index.html'))) continue;
+    assert.ok(xml.includes(`/grades/${dir}/`), `sitemap.xml does not list the ${grade} page`);
+  }
 
   const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
   assert.equal(new Set(locs).size, locs.length, 'the sitemap lists a URL twice');
@@ -139,6 +246,8 @@ test('county pages load their assets from whatever host serves them', () => {
 
 test('the app links to the county pages, so they are not an island', () => {
   const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  assert.match(index, /\/grades\//,
+    'nothing in the app links to /grades/, which leaves the grade pages unlinked to a crawler');
   assert.match(index, /\/counties\//,
     'nothing in the app links to /counties/, which leaves 48 pages with no internal links — '
     + 'the pattern search engines read as a doorway farm rather than part of the site');

@@ -281,6 +281,40 @@ const INSTITUTIONS = [
    * reachable from here, so every record carries no figure rather than a
    * guessed one. */
   { id: 'umma', name: 'Umma University', ownership: 'private', type: 'university', location: 'Kajiado (Nairobi–Namanga highway), with a Thika campus', county: 'Kajiado', accreditation: 'CUE Chartered · KUCCPS-approved · the first Islamic chartered university in Kenya', website: 'https://umma.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'private_own_rate' },
+  /* THE ROUTE THE REGISTER SAID DID NOT EXIST.
+   *
+   * tests/sector-register.js declared the ICT gap as "no route covers the
+   * online and platform work that is actually absorbing young Kenyans...
+   * because none of it has a formal awarded qualification to point at". The
+   * second half of that was true and the first half was not: Ajira Digital is
+   * a government programme run by the ICT Authority, with free walk-in youth
+   * empowerment centres at county level and clubs inside universities and TVET
+   * institutions, and it is aimed squarely at the gig and freelancing work the
+   * register said Njia could not show anyone.
+   *
+   * It matters most to exactly the reader this catalogue serves worst: no
+   * grade requirement, no fee, and available without relocating. Leaving it out
+   * because it does not award a KNQF qualification was letting a filing rule
+   * decide what a jobless nineteen-year-old gets told about.
+   *
+   * County is set to Nairobi because that is where the ICT Authority sits, but
+   * the centres are national — the course records say so, since a county field
+   * cannot. */
+  { id: 'ajira', name: 'Ajira Digital Programme (ICT Authority)', ownership: 'public', type: 'tvet', location: 'Youth Empowerment Centres in counties nationwide, plus clubs in universities and TVET institutes', county: 'Nairobi', accreditation: 'Government programme of the ICT Authority, Ministry of ICT · issues a programme certificate, NOT a KNQF-awarded qualification', website: 'https://ajiradigital.go.ke', modes: ['full_time', 'online'], has_workstudy: false, has_hostel: false, fee_regime: 'parastatal_own_rate' },
+  /* KESRA's coastal campus. The register declared clearing and forwarding "a
+   * real coastal employer, not covered at all", and the licence that governs it
+   * is taught at Mombasa as well as Nairobi — listing only Nairobi would send a
+   * Mombasa learner across the country for a course running down the road. */
+  { id: 'kesra_mombasa', name: 'Kenya School of Revenue Administration (KESRA) — Mombasa Campus', ownership: 'public', type: 'tvet', location: 'Mombasa', county: 'Mombasa', accreditation: 'Kenya Revenue Authority training school · KASNEB and WCO accredited', website: 'https://kesra.ac.ke', modes: ['full_time', 'evening'], has_workstudy: false, has_hostel: false, fee_regime: 'parastatal_own_rate' },
+  /* The insurance route, and one of the lowest entry bars in the catalogue.
+   *
+   * The register declared the finance gap as "a learner without a C+ has no
+   * numerate route above certificate level except accountancy". The College of
+   * Insurance answers part of that: its Certificate of Proficiency takes a D-,
+   * which is lower than almost anything else here that leads to a professional
+   * body, and the certificate ladders into a Kenyan diploma and then the London
+   * CII qualifications. */
+  { id: 'coi', name: 'College of Insurance', ownership: 'private', type: 'college', location: 'Red Cross Road, South C, Nairobi', county: 'Nairobi', accreditation: 'Established 1990 · the insurance industry\'s own training college for East and Central Africa · pathway to Kenyan and London (CII) insurance qualifications', website: 'https://coi.ac.ke', modes: ['full_time', 'evening'], has_workstudy: false, has_hostel: false, fee_regime: 'private_own_rate' },
   { id: 'uzima', name: 'Uzima University', ownership: 'private', type: 'university', location: 'Kisumu', county: 'Kisumu', accreditation: 'CUE accredited · CUEA-affiliated · Clinical Officers Council accredited · founded by the Archdiocese of Kisumu', website: 'https://uzimauniversity.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'private_own_rate' },
 ];
 

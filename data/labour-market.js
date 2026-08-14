@@ -484,6 +484,95 @@ const UNIVERSITY_FUNDING_TRANSITION = {
   clusters: ['carer', 'maker', 'creator', 'business', 'tech', 'people', 'numbers']
 };
 
+/* INSTITUTIONS A READER MAY HAVE HEARD OF, AND WHY THEY ARE NOT IN THE CATALOGUE.
+ *
+ * Njia lists places a school-leaver can actually apply to. Several well-known
+ * Kenyan institutions do not meet that test, and quietly omitting them looks
+ * identical to not knowing they exist — the same failure the sector register
+ * was built to stop. A reader who has heard of these deserves to know they were
+ * considered and why they are absent, because "I could not find it on Njia" and
+ * "I cannot get into it from school" are very different answers.
+ *
+ * Each entry names the real barrier, not a vague one. If any of these opens an
+ * undergraduate or certificate route to the general public, it belongs in the
+ * catalogue and this record should shrink.
+ */
+const RESTRICTED_ENTRY_INSTITUTIONS = {
+  source: 'Institutional admissions material and Kenyan press reporting, cross-checked August 2026',
+  intro: 'These are real and well known. None of them is a route you can take straight from school, which is why you will not find them in Decide.',
+  institutions: [
+    {
+      name: 'Kenya School of Government (KSG)',
+      status: 'Open enrolment, but not for school-leavers',
+      why: 'KSG trains people who already hold a job. Its programmes are short in-service courses in public administration, policy and management, open to staff from national and county government, NGOs and private organisations. There is no undergraduate or certificate entry from KCSE. It is worth knowing about later, once you are working in the public service — not now.'
+    },
+    {
+      name: 'National Defence College / National Defence University-Kenya',
+      status: 'Senior officers and senior civil servants only',
+      why: 'The National Defence College prepares selected senior defence officers and equivalent senior civil servants for higher command. You do not apply; you are selected, years into a career. Joining the military at all goes through Kenya Defence Forces recruitment, which is a separate process from KUCCPS and is announced by the KDF directly — watch their notices rather than a placement portal.'
+    },
+    {
+      name: 'National Intelligence and Research University (NIRU)',
+      status: 'Chartered, but postgraduate only for now',
+      why: 'NIRU was chartered in November 2024 as Kenya\'s second specialised university and the first on the continent dedicated to intelligence education. It currently runs master\'s programmes only, with a doctorate seeking accreditation. Entry also requires Kenyan citizenship, a clean criminal record and physical fitness standards. There is no school-leaver route today; if it opens undergraduate places, that changes.'
+    }
+  ],
+  whatToDoInstead: 'If public service, security or defence is the goal, the ordinary route is a relevant degree or diploma first — public administration, criminology, law, engineering, IT — and then recruitment or in-service selection. Decide lists those. Nobody enters these institutions straight from Form Four.',
+  clusters: ['people', 'numbers', 'business']
+};
+
+/* ONLINE LEARNING FROM OUTSIDE KENYA — what it is genuinely worth here.
+ *
+ * Readers ask about Coursera and edX, and the honest answer is more useful
+ * than the marketing. Three facts decide whether any of it is worth a Kenyan
+ * school-leaver's time and data bundle:
+ *
+ *   1. Almost all of it can be done free, but the free tier and the paid tier
+ *      are different products. Auditing gives you the material; it does not
+ *      give you the certificate.
+ *   2. None of it is a KNQF-recognised Kenyan qualification. It will not
+ *      ladder into a diploma and a Kenyan employer is not obliged to know what
+ *      it is. Its value is the skill and what you can show you built.
+ *   3. The free programmes with the strongest brands are explicit that they do
+ *      not guarantee a job. Anything promising placement should be read twice.
+ *
+ * Listed as a supplement, never as a substitute for a placed course. A learner
+ * who skips KUCCPS for a MOOC has swapped a qualification for a hobby.
+ */
+const ONLINE_LEARNING = {
+  source: 'Platform help documentation and Grow with Google/ALX programme material, cross-checked August 2026',
+  headline: 'You can learn almost anything online for nothing. What you usually cannot get for nothing is the certificate — and no certificate here is a Kenyan qualification.',
+  theKnqfPoint: 'None of these is recognised on the Kenya National Qualifications Framework. They do not ladder into a diploma and they do not substitute for a KUCCPS placement. Treat them as evidence of skill to show an employer alongside a Kenyan qualification, not instead of one.',
+  platforms: [
+    {
+      name: 'Coursera',
+      url: 'https://www.coursera.org',
+      free: 'Audit mode on most courses gives you the videos and readings free, without graded work or a certificate. Separately, Coursera runs Financial Aid: apply, and if approved you get the full paid course, graded work and certificate included, at no cost. It is open to Kenyan learners on the same terms as anywhere else.',
+      catch: 'Financial aid takes about a fortnight to review and is applied for per course, so plan ahead rather than the night before an intake closes.'
+    },
+    {
+      name: 'edX',
+      url: 'https://www.edx.org',
+      free: 'Where a course offers an audit track it is free and marked so on the enrolment page. You can start on audit and upgrade to the verified certificate later, provided the upgrade deadline has not passed.',
+      catch: 'Audit access to a course is often time-limited, and the deadline to upgrade can fall before you finish.'
+    },
+    {
+      name: 'Google Career Certificates',
+      url: 'https://grow.google/intl/ssa-en/google-career-certificates/',
+      free: 'Delivered through Coursera, in fields like IT support, data analytics, project management, UX and cybersecurity. Google has funded scholarships for African learners distributed through Grow with Google partners, and a scholarship covers the cost entirely.',
+      catch: 'Without a scholarship you pay Coursera\'s monthly subscription for as long as you take to finish, so a slow month costs real money. Finish briskly or apply for the scholarship first.'
+    },
+    {
+      name: 'ALX Africa',
+      url: 'https://www.alxafrica.com',
+      free: 'A free twelve-month programme with a Nairobi hub, built on peer learning and computer-science fundamentals rather than lectures. Strong recognition across the continent and a real alumni network.',
+      catch: 'ALX is explicit that there is no job guarantee and no placement commitment — graduates run their own job search. It is also genuinely full-time in effort; treating it as a side project is how people drop out.'
+    }
+  ],
+  howToUseThis: 'The strongest combination is a Kenyan qualification for the ladder and the paperwork, plus online work for the skill and the portfolio. If money is the binding constraint, start with Ajira Digital — it is free, it is in your county, and it is run by the government.',
+  clusters: ['tech', 'creator', 'business', 'numbers']
+};
+
 const LOAN_REALITY = {
   source: 'HELB published terms and repayment reporting; World Bank graduate transition data; cross-reported August 2026',
   interestRatePct: 4,

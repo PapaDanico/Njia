@@ -460,10 +460,30 @@ const ANNUAL_BANDS = {
   public_university: [0, 400000]
 };
 
+/* A course that is genuinely free, and says so with a source.
+ *
+ * The band check exists to catch an order-of-magnitude slip — a course total
+ * entered as an annual rate, or a figure with a zero missing. A deliberate 0
+ * is the opposite: it is the most precise fee in the catalogue. The Open
+ * University's free courses were handled by giving public_university a floor
+ * of 0, but that widens the band for every record on that regime, which is a
+ * blunter instrument than it looks.
+ *
+ * This is the narrow version: exactly 0, marked verified, with a note that
+ * asserts the price in words. A record cannot get here by leaving the fee
+ * field blank or by fat-fingering a figure — it has to claim, in a sourced
+ * sentence, that the thing costs nothing. Ajira Digital does, because the
+ * Government of Kenya runs it free of charge, and pricing that at 30,000 to
+ * satisfy a band would be a lie in the other direction. */
+const assertsItIsFree = (course) => course.total_fees_kes === 0
+  && course.fees_confidence === 'verified'
+  && /training is free|is free|free of charge|no fee is charged/i.test(course.verification_note || '');
+
 test('no fee implies an implausible year for its kind of institution', () => {
   for (const course of COURSES) {
     const inst = byId[course.institution_id];
     if (!inst || course.total_fees_kes == null) continue;
+    if (assertsItIsFree(course)) continue;
     const band = ANNUAL_BANDS[inst.fee_regime];
     assert.ok(band, `no annual band defined for fee regime '${inst.fee_regime}'`);
     const perYear = Math.round(course.total_fees_kes / (course.duration_months / 12));
@@ -481,4 +501,36 @@ test('every fee regime has an annual band, so none escapes the check', () => {
   for (const regime of FEE_REGIMES) {
     assert.ok(ANNUAL_BANDS[regime], `fee regime '${regime}' has no annual plausibility band`);
   }
+});
+
+test('a free course has to say it is free, in words, with a source', () => {
+  /* The exemption above is only safe if it cannot be reached by accident. A
+   * record priced at 0 with no explanation is a missing value wearing a
+   * precise-looking figure — which is the exact confusion feeBasis exists to
+   * prevent — so it must fail the band check rather than slip past it. */
+  const free = COURSES.filter((c) => c.total_fees_kes === 0);
+  assert.ok(free.length > 0, 'no free courses — this guard is stale');
+  for (const c of free) {
+    assert.equal(c.fees_confidence, 'verified',
+      `${c.id} is priced at 0 without claiming to have verified that. Free is a claim, not a blank.`);
+    assert.match(c.verification_note || '', /free/i,
+      `${c.id} is priced at 0 but its note never says the course is free. Say so, and say who says so.`);
+  }
+});
+
+test('a short course does not pretend to be a KNQF qualification', () => {
+  /* short_course was added rather than folding Ajira into 'certificate',
+   * because a free programme certificate and a KNEC-examined certificate are
+   * different objects and a learner planning a ladder needs to know which they
+   * are holding. That distinction is only worth having if the records carry
+   * it. */
+  const shorts = COURSES.filter((c) => c.level === 'short_course');
+  assert.ok(shorts.length > 0, 'no short courses — this guard is stale');
+  for (const c of shorts) {
+    assert.match(`${c.description} ${c.verification_note || ''}`, /not a KNQF|programme certificate/i,
+      `${c.id} is a short course but never tells the reader it does not award a KNQF qualification`);
+  }
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  assert.match(decide, /short_course: 'Short course'/,
+    'short_course has no label, so the level filter would show the raw key to readers');
 });

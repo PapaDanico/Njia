@@ -24,8 +24,17 @@ const GRADE_BUCKET_DEFAULT = { A: 'A-', B: 'B', C: 'C' };
  * the list means a level can never again exist in the catalogue but not in
  * the UI. LEVEL_ORDER only fixes the running order; a level missing from it
  * still appears, sorted to the end, rather than being dropped. */
-const LEVEL_ORDER = ['artisan', 'certificate', 'diploma', 'degree'];
-const LEVEL_LABELS = { artisan: 'Artisan', certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
+/* 'short_course' sits below artisan because it has the lowest entry bar of
+ * anything here: no grade at all.
+ *
+ * It exists rather than being folded into 'certificate' because Njia's whole
+ * argument is that categories should not be blurred. A free government skills
+ * programme that issues a completion certificate is a genuinely different
+ * object from a KNEC-examined certificate that ladders into a diploma, and
+ * putting them in one filter bucket would be the same class of mistake as a
+ * derived fee wearing a "published" badge. The filter says which is which. */
+const LEVEL_ORDER = ['short_course', 'artisan', 'certificate', 'diploma', 'degree'];
+const LEVEL_LABELS = { short_course: 'Short course', artisan: 'Artisan', certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
 const CATALOGUE_LEVELS = [...new Set(COURSES.map((c) => c.level))].sort((a, b) => {
   const rank = (l) => (LEVEL_ORDER.indexOf(l) === -1 ? Number.MAX_SAFE_INTEGER : LEVEL_ORDER.indexOf(l));
   return rank(a) - rank(b) || a.localeCompare(b);
@@ -231,6 +240,26 @@ function renderDecidePage() {
           <span aria-hidden="true">↗</span>
           <span><strong>If you left school years ago, the door did not close.</strong> TVET placement takes <strong>any KCSE grade, A to E</strong>, from anyone who sat the exam <strong>from 2000 onward</strong> — not just this year's candidates. Intake runs continuously rather than in one annual window, across 251 public colleges, and you may hold up to 4 TVET choices alongside 6 degree choices in the same cycle. <span class="text-muted">KUCCPS 2026 placement cycle.</span></span>
         </div>
+        ${/* ONLINE LEARNING, PLACED WHERE THE COMPARISON HAPPENS.
+             A reader weighing a Ksh 67,189 diploma against "I could just learn
+             it free on Coursera" is making a real comparison and deserves the
+             real answer: yes it is free, no it is not a Kenyan qualification,
+             and the free programme with the best brand says outright it will
+             not get you a job. Put anywhere else this reads as a tip; here it
+             reads as the caveat it is. */''}
+        ${typeof ONLINE_LEARNING !== 'undefined' ? `
+        <details class="inline-detail mt-1">
+          <summary>Could I just learn this free online instead? — Coursera, edX, Google, ALX</summary>
+          <p class="text-secondary text-sm mb-1">${escapeHtml(ONLINE_LEARNING.headline)}</p>
+          <p class="text-sm mb-1"><strong>The part that decides it.</strong> ${escapeHtml(ONLINE_LEARNING.theKnqfPoint)}</p>
+          <ul class="mt-1 mb-1">
+            ${ONLINE_LEARNING.platforms.map((pl) => `
+              <li class="text-secondary text-sm mb-1">• <strong><a href="${escapeHtml(pl.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(pl.name)} ↗</a></strong> — ${escapeHtml(pl.free)} <em>Catch:</em> ${escapeHtml(pl.catch)}</li>
+            `).join('')}
+          </ul>
+          <p class="text-sm mb-1"><strong>How to use this.</strong> ${escapeHtml(ONLINE_LEARNING.howToUseThis)}</p>
+          <p class="text-muted text-sm">${escapeHtml(ONLINE_LEARNING.source)}</p>
+        </details>` : ''}
       </div>
       <aside class="module-header-aside">
         <p class="decide-rail-title">Catalogue coverage</p>
@@ -1127,6 +1156,24 @@ function renderFundingFinder(container) {
         `).join('')}
       </div>
     </div>
+
+    ${/* Placed on the funding tab rather than the course list because it is a
+         reference note, not a result. A reader looking for the Kenya School of
+         Government in a course search finds nothing and concludes Njia's
+         catalogue is thin; this tells them it is not an omission, it is a door
+         that does not open from school. */''}
+    ${typeof RESTRICTED_ENTRY_INSTITUTIONS !== 'undefined' ? `
+    <details class="inline-detail mb-2">
+      <summary>Kenya School of Government, the Defence College, the Intelligence University — why these are not listed</summary>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(RESTRICTED_ENTRY_INSTITUTIONS.intro)}</p>
+      <ul class="mt-1 mb-1">
+        ${RESTRICTED_ENTRY_INSTITUTIONS.institutions.map((i) => `
+          <li class="text-secondary text-sm mb-1">• <strong>${escapeHtml(i.name)}</strong> — <em>${escapeHtml(i.status)}.</em> ${escapeHtml(i.why)}</li>
+        `).join('')}
+      </ul>
+      <p class="text-sm mb-1"><strong>What to do instead.</strong> ${escapeHtml(RESTRICTED_ENTRY_INSTITUTIONS.whatToDoInstead)}</p>
+      <p class="text-muted text-sm">${escapeHtml(RESTRICTED_ENTRY_INSTITUTIONS.source)}</p>
+    </details>` : ''}
 
     <div class="filter-row" aria-label="Filter by funding type">
       <select class="form-control" onchange="setFundingTypeFilter(this.value)" style="width:100%;max-width:220px">

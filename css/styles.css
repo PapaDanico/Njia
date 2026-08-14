@@ -2660,3 +2660,21 @@ p, li { text-wrap: pretty; }
   color: var(--text-secondary);
   font-weight: 500;
 }
+
+/* A countdown is a pressure device, and pressure aimed at the wrong person is
+ * just anxiety. The clock's dates are real for the degree track and bind
+ * nothing on the trades side, where intake runs continuously and any grade
+ * qualifies — so the card says which reader it is talking to. Sits inside the
+ * dark hero card, so the ink is the cream, not the body colour. */
+.landing-clock-note {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  margin: 0.75rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(245, 233, 212, 0.22);
+  /* The card sits on the dark hero and uses literal light values throughout
+   * (see .landing-clock-when above), not palette tokens — those flip with the
+   * colour scheme and would turn this text dark-on-dark in light mode. Matching
+   * the card's own convention rather than introducing a token it does not use. */
+  color: rgba(248, 250, 252, 0.92);
+}

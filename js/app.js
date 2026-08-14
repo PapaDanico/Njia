@@ -568,6 +568,9 @@ function renderApplicationClock() {
           </div>
         </div>
       `).join('')}
+      ${typeof PLACEMENT_MECHANICS !== 'undefined' && PLACEMENT_MECHANICS.tvetEligibility ? `
+        <p class="landing-clock-note">Counting down does not mean counting you out. <strong>TVET placement is continuous</strong> — any KCSE grade from A to E, from anyone who sat the exam from 2000 onward — so these dates gate the degree track, not the trades.</p>
+      ` : ''}
       <button type="button" class="landing-clock-btn" onclick="goToFundingTab()">Open all funding deadlines →</button>
     </div>
   `;

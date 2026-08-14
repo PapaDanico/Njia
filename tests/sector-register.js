@@ -172,8 +172,8 @@ const SECTORS = [
     awardingBodies: ['TVET CDACC', 'public universities'],
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
     match: /agri|farm|horticultur|animal|veterinar|food techn|fisher/i,
-    expect: 5,
-    gap: 'Badly under-sourced for a country where agriculture is the largest employer. Horticulture, dairy and agri-mechanisation all missing.',
+    expect: 15,
+    gap: 'Bukura publishes only its certificate fee, Baraka and Egerton publish nothing reachable, so most records here carry no figure. Aquaculture and agri-mechanisation are still unsourced.',
     source: 'TVET CDACC agriculture curricula'
   },
   {

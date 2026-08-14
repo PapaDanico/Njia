@@ -273,3 +273,67 @@ test('the unsourced state is surfaced rather than hidden', () => {
     'the unsourced badge must not use a tick — it is the opposite of a verification claim');
   assert.match(decide, /unsourcedCount/, 'the catalogue notice must report the unsourced count');
 });
+
+/* ---------- Bounded, even when uncited ----------
+ *
+ * 40 records state a precise fee with no citation. They are surfaced to readers
+ * as "Fee not confirmed" and capped by the test above so the count can only
+ * fall — but "we cannot cite it" and "we have not checked it is sane" are
+ * different admissions, and only the first is forced on us by a blocked network.
+ *
+ * Every one of those 40 was audited for internal plausibility: annual-equivalent
+ * cost against what its fee regime charges. All 40 passed. What follows turns
+ * that one-off audit into a standing bound, so a figure that implies an absurd
+ * year — a total mistaken for an annual rate, a digit dropped, a 5-year degree
+ * priced like a term — fails before it reaches a reader.
+ *
+ * The bands are calibrated from the shipped data with deliberate headroom, not
+ * invented. Measured annual-equivalents at the time of writing:
+ *
+ *   kmtc                 79,400 –  82,200   (a published national schedule)
+ *   ttc_consolidated     67,189 –  67,189   (one government rate)
+ *   tvet_consolidated    50,000 – 110,000
+ *   tourism_corporation  82,500 –  90,000
+ *   parastatal_own_rate  57,000 – 251,800
+ *   private_own_rate     52,500 – 470,000
+ *   public_university         0 – 144,000   (0 is the free OUK courses)
+ *
+ * A band that merely fenced today's data would fail on the next legitimate
+ * record, so each is widened to the range the sector plausibly supports. The
+ * point is to catch an order-of-magnitude error, not to freeze the catalogue.
+ */
+const ANNUAL_BANDS = {
+  kmtc: [60000, 120000],
+  ttc_consolidated: [40000, 120000],
+  tvet_consolidated: [20000, 200000],
+  tourism_corporation: [50000, 250000],
+  parastatal_own_rate: [30000, 600000],
+  private_own_rate: [30000, 900000],
+  /* Floor is 0, not a positive number: the Open University's free courses are a
+   * real, deliberate 0 and must not be mistaken for a missing value. The
+   * distinction matters elsewhere too — see feeBasis in decide.js. */
+  public_university: [0, 400000]
+};
+
+test('no fee implies an implausible year for its kind of institution', () => {
+  for (const course of COURSES) {
+    const inst = byId[course.institution_id];
+    if (!inst || course.total_fees_kes == null) continue;
+    const band = ANNUAL_BANDS[inst.fee_regime];
+    assert.ok(band, `no annual band defined for fee regime '${inst.fee_regime}'`);
+    const perYear = Math.round(course.total_fees_kes / (course.duration_months / 12));
+    assert.ok(perYear >= band[0] && perYear <= band[1],
+      `${course.id} "${course.name}" at ${inst.id} costs Ksh ${course.total_fees_kes} over `
+      + `${course.duration_months} months — Ksh ${perYear}/year, outside the ${band[0]}–${band[1]} `
+      + `band for a '${inst.fee_regime}' institution. Usually this means a course total was entered `
+      + 'as an annual rate or the other way round. Fix the figure, or widen the band and say why.');
+  }
+});
+
+test('every fee regime has an annual band, so none escapes the check', () => {
+  /* A regime added without a band would silently skip the guard above, which is
+   * how a check quietly stops covering the thing it was written for. */
+  for (const regime of FEE_REGIMES) {
+    assert.ok(ANNUAL_BANDS[regime], `fee regime '${regime}' has no annual plausibility band`);
+  }
+});

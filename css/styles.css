@@ -2122,7 +2122,32 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: #DDCCAE;
   padding: clamp(2rem, 3vw, 2.75rem) 1.25rem 1.5rem;
 }
-.landing-footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.75rem; }
+/* TWO COLUMNS FROM THE NARROWEST PHONE, NOT FROM 480px.
+ *
+ * The desktop footer was cut from 720px to 524px and the phone got none of it:
+ * at 390px the link columns stacked into ONE column of fifteen 48px targets and
+ * the footer measured 1,479px — nearly four phone screens, and a larger share
+ * of the page than the desktop footer ever was. The three-column rule only
+ * started at 480px, which most phones in Kenya are below.
+ *
+ * Two columns work at 320px: the longest label, "Methodology & data sources",
+ * wraps to two lines and stays legible, which costs a line and saves a screen.
+ * The tap targets are untouched — this changes how the lists are arranged, not
+ * how big anything is to hit. */
+.landing-footer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; margin-bottom: 1.75rem; }
+.landing-footer-brand { grid-column: 1 / -1; }
+/* Three lists in two columns leaves the third one alone on its own row with
+ * the right half blank — the same waste this whole pass is about, just moved
+ * to the phone. The last list spans the row instead and lays its own links
+ * out two-up, so the row is full and two links tall rather than four. */
+.landing-footer-grid > .landing-footer-col:last-of-type { grid-column: 1 / -1; }
+.landing-footer-grid > .landing-footer-col:last-of-type .footer-col-label { grid-column: 1 / -1; }
+.landing-footer-grid > .landing-footer-col:last-of-type {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1rem;
+  align-content: start;
+}
 .landing-footer-brand p { font-size: 0.85rem; color: #C9B693; margin-top: 0.5rem; max-width: 32ch; line-height: 1.65; }
 .landing-footer-col .footer-col-label {
   font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;
@@ -2169,11 +2194,14 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   .landing-cta-row { flex-direction: row; }
   .landing-cta-row .btn { width: auto; }
   .landing-stats-grid { grid-template-columns: repeat(4, 1fr); }
-  /* Brand block spans its own row above a 2x2 grid of link columns —
-     four single-column-wide link lists at this width would be too
-     cramped to read. */
-  .landing-footer-grid { grid-template-columns: repeat(3, 1fr); }
-  .landing-footer-brand { grid-column: 1 / -1; }
+  /* Brand block spans its own row above the link columns — at this width a
+     link list narrower than a third of the row is too cramped to read. Three
+     columns from 480px puts all three lists on one row; below that they are
+     two-up, set on the base rule. */
+  .landing-footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* From 480px all three lists fit on one row, so the last one stops spanning
+     and goes back to being an ordinary single-column list. */
+  .landing-footer-grid > .landing-footer-col:last-of-type { grid-column: auto; display: block; }
 }
 
 /* Mid-width tier's landing-page half (see MID-WIDTH TIER, near the top of

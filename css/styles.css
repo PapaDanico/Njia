@@ -705,7 +705,14 @@ main {
 
   /* The three Odyssey lives belong side by side — comparing futures is the
    * whole point of the exercise, and stacking them hid the comparison. */
-  .odyssey-plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; align-items: start; }
+  /* minmax(0, 1fr), not 1fr. A bare 1fr track is minmax(auto, 1fr), and
+     `auto` floors at min-content — so the long <select> controls inside each
+     plan card pushed their tracks past the container and the Design page
+     scrolled sideways at 1440px: 1789px of content in a 1440px viewport.
+     A grid that overflows is not a grid. */
+  .odyssey-plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.1rem; align-items: start; }
+  .odyssey-plan-grid > .card { min-width: 0; }
+  .odyssey-plan-grid .form-control { max-width: 100%; }
   .odyssey-plan-grid .card { margin-bottom: 0; }
   .odyssey-plan-grid .odyssey-anchor-row { flex-direction: column; gap: 0.5rem; }
   .odyssey-plan-grid .odyssey-anchor-row > div { min-width: 0; }
@@ -2475,4 +2482,50 @@ p, li { text-wrap: pretty; }
   /* The hero, the quote and the closing call to action are full-bleed
      statements, not heading-plus-content sections — they keep one column. */
   .landing-hero, .landing-quote-section, .landing-final-cta { display: block; }
+}
+
+/* ---------- Desktop: stop stretching small things across the whole screen ----
+ *
+ * These modules were laid out mobile-first and never given a desktop shape,
+ * so at 1440px a stats row put three ~460px cards on screen to hold a single
+ * digit each, the filter bar floated alone in a full-width band, and the
+ * empty state sat marooned in several hundred pixels of nothing. Width was
+ * being spent rather than used.
+ *
+ * Nothing here changes the markup or the mobile layout. It caps the things
+ * that have no business being page-wide and lets them sit at the start of the
+ * measure, which is where the eye already is.
+ */
+@media (min-width: 1024px) {
+  /* A number and a label need about 200px, not a third of the viewport. */
+  .stats-row {
+    grid-template-columns: repeat(3, minmax(0, 13rem));
+    justify-content: start;
+    gap: 1rem;
+  }
+  /* Controls belong beside each other and beside the action they filter,
+     not spread edge to edge with a hole in the middle. */
+  .filter-row { max-width: 56rem; }
+
+  /* An empty state is a message, not a landscape. Bounded, and given a
+     surface so it reads as a placeholder for content rather than as the
+     page having failed to load. */
+  .empty-state {
+    max-width: 34rem;
+    margin: 0.5rem 0 0;
+    padding: 2.25rem 2rem;
+    background: var(--bg-elevated);
+    border: 1px dashed var(--border-light);
+    border-radius: var(--radius-lg);
+    text-align: left;
+  }
+  /* The children were centred with margin:0 auto for the old centred empty
+     state; left-aligning the container without unsetting those left the
+     paragraph indented against its own heading. */
+  .empty-state .icon-disc,
+  .empty-state > p,
+  .empty-state > h2,
+  .empty-state > h3 { margin-left: 0; margin-right: 0; }
+  .empty-state > p { max-width: 42ch; }
+  .empty-state .btn { margin-top: 1rem; }
 }

@@ -334,6 +334,25 @@ const INSTITUTIONS = [
    * read as an empty one. */
   { id: 'nenap', name: 'North Eastern National Polytechnic (NENAP)', ownership: 'public', type: 'tvet', location: 'Innovation Campus, Garissa Township', county: 'Garissa', accreditation: 'Government-accredited national polytechnic · TVETA registered · KUCCPS institution 1230', website: 'https://northeasternpoly.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'tvet_consolidated' },
   { id: 'uzima', name: 'Uzima University', ownership: 'private', type: 'university', location: 'Kisumu', county: 'Kisumu', accreditation: 'CUE accredited · CUEA-affiliated · Clinical Officers Council accredited · founded by the Archdiocese of Kisumu', website: 'https://uzimauniversity.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'private_own_rate' },
+  /* THE FOUR COUNTIES WHERE A D-GRADE LEARNER SAW NOTHING.
+   *
+   * An audit found 23 counties whose entire catalogue was one KMTC campus
+   * offering two nursing programmes at C+ and D+. That is not merely thin —
+   * it is a closed door. A school-leaver in Turkana with a D or an E opened
+   * Decide, filtered to their county and their grade, and Njia showed them
+   * nothing at all, which reads as "there is nothing for you here". The
+   * learners least able to relocate were the ones being told to.
+   *
+   * Every county in Kenya has public technical provision; Njia simply had not
+   * listed it. These four are the hardest-hit counties, each with a real
+   * TVETA-registered institution found by naming the county and searching per
+   * institution. All four run artisan courses with open or E-grade entry,
+   * which is the floor that matters. */
+  { id: 'lodwar_tvc', name: 'Lodwar Technical and Vocational College', ownership: 'public', type: 'tvet', location: 'Lodwar', county: 'Turkana', accreditation: 'TVETA-registered public TVET college \u00b7 KNEC and CDACC examined', website: 'https://lodwartvc.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'tvet_consolidated' },
+  { id: 'mandera_tti', name: 'Mandera Technical Training Institute', ownership: 'public', type: 'tvet', location: 'Mandera', county: 'Mandera', accreditation: 'Public technical training institute \u00b7 TVETA registered \u00b7 KNEC examined \u00b7 KUCCPS placement', website: null, modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'tvet_consolidated' },
+  { id: 'kitelakapel_tti', name: 'Kitelakapel Technical Training Institute', ownership: 'public', type: 'tvet', location: 'Kitelakapel, Kapenguria', county: 'West Pokot', accreditation: 'Public technical training institute \u00b7 TVETA registered \u00b7 KUCCPS institution 4255', website: 'https://kitelakapeltti.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'tvet_consolidated' },
+  { id: 'laisamis_tvc', name: 'Laisamis Technical and Vocational College', ownership: 'public', type: 'tvet', location: 'Laisamis, Isiolo-Marsabit highway', county: 'Marsabit', accreditation: 'Public institution established and registered under the TVET Act \u00b7 KUCCPS placement', website: 'https://laisamistech.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'tvet_consolidated' }
+
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

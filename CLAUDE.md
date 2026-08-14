@@ -100,6 +100,29 @@ Figures are a **floor**: DNT and Global Privacy Control suppress everything, and
 offline readers are never counted. Queueing events until a device reconnects
 would mean storing behaviour on a reader's phone, which is the worse trade.
 
+## Coverage: measure what a reader can reach, not what exists
+
+County coverage was tracked as "single-cluster counties". That metric flattered
+the catalogue, because it counts what EXISTS rather than what a given reader can
+REACH. Twenty-three counties held one KMTC campus running nursing at C+ and D+,
+so a school-leaver with a D or an E who filtered Decide to their county and
+their grade got an **empty list** — not a short one. To the person least able to
+move away from home, that reads as "there is nothing here for you", and it was
+never true: Njia simply had not listed the county technical provision.
+
+The metric is now the **eligibility floor**, ratcheted in
+`tests/sector-coverage.test.js`: the number of counties where an E-grade learner
+sees nothing may fall but never rise, and the four closed deliberately (Turkana,
+West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
+one inside an aggregate that still looks fine. Thirty-three remain — lower the
+constant when you close more.
+
+Every county in Kenya has public technical provision. When a county looks empty,
+the gap is in this catalogue, not in the county. Find the institution by naming
+the county and searching per institution, then list only the courses a reachable
+source actually names — all four of these run more than is listed, and each note
+says so rather than padding the catalogue with plausible programme names.
+
 ## The placeholder trap
 
 An audit found **Ksh 420,000 on twelve different degrees** at twelve different

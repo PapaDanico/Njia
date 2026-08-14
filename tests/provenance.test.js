@@ -1111,8 +1111,14 @@ test('unpriced courses do not carry invented outcome figures', () => {
   for (const c of COURSES.filter((x) => x.total_fees_kes == null)) {
     assert.equal(c.employment_rate, null, `${c.id} has no published fee but an employment rate`);
     assert.equal(c.median_salary_kes, null, `${c.id} has no published fee but a median salary`);
-    assert.ok(/does not publish|publishes no fee/i.test(c.verification_note || ''),
-      `${c.id} must say in its verification_note why the fee is absent`);
+    /* Two different absences, and conflating them is its own small dishonesty.
+     * "The institution publishes no fee" tells a reader there is nothing to
+     * look up and they must ring and ask. "We could not verify it" tells them
+     * the figure exists and Njia failed to reach it — worth searching for
+     * themselves. Both are honest; pretending the second is the first is not. */
+    assert.ok(/does not publish|publishes no fee|could not be verified|not reachable/i.test(c.verification_note || ''),
+      `${c.id} must say in its verification_note why the fee is absent — either that the `
+      + 'institution publishes none, or that we could not verify one that exists');
   }
 });
 

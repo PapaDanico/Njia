@@ -74,7 +74,7 @@ test('a verified fee always names where it came from', () => {
      * honest alternative to guessing. It just cannot be asked to quote a
      * number it is specifically reporting does not exist. */
     if (course.total_fees_kes == null) {
-      assert.ok(/publishes no fee|no fee structure|does not publish|no figure is shown/i.test(note),
+      assert.ok(/publishes no fee|no fee structure|does not publish|no figure is shown|could not be verified|not reachable/i.test(note),
         `${course.id} "${course.name}" has no fee and claims verified, but its note does not say `
         + 'that the institution publishes none. Say why the figure is missing.');
     } else {

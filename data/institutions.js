@@ -192,6 +192,17 @@ const INSTITUTIONS = [
   { id: 'kqpride', name: 'Kenya Airways Pride Centre', ownership: 'private', type: 'tvet', location: 'Embakasi, Nairobi', county: 'Nairobi', accreditation: 'KCAA-approved aviation security training centre · IATA and ICAO accredited', website: 'https://kqpridecentre.com', modes: ['full_time'], has_workstudy: false, has_hostel: false, fee_regime: 'private_own_rate' },
   { id: 'amiu', name: 'Amref International University (AMIU)', ownership: 'private', type: 'university', location: 'Lang\'ata, Nairobi', county: 'Nairobi', accreditation: 'CUE Chartered · run by Amref Health Africa', website: 'https://amref.ac.ke', modes: ['full_time', 'online'], has_workstudy: false, has_hostel: false, fee_regime: 'private_own_rate' },
   { id: 'krcti', name: 'Kenya Red Cross Training Institute', ownership: 'private', type: 'tvet', location: 'South C, Nairobi', county: 'Nairobi', accreditation: 'Kenya Red Cross Society · TVETA registered', website: 'https://redcross.or.ke', modes: ['full_time', 'evening'], has_workstudy: false, has_hostel: false, fee_regime: 'private_own_rate' },
+  /* AGRICULTURE, THE LARGEST EMPLOYER AND THE THINNEST SECTOR HERE.
+   *
+   * Njia carried three agriculture records in a catalogue of 371, for the
+   * sector that employs more Kenyans than any other. Bukura is a state
+   * corporation established by an Act of Parliament and the country's main
+   * middle-level agricultural college; Baraka is a TVETA-registered private
+   * college at Molo teaching the CDACC sustainable-agriculture curricula.
+   * Egerton was already in this directory with no courses attached at all —
+   * Kenya's foremost agricultural university, listed and unusable. */
+  { id: 'bukura', name: 'Bukura Agricultural College', ownership: 'public', type: 'tvet', location: 'Bukura, Kakamega', county: 'Kakamega', accreditation: 'State corporation established by an Act of Parliament · KUCCPS placement', website: 'https://bukuracollege.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'parastatal_own_rate' },
+  { id: 'baraka', name: 'Baraka Agricultural College', ownership: 'private', type: 'tvet', location: 'Molo', county: 'Nakuru', accreditation: 'TVETA registered and licensed · TVET CDACC assessed', website: 'https://barakaagricollege.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'private_own_rate' },
   { id: 'rnuc', name: 'Ronald Ngala Utalii College', ownership: 'public', type: 'tvet', location: 'Kilifi', county: 'Kilifi', accreditation: 'State corporation under the Ministry of Tourism · KUCCPS placement', website: 'https://utalii.ac.ke', modes: ['full_time'], has_workstudy: true, has_hostel: true, fee_regime: 'tourism_corporation' },
 
   /* TEACHER TRAINING COLLEGES — a whole institution type the catalogue was

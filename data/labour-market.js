@@ -521,6 +521,58 @@ const RESTRICTED_ENTRY_INSTITUTIONS = {
   clusters: ['people', 'numbers', 'business']
 };
 
+/* ONLINE LEARNING FROM OUTSIDE KENYA — what it is genuinely worth here.
+ *
+ * Readers ask about Coursera and edX, and the honest answer is more useful
+ * than the marketing. Three facts decide whether any of it is worth a Kenyan
+ * school-leaver's time and data bundle:
+ *
+ *   1. Almost all of it can be done free, but the free tier and the paid tier
+ *      are different products. Auditing gives you the material; it does not
+ *      give you the certificate.
+ *   2. None of it is a KNQF-recognised Kenyan qualification. It will not
+ *      ladder into a diploma and a Kenyan employer is not obliged to know what
+ *      it is. Its value is the skill and what you can show you built.
+ *   3. The free programmes with the strongest brands are explicit that they do
+ *      not guarantee a job. Anything promising placement should be read twice.
+ *
+ * Listed as a supplement, never as a substitute for a placed course. A learner
+ * who skips KUCCPS for a MOOC has swapped a qualification for a hobby.
+ */
+const ONLINE_LEARNING = {
+  source: 'Platform help documentation and Grow with Google/ALX programme material, cross-checked August 2026',
+  headline: 'You can learn almost anything online for nothing. What you usually cannot get for nothing is the certificate — and no certificate here is a Kenyan qualification.',
+  theKnqfPoint: 'None of these is recognised on the Kenya National Qualifications Framework. They do not ladder into a diploma and they do not substitute for a KUCCPS placement. Treat them as evidence of skill to show an employer alongside a Kenyan qualification, not instead of one.',
+  platforms: [
+    {
+      name: 'Coursera',
+      url: 'https://www.coursera.org',
+      free: 'Audit mode on most courses gives you the videos and readings free, without graded work or a certificate. Separately, Coursera runs Financial Aid: apply, and if approved you get the full paid course, graded work and certificate included, at no cost. It is open to Kenyan learners on the same terms as anywhere else.',
+      catch: 'Financial aid takes about a fortnight to review and is applied for per course, so plan ahead rather than the night before an intake closes.'
+    },
+    {
+      name: 'edX',
+      url: 'https://www.edx.org',
+      free: 'Where a course offers an audit track it is free and marked so on the enrolment page. You can start on audit and upgrade to the verified certificate later, provided the upgrade deadline has not passed.',
+      catch: 'Audit access to a course is often time-limited, and the deadline to upgrade can fall before you finish.'
+    },
+    {
+      name: 'Google Career Certificates',
+      url: 'https://grow.google/intl/ssa-en/google-career-certificates/',
+      free: 'Delivered through Coursera, in fields like IT support, data analytics, project management, UX and cybersecurity. Google has funded scholarships for African learners distributed through Grow with Google partners, and a scholarship covers the cost entirely.',
+      catch: 'Without a scholarship you pay Coursera\'s monthly subscription for as long as you take to finish, so a slow month costs real money. Finish briskly or apply for the scholarship first.'
+    },
+    {
+      name: 'ALX Africa',
+      url: 'https://www.alxafrica.com',
+      free: 'A free twelve-month programme with a Nairobi hub, built on peer learning and computer-science fundamentals rather than lectures. Strong recognition across the continent and a real alumni network.',
+      catch: 'ALX is explicit that there is no job guarantee and no placement commitment — graduates run their own job search. It is also genuinely full-time in effort; treating it as a side project is how people drop out.'
+    }
+  ],
+  howToUseThis: 'The strongest combination is a Kenyan qualification for the ladder and the paperwork, plus online work for the skill and the portfolio. If money is the binding constraint, start with Ajira Digital — it is free, it is in your county, and it is run by the government.',
+  clusters: ['tech', 'creator', 'business', 'numbers']
+};
+
 const LOAN_REALITY = {
   source: 'HELB published terms and repayment reporting; World Bank graduate transition data; cross-reported August 2026',
   interestRatePct: 4,

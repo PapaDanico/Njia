@@ -240,6 +240,26 @@ function renderDecidePage() {
           <span aria-hidden="true">↗</span>
           <span><strong>If you left school years ago, the door did not close.</strong> TVET placement takes <strong>any KCSE grade, A to E</strong>, from anyone who sat the exam <strong>from 2000 onward</strong> — not just this year's candidates. Intake runs continuously rather than in one annual window, across 251 public colleges, and you may hold up to 4 TVET choices alongside 6 degree choices in the same cycle. <span class="text-muted">KUCCPS 2026 placement cycle.</span></span>
         </div>
+        ${/* ONLINE LEARNING, PLACED WHERE THE COMPARISON HAPPENS.
+             A reader weighing a Ksh 67,189 diploma against "I could just learn
+             it free on Coursera" is making a real comparison and deserves the
+             real answer: yes it is free, no it is not a Kenyan qualification,
+             and the free programme with the best brand says outright it will
+             not get you a job. Put anywhere else this reads as a tip; here it
+             reads as the caveat it is. */''}
+        ${typeof ONLINE_LEARNING !== 'undefined' ? `
+        <details class="inline-detail mt-1">
+          <summary>Could I just learn this free online instead? — Coursera, edX, Google, ALX</summary>
+          <p class="text-secondary text-sm mb-1">${escapeHtml(ONLINE_LEARNING.headline)}</p>
+          <p class="text-sm mb-1"><strong>The part that decides it.</strong> ${escapeHtml(ONLINE_LEARNING.theKnqfPoint)}</p>
+          <ul class="mt-1 mb-1">
+            ${ONLINE_LEARNING.platforms.map((pl) => `
+              <li class="text-secondary text-sm mb-1">• <strong><a href="${escapeHtml(pl.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(pl.name)} ↗</a></strong> — ${escapeHtml(pl.free)} <em>Catch:</em> ${escapeHtml(pl.catch)}</li>
+            `).join('')}
+          </ul>
+          <p class="text-sm mb-1"><strong>How to use this.</strong> ${escapeHtml(ONLINE_LEARNING.howToUseThis)}</p>
+          <p class="text-muted text-sm">${escapeHtml(ONLINE_LEARNING.source)}</p>
+        </details>` : ''}
       </div>
       <aside class="module-header-aside">
         <p class="decide-rail-title">Catalogue coverage</p>

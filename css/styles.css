@@ -1360,6 +1360,34 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .sector-context > p:first-of-type { margin-top: 0.4rem; }
 
+/* The cross-tool handoff card. Deliberately NOT a .card: it is not another
+ * funding source, and styling it like one would put a product recommendation
+ * in the same visual class as HELB. The ochre-tinted surface and rule mark it
+ * as an aside — the app talking about its own limits rather than about a
+ * funder. Ochre is fill-only in this palette (2.55:1), so the ink stays on the
+ * standard text tokens. */
+.wider-view {
+  margin-top: 1.25rem;
+  padding: 1.1rem 1.15rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+}
+.wider-view-eyebrow {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+.wider-view-q { font-size: 0.92rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.4rem; line-height: 1.5; }
+.wider-view-a { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0.85rem; max-width: 72ch; }
+.wider-view .btn { width: auto; display: inline-flex; }
+.wider-view-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.6rem; }
+
 /* ---------- Landing: the economy section ----------
  *
  * Three stat cards over a sector table. The table is the point — it is the only

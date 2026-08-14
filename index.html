@@ -420,7 +420,14 @@
     function openPartnersModal() {
       openModal(`
         <h3 class="mb-2">Products &amp; Partners</h3>
-        <p class="text-secondary text-sm mb-2"><strong>Products.</strong> Njia is currently one free product suite: five modules — Discover, Design, Decide, Connect, Track — covering career diagnosis, life design, course/funding matching, outreach, and follow-through. All run client-side, with no account or backend required.</p>
+        <!-- This said "Njia is currently one free product suite", which stopped
+             being true. Two sister tools exist and are named here rather than
+             left for a reader to stumble on: a handoff a product will not admit
+             to is the kind of thing that looks like a placement when someone
+             finds it. Neither pays us and neither is a partner in the sense the
+             paragraph below means. -->
+        <p class="text-secondary text-sm mb-2"><strong>Products.</strong> Njia is five free modules — Discover, Design, Decide, Connect, Track — covering career diagnosis, life design, course and funding matching, outreach, and follow-through. All run client-side, with no account or backend required.</p>
+        <p class="text-secondary text-sm mb-2"><strong>Sister tools.</strong> The same people build two other free tools, and Njia links to one of them where it runs out of things it can honestly say. <a href="https://jipangefinance.org/" target="_blank" rel="noopener noreferrer">JiPange</a> covers household money — budgeting, debt and savings goals — which is where the Decide module's funding gap actually gets settled. <a href="https://mwangazayield.org/" target="_blank" rel="noopener noreferrer">Mwangaza Yield</a> covers Kenyan government bonds. Both are free, neither takes an account, and no money moves between any of them.</p>
         <p class="text-secondary text-sm mb-2"><strong>Partners.</strong> Njia does not yet have any formal institutional, government, or NGO partners — this is an independently built, early-stage project. Institution names shown in the Decide module are included because they are real, publicly known Kenyan institutions, not because of any partnership or endorsement.</p>
         <p class="text-secondary text-sm mb-2">Looking ahead, the kind of partnerships that would most improve Njia are: accredited institutions willing to share verified fee/outcome data, funders (HELB, county bursary offices, foundations) for direct integration, and youth or community organisations for real mentor matching.</p>
         <button type="button" class="btn btn-primary mb-2" onclick="openPartnerInquiryModal()"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg> Partner With Us</button>

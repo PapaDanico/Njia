@@ -277,6 +277,62 @@ const feeBasis = vm.runInNewContext(`${extractFn(decideSource, 'feeBasis')}; fee
  * below, not by hope. */
 const FEE_BASES = ['published', 'derived', 'illustrative', 'unpublished', 'unsourced'];
 
+/* THE METRIC THAT ACTUALLY DESCRIBES THE GAP.
+ *
+ * Coverage was tracked as "single-cluster counties" — counties offering only
+ * one kind of work. That number understated the problem badly, because it
+ * counts what EXISTS rather than what a given reader can REACH. The 23
+ * KMTC-only counties ran nursing at C+ and D+, so a school-leaver with a D or
+ * an E who filtered Decide to their county and their grade got an empty list.
+ * Not a short list. Nothing. To the learner least able to move away from home,
+ * that reads as "there is nothing here for you" — and it was never true; Njia
+ * simply had not listed the county technical provision.
+ *
+ * So the metric is now the eligibility floor, and it is a ratchet: the count
+ * of counties where the lowest-scoring learners see zero options may fall but
+ * never rise. Adding a county to this list means shipping a regression against
+ * the readers with the fewest options, which is the one direction this project
+ * will not go.
+ */
+const GRADE_ORDER = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
+const gradeRank = (g) => (g == null ? GRADE_ORDER.length : GRADE_ORDER.indexOf(g));
+
+/* Where it stood when the ratchet went on: four counties fixed (Turkana, West
+ * Pokot, Mandera, Marsabit), thirty-three still blind. Lower this number when
+ * you close more; a test that only ever gets weaker is not a guard. */
+const E_GRADE_BLIND_COUNTIES = 33;
+
+test('no new county leaves its lowest-scoring learners with nothing', () => {
+  const county = new Map(INSTITUTIONS.map((i) => [i.id, i.county]));
+  const byCounty = new Map();
+  for (const c of COURSES) {
+    const name = county.get(c.institution_id);
+    if (!name) continue;
+    if (!byCounty.has(name)) byCounty.set(name, []);
+    byCounty.get(name).push(c);
+  }
+
+  const blind = [...byCounty]
+    .filter(([, list]) => !list.some((c) => gradeRank('E') <= gradeRank(c.min_grade)))
+    .map(([name]) => name)
+    .sort();
+
+  assert.ok(blind.length <= E_GRADE_BLIND_COUNTIES,
+    `${blind.length} counties now show an E-grade learner no course at all, up from `
+    + `${E_GRADE_BLIND_COUNTIES}. A learner who cannot relocate and did not score well is `
+    + `exactly who this catalogue exists for. Newly blind: ${blind.join(', ')}`);
+
+  /* The four that were closed must stay closed. Naming them means a future
+   * edit that quietly drops their artisan provision fails here rather than
+   * hiding inside an aggregate that still looks fine. */
+  for (const fixed of ['Turkana', 'West Pokot', 'Mandera', 'Marsabit']) {
+    assert.ok(!blind.includes(fixed),
+      `${fixed} has gone back to showing an E-grade learner nothing. It was closed `
+      + 'deliberately with sourced county technical provision — do not remove it without '
+      + 'replacing it.');
+  }
+});
+
 test('every course lands in exactly one named fee basis', () => {
   /* THE GUARD THAT WAS MISSING.
    *

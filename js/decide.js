@@ -104,6 +104,14 @@ function renderDecidePage() {
                was pointing at a marker that no longer appears anywhere. -->
           <span><strong>${verifiedCount} of ${totalCount} records</strong> have fees or terms cross-checked against a named public source — look for the ✓ Fees verified badge. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. Always confirm fees with the institution before deciding.</span>
         </div>
+        <div class="data-disclaimer data-disclaimer-open">
+          <!-- Placed here rather than in the evidence layer on purpose: this is
+               the one screen someone reaches when they are looking for a course
+               and quietly assuming they are too old or scored too low to be
+               here. The rule is the opposite of what most people assume. -->
+          <span aria-hidden="true">↗</span>
+          <span><strong>If you left school years ago, the door did not close.</strong> TVET placement takes <strong>any KCSE grade, A to E</strong>, from anyone who sat the exam <strong>from 2000 onward</strong> — not just this year's candidates. Intake runs continuously rather than in one annual window, across 251 public colleges, and you may hold up to 4 TVET choices alongside 6 degree choices in the same cycle. <span class="text-muted">KUCCPS 2026 placement cycle.</span></span>
+        </div>
       </div>
       <aside class="module-header-aside">
         <p class="decide-rail-title">Catalogue coverage</p>

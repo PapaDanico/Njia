@@ -2606,3 +2606,14 @@ p, li { text-wrap: pretty; }
   min-height: 48px;   /* Lighthouse and Material both test 48, not Apple's 44 */
   padding-block: 0.15rem;
 }
+
+/* The eligibility notice is good news, not a caveat, so it does not inherit
+ * the amber warning treatment of the disclaimer above it. Forest green: the
+ * brand's affirmative colour, 6.75:1 on the cream. */
+.data-disclaimer-open {
+  background: var(--success-soft);
+  border-color: var(--success-border);
+  color: var(--text-primary);
+  margin-top: 0.75rem;
+}
+.data-disclaimer-open > span:first-child { color: var(--secondary); }

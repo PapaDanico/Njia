@@ -206,7 +206,30 @@ const PLACEMENT_MECHANICS = {
   clusterPointsRole: 'Placement itself is decided on weighted cluster points — your performance in the four subjects that programme requires, ranked against every other applicant, to three decimal places.',
   cutOffTruth: 'A cut-off point is the cluster score of the last student placed in that programme last cycle, not a bar set in advance. It changes every year with demand, capacity and cohort performance.',
   doesNotGuarantee: 'Meeting the cut-off does not guarantee placement — programme capacity and competition still decide.',
-  practicalAdvice: 'Do not compute cluster points by hand. The KUCCPS student portal calculates yours and shows them directly. Use last year\'s cut-offs to gauge how competitive a programme is, never as a score to aim at.'
+  practicalAdvice: 'Do not compute cluster points by hand. The KUCCPS student portal calculates yours and shows them directly. Use last year\'s cut-offs to gauge how competitive a programme is, never as a score to aim at.',
+
+  /* The rule almost nobody is told, and the reason this app should not
+   * address only school leavers.
+   *
+   * TVET placement is not restricted to the current cohort. Any KCSE grade
+   * from A to E qualifies, for anyone who sat the exam from 2000 onward, and
+   * TVET intake runs continuously rather than through one annual window. That
+   * means a 32-year-old who left school in 2012 with a D is eligible for the
+   * same artisan and certificate programmes as this year's Form Four leaver —
+   * and is more likely to have their own phone and their own fees.
+   *
+   * Njia's copy, its module numbering and its countdown clock all quietly
+   * assume the reader just got their results. For the degree track that is
+   * true. For the trades it is wrong by about twenty-five years of cohorts. */
+  tvetEligibility: {
+    grades: 'Any KCSE mean grade, A to E.',
+    years: 'Anyone who sat KCSE from 2000 onward — not only this year\'s candidates.',
+    intake: 'TVET placement is continuous, with reporting to colleges from May rather than a single annual window.',
+    choices: 'An applicant may select up to 6 degree programmes and up to 4 TVET programmes — diploma, certificate or artisan — in the same cycle.',
+    capacity: '251 public TVET colleges are open for placement this cycle, including 33 university-affiliated institutes.',
+    whyItMatters: 'If you left school years ago and assumed the door closed behind you, it did not. The grade you got does not disqualify you from a trade, and the year you sat does not either.',
+    source: 'KUCCPS 2026 placement cycle announcements, cross-reported March-April 2026'
+  }
 };
 
 /* THE STRUCTURAL CHANGE UNDER NJIA'S FEET.

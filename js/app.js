@@ -755,34 +755,27 @@ function renderHomePage() {
             <button type="button" onclick="openTermsModal()">Terms of Use</button>
           </div>
         </div>
-        <section class="footer-learn">
-          <p class="footer-col-label">Learn the ground</p>
-          <div class="footer-learn-grid">
-            <button type="button" class="footer-learn-tile" onclick="navigateTo('help')">
-              <strong>Help &amp; tutorials</strong><span>Step-by-step walkthroughs for every module</span>
-            </button>
-            <button type="button" class="footer-learn-tile" onclick="AppState.viewFilters.helpTab='glossary';navigateTo('help')">
-              <strong>Glossary</strong><span>KUCCPS, HEF, TVETA and the rest, in plain language</span>
-            </button>
-            <button type="button" class="footer-learn-tile" onclick="openMethodologyModal()">
-              <strong>Method &amp; sources</strong><span>How every figure is arrived at, and its limits</span>
-            </button>
-            <button type="button" class="footer-learn-tile" onclick="goToFundingTab()">
-              <strong>Application clock</strong><span>Funding windows, with the current cycle noted</span>
-            </button>
-          </div>
-        </section>
+        <!-- A "Learn the ground" tile grid stood here: Help & tutorials, Glossary,
+             Method & sources, Application clock. Three of the four went exactly
+             where the Learn column above already goes, so the footer offered the
+             same destinations twice — once as links, once as tiles with a
+             sentence each. Tiles that read as content but navigate as a menu are
+             the most expensive way to repeat yourself. The fourth, the funding
+             tab, is not orphaned by this: the hero's Application Clock opens it
+             directly, above the fold. -->
 
         <section class="footer-about">
           <p class="footer-col-label">About Njia</p>
           <p>Njia is an independent, free career-pathway tool for Kenyan youth — unaffiliated with KUCCPS, HELB or any institution. It fuses career psychology, life design and life-portfolio planning with real Kenyan course, fee and funding data, and computes everything on your device. Institution and funder names appear because they are real public bodies, not because of any partnership. Data marked ✓ Verified has been cross-checked against a named public source; everything else is illustrative and should be confirmed before you decide.</p>
         </section>
 
-        <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Fees and funding terms are cross-checked against named, dated sources where the badge says so. Employment rates and salaries are estimates, not measurements — Kenya publishes no graduate outcomes per course. See Methodology.</p>
+        <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement results · Ministry of Education (July 2026) · World Bank modeled ILO youth unemployment estimate, 2025. Fees and funding terms are cross-checked against named, dated sources where the badge says so. No course here carries an employment rate or a salary: Kenya publishes no graduate outcomes per course, so rather than print an estimate Njia prints nothing. See Methodology.</p>
+        <!-- The seven-link row that stood here — About, Privacy, Terms,
+             Methodology, Partners, Help, FAQ — repeated the column grid above
+             it item for item, in shorter words. A footer that lists the same
+             destination twice is not twice as navigable; it just takes longer
+             to read past. The columns are the canonical navigation. -->
         <div class="landing-footer-bottom">
-          <div>
-            <a href="#" onclick="openAboutModal();return false">About</a><a href="#" onclick="openPrivacyModal();return false">Privacy</a><a href="#" onclick="openTermsModal();return false">Terms</a><a href="#" onclick="openMethodologyModal();return false">Methodology</a><a href="#" onclick="openPartnersModal();return false">Partners</a><a href="#" onclick="navigateTo('help');return false">Help</a><a href="#" onclick="openFaqModal();return false">FAQ</a>
-          </div>
           <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
         </div>
       </footer>

@@ -1433,10 +1433,6 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .link-btn { background: none; border: none; padding: 0; color: var(--primary-dark); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: inherit; }
 
 /* ---------- Footer learn tiles (Kanda pattern) ---------- */
-.footer-learn { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(248,250,252,0.14); }
-.footer-learn-grid { display: grid; gap: 0.9rem; margin-top: 1.25rem; }
-@media (min-width: 700px) { .footer-learn-grid { grid-template-columns: repeat(4, 1fr); } }
-.footer-learn-tile {
   text-align: left; width: 100%;
   padding: 0.85rem 1rem;
   background: rgba(248,250,252,0.05);
@@ -1444,9 +1440,6 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   border-radius: var(--radius-md);
   color: #F5E9D4;
 }
-.footer-learn-tile:hover { background: rgba(248,250,252,0.1); }
-.footer-learn-tile strong { display: block; font-size: 0.88rem; margin-bottom: 0.15rem; }
-.footer-learn-tile span { font-size: 0.75rem; color: rgba(248,250,252,0.6); line-height: 1.4; }
 .footer-about { margin-top: 1.75rem; }
 .footer-about p { font-size: 0.82rem; color: rgba(248,250,252,0.66); line-height: 1.6; max-width: 62ch; }
 
@@ -2359,6 +2352,10 @@ body.modal-open { overflow: hidden; }
   color: var(--warn-ink);
   border: 1px solid var(--warn-border);
 }
+
+/* .footer-learn* rules stood here — the tile grid they styled was removed
+ * with the duplicate footer navigation, and a style with nothing to style is
+ * how a stylesheet starts drifting from what the app actually renders. */
 
 /* ---------- Kenyan geometric border (brand pattern) ----------
  *

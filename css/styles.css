@@ -1321,6 +1321,128 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .match-why li.match-why-up { border-left-color: var(--secondary); }
 .match-why li.match-why-down { border-left-color: var(--danger); }
 
+/* The sector-economics disclosure. Same affordance as "Why this match?" — it is
+ * analysis the reader opts into, not a caveat about the record — so it borrows
+ * that summary treatment rather than the italic muted one used for provenance.
+ * The left rule marks the whole block as context about the industry rather than
+ * about this particular course. */
+.sector-context { margin-bottom: 0.9rem; font-size: 0.82rem; }
+.sector-context summary {
+  cursor: pointer;
+  color: var(--primary-dark);
+  font-weight: 600;
+  padding: 0.2rem 0;
+}
+.sector-context summary:hover { text-decoration: underline; }
+.sector-context > p {
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--border);
+}
+.sector-context > p:first-of-type { margin-top: 0.4rem; }
+
+/* ---------- Landing: the economy section ----------
+ *
+ * Three stat cards over a sector table. The table is the point — it is the only
+ * place in the app where national figures and Njia's own coverage are set side
+ * by side, and seeing both at once is what stops either being read as the other.
+ *
+ * It scrolls inside its own wrapper rather than shrinking: three columns of
+ * numbers at 360px would wrap the sector names to four lines each and the
+ * comparison would be unreadable, which is a worse outcome than a swipe. */
+.econ-figures {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+.econ-figure {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.15rem;
+}
+.econ-figure-num {
+  display: block;
+  font-size: clamp(1.6rem, 3.2vw, 2.1rem);
+  font-weight: 700;
+  color: var(--primary-dark);
+  line-height: 1.1;
+}
+.econ-figure-label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin: 0.3rem 0 0.6rem;
+  line-height: 1.45;
+}
+.econ-figure p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+.econ-table-wrap { overflow-x: auto; }
+/* It is focusable now (see the markup), so it needs to look focused. Without
+ * this a keyboard user tabs into an invisible stop. */
+.econ-table-wrap:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+.econ-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 34rem; }
+.econ-table caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding-bottom: 0.6rem;
+  line-height: 1.5;
+}
+.econ-table th[scope="col"] {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  padding: 0 0.75rem 0.5rem 0;
+  font-weight: 600;
+}
+.econ-table th[scope="col"]:not(:first-child) { text-align: right; }
+.econ-table th[scope="row"] {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 0.55rem 0.75rem 0.55rem 0;
+}
+.econ-table td { text-align: right; padding: 0.55rem 0 0.55rem 0.75rem; color: var(--text-secondary); }
+.econ-table tbody tr { border-top: 1px solid var(--border); }
+/* Weight, not hue, carries the ranking. A green/red split here would read as
+ * good sector / bad sector, and a sector growing slowly is not a bad choice —
+ * agriculture is a quarter of the economy at 3.1%. */
+.econ-growth { font-weight: 700; color: var(--text-primary); }
+.econ-well-ahead { color: var(--primary-dark); }
+.econ-behind { font-weight: 500; }
+.econ-share { color: var(--text-muted); font-weight: 400; font-size: 0.78rem; }
+/* An absent figure has to look absent, not like a small one. Muted italic in
+ * the growth column, and the row's sector name keeps full weight because the
+ * route count beside it is real — health has no sourced growth rate and is
+ * still over a quarter of the catalogue, which is the most useful row here. */
+.econ-unsourced { color: var(--text-muted); font-style: italic; font-size: 0.8rem; }
+.econ-row-unsourced th[scope="row"] { color: var(--text-secondary); }
+.econ-flag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.05rem 0.35rem;
+  white-space: nowrap;
+}
+.econ-note {
+  margin-top: 1.1rem;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  max-width: 92ch;
+}
+
 /* ---------- Landing: two tracks + tool grids (Kanda anatomy) ---------- */
 .landing-track-grid { display: grid; gap: 1rem; margin-top: 1.25rem; }
 @media (min-width: 768px) { .landing-track-grid { grid-template-columns: 1fr 1fr; } }
@@ -1440,8 +1562,10 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   border-radius: var(--radius-md);
   color: #F5E9D4;
 }
-.footer-about { margin-top: 1.75rem; }
-.footer-about p { font-size: 0.82rem; color: rgba(248,250,252,0.66); line-height: 1.6; max-width: 62ch; }
+/* .footer-about* rules stood here. The region they styled was a full-width row
+ * holding a 62ch paragraph — 200px of footer to say, in longer words, what the
+ * brand column above it already said. The text moved into that column and the
+ * region went with it. */
 
 .course-tagline { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.4rem 0 0.2rem; }
 .mini-tag {
@@ -1988,14 +2112,24 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   display: block; background: none; border: none; color: #E8D8BA;
   font-size: 0.85rem; padding: 0.3rem 0; text-align: left;
 }
+/* One region where there were two, so one rule and one lot of padding rather
+ * than two of each. Side by side from `md`: the sources paragraph wants a
+ * reading measure and the legal line is one sentence, and stacking them left
+ * both with two thirds of the row empty beside them. */
+.landing-footer-legal {
+  border-top: 1px solid #334155;
+  padding-top: 1.1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
 .landing-footer-sources {
-  font-size: 0.72rem; color: #C9B693; border-top: 1px solid #334155;
-  padding-top: 1.25rem; margin-bottom: 1.25rem; line-height: 1.6;
+  font-size: 0.72rem; color: #C9B693; line-height: 1.6;
+  max-width: 92ch; margin: 0;
 }
 .landing-footer-bottom {
   display: flex; flex-direction: column; gap: 0.5rem;
   font-size: 0.75rem; color: #C9B693;
-  border-top: 1px solid #334155; padding-top: 1.25rem;
 }
 .landing-footer-bottom a {
   color: #C9B693;
@@ -2018,7 +2152,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   /* Brand block spans its own row above a 2x2 grid of link columns —
      four single-column-wide link lists at this width would be too
      cramped to read. */
-  .landing-footer-grid { grid-template-columns: repeat(2, 1fr); }
+  .landing-footer-grid { grid-template-columns: repeat(3, 1fr); }
   .landing-footer-brand { grid-column: 1 / -1; }
 }
 
@@ -2034,6 +2168,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   .landing-hero-aside { margin-top: 3rem; }
   .landing-evidence-grid { grid-template-columns: repeat(2, 1fr); }
   .landing-process-list { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .econ-figures { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* Desktop: #page-home now fills the full width next to the sidebar (see
@@ -2059,13 +2194,24 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
      sites' hero sections. */
   .landing-hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3rem; align-items: start; }
   .landing-hero-aside { margin-top: 3.75rem; }
-  /* Brand column resumes its own place beside a single row of four link
-     columns — the wasted right-hand gap this replaces at 1024px+ came
-     from being stuck at the 480px breakpoint's 3-column grid. */
-  .landing-footer-grid { grid-template-columns: 1.4fr repeat(4, 1fr); }
+  /* Brand column resumes its own place beside a single row of link columns —
+     the wasted right-hand gap this replaces at 1024px+ came from being stuck
+     at the 480px breakpoint's 3-column grid.
+
+     Three link columns, not four. Company and Legal were two lists of two,
+     which set the grid's row height at the tallest column and then left their
+     own half of it blank. Merged, the brand column takes the freed width and
+     the About text that used to sit in a full-width region below fits inside
+     the row height the six-item Learn column was setting anyway. */
+  .landing-footer-grid { grid-template-columns: 1.8fr repeat(3, 1fr); }
   .landing-footer-brand { grid-column: auto; }
-  .landing-stats-grid, .landing-footer-grid, .landing-guarantee-box {
-    max-width: 1200px;
+  .landing-footer-legal { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); align-items: start; gap: 2rem; }
+  .landing-footer-bottom { text-align: right; }
+  /* 1480px, matching the hero and the content blocks above. The 1200px cap
+     here was a third rule for the same page — on a 1440 screen the footer
+     visibly inset from the band above it for no reason a reader could see. */
+  .landing-stats-grid, .landing-footer-grid, .landing-footer-legal, .landing-guarantee-box {
+    max-width: 1480px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -2657,6 +2803,20 @@ p, li { text-wrap: pretty; }
 .verified-badge-unsourced {
   background: transparent;
   border: 1px dashed var(--text-muted);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* "Illustrative — see the note" sits between the two above it, and its styling
+ * has to say so at a glance without a fourth visual language. Solid border like
+ * the derived badge, because this figure IS sourced; no tick and normal weight
+ * like the unsourced one, because the source is not the college's own price
+ * list. --text-secondary carries the outline for the same 1.4.11 reason as the
+ * derived badge: the border is the only thing distinguishing these, so it has
+ * to clear 3:1. */
+.verified-badge-illustrative {
+  background: transparent;
+  border: 1px solid var(--text-secondary);
   color: var(--text-secondary);
   font-weight: 500;
 }

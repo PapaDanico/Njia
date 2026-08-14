@@ -26,7 +26,10 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const { SECTORS, FEE_REGIMES, DERIVATION_SIGNATURES } = require('./sector-register.js');
+const {
+  SECTORS, FEE_REGIMES, DERIVATION_SIGNATURES, ECONOMY, MIN_SECTOR_SAMPLE,
+  sectorForCourse, sectorPace, formalNewJobs
+} = require('./sector-register.js');
 
 const root = path.join(__dirname, '..');
 const ctx = vm.createContext({});
@@ -115,11 +118,33 @@ test('KMTC records use the KMTC schedule, not some other institution\'s', () => 
   }
 });
 
+/* Counted through the SHIPPED assignment function, not a rule of this test's
+ * own devising.
+ *
+ * These tests used to match on `c.name || c.description` while the app assigns
+ * on name plus field, and independently per sector rather than first-match-wins.
+ * Both differences mattered. The description text is loose enough that three
+ * courses the app could not place at all — two ground-handling certificates and
+ * a computing degree — still matched something here, so the blind-spot guard
+ * reported a clean register while the reader-facing table silently dropped them.
+ * And independent matching double-counted: one geothermal drilling certificate
+ * counted under mining and energy at once, which is how the mining gap note came
+ * to claim three records for a sector that holds one.
+ *
+ * Compared by id, not by identity: SECTORS here is the shipped list merged with
+ * this suite's QA fields, so every entry is a fresh object and `===` against
+ * what sectorForCourse returns is false for all of them — which reads as "every
+ * sector has zero coverage" rather than as a bug in the comparison. */
+const routesIn = (sector) => COURSES.filter((c) => {
+  const s = sectorForCourse(c);
+  return s && s.id === sector.id;
+});
+
 test('every declared industry sector actually has catalogue coverage', () => {
   /* An undeclared absence is indistinguishable from a decision. A sector that
    * falls below its floor has to say what is missing, in writing. */
   for (const sector of SECTORS) {
-    const hits = COURSES.filter((c) => sector.match.test(c.name) || sector.match.test(c.description || ''));
+    const hits = routesIn(sector);
     if (hits.length < sector.expect) {
       assert.ok(sector.gap && sector.gap.length > 20,
         `Sector '${sector.name}' has ${hits.length} records against a floor of ${sector.expect}, `
@@ -148,14 +173,64 @@ test('every sector names an awarding body, a fee regime and a source', () => {
 test('the sector register stays honest about what it covers', () => {
   const ids = SECTORS.map((s) => s.id);
   assert.equal(ids.length, new Set(ids).size, 'duplicate sector ids');
-  /* Every course should fall into at least one sector. A course nothing matches
-   * means the register has a blind spot, which is the failure mode this whole
-   * file exists to prevent. */
-  const unmatched = COURSES.filter((c) =>
-    !SECTORS.some((s) => s.match.test(c.name) || s.match.test(c.description || '')));
-  assert.ok(unmatched.length === 0,
-    `${unmatched.length} courses match no declared sector, so the register cannot see them: `
-    + unmatched.slice(0, 8).map((c) => `${c.id} "${c.name}"`).join('; '));
+  /* Every course must be CLAIMED by a sector, through the same call the landing
+   * table and the course detail make. A course nothing claims is invisible to
+   * both — it silently drops out of the sector totals a reader is comparing
+   * against national growth rates, and its detail page shows no economy block
+   * at all. */
+  const unclaimed = COURSES.filter((c) => !sectorForCourse(c));
+  assert.equal(unclaimed.length, 0,
+    `${unclaimed.length} courses are claimed by no sector, so the register cannot see them and `
+    + 'neither can the reader: '
+    + unclaimed.slice(0, 8).map((c) => `${c.id} "${c.name}"`).join('; '));
+
+  /* The floor is a reader-facing rule, not just a QA one: below it the landing
+   * table prints the raw count and refuses the percentage. If nothing is ever
+   * below it the rule is dead code, and if everything is, the register is not
+   * describing a catalogue. */
+  const thin = SECTORS.filter((s) => routesIn(s).length < MIN_SECTOR_SAMPLE);
+  assert.ok(thin.length > 0 && thin.length < SECTORS.length,
+    'the minimum-sample rule now applies to every sector or to none — recheck MIN_SECTOR_SAMPLE');
+});
+
+test('the economy figures a reader sees are sourced, or absent', () => {
+  /* Njia may not show a growth rate it did not source. KNBS activity
+   * classifications do not map one-to-one onto training sectors, and the
+   * tempting fix — borrowing the nearest series and not saying so — is the
+   * exact failure this app exists to avoid. A sector either names an exact
+   * series, names the broader series it is a component of, or shows nothing. */
+  for (const sector of SECTORS) {
+    assert.ok(sector.knbs && sector.knbs.series,
+      `${sector.name} names no KNBS series, so a reader cannot check where its figure came from`);
+    assert.ok(['exact', 'component', 'unsourced'].includes(sector.knbs.mapping),
+      `${sector.name} declares mapping '${sector.knbs.mapping}', which is not one of exact/component/unsourced`);
+    if (sector.knbs.mapping === 'unsourced') {
+      assert.equal(sector.knbs.growth, undefined,
+        `${sector.name} is declared unsourced but carries a growth figure anyway`);
+      assert.equal(sectorPace(sector), null,
+        `${sector.name} is declared unsourced but sectorPace still returns a reading for it`);
+    } else {
+      assert.equal(typeof sector.knbs.growth, 'number',
+        `${sector.name} claims a '${sector.knbs.mapping}' mapping with no growth figure`);
+    }
+    /* The caveat is not optional. A growth rate rendered without it is the
+     * number being used as a sales pitch — mining's 14.9% is a rebound off a
+     * contraction in a mostly-informal sector, and a reader given the figure
+     * alone has been misled by something true. */
+    assert.ok(sector.caution && sector.caution.length > 40,
+      `${sector.name} ships no caution. Every figure on this page renders its caution beside it.`);
+  }
+  assert.ok(ECONOMY.source.includes('KNBS'), 'the economy figures no longer cite KNBS');
+  /* 87.2% of 822,100 is ~717,000, which is the other headline the same survey
+   * produced. If these ever stop reconciling, the landing copy that explains
+   * the two numbers as one becomes false. */
+  const informal = Math.round(ECONOMY.newJobs * (ECONOMY.informalSharePct / 100));
+  assert.ok(Math.abs((ECONOMY.newJobs - informal) - formalNewJobs()) < 100,
+    `the formal/informal split does not reconcile: ${ECONOMY.newJobs} total less ${informal} informal `
+    + `is ${ECONOMY.newJobs - informal}, but formalNewJobs() returns ${formalNewJobs()}`);
+  assert.equal(ECONOMY.formalNewJobs, undefined,
+    'the formal remainder is stored again rather than derived — it will drift from newJobs the '
+    + 'next time either input is corrected, which is exactly how it first shipped 29 short');
 });
 
 /* ---------- What the badge claims versus what was checked ----------
@@ -169,22 +244,80 @@ test('the sector register stays honest about what it covers', () => {
  *
  * These tests hold the three states apart so they cannot silently re-merge.
  */
-const feeBasis = (course) => {
-  if (course.fees_confidence !== 'verified') return 'estimate';
-  if (course.total_fees_kes == null) return 'unpublished';
-  return /derived from|scaled to course duration|multiplied out by course length|pro-rated/i
-    .test(course.verification_note || '') ? 'national' : 'published';
-};
+/* THE SHIPPED CLASSIFIER, EXTRACTED AND RUN — not a second copy of it.
+ *
+ * This file used to keep its own three-line reimplementation, and it drifted
+ * exactly as you would expect: the copy collapsed everything non-verified into
+ * 'estimate' while the shipped one had grown an 'unsourced' branch, so the
+ * guard was checking the catalogue against a classifier the app had stopped
+ * using. It went on passing while 51 of 412 records were unaccounted for on the
+ * page it was supposed to be guarding.
+ *
+ * Reading the real function out of decide.js and running it costs a brace
+ * match, and it is the only version of this test that can be true by
+ * construction rather than by somebody remembering to update two places. */
+function extractFn(source, name) {
+  const start = source.indexOf(`function ${name}(`);
+  assert.notEqual(start, -1, `decide.js no longer defines ${name}()`);
+  let depth = 0;
+  for (let i = source.indexOf('{', start); i < source.length; i += 1) {
+    if (source[i] === '{') depth += 1;
+    else if (source[i] === '}') {
+      depth -= 1;
+      if (depth === 0) return source.slice(start, i + 1);
+    }
+  }
+  throw new Error(`unbalanced braces reading ${name}() out of decide.js`);
+}
 
-test('the fee-basis classifier agrees with the one the app ships', () => {
-  /* If decide.js and this file drift apart, the notice starts quoting numbers
-   * that no longer describe the badges beside it. */
-  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
-  assert.match(decide, /function feeBasis\(course\)/, 'decide.js no longer defines feeBasis');
-  assert.match(decide, /derived from\|scaled to course duration\|multiplied out by course length\|pro-rated/,
-    'the derivation pattern in decide.js has changed but this test still uses the old one');
-  for (const state of ['published', 'national', 'unpublished', 'estimate']) {
-    assert.ok(decide.includes(`${state}:`), `FEE_BASIS_BADGE has no entry for '${state}'`);
+const decideSource = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+const feeBasis = vm.runInNewContext(`${extractFn(decideSource, 'feeBasis')}; feeBasis`);
+
+/* The five outcomes the app renders a badge for. Exhaustive by assertion
+ * below, not by hope. */
+const FEE_BASES = ['published', 'national', 'illustrative', 'unpublished', 'unsourced'];
+
+test('every course lands in exactly one named fee basis', () => {
+  /* THE GUARD THAT WAS MISSING.
+   *
+   * feeBasis had a fifth outcome, 'estimate', that wore no badge and appeared
+   * in no total. 48 courses fell into it while displaying a precise tuition
+   * figure — the whole Kenya Utalii diploma range at Ksh 180,000 among them,
+   * the very records whose mispricing prompted this classification in the
+   * first place. Nothing was wrong with any individual record; the note on
+   * each explained itself. What was wrong was that the summary claimed to
+   * describe the catalogue and described 88% of it. */
+  /* assert.equal on a length, not deepEqual on an array. COURSES is built
+   * inside a vm context, so anything .filter() returns carries that realm's
+   * Array.prototype and deepStrictEqual rejects it against a local [] even when
+   * both are empty — a failure that reads as "[] is not []" and says nothing
+   * about the catalogue. */
+  const stray = COURSES.filter((c) => !FEE_BASES.includes(feeBasis(c)))
+    .map((c) => `${c.id} -> ${feeBasis(c)}`);
+  assert.equal(stray.length, 0,
+    'these courses classify to a basis the page has no badge and no total for, '
+    + `so they render bare and go uncounted: ${stray.join(', ')}`);
+
+  const counts = COURSES.reduce((a, c) => { a[feeBasis(c)] = (a[feeBasis(c)] || 0) + 1; return a; }, {});
+  const summed = FEE_BASES.reduce((n, b) => n + (counts[b] || 0), 0);
+  assert.equal(summed, COURSES.length,
+    `the five bases sum to ${summed} but the catalogue holds ${COURSES.length}. `
+    + 'Whatever the page says about "all N of them" is then false.');
+});
+
+test('the Decide notice reports every basis, over the catalogue and nothing else', () => {
+  for (const basis of FEE_BASES) {
+    assert.ok(decideSource.includes(`${basis}:`), `FEE_BASIS_BADGE has no entry for '${basis}'`);
+  }
+  /* The denominator. It read COURSES.length + FUNDING_SOURCES.length while
+   * every numerator counted course fees, so 12 funding records padded the
+   * bottom of a ratio they could never appear in the top of. */
+  assert.ok(!/const totalCount = COURSES\.length \+ FUNDING_SOURCES\.length/.test(decideSource),
+    'the fee-provenance denominator has gone back to mixing courses with funding sources');
+  assert.match(decideSource, /const totalCount = COURSES\.length/,
+    'the fee-provenance total must be counted over courses alone');
+  for (const name of ['publishedCount', 'nationalCount', 'illustrativeCount', 'unpublishedCount', 'unsourcedCount']) {
+    assert.ok(decideSource.includes(`\${${name}}`), `the notice no longer prints ${name}`);
   }
 });
 
@@ -195,7 +328,19 @@ test('no record shows a verification badge above a fee it does not have', () => 
   assert.match(decide, /unpublished: ''/,
     `${unpublished.length} records publish no fee. They must render no badge: a tick above `
     + '"Not published" reads as a guarantee attached to a blank.');
-  assert.match(decide, /estimate: ''/, 'illustrative records must not carry a verification badge');
+  /* Illustrative records DO carry a badge now — they display a real figure, and
+   * showing it bare was the defect. What they must never carry is a tick: the
+   * tick is the app's strongest claim, reserved for a fee the college itself
+   * publishes, and 48 courses reading "✓" over a price the college does not
+   * quote would be a worse failure than the silence it replaced. */
+  const illustrative = COURSES.filter((c) => feeBasis(c) === 'illustrative');
+  assert.ok(illustrative.length > 0, 'no illustrative-fee records — this guard is stale');
+  const badge = decide.slice(decide.indexOf('illustrative:'), decide.indexOf('illustrative:') + 400);
+  assert.ok(!badge.includes('✓'),
+    `${illustrative.length} courses show a sourced figure that is not the college's own price. `
+    + 'Their badge must not use the verification tick.');
+  assert.match(decide, /verified-badge-illustrative/,
+    'illustrative records must render a badge of their own, not none at all');
 });
 
 test('the catalogue notice states the real split, not one flattering total', () => {

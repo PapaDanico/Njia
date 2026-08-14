@@ -1,4 +1,4 @@
-/* Njia — industry sector register.
+/* Njia — industry sector register (QA side).
  *
  * WHY THIS EXISTS.
  *
@@ -13,20 +13,25 @@
  *   - which industries does Njia cover, and which does it silently omit?
  *   - for each industry, who awards the qualification and who sets the fee?
  *
- * This register answers both, per sector, with the awarding body and the fee
- * regime named. tests/sector-coverage.test.js enforces it. A sector with no
- * catalogue presence has to be declared a gap in writing rather than simply
- * being absent, because an absence looks identical to a decision until someone
- * writes down which one it was.
+ * WHAT MOVED, AND WHY THIS FILE IS NOW HALF THE SIZE.
  *
- * NOT SHIPPED. This lives in tests/ rather than data/ deliberately: it is a
- * research and QA artefact, the UI does not render it, and Njia's users are on
- * metered mobile data. If the app ever surfaces sector coverage to readers,
- * move it to data/ and add it to the service worker manifest then, not before.
+ * The sector list itself — names, the match patterns, the awarding bodies —
+ * has been promoted to data/sectors.js and ships to readers, alongside the
+ * KNBS economics that gives a learner a reason to care which sector a course
+ * sits in. This file no longer keeps a copy of any of that. It loads the
+ * shipped file and adds only what belongs in QA: the coverage floor per sector,
+ * the declared gap, and which fee regimes each sector may legitimately use.
  *
- * FEE REGIMES. The field that would have caught both bugs. Every institution
- * carries fee_regime, and a course may only derive its fee from the regime its
- * own institution is on:
+ * That split is deliberate and was learned the hard way one screen over: this
+ * same test file kept its own reimplementation of the fee-basis classifier,
+ * drifted from the shipped one, and went on passing while the app under-counted
+ * 51 records. A guard holding a private copy of the thing it guards is not a
+ * guard. Ids are asserted to match in both directions below, so a sector added
+ * to one file and not the other fails rather than going quietly unchecked.
+ *
+ * FEE REGIMES. The field that would have caught both original bugs. Every
+ * institution carries fee_regime, and a course may only derive its fee from the
+ * regime its own institution is on:
  *
  *   tvet_consolidated   Public TVET on the government's consolidated Ksh 67,189
  *                       per year, inclusive of assessment, effective May 2026.
@@ -46,6 +51,9 @@
  *   public_university   Public universities, differentiated unit cost.
  *   private_own_rate    Private universities and colleges, own published rates.
  */
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
 
 const FEE_REGIMES = [
   'tvet_consolidated', 'ttc_consolidated', 'kmtc', 'tourism_corporation',
@@ -66,206 +74,165 @@ const DERIVATION_SIGNATURES = {
   kmtc: /KMTC publishes one national fee structure/i
 };
 
-/* Sectors are the industry view, not the interest-cluster view. The clusters
- * (carer, maker, numbers...) describe a learner; these describe an economy, and
- * a gap here is a gap in what Njia can offer regardless of who is asking.
+/* QA-only fields, keyed by the shipped sector id.
  *
  * `expect` is the minimum number of catalogue records for the sector to count
  * as covered. It is a floor for "we have actually sourced this", not a target.
  * `gap` records what is known to be missing and is required to be non-empty
  * when a sector is thin — a declared gap is research, an undeclared one is an
  * accident. */
-const SECTORS = [
-  {
-    id: 'health',
-    name: 'Health and care',
-    awardingBodies: ['KMTC', 'Nursing Council of Kenya', 'Clinical Officers Council', 'TVET CDACC'],
+const SECTOR_QA = {
+  health: {
     feeRegimes: ['kmtc', 'tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /nursing|clinical|health|medical|nutrition|pharm|laborator|counsell|social work|community develop/i,
     expect: 40,
     gap: 'Over-represented relative to every other sector because KMTC runs 40-odd campuses and Njia lists them all. That is Kenya\'s shape, not a sourcing error, but it does mean cluster counts cannot be read as demand.',
     source: 'kmtc.ac.ke national fee structure 2025/26; TVET CDACC health curricula'
   },
-  {
-    id: 'education',
-    name: 'Education and teacher training',
-    awardingBodies: ['KNEC', 'TSC (registration)'],
+  education: {
     feeRegimes: ['ttc_consolidated', 'public_university'],
-    match: /teacher education|education|teaching/i,
     expect: 5,
     gap: 'Only primary teacher education is covered. Diploma in Secondary Teacher Education and ECDE are not yet sourced. Note the labour market: roughly 369,000 registered teachers are unemployed, so more supply here would not be a service.',
     source: 'TSC registration rules; KUCCPS TTC placement; see TEACHER_LABOUR_MARKET'
   },
-  {
-    id: 'hospitality',
-    name: 'Hospitality and tourism',
-    awardingBodies: ['Kenya Utalii College', 'TVET CDACC', 'Tourism Regulatory Authority'],
+  hospitality: {
     feeRegimes: ['tourism_corporation', 'tvet_consolidated', 'private_own_rate'],
-    match: /hospitality|hotel|culinary|food and beverage|food production|front office|housekeep|tour|travel|seafaring/i,
     expect: 20,
     gap: 'Coverage outside the two Utalii campuses is thin, and Utalii\'s own published fees conflict across sources so every record here is illustrative rather than verified.',
     source: 'KUCCPS Utalii placement March 2026 and September 2026 Ronald Ngala intake'
   },
-  {
-    id: 'built',
-    name: 'Built environment and construction',
-    awardingBodies: ['National Construction Authority', 'Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
+  built: {
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /building|construction|masonry|plumb|carpent|architect|quantity survey|civil/i,
     expect: 15,
     gap: 'Quantity surveying and land surveying are barely present, and both are numerate routes that would help the thinnest cluster.',
     source: 'NCA contractor and worker accreditation; TVET CDACC construction curricula'
   },
-  {
-    id: 'engineering',
-    name: 'Engineering, manufacturing and trades',
-    awardingBodies: ['Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
+  engineering: {
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /engineering|mechanic|electric|automotive|weld|fitter|machinist|fabricat|refrigerat|metal|processing technology|plant technician/i,
     expect: 25,
     gap: '',
     source: 'TVET CDACC engineering curricula; NITA trade tests'
   },
-  {
-    id: 'ict',
-    name: 'ICT and digital',
-    awardingBodies: ['TVET CDACC', 'KNEC', 'ICT Authority'],
+  ict: {
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /information communication|information technology|computer|software|cyber|data sci|data analy|ict|networking|digital|instrumentation|control technician/i,
     expect: 20,
     gap: 'No route covers the online and platform work that is actually absorbing young Kenyans — remote support, BPO, digital freelancing — because none of it has a formal awarded qualification to point at.',
     source: 'TVET CDACC ICT Technician Level 6 and Computer Science Level 6 curricula'
   },
-  {
-    id: 'finance',
-    name: 'Business, finance and accountancy',
-    awardingBodies: ['KASNEB', 'TVET CDACC'],
+  finance: {
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /account|financ|bank|tax|credit|econom|statistic|actuarial|audit|commerce|business management|business studies|sales|marketing|entrepreneur|customs/i,
     expect: 20,
     gap: 'Actuarial and statistics remain degree-only, so a learner without a C+ has no numerate route above certificate level except accountancy.',
     source: 'TVET CDACC Level 5 and 6 business curricula; KASNEB CPA ladder'
   },
-  {
-    id: 'supplychain',
-    name: 'Procurement, supply chain and logistics',
-    awardingBodies: ['TVET CDACC', 'KISM'],
+  supplychain: {
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /supply chain|procure|logistic|store keep|stores|transport|clearing|forward/i,
     expect: 10,
     gap: 'Clearing and forwarding, a real coastal employer, is not covered at all.',
     source: 'TVET CDACC Supply Chain Management Levels 5 and 6; Store Keeping Level 5'
   },
-  {
-    id: 'admin',
-    name: 'Administration, HR and public service',
-    awardingBodies: ['TVET CDACC', 'IHRM'],
+  admin: {
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /human resource|office administration|public administration|secretar|records|project management|governance|events management|security|emotional intelligence|leadership|communication|disaster management|resilience/i,
     expect: 12,
     gap: '',
     source: 'TVET CDACC Human Resource Management Levels 5 and 6; Office Administration Levels 5 and 6'
   },
-  {
-    id: 'agriculture',
-    name: 'Agriculture and agribusiness',
-    awardingBodies: ['TVET CDACC', 'public universities'],
+  agriculture: {
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /agri|farm|horticultur|animal|veterinar|food techn|fisher|livestock|range management|pastoral/i,
     expect: 15,
     gap: 'Bukura publishes only its certificate fee, Baraka and Egerton publish nothing reachable, so most records here carry no figure. Aquaculture and agri-mechanisation are still unsourced.',
     source: 'TVET CDACC agriculture curricula'
   },
-  {
-    id: 'creative',
-    name: 'Creative, media and design',
-    awardingBodies: ['KIMC', 'TVET CDACC', 'Media Council of Kenya'],
+  creative: {
     feeRegimes: ['tvet_consolidated', 'public_university', 'private_own_rate'],
-    match: /journalis|media|film|television|music|graphic|design|fashion|photograph|animation|art/i,
     expect: 15,
     gap: '',
     source: 'KIMC programmes; TVET CDACC creative curricula'
   },
-  {
-    id: 'aviation',
-    name: 'Aviation',
-    awardingBodies: ['Kenya Civil Aviation Authority (KCAA)', 'IATA'],
+  aviation: {
     feeRegimes: ['parastatal_own_rate', 'private_own_rate'],
-    match: /aviation|aeronautic|aircraft|avionic|cabin crew|flight|air traffic|airport operations|passenger handling|navaids|surveillance engineering/i,
     expect: 15,
     gap: 'Pilot training is absent: it is licensed separately by KCAA, costs several million shillings, and would be dishonest to list beside a Ksh 67,189 certificate without that context.',
     source: 'KCAA-approved training organisations; EASA and Kenya Aeronautical College published 2026 fees'
   },
-  {
-    id: 'energy',
-    name: 'Energy, oil, gas and geothermal',
-    awardingBodies: ['TVET CDACC', 'Kenya Pipeline Company (MIOG)', 'KenGen GTC', 'NEBOSH'],
+  energy: {
     feeRegimes: ['parastatal_own_rate', 'tvet_consolidated', 'public_university'],
-    match: /oil and gas|pipeline|geothermal|steamfield|drilling|solar|energy|electrical power/i,
     expect: 8,
     gap: 'Neither MIOG nor the KenGen centre publishes a fee schedule, so every record here carries a null fee. Much of their provision is short-course and industry-sponsored rather than open entry.',
     source: 'Kenya Pipeline Company MIOG; KenGen Geothermal Training Centre, Olkaria'
   },
-  {
-    id: 'maritime',
-    name: 'Maritime and the blue economy',
-    awardingBodies: ['Kenya Maritime Authority', 'Kenya Ports Authority (Bandari)', 'STCW'],
+  maritime: {
     feeRegimes: ['parastatal_own_rate', 'tourism_corporation'],
-    match: /maritime|marine|seafar|port operations|shipping|deck/i,
     expect: 5,
     gap: 'Statutory STCW certification, medicals and endorsements sit outside the tuition figure and are not costed here.',
     source: 'Bandari Maritime Academy, Kenya Ports Authority'
   },
-  {
-    id: 'water',
-    name: 'Water and sanitation',
-    awardingBodies: ['Kenya Water Institute (KEWI Act 2001)', 'TVET CDACC'],
+  water: {
     feeRegimes: ['parastatal_own_rate', 'tvet_consolidated'],
-    match: /water|sanitation|irrigation/i,
     expect: 4,
     gap: 'KEWI publishes no verifiable tuition schedule, so all fees here are null. Its Kitui and Tharaka Nithi campuses are not yet listed.',
     source: 'Kenya Water Institute, established by the KEWI Act 2001'
   },
-  {
-    id: 'transport',
-    name: 'Rail, roads and transport infrastructure',
-    awardingBodies: ['Railway Training Institute', 'KIHBT (State Department for Roads)', 'TVET CDACC'],
+  transport: {
     feeRegimes: ['parastatal_own_rate', 'tvet_consolidated'],
-    match: /railway|highway|road construction|transport|plant operation/i,
     expect: 5,
     gap: 'Fee figures circulating for the Railway Training Institute are short-course rates and must not be read as diploma fees; its diploma schedule is unpublished, so those records carry null.',
     source: 'Railway Training Institute; Kenya Institute of Highways and Building Technology'
   },
-  {
-    id: 'legal',
-    name: 'Law and governance',
-    awardingBodies: ['Council of Legal Education', 'Kenya School of Law', 'TVET CDACC'],
+  legal: {
     feeRegimes: ['public_university', 'private_own_rate'],
-    match: /law|legal|paralegal|theolog|governance|leadership/i,
     expect: 2,
     gap: 'Only the LLB is present. The paralegal and legal-clerk routes below degree level are unsourced, and the Advocates Training Programme at the Kenya School of Law — the mandatory step after an LLB — is not represented at all.',
     source: 'Council of Legal Education; CUE-chartered law faculties'
   },
-  {
-    id: 'mining',
-    name: 'Mining, quarrying and extractives',
-    awardingBodies: ['TVET CDACC', 'State Department for Mining', 'Kenya School of Mines'],
+  mining: {
     feeRegimes: ['tvet_consolidated', 'parastatal_own_rate', 'public_university'],
-    match: /mining|quarry|geolog|extract|drilling|petroleum/i,
     expect: 10,
-    gap: 'The fastest-growing sector in the KNBS Economic Survey 2026 — mining and quarrying expanded 14.9% in 2025, ahead of every other sector — and Njia carries three records, none of them open below a C-. Quarrying and small-scale mining employ large numbers informally across Kajiado, Machakos, Taita-Taveta and the coast, and none of that has a sourced training route here. This is the widest gap between what the economy is doing and what the catalogue offers.',
+    /* This note said "three records" until sector assignment became
+     * first-match-wins and could be counted properly. The other two were being
+     * double-counted under energy — the old register tested every sector's
+     * pattern independently, so a geothermal drilling course was mining AND
+     * energy AND anything else that matched, and every sector's coverage looked
+     * better than it was. There is exactly one. */
+    gap: 'The fastest-growing sector in the KNBS Economic Survey 2026 — mining and quarrying expanded 14.9% in 2025, ahead of every other sector — and Njia carries a single record, a geothermal drilling certificate, not open below a C-. Quarrying and small-scale mining employ large numbers informally across Kajiado, Machakos, Taita-Taveta and the coast, and none of that has a sourced training route here. This is the widest gap between what the economy is doing and what the catalogue offers.',
     source: 'KNBS Economic Survey 2026; TVET CDACC extractives curricula'
   },
-  {
-    id: 'personal',
-    name: 'Beauty, personal care and services',
-    awardingBodies: ['TVET CDACC', 'NITA'],
+  personal: {
     feeRegimes: ['tvet_consolidated', 'private_own_rate'],
-    match: /beauty|hairdress|cosmetolog|barber|tailor|garment|dressmak|leather/i,
     expect: 8,
     gap: '',
     source: 'TVET CDACC beauty and textile curricula; NITA trade tests'
   }
-];
+};
 
-module.exports = { SECTORS, FEE_REGIMES, DERIVATION_SIGNATURES };
+/* Load the shipped register rather than restating it. data/sectors.js is a
+ * browser global script with a CommonJS tail, so a bare require() would work —
+ * but running it through vm keeps this identical to how every other test in
+ * this suite loads shipped data, and keeps it working if that tail is ever
+ * dropped for payload reasons. */
+const shipped = vm.runInNewContext(
+  `${fs.readFileSync(path.join(__dirname, '..', 'data', 'sectors.js'), 'utf8')}; ({ SECTORS, ECONOMY, MIN_SECTOR_SAMPLE, sectorForCourse, sectorPace, formalNewJobs })`
+);
+
+const missingQa = shipped.SECTORS.filter((s) => !SECTOR_QA[s.id]).map((s) => s.id);
+if (missingQa.length) {
+  throw new Error(`data/sectors.js ships ${missingQa.join(', ')} with no coverage floor or declared `
+    + 'gap in tests/sector-register.js. A sector nobody wrote a floor for is a sector nothing checks.');
+}
+const orphanQa = Object.keys(SECTOR_QA).filter((id) => !shipped.SECTORS.some((s) => s.id === id));
+if (orphanQa.length) {
+  throw new Error(`tests/sector-register.js declares ${orphanQa.join(', ')}, which data/sectors.js `
+    + 'no longer ships. Remove the stale entry rather than leaving a floor guarding nothing.');
+}
+
+const SECTORS = shipped.SECTORS.map((s) => ({ ...s, ...SECTOR_QA[s.id] }));
+
+module.exports = {
+  SECTORS,
+  FEE_REGIMES,
+  DERIVATION_SIGNATURES,
+  ECONOMY: shipped.ECONOMY,
+  MIN_SECTOR_SAMPLE: shipped.MIN_SECTOR_SAMPLE,
+  sectorForCourse: shipped.sectorForCourse,
+  sectorPace: shipped.sectorPace,
+  formalNewJobs: shipped.formalNewJobs
+};

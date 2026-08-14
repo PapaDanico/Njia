@@ -191,8 +191,8 @@ const SECTORS = [
     name: 'Aviation',
     awardingBodies: ['Kenya Civil Aviation Authority (KCAA)', 'IATA'],
     feeRegimes: ['parastatal_own_rate', 'private_own_rate'],
-    match: /aviation|aeronautic|aircraft|avionic|cabin crew|flight/i,
-    expect: 6,
+    match: /aviation|aeronautic|aircraft|avionic|cabin crew|flight|air traffic|airport operations|passenger handling|navaids|surveillance engineering/i,
+    expect: 15,
     gap: 'Pilot training is absent: it is licensed separately by KCAA, costs several million shillings, and would be dishonest to list beside a Ksh 67,189 certificate without that context.',
     source: 'KCAA-approved training organisations; EASA and Kenya Aeronautical College published 2026 fees'
   },

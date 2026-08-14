@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Njia — Data-Driven Career Pathway</title>
   <meta name="description" content="Njia helps Kenyan youth make evidence-based career pathway decisions using a research-backed career psychology and life-design method, combined with Kenyan institutional data.">
-  <meta name="theme-color" content="#faf9f5">
+  <meta name="theme-color" content="#F5E9D4">
 
   <!-- This app is served on two hosts: the custom domain and the Netlify
        subdomain it deploys to. Identical content on two addresses with no
@@ -71,12 +71,36 @@
        gets these; emoji stays reserved for content voice only. -->
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
     <defs>
-      <!-- The brand mark. A symbol rather than an <img> because the mark is
-           drawn in currentColor: an SVG loaded through <img> cannot inherit
-           the page's ink, which is why the old mark shipped as four PNGs —
-           a light pair and a dark pair — that had to be kept in step by hand.
-           One definition here themes itself everywhere it is used. -->
-      <symbol id="i-njia" viewBox="0 0 48 48" fill="none"><g stroke="currentColor" stroke-width="5.5" stroke-linecap="round"><path d="M24 43V28"/><path d="M24 28C24 20.5 19.5 16 12.5 12.5"/><path d="M24 28C24 20.5 28.5 16 35.5 12.5"/></g><circle cx="35.5" cy="12.5" r="4.4" fill="currentColor"/></symbol>
+      <!-- The brand mark, drawn to the supplied identity sheet. Kept as a
+           sprite symbol rather than an <img> so it is one definition rather
+           than the five bitmaps it replaced, and so the shield edge can be
+           switched for dark grounds through --mark-edge without a second
+           asset. The fields carry the brand hexes literally.
+           Synced from icons/logo-mark.svg — a guard fails if they diverge. -->
+      <symbol id="i-njia" viewBox="0 0 64 96">
+        <defs>
+            <clipPath id="njia-shield">
+              <path d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"/>
+            </clipPath>
+          </defs>
+          <g clip-path="url(#njia-shield)">
+            <rect width="64" height="96" fill="#8B2500"/>
+            <path d="M0 54 64 68V96H0Z" fill="#3D1C02"/>
+            <path d="M33 52 64 40v25Z" fill="#C8860A"/>
+          </g>
+          <g clip-path="url(#njia-shield)">
+            <path d="M25 90c-2-9 9-12 10-21 1-8-7-11-6-19 1-6 3-8 3-11" fill="none"
+                  stroke="#F5E9D4" stroke-width="7.5" stroke-linecap="round"/>
+            <path d="M25 90c-2-9 9-12 10-21 1-8-7-11-6-19 1-6 3-8 3-11" fill="none"
+                  stroke="#3D1C02" stroke-width="1" stroke-linecap="round"
+                  stroke-dasharray="2.5 4" opacity=".5"/>
+          </g>
+          <path d="M32 41V17" fill="none" stroke="#F5E9D4" stroke-width="6" stroke-linecap="round"/>
+          <path d="m24.5 25 7.5-8.5 7.5 8.5" fill="none" stroke="#F5E9D4" stroke-width="6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"
+                fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="4.5" stroke-linejoin="round"/>
+      </symbol>
       <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></symbol>
       <symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.6 8.4-2 5.2-5.2 2 2-5.2z"/></symbol>
       <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></symbol>
@@ -123,10 +147,10 @@
     <header class="app-header">
       <button type="button" class="header-btn nav-back" aria-label="Back to home" onclick="navigateTo('home')"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
       <div class="logo">
-        <svg class="logo-mark" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true"><use href="#i-njia"/></svg>
+        <svg class="logo-mark" viewBox="0 0 64 96" width="19" height="28" aria-hidden="true"><use href="#i-njia"/></svg>
         <span class="logo-lockup">
           <span class="logo-word">Njia</span>
-          <span class="logo-descriptor">Career Pathways · Kenya</span>
+          <span class="logo-descriptor">Data-driven career pathway for Kenyan youth</span>
         </span>
         <span id="header-page-label" class="header-page-label" aria-live="polite"></span>
       </div>
@@ -172,6 +196,7 @@
         <button type="button" class="header-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()"><svg class="icon icon-menu" aria-hidden="true"><use href="#i-menu"/></svg><svg class="icon icon-close" aria-hidden="true"><use href="#i-x"/></svg></button>
       </div>
     </header>
+    <div class="brand-rule" aria-hidden="true"></div>
 
     <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile site menu">
       <a href="#" onclick="scrollAndCloseMenu('landing-evidence');return false">Why Njia</a>

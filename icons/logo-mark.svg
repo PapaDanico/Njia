@@ -1,26 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="Njia">
-  <!-- Njia means "path", and the product exists for one moment: the fork a
-       learner reaches after KCSE, where both ways look identical from where
-       they stand.
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia">
+  <!-- The Njia mark, drawn to the supplied brand sheet: a pointed vertical
+       shield divided into terracotta, ochre gold and earth brown fields,
+       with a cream road winding up through it and straightening into an
+       arrow.
 
-       The mark is that fork with one way marked. The geometry stays balanced
-       — an off-balance version of this stops reading as a route and starts
-       reading as a twig — and the asymmetry that matters is carried by the
-       single filled point instead. One branch resolves; the other stays open
-       and unmarked, because Njia names a secondary cluster too and never
-       claims the road not taken is closed.
+       Redrawn as vector rather than cropped from the sheet so it stays sharp
+       from a 16px browser tab to a 512px app icon, and so the fields can be
+       recoloured for the dark variant without a second file. The colours are
+       the brand hexes exactly, not approximations. -->
+  <defs>
+    <clipPath id="njia-shield">
+      <path d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"/>
+    </clipPath>
+  </defs>
 
-       Monoline, single colour, currentColor, so the mark takes the ink of
-       whatever it sits in — terracotta on paper, cream on navy — and holds
-       its silhouette at 16px in a browser tab. -->
-  <g stroke="currentColor" stroke-width="5.5" stroke-linecap="round" fill="none">
-    <!-- Where you are now. -->
-    <path d="M24 43V28"/>
-    <!-- The two ways on, leaving at one point so the junction reads as a
-         single decision rather than two unrelated lines. -->
-    <path d="M24 28C24 20.5 19.5 16 12.5 12.5"/>
-    <path d="M24 28C24 20.5 28.5 16 35.5 12.5"/>
+  <g clip-path="url(#njia-shield)">
+    <!-- Terracotta ground -->
+    <rect width="64" height="96" fill="#8B2500"/>
+    <!-- Earth brown lower field, on the diagonal the sheet shows -->
+    <path d="M0 54 64 68V96H0Z" fill="#3D1C02"/>
+    <!-- Ochre gold wedge on the right shoulder -->
+    <path d="M33 52 64 40v25Z" fill="#C8860A"/>
   </g>
-  <!-- The way found. One point, on one branch. -->
-  <circle cx="35.5" cy="12.5" r="4.4" fill="currentColor"/>
+
+  <g clip-path="url(#njia-shield)">
+    <!-- The road: winds up from the foot of the shield, then straightens. -->
+    <path d="M25 90c-2-9 9-12 10-21 1-8-7-11-6-19 1-6 3-8 3-11" fill="none"
+          stroke="#F5E9D4" stroke-width="7.5" stroke-linecap="round"/>
+    <!-- Dashed centre line, as on the sheet. -->
+    <path d="M25 90c-2-9 9-12 10-21 1-8-7-11-6-19 1-6 3-8 3-11" fill="none"
+          stroke="#3D1C02" stroke-width="1" stroke-linecap="round"
+          stroke-dasharray="2.5 4" opacity=".5"/>
+  </g>
+
+  <!-- The arrow the road becomes: straight shaft, open head. -->
+  <path d="M32 41V17" fill="none" stroke="#F5E9D4" stroke-width="6" stroke-linecap="round"/>
+  <path d="m24.5 25 7.5-8.5 7.5 8.5" fill="none" stroke="#F5E9D4" stroke-width="6"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Shield outline, drawn last so it sits over every field edge. -->
+  <path d="M32 4C46 22 58 36 58 50c0 16-12 32-26 42C18 82 6 66 6 50 6 36 18 22 32 4Z"
+        fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="4.5" stroke-linejoin="round"/>
 </svg>

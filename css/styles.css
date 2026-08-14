@@ -14,34 +14,45 @@
   /* Action colour — terracotta. ~4.9:1 against white, so white button
    * text passes AA at normal size. --primary-dark is the link/eyebrow
    * ink variant (~7:1). */
-  --primary: #b4552d;
-  --primary-dark: #8a3f20;
-  --primary-light: #f7e9e0;
-  --secondary: #55802d;      /* leaf green, deepened for light bg */
-  --accent: #ed8b2d;         /* brand gold — reserved for dark bands */
-  --accent-ink: #8a5310;     /* gold's text-on-light variant — AA-safe at small sizes on all light surfaces */
-  --danger: #c0392b;
+  /* ---- Brand palette (supplied identity system) ----
+   * Terracotta #8B2500 · Ochre Gold #C8860A · Earth Brown #3D1C02
+   * Forest Green #2D5A1B · Warm Cream #F5E9D4
+   *
+   * Measured against Warm Cream: terracotta 7.40:1, earth brown 12.81:1,
+   * forest green 6.75:1 — all clear of AA. Ochre Gold is 2.55:1 and is
+   * therefore a FILL colour only, exactly as the brand sheet uses it: in
+   * the mark, the pattern strips and on dark grounds. --accent-ink is its
+   * text-safe counterpart, darkened until it clears the floor, because the
+   * sheet supplies no readable gold and small ochre text would be
+   * unreadable on cream. */
+  --primary: #8B2500;        /* Terracotta — the action colour */
+  --primary-dark: #6E1D00;   /* deepened for hover/pressed */
+  --primary-light: #F6E2D6;
+  --secondary: #2D5A1B;      /* Forest Green */
+  --accent: #C8860A;         /* Ochre Gold — fills, never small text on cream */
+  --accent-ink: #7A5206;     /* the readable gold, for tinted-panel text */
+  --danger: #A32014;
   --purple: #8b5cf6;
   --pink: #ec4899;
 
   /* Surfaces — warm paper, not grey. Cards sit white on paper; insets
    * (meta grids, inputs, chips) sit oat on white. */
-  --bg: #faf9f5;
-  --bg-elevated: #ffffff;
-  --bg-card: #f2efe7;
-  --bg-input: #ece8dd;
+  --bg: #F5E9D4;             /* Warm Cream — the page */
+  --bg-elevated: #FDF6E9;    /* cards lift by getting lighter, not whiter */
+  --bg-card: #EFDFC2;        /* insets sit deeper into the cream */
+  --bg-input: #E7D3B0;
 
-  --text-primary: #1f1e1d;
-  --text-secondary: #52504a;
-  --text-muted: #6b6862;
+  --text-primary: #3D1C02;   /* Earth Brown */
+  --text-secondary: #5C3410;
+  --text-muted: #6E4A22;
 
-  --border: #e6e2d7;
-  --border-light: #d6d1c2;
+  --border: #DCC7A4;
+  --border-light: #C9AE85;
 
   /* Ink fill for selected chips/tabs — dark neutral, so terracotta stays
    * reserved for primary actions and "current location" signals. */
-  --ink: #1f1e1d;
-  --ink-contrast: #faf9f5;
+  --ink: #3D1C02;
+  --ink-contrast: #F5E9D4;
 
   --serif: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, Georgia, 'Times New Roman', serif;
   /* Reserved for data figures — fees, percentages, dates, grades — never
@@ -51,15 +62,15 @@
    * reads as measured data rather than marketing copy. */
   --mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'JetBrains Mono', Consolas, monospace;
 
-  --shadow-sm: 0 1px 2px rgba(31, 30, 29, 0.05);
-  --shadow-md: 0 6px 18px rgba(31, 30, 29, 0.08);
-  --shadow-lg: 0 16px 40px rgba(31, 30, 29, 0.14);
+  --shadow-sm: 0 1px 2px rgba(61, 28, 2, 0.06);
+  --shadow-md: 0 6px 18px rgba(61, 28, 2, 0.10);
+  --shadow-lg: 0 16px 40px rgba(61, 28, 2, 0.18);
   /* Flatter than shadow-lg on purpose — the family sites keep even their
    * most prominent standalone cards nearly flush with the page (a 1-4px
    * blur, not a floating 40px one); shadow-lg stays reserved for actual
    * overlays (modals, dropdowns) where "lifted above the page" is the
    * point. */
-  --shadow-card: 0 1px 2px rgba(31, 30, 29, 0.04), 0 4px 14px rgba(31, 30, 29, 0.05);
+  --shadow-card: 0 1px 2px rgba(61, 28, 2, 0.05), 0 4px 14px rgba(61, 28, 2, 0.07);
 
   /* Opened up one step across the board. 8/12/16 corners on a 20px-padded
    * box read as a 2010 admin panel; the softer geometry is most of what
@@ -76,7 +87,7 @@
   /* Content width. --page-max is the working width for data-dense modules;
    * --prose-max keeps running text at a readable measure inside it, so a
    * wide page never turns body copy into a 1200px line. */
-  --page-max: 1280px;
+  --page-max: 1480px;
   --prose-max: 68ch;
 
   /* ---- Structural tokens (Kanda discipline: component rules reference
@@ -109,21 +120,21 @@
   --display-leading: 1.06;
 
   /* Action-colour states + text-on-fill */
-  --primary-deep: #a34b26;
-  --primary-soft: rgba(180, 85, 45, 0.09);
+  --primary-deep: #6E1D00;
+  --primary-soft: rgba(139, 37, 0, 0.09);
   --on-fill: #ffffff;
 
   /* Tint panels — soft background + AA-safe ink + hairline, per state.
    * Never raw success/warn/danger as small text on tints. */
-  --success-soft: rgba(85, 128, 45, 0.12);
-  --success-ink: #46691f;
-  --success-border: rgba(85, 128, 45, 0.3);
-  --warn-soft: rgba(237, 139, 45, 0.12);
-  --warn-ink: #8a5310;
-  --warn-border: #eac48d;
-  --danger-soft: rgba(192, 57, 43, 0.1);
-  --danger-ink: #a02e20;
-  --danger-border: rgba(192, 57, 43, 0.3);
+  --success-soft: rgba(45, 90, 27, 0.12);
+  --success-ink: #2D5A1B;
+  --success-border: rgba(45, 90, 27, 0.32);
+  --warn-soft: rgba(200, 134, 10, 0.14);
+  --warn-ink: #7A5206;
+  --warn-border: #D8B370;
+  --danger-soft: rgba(163, 32, 20, 0.1);
+  --danger-ink: #8F1C11;
+  --danger-border: rgba(163, 32, 20, 0.32);
 
   /* Cluster inks — the cluster palette in data/questions.js is tuned for
    * fills (bars, dots, tints). These are its text-safe counterparts, one
@@ -142,14 +153,20 @@
 
   /* Odyssey plan accents — one per life. Light values sit on white cards;
    * the dark scheme lifts each to clear the AA floor on the espresso card. */
-  --plan-life1: #0e7ba6;
-  --plan-life2: #55802d;
-  --plan-life3: #8a5310;
+  /* Brought into the brand palette. These were a blue, a leaf green and a
+   * mid gold tuned for a white card; on Warm Cream the first two measured
+   * 4.44:1 and 4.33:1 and failed AA outright — axe caught them on the Design
+   * page after the palette moved. Terracotta, Forest Green and the readable
+   * gold are the three brand hues that stay distinguishable from each other
+   * and clear the floor: 8.27, 7.54 and 6.43 on a card. */
+  --plan-life1: #8B2500;
+  --plan-life2: #2D5A1B;
+  --plan-life3: #7A5206;
 
   /* Neutral veils */
-  --ink-veil: rgba(31, 30, 29, 0.08);
-  --scrim: rgba(31, 30, 29, 0.42);
-  --header-veil: rgba(250, 249, 245, 0.92);
+  --ink-veil: rgba(61, 28, 2, 0.08);
+  --scrim: rgba(61, 28, 2, 0.45);
+  --header-veil: rgba(245, 233, 212, 0.93);
 
   color-scheme: light;
 }
@@ -162,45 +179,50 @@
  * (see applyTheme in js/app.js); a head inline script stamps it
  * pre-paint so there is no light flash. */
 :root[data-theme="dark"] {
-  --primary: #c96a3f;
-  --primary-dark: #dd9a72;
-  --primary-light: #3a2519;
-  --primary-deep: #b4552d;
-  --primary-soft: rgba(201, 106, 63, 0.14);
-  --secondary: #82a95a;
-  --accent-ink: #dfa35f;
-  --danger: #e0685a;
+  /* The brand sheet's dark variant grounds everything on Earth Brown, so
+   * the page sits a shade below it and cards come up to #3D1C02 itself.
+   * Terracotta cannot carry text here — it measures 1.73:1 on earth brown —
+   * so the action colour lifts toward the Ochre Gold end, which measures
+   * 5.03:1 on that ground. This is the same identity, not a second one. */
+  --primary: #E09A3C;
+  --primary-dark: #EDB765;
+  --primary-light: #4A2608;
+  --primary-deep: #C8860A;
+  --primary-soft: rgba(224, 154, 60, 0.15);
+  --secondary: #8FBF6A;
+  --accent-ink: #E8B871;
+  --danger: #E8776A;
 
-  --bg: #16130f;
-  --bg-elevated: #201c16;
-  --bg-card: #29241d;
-  --bg-input: #322c24;
+  --bg: #241002;
+  --bg-elevated: #3D1C02;    /* Earth Brown */
+  --bg-card: #4A2608;
+  --bg-input: #56300E;
 
-  --text-primary: #f0ece3;
-  --text-secondary: #c6bfb2;
-  --text-muted: #98917f;
+  --text-primary: #F5E9D4;   /* Warm Cream */
+  --text-secondary: #DDCCAE;
+  --text-muted: #BFA783;
 
-  --border: #37312a;
-  --border-light: #47403a;
+  --border: #56300E;
+  --border-light: #6B4114;
 
-  --ink: #f0ece3;
-  --ink-contrast: #16130f;
-  --on-fill: #1c1206;
+  --ink: #F5E9D4;
+  --ink-contrast: #241002;
+  --on-fill: #241002;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 14px rgba(0, 0, 0, 0.25);
 
-  --success-soft: rgba(130, 169, 90, 0.16);
-  --success-ink: #a5c583;
-  --success-border: rgba(130, 169, 90, 0.4);
-  --warn-soft: rgba(223, 163, 95, 0.14);
-  --warn-ink: #e3b075;
-  --warn-border: rgba(223, 163, 95, 0.45);
-  --danger-soft: rgba(224, 104, 90, 0.14);
-  --danger-ink: #eb9a8e;
-  --danger-border: rgba(224, 104, 90, 0.4);
+  --success-soft: rgba(143, 191, 106, 0.16);
+  --success-ink: #A8D186;
+  --success-border: rgba(143, 191, 106, 0.4);
+  --warn-soft: rgba(232, 184, 113, 0.14);
+  --warn-ink: #E8B871;
+  --warn-border: rgba(232, 184, 113, 0.45);
+  --danger-soft: rgba(232, 119, 106, 0.14);
+  --danger-ink: #F0A197;
+  --danger-border: rgba(232, 119, 106, 0.4);
 
   --cluster-carer-ink: #f191b9;
   --cluster-creator-ink: #e3b075;
@@ -226,8 +248,8 @@
 :root[data-theme="dark"] #page-home {
   --landing-bg: #16130f;
   --landing-card: #201c16;
-  --landing-ink: #f0ece3;
-  --landing-ink-muted: #a89f8f;
+  --landing-ink: #F5E9D4;
+  --landing-ink-muted: #C9B693;
   --landing-border: #37312a;
 }
 
@@ -388,14 +410,18 @@ svg.icon {
  * trick sinking the plate into mud on the footer. All of it existed to
  * hide the fact that the mark was a rectangle of pixels rather than a
  * shape. It is a shape now. */
+/* The mark is a 2:3 shield, not a square tile — sizing it square squashes
+ * the shield. Height drives, width follows the ratio. The fields are brand
+ * hexes inside the SVG; only the shield edge is themed, because earth brown
+ * on an earth brown ground has no edge at all. */
 .logo-mark {
-  width: 28px; height: 28px;
+  width: 19px; height: 28px;
   flex-shrink: 0;
   display: block;
-  color: var(--primary);
 }
-.app-header .logo-mark { color: var(--primary); }
-.landing-hero-logo { color: var(--accent); }
+:root[data-theme="dark"] .logo-mark,
+.landing-hero-logo,
+.landing-footer .logo-mark { --mark-edge: #F5E9D4; }
 .header-btn {
   width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
@@ -655,7 +681,7 @@ main {
   main { padding-bottom: 1rem; }
   .bottom-nav { display: none; }
 
-  .page { max-width: var(--page-max); margin: 0 auto; padding: 2rem 2.5rem; }
+  .page { max-width: var(--page-max); margin: 0 auto; padding: 1.75rem clamp(1.25rem, 2.4vw, 2.25rem); }
   #page-home.page { max-width: none; margin: 0; padding: 0 !important; }
 
   /* Running text stays at a readable measure even though the page is wide.
@@ -755,7 +781,7 @@ main {
 /* ---------- Hero ---------- */
 .hero {
   text-align: center;
-  padding: 2rem 1rem 1.5rem;
+  padding: 1.25rem 1rem 1rem;
 }
 .hero h1 { margin-bottom: 0.5rem; }
 .hero p { color: var(--text-secondary); max-width: 420px; margin: 0 auto; }
@@ -1400,7 +1426,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .link-btn { background: none; border: none; padding: 0; color: var(--primary-dark); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: inherit; }
 
 /* ---------- Footer learn tiles (Kanda pattern) ---------- */
-.footer-learn { margin-top: 3rem; padding-top: 2.25rem; border-top: 1px solid rgba(248,250,252,0.14); }
+.footer-learn { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(248,250,252,0.14); }
 .footer-learn-grid { display: grid; gap: 0.9rem; margin-top: 1.25rem; }
 @media (min-width: 700px) { .footer-learn-grid { grid-template-columns: repeat(4, 1fr); } }
 .footer-learn-tile {
@@ -1409,12 +1435,12 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   background: rgba(248,250,252,0.05);
   border: 1px solid rgba(248,250,252,0.14);
   border-radius: var(--radius-md);
-  color: #f8fafc;
+  color: #F5E9D4;
 }
 .footer-learn-tile:hover { background: rgba(248,250,252,0.1); }
 .footer-learn-tile strong { display: block; font-size: 0.88rem; margin-bottom: 0.15rem; }
 .footer-learn-tile span { font-size: 0.75rem; color: rgba(248,250,252,0.6); line-height: 1.4; }
-.footer-about { margin-top: 2.75rem; }
+.footer-about { margin-top: 1.75rem; }
 .footer-about p { font-size: 0.82rem; color: rgba(248,250,252,0.66); line-height: 1.6; max-width: 62ch; }
 
 .course-tagline { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.4rem 0 0.2rem; }
@@ -1597,10 +1623,13 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 #page-home {
   --landing-bg: #faf9f5;
   --landing-card: #ffffff;
-  --landing-ink: #1f1e1d;
-  --landing-ink-muted: #5d5a52;
+  --landing-ink: #3D1C02;
+  --landing-ink-muted: #6E4A22;
   --landing-border: #e6e2d7;
-  --landing-dark: #0f172a;
+  /* Earth Brown, not the old slate navy. The identity sheet's dark variant
+   * grounds the whole brand on #3D1C02, and terracotta type on navy was
+   * both off-brand and low contrast. */
+  --landing-dark: #3D1C02;
   background: var(--landing-bg);
   color: var(--landing-ink);
   padding: 0 !important;
@@ -1629,8 +1658,11 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * had no idea when one argument ended and the next began. Space is what
  * separates sections on a modern page; borders were doing that job here
  * and doing it badly. */
-.landing-block { padding: clamp(3rem, 7vw, 6.5rem) 1.25rem; }
-.landing-block-tight { padding: clamp(2rem, 4vw, 3.5rem) 1.25rem; }
+/* Sections need joints, not chasms. clamp(3rem, 7vw, 6.5rem) gave a 1440px
+ * screen 104px of empty cream above and below every band, which read as the
+ * page having run out of things to say. Enough to separate, not to strand. */
+.landing-block { padding: clamp(2.25rem, 4.2vw, 3.75rem) 1.25rem; }
+.landing-block-tight { padding: clamp(1.5rem, 2.6vw, 2.25rem) 1.25rem; }
 
 .landing-hero {
   padding: 2.5rem 1.25rem 2.25rem;
@@ -1638,18 +1670,18 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   /* Kanda hero anatomy in Njia's palette: deep navy ground with warm
    * terracotta/gold radials, cream type, gold accent word. */
   background:
-    radial-gradient(120% 120% at 88% 0%, rgba(237, 139, 45, 0.16), transparent 55%),
-    radial-gradient(110% 110% at 0% 100%, rgba(180, 85, 45, 0.2), transparent 60%),
+    radial-gradient(120% 120% at 88% 0%, rgba(200, 134, 10, 0.20), transparent 55%),
+    radial-gradient(110% 110% at 0% 100%, rgba(139, 37, 0, 0.30), transparent 60%),
     var(--landing-dark);
-  color: #f8fafc;
+  color: #F5E9D4;
 }
 .landing-hero .landing-hero-logo { mix-blend-mode: normal; border-radius: 12px; }
-.landing-hero .landing-h1 { color: #f8fafc; }
+.landing-hero .landing-h1 { color: #F5E9D4; }
 .landing-hero .landing-sub { color: rgba(248, 250, 252, 0.82); }
 .landing-hero .landing-proverb { color: rgba(248, 250, 252, 0.7); border-left-color: var(--accent); }
 .landing-hero .status-pill { background: rgba(248, 250, 252, 0.08); border-color: rgba(248, 250, 252, 0.2); color: rgba(248, 250, 252, 0.85); }
 .landing-hero .landing-trust-item { color: rgba(248, 250, 252, 0.75); }
-.landing-hero .btn-outline-dark { color: #f8fafc; border-color: rgba(248, 250, 252, 0.4); }
+.landing-hero .btn-outline-dark { color: #F5E9D4; border-color: rgba(248, 250, 252, 0.4); }
 .landing-hero .btn-outline-dark:hover { background: rgba(248, 250, 252, 0.1); }
 .landing-hero-eyebrow {
   font-size: 0.72rem; font-weight: 700;
@@ -1665,7 +1697,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   border: 1px solid rgba(248, 250, 252, 0.18);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
-  color: #f8fafc;
+  color: #F5E9D4;
 }
 .landing-clock-title {
   font-size: 0.7rem; font-weight: 700;
@@ -1690,7 +1722,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   border-radius: var(--radius-md);
   border: 1px solid rgba(248, 250, 252, 0.35);
   background: transparent;
-  color: #f8fafc;
+  color: #F5E9D4;
   font-weight: 600; font-size: 0.85rem;
 }
 .landing-clock-btn:hover { background: rgba(248, 250, 252, 0.1); }
@@ -1707,7 +1739,11 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: var(--landing-ink);
   margin-bottom: 1rem;
 }
-.landing-h1 .hl-gold { color: var(--primary); }
+/* Ochre Gold, not terracotta. The accent word sits on the Earth Brown hero,
+ * where terracotta measures 1.73:1 and is effectively unreadable; the brand's
+ * gold measures 5.03:1 on that ground. The class was always named hl-gold —
+ * it is finally gold. */
+.landing-h1 .hl-gold { color: #C8860A; }
 .landing-h1 .hl-blue { color: var(--primary-dark); }
 .landing-sub {
   font-size: 1rem;
@@ -1805,7 +1841,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 
 .landing-dark {
   background: var(--landing-dark);
-  color: #f8fafc;
+  color: #F5E9D4;
 }
 .landing-stats-grid {
   display: grid;
@@ -1821,7 +1857,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   line-height: 1;
   margin-bottom: 0.4rem;
 }
-.landing-stat-label { font-size: 0.8rem; color: #cbd5e1; }
+.landing-stat-label { font-size: 0.8rem; color: #DDCCAE; }
 
 .landing-evidence-grid { display: grid; gap: 1rem; }
 .landing-evidence-card {
@@ -1864,7 +1900,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   font-weight: 700;
   color: var(--landing-ink);
 }
-.landing-quote .hl-gold { color: var(--primary); }
+.landing-quote .hl-gold { color: #C8860A; }
 .landing-quote-caption { margin-top: 1rem; font-size: 0.85rem; color: var(--landing-ink-muted); }
 
 .landing-process-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -1912,14 +1948,14 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * stripe in a dark run of four rather than as a moment. */
 .landing-final-cta {
   text-align: center;
-  padding: clamp(3.5rem, 7vw, 6.5rem) 1.25rem;
+  padding: clamp(2.5rem, 4.5vw, 4rem) 1.25rem;
 }
 /* margin-inline:auto because .landing-h2 now carries a 22ch measure, and
  * a max-width without auto margins silently left-aligns a heading inside
  * a centred block — which is exactly what happened here: the headline sat
  * hard left above a centred paragraph and a centred button. */
-.landing-final-cta .landing-h2 { color: #f8fafc; margin-inline: auto; }
-.landing-final-cta .landing-sub { color: #cbd5e1; margin-left: auto; margin-right: auto; }
+.landing-final-cta .landing-h2 { color: #F5E9D4; margin-inline: auto; }
+.landing-final-cta .landing-sub { color: #DDCCAE; margin-left: auto; margin-right: auto; }
 .landing-guarantee-box {
   display: flex; gap: 0.75rem; align-items: flex-start;
   background: rgba(248,250,252,0.08);
@@ -1929,7 +1965,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   margin-top: 1.5rem;
   text-align: left;
   font-size: 0.85rem;
-  color: #e2e8f0;
+  color: #E8D8BA;
 }
 
 /* The footer is four stacked regions in one dark run — links, the learn
@@ -1939,30 +1975,30 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * between the regions is what tells them apart. */
 .landing-footer {
   background: var(--landing-dark);
-  color: #cbd5e1;
-  padding: clamp(3rem, 5vw, 4.5rem) 1.25rem 2rem;
+  color: #DDCCAE;
+  padding: clamp(2rem, 3vw, 2.75rem) 1.25rem 1.5rem;
 }
-.landing-footer-grid { display: grid; grid-template-columns: 1fr; gap: 2.25rem; margin-bottom: 2.75rem; }
-.landing-footer-brand p { font-size: 0.85rem; color: #94a3b8; margin-top: 0.5rem; max-width: 32ch; line-height: 1.65; }
+.landing-footer-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.75rem; }
+.landing-footer-brand p { font-size: 0.85rem; color: #C9B693; margin-top: 0.5rem; max-width: 32ch; line-height: 1.65; }
 .landing-footer-col .footer-col-label {
   font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;
-  color: #94a3b8; margin-bottom: 0.75rem;
+  color: #C9B693; margin-bottom: 0.75rem;
 }
 .landing-footer-col button, .landing-footer-col a {
-  display: block; background: none; border: none; color: #e2e8f0;
+  display: block; background: none; border: none; color: #E8D8BA;
   font-size: 0.85rem; padding: 0.3rem 0; text-align: left;
 }
 .landing-footer-sources {
-  font-size: 0.72rem; color: #94a3b8; border-top: 1px solid #334155;
+  font-size: 0.72rem; color: #C9B693; border-top: 1px solid #334155;
   padding-top: 1.25rem; margin-bottom: 1.25rem; line-height: 1.6;
 }
 .landing-footer-bottom {
   display: flex; flex-direction: column; gap: 0.5rem;
-  font-size: 0.75rem; color: #94a3b8;
+  font-size: 0.75rem; color: #C9B693;
   border-top: 1px solid #334155; padding-top: 1.25rem;
 }
 .landing-footer-bottom a {
-  color: #94a3b8;
+  color: #C9B693;
   /* Was a bare 14px-tall inline link: under the WCAG 2.2 target-size
    * floor and awkward to hit on a phone. Padding gives it a real
    * hit area without changing how the row reads. */
@@ -1972,7 +2008,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   margin: 0 0.35rem 0 -0.55rem;
   border-radius: var(--radius-sm);
 }
-.landing-footer-bottom a:hover { background: rgba(248,250,252,0.08); color: #f8fafc; }
+.landing-footer-bottom a:hover { background: rgba(248,250,252,0.08); color: #F5E9D4; }
 .landing-footer-bottom > div { display: flex; flex-wrap: wrap; align-items: center; }
 
 @media (min-width: 480px) {
@@ -2007,9 +2043,14 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * only their inner grid gets capped instead, so the colour block still
  * reads as a deliberate full-width band, not an accidentally-wide one. */
 @media (min-width: 1024px) {
+  /* Widened from 1200px. On a 1440-plus screen a 1200px cap left roughly
+   * 120px of dead cream down each shoulder while the grids inside were
+   * cramped enough to wrap — empty margins bought at the cost of the
+   * content. The band still centres; it just stops leaving the room unused. */
   .landing-hero, .landing-block, .landing-quote-section {
-    max-width: 1200px;
+    max-width: 1480px;
     margin: 0 auto;
+    padding-inline: clamp(1.25rem, 3vw, 3rem);
   }
   /* The hero stops being a centred mobile column stretched across a wide
      viewport (all the width, none of it used) and becomes a genuine
@@ -2310,4 +2351,128 @@ body.modal-open { overflow: hidden; }
   background: var(--warn-soft);
   color: var(--warn-ink);
   border: 1px solid var(--warn-border);
+}
+
+/* ---------- Kenyan geometric border (brand pattern) ----------
+ *
+ * The identity sheet frames the lockup with woven triangle-and-dot strips,
+ * and they are the element that makes the brand read as Kenyan rather than
+ * as a generic warm palette. Drawn as an SVG tile in a data URI rather than
+ * shipped as a bitmap: it stays crisp at any width, weighs a few hundred
+ * bytes, and the CSP already allows data: images.
+ *
+ * Decoration only — every strip is aria-hidden or a background, so a screen
+ * reader never has to hear about triangles.
+ */
+.brand-rule {
+  height: 11px;
+  background-repeat: repeat-x;
+  background-size: auto 11px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='11' viewBox='0 0 36 11'%3E%3Cpath d='M0 1h36' stroke='%233D1C02' stroke-width='1.2'/%3E%3Cpath d='M0 10h36' stroke='%233D1C02' stroke-width='1.2'/%3E%3Cpath d='M0 2.4h9L4.5 8.6Z' fill='%238B2500'/%3E%3Cpath d='M9 8.6h9L13.5 2.4Z' fill='%23C8860A'/%3E%3Cpath d='M18 2.4h9l-4.5 6.2Z' fill='%233D1C02'/%3E%3Cpath d='M27 8.6h9l-4.5-6.2Z' fill='%232D5A1B'/%3E%3Ccircle cx='9' cy='5.5' r='1' fill='%233D1C02'/%3E%3Ccircle cx='27' cy='5.5' r='1' fill='%233D1C02'/%3E%3C/svg%3E");
+}
+/* On the dark bands the earth-brown rules and brown triangle vanish, so the
+ * dark tile swaps those two for cream and keeps the other three brand hues. */
+.landing-dark .brand-rule,
+.landing-hero .brand-rule,
+.landing-footer .brand-rule,
+.landing-final-cta .brand-rule,
+:root[data-theme="dark"] .brand-rule {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='11' viewBox='0 0 36 11'%3E%3Cpath d='M0 1h36' stroke='%23F5E9D4' stroke-width='1.2'/%3E%3Cpath d='M0 10h36' stroke='%23F5E9D4' stroke-width='1.2'/%3E%3Cpath d='M0 2.4h9L4.5 8.6Z' fill='%238B2500'/%3E%3Cpath d='M9 8.6h9L13.5 2.4Z' fill='%23C8860A'/%3E%3Cpath d='M18 2.4h9l-4.5 6.2Z' fill='%23F5E9D4'/%3E%3Cpath d='M27 8.6h9l-4.5-6.2Z' fill='%232D5A1B'/%3E%3Ccircle cx='9' cy='5.5' r='1' fill='%23F5E9D4'/%3E%3Ccircle cx='27' cy='5.5' r='1' fill='%23F5E9D4'/%3E%3C/svg%3E");
+}
+.brand-rule-tight { margin: 0 auto; max-width: var(--page-max); }
+
+/* ---------- Craft layer ----------
+ * The details that are invisible individually and obvious together.
+ */
+
+/* Selection in the brand's own ink rather than the browser's blue, which is
+ * the single most jarring off-brand colour a warm page can show. */
+::selection { background: rgba(139, 37, 0, 0.18); color: var(--text-primary); }
+:root[data-theme="dark"] ::selection { background: rgba(200, 134, 10, 0.28); color: #F5E9D4; }
+
+/* One focus ring, brand-coloured, with an offset so it reads as a ring around
+ * the control rather than a border stuck to it. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+:root[data-theme="dark"] :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline-color: #E09A3C;
+}
+
+/* Paper. The identity sheet prints on a warm stock with visible tooth, and a
+ * flat #F5E9D4 fill reads as a swatch rather than as paper. Two barely-there
+ * dot fields at different scales give the cream a grain that you notice only
+ * if it is removed. Fixed attachment so it never slides against the content. */
+body {
+  background-image:
+    radial-gradient(rgba(61, 28, 2, 0.030) 0.5px, transparent 0.5px),
+    radial-gradient(rgba(61, 28, 2, 0.022) 0.5px, transparent 0.5px);
+  background-size: 22px 22px, 13px 13px;
+  background-position: 0 0, 7px 9px;
+  background-attachment: fixed;
+}
+:root[data-theme="dark"] body {
+  background-image:
+    radial-gradient(rgba(245, 233, 212, 0.030) 0.5px, transparent 0.5px),
+    radial-gradient(rgba(245, 233, 212, 0.020) 0.5px, transparent 0.5px);
+}
+@media (prefers-reduced-motion: reduce) { body { background-attachment: scroll; } }
+
+/* Buttons: a hairline of the action colour's own darkness along the bottom
+ * edge, so the fill has a light source instead of being a flat rectangle. The
+ * lift on hover is small on purpose — 1px reads as responsive, 4px reads as a
+ * toy. */
+.btn-primary {
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.22), var(--shadow-sm);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.22), var(--shadow-md); }
+.btn-primary:active { transform: translateY(0); box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.22); }
+
+/* Numerals in data positions line up in columns and never reflow as they
+ * change — the difference between a figure and a number that happens to be
+ * in a table. */
+.num, .stat .value, .landing-stat-value { font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+/* Headings get old-style figures nowhere and tight tracking everywhere; the
+ * serif at display sizes needs the optical correction that small sizes don't. */
+h1, .landing-h1 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+
+/* ---------- Desktop: stop stranding the width beside the headings ----------
+ *
+ * Every landing section stacked a 22ch heading and a short lede above a
+ * full-width grid, which on a 1440px screen meant two bands of near-empty
+ * cream to the right of every heading before the content started. Widening
+ * the page fixed the outer shoulders and left these inner ones.
+ *
+ * So the heading becomes a rail. Eyebrow, heading and lede are pinned to
+ * rows 1-3 of a narrow first column; every other child auto-places into the
+ * second column and stacks there, which needs no wrapper element and cannot
+ * overlap, because the explicit placements above have already claimed their
+ * cells. Sections with one content block and sections with several both
+ * behave.
+ */
+@media (min-width: 1024px) {
+  .landing-block {
+    display: grid;
+    grid-template-columns: minmax(15rem, 23%) 1fr;
+    column-gap: clamp(2rem, 3.5vw, 3.75rem);
+    align-items: start;
+  }
+  /* The trio is wrapped in .landing-block-head in the markup rather than
+     placed by row here. Pinning them to rows 1-3 looked right and was not:
+     a tall content child sized row 1 to its own full height, so the heading
+     and lede rendered underneath the very grid they introduce. One wrapper
+     makes the rail a single cell and the bug impossible. */
+  .landing-block > .landing-block-head { grid-column: 1; position: sticky; top: calc(var(--header-h) + 1rem); }
+  .landing-block > .landing-block-head .landing-h2 { max-width: none; }
+  .landing-block > .landing-block-head .landing-h2-sub { margin-bottom: 0; }
+  .landing-block > :not(.landing-block-head) { grid-column: 2; }
+
+  /* The hero, the quote and the closing call to action are full-bleed
+     statements, not heading-plus-content sections — they keep one column. */
+  .landing-hero, .landing-quote-section, .landing-final-cta { display: block; }
 }

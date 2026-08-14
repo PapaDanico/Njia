@@ -703,7 +703,7 @@ function renderShareableReportHTML() {
              print, and prints at the printer's resolution instead of at 2x
              screen density. -->
         <div class="report-lockup">
-          <svg viewBox="0 0 48 48" width="42" height="42" role="img" aria-label="Njia"><use href="#i-njia"/></svg>
+          <svg viewBox="0 0 64 96" width="28" height="42" role="img" aria-label="Njia"><use href="#i-njia"/></svg>
           <span class="report-lockup-text">
             <strong>Njia</strong>
             <span>Career Pathways · Kenya</span>

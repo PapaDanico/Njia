@@ -157,3 +157,93 @@ test('the sector register stays honest about what it covers', () => {
     `${unmatched.length} courses match no declared sector, so the register cannot see them: `
     + unmatched.slice(0, 8).map((c) => `${c.id} "${c.name}"`).join('; '));
 });
+
+/* ---------- What the badge claims versus what was checked ----------
+ *
+ * An audit found the Decide notice telling readers that 274 of 371 records had
+ * "fees or terms cross-checked against a named public source", with a single
+ * "✓ Verified estimate" badge on every one of them. Of those 274, exactly 22
+ * carried a fee the institution itself publishes. 200 were derived from a
+ * national fee rule and 52 had no fee at all — and those 52 rendered the
+ * verification tick directly above the words "Not published".
+ *
+ * These tests hold the three states apart so they cannot silently re-merge.
+ */
+const feeBasis = (course) => {
+  if (course.fees_confidence !== 'verified') return 'estimate';
+  if (course.total_fees_kes == null) return 'unpublished';
+  return /derived from|scaled to course duration|multiplied out by course length|pro-rated/i
+    .test(course.verification_note || '') ? 'national' : 'published';
+};
+
+test('the fee-basis classifier agrees with the one the app ships', () => {
+  /* If decide.js and this file drift apart, the notice starts quoting numbers
+   * that no longer describe the badges beside it. */
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  assert.match(decide, /function feeBasis\(course\)/, 'decide.js no longer defines feeBasis');
+  assert.match(decide, /derived from\|scaled to course duration\|multiplied out by course length\|pro-rated/,
+    'the derivation pattern in decide.js has changed but this test still uses the old one');
+  for (const state of ['published', 'national', 'unpublished', 'estimate']) {
+    assert.ok(decide.includes(`${state}:`), `FEE_BASIS_BADGE has no entry for '${state}'`);
+  }
+});
+
+test('no record shows a verification badge above a fee it does not have', () => {
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  const unpublished = COURSES.filter((c) => feeBasis(c) === 'unpublished');
+  assert.ok(unpublished.length > 0, 'no unpublished-fee records — this guard is stale');
+  assert.match(decide, /unpublished: ''/,
+    `${unpublished.length} records publish no fee. They must render no badge: a tick above `
+    + '"Not published" reads as a guarantee attached to a blank.');
+  assert.match(decide, /estimate: ''/, 'illustrative records must not carry a verification badge');
+});
+
+test('the catalogue notice states the real split, not one flattering total', () => {
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  assert.ok(!/have fees or terms cross-checked against a named public source/.test(decide),
+    'the notice has reverted to the single overstated total');
+  for (const name of ['publishedCount', 'nationalCount', 'unpublishedCount']) {
+    assert.ok(decide.includes(name), `the notice no longer reports ${name}`);
+  }
+});
+
+test('both screens count verification the same way', () => {
+  /* The landing page and the Decide notice made the identical overstatement in
+   * identical words, because the claim was computed twice. */
+  const app = fs.readFileSync(path.join(root, 'js', 'app.js'), 'utf8');
+  assert.ok(!/records with fees or terms cross-checked against a named source/.test(app),
+    'the landing page has reverted to the overstated verification claim');
+  assert.match(app, /feeBasis\(c\) === 'published'/,
+    'the landing page must derive its figure from feeBasis, not from the raw confidence flag');
+});
+
+test('headline counts never claim institutions the catalogue cannot send anyone to', () => {
+  const withCourses = new Set(COURSES.map((c) => c.institution_id));
+  const app = fs.readFileSync(path.join(root, 'js', 'app.js'), 'utf8');
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  const orphans = INSTITUTIONS.filter((i) => !withCourses.has(i.id));
+  assert.ok(!/landing-numbers-figure">\$\{INSTITUTIONS\.length\}/.test(app),
+    `${orphans.length} institutions have no course (${orphans.map((i) => i.id).join(', ')}), `
+    + 'so INSTITUTIONS.length overstates what a reader can actually apply to');
+  assert.ok(!/coverage-num num">\$\{INSTITUTIONS\.length\}/.test(decide),
+    'the Decide coverage rail is counting institutions with no courses');
+});
+
+test('no description claims to be the only or first of its kind when it is not', () => {
+  /* c324 said it was "the only seafaring programme in this catalogue" and was
+   * made false in the same session by adding marine engineering and a deck
+   * rating at Bandari. A uniqueness claim is a fact about the whole dataset
+   * asserted inside one record, which is the most fragile shape a claim has. */
+  const CLAIMS = [
+    { pattern: /only seafaring programme/i, matches: /seafar|marine engineering|deck/i },
+    { pattern: /only paramedic route/i, matches: /paramedic|emergency medical/i }
+  ];
+  for (const claim of CLAIMS) {
+    const claimants = COURSES.filter((c) => claim.pattern.test(c.description || ''));
+    if (!claimants.length) continue;
+    const rivals = COURSES.filter((c) => claim.matches.test(c.name));
+    assert.equal(rivals.length, 1,
+      `${claimants[0].id} claims to be the only one of its kind, but ${rivals.length} records match: `
+      + rivals.map((c) => `${c.id} "${c.name}"`).join('; '));
+  }
+});

@@ -60,6 +60,49 @@ function institutionById(id) {
 // including every institution's county here would offer filter options
 // (like "Nakuru" or "Kakamega") that are guaranteed to return zero results.
 const COURSE_INSTITUTION_IDS = new Set(COURSES.map((c) => c.institution_id));
+
+/* WHAT "VERIFIED" ACTUALLY MEANS, PER RECORD.
+ *
+ * One badge — "✓ Verified estimate" — used to render on every record whose
+ * fees_confidence was 'verified', and the notice above the catalogue told the
+ * reader those records had "fees or terms cross-checked against a named public
+ * source". At 274 of 371 records that is a strong claim, and an audit found it
+ * was true of 22 of them.
+ *
+ * The other 252 split two ways, and both deserve to be said out loud:
+ *
+ *   200 carry a fee DERIVED from a national rule — the government's
+ *   consolidated Ksh 67,189, or KMTC's published 82,200-then-78,000 schedule —
+ *   multiplied out by course length. The rule is real, sourced and checkable.
+ *   What was never checked is whether that particular college charges that
+ *   particular amount for that particular course, and colleges do vary.
+ *
+ *   52 have NO fee at all. Those were the worst of it: the card rendered
+ *   "✓ Verified estimate" directly above "Tuition — Not published", which reads
+ *   as a guarantee attached to a blank. What is verified there is an absence:
+ *   we checked, and the institution publishes nothing.
+ *
+ * A learner deciding where to spend Ksh 200,000 deserves to know which of those
+ * three they are looking at, so the badge now says which. The classification is
+ * computed rather than stored because re-editing 371 records to add a field
+ * would be a worse trade than reading the note that is already there — and
+ * tests/provenance.test.js asserts every verified record classifies. */
+function feeBasis(course) {
+  if (course.fees_confidence !== 'verified') return 'estimate';
+  if (course.total_fees_kes == null) return 'unpublished';
+  return /derived from|scaled to course duration|multiplied out by course length|pro-rated/i
+    .test(course.verification_note || '') ? 'national' : 'published';
+}
+
+const FEE_BASIS_BADGE = {
+  published: '<span class="verified-badge" title="This college publishes this fee for this course, and it was checked against that source.">✓ Fee published by the college</span>',
+  national: '<span class="verified-badge verified-badge-derived" title="Worked out from the national fee rule for this type of institution, not from this college\'s own price list. Colleges vary — confirm before you plan around it.">✓ Fee from the national rate</span>',
+  /* No badge for 'unpublished': the feasibility chip beside it already says
+   * "Fee not published", and a tick mark next to a blank figure is the exact
+   * thing this change exists to stop. */
+  unpublished: '',
+  estimate: ''
+};
 const COUNTIES = [...new Set(INSTITUTIONS.filter((i) => COURSE_INSTITUTION_IDS.has(i.id)).map((i) => i.county))].sort();
 
 /* Illustrative accommodation + upkeep planning estimate (Ksh/month) — a
@@ -79,8 +122,13 @@ function renderDecidePage() {
   const el = document.getElementById('page-decide');
   if (!el) return;
 
-  const verifiedCount = COURSES.filter((c) => c.fees_confidence === 'verified').length
+  /* Split by what was actually checked rather than by the confidence flag. The
+   * old single "verified" total was accurate arithmetic on a field, and a
+   * considerable overstatement of the evidence — see feeBasis above. */
+  const publishedCount = COURSES.filter((c) => feeBasis(c) === 'published').length
     + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
+  const nationalCount = COURSES.filter((c) => feeBasis(c) === 'national').length;
+  const unpublishedCount = COURSES.filter((c) => c.total_fees_kes == null).length;
   const totalCount = COURSES.length + FUNDING_SOURCES.length;
 
   const counties = new Set(INSTITUTIONS.filter((i) => COURSE_INSTITUTION_IDS.has(i.id)).map((i) => i.county));
@@ -101,8 +149,16 @@ function renderDecidePage() {
                measured", and rendered the est. badge inline as an example.
                Both outlived the thing they described: the employment rates
                and salaries were removed rather than labelled, so the copy
-               was pointing at a marker that no longer appears anywhere. -->
-          <span><strong>${verifiedCount} of ${totalCount} records</strong> have fees or terms cross-checked against a named public source — look for the ✓ Fees verified badge. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. Always confirm fees with the institution before deciding.</span>
+               was pointing at a marker that no longer appears anywhere.
+
+               It then claimed 274 of 371 records were "cross-checked against a
+               named public source". An audit found that was true of 22. The
+               rest were either worked out from a national fee rule or had no
+               fee at all — including 52 that displayed a verification tick
+               above the words "Not published". The three states are now named
+               separately, because a learner about to commit two hundred
+               thousand shillings should be told which one they are reading. -->
+          <span><strong>Where each fee comes from.</strong> <strong>${publishedCount} of ${totalCount} records</strong> carry a figure the institution itself publishes, checked against that source. Another <strong>${nationalCount}</strong> are worked out from a national fee rule — the government's consolidated Ksh 67,189 for public TVET, or KMTC's own published schedule — which is real and sourced, but is not the same as that college quoting that price for that course. <strong>${unpublishedCount}</strong> publish no fee at all and say so rather than showing a guess. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. Confirm the fee with the institution before you decide — always, but especially on the middle group.</span>
         </div>
         <div class="data-disclaimer data-disclaimer-open">
           <!-- Placed here rather than in the evidence layer on purpose: this is
@@ -118,7 +174,7 @@ function renderDecidePage() {
         <div class="coverage-grid">
           <div><span class="coverage-num num">${DISTINCT_PROGRAMMES}</span><span class="coverage-label">distinct programmes</span></div>
           <div><span class="coverage-num num">${COURSES.length}</span><span class="coverage-label">places to apply</span></div>
-          <div><span class="coverage-num num">${INSTITUTIONS.length}</span><span class="coverage-label">institutions</span></div>
+          <div><span class="coverage-num num">${COURSE_INSTITUTION_IDS.size}</span><span class="coverage-label">institutions</span></div>
           <div><span class="coverage-num num">${counties.size}</span><span class="coverage-label">counties</span></div>
           <div><span class="coverage-num num">${levels.size}</span><span class="coverage-label">qualification levels</span></div>
           <div><span class="coverage-num num">${FUNDING_SOURCES.length}</span><span class="coverage-label">funding sources</span></div>
@@ -628,7 +684,7 @@ function renderCourseCard(course, match) {
   const feePublished = course.total_fees_kes != null;
   const monthlyEstimate = feePublished ? Math.round(course.total_fees_kes / course.duration_months) : null;
 
-  const isVerified = course.fees_confidence === 'verified';
+  const basis = feeBasis(course);
 
   // Online courses don't require relocating or renting near an institution,
   // so an accommodation estimate would overstate the real cost for them.
@@ -653,7 +709,7 @@ function renderCourseCard(course, match) {
           }[feas.level];
           return `<span class="feas-chip feas-${feas.level}" title="Tuition compared with your maximum budget filter">${copy}</span>`;
         })()}
-        ${isVerified ? '<span class="verified-badge" title="Fee figures cross-checked against a public source">✓ Verified estimate</span>' : ''}
+        ${FEE_BASIS_BADGE[basis] || ''}
       </div>
       <h2>${escapeHtml(course.name)}</h2>
       <div class="institution-name">${escapeHtml(inst ? inst.name : 'Unknown institution')} · ${escapeHtml(inst ? inst.location : '')}</div>
@@ -690,7 +746,7 @@ function renderCourseCard(course, match) {
       ${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? `
         <p class="text-sm mb-2"><strong>You are not asked for all of that.</strong> ${escapeHtml(PUBLIC_TVET_CAPITATION.reading)}</p>
       ` : ''}
-      ${isVerified ? `<details class="fee-provenance"><summary>How this fee was verified</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.residual)}` : ''}</p></details>` : ''}
+      ${course.verification_note ? `<details class="fee-provenance"><summary>${basis === 'unpublished' ? 'Why there is no fee here' : basis === 'national' ? 'Where this fee comes from' : 'How this fee was checked'}</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.residual)}` : ''}</p></details>` : ''}
       <details class="match-why">
         <summary>Why ${match.score}% match?</summary>
         <ul>

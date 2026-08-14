@@ -468,9 +468,24 @@ const LANDING_PROCESS = [
 // added or removed. Mirrors the same verified-count logic Decide shows.
 function renderNjiaNumbersCard() {
   const clusterCount = Object.keys(CLUSTERS).length;
-  const countyCount = new Set(INSTITUTIONS.map((i) => i.county)).size;
-  const verifiedCount = COURSES.filter((c) => c.fees_confidence === 'verified').length
+  /* Counted from institutions that actually have a course, not from the whole
+   * directory. Three institutions sit in the directory with no course attached
+   * yet, so INSTITUTIONS.length told readers Njia covered places it could not
+   * send them to. decide.js already computed counties this way; this figure
+   * did not, which is how the two disagreed. */
+  const listedInstitutions = new Set(COURSES.map((c) => c.institution_id));
+  const countyCount = new Set(INSTITUTIONS.filter((i) => listedInstitutions.has(i.id)).map((i) => i.county)).size;
+  /* Counted the same way the Decide notice counts, via feeBasis() in decide.js
+   * — a global by the time any render runs, like DISTINCT_PROGRAMMES above it.
+   * This figure used to count fees_confidence === 'verified' and label the
+   * result "cross-checked against a named source". That was 274 of 391, and an
+   * audit put the true figure at 22: the rest were derived from a national fee
+   * rule or had no fee at all. Two screens made the same overstatement in the
+   * same words, which is what happens when a claim is computed twice instead of
+   * once. */
+  const publishedCount = COURSES.filter((c) => feeBasis(c) === 'published').length
     + FUNDING_SOURCES.filter((f) => f.data_confidence === 'verified').length;
+  const nationalCount = COURSES.filter((c) => feeBasis(c) === 'national').length;
   const totalRecords = COURSES.length + FUNDING_SOURCES.length;
 
   return `
@@ -483,7 +498,7 @@ function renderNjiaNumbersCard() {
           <span class="landing-numbers-label">distinct programmes across ${clusterCount} career clusters, offered at ${COURSES.length} places you could apply</span>
         </div>
         <div class="landing-numbers-item">
-          <span class="landing-numbers-figure">${INSTITUTIONS.length}</span>
+          <span class="landing-numbers-figure">${listedInstitutions.size}</span>
           <span class="landing-numbers-label">institutions across ${countyCount} counties</span>
         </div>
         <div class="landing-numbers-item">
@@ -491,8 +506,8 @@ function renderNjiaNumbersCard() {
           <span class="landing-numbers-label">funding sources tracked</span>
         </div>
         <div class="landing-numbers-item">
-          <span class="landing-numbers-figure">${verifiedCount}/${totalRecords}</span>
-          <span class="landing-numbers-label">records with fees or terms cross-checked against a named source</span>
+          <span class="landing-numbers-figure">${publishedCount}/${totalRecords}</span>
+          <span class="landing-numbers-label">records whose fee the institution itself publishes, checked against that source — plus ${nationalCount} worked out from a national fee rule</span>
         </div>
       </div>
       <p class="landing-numbers-note">Computed from the dataset this app actually ships — not marketing copy. See Methodology for what "verified" means.</p>

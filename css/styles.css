@@ -2617,3 +2617,20 @@ p, li { text-wrap: pretty; }
   margin-top: 0.75rem;
 }
 .data-disclaimer-open > span:first-child { color: var(--secondary); }
+
+/* The derived-fee badge has to read as weaker than the published one without
+ * reading as a warning — the national rate is sourced and real, it just is not
+ * this college's own price list. So: outline instead of the forest-green fill.
+ *
+ * The outline was first drawn in --accent (ochre) and measured 2.84:1 against
+ * the card in light mode, under the 3:1 floor that WCAG 1.4.11 sets for
+ * non-text. That matters more here than it looks: the border is the ONLY thing
+ * separating this badge from the stronger one, so a border a reader cannot see
+ * turns "worked out from a national rule" into "published by the college".
+ * Ochre is fill-only in this palette for exactly this reason. --text-secondary
+ * carries the outline instead, at 8.19:1 light and 11.75:1 dark. */
+.verified-badge-derived {
+  background: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+}

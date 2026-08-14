@@ -534,3 +534,41 @@ test('a short course does not pretend to be a KNQF qualification', () => {
   assert.match(decide, /short_course: 'Short course'/,
     'short_course has no label, so the level filter would show the raw key to readers');
 });
+
+test('no fee figure is repeated across unrelated institutions', () => {
+  /* THE PLACEHOLDER DETECTOR.
+   *
+   * Ksh 420,000 sat on twelve different degrees at twelve different
+   * universities — public and private, nursing, design, actuarial science,
+   * education, IT — with USIU priced identically to Machakos University. Fees
+   * do not behave like that. It was one invented number pasted repeatedly, and
+   * because none of the twelve carried a citation they were being counted as
+   * "uncited fees awaiting sourcing", which flattered them enormously: there
+   * was nothing to source, because nobody had ever seen them.
+   *
+   * The signal is a value shared by institutions of DIFFERENT OWNERSHIP. Real
+   * collisions happen — KMTC charges one national rate at forty campuses, and
+   * public TVETs share the consolidated fee — but those are all public, all
+   * derived from a named rule, and all carry a note saying so. A figure that
+   * is the same at a public university and a private one, with no note
+   * explaining why, was typed rather than observed.
+   */
+  const uncited = COURSES.filter((c) => c.total_fees_kes != null && !c.verification_note);
+  const byFee = new Map();
+  for (const c of uncited) {
+    if (!byFee.has(c.total_fees_kes)) byFee.set(c.total_fees_kes, []);
+    byFee.get(c.total_fees_kes).push(c);
+  }
+  const suspects = [];
+  for (const [fee, list] of byFee) {
+    const owners = new Set(list.map((c) => byId[c.institution_id] && byId[c.institution_id].ownership));
+    const institutions = new Set(list.map((c) => c.institution_id));
+    if (institutions.size > 1 && owners.size > 1) {
+      suspects.push(`Ksh ${fee} on ${list.length} courses across ${institutions.size} institutions `
+        + `of mixed ownership (${list.map((c) => c.id).join(', ')})`);
+    }
+  }
+  assert.deepEqual(suspects.join(' | '), '',
+    'these look like a placeholder pasted rather than a fee observed. Remove the figure and say so, '
+    + 'or cite it: ' + suspects.join(' | '));
+});

@@ -813,7 +813,7 @@ function renderCourseCard(course, match) {
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(LEVEL_LABELS[course.level] || course.level)}</div></div>
         <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${course.duration_months} mo</div></div>
-        <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value${feePublished ? ' num' : ''}">${feePublished ? formatKes(course.total_fees_kes) : 'Not published'}</div></div>
+        <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value${feePublished ? ' num' : ''}">${feePublished ? formatKes(course.total_fees_kes) : 'Not shown'}</div></div>
         <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
@@ -825,7 +825,27 @@ function renderCourseCard(course, match) {
         ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
         : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
       }</p>` : `
-      <p class="text-muted text-sm mb-2"><strong>This centre does not publish its fees.</strong> County vocational training centres are usually the cheapest formal training available and often the only option without relocating — but you have to ring them to find out what it costs. Ask for the fee per term, what the county capitation covers, and whether tools or exam fees are separate. The Grade III trade test is charged by NITA on top of tuition.</p>`}
+      ${/* THE COPY THAT WAS WRITTEN FOR ONE AUDIENCE AND SHOWN TO EVERY OTHER.
+             This branch used to be unconditional county-VTC advice — cheapest
+             option, ring the registrar, mind the NITA trade test — because when
+             it was written the only fee-less records WERE county VTCs. Nulling
+             eighteen invented university fees pushed CUE-chartered degrees into
+             it, so DeKUT was telling readers it was a village polytechnic and
+             to budget for a Grade III trade test on a BSc. Wrong in every
+             particular, and only visible by opening the page.
+
+             It now asks what kind of place this is. The three cases give
+             genuinely different advice, which is the point: a VTC needs a phone
+             call, a university needs an understanding of how its fees are now
+             set, and everyone else needs to be told the figure is simply
+             absent. */''}
+      ${inst && inst.type === 'tvet' && /vocational|village polytechnic|VTC/i.test(inst.name + ' ' + (inst.accreditation || '')) ? `
+      <p class="text-muted text-sm mb-2"><strong>This centre does not publish its fees.</strong> County vocational training centres are usually the cheapest formal training available and often the only option without relocating — but you have to ring them to find out what it costs. Ask for the fee per term, what the county capitation covers, and whether tools or exam fees are separate. The Grade III trade test is charged by NITA on top of tuition.</p>`
+      : inst && inst.fee_regime === 'public_university' ? `
+      <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> Public universities do publish fees, but there is no longer a single per-programme price to quote: what you pay is set from your assessed household means, and the model is being changed again by Parliament. Ask the university what your intake is being billed and under which model — in writing.</p>`
+      : `
+      <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> This institution sets its own fees and none could be verified from a source Njia can reach. Ring or email the admissions office and ask for the full cost per year, what it includes, and what is charged separately — accommodation, exams and materials usually are.</p>`}
+      `}
       ${/* For the 29 courses priced off the government's consolidated public-TVET
             fee, the tuition figure above is the PUBLISHED fee, not the invoice.
             Capitation covers Ksh 30,000 a year and the published student balance
@@ -1057,7 +1077,7 @@ function openCourseComparison() {
     { label: 'Institution', get: (c) => institutionById(c.institution_id)?.name || 'Unknown institution', wrap: true },
     { label: 'Level', get: (c) => LEVEL_LABELS[c.level] || c.level },
     { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true, raw: (c) => c.duration_months, better: 'min' },
-    { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not published' : formatKes(c.total_fees_kes)), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
+    { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not shown' : formatKes(c.total_fees_kes)), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
     /* There were two more rows here: "Employment Rate (est.)" and "Median
      * Salary (est.)". They were shown without best-value shading, on the

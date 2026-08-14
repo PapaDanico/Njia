@@ -170,7 +170,11 @@ const SECTORS = [
     id: 'finance',
     name: 'Business, finance and accountancy',
     broad: 'services',
-    match: /account|financ|bank|tax|credit|econom|statistic|actuarial|audit|commerce|business management|business studies|sales|marketing|entrepreneur|customs/i,
+    /* `insur` added after the College of Insurance records were claimed by no
+     * sector at all — the pattern had `financ` and `actuarial` but nothing that
+     * matched the word insurance itself, so two records went invisible to both
+     * the register and the landing table. */
+    match: /account|financ|insur|bank|tax|credit|econom|statistic|actuarial|audit|commerce|business management|business studies|sales|marketing|entrepreneur|customs/i,
     awardingBodies: ['KASNEB', 'TVET CDACC'],
     knbs: { series: 'Financial and insurance activities', mapping: 'exact', growth: 6.5 },
     caution: 'The sector grows faster than the economy, but entry is gated by professional papers — the KASNEB ladder runs years past the college award and costs money at each stage.'

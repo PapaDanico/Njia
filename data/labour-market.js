@@ -484,6 +484,43 @@ const UNIVERSITY_FUNDING_TRANSITION = {
   clusters: ['carer', 'maker', 'creator', 'business', 'tech', 'people', 'numbers']
 };
 
+/* INSTITUTIONS A READER MAY HAVE HEARD OF, AND WHY THEY ARE NOT IN THE CATALOGUE.
+ *
+ * Njia lists places a school-leaver can actually apply to. Several well-known
+ * Kenyan institutions do not meet that test, and quietly omitting them looks
+ * identical to not knowing they exist — the same failure the sector register
+ * was built to stop. A reader who has heard of these deserves to know they were
+ * considered and why they are absent, because "I could not find it on Njia" and
+ * "I cannot get into it from school" are very different answers.
+ *
+ * Each entry names the real barrier, not a vague one. If any of these opens an
+ * undergraduate or certificate route to the general public, it belongs in the
+ * catalogue and this record should shrink.
+ */
+const RESTRICTED_ENTRY_INSTITUTIONS = {
+  source: 'Institutional admissions material and Kenyan press reporting, cross-checked August 2026',
+  intro: 'These are real and well known. None of them is a route you can take straight from school, which is why you will not find them in Decide.',
+  institutions: [
+    {
+      name: 'Kenya School of Government (KSG)',
+      status: 'Open enrolment, but not for school-leavers',
+      why: 'KSG trains people who already hold a job. Its programmes are short in-service courses in public administration, policy and management, open to staff from national and county government, NGOs and private organisations. There is no undergraduate or certificate entry from KCSE. It is worth knowing about later, once you are working in the public service — not now.'
+    },
+    {
+      name: 'National Defence College / National Defence University-Kenya',
+      status: 'Senior officers and senior civil servants only',
+      why: 'The National Defence College prepares selected senior defence officers and equivalent senior civil servants for higher command. You do not apply; you are selected, years into a career. Joining the military at all goes through Kenya Defence Forces recruitment, which is a separate process from KUCCPS and is announced by the KDF directly — watch their notices rather than a placement portal.'
+    },
+    {
+      name: 'National Intelligence and Research University (NIRU)',
+      status: 'Chartered, but postgraduate only for now',
+      why: 'NIRU was chartered in November 2024 as Kenya\'s second specialised university and the first on the continent dedicated to intelligence education. It currently runs master\'s programmes only, with a doctorate seeking accreditation. Entry also requires Kenyan citizenship, a clean criminal record and physical fitness standards. There is no school-leaver route today; if it opens undergraduate places, that changes.'
+    }
+  ],
+  whatToDoInstead: 'If public service, security or defence is the goal, the ordinary route is a relevant degree or diploma first — public administration, criminology, law, engineering, IT — and then recruitment or in-service selection. Decide lists those. Nobody enters these institutions straight from Form Four.',
+  clusters: ['people', 'numbers', 'business']
+};
+
 const LOAN_REALITY = {
   source: 'HELB published terms and repayment reporting; World Bank graduate transition data; cross-reported August 2026',
   interestRatePct: 4,

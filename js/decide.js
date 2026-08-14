@@ -24,8 +24,17 @@ const GRADE_BUCKET_DEFAULT = { A: 'A-', B: 'B', C: 'C' };
  * the list means a level can never again exist in the catalogue but not in
  * the UI. LEVEL_ORDER only fixes the running order; a level missing from it
  * still appears, sorted to the end, rather than being dropped. */
-const LEVEL_ORDER = ['artisan', 'certificate', 'diploma', 'degree'];
-const LEVEL_LABELS = { artisan: 'Artisan', certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
+/* 'short_course' sits below artisan because it has the lowest entry bar of
+ * anything here: no grade at all.
+ *
+ * It exists rather than being folded into 'certificate' because Njia's whole
+ * argument is that categories should not be blurred. A free government skills
+ * programme that issues a completion certificate is a genuinely different
+ * object from a KNEC-examined certificate that ladders into a diploma, and
+ * putting them in one filter bucket would be the same class of mistake as a
+ * derived fee wearing a "published" badge. The filter says which is which. */
+const LEVEL_ORDER = ['short_course', 'artisan', 'certificate', 'diploma', 'degree'];
+const LEVEL_LABELS = { short_course: 'Short course', artisan: 'Artisan', certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree' };
 const CATALOGUE_LEVELS = [...new Set(COURSES.map((c) => c.level))].sort((a, b) => {
   const rank = (l) => (LEVEL_ORDER.indexOf(l) === -1 ? Number.MAX_SAFE_INTEGER : LEVEL_ORDER.indexOf(l));
   return rank(a) - rank(b) || a.localeCompare(b);
@@ -1127,6 +1136,24 @@ function renderFundingFinder(container) {
         `).join('')}
       </div>
     </div>
+
+    ${/* Placed on the funding tab rather than the course list because it is a
+         reference note, not a result. A reader looking for the Kenya School of
+         Government in a course search finds nothing and concludes Njia's
+         catalogue is thin; this tells them it is not an omission, it is a door
+         that does not open from school. */''}
+    ${typeof RESTRICTED_ENTRY_INSTITUTIONS !== 'undefined' ? `
+    <details class="inline-detail mb-2">
+      <summary>Kenya School of Government, the Defence College, the Intelligence University — why these are not listed</summary>
+      <p class="text-secondary text-sm mb-1">${escapeHtml(RESTRICTED_ENTRY_INSTITUTIONS.intro)}</p>
+      <ul class="mt-1 mb-1">
+        ${RESTRICTED_ENTRY_INSTITUTIONS.institutions.map((i) => `
+          <li class="text-secondary text-sm mb-1">• <strong>${escapeHtml(i.name)}</strong> — <em>${escapeHtml(i.status)}.</em> ${escapeHtml(i.why)}</li>
+        `).join('')}
+      </ul>
+      <p class="text-sm mb-1"><strong>What to do instead.</strong> ${escapeHtml(RESTRICTED_ENTRY_INSTITUTIONS.whatToDoInstead)}</p>
+      <p class="text-muted text-sm">${escapeHtml(RESTRICTED_ENTRY_INSTITUTIONS.source)}</p>
+    </details>` : ''}
 
     <div class="filter-row" aria-label="Filter by funding type">
       <select class="form-control" onchange="setFundingTypeFilter(this.value)" style="width:100%;max-width:220px">

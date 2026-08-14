@@ -182,7 +182,18 @@ const basis = await page.evaluate(() => {
     counts,
     courseCount: COURSES.length,
     unpublishedShowsNoTick: !!card && !/✓ Fee (published|from)/.test(text),
-    unpublishedSaysSo: /Not published/.test(text)
+    /* "Not shown", not "Not published". The old label claimed knowledge Njia
+     * does not have: a public university DOES publish its fees, Njia simply
+     * could not verify them, and telling a reader the university publishes
+     * nothing sends them off looking for a thing that exists. The assertion
+     * still checks the same intent — a fee-less course must say the figure is
+     * absent — against wording that is true in both cases. */
+    unpublishedSaysSo: /Not shown/.test(text),
+    /* And it must never hand a university the county-VTC advice. That copy was
+     * unconditional until eighteen invented university fees were nulled and
+     * pushed CUE-chartered degrees into it, at which point DeKUT began telling
+     * readers to budget for a NITA Grade III trade test on a BSc. */
+    noVtcCopyOnADegree: !(/degree/i.test(text) && /Grade III trade test/i.test(text))
   };
 });
 const basisTotal = Object.values(basis.counts).reduce((a, b) => a + b, 0);
@@ -190,7 +201,8 @@ check('every course classifies into exactly one fee basis',
   basisTotal === basis.courseCount && Object.values(basis.counts).every(Number.isInteger),
   Object.entries(basis.counts).map(([k, v]) => `${k}=${v}`).join(' ') + ` (total ${basisTotal}/${basis.courseCount})`);
 check('a course with no fee shows no verification tick', basis.unpublishedShowsNoTick);
-check('a course with no fee says the fee is not published', basis.unpublishedSaysSo);
+check('a course with no fee says the figure is not shown', basis.unpublishedSaysSo);
+check('a degree is never given the county-VTC fee advice', basis.noVtcCopyOnADegree);
 
 /* 4. Saving, and recovery from corrupt storage. */
 const saved = await page.evaluate(() => {

@@ -160,7 +160,7 @@ function recordMilestone(name) {
    * one direction that looks like "nobody got there". Better to be loud in
    * the console during development and do nothing in production. */
   if (!MILESTONES.includes(name)) {
-    console.warn(`recordMilestone: no marker file for '${name}' — add public/m/${name}.txt`);
+    console.warn(`recordMilestone: '${name}' is not in MILESTONES — add it there and create m/${name}.txt`);
     return;
   }
   try {

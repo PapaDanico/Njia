@@ -151,3 +151,41 @@ test('the service worker cache version was bumped for this change', () => {
     `CACHE_VERSION is njia-v${version}, behind the last known deploy. Bump it every deploy that `
     + 'changes a cached file.');
 });
+
+/* THE ICONS MUST NOT BE OLDER THAN THE MARK THEY RENDER.
+ *
+ * The brand mark was redrawn, icons/logo-mark.svg was updated, and the four
+ * PNGs were not. Nothing caught it for a day, because the SVG favicon is only
+ * used by browsers that prefer it: a desktop tab showed the new shield while
+ * every PWA install, every apple-touch-icon and every PNG fallback showed the
+ * previous logo — an orange "Y" on navy, a shape and a colour that are not in
+ * this palette at all. Someone who installed Njia had a home-screen icon from
+ * a brand that no longer existed, and the app looked abandoned rather than
+ * rebranded.
+ *
+ * mtime is a blunt instrument and deliberately so: it needs no image decoding,
+ * no dependency, and it fails in exactly the situation that actually occurs —
+ * somebody edits the SVG and forgets to run tools/build-icons.mjs. A false
+ * positive costs one command; the false negative shipped.
+ *
+ * If this fails: node tools/build-icons.mjs, then bump CACHE_VERSION in sw.js,
+ * because the icons are served cache-first.
+ */
+test('the PNG icons are rebuilt whenever the source mark changes', () => {
+  const svg = path.join(root, 'icons', 'logo-mark.svg');
+  const svgTime = fs.statSync(svg).mtimeMs;
+  const derived = [
+    'icon-192x192.png', 'icon-512x512.png',
+    'icon-maskable-192.png', 'icon-maskable-512.png'
+  ];
+  const stale = derived.filter((f) => fs.statSync(path.join(root, 'icons', f)).mtimeMs < svgTime);
+  assert.deepEqual(stale, [],
+    `these icons are older than icons/logo-mark.svg, so they still render the previous mark: `
+    + `${stale.join(', ')}. Run \`node tools/build-icons.mjs\` and bump CACHE_VERSION in sw.js.`);
+});
+
+test('the icon generator ships alongside the icons it generates', () => {
+  /* A build step nobody can find is a build step nobody runs. */
+  assert.ok(fs.existsSync(path.join(root, 'tools', 'build-icons.mjs')),
+    'tools/build-icons.mjs is gone, so the icons above can no longer be regenerated from the mark');
+});

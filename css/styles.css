@@ -1433,10 +1433,6 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .link-btn { background: none; border: none; padding: 0; color: var(--primary-dark); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: inherit; }
 
 /* ---------- Footer learn tiles (Kanda pattern) ---------- */
-.footer-learn { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid rgba(248,250,252,0.14); }
-.footer-learn-grid { display: grid; gap: 0.9rem; margin-top: 1.25rem; }
-@media (min-width: 700px) { .footer-learn-grid { grid-template-columns: repeat(4, 1fr); } }
-.footer-learn-tile {
   text-align: left; width: 100%;
   padding: 0.85rem 1rem;
   background: rgba(248,250,252,0.05);
@@ -1444,9 +1440,6 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   border-radius: var(--radius-md);
   color: #F5E9D4;
 }
-.footer-learn-tile:hover { background: rgba(248,250,252,0.1); }
-.footer-learn-tile strong { display: block; font-size: 0.88rem; margin-bottom: 0.15rem; }
-.footer-learn-tile span { font-size: 0.75rem; color: rgba(248,250,252,0.6); line-height: 1.4; }
 .footer-about { margin-top: 1.75rem; }
 .footer-about p { font-size: 0.82rem; color: rgba(248,250,252,0.66); line-height: 1.6; max-width: 62ch; }
 
@@ -2360,6 +2353,10 @@ body.modal-open { overflow: hidden; }
   border: 1px solid var(--warn-border);
 }
 
+/* .footer-learn* rules stood here — the tile grid they styled was removed
+ * with the duplicate footer navigation, and a style with nothing to style is
+ * how a stylesheet starts drifting from what the app actually renders. */
+
 /* ---------- Kenyan geometric border (brand pattern) ----------
  *
  * The identity sheet frames the lockup with woven triangle-and-dot strips,
@@ -2584,4 +2581,28 @@ p, li { text-wrap: pretty; }
      dead band under itself at full width. */
   #page-track > .odyssey-tabs { max-width: 26rem; margin-bottom: 1.25rem; }
   #page-connect > .odyssey-tabs, #page-design > .odyssey-tabs { max-width: 40rem; margin-bottom: 1.25rem; }
+}
+
+/* ---------- Tap targets in the footer ----------
+ *
+ * The footer column links were 26px tall. That is under every touch guideline
+ * (Apple 44, Material and Lighthouse 48) and it is the reason de-duplicating
+ * the footer cost two SEO points: the tile grid that was removed consisted of
+ * large, comfortably-sized buttons, so deleting it raised the proportion of
+ * undersized targets on the page even though it removed no good ones. The
+ * audit scores the ratio, not the count.
+ *
+ * Restoring the duplicate navigation to fix that would be optimising for the
+ * measurement. The links were always too small for a thumb — on a product
+ * whose users are overwhelmingly on phones — so they get sized properly
+ * instead, which fixes the audit and the usability problem it was pointing at.
+ */
+.landing-footer-col button,
+.landing-footer-col a,
+.landing-footer-links a,
+.landing-footer-links button {
+  display: flex;
+  align-items: center;
+  min-height: 48px;   /* Lighthouse and Material both test 48, not Apple's 44 */
+  padding-block: 0.15rem;
 }

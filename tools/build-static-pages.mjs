@@ -71,6 +71,21 @@ const { INSTITUTIONS } = require('./data/institutions.js');
 const SITE = 'https://njiacareerpathways.work';
 const OUT = path.join(root, 'counties');
 
+/* The share-card URL carries a content hash so social platforms refetch it when
+ * the card changes, instead of a human being asked to re-scrape in the Facebook
+ * debugger. It is read out of index.html rather than restated here, because two
+ * places holding the same versioned URL is two places to drift — and a stale
+ * hash on 54 pages would point every shared county link at a card the platform
+ * has already cached under a different address. tools/build-og-image.mjs owns
+ * the value; this reads it. */
+const OG_IMAGE = (() => {
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const m = html.match(/<meta property="og:image" content="([^"]+)"/);
+  if (!m) throw new Error('index.html has no og:image — run tools/build-og-image.mjs first');
+  return m[1];
+})();
+
+
 const LEVEL_LABEL = {
   artisan: 'Artisan', certificate: 'Certificate', diploma: 'Diploma',
   degree: 'Degree', short_course: 'Short course'
@@ -175,7 +190,7 @@ function coursePage(county, rows) {
 <link rel="canonical" href="${SITE}/counties/${slug(county)}/">
 <meta property="og:title" content="${esc(`Courses in ${county} County, Kenya`)}">
 <meta property="og:description" content="${esc(desc)}">
-<meta property="og:image" content="${SITE}/icons/og-image.jpg">
+<meta property="og:image" content="${OG_IMAGE}">
 <meta property="og:url" content="${SITE}/counties/${slug(county)}/">
 <meta property="og:type" content="article">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
@@ -382,7 +397,7 @@ function gradePage(grade, rows) {
 <link rel="canonical" href="${SITE}/grades/${GRADE_SLUG[grade]}/">
 <meta property="og:title" content="${esc(`Courses you can do with ${GRADE_ARTICLE(grade)} ${phrase} in Kenya`)}">
 <meta property="og:description" content="${esc(desc)}">
-<meta property="og:image" content="${SITE}/icons/og-image.jpg">
+<meta property="og:image" content="${OG_IMAGE}">
 <meta property="og:url" content="${SITE}/grades/${GRADE_SLUG[grade]}/">
 <meta property="og:type" content="article">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">

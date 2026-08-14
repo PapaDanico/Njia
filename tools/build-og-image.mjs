@@ -31,6 +31,7 @@
  *       NODE_PATH=/path/to/node_modules node tools/build-og-image.mjs
  */
 import { createRequire } from 'node:module';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -73,6 +74,7 @@ const BROWN = grab('--ink');
 const GOLD = grab('--accent');
 const TERRACOTTA = grab('--primary');
 
+const SITE_ORIGIN = 'https://njiacareerpathways.work';
 const W = 1200, H = 630;
 
 /* The headline is the site's own, split at the same point the hero splits it.
@@ -142,6 +144,42 @@ const out = path.join(root, 'icons', 'og-image.jpg');
 await p.locator('#card').screenshot({ path: out, type: 'jpeg', quality: 88 });
 await browser.close();
 
+/* THE RE-SCRAPE STEP SHOULD NOT EXIST.
+ *
+ * Social platforms cache a share card against its URL, hard and for a long
+ * time. So when the mark was redrawn and this card was rebuilt, every link
+ * already circulating in WhatsApp kept showing the retired shield — and the
+ * only fix on offer was "go and re-scrape the URL in the Facebook debugger",
+ * a manual step a human has to remember, with no guard and no way to tell
+ * whether it worked.
+ *
+ * A manual step that exists only because a URL never changes is a missing
+ * build step, which is the same lesson this file already carries about the
+ * card having no generator. So the URL now carries a short content hash of the
+ * JPEG itself. Rebuild the card and the hash changes; the platforms see a URL
+ * they have never fetched and fetch it. Rebuild with no visual change and the
+ * hash is identical, so nothing is invalidated for nothing.
+ *
+ * The references live in index.html, and this script rewrites them rather than
+ * asking anyone to keep two things in step by hand. build-static-pages.mjs
+ * reads the versioned URL back out of index.html, so there is one source of
+ * truth for it. tests/artefacts.test.js fails the build if the hash in the
+ * markup stops matching the bytes on disk. */
+const hash = crypto.createHash('sha256').update(fs.readFileSync(out)).digest('hex').slice(0, 10);
+const versioned = `${SITE_ORIGIN}/icons/og-image.jpg?v=${hash}`;
+
+const indexPath = path.join(root, 'index.html');
+const before = fs.readFileSync(indexPath, 'utf8');
+const after = before.replace(
+  /(<meta (?:property="og:image"|name="twitter:image") content=")[^"]*(">)/g,
+  `$1${versioned}$2`
+);
+if (after !== before) fs.writeFileSync(indexPath, after);
+
 console.log(`wrote icons/og-image.jpg  ${W}x${H}  ${(fs.statSync(out).size / 1024).toFixed(0)} KB`);
-console.log('\nBump CACHE_VERSION in sw.js if the card changed, and re-scrape the URL');
-console.log('in the WhatsApp/Facebook debugger — social platforms cache share cards hard.');
+console.log(`share-card URL is now  .../icons/og-image.jpg?v=${hash}`);
+console.log(after !== before
+  ? 'index.html updated — social platforms will refetch on their own, no debugger needed.'
+  : 'index.html already carried this hash; the card is unchanged, nothing invalidated.');
+console.log('\nRun `node tools/build-static-pages.mjs` so the county and grade pages pick it up,');
+console.log('and bump CACHE_VERSION in sw.js.');

@@ -17,29 +17,88 @@
   /* Deliberately minimal and self-contained. These pages reuse the app's
      stylesheet for colour and type, but none of its layout JavaScript, so
      they render identically with scripting switched off. */
-  body { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.1rem 4rem; }
+  body { max-width: min(96rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  .rail > :first-child { margin-top: 0; }
+  .main > :first-child { margin-top: 0; }
+  h1 { margin-top: .35rem; }
+  .lede { font-size: 1.05rem; }
   table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; }
   th, td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
   thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
   tbody th { font-weight: 600; }
+  /* Level, entry grade, tuition and duration are short fixed tokens — "Artisan",
+     "D-", "Ksh 134,378", "24 mo". Left to wrap they each cost a second line and
+     doubled the height of every row in the table; there is no case where
+     breaking "Ksh 134,378" across two lines helps anyone read it. The course and
+     institution columns are the ones that genuinely need to wrap, and still do.
+
+     Gated, because on a phone it is the wrong trade and measuring said so. At
+     390px the county table went from 647px to 738px wide with nowrap on and the
+     page got no shorter — 13,580px to 13,560px. The rows were never the
+     constraint there, the 390px viewport was, so all nowrap bought was 91px
+     more sideways scrolling inside .wrap. From 48rem up the table fits the
+     screen outright and the second line is pure waste. */
+  @media (min-width: 48rem) { .tok { white-space: nowrap; } }
   .open { font-weight: 700; }
   .muted { opacity: .7; }
   .wrap { overflow-x: auto; }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
-  .back { display: inline-block; margin-bottom: 1rem; }
+  .back { display: inline-block; margin-bottom: .75rem; }
   footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
-  ul.counties { columns: 2; font-size: .9rem; }
-  @media (min-width: 48rem) { ul.counties { columns: 4; } }
+  /* column-width rather than a column COUNT: a fixed count set at one breakpoint
+     is wrong at every other width, and these lists run from 1 item to 47. */
+  ul.cols { columns: 15rem; column-gap: 2rem; }
+  ul.cols li { break-inside: avoid; }
+
+  /* OPT-IN, AND NOT AT 1024px.
+   *
+   * Both halves of that were learned by measuring rather than reasoned out.
+   *
+   * Opt-in, because the grid targets body and the two index pages are a
+   * heading and a list of links with no rail to put anything in. Applied to
+   * them, their children would have auto-placed into two columns and the
+   * layout would simply have been wrong — so the split is a class the two
+   * table-bearing templates ask for, not something every page inherits.
+   *
+   * And not at 1024px, because the first version of this cut in there and made
+   * the page WORSE: a 20rem rail plus the gap left the Nairobi table 621px,
+   * narrower than the 957px it had before, so it began scrolling sideways and
+   * every row wrapped harder. The document went from 9,099px to 12,074px — a
+   * layout added to reclaim wasted space had spent 3,000px of extra scrolling
+   * to do it. The rail only pays once what is left over still fits the table,
+   * which for a six-column table is about 950px, so the cut is at 85rem. Below
+   * that the page is a single full-width column, which at 1280px is already a
+   * 1,200px table against the old 957px.
+   */
+  @media (min-width: 85rem) {
+    body.split { display: grid; grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+                 column-gap: clamp(2rem, 3vw, 3rem); align-items: start; }
+    /* min-width: 0 or the table's intrinsic width blows the column out and
+       takes the rail's space back, which is the bug this layout exists to fix. */
+    .split .main { min-width: 0; }
+    .split .rail { position: sticky; top: 1.5rem;
+            /* Nairobi lists 29 institutions, which is a rail taller than the
+               viewport — pinned without this, its foot is simply unreachable. */
+            max-height: calc(100vh - 3rem); overflow-y: auto; }
+    .split .rail ul.cols { columns: auto; }
+  }
+
+  .rail h2 { font-size: 1rem; margin: 1.6rem 0 .4rem; }
+  .rail ul { font-size: .88rem; line-height: 1.5; padding-left: 1.1rem; }
+  .rail ul li { margin-bottom: .3rem; }
+  caption { text-align: left; font-size: .85rem; opacity: .75; padding-bottom: .4rem; }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Courses in Machakos County, Kenya","numberOfItems":21,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Course","name":"Business Modelling for Entrepreneurs (OUK, free)","description":"Three-week online course offered free by OUK. Zero-cost entry to structured business planning for anyone starting out.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":2,"item":{"@type":"Course","name":"ICDL Digital Literacy Certification (OUK)","description":"Two-week internationally recognised digital literacy certification. No minimum grade — a genuine entry point if your KCSE result closed other doors.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":3,"item":{"@type":"Course","name":"Mental Health Awareness (OUK, free)","description":"Two-week online course offered free by OUK. A no-cost first credential for anyone exploring care and community work.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":4,"item":{"@type":"Course","name":"Professional Certificate in Corporate Governance (OUK)","description":"Six-week online professional course. Open admission with no restrictive academic requirement.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":5,"item":{"@type":"Course","name":"Professional Certificate in Emotional Intelligence (OUK)","description":"Six-week online course in the socio-emotional skills the WEF Future of Jobs Report ranks among the fastest-growing to 2030.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":6,"item":{"@type":"Course","name":"Certificate in Community Health Assistant","description":"One-year entry point into community health work that ladders into the KRCHN diploma. Lower grade requirement than the diploma, and available in most counties.","provider":{"@type":"EducationalOrganization","name":"Kenya Medical Training College (KMTC) — Machakos Campus","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":7,"item":{"@type":"Course","name":"Diploma in Human Resource Management","description":"Recruitment, labour law and payroll practice toward IHRM registration.","provider":{"@type":"EducationalOrganization","name":"Machakos University","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":8,"item":{"@type":"Course","name":"Bachelor of Arts in Communication and Public Relations","description":"Strategic communication, PR practice and media relations.","provider":{"@type":"EducationalOrganization","name":"Daystar University","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":9,"item":{"@type":"Course","name":"Bachelor of Education (Arts)","description":"Teaching is not the safe default it looks like: about 369,000 trained teachers are TSC-registered and waiting for a job. Teacher education in arts subjects, studied around work or family commitments.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":10,"item":{"@type":"Course","name":"Bachelor of Education (Primary Option)","description":"Teaching is not the safe default it looks like: about 369,000 trained teachers are TSC-registered and waiting for a job. TSC-oriented teacher training for primary schools under the competency-based curriculum.","provider":{"@type":"EducationalOrganization","name":"Machakos University","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":11,"item":{"@type":"Course","name":"Bachelor of Interactive Media Technologies","description":"Online degree in digital media production, interaction design and multimedia technology.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":12,"item":{"@type":"Course","name":"Bachelor of Public Administration","description":"Public policy, governance and administration for county and national service.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":13,"item":{"@type":"Course","name":"Bachelor of Public Communication","description":"Strategic communication, media writing and campaign practice, delivered online.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":14,"item":{"@type":"Course","name":"Bachelor of Science in Agri-Technology","description":"Technology applied to farming systems, agribusiness and food value chains.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":15,"item":{"@type":"Course","name":"Bachelor of Science in Computer Science","description":"Core computing, software engineering and systems, studied from anywhere.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":16,"item":{"@type":"Course","name":"Bachelor of Science in Cyber Security and Digital Forensics","description":"Network defence, incident response and digital evidence handling.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":17,"item":{"@type":"Course","name":"Bachelor of Science in Data Science","description":"Statistics, programming and applied machine learning, taught entirely online.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":18,"item":{"@type":"Course","name":"Bachelor of Science in Mathematics and Computing","description":"Online mathematics and computation degree; a strong base for actuarial, analytics and software pathways.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":19,"item":{"@type":"Course","name":"Bachelor of Science in Nursing (Upgrading)","description":"Degree upgrade for practising KRCHN nurses, without leaving the job.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":20,"item":{"@type":"Course","name":"Bachelor of Technology Education","description":"Online degree preparing technical trainers and TVET instructors — a route into teaching without campus relocation.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":21,"item":{"@type":"Course","name":"Diploma in Kenya Registered Community Health Nursing (KRCHN)","description":"The core nursing diploma, taught to the same national curriculum at every KMTC campus — so you can train near home instead of relocating.","provider":{"@type":"EducationalOrganization","name":"Kenya Medical Training College (KMTC) — Machakos Campus","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}}]}</script>
 </head>
-<body>
+<body class="split">
+
+<div class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses in Machakos County</h1>
 
-<p><strong>21 courses</strong> at
+<p class="lede"><strong>21 courses</strong> at
 4 institutions, covering
 Caring and health, Working with people, Technology, Business, Creative and making, Numbers and analysis.</p>
 
@@ -48,186 +107,192 @@ Caring and health, Working with people, Technology, Business, Creative and makin
 <p><a class="cta" href="/#decide">Filter these by your grade and budget &rarr;</a>
 <a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 
+<!-- Moved up out of the page foot. Sitting below the table it was a bulleted
+     list one item to a line under 7,800px of rows, which meant nobody reading
+     a course ever saw it; beside the table it answers "who actually runs these"
+     while the reader is looking at the answer. -->
+<h2>Institutions in Machakos</h2>
+<ul class="cols"><li>Daystar University</li><li>Kenya Medical Training College (KMTC) — Machakos Campus</li><li>Machakos University</li><li>The Open University of Kenya (OUK)</li></ul>
+</div>
+
+<div class="main">
 <div class="wrap">
 <table>
   <caption>Every course Njia lists in Machakos County, lowest entry requirement first.</caption>
-  <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col">Level</th>
-  <th scope="col">Min grade</th><th scope="col">Tuition</th><th scope="col">Duration</th></tr></thead>
+  <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col" class="tok">Level</th>
+  <th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th><th scope="col" class="tok">Duration</th></tr></thead>
   <tbody>
         <tr>
           <th scope="row">Business Modelling for Entrepreneurs (OUK, free)</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Certificate</td>
-          <td><span class="open">Open entry</span></td>
-          <td>Ksh 0</td>
-          <td>1 mo</td>
+          <td class="tok">Certificate</td>
+          <td class="tok"><span class="open">Open entry</span></td>
+          <td class="tok">Ksh 0</td>
+          <td class="tok">1 mo</td>
         </tr>
         <tr>
           <th scope="row">ICDL Digital Literacy Certification (OUK)</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Certificate</td>
-          <td><span class="open">Open entry</span></td>
-          <td>Ksh 12,000</td>
-          <td>1 mo</td>
+          <td class="tok">Certificate</td>
+          <td class="tok"><span class="open">Open entry</span></td>
+          <td class="tok">Ksh 12,000</td>
+          <td class="tok">1 mo</td>
         </tr>
         <tr>
           <th scope="row">Mental Health Awareness (OUK, free)</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Certificate</td>
-          <td><span class="open">Open entry</span></td>
-          <td>Ksh 0</td>
-          <td>1 mo</td>
+          <td class="tok">Certificate</td>
+          <td class="tok"><span class="open">Open entry</span></td>
+          <td class="tok">Ksh 0</td>
+          <td class="tok">1 mo</td>
         </tr>
         <tr>
           <th scope="row">Professional Certificate in Corporate Governance (OUK)</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Certificate</td>
-          <td><span class="open">Open entry</span></td>
-          <td>Ksh 10,000</td>
-          <td>2 mo</td>
+          <td class="tok">Certificate</td>
+          <td class="tok"><span class="open">Open entry</span></td>
+          <td class="tok">Ksh 10,000</td>
+          <td class="tok">2 mo</td>
         </tr>
         <tr>
           <th scope="row">Professional Certificate in Emotional Intelligence (OUK)</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Certificate</td>
-          <td><span class="open">Open entry</span></td>
-          <td>Ksh 10,000</td>
-          <td>2 mo</td>
+          <td class="tok">Certificate</td>
+          <td class="tok"><span class="open">Open entry</span></td>
+          <td class="tok">Ksh 10,000</td>
+          <td class="tok">2 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Community Health Assistant</th>
           <td>Kenya Medical Training College (KMTC) — Machakos Campus</td>
-          <td>Certificate</td>
-          <td>D+</td>
-          <td>Ksh 82,200</td>
-          <td>12 mo</td>
+          <td class="tok">Certificate</td>
+          <td class="tok">D+</td>
+          <td class="tok">Ksh 82,200</td>
+          <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Human Resource Management</th>
           <td>Machakos University</td>
-          <td>Diploma</td>
-          <td>C-</td>
-          <td><span class="muted">Not published</span></td>
-          <td>24 mo</td>
+          <td class="tok">Diploma</td>
+          <td class="tok">C-</td>
+          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Communication and Public Relations</th>
           <td>Daystar University</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td><span class="muted">Not published</span></td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Arts)</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 316,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 316,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Primary Option)</th>
           <td>Machakos University</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td><span class="muted">Not published</span></td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Interactive Media Technologies</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 316,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 316,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Public Administration</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 316,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 316,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Public Communication</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 316,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 316,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Agri-Technology</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 316,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 316,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Science</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 316,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 316,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Cyber Security and Digital Forensics</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 316,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 316,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Data Science</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 316,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 316,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Mathematics and Computing</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 316,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 316,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Nursing (Upgrading)</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 237,000</td>
-          <td>36 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 237,000</td>
+          <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Technology Education</th>
           <td>The Open University of Kenya (OUK)</td>
-          <td>Degree</td>
-          <td>C+</td>
-          <td>Ksh 344,000</td>
-          <td>48 mo</td>
+          <td class="tok">Degree</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 344,000</td>
+          <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Kenya Registered Community Health Nursing (KRCHN)</th>
           <td>Kenya Medical Training College (KMTC) — Machakos Campus</td>
-          <td>Diploma</td>
-          <td>C+</td>
-          <td>Ksh 238,200</td>
-          <td>36 mo</td>
+          <td class="tok">Diploma</td>
+          <td class="tok">C+</td>
+          <td class="tok">Ksh 238,200</td>
+          <td class="tok">36 mo</td>
         </tr>
   </tbody>
 </table>
 </div>
-
-<h2>Institutions in Machakos</h2>
-<ul><li>Daystar University</li><li>Kenya Medical Training College (KMTC) — Machakos Campus</li><li>Machakos University</li><li>The Open University of Kenya (OUK)</li></ul>
 
 <h2>About these figures</h2>
 <p>Fees are tuition only and most are worked out by applying a published rate to the
@@ -242,5 +307,6 @@ publish that data and an invented figure is worse than a missing one.</p>
      <a href="/">Njia home</a> &middot;
      Free, no signup, works offline.</p>
 </footer>
+</div>
 </body>
 </html>

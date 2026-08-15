@@ -14,24 +14,97 @@
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
 <link rel="stylesheet" href="/css/styles.css">
 <style>
-  body { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.1rem 4rem; }
-  table { width: 100%; border-collapse: collapse; margin: .6rem 0 1.4rem; font-size: .92rem; }
-  th, td { text-align: left; padding: .5rem .45rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
-  thead th { font-size: .76rem; text-transform: uppercase; letter-spacing: .07em; }
+  /* Deliberately minimal and self-contained. These pages reuse the app's
+     stylesheet for colour and type, but none of its layout JavaScript, so
+     they render identically with scripting switched off. */
+  body { max-width: min(96rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  .rail > :first-child { margin-top: 0; }
+  .main > :first-child { margin-top: 0; }
+  h1 { margin-top: .35rem; }
+  .lede { font-size: 1.05rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; }
+  th, td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
+  thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
   tbody th { font-weight: 600; }
-  h3 { margin-top: 1.8rem; }
-  .count { font-size: .8rem; font-weight: 400; opacity: .7; }
+  /* Level, entry grade, tuition and duration are short fixed tokens — "Artisan",
+     "D-", "Ksh 134,378", "24 mo". Left to wrap they each cost a second line and
+     doubled the height of every row in the table; there is no case where
+     breaking "Ksh 134,378" across two lines helps anyone read it. The course and
+     institution columns are the ones that genuinely need to wrap, and still do.
+
+     Gated, because on a phone it is the wrong trade and measuring said so. At
+     390px the county table went from 647px to 738px wide with nowrap on and the
+     page got no shorter — 13,580px to 13,560px. The rows were never the
+     constraint there, the 390px viewport was, so all nowrap bought was 91px
+     more sideways scrolling inside .wrap. From 48rem up the table fits the
+     screen outright and the second line is pure waste. */
+  @media (min-width: 48rem) { .tok { white-space: nowrap; } }
   .open { font-weight: 700; }
   .muted { opacity: .7; }
   .wrap { overflow-x: auto; }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
-  .lede { font-size: 1.05rem; }
+  .back { display: inline-block; margin-bottom: .75rem; }
+  footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
+  /* column-width rather than a column COUNT: a fixed count set at one breakpoint
+     is wrong at every other width, and these lists run from 1 item to 47. */
+  ul.cols { columns: 15rem; column-gap: 2rem; }
+  ul.cols li { break-inside: avoid; }
+
+  /* OPT-IN, AND NOT AT 1024px.
+   *
+   * Both halves of that were learned by measuring rather than reasoned out.
+   *
+   * Opt-in, because the grid targets body and the two index pages are a
+   * heading and a list of links with no rail to put anything in. Applied to
+   * them, their children would have auto-placed into two columns and the
+   * layout would simply have been wrong — so the split is a class the two
+   * table-bearing templates ask for, not something every page inherits.
+   *
+   * And not at 1024px, because the first version of this cut in there and made
+   * the page WORSE: a 20rem rail plus the gap left the Nairobi table 621px,
+   * narrower than the 957px it had before, so it began scrolling sideways and
+   * every row wrapped harder. The document went from 9,099px to 12,074px — a
+   * layout added to reclaim wasted space had spent 3,000px of extra scrolling
+   * to do it. The rail only pays once what is left over still fits the table,
+   * which for a six-column table is about 950px, so the cut is at 85rem. Below
+   * that the page is a single full-width column, which at 1280px is already a
+   * 1,200px table against the old 957px.
+   */
+  @media (min-width: 85rem) {
+    body.split { display: grid; grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+                 column-gap: clamp(2rem, 3vw, 3rem); align-items: start; }
+    /* min-width: 0 or the table's intrinsic width blows the column out and
+       takes the rail's space back, which is the bug this layout exists to fix. */
+    .split .main { min-width: 0; }
+    .split .rail { position: sticky; top: 1.5rem;
+            /* Nairobi lists 29 institutions, which is a rail taller than the
+               viewport — pinned without this, its foot is simply unreachable. */
+            max-height: calc(100vh - 3rem); overflow-y: auto; }
+    .split .rail ul.cols { columns: auto; }
+  }
+
+  table { margin: .6rem 0 1.4rem; font-size: .92rem; }
+  th, td { padding: .5rem .45rem; }
+  thead th { font-size: .76rem; }
+  h3 { margin-top: 1.8rem; scroll-margin-top: 1.5rem; }
+  .count { font-size: .8rem; font-weight: 400; opacity: .7; }
+  .rail h2 { font-size: 1rem; margin: 1.6rem 0 .4rem; }
+  /* One county to a line is right in the rail and wrong on a phone, where the
+     rail is not a rail — it is the top of the page, and 21 stacked links cost
+     628px before the reader reaches a single course. Wrapped inline it costs
+     about a quarter of that and still does the job, which on a 21,000px page
+     matters more on the small screen than the large one. */
+  .jump { list-style: none; padding: 0; font-size: .9rem; line-height: 1.55;
+          display: flex; flex-wrap: wrap; gap: 0 .9rem; }
+  @media (min-width: 85rem) { .jump { display: block; } .jump li { margin-bottom: .25rem; } }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What courses can I do with an E in KCSE?","acceptedAnswer":{"@type":"Answer","text":"Njia lists 92 courses open to a KCSE mean grade of E, across 16 Kenyan counties — 5 certificate, 86 artisan, 1 short course. TVET placement accepts any KCSE grade from A to E from anyone who sat the exam from 2000 onward, and intake runs continuously rather than in one annual window."}}]}</script>
 </head>
-<body>
-<a href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<body class="split">
+
+<div class="rail">
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses you can do with an E</h1>
 
@@ -46,485 +119,490 @@ single annual window, so a closed university deadline is not the end of the cycl
 <p><a class="cta" href="/#decide">Filter these by county and budget &rarr;</a>
 <a class="cta" href="/#discover">Find which of them suits you</a></p>
 
+<h2>Jump to a county</h2>
+<ul class="jump"><li><a href="#c-garissa">Garissa</a> <span class="count">2</span></li><li><a href="#c-kiambu">Kiambu</a> <span class="count">5</span></li><li><a href="#c-kilifi">Kilifi</a> <span class="count">2</span></li><li><a href="#c-kisumu">Kisumu</a> <span class="count">9</span></li><li><a href="#c-machakos">Machakos</a> <span class="count">5</span></li><li><a href="#c-mandera">Mandera</a> <span class="count">2</span></li><li><a href="#c-marsabit">Marsabit</a> <span class="count">4</span></li><li><a href="#c-meru">Meru</a> <span class="count">3</span></li><li><a href="#c-mombasa">Mombasa</a> <span class="count">6</span></li><li><a href="#c-nairobi">Nairobi</a> <span class="count">26</span></li><li><a href="#c-nyeri">Nyeri</a> <span class="count">3</span></li><li><a href="#c-samburu">Samburu</a> <span class="count">7</span></li><li><a href="#c-trans-nzoia">Trans Nzoia</a> <span class="count">7</span></li><li><a href="#c-turkana">Turkana</a> <span class="count">2</span></li><li><a href="#c-uasin-gishu">Uasin Gishu</a> <span class="count">8</span></li><li><a href="#c-west-pokot">West Pokot</a> <span class="count">1</span></li></ul>
+</div>
 
-  <h3>Garissa <span class="count">2</span></h3>
+<div class="main">
+
+  <h3 id="c-garissa">Garissa <span class="count">2</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan in Motor Vehicle Mechanics</th><td>North Eastern National Polytechnic (NENAP)</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Welding and Fabrication</th><td>North Eastern National Polytechnic (NENAP)</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
-  <h3>Kiambu <span class="count">5</span></h3>
+  <h3 id="c-kiambu">Kiambu <span class="count">5</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan in Automotive Engineering</th><td>St. Kizito Vocational Training Institute</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Artisan in Carpentry and Joinery</th><td>St. Kizito Vocational Training Institute</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Artisan in Computer Studies</th><td>St. Kizito Vocational Training Institute</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Artisan in Electrical Installation</th><td>St. Kizito Vocational Training Institute</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Artisan in Plumbing</th><td>St. Kizito Vocational Training Institute</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
     </tbody>
   </table></div>
-  <h3>Kilifi <span class="count">2</span></h3>
+  <h3 id="c-kilifi">Kilifi <span class="count">2</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Trade Test Grade III in Carpentry and Joinery (NITA)</th><td>Kilifi Saidia College</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Trade Test Grade III in Tailoring and Dressmaking (NITA)</th><td>Kilifi Saidia College</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
     </tbody>
   </table></div>
-  <h3>Kisumu <span class="count">9</span></h3>
+  <h3 id="c-kisumu">Kisumu <span class="count">9</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan in CCTV Technology</th><td>Kisumu National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Electrical Alarm and Security System Technology</th><td>Kisumu National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Electrical Installation</th><td>Kisumu National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Engine Technology</th><td>Kisumu National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Fashion and Apparel Design</th><td>Kisumu National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Food and Beverage</th><td>Kisumu National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Masonry</th><td>Kisumu National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Plumbing</th><td>Kisumu National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Solar PV Installation</th><td>Kisumu National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
-  <h3>Machakos <span class="count">5</span></h3>
+  <h3 id="c-machakos">Machakos <span class="count">5</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Business Modelling for Entrepreneurs (OUK, free)</th><td>The Open University of Kenya (OUK)</td>
-      <td>Certificate</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 0</td></tr>
+      <td class="tok">Certificate</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 0</td></tr>
       <tr><th scope="row">ICDL Digital Literacy Certification (OUK)</th><td>The Open University of Kenya (OUK)</td>
-      <td>Certificate</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 12,000</td></tr>
+      <td class="tok">Certificate</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 12,000</td></tr>
       <tr><th scope="row">Mental Health Awareness (OUK, free)</th><td>The Open University of Kenya (OUK)</td>
-      <td>Certificate</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 0</td></tr>
+      <td class="tok">Certificate</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 0</td></tr>
       <tr><th scope="row">Professional Certificate in Corporate Governance (OUK)</th><td>The Open University of Kenya (OUK)</td>
-      <td>Certificate</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 10,000</td></tr>
+      <td class="tok">Certificate</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 10,000</td></tr>
       <tr><th scope="row">Professional Certificate in Emotional Intelligence (OUK)</th><td>The Open University of Kenya (OUK)</td>
-      <td>Certificate</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 10,000</td></tr>
+      <td class="tok">Certificate</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 10,000</td></tr>
     </tbody>
   </table></div>
-  <h3>Mandera <span class="count">2</span></h3>
+  <h3 id="c-mandera">Mandera <span class="count">2</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan Certificate in Dressmaking and Tailoring</th><td>Mandera Technical Training Institute</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan Certificate in Hairdressing and Beauty Therapy</th><td>Mandera Technical Training Institute</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
-  <h3>Marsabit <span class="count">4</span></h3>
+  <h3 id="c-marsabit">Marsabit <span class="count">4</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan Certificate in Building Technology</th><td>Laisamis Technical and Vocational College</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan Certificate in Electrical Installation</th><td>Laisamis Technical and Vocational College</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan Certificate in Motor Vehicle Mechanics</th><td>Laisamis Technical and Vocational College</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan Certificate in Welding and Fabrication</th><td>Laisamis Technical and Vocational College</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
-  <h3>Meru <span class="count">3</span></h3>
+  <h3 id="c-meru">Meru <span class="count">3</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan Certificate in Electrical Installation</th><td>Meru National Polytechnic</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Electrical Installation Instrumentation and Control</th><td>Meru National Polytechnic</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Food and Beverage</th><td>Meru National Polytechnic</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
-  <h3>Mombasa <span class="count">6</span></h3>
+  <h3 id="c-mombasa">Mombasa <span class="count">6</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan in Electrical Installation</th><td>Christian Industrial Training Centre (CITC) Mombasa</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Artisan in Motor Vehicle Mechanics</th><td>Christian Industrial Training Centre (CITC) Mombasa</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III Hairdressing and Beauty Therapy</th><td>Christian Industrial Training Centre (CITC) Mombasa</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III Welding</th><td>Christian Industrial Training Centre (CITC) Mombasa</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Electrical Wireman</th><td>Christian Industrial Training Centre (CITC) Mombasa</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Garment Making</th><td>Christian Industrial Training Centre (CITC) Mombasa</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
     </tbody>
   </table></div>
-  <h3>Nairobi <span class="count">26</span></h3>
+  <h3 id="c-nairobi">Nairobi <span class="count">26</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Ajira Digital — online work and digital skills training</th><td>Ajira Digital Programme (ICT Authority)</td>
-      <td>Short course</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 0</td></tr>
+      <td class="tok">Short course</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 0</td></tr>
       <tr><th scope="row">Artisan Certificate in Carpentry and Joinery</th><td>Christian Industrial Training Centre (CITC) Nairobi</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Artisan Certificate in Electrical Installation</th><td>Christian Industrial Training Centre (CITC) Nairobi</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Artisan Certificate in Plumbing</th><td>Christian Industrial Training Centre (CITC) Nairobi</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Artisan Certificate in Welding and Fabrication</th><td>Christian Industrial Training Centre (CITC) Nairobi</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Artisan in Carpentry and Joinery</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Computer Maintenance and Repair</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Electrical Installation</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Food and Beverage Production</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Hairdressing and Beauty Therapy</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Masonry</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Motor Vehicle Mechanics</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Painting and Decoration</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Plumbing</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Refrigeration and Air Conditioning</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Welding and Fabrication</th><td>Kabete National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Grade III-I Carpentry and Joinery</th><td>Don Bosco Boys Technical Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Electrical Wireman</th><td>Don Bosco Boys Technical Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Fitting and Welding</th><td>Don Bosco Boys Technical Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Masonry</th><td>Don Bosco Boys Technical Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Motor Vehicle Mechanic</th><td>Don Bosco Boys Technical Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Tailoring</th><td>Don Bosco Boys Technical Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Trade Test in Electric Welding</th><td>YMCA National Training Institute, Shauri Moyo</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Trade Test in Hairdressing and Beauty</th><td>YMCA National Training Institute, Shauri Moyo</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Trade Test in Motor Vehicle Mechanics</th><td>YMCA National Training Institute, Shauri Moyo</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Trade Test in Plumber Pipe Fitter</th><td>YMCA National Training Institute, Shauri Moyo</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
     </tbody>
   </table></div>
-  <h3>Nyeri <span class="count">3</span></h3>
+  <h3 id="c-nyeri">Nyeri <span class="count">3</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan in Automotive Engineering</th><td>Nyeri National Polytechnic</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Carpentry and Joinery</th><td>Nyeri National Polytechnic</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Clothing Technology</th><td>Nyeri National Polytechnic</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
-  <h3>Samburu <span class="count">7</span></h3>
+  <h3 id="c-samburu">Samburu <span class="count">7</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Grade III-I Carpentry and Joinery</th><td>Maralal Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Dressmaking and Tailoring</th><td>Maralal Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Masonry</th><td>Maralal Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Motor Vehicle Electrical</th><td>Maralal Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Motor Vehicle Mechanics</th><td>Maralal Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Plumbing</th><td>Maralal Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Grade III-I Welding and Fabrication</th><td>Maralal Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
     </tbody>
   </table></div>
-  <h3>Trans Nzoia <span class="count">7</span></h3>
+  <h3 id="c-trans-nzoia">Trans Nzoia <span class="count">7</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">NVCET in Appropriate Carpentry and Joinery (KNEC)</th><td>Kitale Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">NVCET in Fashion Design and Garment Making (KNEC)</th><td>Kitale Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">NVCET in Hairdressing and Beauty Therapy Technology (KNEC)</th><td>Kitale Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">NVCET in Metal Processing Technology (KNEC)</th><td>Kitale Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Trade Test in Hairdressing and Beauty Therapy Technology (NITA)</th><td>Kitale Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Trade Test in Tailoring and Dressmaking (NITA)</th><td>Kitale Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
       <tr><th scope="row">Trade Test in Welding and Fabrication (NITA)</th><td>Kitale Vocational Training Centre</td>
-      <td>Artisan</td>
-      <td><span class="open">Open entry</span></td>
-      <td><span class="muted">Not published</span></td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok"><span class="muted">Not published</span></td></tr>
     </tbody>
   </table></div>
-  <h3>Turkana <span class="count">2</span></h3>
+  <h3 id="c-turkana">Turkana <span class="count">2</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan in Food and Beverage Production and Service (KNEC)</th><td>Lodwar Technical and Vocational College</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">NVCET in Food Processing Technology (KNEC)</th><td>Lodwar Technical and Vocational College</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
-  <h3>Uasin Gishu <span class="count">8</span></h3>
+  <h3 id="c-uasin-gishu">Uasin Gishu <span class="count">8</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan Certificate in Information and Communication Technology</th><td>Eldoret National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan Certificate in Salesmanship</th><td>Eldoret National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Agricultural Machinery and Equipment</th><td>Eldoret National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Beauty Therapy</th><td>Eldoret National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Concrete Field Testing</th><td>Eldoret National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Hairdressing</th><td>Eldoret National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Tannery and Leather Works</th><td>Eldoret National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
       <tr><th scope="row">Artisan in Welding and Fabrication</th><td>Eldoret National Polytechnic</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
-  <h3>West Pokot <span class="count">1</span></h3>
+  <h3 id="c-west-pokot">West Pokot <span class="count">1</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
       <tr><th scope="row">Artisan Certificate in Information and Communication Technology</th><td>Kitelakapel Technical Training Institute</td>
-      <td>Artisan</td>
-      <td>E</td>
-      <td>Ksh 67,189</td></tr>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
 
@@ -538,5 +616,6 @@ Confirm both with the institution before you decide.</p>
   <p><a href="/grades/">All grades</a> &middot; <a href="/counties/">Browse by county</a> &middot;
      <a href="/">Njia home</a></p>
 </footer>
+</div>
 </body>
 </html>

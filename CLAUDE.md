@@ -126,6 +126,108 @@ like the icons and the share card, guarded by `tests/seo.test.js`. Rules:
   "Bachelor of Science in Nursing" at B, B, C, C+ and C+; a name-only test
   flagged the C page for listing the B ones when it was correct.
 
+## The app is not the whole site
+
+This mistake has now been made four separate times, by four different routes,
+and every instance had the same shape: something was verified in the app,
+worked in the app, and was silently absent from the 53 generated pages.
+
+- **Dark mode.** The scheme is keyed to `data-theme="dark"`, an attribute an
+  inline script in `index.html` stamps pre-paint. The generated pages carry no
+  script on purpose, so every county and grade page rendered cream at midnight
+  on a phone set to dark, for as long as both had existed.
+- **The accessibility sweep.** Its first section was labelled "static pages" and
+  loaded `/index.html`, then drove `navigateTo()` — it was auditing the app's
+  routes. The label had been wrong since it was written, and the committed pages
+  had been audited in neither scheme. Adding them found **76 serious violations**
+  immediately: every scrollable table was a scroll region that could not take
+  focus, so at 390px a keyboard-only reader could not reach the Tuition column.
+- **The favicon.** `index.html` declared an SVG icon and a PNG fallback; the 54
+  generated pages declared only the SVG. A browser without SVG-favicon support —
+  older Android WebView, in-app browsers, which is this audience's hardware —
+  got no icon at all on any of them.
+- **The print header.** Ctrl-P on a county page produced a branded brief. The
+  grade pages went without, so the sheet a *career teacher* prints came off the
+  printer unbranded and undated, while the sheet for a county officer was a
+  proper deliverable.
+
+When you add anything that affects presentation — a theme, an asset, a meta
+tag, a print rule — the question is not "does it work" but "does it work on the
+53 pages that have no JavaScript". Assume it does not until you have opened one.
+
+## A green suite is not evidence
+
+Every defect worth fixing this session was found by measuring, printing, or
+driving the rendered page. **Not one was found by the test suite**, which stayed
+green through all of them: 9.6px body text, dark mode missing from 53 pages, 76
+unfocusable scroll regions, four FAQ answers invisible to every JavaScript
+reader, a help page throwing on render, a form label sheared in half, and a
+404 favicon.
+
+That is not an argument for fewer tests. Every one of those defects now has a
+guard, and the guards are what stop them coming back. It is an argument about
+what the suite is *for*: it protects against regression, and it does not find
+anything. Finding needs `emulateMedia('print')`, a screenshot you actually look
+at, a measurement of the rendered box, or a request for the URL a crawler asks
+for.
+
+Two specific blind spots worth naming, because both look like coverage:
+
+- **axe cannot see type that is too small.** All 56 states passed while text sat
+  at 9.6px. WCAG governs contrast and resize behaviour, not a minimum size.
+- **A guard that reads source text cannot see broken structure.** The FAQ parity
+  check matched question strings in the source and passed while the help page
+  threw `undefined is not iterable` on render — both questions *were* in the
+  text. It now evaluates `HELP_FAQ` and checks every entry is a real pair.
+
+## Type has a floor, and it is 12px
+
+An audit found **nineteen distinct sub-1rem font sizes** in `css/styles.css` —
+0.6, 0.65, 0.66, 0.68, 0.7, 0.72, 0.74, 0.75, 0.76, 0.78, 0.8, 0.8125, 0.82,
+0.85, 0.86, 0.88, 0.9, 0.92, 0.95rem — several within a third of a pixel of each
+other on screen. That is not one decision repeated nineteen times, it is a
+decision never made: each value was picked to make one component look right and
+none of them knew about the others. Seven rendered below 12px; the smallest
+carried real content at 9.6px.
+
+They are now four tokens — `--fs-xs` through `--fs-lg`, 12 to 15px — with a hard
+floor, guarded by `tests/type-scale.test.js`. The guard bans hand-written
+sub-1rem values entirely, because the failure mode is not someone lowering a
+token, it is someone adding a twentieth size for one new component.
+
+The floor is not a style preference. These readers are on cheap Android phones,
+often outdoors in bright light, and a real share of the adult-learner audience
+the app deliberately courts is over forty. 9.6px is not density for them, it is
+an exclusion — the same category of mistake as an entry grade recorded a tier
+too high, because it removes information from the person least able to work
+around it.
+
+## Reclaiming space can cost more than it saves
+
+The generated pages once sat in a 957px column at 1600px, leaving ~40% of the
+viewport empty while the six-column table wrapped "Open entry", "Not published"
+and "Ksh 134,378" onto two lines each. The reader was paying for the margins
+twice — once in emptiness and once in scrolling.
+
+The fix is a rail-plus-content split at **85rem**, and both numbers in that
+sentence were arrived at by measuring after a first attempt made things worse:
+
+- **The split first cut in at 64rem and lengthened the page.** A rail plus its
+  gap left the Nairobi table 621px, *narrower* than the 957px it had, so it
+  scrolled sideways and wrapped harder: 9,099px of document became 12,074px. A
+  layout meant to reclaim wasted space spent 3,000px of extra scrolling doing
+  it. The rail only pays once what is left fits the table, which for six columns
+  is about 950px.
+- **`white-space: nowrap` on the short columns is gated to 48rem and up.** At
+  390px it widened the table from 647px to 738px and the page got no shorter
+  (13,580 to 13,560px). The rows were never the constraint on a phone, the
+  viewport was, so all it bought was 91px more sideways scrolling.
+
+The general rule: a layout change that claims to save space has to be measured
+in *document height and content width at several viewports*, before and after.
+"It looks less empty" is not the same as "the reader does less work", and on a
+phone the two frequently point in opposite directions.
+
 ## Measurement: count steps, never people
 
 Njia takes exactly one usage measurement. A milestone — questionnaire finished,
@@ -229,6 +331,58 @@ the county and searching per institution, then list only the courses a reachable
 source actually names — all four of these run more than is listed, and each note
 says so rather than padding the catalogue with plausible programme names.
 
+## Verify a script by its effect, never by its own report
+
+A script that resolved the last nineteen uncited fees printed `records updated:
+19` and had attached **zero** notes. It nulled the fee and tested `rec != orig`,
+which was true because of the fee change alone — so it counted *a* change rather
+than the change it was asked to make, and left all nineteen in the one state
+this file explicitly forbids: a missing fee that does not say why. The insertion
+had silently failed because records end `" },"` and the pattern looked for
+`" }\n"`.
+
+The check that caught it was three lines of Node reading the parsed data back
+and asserting both properties were true together. Do that every time a script
+edits `data/`. A count of rows touched is not a count of rows correct.
+
+The same discipline applies to guards. When you write one, **break the thing it
+guards and watch it fail**, then restore. Done four times this session — a
+flipped `fee_basis` value, a reintroduced missing comma, a corrupted ICO
+dimension, a reverted CSS rule — and it is the only way to know a guard tests
+what its name claims.
+
+## Deliverables the data already supports
+
+Two things shipped this session that needed no new data, only a different view
+of what was already there. Both are worth remembering as a pattern: before
+building a feature, check whether the catalogue already answers the question and
+simply has no surface for it.
+
+- **`/open-data/`** publishes all 463 courses as CSV and JSON. The column that
+  justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
+  nobody says which of their numbers they can stand behind. It is **computed by
+  reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
+  because an export that classified fees by its own copy of the rule could
+  disagree with the app while both looked right alone. RFC 4180 quoting is not
+  optional: **every one** of the 463 notes contains a comma or a quote and the
+  longest is 1,420 characters. (It was 444 when the exporter was written; the
+  last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
+  than quoting a figure from earlier in the same session — this note is here
+  because I nearly wrote the stale one down as permanent.)
+- **Printable briefs.** Ctrl-P on any county or grade page produces a branded,
+  dated sheet — no library, no server, just a print stylesheet over data already
+  in the page, so it works offline. The county sheet is for an education officer
+  or bursary committee; the grade sheet is for a career teacher, who is the
+  distribution channel this project otherwise lacks. One teacher reaches a whole
+  Form Four class.
+
+**Two empty cells in a CSV are where it lies.** A blank reads as "no data" to one
+person and as zero to another. In this export a blank `min_grade` means *open
+entry* — the most permissive value, not a missing one, so there is an explicit
+`open_entry` column — and a blank `tuition_kes` means unsourced, **not free**;
+the three genuinely free courses carry `0`. Both are stated on the landing page,
+not only in a header row.
+
 ## The placeholder trap
 
 An audit found **Ksh 420,000 on twelve different degrees** at twelve different
@@ -244,20 +398,41 @@ with a plausible number, that guard is aimed at you.
 
 ## Verification before any deploy
 
-Four layers, all of which must be clean:
+Regenerate first — the guards fail on stale artefacts, which is the point:
 
 ```
-node --test tests/*.test.js                      # zero-dependency unit suite
-node tests/functional-probe.mjs                  # drives the real app, port 8080
-node tests/a11y-sweep.mjs                        # 32 axe states, port 8106
+node tools/build-icons.mjs        # 4 PNGs + favicon.ico, needs Playwright
+node tools/build-og-image.mjs     # share card; rewrites its own hash in index.html
+node tools/build-open-data.mjs    # CSV + JSON + /open-data/
+node tools/build-static-pages.mjs # 53 pages + sitemap; run LAST, it reads the others
 ```
 
-Plus a manual drive of every page at 1440px and 390px in both colour schemes.
-Static tests do not execute a page: several defects this project shipped were
-invisible to a green suite and obvious one second after loading the app.
+Then four layers, all of which must be clean:
+
+```
+node --test tests/*.test.js       # zero-dependency unit suite (231)
+node tests/functional-probe.mjs   # drives the real app, port 8080
+node tests/a11y-sweep.mjs         # 60 axe states, port 8106
+```
+
+The axe sweep is 60 states, not 32, because it now covers the generated county,
+grade and open-data pages as well as the app's routes. Its first section used to
+be labelled "static pages" and audited neither.
+
+Plus a manual drive of every page at 1440px and 390px in both colour schemes,
+**and a print check** — `emulateMedia('print')` on a county and a grade page,
+because two defects this session were visible on paper and nowhere else.
 
 Bump `CACHE_VERSION` in `sw.js` on every deploy. Icons are cache-first, so a
 stale version means readers keep the old ones.
+
+**On the Lighthouse score: 95 to 97 is this site's noise band.** Production has
+measured 95, 97, 97, 95 and 97 across consecutive deploys whose payloads both
+grew and shrank, and previews swing the same way within a single branch. Do not
+chase a point, and do not do what I did once — declare the variance "confirmed"
+off a single reading. If it ever leaves that band, measure the app-side payload
+before assuming the diff caused it; most changes here touch only the generated
+pages, which the audit of `/` never loads.
 
 ## A manual step is usually a missing build step
 
@@ -288,12 +463,37 @@ endpoint. Those two are the maintainer's; the rest should be a script.
 PNGs using the Playwright Chromium. The PNGs once drifted a full rebrand
 behind the SVG, so a test asserts they are never older than their source.
 
+It also writes **`favicon.ico`** at the repo root, at 16/32/48. That file is
+requested by PATH rather than by link — Google and most crawlers and
+link-preview services fetch that exact address to decide what icon sits beside a
+result — and it 404'd while the app's own tab was perfectly correct. With 57
+URLs in the sitemap, every search result was rendering blank.
+
+It is packed by hand because there is nothing here to pack it with: no
+dependencies, no ImageMagick. ICO is a 6-byte header, a 16-byte directory entry
+per size, and — since Vista — PNG payloads directly rather than BMP. The guard
+parses the container and asserts each entry's declared dimensions match the
+actual PNG IHDR, which is the classic way a hand-packed ICO renders as nothing
+while still looking like a valid file.
+
 ## Verifying a production deploy
 
 Netlify's `currentDeploy` on this site is repeatedly stale — it reported the
 previous deploy for over a minute after several merges. **Always confirm
 `commit_ref` on the deploy object**, never `state: "ready"`. The MCP endpoints
 502 independently and intermittently; back off 60s and retry the other one.
+
+Budget for the API being unavailable rather than treating it as an error. In one
+session the Netlify MCP 502'd five times and once timed out at 60s, and the
+GitHub API exhausted its hourly quota repeatedly — a merge took several
+ten-minute backoffs. Neither is a failure of the change; both are the normal
+weather here. **Do not report a deploy as verified until `commit_ref` has
+actually been read.** "Merged" is confirmable from git alone and is a different
+claim from "live", and it is worth keeping them apart out loud.
+
+Note also that `get-deploy-for-site` needs a `deployId`, which only
+`get-projects` returns — so when `get-projects` is the endpoint that is down,
+there is no way round it and waiting is the whole strategy.
 
 ## Merging
 

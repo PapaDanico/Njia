@@ -423,11 +423,19 @@ loads first**, on the cheap Android phones this project designs for. What it
 bought was nothing: Google restricted FAQ rich results to government and health
 sites in August 2023 and **deprecated them entirely on 7 May 2026**.
 
-It shipped, and the only outward sign was a one-point Lighthouse drop that
-looked like the documented 95–97 noise. It was not noise — that diff genuinely
-touched the audited page, which is the one case where the band does not apply.
-**Before calling a score movement noise, check whether the diff touched
-`index.html`.** `Organization` and `WebSite` stayed, at 0.32KB gz; a test now
+**And Lighthouse could not see any of it.** The preview scored 96 with the
+FAQPage and **96 again with it removed** — an 11.24KB gzipped swing on the
+audited page moved the number not at all. I had briefly claimed the drop was
+caused by the payload; it was not, and the correction matters more than the
+original point. On this site the Performance score is dominated by the ~220KB
+gz of JavaScript every page loads, so an 11KB HTML delta sits below its
+resolution entirely.
+
+The real lesson is sharper than "check whether the diff touched `index.html`":
+**a payload argument has to stand on its own bytes, because the score is
+evidence in neither direction.** Removing this was right on the measurement and
+on the dead-feature grounds, and would have been right if the score had gone
+*up* by a point. `Organization` and `WebSite` stayed, at 0.32KB gz; a test
 guards the FAQPage's absence, because re-adding it reads like free SEO and is
 neither free nor SEO.
 

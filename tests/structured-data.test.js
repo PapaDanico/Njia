@@ -20,9 +20,11 @@
  *    a FAQPage covering all 48 HELP_FAQ entries added 11.24KB GZIPPED to
  *    index.html, taking it from 15.62 to 27.18KB gz — a 74% increase on the one
  *    page every learner loads first — for a rich result Google deprecated on
- *    7 May 2026. It shipped, and a one-point Lighthouse drop that looked like
- *    the documented 95-97 noise was the only outward sign. There is now a test
- *    guarding its absence, because the instinct to re-add it reads like free SEO.
+ *    7 May 2026. Lighthouse never saw it: the page scored 96 with the block and
+ *    96 without, because Performance here is dominated by the JavaScript bundle
+ *    and an 11KB HTML delta is below its resolution. Nothing automated would
+ *    have caught this, which is why the guard below is a size assertion rather
+ *    than a score one.
  *
  * 3. COUNTS THAT DRIFT FROM THE CATALOGUE. The Dataset descriptions state the
  *    course, institution and county counts. Those are the figures a researcher

@@ -119,10 +119,12 @@ const website = {
  * The FAQ is not lost to machines: it is in the <noscript> block as crawlable
  * markup, in js/help.js as data, and llms.txt points answer engines at both.
  *
- * The lesson generalises. A Lighthouse drop of one point looked like the
- * documented 95-97 noise and was not — this diff genuinely touched the audited
- * page. Measure the payload of anything added to index.html before deciding a
- * score movement is noise. */
+ * DO NOT REACH FOR LIGHTHOUSE TO SETTLE THIS. The preview scored 96 with the
+ * FAQPage and 96 without it — an 11.24KB gz swing moved the number not at all,
+ * because Performance here is dominated by the ~220KB gz of JavaScript every
+ * page loads and an 11KB HTML delta is below its resolution. The argument for
+ * removing it is the bytes and the dead rich result, and it would hold if the
+ * score had gone up. Measure the payload; the score is evidence either way. */
 const indexGraph = { '@context': 'https://schema.org', '@graph': [organization, website] };
 
 /* ---- the two Dataset pages -------------------------------------------- */

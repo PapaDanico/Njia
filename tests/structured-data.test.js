@@ -16,10 +16,13 @@
  *    nothing at all. Nothing in a normal test run executes it, so it can be
  *    broken for months.
  *
- * 2. MARKUP LEAKING INTO TEXT FIELDS. The FAQ answers in js/help.js contain
- *    <strong>, <a> and entities because the app renders them as HTML. Copied
- *    raw into an Answer's text, a search engine shows a reader "Yes &mdash;
- *    <strong>any grade</strong>". The generator strips tags; this checks it did.
+ * 2. WEIGHT NOBODY MEASURED. Markup is invisible, so it feels free. It is not:
+ *    a FAQPage covering all 48 HELP_FAQ entries added 11.24KB GZIPPED to
+ *    index.html, taking it from 15.62 to 27.18KB gz — a 74% increase on the one
+ *    page every learner loads first — for a rich result Google deprecated on
+ *    7 May 2026. It shipped, and a one-point Lighthouse drop that looked like
+ *    the documented 95-97 noise was the only outward sign. There is now a test
+ *    guarding its absence, because the instinct to re-add it reads like free SEO.
  *
  * 3. COUNTS THAT DRIFT FROM THE CATALOGUE. The Dataset descriptions state the
  *    course, institution and county counts. Those are the figures a researcher
@@ -39,7 +42,6 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
-const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
 const { COURSES } = require(path.join(root, 'data', 'courses.js'));
@@ -76,46 +78,47 @@ test('the app front page describes itself to a crawler', () => {
      front door learned less than one arriving three clicks in. */
   const parsed = blocks('index.html').map((b) => JSON.parse(b));
   const types = parsed.flatMap((d) => (d['@graph'] || [d]).map((n) => n['@type']));
-  for (const want of ['Organization', 'WebSite', 'FAQPage']) {
+  for (const want of ['Organization', 'WebSite']) {
     assert.ok(types.includes(want),
       `index.html has no ${want} in its structured data — found ${types.join(', ') || 'nothing'}. `
       + 'Run node tools/build-structured-data.mjs');
   }
 });
 
-test('the FAQ markup is emitted as text, not as escaped HTML', () => {
-  /* HELP_FAQ answers contain <strong> and <a> because the app renders them.
-     Passed through raw, a search result reads "<strong>any grade</strong>". */
-  const graph = blocks('index.html').flatMap((b) => JSON.parse(b)['@graph'] || []);
-  const faq = graph.find((n) => n['@type'] === 'FAQPage');
-  assert.ok(faq && Array.isArray(faq.mainEntity) && faq.mainEntity.length > 20,
-    'the FAQPage block is missing or has collapsed');
+test('index.html carries no FAQPage, and stays light', () => {
+  /* THIS TEST GUARDS A DELETION, WHICH IS UNUSUAL AND DELIBERATE.
+   *
+   * The first version of the generator emitted all 48 HELP_FAQ entries here.
+   * Measured, that block was 30.8KB raw and 11.24KB GZIPPED: index.html went
+   * from 15.62KB gz to 27.18KB gz, a 74% increase on the one page every learner
+   * loads first, on the cheap Android phones and thin connections this project
+   * exists for.
+   *
+   * It bought nothing. Google restricted FAQ rich results to authoritative
+   * government and health sites in August 2023 and deprecated them entirely on
+   * 7 May 2026 — they no longer render in Search for anyone.
+   *
+   * The instinct to add FAQ markup back will recur, because it reads like free
+   * SEO. It is not free, and it is not SEO. If you need the FAQ machine-
+   * readable, it is already in the <noscript> block, in js/help.js, and pointed
+   * at from llms.txt.
+   *
+   * The size ceiling is generous — this is a floor against a large regression,
+   * not a byte budget. */
+  const parsed = blocks('index.html').map((b) => JSON.parse(b));
+  const types = parsed.flatMap((d) => (d['@graph'] || [d]).map((n) => n['@type']));
+  assert.ok(!types.includes('FAQPage'),
+    'index.html has a FAQPage again. It cost 11.24KB gzipped — 74% of the page — for a rich '
+    + 'result Google removed from Search on 7 May 2026. See tools/build-structured-data.mjs.');
 
-  const dirty = faq.mainEntity
-    .filter((q) => /<[a-z/][^>]*>|&(amp|lt|gt|quot|#39|mdash|nbsp);/i.test(`${q.name} ${q.acceptedAnswer.text}`))
-    .map((q) => q.name.slice(0, 50));
-  assert.deepEqual(dirty.slice(0, 4), [],
-    `these FAQ entries carry raw markup or entities into the structured data, which a search `
-    + `engine renders literally: ${dirty.slice(0, 4).join(' | ')}`);
-
-  const empty = faq.mainEntity.filter((q) => !q.name || !q.acceptedAnswer?.text).length;
-  assert.equal(empty, 0, `${empty} FAQ entries have an empty question or answer`);
-});
-
-test('the FAQ in structured data matches the app, question for question', () => {
-  /* A third copy of the FAQ would be a third thing free to drift, which is why
-     the generator reads HELP_FAQ rather than restating it. This checks that it
-     really did, by evaluating the same source the app loads. */
-  const helpSrc = fs.readFileSync(path.join(root, 'js', 'help.js'), 'utf8');
-  const sandbox = {};
-  vm.runInNewContext(`${helpSrc.slice(0, helpSrc.indexOf('const HELP_GLOSSARY'))}; this.__faq = HELP_FAQ;`, sandbox);
-  const appCount = sandbox.__faq.reduce((n, g) => n + g.items.length, 0);
-
-  const graph = blocks('index.html').flatMap((b) => JSON.parse(b)['@graph'] || []);
-  const faq = graph.find((n) => n['@type'] === 'FAQPage');
-  assert.equal(faq.mainEntity.length, appCount,
-    `the structured-data FAQ has ${faq.mainEntity.length} questions and the app has ${appCount}. `
-    + 'Regenerate with node tools/build-structured-data.mjs.');
+  const raw = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const m = raw.match(/<!-- STRUCTURED DATA[\s\S]*?<!-- END STRUCTURED DATA -->/);
+  assert.ok(m, 'the structured-data block markers have gone from index.html');
+  const kb = m[0].length / 1024;
+  assert.ok(kb < 4,
+    `the structured-data block on index.html is ${kb.toFixed(1)}KB raw. It was 0.9KB when it held `
+    + 'only Organization and WebSite. Anything approaching the old 37KB is the FAQPage mistake '
+    + 'returning under another name — measure the gzipped page before adding markup here.');
 });
 
 test('both data pages declare themselves as a Dataset with a real download', () => {

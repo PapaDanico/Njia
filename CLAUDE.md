@@ -415,6 +415,22 @@ with no credentials at all, and it was in neither.
   Njia refuses to claim** — no employment rates, no public-university fee, and
   that a zero describes the catalogue rather than the county.
 
+**Markup is invisible, which is exactly why it needs weighing.** The first
+version of this work also emitted a `FAQPage` covering all 48 `HELP_FAQ`
+entries on `index.html`. Measured afterwards: **11.24KB gzipped**, taking the
+page from 15.62 to 27.18KB gz — a **74% increase on the one page every learner
+loads first**, on the cheap Android phones this project designs for. What it
+bought was nothing: Google restricted FAQ rich results to government and health
+sites in August 2023 and **deprecated them entirely on 7 May 2026**.
+
+It shipped, and the only outward sign was a one-point Lighthouse drop that
+looked like the documented 95–97 noise. It was not noise — that diff genuinely
+touched the audited page, which is the one case where the band does not apply.
+**Before calling a score movement noise, check whether the diff touched
+`index.html`.** `Organization` and `WebSite` stayed, at 0.32KB gz; a test now
+guards the FAQPage's absence, because re-adding it reads like free SEO and is
+neither free nor SEO.
+
 The rule that follows: **structured data is written for a reader who cannot push
 back.** A person who sees a wrong fee rings the college. A machine republishes
 it as a rich result to people who never reach the page. So the JSON-LD is held

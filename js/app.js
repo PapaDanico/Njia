@@ -1008,7 +1008,7 @@ function renderHomePage() {
                most load-bearing thing Njia says about itself. Everything else
                here restated what the Decide page already explains beside the
                badges it is describing. */''}
-          <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong> — Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. Decide names all five fee-provenance groups; see Methodology for the rest.</p>
+          <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong> — Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. Decide names all five fee-provenance groups; see Methodology for the rest. ${/* Placed in the sources line rather than added to the Learn column above. Both are destinations for a reader who wants to CHECK the figures rather than use them, and this is the sentence that reader is already reading; a fourth footer column would have cost height on every screen to serve them somewhere less obvious. */''}Check it yourself: <a href="./open-data/">download the whole catalogue</a> or read the <a href="./analysis/">county provision analysis</a>.</p>
           <div class="landing-footer-bottom">
             <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
           </div>

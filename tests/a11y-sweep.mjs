@@ -66,7 +66,12 @@ const SCHEMES = ['light', 'dark'];
 const GENERATED = [
   '/counties/nairobi/', '/counties/turkana/', '/counties/',
   '/grades/d-plain/', '/grades/e/', '/grades/',
-  '/open-data/'
+  '/open-data/',
+  /* The analysis page is the only generated page with a 47-row, 12-column data
+     table inside a horizontally scrolling region, which is its own set of ways
+     to be unreadable — a scroll container needs to be keyboard-reachable, and a
+     table this wide needs its headers to survive being scrolled past. */
+  '/analysis/'
 ];
 
 const HOWTO = 'Supply them out-of-tree, e.g.\n'

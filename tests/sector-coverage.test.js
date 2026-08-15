@@ -297,7 +297,7 @@ const FEE_BASES = ['published', 'derived', 'illustrative', 'unpublished', 'unsou
 const GRADE_ORDER = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
 const gradeRank = (g) => (g == null ? GRADE_ORDER.length : GRADE_ORDER.indexOf(g));
 
-/* Where it stands. Fourteen counties have been closed, by two different routes.
+/* Where it stands. Fifteen counties have been closed, by three different routes.
  *
  * Four by listing county technical provision that had never been in the
  * catalogue at all (Turkana, West Pokot, Mandera, Marsabit). Two by correcting
@@ -313,9 +313,18 @@ const gradeRank = (g) => (g == null ? GRADE_ORDER.length : GRADE_ORDER.indexOf(g
  * because what was missing was the artisan tier — which is the only tier the
  * learner this metric is about can actually enter.
  *
+ * And one — Bomet — arrived from an unexpected direction: it was found while
+ * researching FUNDING, not provision. The Finlays Community Trust publishes a
+ * TVET scholarship for Bomet and Kericho residents with a D or D+, and names
+ * the two institutes its scholars attend. One of them, Konoin Technical
+ * Training Institute in Mogogosiek, had never been in this catalogue, and it
+ * states its artisan tier as open entry. A scholarship listing turned out to
+ * be an institution register nobody had read as one — worth remembering the
+ * next time a county looks empty and the usual searches come back dry.
+ *
  * Lower this number when you close more; a test that only ever gets weaker is
  * not a guard. */
-const E_GRADE_BLIND_COUNTIES = 23;
+const E_GRADE_BLIND_COUNTIES = 22;
 
 /* UNDER-CLAIM ON A FIGURE. NEVER ON AN ELIGIBILITY.
  *

@@ -97,6 +97,60 @@
     .split > footer { grid-column: 1 / -1; }
   }
 
+  /* The eligibility floor, as a figure block rather than a sentence. */
+  .prov { margin: 1.1rem 0; padding: .85rem 0; border-top: 1px solid var(--ink-veil, rgba(61,28,2,.12));
+          border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); font-size: .88rem; }
+  .prov > div { display: flex; justify-content: space-between; gap: 1rem; padding: .22rem 0; }
+  .prov dt { color: inherit; opacity: .8; }
+  .prov dd { margin: 0; font-family: var(--mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
+             font-weight: 700; white-space: nowrap; }
+
+  /* The printed brief's masthead. Absent from the screen page, which already
+     has a heading and a back link and does not need a second identity. */
+  .brief-head { display: none; }
+
+  /* ---------- PRINT: a county page is a deliverable ----------------------
+   *
+   * Ctrl-P on a county page produces a branded provision brief — the mark, the
+   * county, the eligibility floor, who runs what, and every course with its
+   * fee and entry grade. It goes to a career teacher, a bursary committee or a
+   * county education officer, which is the audience Njia has no other way of
+   * reaching.
+   *
+   * No library and no server: the data is already in the page, so this is a
+   * stylesheet, not a feature. That also means it works offline and from a
+   * saved page, which matters for the offices that need it most.
+   *
+   * What gets dropped is anything that cannot be acted on from paper — the
+   * buttons, the back link, the scroll affordances. What gets kept is every
+   * figure and the provenance paragraph, because a brief whose numbers cannot
+   * be checked is the thing this project exists not to publish. */
+  @media print {
+    @page { margin: 14mm 12mm; }
+    body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }
+    .rail, .main { position: static !important; max-height: none !important; overflow: visible !important; }
+    .cta, .back, .jump { display: none !important; }
+    /* The scroll box must not clip on paper — there is no scrolling on paper,
+       so an overflow container silently truncates the right-hand columns. */
+    .wrap { overflow: visible !important; }
+    table { font-size: 8.5pt; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    h2 { break-after: avoid; margin-top: 1.2em; }
+    .brief-head {
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 2px solid var(--primary, #8B2500);
+      padding-bottom: 6px; margin-bottom: 10px;
+    }
+    .brief-mark { width: 26px; flex: none; }
+    .brief-mark svg { display: block; width: 100%; height: auto; }
+    .brief-word { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 15pt; line-height: 1; }
+    .brief-tag { font-size: 6.5pt; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+    .brief-meta { margin-left: auto; text-align: right; font-size: 7.5pt; line-height: 1.35; }
+    .prov { break-inside: avoid; }
+    .prov > div { padding: .12rem 0; }
+  }
+
   .rail h2 { font-size: 1rem; margin: 1.6rem 0 .4rem; }
   .rail ul { font-size: .88rem; line-height: 1.5; padding-left: 1.1rem; }
   .rail ul li { margin-bottom: .3rem; }
@@ -105,6 +159,18 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Courses in Machakos County, Kenya","numberOfItems":21,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Course","name":"Business Modelling for Entrepreneurs (OUK, free)","description":"Three-week online course offered free by OUK. Zero-cost entry to structured business planning for anyone starting out.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":2,"item":{"@type":"Course","name":"ICDL Digital Literacy Certification (OUK)","description":"Two-week internationally recognised digital literacy certification. No minimum grade — a genuine entry point if your KCSE result closed other doors.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":3,"item":{"@type":"Course","name":"Mental Health Awareness (OUK, free)","description":"Two-week online course offered free by OUK. A no-cost first credential for anyone exploring care and community work.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":4,"item":{"@type":"Course","name":"Professional Certificate in Corporate Governance (OUK)","description":"Six-week online professional course. Open admission with no restrictive academic requirement.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":5,"item":{"@type":"Course","name":"Professional Certificate in Emotional Intelligence (OUK)","description":"Six-week online course in the socio-emotional skills the WEF Future of Jobs Report ranks among the fastest-growing to 2030.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":6,"item":{"@type":"Course","name":"Certificate in Community Health Assistant","description":"One-year entry point into community health work that ladders into the KRCHN diploma. Lower grade requirement than the diploma, and available in most counties.","provider":{"@type":"EducationalOrganization","name":"Kenya Medical Training College (KMTC) — Machakos Campus","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":7,"item":{"@type":"Course","name":"Diploma in Human Resource Management","description":"Recruitment, labour law and payroll practice toward IHRM registration.","provider":{"@type":"EducationalOrganization","name":"Machakos University","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":8,"item":{"@type":"Course","name":"Bachelor of Arts in Communication and Public Relations","description":"Strategic communication, PR practice and media relations.","provider":{"@type":"EducationalOrganization","name":"Daystar University","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":9,"item":{"@type":"Course","name":"Bachelor of Education (Arts)","description":"Teaching is not the safe default it looks like: about 369,000 trained teachers are TSC-registered and waiting for a job. Teacher education in arts subjects, studied around work or family commitments.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":10,"item":{"@type":"Course","name":"Bachelor of Education (Primary Option)","description":"Teaching is not the safe default it looks like: about 369,000 trained teachers are TSC-registered and waiting for a job. TSC-oriented teacher training for primary schools under the competency-based curriculum.","provider":{"@type":"EducationalOrganization","name":"Machakos University","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":11,"item":{"@type":"Course","name":"Bachelor of Interactive Media Technologies","description":"Online degree in digital media production, interaction design and multimedia technology.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":12,"item":{"@type":"Course","name":"Bachelor of Public Administration","description":"Public policy, governance and administration for county and national service.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":13,"item":{"@type":"Course","name":"Bachelor of Public Communication","description":"Strategic communication, media writing and campaign practice, delivered online.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":14,"item":{"@type":"Course","name":"Bachelor of Science in Agri-Technology","description":"Technology applied to farming systems, agribusiness and food value chains.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":15,"item":{"@type":"Course","name":"Bachelor of Science in Computer Science","description":"Core computing, software engineering and systems, studied from anywhere.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":16,"item":{"@type":"Course","name":"Bachelor of Science in Cyber Security and Digital Forensics","description":"Network defence, incident response and digital evidence handling.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":17,"item":{"@type":"Course","name":"Bachelor of Science in Data Science","description":"Statistics, programming and applied machine learning, taught entirely online.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":18,"item":{"@type":"Course","name":"Bachelor of Science in Mathematics and Computing","description":"Online mathematics and computation degree; a strong base for actuarial, analytics and software pathways.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":19,"item":{"@type":"Course","name":"Bachelor of Science in Nursing (Upgrading)","description":"Degree upgrade for practising KRCHN nurses, without leaving the job.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":20,"item":{"@type":"Course","name":"Bachelor of Technology Education","description":"Online degree preparing technical trainers and TVET instructors — a route into teaching without campus relocation.","provider":{"@type":"EducationalOrganization","name":"The Open University of Kenya (OUK)","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}},{"@type":"ListItem","position":21,"item":{"@type":"Course","name":"Diploma in Kenya Registered Community Health Nursing (KRCHN)","description":"The core nursing diploma, taught to the same national curriculum at every KMTC campus — so you can train near home instead of relocating.","provider":{"@type":"EducationalOrganization","name":"Kenya Medical Training College (KMTC) — Machakos Campus","address":{"@type":"PostalAddress","addressRegion":"Machakos County","addressCountry":"KE"}}}}]}</script>
 </head>
 <body class="split">
+
+<div class="brief-head">
+  <div class="brief-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia"> <style> /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile. * * Nothing supplies --mark-edge outside the app, so the outline falls back * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16, * 32, 48 and 64px, the leaf edge disappeared into the ground completely. * The mark still read, because the terracotta field and the cream road * carry it, but the drawing lost its silhouette. * * This rule is inert inside the app: there the #i-njia sprite symbol in * index.html is a separate copy that takes --mark-edge from the page, and * it does not carry this stylesheet. The drift guard in * tests/provenance.test.js compares path geometry rather than styling, so * the two stay legitimately different in presentation and identical in * shape. */ @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg></div>
+  <div>
+    <div class="brief-word">Njia</div>
+    <div class="brief-tag">Data-driven career pathways for Kenyan youth</div>
+  </div>
+  <div class="brief-meta">
+    <strong>Machakos County provision brief</strong><br>
+    21 courses &middot; 5 open to an E &middot; njiacareerpathways.work
+  </div>
+</div>
 
 <aside class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
@@ -117,6 +183,19 @@ Caring and health, Working with people, Technology, Business, Creative and makin
 
 <p>5 of these 21 courses list no minimum grade at all, so they are open to any KCSE result.</p>
 
+<!-- The eligibility floor, published. Njia has computed this number since the
+     coverage metric was introduced and kept it in a test constant, where no
+     reader could see it. "112 courses" and "15 of them open to an E" are the
+     same county described twice, and only the second tells a school-leaver
+     with an E, or the officer funding them, anything they can act on. -->
+<dl class="prov">
+  <div><dt>Courses listed</dt><dd>21</dd></div>
+  <div><dt>Open to an E-grade learner</dt><dd>5</dd></div>
+  <div><dt>Lowest entry requirement</dt><dd>Open entry</dd></div>
+  <div><dt>Institutions</dt><dd>4</dd></div>
+  <div><dt>Showing a fee figure</dt><dd>18 of 21</dd></div>
+</dl>
+
 <p><a class="cta" href="/#decide">Filter these by your grade and budget &rarr;</a>
 <a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 
@@ -124,8 +203,6 @@ Caring and health, Working with people, Technology, Business, Creative and makin
      list one item to a line under 7,800px of rows, which meant nobody reading
      a course ever saw it; beside the table it answers "who actually runs these"
      while the reader is looking at the answer. -->
-<h2>Institutions in Machakos</h2>
-<ul class="cols"><li>Daystar University</li><li>Kenya Medical Training College (KMTC) — Machakos Campus</li><li>Machakos University</li><li>The Open University of Kenya (OUK)</li></ul>
 </aside>
 
 <main class="main">
@@ -303,6 +380,38 @@ Caring and health, Working with people, Technology, Business, Creative and makin
           <td class="tok">Ksh 238,200</td>
           <td class="tok">36 mo</td>
         </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Institutions in Machakos</h2>
+<div class="wrap" tabindex="0" role="region" aria-label="Institutions in Machakos County">
+<table>
+  <caption>Who runs the courses above, what levels they teach, and the lowest door into each.</caption>
+  <thead><tr><th scope="col">Institution</th><th scope="col" class="tok">Ownership</th>
+  <th scope="col">Levels taught</th><th scope="col" class="tok">Courses</th>
+  <th scope="col" class="tok">Lowest entry</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Daystar University</th>
+    <td class="tok">Private</td>
+    <td>Degree</td>
+    <td class="tok">1</td>
+    <td class="tok">C+</td></tr>
+    <tr><th scope="row">Kenya Medical Training College (KMTC) — Machakos Campus</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">2</td>
+    <td class="tok">D+</td></tr>
+    <tr><th scope="row">Machakos University</th>
+    <td class="tok">Public</td>
+    <td>Diploma, Degree</td>
+    <td class="tok">2</td>
+    <td class="tok">C-</td></tr>
+    <tr><th scope="row">The Open University of Kenya (OUK)</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Degree</td>
+    <td class="tok">16</td>
+    <td class="tok">Open entry</td></tr>
   </tbody>
 </table>
 </div>

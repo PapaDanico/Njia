@@ -177,8 +177,28 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Thirty-three remain — lower the
+one inside an aggregate that still looks fine. Twenty-three remain — lower the
 constant when you close more.
+
+**The gap is almost always a missing institution, not a missing course.** Eight
+counties were closed in one pass by searching per county for its technical
+college and finding one that had never been listed — Baringo Technical College,
+Bumbe TTI (Busia), Kaiboi National Polytechnic (Nandi), Kisii National
+Polytechnic, Taita Taveta National Polytechnic, Michuki National Polytechnic
+(Murang'a), Bungoma National Polytechnic and Bureti TTI (Kericho). Every one of those counties already had a KMTC campus and a
+university in the catalogue and still read as blind, because the tier that was
+missing was artisan — the only tier this metric's learner can enter.
+
+The query that works is the county TVET roll-up first (`Technical and Vocational
+Education Training institutions in <county> County`), then the named institution
+(`<institution> artisan courses list entry requirements`). Going straight to the
+institution fails when you do not yet know its name, and the roll-up alone names
+no courses.
+
+**Watch for the name collision.** Rift Valley National Polytechnic (Nakuru,
+formerly RVIST) and Rift Valley Technical Training Institute (Eldoret) return in
+each other's result sets, and the Eldoret one is already listed. A course
+attributed to the wrong county is worse than a missing one.
 
 Every county in Kenya has public technical provision. When a county looks empty,
 the gap is in this catalogue, not in the county. Find the institution by naming

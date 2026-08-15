@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Courses you can do with a D- in KCSE — 96 options | Njia</title>
-<meta name="description" content="96 Kenyan courses open to a KCSE mean grade of D-, across 17 counties, with fees and institutions. Free and evidence-based.">
+<title>Courses you can do with a D- in KCSE — 123 options | Njia</title>
+<meta name="description" content="123 Kenyan courses open to a KCSE mean grade of D-, across 26 counties, with fees and institutions. Free and evidence-based.">
 <link rel="canonical" href="https://njiacareerpathways.work/grades/d-minus/">
 <meta property="og:title" content="Courses you can do with a D- in Kenya">
-<meta property="og:description" content="96 Kenyan courses open to a KCSE mean grade of D-, across 17 counties, with fees and institutions. Free and evidence-based.">
+<meta property="og:description" content="123 Kenyan courses open to a KCSE mean grade of D-, across 26 counties, with fees and institutions. Free and evidence-based.">
 <meta property="og:image" content="https://njiacareerpathways.work/icons/og-image.jpg?v=94c5b4cef8">
 <meta property="og:url" content="https://njiacareerpathways.work/grades/d-minus/">
 <meta property="og:type" content="article">
@@ -97,6 +97,60 @@
     .split > footer { grid-column: 1 / -1; }
   }
 
+  /* The eligibility floor, as a figure block rather than a sentence. */
+  .prov { margin: 1.1rem 0; padding: .85rem 0; border-top: 1px solid var(--ink-veil, rgba(61,28,2,.12));
+          border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); font-size: .88rem; }
+  .prov > div { display: flex; justify-content: space-between; gap: 1rem; padding: .22rem 0; }
+  .prov dt { color: inherit; opacity: .8; }
+  .prov dd { margin: 0; font-family: var(--mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
+             font-weight: 700; white-space: nowrap; }
+
+  /* The printed brief's masthead. Absent from the screen page, which already
+     has a heading and a back link and does not need a second identity. */
+  .brief-head { display: none; }
+
+  /* ---------- PRINT: a county page is a deliverable ----------------------
+   *
+   * Ctrl-P on a county page produces a branded provision brief — the mark, the
+   * county, the eligibility floor, who runs what, and every course with its
+   * fee and entry grade. It goes to a career teacher, a bursary committee or a
+   * county education officer, which is the audience Njia has no other way of
+   * reaching.
+   *
+   * No library and no server: the data is already in the page, so this is a
+   * stylesheet, not a feature. That also means it works offline and from a
+   * saved page, which matters for the offices that need it most.
+   *
+   * What gets dropped is anything that cannot be acted on from paper — the
+   * buttons, the back link, the scroll affordances. What gets kept is every
+   * figure and the provenance paragraph, because a brief whose numbers cannot
+   * be checked is the thing this project exists not to publish. */
+  @media print {
+    @page { margin: 14mm 12mm; }
+    body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }
+    .rail, .main { position: static !important; max-height: none !important; overflow: visible !important; }
+    .cta, .back, .jump { display: none !important; }
+    /* The scroll box must not clip on paper — there is no scrolling on paper,
+       so an overflow container silently truncates the right-hand columns. */
+    .wrap { overflow: visible !important; }
+    table { font-size: 8.5pt; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    h2 { break-after: avoid; margin-top: 1.2em; }
+    .brief-head {
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 2px solid var(--primary, #8B2500);
+      padding-bottom: 6px; margin-bottom: 10px;
+    }
+    .brief-mark { width: 26px; flex: none; }
+    .brief-mark svg { display: block; width: 100%; height: auto; }
+    .brief-word { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 15pt; line-height: 1; }
+    .brief-tag { font-size: 6.5pt; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+    .brief-meta { margin-left: auto; text-align: right; font-size: 7.5pt; line-height: 1.35; }
+    .prov { break-inside: avoid; }
+    .prov > div { padding: .12rem 0; }
+  }
+
   table { margin: .6rem 0 1.4rem; font-size: .92rem; }
   th, td { padding: .5rem .45rem; }
   thead th { font-size: .76rem; }
@@ -112,7 +166,7 @@
           display: flex; flex-wrap: wrap; gap: 0 .9rem; }
   @media (min-width: 85rem) { .jump { display: block; } .jump li { margin-bottom: .25rem; } }
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What courses can I do with a D- in KCSE?","acceptedAnswer":{"@type":"Answer","text":"Njia lists 96 courses open to a KCSE mean grade of D-, across 17 Kenyan counties — 6 certificate, 89 artisan, 1 short course. TVET placement accepts any KCSE grade from A to E from anyone who sat the exam from 2000 onward, and intake runs continuously rather than in one annual window."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What courses can I do with a D- in KCSE?","acceptedAnswer":{"@type":"Answer","text":"Njia lists 123 courses open to a KCSE mean grade of D-, across 26 Kenyan counties — 6 certificate, 116 artisan, 1 short course. TVET placement accepts any KCSE grade from A to E from anyone who sat the exam from 2000 onward, and intake runs continuously rather than in one annual window."}}]}</script>
 </head>
 <body class="split">
 
@@ -121,9 +175,9 @@
 
 <h1>Courses you can do with a D-</h1>
 
-<p class="lede"><strong>96 courses</strong> across
-<strong>17 counties</strong> are open to a KCSE mean grade of D- —
-6 certificate, 89 artisan, 1 short course.</p>
+<p class="lede"><strong>123 courses</strong> across
+<strong>26 counties</strong> are open to a KCSE mean grade of D- —
+6 certificate, 116 artisan, 1 short course.</p>
 
 <p><strong>TVET placement takes any KCSE grade, A to E</strong>, from anyone who sat the exam
 from 2000 onward — not only this year's candidates. Intake runs continuously rather than in a
@@ -133,11 +187,68 @@ single annual window, so a closed university deadline is not the end of the cycl
 <a class="cta" href="/#discover">Find which of them suits you</a></p>
 
 <h2>Jump to a county</h2>
-<ul class="jump"><li><a href="#c-garissa">Garissa</a> <span class="count">2</span></li><li><a href="#c-kakamega">Kakamega</a> <span class="count">3</span></li><li><a href="#c-kiambu">Kiambu</a> <span class="count">5</span></li><li><a href="#c-kilifi">Kilifi</a> <span class="count">2</span></li><li><a href="#c-kisumu">Kisumu</a> <span class="count">9</span></li><li><a href="#c-machakos">Machakos</a> <span class="count">5</span></li><li><a href="#c-mandera">Mandera</a> <span class="count">2</span></li><li><a href="#c-marsabit">Marsabit</a> <span class="count">4</span></li><li><a href="#c-meru">Meru</a> <span class="count">3</span></li><li><a href="#c-mombasa">Mombasa</a> <span class="count">6</span></li><li><a href="#c-nairobi">Nairobi</a> <span class="count">27</span></li><li><a href="#c-nyeri">Nyeri</a> <span class="count">3</span></li><li><a href="#c-samburu">Samburu</a> <span class="count">7</span></li><li><a href="#c-trans-nzoia">Trans Nzoia</a> <span class="count">7</span></li><li><a href="#c-turkana">Turkana</a> <span class="count">2</span></li><li><a href="#c-uasin-gishu">Uasin Gishu</a> <span class="count">8</span></li><li><a href="#c-west-pokot">West Pokot</a> <span class="count">1</span></li></ul>
+<ul class="jump"><li><a href="#c-baringo">Baringo</a> <span class="count">6</span></li><li><a href="#c-bungoma">Bungoma</a> <span class="count">1</span></li><li><a href="#c-busia">Busia</a> <span class="count">2</span></li><li><a href="#c-garissa">Garissa</a> <span class="count">2</span></li><li><a href="#c-kakamega">Kakamega</a> <span class="count">3</span></li><li><a href="#c-kericho">Kericho</a> <span class="count">1</span></li><li><a href="#c-kiambu">Kiambu</a> <span class="count">5</span></li><li><a href="#c-kilifi">Kilifi</a> <span class="count">2</span></li><li><a href="#c-kisii">Kisii</a> <span class="count">2</span></li><li><a href="#c-kisumu">Kisumu</a> <span class="count">9</span></li><li><a href="#c-machakos">Machakos</a> <span class="count">5</span></li><li><a href="#c-mandera">Mandera</a> <span class="count">2</span></li><li><a href="#c-marsabit">Marsabit</a> <span class="count">4</span></li><li><a href="#c-meru">Meru</a> <span class="count">3</span></li><li><a href="#c-mombasa">Mombasa</a> <span class="count">6</span></li><li><a href="#c-murang-a">Murang'a</a> <span class="count">5</span></li><li><a href="#c-nairobi">Nairobi</a> <span class="count">27</span></li><li><a href="#c-nandi">Nandi</a> <span class="count">1</span></li><li><a href="#c-nyeri">Nyeri</a> <span class="count">3</span></li><li><a href="#c-samburu">Samburu</a> <span class="count">7</span></li><li><a href="#c-siaya">Siaya</a> <span class="count">4</span></li><li><a href="#c-taita-taveta">Taita-Taveta</a> <span class="count">5</span></li><li><a href="#c-trans-nzoia">Trans Nzoia</a> <span class="count">7</span></li><li><a href="#c-turkana">Turkana</a> <span class="count">2</span></li><li><a href="#c-uasin-gishu">Uasin Gishu</a> <span class="count">8</span></li><li><a href="#c-west-pokot">West Pokot</a> <span class="count">1</span></li></ul>
 </aside>
 
 <main class="main">
 
+  <h3 id="c-baringo">Baringo <span class="count">6</span></h3>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Baringo"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Artisan Certificate in Electrical Wireman</th><td>Baringo Technical College</td>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Certificate in Garment Making</th><td>Baringo Technical College</td>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Certificate in Masonry</th><td>Baringo Technical College</td>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Certificate in Motor Vehicle Mechanics</th><td>Baringo Technical College</td>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Certificate in Plumbing</th><td>Baringo Technical College</td>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Certificate in Welding and Fabrication</th><td>Baringo Technical College</td>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="c-bungoma">Bungoma <span class="count">1</span></h3>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Bungoma"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Artisan in Automotive Engineering</th><td>Bungoma National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="c-busia">Busia <span class="count">2</span></h3>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Busia"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Artisan in Motor Vehicle Mechanics</th><td>Bumbe Technical Training Institute</td>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan in Plumbing</th><td>Bumbe Technical Training Institute</td>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
+    </tbody>
+  </table></div>
   <h3 id="c-garissa">Garissa <span class="count">2</span></h3>
   <div class="wrap" tabindex="0" role="region" aria-label="Courses in Garissa"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
@@ -169,6 +280,17 @@ single annual window, so a closed university deadline is not the end of the cycl
       <tr><th scope="row">Artisan in Storekeeping (KNEC)</th><td>Sigalagala National Polytechnic</td>
       <td class="tok">Artisan</td>
       <td class="tok">D-</td>
+      <td class="tok">Ksh 67,189</td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="c-kericho">Kericho <span class="count">1</span></h3>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Kericho"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Artisan in Electrical and Electronics</th><td>Bureti Technical Training Institute</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
       <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
@@ -212,6 +334,21 @@ single annual window, so a closed university deadline is not the end of the cycl
       <td class="tok">Artisan</td>
       <td class="tok"><span class="open">Open entry</span></td>
       <td class="tok"><span class="muted">Not published</span></td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="c-kisii">Kisii <span class="count">2</span></h3>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Kisii"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Artisan in Electrical Installation</th><td>Kisii National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan in Electrical Wiring</th><td>Kisii National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
   <h3 id="c-kisumu">Kisumu <span class="count">9</span></h3>
@@ -372,6 +509,33 @@ single annual window, so a closed university deadline is not the end of the cycl
       <td class="tok"><span class="muted">Not published</span></td></tr>
     </tbody>
   </table></div>
+  <h3 id="c-murang-a">Murang'a <span class="count">5</span></h3>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Murang'a"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Artisan Craft in Electrical Installation</th><td>Michuki National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Craft in Food and Beverage</th><td>Michuki National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Craft in Garment Making</th><td>Michuki National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Craft in Motor Vehicle Mechanics</th><td>Michuki National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Craft in Welding and Fabrication</th><td>Michuki National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+    </tbody>
+  </table></div>
   <h3 id="c-nairobi">Nairobi <span class="count">27</span></h3>
   <div class="wrap" tabindex="0" role="region" aria-label="Courses in Nairobi"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
@@ -487,6 +651,17 @@ single annual window, so a closed university deadline is not the end of the cycl
       <td class="tok"><span class="muted">Not published</span></td></tr>
     </tbody>
   </table></div>
+  <h3 id="c-nandi">Nandi <span class="count">1</span></h3>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Nandi"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Artisan in Electrical</th><td>Kaiboi National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok"><span class="open">Open entry</span></td>
+      <td class="tok">Ksh 67,189</td></tr>
+    </tbody>
+  </table></div>
   <h3 id="c-nyeri">Nyeri <span class="count">3</span></h3>
   <div class="wrap" tabindex="0" role="region" aria-label="Courses in Nyeri"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
@@ -539,6 +714,56 @@ single annual window, so a closed university deadline is not the end of the cycl
       <td class="tok">Artisan</td>
       <td class="tok">E</td>
       <td class="tok"><span class="muted">Not published</span></td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="c-siaya">Siaya <span class="count">4</span></h3>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Siaya"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Artisan in Automotive Engineering</th><td>Siaya National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">D-</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan in Food and Beverage</th><td>Siaya National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">D-</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan in Motor Vehicle Mechanics</th><td>Siaya National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">D-</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan in Welding and Fabrication</th><td>Siaya National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">D-</td>
+      <td class="tok">Ksh 67,189</td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="c-taita-taveta">Taita-Taveta <span class="count">5</span></h3>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Taita-Taveta"><table>
+    <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Artisan Certificate in Food and Beverage Production, Service and Sales</th><td>Taita Taveta National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Certificate in Motor Vehicle Mechanics</th><td>Taita Taveta National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Certificate in Salesmanship</th><td>Taita Taveta National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan Certificate in Storekeeping</th><td>Taita Taveta National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
+      <tr><th scope="row">Artisan in Electrical Installations</th><td>Taita Taveta National Polytechnic</td>
+      <td class="tok">Artisan</td>
+      <td class="tok">E</td>
+      <td class="tok">Ksh 67,189</td></tr>
     </tbody>
   </table></div>
   <h3 id="c-trans-nzoia">Trans Nzoia <span class="count">7</span></h3>

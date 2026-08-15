@@ -204,6 +204,60 @@ const SHELL_CSS = `
        under the sticky box instead of closing the page across it. */
     .split > footer { grid-column: 1 / -1; }
   }
+
+  /* The eligibility floor, as a figure block rather than a sentence. */
+  .prov { margin: 1.1rem 0; padding: .85rem 0; border-top: 1px solid var(--ink-veil, rgba(61,28,2,.12));
+          border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); font-size: .88rem; }
+  .prov > div { display: flex; justify-content: space-between; gap: 1rem; padding: .22rem 0; }
+  .prov dt { color: inherit; opacity: .8; }
+  .prov dd { margin: 0; font-family: var(--mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
+             font-weight: 700; white-space: nowrap; }
+
+  /* The printed brief's masthead. Absent from the screen page, which already
+     has a heading and a back link and does not need a second identity. */
+  .brief-head { display: none; }
+
+  /* ---------- PRINT: a county page is a deliverable ----------------------
+   *
+   * Ctrl-P on a county page produces a branded provision brief — the mark, the
+   * county, the eligibility floor, who runs what, and every course with its
+   * fee and entry grade. It goes to a career teacher, a bursary committee or a
+   * county education officer, which is the audience Njia has no other way of
+   * reaching.
+   *
+   * No library and no server: the data is already in the page, so this is a
+   * stylesheet, not a feature. That also means it works offline and from a
+   * saved page, which matters for the offices that need it most.
+   *
+   * What gets dropped is anything that cannot be acted on from paper — the
+   * buttons, the back link, the scroll affordances. What gets kept is every
+   * figure and the provenance paragraph, because a brief whose numbers cannot
+   * be checked is the thing this project exists not to publish. */
+  @media print {
+    @page { margin: 14mm 12mm; }
+    body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }
+    .rail, .main { position: static !important; max-height: none !important; overflow: visible !important; }
+    .cta, .back, .jump { display: none !important; }
+    /* The scroll box must not clip on paper — there is no scrolling on paper,
+       so an overflow container silently truncates the right-hand columns. */
+    .wrap { overflow: visible !important; }
+    table { font-size: 8.5pt; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    h2 { break-after: avoid; margin-top: 1.2em; }
+    .brief-head {
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 2px solid var(--primary, #8B2500);
+      padding-bottom: 6px; margin-bottom: 10px;
+    }
+    .brief-mark { width: 26px; flex: none; }
+    .brief-mark svg { display: block; width: 100%; height: auto; }
+    .brief-word { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 15pt; line-height: 1; }
+    .brief-tag { font-size: 6.5pt; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+    .brief-meta { margin-left: auto; text-align: right; font-size: 7.5pt; line-height: 1.35; }
+    .prov { break-inside: avoid; }
+    .prov > div { padding: .12rem 0; }
+  }
 `;
 
 const LEVEL_LABEL = {
@@ -255,11 +309,94 @@ function floorSentence(county, rows) {
     + `because every county in Kenya has public technical provision. Search the TVETA register for ${county} and ask what is running.`;
 }
 
+/* THE BRAND LOCKUP, INLINED RATHER THAN LINKED.
+ *
+ * A county page printed to PDF is a deliverable that leaves the site — it goes
+ * to a career teacher, a bursary committee, a county education officer — so it
+ * has to carry the mark. An <img src="/icons/logo-mark.svg"> would not reliably
+ * do that: browsers routinely drop external images from print, and this project
+ * has already shipped a PDF report whose logo never loaded. Inlined SVG cannot
+ * fail that way.
+ *
+ * The comments are stripped on the way in. logo-mark.svg is 4.9KB and most of
+ * it is prose explaining why the silhouette is a leaf and not a shield, which
+ * is worth reading once in the source and not worth shipping 47 times. */
+const BRAND_MARK = fs.readFileSync(path.join(root, 'icons', 'logo-mark.svg'), 'utf8')
+  .replace(/<!--[\s\S]*?-->/g, '')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+/* WHAT A DECISION-MAKER NEEDS THAT A COURSE TABLE DOES NOT GIVE THEM.
+ *
+ * Njia already computes the eligibility floor — how many courses in a county an
+ * E-grade learner can actually enter — and until now it existed only as a
+ * constant in tests/sector-coverage.test.js. It is the most decision-changing
+ * number the project holds and no reader could see it.
+ *
+ * "Nakuru lists 20 courses" and "an E-grade learner in Nakuru can enter 0 of
+ * them" are the same catalogue described two ways, and only the second one
+ * tells a county officer something they can act on. */
+function provision(rows) {
+  const grades = rows.map((r) => r.course.min_grade);
+  const lowest = grades.some((g) => g == null)
+    ? 'Open entry'
+    : grades.filter(Boolean).sort((a, b) => rank(b) - rank(a))[0];
+  return {
+    courses: rows.length,
+    openToE: rows.filter((r) => rank('E') <= rank(r.course.min_grade)).length,
+    lowest,
+    /* Deliberately "a fee figure or not" rather than the app's five-way fee
+       basis. That classifier is guarded in tests and lives in js/decide.js;
+       re-implementing it here would be a second copy free to drift, and this
+       summary does not need the resolution. */
+    withFee: rows.filter((r) => r.course.total_fees_kes != null).length
+  };
+}
+
+/* Institutions with what a reader actually has to compare: who runs it, what
+   levels it teaches, and the lowest door into the place. */
+function institutionRows(rows) {
+  const by = new Map();
+  for (const r of rows) {
+    if (!by.has(r.inst.id)) by.set(r.inst.id, { inst: r.inst, courses: [] });
+    by.get(r.inst.id).courses.push(r.course);
+  }
+  return [...by.values()]
+    .sort((a, b) => a.inst.name.localeCompare(b.inst.name))
+    .map(({ inst, courses }) => {
+      const grades = courses.map((c) => c.min_grade);
+      const lowest = grades.some((g) => g == null)
+        ? 'Open entry'
+        : grades.filter(Boolean).sort((a, b) => rank(b) - rank(a))[0];
+      const levels = [...new Set(courses.map((c) => c.level))]
+        .sort((a, b) => Object.keys(LEVEL_LABEL).indexOf(a) - Object.keys(LEVEL_LABEL).indexOf(b))
+        .map((l) => LEVEL_LABEL[l] || l);
+      return { inst, n: courses.length, levels, lowest };
+    });
+}
+
+function briefHead(county, p) {
+  return `
+<div class="brief-head">
+  <div class="brief-mark">${BRAND_MARK}</div>
+  <div>
+    <div class="brief-word">Njia</div>
+    <div class="brief-tag">Data-driven career pathways for Kenyan youth</div>
+  </div>
+  <div class="brief-meta">
+    <strong>${esc(county)} County provision brief</strong><br>
+    ${p.courses} courses &middot; ${p.openToE} open to an E &middot; njiacareerpathways.work
+  </div>
+</div>`;
+}
+
 function coursePage(county, rows) {
   const sorted = [...rows].sort((a, b) => rank(b.course.min_grade) - rank(a.course.min_grade)
     || a.course.name.localeCompare(b.course.name));
   const institutions = [...new Set(rows.map((r) => r.inst.name))].sort();
   const clusters = [...new Set(rows.map((r) => r.course.cluster))];
+  const prov = provision(rows);
+  const instRows = institutionRows(rows);
   const levels = [...new Set(rows.map((r) => r.course.level))];
 
   const title = `Courses in ${county} County — fees, entry grades and institutions | Njia`;
@@ -324,6 +461,7 @@ function coursePage(county, rows) {
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body class="split">
+${briefHead(county, prov)}
 
 <aside class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
@@ -336,6 +474,19 @@ ${clusters.map((c) => esc(CLUSTER_LABEL[c] || c)).join(', ')}.</p>
 
 <p>${esc(floorSentence(county, rows))}</p>
 
+<!-- The eligibility floor, published. Njia has computed this number since the
+     coverage metric was introduced and kept it in a test constant, where no
+     reader could see it. "112 courses" and "15 of them open to an E" are the
+     same county described twice, and only the second tells a school-leaver
+     with an E, or the officer funding them, anything they can act on. -->
+<dl class="prov">
+  <div><dt>Courses listed</dt><dd>${prov.courses}</dd></div>
+  <div><dt>Open to an E-grade learner</dt><dd>${prov.openToE}</dd></div>
+  <div><dt>Lowest entry requirement</dt><dd>${esc(String(prov.lowest))}</dd></div>
+  <div><dt>Institutions</dt><dd>${instRows.length}</dd></div>
+  <div><dt>Showing a fee figure</dt><dd>${prov.withFee} of ${prov.courses}</dd></div>
+</dl>
+
 <p><a class="cta" href="/#decide">Filter these by your grade and budget &rarr;</a>
 <a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 
@@ -343,8 +494,6 @@ ${clusters.map((c) => esc(CLUSTER_LABEL[c] || c)).join(', ')}.</p>
      list one item to a line under 7,800px of rows, which meant nobody reading
      a course ever saw it; beside the table it answers "who actually runs these"
      while the reader is looking at the answer. -->
-<h2>Institutions in ${esc(county)}</h2>
-<ul class="cols">${institutions.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
 </aside>
 
 <main class="main">
@@ -354,6 +503,23 @@ ${clusters.map((c) => esc(CLUSTER_LABEL[c] || c)).join(', ')}.</p>
   <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col" class="tok">Level</th>
   <th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th><th scope="col" class="tok">Duration</th></tr></thead>
   <tbody>${rowsHtml}
+  </tbody>
+</table>
+</div>
+
+<h2>Institutions in ${esc(county)}</h2>
+<div class="wrap" tabindex="0" role="region" aria-label="Institutions in ${esc(county)} County">
+<table>
+  <caption>Who runs the courses above, what levels they teach, and the lowest door into each.</caption>
+  <thead><tr><th scope="col">Institution</th><th scope="col" class="tok">Ownership</th>
+  <th scope="col">Levels taught</th><th scope="col" class="tok">Courses</th>
+  <th scope="col" class="tok">Lowest entry</th></tr></thead>
+  <tbody>${instRows.map((i) => `
+    <tr><th scope="row">${esc(i.inst.name)}</th>
+    <td class="tok">${esc(i.inst.ownership === 'public' ? 'Public' : 'Private')}</td>
+    <td>${i.levels.map(esc).join(', ')}</td>
+    <td class="tok">${i.n}</td>
+    <td class="tok">${esc(String(i.lowest))}</td></tr>`).join('')}
   </tbody>
 </table>
 </div>

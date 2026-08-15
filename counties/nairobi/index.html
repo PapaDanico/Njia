@@ -97,6 +97,60 @@
     .split > footer { grid-column: 1 / -1; }
   }
 
+  /* The eligibility floor, as a figure block rather than a sentence. */
+  .prov { margin: 1.1rem 0; padding: .85rem 0; border-top: 1px solid var(--ink-veil, rgba(61,28,2,.12));
+          border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); font-size: .88rem; }
+  .prov > div { display: flex; justify-content: space-between; gap: 1rem; padding: .22rem 0; }
+  .prov dt { color: inherit; opacity: .8; }
+  .prov dd { margin: 0; font-family: var(--mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
+             font-weight: 700; white-space: nowrap; }
+
+  /* The printed brief's masthead. Absent from the screen page, which already
+     has a heading and a back link and does not need a second identity. */
+  .brief-head { display: none; }
+
+  /* ---------- PRINT: a county page is a deliverable ----------------------
+   *
+   * Ctrl-P on a county page produces a branded provision brief — the mark, the
+   * county, the eligibility floor, who runs what, and every course with its
+   * fee and entry grade. It goes to a career teacher, a bursary committee or a
+   * county education officer, which is the audience Njia has no other way of
+   * reaching.
+   *
+   * No library and no server: the data is already in the page, so this is a
+   * stylesheet, not a feature. That also means it works offline and from a
+   * saved page, which matters for the offices that need it most.
+   *
+   * What gets dropped is anything that cannot be acted on from paper — the
+   * buttons, the back link, the scroll affordances. What gets kept is every
+   * figure and the provenance paragraph, because a brief whose numbers cannot
+   * be checked is the thing this project exists not to publish. */
+  @media print {
+    @page { margin: 14mm 12mm; }
+    body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }
+    .rail, .main { position: static !important; max-height: none !important; overflow: visible !important; }
+    .cta, .back, .jump { display: none !important; }
+    /* The scroll box must not clip on paper — there is no scrolling on paper,
+       so an overflow container silently truncates the right-hand columns. */
+    .wrap { overflow: visible !important; }
+    table { font-size: 8.5pt; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    h2 { break-after: avoid; margin-top: 1.2em; }
+    .brief-head {
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 2px solid var(--primary, #8B2500);
+      padding-bottom: 6px; margin-bottom: 10px;
+    }
+    .brief-mark { width: 26px; flex: none; }
+    .brief-mark svg { display: block; width: 100%; height: auto; }
+    .brief-word { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 15pt; line-height: 1; }
+    .brief-tag { font-size: 6.5pt; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+    .brief-meta { margin-left: auto; text-align: right; font-size: 7.5pt; line-height: 1.35; }
+    .prov { break-inside: avoid; }
+    .prov > div { padding: .12rem 0; }
+  }
+
   .rail h2 { font-size: 1rem; margin: 1.6rem 0 .4rem; }
   .rail ul { font-size: .88rem; line-height: 1.5; padding-left: 1.1rem; }
   .rail ul li { margin-bottom: .3rem; }
@@ -105,6 +159,18 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Courses in Nairobi County, Kenya","numberOfItems":112,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Course","name":"Ajira Digital — online work and digital skills training","description":"Free government training in digital and online work — the gig and freelancing economy that is absorbing more young Kenyans than any formal qualification tracks. No grade requirement and no fee, at walk-in centres in counties nationwide. This is a programme certificate, not a KNQF qualification: it will not ladder into a diploma, and its worth is the skill and the platform access rather than the paper. If your grades or your money have closed other doors, this door is open.","provider":{"@type":"EducationalOrganization","name":"Ajira Digital Programme (ICT Authority)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":2,"item":{"@type":"Course","name":"Artisan Certificate in Carpentry and Joinery","description":"KNEC-examined carpentry in one year, open on a KCPE certificate. One of the few formal qualifications in the catalogue that does not ask for a KCSE at all.","provider":{"@type":"EducationalOrganization","name":"Christian Industrial Training Centre (CITC) Nairobi","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":3,"item":{"@type":"Course","name":"Artisan Certificate in Electrical Installation","description":"One-year KNEC artisan route into electrical installation, with KCPE as the stated entry qualification.","provider":{"@type":"EducationalOrganization","name":"Christian Industrial Training Centre (CITC) Nairobi","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":4,"item":{"@type":"Course","name":"Artisan Certificate in Plumbing","description":"Water supply and sanitary fitting - one of the trades Kenya is most short of, entered without a KCSE.","provider":{"@type":"EducationalOrganization","name":"Christian Industrial Training Centre (CITC) Nairobi","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":5,"item":{"@type":"Course","name":"Artisan Certificate in Welding and Fabrication","description":"Metal joining, structural fabrication and welding safety, examined by KNEC, entered on a KCPE certificate.","provider":{"@type":"EducationalOrganization","name":"Christian Industrial Training Centre (CITC) Nairobi","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":6,"item":{"@type":"Course","name":"Grade III-I Carpentry and Joinery","description":"Boys only, residential. Timber work and fitted joinery. Two years residential, which is the part that makes it reachable for someone with no home base in Nairobi.","provider":{"@type":"EducationalOrganization","name":"Don Bosco Boys Technical Training Centre","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":7,"item":{"@type":"Course","name":"Grade III-I Electrical Wireman","description":"Boys only, residential. Wiring and installation, examined by NITA. The wireman trade test is the recognised licence for domestic electrical work.","provider":{"@type":"EducationalOrganization","name":"Don Bosco Boys Technical Training Centre","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":8,"item":{"@type":"Course","name":"Grade III-I Fitting and Welding","description":"Boys only, residential. Metal fitting and welding combined - broader than welding alone, and portable across construction, transport and light manufacturing.","provider":{"@type":"EducationalOrganization","name":"Don Bosco Boys Technical Training Centre","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":9,"item":{"@type":"Course","name":"Grade III-I Masonry","description":"Boys only, residential. Blockwork and plastering taught to NITA trade-test standard, with boarding, for young men who cannot fund a place anywhere else.","provider":{"@type":"EducationalOrganization","name":"Don Bosco Boys Technical Training Centre","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":10,"item":{"@type":"Course","name":"Grade III-I Motor Vehicle Mechanic","description":"Boys only, residential. Engine and vehicle repair to NITA trade-test standard - the certificate that separates a mechanic from a hand in a Nairobi garage.","provider":{"@type":"EducationalOrganization","name":"Don Bosco Boys Technical Training Centre","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":11,"item":{"@type":"Course","name":"Grade III-I Tailoring","description":"Boys only, residential. Garment cutting, machining and finishing, with the lowest tool cost of any trade here for starting on your own account.","provider":{"@type":"EducationalOrganization","name":"Don Bosco Boys Technical Training Centre","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":12,"item":{"@type":"Course","name":"Trade Test in Electric Welding","description":"NITA trade test in electric welding, at the oldest technical institute in Nairobi Eastlands.","provider":{"@type":"EducationalOrganization","name":"YMCA National Training Institute, Shauri Moyo","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":13,"item":{"@type":"Course","name":"Trade Test in Hairdressing and Beauty","description":"NITA trade test in salon practice, open to learners who left school before Form Four.","provider":{"@type":"EducationalOrganization","name":"YMCA National Training Institute, Shauri Moyo","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":14,"item":{"@type":"Course","name":"Trade Test in Motor Vehicle Mechanics","description":"NITA trade test for the garage trade - the certificate that separates a mechanic from a hand.","provider":{"@type":"EducationalOrganization","name":"YMCA National Training Institute, Shauri Moyo","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":15,"item":{"@type":"Course","name":"Trade Test in Plumber Pipe Fitter","description":"NITA trade test in one of the three trades Kenya is most short of, in Eastlands, open on a KCPE certificate.","provider":{"@type":"EducationalOrganization","name":"YMCA National Training Institute, Shauri Moyo","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":16,"item":{"@type":"Course","name":"Artisan in Carpentry and Joinery","description":"Timber work, roofing, doors, windows and fitted furniture - a trade you can practise self-employed with your own tools, which is how most Kenyan carpenters actually work.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":17,"item":{"@type":"Course","name":"Artisan in Computer Maintenance and Repair","description":"Hardware diagnosis, repair and basic networking. The one artisan trade on this list that sits directly under the ICT certificate, so the ladder up is short.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":18,"item":{"@type":"Course","name":"Artisan in Electrical Installation","description":"Domestic and light commercial wiring. Ladders into the Electrical Wireman trade test and then into a craft certificate, without repeating the year.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":19,"item":{"@type":"Course","name":"Artisan in Food and Beverage Production","description":"Kitchen production and service for hotels, institutions and catering. One of the few artisan routes with a visible ladder into hospitality supervision.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":20,"item":{"@type":"Course","name":"Artisan in Hairdressing and Beauty Therapy","description":"Cutting, styling, treatments and salon practice. Overwhelmingly self-employed work, so the business side matters as much as the craft.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":21,"item":{"@type":"Course","name":"Artisan in Masonry","description":"Blockwork, plastering and concrete finishing. Kenya has fewer than 2,000 trained masons, painters and plumbers between them, against a construction sector that names skilled-worker shortage as its main brake.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":22,"item":{"@type":"Course","name":"Artisan in Motor Vehicle Mechanics","description":"Engine, transmission and brake work on light vehicles. The garage trade absorbs artisans faster than most, and the certificate is what separates a mechanic from a hand.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":23,"item":{"@type":"Course","name":"Artisan in Painting and Decoration","description":"Surface preparation, finishes and decorative work. Low tool cost to start on your own account, which matters when nobody is going to hire you first.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":24,"item":{"@type":"Course","name":"Artisan in Plumbing","description":"Water supply, drainage and sanitary fitting. One of the three trades KNBS reporting singles out as most acutely under-supplied.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":25,"item":{"@type":"Course","name":"Artisan in Refrigeration and Air Conditioning","description":"Installing and servicing fridges, freezers and air conditioning - a trade growing with cold-chain and commercial building, and one with far fewer entrants than wiring.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":26,"item":{"@type":"Course","name":"Artisan in Welding and Fabrication","description":"Arc and gas welding, metal gates, grilles and structural fabrication. Portable across construction, transport and manufacturing rather than tied to one employer.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":27,"item":{"@type":"Course","name":"Certificate of Proficiency in Insurance (COP)","description":"The industry entry qualification for insurance agents, and one of the lowest entry bars in this catalogue that still leads to a professional body — a D- opens it. Insurance is numerate work that is not accountancy, which matters if maths suits you but a C+ is out of reach. Ladders into the Certificate Course, then the Kenyan diploma, then the London CII qualifications.","provider":{"@type":"EducationalOrganization","name":"College of Insurance","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":28,"item":{"@type":"Course","name":"Certificate in Entrepreneurship and Small Business Management","description":"Fast-track business fundamentals for youth already running or starting a hustle.","provider":{"@type":"EducationalOrganization","name":"Nairobi Technical Training Institute (NTTI)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":29,"item":{"@type":"Course","name":"Certificate in Events Management","description":"Planning and coordinating corporate, social and community events.","provider":{"@type":"EducationalOrganization","name":"Nairobi Technical Training Institute (NTTI)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":30,"item":{"@type":"Course","name":"Certificate in Human Resource Management (CDACC Level 5)","description":"Recruitment support, records and payroll basics. Entry at D plain.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":31,"item":{"@type":"Course","name":"Tax Clerk Certificate (CDACC Level 5)","description":"Handles basic taxation for individuals and small businesses — filing, records and compliance. Opens the finance track to a D.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":32,"item":{"@type":"Course","name":"Certificate in Air Passenger Handling","description":"Check-in, boarding and passenger service. Entry at D+ makes this one of the most open doors in aviation.","provider":{"@type":"EducationalOrganization","name":"East African School of Aviation (EASA)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":33,"item":{"@type":"Course","name":"Certificate in Aviation Security","description":"Screening, access control and airport security regulation. Entry at D+ makes this one of the more open aviation routes.","provider":{"@type":"EducationalOrganization","name":"East African School of Aviation (EASA)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":34,"item":{"@type":"Course","name":"Certificate in Building Technology","description":"Construction technology and site practice at D+ entry.","provider":{"@type":"EducationalOrganization","name":"Kenya Institute of Highways and Building Technology (KIHBT)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":35,"item":{"@type":"Course","name":"Certificate in Community Health & Development","description":"Entry point into community health work; ladders into KRCHN diploma.","provider":{"@type":"EducationalOrganization","name":"Kenya Medical Training College (KMTC) — Nairobi Campus","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":36,"item":{"@type":"Course","name":"Certificate in Cybersecurity Fundamentals","description":"Network security basics, ethical hacking fundamentals and security operations.","provider":{"@type":"EducationalOrganization","name":"KCA University","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":37,"item":{"@type":"Course","name":"Certificate in E-commerce and Digital Business","description":"Online store setup, digital payments, and e-commerce growth tactics.","provider":{"@type":"EducationalOrganization","name":"KCA University","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":38,"item":{"@type":"Course","name":"Certificate in Railway Operations","description":"Station, signalling and train operations. Entry at D+.","provider":{"@type":"EducationalOrganization","name":"Railway Training Institute (RTI)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":39,"item":{"@type":"Course","name":"Certificate in Road Construction Plant Operation","description":"Operating heavy road plant. A licensed, well-paid and persistently short-staffed trade.","provider":{"@type":"EducationalOrganization","name":"Kenya Institute of Highways and Building Technology (KIHBT)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":40,"item":{"@type":"Course","name":"Certificate in Water Technology","description":"Entry route into the water sector at D+, with county water companies as the main employer.","provider":{"@type":"EducationalOrganization","name":"Kenya Water Institute (KEWI) — Nairobi","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":41,"item":{"@type":"Course","name":"Diploma in Automotive Engineering","description":"Vehicle systems, diagnostics and workshop practice for the motor industry.","provider":{"@type":"EducationalOrganization","name":"Kabete National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":42,"item":{"@type":"Course","name":"Diploma in Graphic Design & Multimedia","description":"Covers Adobe Creative Suite, branding, and motion graphics for agency or freelance work.","provider":{"@type":"EducationalOrganization","name":"Nairobi Technical Training Institute (NTTI)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":43,"item":{"@type":"Course","name":"Diploma in Music Production","description":"Studio recording, mixing and live sound for the Kenyan music industry.","provider":{"@type":"EducationalOrganization","name":"Kenya Institute of Mass Communication (KIMC)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":44,"item":{"@type":"Course","name":"Diploma in Sales and Marketing","description":"Practical selling, digital marketing and brand management skills.","provider":{"@type":"EducationalOrganization","name":"KCA University","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":45,"item":{"@type":"Course","name":"IATA Diploma in Travel and Tourism","description":"The internationally recognised IATA qualification, taught at the KCAA school. Entry at D+.","provider":{"@type":"EducationalOrganization","name":"East African School of Aviation (EASA)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":46,"item":{"@type":"Course","name":"Certificate in Aeronautical Communication Operations","description":"Radiotelephony and aeronautical message handling — the voice and data link between ground and aircraft.","provider":{"@type":"EducationalOrganization","name":"East African School of Aviation (EASA)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":47,"item":{"@type":"Course","name":"Certificate in Aeronautical Information Services","description":"Publishing and maintaining the aeronautical data that every flight plan is built from.","provider":{"@type":"EducationalOrganization","name":"East African School of Aviation (EASA)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":48,"item":{"@type":"Course","name":"Certificate in Airport Operations","description":"Running the airside and terminal operation: aprons, stands, turnarounds and terminal duty.","provider":{"@type":"EducationalOrganization","name":"East African School of Aviation (EASA)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":49,"item":{"@type":"Course","name":"Certificate in Aviation Safety Management Systems","description":"Safety management systems and human factors — the discipline regulators now require of every operator.","provider":{"@type":"EducationalOrganization","name":"East African School of Aviation (EASA)","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}},{"@type":"ListItem","position":50,"item":{"@type":"Course","name":"Certificate in Aviation Security (AVSEC)","description":"Taught at a KCAA-approved aviation security training centre.","provider":{"@type":"EducationalOrganization","name":"Kenya Airways Pride Centre","address":{"@type":"PostalAddress","addressRegion":"Nairobi County","addressCountry":"KE"}}}}]}</script>
 </head>
 <body class="split">
+
+<div class="brief-head">
+  <div class="brief-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia"> <style> /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile. * * Nothing supplies --mark-edge outside the app, so the outline falls back * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16, * 32, 48 and 64px, the leaf edge disappeared into the ground completely. * The mark still read, because the terracotta field and the cream road * carry it, but the drawing lost its silhouette. * * This rule is inert inside the app: there the #i-njia sprite symbol in * index.html is a separate copy that takes --mark-edge from the page, and * it does not carry this stylesheet. The drift guard in * tests/provenance.test.js compares path geometry rather than styling, so * the two stay legitimately different in presentation and identical in * shape. */ @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg></div>
+  <div>
+    <div class="brief-word">Njia</div>
+    <div class="brief-tag">Data-driven career pathways for Kenyan youth</div>
+  </div>
+  <div class="brief-meta">
+    <strong>Nairobi County provision brief</strong><br>
+    112 courses &middot; 26 open to an E &middot; njiacareerpathways.work
+  </div>
+</div>
 
 <aside class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
@@ -117,6 +183,19 @@ Caring and health, Creative and making, Business, Technology, Working with peopl
 
 <p>15 of these 112 courses list no minimum grade at all, so they are open to any KCSE result.</p>
 
+<!-- The eligibility floor, published. Njia has computed this number since the
+     coverage metric was introduced and kept it in a test constant, where no
+     reader could see it. "112 courses" and "15 of them open to an E" are the
+     same county described twice, and only the second tells a school-leaver
+     with an E, or the officer funding them, anything they can act on. -->
+<dl class="prov">
+  <div><dt>Courses listed</dt><dd>112</dd></div>
+  <div><dt>Open to an E-grade learner</dt><dd>26</dd></div>
+  <div><dt>Lowest entry requirement</dt><dd>Open entry</dd></div>
+  <div><dt>Institutions</dt><dd>29</dd></div>
+  <div><dt>Showing a fee figure</dt><dd>84 of 112</dd></div>
+</dl>
+
 <p><a class="cta" href="/#decide">Filter these by your grade and budget &rarr;</a>
 <a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 
@@ -124,8 +203,6 @@ Caring and health, Creative and making, Business, Technology, Working with peopl
      list one item to a line under 7,800px of rows, which meant nobody reading
      a course ever saw it; beside the table it answers "who actually runs these"
      while the reader is looking at the answer. -->
-<h2>Institutions in Nairobi</h2>
-<ul class="cols"><li>Ajira Digital Programme (ICT Authority)</li><li>Amref International University (AMIU)</li><li>Catholic University of Eastern Africa (CUEA)</li><li>Christian Industrial Training Centre (CITC) Nairobi</li><li>College of Insurance</li><li>Don Bosco Boys Technical Training Centre</li><li>East African School of Aviation (EASA)</li><li>Harmonics Air Centre</li><li>KCA University</li><li>Kabete National Polytechnic</li><li>Kenya Aeronautical College</li><li>Kenya Airways Pride Centre</li><li>Kenya Institute of Highways and Building Technology (KIHBT)</li><li>Kenya Institute of Management (KIM)</li><li>Kenya Institute of Mass Communication (KIMC)</li><li>Kenya Medical Training College (KMTC) — Nairobi Campus</li><li>Kenya Red Cross Training Institute</li><li>Kenya School of Revenue Administration (KESRA)</li><li>Kenya Utalii College</li><li>Kenya Water Institute (KEWI) — Nairobi</li><li>Multimedia University of Kenya</li><li>Nairobi Technical Training Institute (NTTI)</li><li>Railway Training Institute (RTI)</li><li>Riara University</li><li>Strathmore University</li><li>The Technical University of Kenya (TU-K)</li><li>United States International University - Africa (USIU-Africa)</li><li>University of Nairobi</li><li>YMCA National Training Institute, Shauri Moyo</li></ul>
 </aside>
 
 <main class="main">
@@ -1031,6 +1108,163 @@ Caring and health, Creative and making, Business, Technology, Working with peopl
           <td class="tok"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Institutions in Nairobi</h2>
+<div class="wrap" tabindex="0" role="region" aria-label="Institutions in Nairobi County">
+<table>
+  <caption>Who runs the courses above, what levels they teach, and the lowest door into each.</caption>
+  <thead><tr><th scope="col">Institution</th><th scope="col" class="tok">Ownership</th>
+  <th scope="col">Levels taught</th><th scope="col" class="tok">Courses</th>
+  <th scope="col" class="tok">Lowest entry</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Ajira Digital Programme (ICT Authority)</th>
+    <td class="tok">Public</td>
+    <td>Short course</td>
+    <td class="tok">1</td>
+    <td class="tok">Open entry</td></tr>
+    <tr><th scope="row">Amref International University (AMIU)</th>
+    <td class="tok">Private</td>
+    <td>Diploma, Degree</td>
+    <td class="tok">2</td>
+    <td class="tok">C</td></tr>
+    <tr><th scope="row">Catholic University of Eastern Africa (CUEA)</th>
+    <td class="tok">Private</td>
+    <td>Degree</td>
+    <td class="tok">1</td>
+    <td class="tok">C+</td></tr>
+    <tr><th scope="row">Christian Industrial Training Centre (CITC) Nairobi</th>
+    <td class="tok">Private</td>
+    <td>Artisan</td>
+    <td class="tok">4</td>
+    <td class="tok">Open entry</td></tr>
+    <tr><th scope="row">College of Insurance</th>
+    <td class="tok">Private</td>
+    <td>Certificate</td>
+    <td class="tok">2</td>
+    <td class="tok">D-</td></tr>
+    <tr><th scope="row">Don Bosco Boys Technical Training Centre</th>
+    <td class="tok">Private</td>
+    <td>Artisan</td>
+    <td class="tok">6</td>
+    <td class="tok">Open entry</td></tr>
+    <tr><th scope="row">East African School of Aviation (EASA)</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">13</td>
+    <td class="tok">D+</td></tr>
+    <tr><th scope="row">Harmonics Air Centre</th>
+    <td class="tok">Private</td>
+    <td>Diploma</td>
+    <td class="tok">1</td>
+    <td class="tok">C-</td></tr>
+    <tr><th scope="row">Kabete National Polytechnic</th>
+    <td class="tok">Public</td>
+    <td>Artisan, Certificate, Diploma</td>
+    <td class="tok">19</td>
+    <td class="tok">E</td></tr>
+    <tr><th scope="row">KCA University</th>
+    <td class="tok">Private</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">5</td>
+    <td class="tok">D+</td></tr>
+    <tr><th scope="row">Kenya Aeronautical College</th>
+    <td class="tok">Private</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">2</td>
+    <td class="tok">C-</td></tr>
+    <tr><th scope="row">Kenya Airways Pride Centre</th>
+    <td class="tok">Private</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">4</td>
+    <td class="tok">C-</td></tr>
+    <tr><th scope="row">Kenya Institute of Highways and Building Technology (KIHBT)</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">4</td>
+    <td class="tok">D+</td></tr>
+    <tr><th scope="row">Kenya Institute of Management (KIM)</th>
+    <td class="tok">Private</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">2</td>
+    <td class="tok">C-</td></tr>
+    <tr><th scope="row">Kenya Institute of Mass Communication (KIMC)</th>
+    <td class="tok">Public</td>
+    <td>Diploma</td>
+    <td class="tok">3</td>
+    <td class="tok">D+</td></tr>
+    <tr><th scope="row">Kenya Medical Training College (KMTC) — Nairobi Campus</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">2</td>
+    <td class="tok">D+</td></tr>
+    <tr><th scope="row">Kenya Red Cross Training Institute</th>
+    <td class="tok">Private</td>
+    <td>Certificate</td>
+    <td class="tok">1</td>
+    <td class="tok">C</td></tr>
+    <tr><th scope="row">Kenya School of Revenue Administration (KESRA)</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">4</td>
+    <td class="tok">C-</td></tr>
+    <tr><th scope="row">Kenya Utalii College</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">13</td>
+    <td class="tok">C-</td></tr>
+    <tr><th scope="row">Kenya Water Institute (KEWI) — Nairobi</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">3</td>
+    <td class="tok">D+</td></tr>
+    <tr><th scope="row">Multimedia University of Kenya</th>
+    <td class="tok">Public</td>
+    <td>Diploma</td>
+    <td class="tok">2</td>
+    <td class="tok">C-</td></tr>
+    <tr><th scope="row">Nairobi Technical Training Institute (NTTI)</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">5</td>
+    <td class="tok">D</td></tr>
+    <tr><th scope="row">Railway Training Institute (RTI)</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">3</td>
+    <td class="tok">D+</td></tr>
+    <tr><th scope="row">Riara University</th>
+    <td class="tok">Private</td>
+    <td>Degree</td>
+    <td class="tok">1</td>
+    <td class="tok">B+</td></tr>
+    <tr><th scope="row">Strathmore University</th>
+    <td class="tok">Private</td>
+    <td>Degree</td>
+    <td class="tok">1</td>
+    <td class="tok">B</td></tr>
+    <tr><th scope="row">The Technical University of Kenya (TU-K)</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">2</td>
+    <td class="tok">C-</td></tr>
+    <tr><th scope="row">United States International University - Africa (USIU-Africa)</th>
+    <td class="tok">Private</td>
+    <td>Degree</td>
+    <td class="tok">1</td>
+    <td class="tok">B-</td></tr>
+    <tr><th scope="row">University of Nairobi</th>
+    <td class="tok">Public</td>
+    <td>Degree</td>
+    <td class="tok">1</td>
+    <td class="tok">B</td></tr>
+    <tr><th scope="row">YMCA National Training Institute, Shauri Moyo</th>
+    <td class="tok">Private</td>
+    <td>Artisan</td>
+    <td class="tok">4</td>
+    <td class="tok">Open entry</td></tr>
   </tbody>
 </table>
 </div>

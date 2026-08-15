@@ -297,13 +297,25 @@ const FEE_BASES = ['published', 'derived', 'illustrative', 'unpublished', 'unsou
 const GRADE_ORDER = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'D-', 'E'];
 const gradeRank = (g) => (g == null ? GRADE_ORDER.length : GRADE_ORDER.indexOf(g));
 
-/* Where it stands. Four counties were closed by listing county technical
- * provision that had never been in the catalogue (Turkana, West Pokot,
- * Mandera, Marsabit); two more by correcting entry grades that were recorded a
- * tier too high at institutions already listed (Kisumu, Uasin Gishu). Lower
- * this number when you close more; a test that only ever gets weaker is not a
- * guard. */
-const E_GRADE_BLIND_COUNTIES = 31;
+/* Where it stands. Fourteen counties have been closed, by two different routes.
+ *
+ * Four by listing county technical provision that had never been in the
+ * catalogue at all (Turkana, West Pokot, Mandera, Marsabit). Two by correcting
+ * entry grades recorded a tier too high at institutions already listed
+ * (Kisumu, Uasin Gishu).
+ *
+ * Eight more by finding the institution that was simply missing: Baringo
+ * Technical College, Bumbe TTI in Busia, Kaiboi National Polytechnic in Nandi,
+ * Kisii National Polytechnic, Taita Taveta National Polytechnic, Michuki
+ * National Polytechnic in Murang'a, Bungoma National Polytechnic and Bureti
+ * TTI in Kericho. Every one of those counties already had a
+ * KMTC campus and a university in the catalogue and read as blind anyway,
+ * because what was missing was the artisan tier — which is the only tier the
+ * learner this metric is about can actually enter.
+ *
+ * Lower this number when you close more; a test that only ever gets weaker is
+ * not a guard. */
+const E_GRADE_BLIND_COUNTIES = 23;
 
 /* UNDER-CLAIM ON A FIGURE. NEVER ON AN ELIGIBILITY.
  *
@@ -363,7 +375,9 @@ test('no new county leaves its lowest-scoring learners with nothing', () => {
   /* The four that were closed must stay closed. Naming them means a future
    * edit that quietly drops their artisan provision fails here rather than
    * hiding inside an aggregate that still looks fine. */
-  for (const fixed of ['Turkana', 'West Pokot', 'Mandera', 'Marsabit', 'Kisumu', 'Uasin Gishu']) {
+  for (const fixed of ['Turkana', 'West Pokot', 'Mandera', 'Marsabit', 'Kisumu', 'Uasin Gishu',
+    'Baringo', 'Busia', 'Nandi', 'Kisii', 'Taita-Taveta', "Murang'a",
+    'Bungoma', 'Kericho']) {
     assert.ok(!blind.includes(fixed),
       `${fixed} has gone back to showing an E-grade learner nothing. It was closed `
       + 'deliberately with sourced county technical provision — do not remove it without '

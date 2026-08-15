@@ -377,12 +377,19 @@
 
   <!-- App shell + modules -->
   <script defer src="./js/app.js"></script>
-  <script defer src="./js/discover.js"></script>
-  <script defer src="./js/design.js"></script>
   <script defer src="./js/decide.js"></script>
-  <script defer src="./js/connect.js"></script>
-  <script defer src="./js/track.js"></script>
-  <script defer src="./js/help.js"></script>
+  <!-- decide.js is eager and the other five are not, which is not an
+       oversight. app.js calls feeBasis() and clearDecideFilters(), both defined
+       in decide.js, to build the landing page's provenance numbers — so with it
+       deferred the landing threw "feeBasis is not defined" on every load. 253
+       unit tests passed through that; the functional probe caught it, because
+       only the probe executes the page.
+       The other five — discover, design, connect, track, help — are injected by
+       app.js during idle time after load, or on first navigation if that comes
+       sooner. See the comment above PAGE_MODULE in js/app.js.
+       Making decide.js lazy too means lifting feeBasis somewhere shared, and
+       four other places read it out of js/decide.js by name. Worth doing; not
+       worth doing in the same change as this. -->
 
   <script>
     function openAboutModal() {

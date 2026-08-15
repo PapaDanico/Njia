@@ -46,6 +46,28 @@ const PAGES = ['home', 'discover', 'design', 'decide', 'connect', 'track', 'help
 const VIEWPORTS = [{ width: 412, height: 915 }, { width: 1280, height: 900 }];
 const SCHEMES = ['light', 'dark'];
 
+/* The GENERATED pages — the ones a search engine actually sends people to.
+ *
+ * The section below labelled "static pages" is not these. It loads index.html
+ * and drives navigateTo(), so it audits the APP'S ROUTES; the label has been
+ * wrong since it was written. The 53 committed county and grade pages were
+ * never audited at all, in either scheme.
+ *
+ * That gap hid 76 serious violations: every horizontally scrollable table
+ * container was a scroll region with no way to focus it, so at phone width a
+ * keyboard-only reader could not reach the Tuition or Duration columns — 21 of
+ * them on the D-plain page alone. Fixed in tools/build-static-pages.mjs; this
+ * list is what stops it coming back.
+ *
+ * A representative sample rather than all 53: Nairobi is the largest table,
+ * Turkana carries the "nothing here is open to you" sentence, the E page is
+ * the audience with the fewest options, and the two indexes are a different
+ * shape again. Auditing all 53 would be 212 states for no new markup. */
+const GENERATED = [
+  '/counties/nairobi/', '/counties/turkana/', '/counties/',
+  '/grades/d-plain/', '/grades/e/', '/grades/'
+];
+
 const HOWTO = 'Supply them out-of-tree, e.g.\n'
   + '  npm i --no-save --prefix /tmp/njia-a11y playwright axe-core\n'
   + '  NODE_PATH=/tmp/njia-a11y/node_modules node tests/a11y-sweep.mjs\n'
@@ -121,7 +143,21 @@ const browser = await chromium.launch({ executablePath: EXECUTABLE }).catch((e) 
 
 let violations = 0, states = 0, skipped = 0;
 
-console.log('--- static pages ---');
+console.log('--- generated county and grade pages ---');
+for (const colorScheme of SCHEMES) {
+  for (const viewport of VIEWPORTS) {
+    for (const url of GENERATED) {
+      const page = await browser.newPage({ viewport, colorScheme });
+      await page.goto(`${ORIGIN}${url}`, { waitUntil: 'networkidle' });
+      await page.addScriptTag({ content: axeSource });
+      states++;
+      violations += report(`${colorScheme} ${viewport.width} ${url}`, await runAxe(page));
+      await page.close();
+    }
+  }
+}
+
+console.log('--- app routes (server-rendered shell, driven by navigateTo) ---');
 for (const colorScheme of SCHEMES) {
   for (const viewport of VIEWPORTS) {
     const page = await browser.newPage({ viewport, colorScheme });

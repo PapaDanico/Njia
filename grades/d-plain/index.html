@@ -41,7 +41,16 @@
   @media (min-width: 48rem) { .tok { white-space: nowrap; } }
   .open { font-weight: 700; }
   .muted { opacity: .7; }
+  /* tabindex="0" is not decoration. A table wider than the viewport scrolls
+     sideways inside this box, and a scroll container that cannot take focus
+     cannot be scrolled by keyboard — so at 390px a keyboard-only reader could
+     not reach the Tuition or Duration columns at all. axe rates it serious and
+     found 76 instances across the generated pages, 21 of them on the D-plain
+     grade page alone. The role and label come with it because a focus stop
+     with no accessible name announces as nothing. Set in the markup rather
+     than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
+  .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
@@ -82,6 +91,10 @@
                viewport — pinned without this, its foot is simply unreachable. */
             max-height: calc(100vh - 3rem); overflow-y: auto; }
     .split .rail ul.cols { columns: auto; }
+    /* The footer is a body-level landmark now (contentinfo), which makes it a
+       third grid child — without this it would drop into the rail's column
+       under the sticky box instead of closing the page across it. */
+    .split > footer { grid-column: 1 / -1; }
   }
 
   table { margin: .6rem 0 1.4rem; font-size: .92rem; }
@@ -103,7 +116,7 @@
 </head>
 <body class="split">
 
-<div class="rail">
+<aside class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses you can do with a D plain</h1>
@@ -121,12 +134,12 @@ single annual window, so a closed university deadline is not the end of the cycl
 
 <h2>Jump to a county</h2>
 <ul class="jump"><li><a href="#c-garissa">Garissa</a> <span class="count">4</span></li><li><a href="#c-kakamega">Kakamega</a> <span class="count">6</span></li><li><a href="#c-kiambu">Kiambu</a> <span class="count">5</span></li><li><a href="#c-kilifi">Kilifi</a> <span class="count">2</span></li><li><a href="#c-kirinyaga">Kirinyaga</a> <span class="count">5</span></li><li><a href="#c-kisumu">Kisumu</a> <span class="count">12</span></li><li><a href="#c-machakos">Machakos</a> <span class="count">5</span></li><li><a href="#c-mandera">Mandera</a> <span class="count">5</span></li><li><a href="#c-marsabit">Marsabit</a> <span class="count">4</span></li><li><a href="#c-meru">Meru</a> <span class="count">6</span></li><li><a href="#c-mombasa">Mombasa</a> <span class="count">11</span></li><li><a href="#c-nairobi">Nairobi</a> <span class="count">31</span></li><li><a href="#c-nakuru">Nakuru</a> <span class="count">1</span></li><li><a href="#c-nyeri">Nyeri</a> <span class="count">7</span></li><li><a href="#c-samburu">Samburu</a> <span class="count">12</span></li><li><a href="#c-siaya">Siaya</a> <span class="count">1</span></li><li><a href="#c-trans-nzoia">Trans Nzoia</a> <span class="count">10</span></li><li><a href="#c-turkana">Turkana</a> <span class="count">2</span></li><li><a href="#c-uasin-gishu">Uasin Gishu</a> <span class="count">12</span></li><li><a href="#c-wajir">Wajir</a> <span class="count">3</span></li><li><a href="#c-west-pokot">West Pokot</a> <span class="count">1</span></li></ul>
-</div>
+</aside>
 
-<div class="main">
+<main class="main">
 
   <h3 id="c-garissa">Garissa <span class="count">4</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Garissa"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -149,7 +162,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-kakamega">Kakamega <span class="count">6</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Kakamega"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -180,7 +193,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-kiambu">Kiambu <span class="count">5</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Kiambu"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -207,7 +220,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-kilifi">Kilifi <span class="count">2</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Kilifi"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -222,7 +235,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-kirinyaga">Kirinyaga <span class="count">5</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Kirinyaga"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -249,7 +262,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-kisumu">Kisumu <span class="count">12</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Kisumu"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -304,7 +317,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-machakos">Machakos <span class="count">5</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Machakos"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -331,7 +344,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-mandera">Mandera <span class="count">5</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Mandera"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -358,7 +371,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-marsabit">Marsabit <span class="count">4</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Marsabit"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -381,7 +394,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-meru">Meru <span class="count">6</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Meru"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -412,7 +425,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-mombasa">Mombasa <span class="count">11</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Mombasa"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -463,7 +476,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-nairobi">Nairobi <span class="count">31</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Nairobi"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -594,7 +607,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-nakuru">Nakuru <span class="count">1</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Nakuru"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -605,7 +618,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-nyeri">Nyeri <span class="count">7</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Nyeri"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -640,7 +653,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-samburu">Samburu <span class="count">12</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Samburu"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -695,7 +708,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-siaya">Siaya <span class="count">1</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Siaya"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -706,7 +719,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-trans-nzoia">Trans Nzoia <span class="count">10</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Trans Nzoia"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -753,7 +766,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-turkana">Turkana <span class="count">2</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Turkana"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -768,7 +781,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-uasin-gishu">Uasin Gishu <span class="count">12</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Uasin Gishu"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -823,7 +836,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-wajir">Wajir <span class="count">3</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in Wajir"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -842,7 +855,7 @@ single annual window, so a closed university deadline is not the end of the cycl
     </tbody>
   </table></div>
   <h3 id="c-west-pokot">West Pokot <span class="count">1</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in West Pokot"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>
@@ -863,6 +876,5 @@ Confirm both with the institution before you decide.</p>
   <p><a href="/grades/">All grades</a> &middot; <a href="/counties/">Browse by county</a> &middot;
      <a href="/">Njia home</a></p>
 </footer>
-</div>
 </body>
 </html>

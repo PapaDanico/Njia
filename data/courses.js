@@ -1385,6 +1385,44 @@ const COURSES = [
     outcomes_confidence: 'illustrative',
     fees_confidence: 'verified',
     verification_note: 'Programme named in Siaya National Polytechnic\'s published artisan course list (formerly Siaya Institute of Technology). The institution\'s published artisan minimum is given as a KCPE certificate or a KCSE mean grade of D-; the explicit KCSE figure is recorded rather than reading the slash as open entry, so the app does not claim a KCPE-only route it cannot evidence - the same call made for Sigalagala. Ask the registrar whether KCPE alone is accepted. KNEC modular courses are being phased out for CBET, so confirm which curriculum the current intake runs. Fee derived from the government\'s consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar.'
+  },
+  {
+    id: 'c486',
+    name: 'Artisan in Automotive Engineering',
+    institution_id: 'bungoma_poly',
+    cluster: 'maker',
+    level: 'artisan',
+    duration_months: 12,
+    total_fees_kes: 67189,
+    min_grade: 'E',
+    intake_months: ['January', 'May', 'September'],
+    mode: 'full_time',
+    employment_rate: null,
+    median_salary_kes: null,
+    description: 'Vehicle systems servicing and repair at artisan level, in a department that also runs craft and diploma routes in the same trade.',
+    career_paths: ['Motor Vehicle Mechanic', 'Garage Technician'],
+    outcomes_confidence: 'illustrative',
+    fees_confidence: 'verified',
+    verification_note: 'Programme named in Bungoma National Polytechnic\'s published course list, where the Building and Civil Engineering department is stated to run diploma, craft and artisan levels. The polytechnic publishes the minimum for Level 4 (artisan) as an E grade, so E is recorded from the institution\'s own statement rather than inferred. The polytechnic runs more artisan programmes than the one listed here; only the programme a reachable source actually names is recorded. Fee derived from the government\'s consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar.'
+  },
+  {
+    id: 'c487',
+    name: 'Artisan in Electrical and Electronics',
+    institution_id: 'bureti_tti',
+    cluster: 'maker',
+    level: 'artisan',
+    duration_months: 12,
+    total_fees_kes: 67189,
+    min_grade: 'E',
+    intake_months: ['January', 'May', 'September'],
+    mode: 'full_time',
+    employment_rate: null,
+    median_salary_kes: null,
+    description: 'Electrical and electronics installation and maintenance at artisan level, alongside craft and diploma routes in the same department.',
+    career_paths: ['Electrical Wireman', 'Installation Electrician'],
+    outcomes_confidence: 'illustrative',
+    fees_confidence: 'verified',
+    verification_note: 'Programme named in Bureti Technical Training Institute\'s published course list. The county TVET guidance for Kericho gives the artisan entry bar as a KCSE mean grade of D- and below, or a KCPE certificate, so an E clears it and E is recorded. That bar is a county-level statement rather than one Njia could read off Bureti\'s own schedule - confirm with the registrar. The institute runs more artisan programmes than the one listed here. Fee derived from the government\'s consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar.'
   }
 ];
 

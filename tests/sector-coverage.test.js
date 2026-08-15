@@ -571,12 +571,29 @@ test('no description claims to be the only or first of its kind when it is not',
 });
 
 test('no new record ships a fee with no citation at all', () => {
-  /* 40 legacy records carry a precise figure — some as high as Ksh 720,000 —
-   * with no verification_note whatsoever. They are surfaced to readers as "Fee
-   * not confirmed" rather than quietly rendered like any other estimate. This
-   * caps the debt: the number may fall as records are sourced, never rise.
-   * If you are adding a course and this test fails, write the note. */
-  const LEGACY_CEILING = 40;
+  /* THE DEBT IS PAID. This was 40, then 19, and is now zero.
+   *
+   * These were records carrying a precise figure — some as high as Ksh 720,000
+   * — with no verification_note whatsoever: the weakest thing the app could
+   * display, because a confident number with nothing behind it is
+   * indistinguishable from a researched one.
+   *
+   * The last 19 were not resolved by finding the fees. They were resolved by
+   * removing them, which is what this project's own rule requires when a figure
+   * cannot be defended: prose underneath a number does not qualify what a card
+   * displays to the shilling. Eight were public universities, where there is no
+   * single per-programme price to find — the Differentiated Unit Cost was
+   * retired in May 2023 for the means-tested Student-Centred Funding Model. The
+   * other eleven are private institutions whose schedules are PDFs on their own
+   * sites, unreachable from this build.
+   *
+   * Every one now says which kind of absence it is, so a reader knows whether
+   * to ring the college or to check their own funding band.
+   *
+   * At zero this is no longer a ceiling, it is a floor: no record may ever
+   * again ship a fee with no citation. If you are adding a course and this
+   * fails, write the note or leave the fee out. */
+  const LEGACY_CEILING = 0;
   const unsourced = COURSES.filter((c) => c.total_fees_kes != null && !c.verification_note);
   assert.ok(unsourced.length <= LEGACY_CEILING,
     `${unsourced.length} records state a fee with no citation, above the legacy ceiling of `

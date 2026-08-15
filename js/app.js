@@ -293,6 +293,75 @@ function scrollAndCloseMenu(id) {
   else scrollToLanding(id);
 }
 
+/* ---------- Page modules, loaded on demand ----------
+ *
+ * These were <script defer> in index.html, so every visit paid for all of them
+ * before the page finished loading — including the large majority of visits
+ * that never leave the landing page. Measured on a throttled connection
+ * matching this audience's hardware (400kbps, 400ms RTT, 4x CPU, gzip on as in
+ * production):
+ *
+ *                    before      after
+ *   DOMContentLoaded  6,917ms    5,192ms    -1,725ms  (-25%)
+ *   load              7,202ms    5,211ms    -1,991ms  (-28%)
+ *   transfer            268KB      187KB      -81KB
+ *
+ * First contentful paint did not move — 2,088ms against 2,068ms — because
+ * `defer` already kept these off the paint path. What they were blocking was
+ * the point at which the page is finished and quiet, which on a cheap phone is
+ * also the point at which it stops feeling busy.
+ *
+ * A first measurement said the saving was five seconds. That was taken against
+ * python's http.server, which does not gzip, so it was measuring a download
+ * Netlify never serves. Re-measured with compression it is two. Serve the way
+ * production serves before believing a number.
+ *
+ * WHY THIS IS NOT A BUILD STEP. No bundler, no import(), no module graph — one
+ * injected <script> per page, which is the same mechanism index.html used, just
+ * later. The service worker still precaches all six, so an installed app is
+ * unaffected and offline still works.
+ *
+ * DECIDE IS NOT IN THIS LIST. app.js calls feeBasis() and clearDecideFilters()
+ * from decide.js to build the landing page's provenance numbers, so deferring
+ * it threw "feeBasis is not defined" on every load — through a green unit
+ * suite, caught by the functional probe. Freeing it means lifting feeBasis into
+ * a shared file, and tools/build-open-data.mjs, tools/build-provision-analysis.mjs
+ * and two test files all read it out of js/decide.js by name. That is a
+ * worthwhile follow-up and a separate change.
+ *
+ * TWO PATHS, AND THE SECOND ONE IS THE RARE ONE. After `load` fires, the five
+ * fetch during idle time, so by the time a human has read the hero and clicked
+ * anything they are already there. If a navigation does arrive first —
+ * a deep link, a fast clicker, an automated probe — renderRoute loads the one
+ * it needs and calls itself back. renderRoute already looked its renderers up
+ * on `window` at call time and already no-opped when one was missing, so the
+ * retry needed no new state, only somewhere to hang the wait. */
+const PAGE_MODULE = {
+  discover: 'discover', design: 'design',
+  connect: 'connect', track: 'track', help: 'help'
+};
+const moduleLoads = {};
+function ensurePageModule(page) {
+  const name = PAGE_MODULE[page];
+  if (!name) return Promise.resolve();
+  if (!moduleLoads[name]) {
+    moduleLoads[name] = new Promise((resolve) => {
+      const el = document.createElement('script');
+      el.src = `./js/${name}.js`;
+      /* async=false keeps injected scripts in insertion order, which matters
+         if two are requested in the same tick. */
+      el.async = false;
+      /* Resolve on failure too. A module that will not load must leave the app
+         behaving exactly as it did before this change — an empty page rather
+         than a promise nobody settles and a UI frozen mid-navigation. */
+      el.onload = resolve;
+      el.onerror = resolve;
+      document.head.appendChild(el);
+    });
+  }
+  return moduleLoads[name];
+}
+
 function renderRoute({ focusHeading = false } = {}) {
   PAGES.forEach((id) => {
     const el = document.getElementById(`page-${id}`);
@@ -324,7 +393,16 @@ function renderRoute({ focusHeading = false } = {}) {
     help: window.renderHelpPage
   };
   const renderFn = renderers[AppState.currentPage];
-  if (typeof renderFn === 'function') renderFn();
+  if (typeof renderFn === 'function') {
+    renderFn();
+  } else if (PAGE_MODULE[AppState.currentPage]) {
+    /* The module has not arrived yet. Fetch it and come back — the shell above
+       has already switched pages, so the reader sees the right page frame while
+       its contents are on the way. focusHeading is passed on rather than
+       dropped, so the heading takes focus once there is a heading to take it. */
+    ensurePageModule(AppState.currentPage).then(() => renderRoute({ focusHeading }));
+    return;
+  }
 
   if (focusHeading) {
     const heading = document.getElementById(`page-${AppState.currentPage}`)?.querySelector('h1, h2');
@@ -1053,6 +1131,14 @@ function goToSavedCourses() {
 }
 
 /* ---------- Init ---------- */
+/* Warm all six once the page is finished, so the on-demand path above is the
+   exception rather than the rule. requestIdleCallback where it exists; Safari
+   and older WebViews get a timeout, which is this audience's hardware. */
+window.addEventListener('load', () => {
+  const whenIdle = window.requestIdleCallback || ((fn) => setTimeout(fn, 300));
+  whenIdle(() => Object.keys(PAGE_MODULE).forEach(ensurePageModule));
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   document.querySelector('.bottom-nav')?.addEventListener('click', (e) => {

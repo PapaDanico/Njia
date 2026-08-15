@@ -121,5 +121,68 @@ for (const { file, size, inset, radius } of TARGETS) {
   await p.close();
 }
 
+/* ---- favicon.ico -------------------------------------------------------
+ *
+ * WHY A FILE NOBODY LINKS TO.
+ *
+ * index.html declares an SVG favicon and a PNG fallback, so the app's own tab
+ * was always fine. But /favicon.ico is requested by PATH, not by link: a
+ * browser asks for it when a page declares nothing it understands, and — the
+ * part that matters here — Google and most crawlers and link-preview services
+ * fetch that exact path when deciding what icon to show beside a result. It
+ * was 404ing.
+ *
+ * Njia has just spent this work becoming crawlable, 57 URLs in the sitemap.
+ * Every one of those results was rendering with a blank icon.
+ *
+ * WHY IT IS PACKED BY HAND.
+ *
+ * No dependencies, and the container has no ImageMagick or png2ico. ICO is a
+ * simple container, though, and since Vista it may hold PNG payloads directly
+ * rather than BMP — so this is a 6-byte header, a 16-byte directory entry per
+ * size, and the PNG bytes already rendered above. 16, 32 and 48 because those
+ * are the sizes that actually get used: a browser tab, a retina tab, and the
+ * Windows shortcut Google's own crawler prefers.
+ */
+const ICO_SIZES = [16, 32, 48];
+const icoPngs = [];
+for (const size of ICO_SIZES) {
+  const p = await ctx.newPage();
+  await p.setViewportSize({ width: size, height: size });
+  /* No inset and no rounding at these sizes. A 10% pad on a 16px square is one
+     and a half pixels of nothing, and a rounded corner is a smudge — the
+     silhouette is all a favicon has, so it gets the whole square. */
+  await p.setContent(page(size, 0.06, 0.18), { waitUntil: 'load' });
+  const el = await p.$('#plate');
+  icoPngs.push({ size, buf: await el.screenshot({ omitBackground: true }) });
+  await p.close();
+}
+
+const HEADER = 6, ENTRY = 16;
+const header = Buffer.alloc(HEADER);
+header.writeUInt16LE(0, 0);                 // reserved
+header.writeUInt16LE(1, 2);                 // 1 = icon
+header.writeUInt16LE(icoPngs.length, 4);
+
+let offset = HEADER + ENTRY * icoPngs.length;
+const entries = [];
+for (const { size, buf } of icoPngs) {
+  const e = Buffer.alloc(ENTRY);
+  e.writeUInt8(size === 256 ? 0 : size, 0); // width  (0 means 256)
+  e.writeUInt8(size === 256 ? 0 : size, 1); // height
+  e.writeUInt8(0, 2);                       // palette colours — 0 for truecolour
+  e.writeUInt8(0, 3);                       // reserved
+  e.writeUInt16LE(1, 4);                    // colour planes
+  e.writeUInt16LE(32, 6);                   // bits per pixel
+  e.writeUInt32LE(buf.length, 8);
+  e.writeUInt32LE(offset, 12);
+  offset += buf.length;
+  entries.push(e);
+}
+
+const ico = Buffer.concat([header, ...entries, ...icoPngs.map((i) => i.buf)]);
+fs.writeFileSync(path.join(root, 'favicon.ico'), ico);
+console.log(`wrote favicon.ico  ${ICO_SIZES.join('/')}  ${(ico.length / 1024).toFixed(1)} KB`);
+
 await browser.close();
 console.log('\nDone. Bump CACHE_VERSION in sw.js — the icons are cache-first.');

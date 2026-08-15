@@ -462,7 +462,9 @@ function coursePage(county, rows) {
 <meta property="og:image" content="${OG_IMAGE}">
 <meta property="og:url" content="${SITE}/counties/${slug(county)}/">
 <meta property="og:type" content="article">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
 <link rel="stylesheet" href="/css/styles.css">
 <style>${SHELL_CSS}
   .rail h2 { font-size: 1rem; margin: 1.6rem 0 .4rem; }
@@ -573,7 +575,9 @@ function indexPage(counties) {
 <title>Courses by county in Kenya — all 47 counties | Njia</title>
 <meta name="description" content="${esc(`Browse ${total} courses across all 47 Kenyan counties with entry grades and fees. Free and evidence-based.`)}">
 <link rel="canonical" href="${SITE}/counties/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
 <link rel="stylesheet" href="/css/styles.css">
 <style>${SHELL_CSS}
   /* Forty-seven links and three lines of prose is not a rail-and-content page:
@@ -707,7 +711,9 @@ function gradePage(grade, rows) {
 <meta property="og:image" content="${OG_IMAGE}">
 <meta property="og:url" content="${SITE}/grades/${GRADE_SLUG[grade]}/">
 <meta property="og:type" content="article">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
 <link rel="stylesheet" href="/css/styles.css">
 <style>${SHELL_CSS}
   table { margin: .6rem 0 1.4rem; font-size: .92rem; }
@@ -777,7 +783,9 @@ function gradeIndexPage(grades) {
 <title>What can I study with my KCSE grade? | Njia</title>
 <meta name="description" content="Kenyan courses grouped by the KCSE mean grade they accept, from C plain down to E, with fees and institutions.">
 <link rel="canonical" href="${SITE}/grades/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
 <link rel="stylesheet" href="/css/styles.css">
 <style>${SHELL_CSS}
   /* Seven links: a single measure, like the county index. */

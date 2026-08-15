@@ -1663,6 +1663,19 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * input so it never reads as the primary way to answer. */
 .odyssey-year-field { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
 .odyssey-suggest {
+  /* A <select> is inline-block, and .caption is an inline label. In the Odyssey
+     year fields this never showed, because .odyssey-year-field is a flex column
+     that stacks its children whatever their display is. The OKR modal has no
+     such wrapper, so the "Key Results (one per line, 2-3 recommended)" label
+     flowed onto the same line as this dropdown and broke around it — the word
+     KEY rendered to the right of the select and RESULTS... dropped below, a
+     form label sheared in half and sitting against the wrong control.
+
+     Fixed here rather than on .caption: that class is inline on purpose
+     elsewhere, where "Filter:" and "Sort:" genuinely sit beside their selects.
+     This dropdown is a standalone control and should never share a line. */
+  display: block;
+  width: 100%;
   font-size: var(--fs-sm);
   padding: 0.35rem 0.6rem;
   min-height: 40px;

@@ -130,7 +130,12 @@ function renderOkrsTab(container) {
         <option value="progress" ${sortBy === 'progress' ? 'selected' : ''}>Progress (High to Low)</option>
       </select>
     </div>
-    <button type="button" class="btn btn-primary mb-2" onclick="openOkrModal()">+ New OKR</button>
+    <!-- Hidden when the list is empty, because the empty state below carries the
+         same "+ New OKR" button. Both rendered at once put two identical primary
+         actions 296px apart in a view whose only job is to get you to press one
+         — and the empty state's is the better of the two, since it arrives with
+         a sentence explaining what an OKR is for. -->
+    ${filtered.length === 0 ? '' : '<button type="button" class="btn btn-primary mb-2" onclick="openOkrModal()">+ New OKR</button>'}
     ${filtered.length === 0
       ? emptyState('target', 'No OKRs yet', 'Turn your Odyssey Plan into a quarterly objective with 2–3 measurable key results.', '+ New OKR', 'openOkrModal()')
       : filtered.map((okr) => renderOkrItem(okr)).join('')

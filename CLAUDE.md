@@ -223,6 +223,24 @@ sentence were arrived at by measuring after a first attempt made things worse:
   (13,580 to 13,560px). The rows were never the constraint on a phone, the
   viewport was, so all it bought was 91px more sideways scrolling.
 
+**Two more measured attempts, one kept and one rejected.**
+
+- **Kept: `--page-max` 1480 → 1760.** At 1920 the Decide grid sat at 1120px
+  inside a 1480px container, fitting three 362px columns; course cards are
+  ~964px tall, so narrow columns wrap harder and the page grows. Raising the
+  cap took Decide from 9,560px to **8,368px** and the grid to four columns.
+  Nothing below 1480 moved — 1440, 1280 and 390 measured identical, because a
+  container narrower than its own cap never touched it. Prose is unaffected:
+  it is capped separately by `--prose-max` at 68ch, which is why those are two
+  tokens rather than one.
+- **Rejected: two-up cards on Connect.** It looked like the obvious next win —
+  five cards stacked single-file in a 1,332px column. Measured, it saved
+  **30px at 1920 (1.5%) and cost 148px at 1440 (6.7%)**. Two reasons, both
+  general: a grid row is as tall as its tallest card, so pairing tall and
+  short cards banks nothing; and these cards hold prose, so halving their
+  width makes them wrap. Cards full of running text do not behave like a
+  course grid, and a layout that helps one can hurt the other on the same page.
+
 The general rule: a layout change that claims to save space has to be measured
 in *document height and content width at several viewports*, before and after.
 "It looks less empty" is not the same as "the reader does less work", and on a

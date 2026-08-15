@@ -92,8 +92,23 @@
   --sidebar-w: 240px;
   /* Content width. --page-max is the working width for data-dense modules;
    * --prose-max keeps running text at a readable measure inside it, so a
-   * wide page never turns body copy into a 1200px line. */
-  --page-max: 1480px;
+   * wide page never turns body copy into a 1200px line.
+   *
+   * 1760, raised from 1480, and the number came from measuring rather than
+   * from taste. At 1920 the Decide card grid sat at 1120px inside a 1480px
+   * container inside the viewport, fitting three columns of 362px; each course
+   * card is nearly a full screen tall, so narrow columns wrap harder and the
+   * page grows. Measured at 1920: 9,560px of document became 8,368px and the
+   * grid went to four columns — 1,192px less scrolling, 12.5% of the page, on
+   * the module a reader spends longest in.
+   *
+   * Nothing below 1480 moves, because a container narrower than its own cap
+   * never touched it: 1440, 1280 and 390 measured byte-for-byte identical
+   * before and after, with zero horizontal overflow at any width.
+   *
+   * Prose does not stretch with it. Running text is capped by --prose-max at
+   * 68ch, which is the whole reason these are two tokens and not one. */
+  --page-max: 1760px;
   --prose-max: 68ch;
 
   /* ---- Structural tokens (Kanda discipline: component rules reference

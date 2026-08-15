@@ -75,6 +75,12 @@
   /* Opened up one step across the board. 8/12/16 corners on a 20px-padded
    * box read as a 2010 admin panel; the softer geometry is most of what
    * separates "form" from "surface" at a glance. */
+  /* 8px earns a token rather than being written inline. The four steps below
+     were already a real scale and already used nearly everywhere; the only
+     defect was six declarations that bypassed them with 6px, 8px, 12px and
+     1.25rem — small enough to be invisible and just numerous enough to make
+     the scale a suggestion instead of a rule. */
+  --radius-xs: 8px;
   --radius-sm: 10px;
   --radius-md: 14px;
   --radius-lg: 18px;
@@ -110,6 +116,31 @@
    * structure — which is why the app had become a wall of outlined boxes
    * and read like a printed report from 2003. Scale carries the hierarchy
    * now, and the boxes can stop shouting. */
+  /* THE SMALL END OF THE TYPE SCALE, WHICH WAS NOT A SCALE.
+   *
+   * An audit counted NINETEEN distinct sub-1rem font sizes in this file —
+   * 0.6, 0.65, 0.66, 0.68, 0.7, 0.72, 0.74, 0.75, 0.76, 0.78, 0.8, 0.8125,
+   * 0.82, 0.85, 0.86, 0.88, 0.9, 0.92 and 0.95rem — several of them within
+   * a third of a pixel of each other on screen. That is not a decision
+   * repeated, it is a decision never made: each one was picked to make one
+   * component look right and none of them knew about the others.
+   *
+   * Seven of the nineteen rendered BELOW 12px. The smallest carried real
+   * content at 9.6px. axe passes all of it, because contrast and semantics
+   * are fine and no automated rule checks whether text is simply too small
+   * to read — which is exactly why it survived thirty-odd deploys.
+   *
+   * Njia's readers are on cheap Android phones, often outdoors, and a good
+   * proportion of the adult-learner audience is over forty. 9.6px is not a
+   * density choice for them, it is an exclusion.
+   *
+   * Four steps, and a hard floor of 12px. GOV.UK sets its body text far
+   * higher again (16px mobile, 19px desktop); this is the small end for
+   * labels, badges and table furniture, not for prose. */
+  --fs-xs: 0.75rem;      /* 12px — the floor. Nothing smaller ships. */
+  --fs-sm: 0.8125rem;    /* 13px */
+  --fs-md: 0.875rem;     /* 14px */
+  --fs-lg: 0.9375rem;    /* 15px */
   --text-lg-fluid: clamp(1.3rem, 2.2vw, 1.6rem);
   --text-xl-fluid: clamp(1.75rem, 3.4vw, 2.5rem);
   --text-2xl-fluid: clamp(2.1rem, 5vw, 3.4rem);
@@ -299,8 +330,8 @@ h3 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.012em; }
  * the page h1) but keep the level-3 visual scale — semantics and type
  * scale are separate concerns. */
 .card > h2, .empty-state h2, .help-tutorial-head h2, .course-card h2 { font-size: 1.25rem; }
-small, .caption { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); }
-.text-sm { font-size: 0.85rem; }
+small, .caption { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); }
+.text-sm { font-size: var(--fs-md); }
 .text-muted { color: var(--text-muted); }
 .text-secondary { color: var(--text-secondary); }
 
@@ -316,7 +347,7 @@ small, .caption { font-size: 0.75rem; text-transform: uppercase; letter-spacing:
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 0.4rem 0.85rem;
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--text-secondary);
 }
@@ -347,7 +378,7 @@ svg.icon {
  * Editorial module header: overline eyebrow above the serif h1, matching
  * the landing page's section overlines. */
 .page-eyebrow {
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -400,7 +431,7 @@ svg.icon {
 .header-page-label {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: var(--fs-lg);
   color: var(--text-secondary);
 }
 /* The mark is drawn in currentColor, so it needs no per-scheme asset and
@@ -441,7 +472,7 @@ svg.icon {
   top: var(--header-h);
   z-index: 19;
 }
-.install-banner-text { font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; }
+.install-banner-text { font-size: var(--fs-md); font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; }
 .install-banner-actions { display: flex; align-items: center; gap: 0.4rem; flex-shrink: 0; }
 .install-banner .btn-sm { width: auto; }
 .install-banner .header-btn { color: var(--ink-contrast); width: 48px; height: 48px; }
@@ -471,7 +502,7 @@ body:not([data-page="home"]) .nav-back { display: flex; }
 .landing-nav { align-items: center; gap: 1.75rem; }
 .landing-nav-link {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 0.92rem;
+  font-size: var(--fs-lg);
   font-weight: 600;
   color: var(--text-secondary);
   background: none; border: none;
@@ -486,7 +517,7 @@ body:not([data-page="home"]) .nav-back { display: flex; }
  * item opens a menu, which puts it under WCAG 1.4.11 non-text contrast at 3:1.
  * At 0.6 it composited to 2.89:1 on --bg in light mode, just under. 0.7 gives
  * 3.61:1 and is not perceptibly heavier. */
-.landing-nav-dropdown-btn .caret { font-size: 0.7rem; transition: transform 0.15s ease; opacity: 0.7; }
+.landing-nav-dropdown-btn .caret { font-size: var(--fs-xs); transition: transform 0.15s ease; opacity: 0.7; }
 .landing-nav-dropdown-btn[aria-expanded="true"] .caret,
 .landing-nav-dropdown:hover .caret, .landing-nav-dropdown:focus-within .caret { transform: rotate(180deg); opacity: 1; }
 .landing-nav-dropdown-menu {
@@ -526,8 +557,8 @@ body:not([data-page="home"]) .nav-back { display: flex; }
 .landing-nav-dropdown-menu button > span:first-child { flex-shrink: 0; display: inline-flex; margin-top: 0.15rem; color: var(--primary); }
 .landing-nav-dropdown-menu button .icon { width: 18px; height: 18px; }
 .landing-nav-dropdown-menu button > span:last-child { display: flex; flex-direction: column; gap: 0.1rem; }
-.landing-nav-dropdown-menu button strong { font-size: 0.9rem; font-weight: 600; }
-.landing-nav-dropdown-menu button small { font-size: 0.76rem; font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--text-muted); }
+.landing-nav-dropdown-menu button strong { font-size: var(--fs-lg); font-weight: 600; }
+.landing-nav-dropdown-menu button small { font-size: var(--fs-xs); font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--text-muted); }
 .landing-nav-dropdown-menu button:hover { background: var(--bg-card); }
 
 /* Specificity bump (.header-actions .landing-cta-header, not just the
@@ -563,7 +594,7 @@ body:not([data-page="home"]) .nav-back { display: flex; }
   border-bottom: 1px solid var(--border);
 }
 .mobile-menu-label {
-  font-size: 0.75rem; font-weight: 700;
+  font-size: var(--fs-xs); font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.5px;
   color: var(--text-muted);
   margin: 0.75rem 0 0.1rem;
@@ -622,7 +653,7 @@ main {
 }
 .nav-item .nav-icon { position: relative; display: inline-flex; align-items: center; justify-content: center; }
 .nav-item .nav-icon .icon { width: 21px; height: 21px; }
-.nav-item .nav-label { font-size: 0.65rem; font-weight: 600; }
+.nav-item .nav-label { font-size: var(--fs-xs); font-weight: 600; }
 .nav-item.active { color: var(--primary-dark); }
 .nav-item.active::before {
   content: '';
@@ -634,7 +665,7 @@ main {
   content: '';
   position: absolute; top: 4px; bottom: 4px; left: 6px; right: 6px;
   background: var(--primary-soft);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   z-index: -1;
 }
 .nav-item.has-badge .nav-icon::after {
@@ -748,7 +779,7 @@ main {
   .decide-rail .filter-spacer { display: none; }
   .decide-rail .card { margin-bottom: 0; border: none; box-shadow: none; padding: 0; background: transparent; }
   .decide-rail-title {
-    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase;
     letter-spacing: 1.4px; color: var(--text-muted);
   }
   .decide-results { min-width: 0; }
@@ -802,7 +833,7 @@ main {
   border-radius: var(--radius-md);
   border: none;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: var(--fs-lg);
   transition: transform 0.1s ease, opacity 0.15s ease, background 0.15s ease;
   width: 100%;
 }
@@ -814,7 +845,7 @@ main {
 .btn-success { background: var(--secondary); color: var(--on-fill); }
 .btn-danger { background: var(--danger); color: var(--on-fill); }
 .btn-ghost { background: transparent; color: var(--primary-dark); }
-.btn-sm { min-height: 48px; padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; }
+.btn-sm { min-height: 48px; padding: 0.5rem 1rem; font-size: var(--fs-md); width: auto; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-row { display: flex; gap: 0.75rem; }
 .btn-row .btn { width: auto; flex: 1; }
@@ -836,7 +867,7 @@ main {
 }
 .feature-card .icon { font-size: 1.75rem; }
 .feature-card h3 { font-size: 1rem; }
-.feature-card p { font-size: 0.8rem; color: var(--text-muted); }
+.feature-card p { font-size: var(--fs-sm); color: var(--text-muted); }
 
 /* ---------- Stats row ---------- */
 .stats-row {
@@ -853,7 +884,7 @@ main {
   text-align: center;
 }
 .stat .value { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.4rem; font-weight: 700; color: var(--primary-dark); }
-.stat .label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.stat .label { font-size: var(--fs-xs); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* ---------- Progress bar ---------- */
 .progress-track {
@@ -873,7 +904,7 @@ main {
 /* ---------- Questionnaire ---------- */
 .q-section-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.25rem; }
 .q-section-header .icon { font-size: 1.5rem; }
-.q-progress-label { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+.q-progress-label { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: 0.5rem; }
 
 .option-card {
   display: block;
@@ -916,16 +947,16 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   min-height: 44px;
   background: var(--bg-card);
   border: 1px solid var(--border-light);
-  border-radius: 8px;
+  border-radius: var(--radius-xs);
   color: var(--text-primary);
   padding: 0.5rem;
-  font-size: 0.95rem;
+  font-size: var(--fs-lg);
 }
 
 .voice-btn {
   display: inline-flex; align-items: center; gap: 0.4rem;
   background: var(--bg-card); border: 1px solid var(--border-light);
-  border-radius: 999px; padding: 0.4rem 0.9rem; font-size: 0.8rem;
+  border-radius: 999px; padding: 0.4rem 0.9rem; font-size: var(--fs-sm);
   margin-top: 0.5rem; color: var(--text-secondary);
   min-height: 48px;
 }
@@ -933,7 +964,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 
 /* ---------- Score bars (Four Elements) ---------- */
 .score-row { margin-bottom: 0.9rem; }
-.score-row .score-label { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem; }
+.score-row .score-label { display: flex; justify-content: space-between; font-size: var(--fs-md); margin-bottom: 0.3rem; }
 .score-bar-track { height: 10px; background: var(--bg-input); border-radius: 999px; overflow: hidden; }
 .score-bar-fill { height: 100%; border-radius: 999px; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
 
@@ -951,7 +982,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   display: inline-block;
   padding: 0.3rem 0.8rem;
   border-radius: 999px;
-  font-size: 0.7rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -962,7 +993,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
  * carries the quieter, factual weight of a footnote rather than a promise. */
 .cluster-tags-label {
   margin-top: 0.75rem;
-  font-size: 0.7rem;
+  font-size: var(--fs-xs);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-secondary);
@@ -974,7 +1005,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   padding: 0.6rem 0.85rem;
   background: var(--bg-card);
   border-radius: var(--radius-sm);
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   line-height: 1.55;
   color: var(--text-secondary);
   text-align: left;
@@ -988,7 +1019,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   background: var(--bg-card);
   border-radius: 999px;
   padding: 0.25rem 0.7rem;
-  font-size: 0.75rem;
+  font-size: var(--fs-xs);
   color: var(--text-secondary);
 }
 .cluster-secondary-list .cluster-row {
@@ -1023,7 +1054,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   margin-bottom: 1rem;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: 1.25rem;
+  border-radius: var(--radius-xl);
   padding: 4px;
 }
 .odyssey-tab {
@@ -1035,7 +1066,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border-radius: 999px;
   padding: 0.55rem 1rem;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   min-height: 44px;
   color: var(--text-secondary);
@@ -1064,7 +1095,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   min-width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
   background: var(--bg-card); border-radius: var(--radius-sm);
-  font-weight: 700; font-size: 0.8rem; flex-shrink: 0;
+  font-weight: 700; font-size: var(--fs-sm); flex-shrink: 0;
 }
 .odyssey-year-row input {
   flex: 1;
@@ -1075,7 +1106,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 
 /* ---------- Life portfolio gauges ---------- */
 .portfolio-gauge { margin-bottom: 1.25rem; }
-.portfolio-gauge .gauge-label { display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: 0.9rem; font-weight: 600; }
+.portfolio-gauge .gauge-label { display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: var(--fs-lg); font-weight: 600; }
 .portfolio-gauge input[type="range"] {
   width: 100%; height: 48px;
   accent-color: var(--primary);
@@ -1114,7 +1145,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   display: inline-block;
   background: var(--secondary);
   color: var(--on-fill);
-  font-size: 0.7rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
@@ -1125,7 +1156,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   background: var(--success-soft);
   color: var(--success-ink);
   border: 1px solid var(--success-border);
-  font-size: 0.68rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   padding: 0.18rem 0.55rem;
   border-radius: 999px;
@@ -1142,7 +1173,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
  * too; a badge with nothing to badge is how a stylesheet starts drifting
  * from what the app actually shows. */
 .meta-value.is-estimate { opacity: 0.92; }
-.course-card .institution-name { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+.course-card .institution-name { color: var(--text-muted); font-size: var(--fs-md); margin-bottom: 0.5rem; }
 /* Ledger rows — label left, value right, hairline dividers, no box — the
  * ledger/breakdown-table treatment every "family" site uses for financial
  * figures (e.g. a T-bill's gross-yield-to-net-yield breakdown) instead of
@@ -1163,14 +1194,14 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--border);
 }
-.meta-grid .meta-item .meta-label { font-size: 0.8rem; color: var(--text-muted); }
-.meta-grid .meta-item .meta-value { font-size: 0.92rem; font-weight: 700; text-align: right; }
+.meta-grid .meta-item .meta-label { font-size: var(--fs-sm); color: var(--text-muted); }
+.meta-grid .meta-item .meta-value { font-size: var(--fs-lg); font-weight: 700; text-align: right; }
 
 /* ---------- Comparison table (Decide: Compare Saved Courses) ----------
  * Same ledger language as .meta-grid — hairline rows, mono numerals for
  * data cells — but transposed into a real table since comparing N saved
  * courses needs N value columns per attribute row, not one. */
-.comparison-hint { font-size: 0.78rem; color: var(--text-muted); margin: -0.4rem 0 0.6rem; }
+.comparison-hint { font-size: var(--fs-sm); color: var(--text-muted); margin: -0.4rem 0 0.6rem; }
 .comparison-scroll {
   overflow-x: auto;
   margin: 0 -0.25rem;
@@ -1194,7 +1225,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .comparison-scroll::-webkit-scrollbar { height: 8px; }
 .comparison-scroll::-webkit-scrollbar-track { background: var(--bg-card); border-radius: 999px; }
 .comparison-scroll::-webkit-scrollbar-thumb { background: var(--accent-ink); border-radius: 999px; }
-.comparison-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.comparison-table { width: 100%; border-collapse: collapse; font-size: var(--fs-md); }
 .comparison-table th, .comparison-table td {
   padding: 0.6rem 0.75rem;
   border-bottom: 1px solid var(--border);
@@ -1202,7 +1233,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   white-space: nowrap;
 }
 .comparison-table thead th {
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
   color: var(--text-primary);
   white-space: normal;
@@ -1225,7 +1256,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 .career-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0; }
 .type-badge {
   display: inline-block;
-  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase;
   padding: 0.2rem 0.6rem; border-radius: 999px;
   background: var(--bg-card); color: var(--accent-ink);
   margin-bottom: 0.5rem;
@@ -1235,7 +1266,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
   border: 1px solid var(--warn-border);
   border-radius: var(--radius-md);
   padding: 0.75rem 1rem;
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
   margin-bottom: 1rem;
   display: flex; gap: 0.5rem; align-items: flex-start;
@@ -1262,7 +1293,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   flex-shrink: 0;
   background: var(--bg-elevated); border: 1px solid var(--border-light);
   border-radius: 999px; padding: 0.4rem 0.9rem;
-  font-size: 0.8rem; white-space: nowrap; min-height: 48px;
+  font-size: var(--fs-sm); white-space: nowrap; min-height: 48px;
   color: var(--text-secondary);
   transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
@@ -1278,7 +1309,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   border-left: 3px solid var(--border);
   background: var(--bg-card);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
 }
 .confidence-clear { border-left-color: var(--secondary); }
@@ -1292,7 +1323,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   display: inline-flex; align-items: center;
   padding: 0.25rem 0.6rem;
   border-radius: 999px;
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   border: 1px solid transparent;
 }
@@ -1312,7 +1343,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * share one KMTC note — rendering it open on each card meant reading the same
  * paragraph down the whole grid. Collapsed, the provenance is still attached
  * to the card (so it survives comparison and saved views) without repeating. */
-.fee-provenance { margin-bottom: 0.6rem; font-size: 0.78rem; }
+.fee-provenance { margin-bottom: 0.6rem; font-size: var(--fs-sm); }
 .fee-provenance summary {
   cursor: pointer;
   color: var(--text-muted);
@@ -1323,7 +1354,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .fee-provenance p { margin-top: 0.35rem; font-style: italic; }
 .decide-caveat { margin-bottom: 0.75rem; }
 
-.match-why { margin-bottom: 0.9rem; font-size: 0.82rem; }
+.match-why { margin-bottom: 0.9rem; font-size: var(--fs-sm); }
 .match-why summary {
   cursor: pointer;
   color: var(--primary-dark);
@@ -1346,7 +1377,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * that summary treatment rather than the italic muted one used for provenance.
  * The left rule marks the whole block as context about the industry rather than
  * about this particular course. */
-.sector-context { margin-bottom: 0.9rem; font-size: 0.82rem; }
+.sector-context { margin-bottom: 0.9rem; font-size: var(--fs-sm); }
 .sector-context summary {
   cursor: pointer;
   color: var(--primary-dark);
@@ -1376,17 +1407,17 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .wider-view-eyebrow {
   display: block;
-  font-size: 0.7rem;
+  font-size: var(--fs-xs);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 700;
   color: var(--text-secondary);
   margin-bottom: 0.5rem;
 }
-.wider-view-q { font-size: 0.92rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.4rem; line-height: 1.5; }
-.wider-view-a { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0.85rem; max-width: 72ch; }
+.wider-view-q { font-size: var(--fs-lg); font-weight: 600; color: var(--text-primary); margin-bottom: 0.4rem; line-height: 1.5; }
+.wider-view-a { font-size: var(--fs-md); color: var(--text-secondary); line-height: 1.65; margin-bottom: 0.85rem; max-width: 72ch; }
 .wider-view .btn { width: auto; display: inline-flex; }
-.wider-view-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 0.6rem; }
+.wider-view-note { font-size: var(--fs-xs); color: var(--text-muted); margin-top: 0.6rem; }
 
 /* ---------- Landing: the economy section ----------
  *
@@ -1418,12 +1449,12 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .econ-figure-label {
   display: block;
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
   margin: 0.3rem 0 0.6rem;
   line-height: 1.45;
 }
-.econ-figure p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+.econ-figure p { font-size: var(--fs-sm); color: var(--text-secondary); line-height: 1.6; }
 
 .econ-table-wrap { overflow-x: auto; }
 /* It is focusable now (see the markup), so it needs to look focused. Without
@@ -1433,18 +1464,18 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   outline-offset: 3px;
   border-radius: var(--radius-sm);
 }
-.econ-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 34rem; }
+.econ-table { width: 100%; border-collapse: collapse; font-size: var(--fs-md); min-width: 34rem; }
 .econ-table caption {
   caption-side: top;
   text-align: left;
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   color: var(--text-muted);
   padding-bottom: 0.6rem;
   line-height: 1.5;
 }
 .econ-table th[scope="col"] {
   text-align: left;
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--text-muted);
@@ -1466,16 +1497,16 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .econ-growth { font-weight: 700; color: var(--text-primary); }
 .econ-well-ahead { color: var(--primary-dark); }
 .econ-behind { font-weight: 500; }
-.econ-share { color: var(--text-muted); font-weight: 400; font-size: 0.78rem; }
+.econ-share { color: var(--text-muted); font-weight: 400; font-size: var(--fs-sm); }
 /* An absent figure has to look absent, not like a small one. Muted italic in
  * the growth column, and the row's sector name keeps full weight because the
  * route count beside it is real — health has no sourced growth rate and is
  * still over a quarter of the catalogue, which is the most useful row here. */
-.econ-unsourced { color: var(--text-muted); font-style: italic; font-size: 0.8rem; }
+.econ-unsourced { color: var(--text-muted); font-style: italic; font-size: var(--fs-sm); }
 .econ-row-unsourced th[scope="row"] { color: var(--text-secondary); }
 .econ-flag {
   display: inline-block;
-  font-size: 0.68rem;
+  font-size: var(--fs-xs);
   font-weight: 500;
   color: var(--text-muted);
   border: 1px solid var(--border);
@@ -1485,7 +1516,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .econ-note {
   margin-top: 1.1rem;
-  font-size: 0.8rem;
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
   line-height: 1.65;
   max-width: 92ch;
@@ -1503,14 +1534,14 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .landing-track-card.track-make { border-left-color: var(--secondary); }
 .landing-track-eyebrow {
-  font-size: 0.68rem; font-weight: 700;
+  font-size: var(--fs-xs); font-weight: 700;
   text-transform: uppercase; letter-spacing: 1.4px;
   color: var(--primary-dark);
 }
 .landing-track-card.track-make .landing-track-eyebrow { color: var(--success-ink); }
 .landing-track-card h3 { margin: 0.3rem 0 0.35rem; }
-.landing-track-card p { font-size: 0.88rem; color: var(--landing-ink-muted); }
-.landing-track-count { display: inline-block; margin-top: 0.6rem; font-size: 0.8rem; font-weight: 700; color: var(--primary-dark); }
+.landing-track-card p { font-size: var(--fs-md); color: var(--landing-ink-muted); }
+.landing-track-count { display: inline-block; margin-top: 0.6rem; font-size: var(--fs-sm); font-weight: 700; color: var(--primary-dark); }
 
 .landing-tool-section { margin-top: 2.5rem; }
 /* Tool grid — the landing page's main index of what Njia actually does.
@@ -1535,7 +1566,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-tool-card .icon-disc { width: 42px; height: 42px; margin: 0; flex-shrink: 0; color: var(--primary); }
 .landing-tool-card .icon-disc .icon { width: 20px; height: 20px; }
 .landing-tool-card h3 { font-size: 1rem; font-weight: 650; margin-bottom: var(--space-1); letter-spacing: -0.01em; }
-.landing-tool-card p { font-size: 0.85rem; color: var(--landing-ink-muted); line-height: 1.55; }
+.landing-tool-card p { font-size: var(--fs-md); color: var(--landing-ink-muted); line-height: 1.55; }
 .landing-tool-arrow { margin-left: auto; color: var(--primary); align-self: center; flex-shrink: 0; }
 
 
@@ -1546,8 +1577,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .coverage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem 1rem; margin-top: 0.6rem; }
 .coverage-grid > div { display: flex; flex-direction: column; gap: 0.1rem; }
 .coverage-num { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.15rem; font-weight: 700; color: var(--primary-dark); line-height: 1.1; }
-.coverage-label { font-size: 0.72rem; color: var(--text-muted); }
-.coverage-note { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem; }
+.coverage-label { font-size: var(--fs-xs); color: var(--text-muted); }
+.coverage-note { font-size: var(--fs-xs); color: var(--text-muted); margin-top: 0.75rem; }
 
 @media (min-width: 1100px) {
   .module-header { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start; }
@@ -1570,7 +1601,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .logo-word { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; }
 .logo-descriptor {
   display: none;
-  font-size: 0.6rem; font-weight: 700;
+  font-size: var(--fs-xs); font-weight: 700;
   text-transform: uppercase; letter-spacing: 1.2px;
   color: var(--text-muted);
   margin-top: 2px;
@@ -1587,18 +1618,18 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .help-qa:last-child { border-bottom: none; }
 .help-qa summary {
   cursor: pointer; padding: 0.6rem 0;
-  font-weight: 600; font-size: 0.9rem; color: var(--text-primary);
+  font-weight: 600; font-size: var(--fs-lg); color: var(--text-primary);
 }
 .help-qa summary:hover { color: var(--primary-dark); }
-.help-qa p { font-size: 0.86rem; color: var(--text-secondary); padding: 0 0 0.7rem; line-height: 1.6; }
+.help-qa p { font-size: var(--fs-md); color: var(--text-secondary); padding: 0 0 0.7rem; line-height: 1.6; }
 .help-tutorial-head { display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 0.75rem; }
 .help-tutorial-head .icon-disc { margin: 0; flex-shrink: 0; color: var(--primary); }
 .help-steps { margin: 0 0 1rem 1.1rem; display: flex; flex-direction: column; gap: 0.55rem; }
-.help-steps li { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6; padding-left: 0.3rem; }
+.help-steps li { font-size: var(--fs-md); color: var(--text-secondary); line-height: 1.6; padding-left: 0.3rem; }
 .glossary-list { display: flex; flex-direction: column; gap: 0.7rem; }
 .glossary-row { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.9rem; align-items: baseline; }
-.glossary-row dt { font-weight: 700; font-size: 0.85rem; color: var(--primary-dark); }
-.glossary-row dd { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; }
+.glossary-row dt { font-weight: 700; font-size: var(--fs-md); color: var(--primary-dark); }
+.glossary-row dd { font-size: var(--fs-md); color: var(--text-secondary); line-height: 1.55; }
 @media (max-width: 560px) { .glossary-row { grid-template-columns: 1fr; gap: 0.15rem; } }
 .link-btn { background: none; border: none; padding: 0; color: var(--primary-dark); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: inherit; }
 
@@ -1617,7 +1648,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 
 .course-tagline { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.4rem 0 0.2rem; }
 .mini-tag {
-  font-size: 0.66rem; font-weight: 700; letter-spacing: 0.4px;
+  font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.4px;
   text-transform: uppercase;
   padding: 0.15rem 0.45rem; border-radius: var(--radius-sm);
   background: var(--ink-veil); color: var(--text-secondary);
@@ -1632,7 +1663,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * input so it never reads as the primary way to answer. */
 .odyssey-year-field { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
 .odyssey-suggest {
-  font-size: 0.78rem;
+  font-size: var(--fs-sm);
   padding: 0.35rem 0.6rem;
   min-height: 40px;
   color: var(--text-muted);
@@ -1642,11 +1673,11 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .odyssey-suggest:focus { color: var(--text-primary); }
 
 /* ---------- Analytical result components ---------- */
-.decide-count { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.9rem; }
+.decide-count { font-size: var(--fs-md); color: var(--text-secondary); margin-bottom: 0.9rem; }
 
 .spread-list { display: flex; flex-direction: column; gap: 0.5rem; }
-.spread-row { display: flex; align-items: center; gap: 0.6rem; font-size: 0.85rem; }
-.spread-rank { width: 1.2rem; color: var(--text-muted); font-size: 0.78rem; flex-shrink: 0; }
+.spread-row { display: flex; align-items: center; gap: 0.6rem; font-size: var(--fs-md); }
+.spread-rank { width: 1.2rem; color: var(--text-muted); font-size: var(--fs-sm); flex-shrink: 0; }
 .spread-name { width: 8.5rem; flex-shrink: 0; color: var(--text-secondary); }
 .spread-row.spread-top .spread-name { color: var(--text-primary); font-weight: 600; }
 .spread-bar { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-input); overflow: hidden; min-width: 40px; }
@@ -1656,13 +1687,13 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .evidence-card { border-left: 3px solid var(--primary); }
 .evidence-list { list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.7rem; }
 .evidence-list li {
-  font-size: 0.86rem; line-height: 1.55; color: var(--text-secondary);
+  font-size: var(--fs-md); line-height: 1.55; color: var(--text-secondary);
   padding-left: 0.9rem; border-left: 2px solid var(--border);
 }
 .evidence-list strong { color: var(--text-primary); }
 
 @media (max-width: 560px) {
-  .spread-name { width: 6.5rem; font-size: 0.8rem; }
+  .spread-name { width: 6.5rem; font-size: var(--fs-sm); }
 }
 
 /* ---------- Mentor cards ---------- */
@@ -1674,11 +1705,11 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   font-weight: 700; color: #fff;
 }
 .mentor-info { flex: 1; }
-.mentor-info .role { font-size: 0.8rem; color: var(--text-muted); }
+.mentor-info .role { font-size: var(--fs-sm); color: var(--text-muted); }
 
 /* ---------- OKR items ---------- */
 .okr-item .okr-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-.status-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; }
+.status-badge { font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 999px; }
 .status-badge.on-track { background: var(--success-soft); color: var(--success-ink); }
 .status-badge.at-risk { background: var(--warn-soft); color: var(--warn-ink); }
 .status-badge.done { background: var(--ink-veil); color: var(--text-muted); }
@@ -1694,7 +1725,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   background: var(--bg-card); border: 2px solid var(--border-light);
 }
 .timeline-item.complete .timeline-dot { background: var(--secondary); border-color: var(--secondary); }
-.timeline-item .t-date { font-size: 0.75rem; color: var(--text-muted); }
+.timeline-item .t-date { font-size: var(--fs-xs); color: var(--text-muted); }
 
 /* ---------- Empty states ---------- */
 .empty-state {
@@ -1713,7 +1744,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .icon-disc .icon { width: 26px; height: 26px; }
 .empty-state h3 { color: var(--text-secondary); margin-bottom: 0.5rem; }
-.empty-state p { max-width: 320px; margin: 0 auto 1.25rem; font-size: 0.9rem; }
+.empty-state p { max-width: 320px; margin: 0 auto 1.25rem; font-size: var(--fs-lg); }
 
 /* ---------- Toast ---------- */
 .toast-container {
@@ -1816,7 +1847,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * headline. The heading underneath now carries the section. */
 .landing-eyebrow {
   display: block;
-  font-size: 0.7rem;
+  font-size: var(--fs-xs);
   font-weight: 600;
   letter-spacing: 1.3px;
   text-transform: uppercase;
@@ -1847,7 +1878,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
     var(--landing-dark);
   color: #F5E9D4;
 }
-.landing-hero .landing-hero-logo { mix-blend-mode: normal; border-radius: 12px; }
+.landing-hero .landing-hero-logo { mix-blend-mode: normal; border-radius: var(--radius-sm); }
 .landing-hero .landing-h1 { color: #F5E9D4; }
 .landing-hero .landing-sub { color: rgba(248, 250, 252, 0.82); }
 .landing-hero .landing-proverb { color: rgba(248, 250, 252, 0.7); border-left-color: var(--accent); }
@@ -1856,7 +1887,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-hero .btn-outline-dark { color: #F5E9D4; border-color: rgba(248, 250, 252, 0.4); }
 .landing-hero .btn-outline-dark:hover { background: rgba(248, 250, 252, 0.1); }
 .landing-hero-eyebrow {
-  font-size: 0.72rem; font-weight: 700;
+  font-size: var(--fs-xs); font-weight: 700;
   text-transform: uppercase; letter-spacing: 1.6px;
   color: var(--accent);
   margin-bottom: 0.6rem;
@@ -1872,7 +1903,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: #F5E9D4;
 }
 .landing-clock-title {
-  font-size: 0.7rem; font-weight: 700;
+  font-size: var(--fs-xs); font-weight: 700;
   text-transform: uppercase; letter-spacing: 1.5px;
   color: var(--accent);
   margin-bottom: 0.5rem;
@@ -1884,8 +1915,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .landing-clock-row:last-of-type { border-bottom: none; margin-bottom: 0.4rem; }
 .landing-clock-row .icon { width: 15px; height: 15px; color: var(--accent); margin-top: 0.15rem; flex-shrink: 0; }
-.landing-clock-name { font-weight: 600; font-size: 0.85rem; line-height: 1.35; }
-.landing-clock-when { font-size: 0.74rem; color: rgba(248, 250, 252, 0.65); margin-top: 0.1rem; }
+.landing-clock-name { font-weight: 600; font-size: var(--fs-md); line-height: 1.35; }
+.landing-clock-when { font-size: var(--fs-xs); color: rgba(248, 250, 252, 0.65); margin-top: 0.1rem; }
 .landing-clock-btn {
   width: 100%;
   display: inline-flex; align-items: center; justify-content: center;
@@ -1895,7 +1926,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   border: 1px solid rgba(248, 250, 252, 0.35);
   background: transparent;
   color: #F5E9D4;
-  font-weight: 600; font-size: 0.85rem;
+  font-weight: 600; font-size: var(--fs-md);
 }
 .landing-clock-btn:hover { background: rgba(248, 250, 252, 0.1); }
 /* THE BOX HAS TO CARRY THE MARK'S OWN PROPORTIONS.
@@ -1910,7 +1941,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-hero-logo {
   width: 43px; height: 64px; margin-bottom: 1.25rem;
   mix-blend-mode: multiply;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
 }
 .landing-h1 {
   font-family: var(--serif);
@@ -1933,7 +1964,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   margin-bottom: 1.5rem;
 }
 .landing-proverb {
-  font-size: 0.85rem;
+  font-size: var(--fs-md);
   color: var(--landing-ink-muted);
   font-style: italic;
   max-width: 42ch;
@@ -1948,7 +1979,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   border-left: 4px solid var(--secondary);
   border-radius: var(--radius-md);
   padding: 0.85rem 1rem;
-  font-size: 0.88rem;
+  font-size: var(--fs-md);
   color: var(--landing-ink);
   box-shadow: var(--shadow-sm);
 }
@@ -1969,7 +2000,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 /* The lede under a section heading is doing real work and was set at
  * 0.95rem, smaller than the body text it introduces. */
 .landing-h2-sub { font-size: clamp(1rem, 1.35vw, 1.15rem); line-height: 1.6; }
-.landing-h2-sub { color: var(--landing-ink-muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 50ch; }
+.landing-h2-sub { color: var(--landing-ink-muted); font-size: var(--fs-lg); margin-bottom: 1.5rem; max-width: 50ch; }
 
 .landing-cta-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
 .btn-gold {
@@ -1985,7 +2016,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 
 .landing-trust-row { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
-.landing-trust-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--landing-ink-muted); }
+.landing-trust-item { display: flex; align-items: center; gap: 0.4rem; font-size: var(--fs-sm); font-weight: 600; color: var(--landing-ink-muted); }
 .landing-trust-item svg { flex: 0 0 auto; color: var(--secondary); }
 
 /* ---------- Hero sidecar: "Njia in numbers" ----------
@@ -2003,7 +2034,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .landing-numbers-eyebrow {
   display: block;
-  font-size: 0.68rem;
+  font-size: var(--fs-xs);
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -2017,8 +2048,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-numbers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.25rem; margin-bottom: 1.1rem; }
 .landing-numbers-item { display: flex; flex-direction: column; gap: 0.2rem; }
 .landing-numbers-figure { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.6rem; font-weight: 700; color: var(--primary-dark); line-height: 1; }
-.landing-numbers-label { font-size: 0.78rem; color: var(--landing-ink-muted); line-height: 1.35; }
-.landing-numbers-note { font-size: 0.72rem; color: var(--landing-ink-muted); border-top: 1px solid var(--landing-border); padding-top: 0.75rem; margin: 0; }
+.landing-numbers-label { font-size: var(--fs-sm); color: var(--landing-ink-muted); line-height: 1.35; }
+.landing-numbers-note { font-size: var(--fs-xs); color: var(--landing-ink-muted); border-top: 1px solid var(--landing-border); padding-top: 0.75rem; margin: 0; }
 
 .landing-dark {
   background: var(--landing-dark);
@@ -2038,7 +2069,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   line-height: 1;
   margin-bottom: 0.4rem;
 }
-.landing-stat-label { font-size: 0.8rem; color: #DDCCAE; }
+.landing-stat-label { font-size: var(--fs-sm); color: #DDCCAE; }
 
 .landing-evidence-grid { display: grid; gap: 1rem; }
 .landing-evidence-card {
@@ -2059,9 +2090,9 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   line-height: 1;
 }
 .landing-evidence-card h3 { font-size: 1rem; color: var(--landing-ink); margin: 0.5rem 0 0.4rem; }
-.landing-evidence-card p { font-size: 0.88rem; color: var(--landing-ink-muted); margin-bottom: 0.6rem; }
+.landing-evidence-card p { font-size: var(--fs-md); color: var(--landing-ink-muted); margin-bottom: 0.6rem; }
 .landing-source {
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   color: var(--landing-ink-muted);
   border-top: 1px solid var(--landing-border);
   padding-top: 0.5rem;
@@ -2082,7 +2113,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: var(--landing-ink);
 }
 .landing-quote .hl-gold { color: #C8860A; }
-.landing-quote-caption { margin-top: 1rem; font-size: 0.85rem; color: var(--landing-ink-muted); }
+.landing-quote-caption { margin-top: 1rem; font-size: var(--fs-md); color: var(--landing-ink-muted); }
 
 .landing-process-list { display: flex; flex-direction: column; gap: 1rem; }
 .landing-process-card {
@@ -2106,8 +2137,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   font-family: var(--serif);
 }
 .landing-process-card h3 { font-size: 1rem; margin-bottom: 0.25rem; color: var(--landing-ink); }
-.landing-process-card p { font-size: 0.85rem; color: var(--landing-ink-muted); margin-bottom: 0.5rem; }
-.landing-process-card a.landing-link { font-size: 0.82rem; font-weight: 600; color: var(--primary-dark); }
+.landing-process-card p { font-size: var(--fs-md); color: var(--landing-ink-muted); margin-bottom: 0.5rem; }
+.landing-process-card a.landing-link { font-size: var(--fs-sm); font-weight: 600; color: var(--primary-dark); }
 
 .landing-example-card {
   background: var(--landing-card);
@@ -2117,12 +2148,12 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .landing-example-tag {
   display: inline-block;
-  font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+  font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
   background: var(--primary-light); color: var(--primary-dark);
   padding: 0.25rem 0.6rem; border-radius: 999px; margin-bottom: 0.75rem;
 }
 .landing-example-card ol { list-style: decimal; padding-left: 1.2rem; }
-.landing-example-card li { margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--landing-ink); }
+.landing-example-card li { margin-bottom: 0.5rem; font-size: var(--fs-lg); color: var(--landing-ink); }
 
 /* The last thing on the page asks for the click, and it was getting the
  * same 2.75rem of room as any other band — so it arrived as one more
@@ -2145,7 +2176,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   padding: 1rem;
   margin-top: 1.5rem;
   text-align: left;
-  font-size: 0.85rem;
+  font-size: var(--fs-md);
   color: #E8D8BA;
 }
 
@@ -2188,7 +2219,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   column-gap: 1rem;
   align-content: start;
 }
-.landing-footer-brand p { font-size: 0.85rem; color: #C9B693; margin-top: 0.5rem; max-width: 40ch; line-height: 1.6; }
+.landing-footer-brand p { font-size: var(--fs-md); color: #C9B693; margin-top: 0.5rem; max-width: 40ch; line-height: 1.6; }
 /* An inline link that happens to be a button, because it opens a modal rather
  * than navigating. Styled as text so the sentence reads as a sentence — but it
  * still needs a real hit area, so the padding is vertical and negative-margined
@@ -2200,12 +2231,12 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .footer-inline-link:hover { color: #F5E9D4; }
 .landing-footer-col .footer-col-label {
-  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px;
+  font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.5px;
   color: #C9B693; margin-bottom: 0.75rem;
 }
 .landing-footer-col button, .landing-footer-col a {
   display: block; background: none; border: none; color: #E8D8BA;
-  font-size: 0.85rem; padding: 0.3rem 0; text-align: left;
+  font-size: var(--fs-md); padding: 0.3rem 0; text-align: left;
 }
 /* One region where there were two, so one rule and one lot of padding rather
  * than two of each. Side by side from `md`: the sources paragraph wants a
@@ -2219,12 +2250,12 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   gap: 0.75rem;
 }
 .landing-footer-sources {
-  font-size: 0.72rem; color: #C9B693; line-height: 1.6;
+  font-size: var(--fs-xs); color: #C9B693; line-height: 1.6;
   max-width: 92ch; margin: 0;
 }
 .landing-footer-bottom {
   display: flex; flex-direction: column; gap: 0.5rem;
-  font-size: 0.75rem; color: #C9B693;
+  font-size: var(--fs-xs); color: #C9B693;
 }
 .landing-footer-bottom a {
   color: #C9B693;
@@ -2317,6 +2348,56 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   .landing-process-list { display: grid; grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ---------- The fee-provenance block ----------------------------------
+ *
+ * This was one paragraph of about 180 words carrying eight separate figures,
+ * and it is the single most important thing on the page: Njia's entire claim
+ * is that its numbers can be checked, and this is where it says how. It was
+ * rendered as the least readable element in the app.
+ *
+ * The UK Government Analysis Function guidance on communicating quality and
+ * uncertainty is the benchmark here, and it says two things this block was
+ * getting wrong. Uncertainty should be communicated narratively OR VISUALLY —
+ * this was narrative only. And the research finding underneath it is that
+ * showing uncertainty alongside the estimate improves public understanding
+ * and does NOT reduce trust, which is the opposite of the instinct to bury a
+ * caveat in prose so it reads as less alarming.
+ *
+ * So the five fee bases become five rows with the count in a figure column,
+ * the claim as a row header, and the qualification beside it. A reader can now
+ * see in one pass that 116 of 463 publish no fee at all — a fact that was
+ * previously the ninth clause of a paragraph.
+ *
+ * The prose that remains is the part that is genuinely prose: what Njia does
+ * NOT publish, and why.
+ */
+.prov-block { width: 100%; }
+.prov-lede { margin: 0 0 .6rem; }
+.prov-table { width: 100%; border-collapse: collapse; margin: 0 0 .6rem; }
+.prov-table th, .prov-table td { text-align: left; vertical-align: baseline;
+  padding: .3rem .5rem .3rem 0; border-bottom: 1px solid var(--border); }
+.prov-table tbody tr:last-child th, .prov-table tbody tr:last-child td { border-bottom: 0; }
+/* The count leads, because it is the thing being reported. Tabular figures so
+   the column reads as a column and not as ragged text. */
+.prov-n { font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 700;
+  white-space: nowrap; width: 3.5em; text-align: right; padding-right: .75rem; }
+.prov-table th[scope="row"] { font-weight: 700; white-space: normal; }
+.prov-why { font-size: var(--fs-md); color: var(--text-secondary); }
+.prov-table tfoot td, .prov-table tfoot th {
+  border-top: 2px solid var(--border); border-bottom: 0; padding-top: .4rem; }
+.prov-foot { margin: 0; }
+@media (max-width: 47.99rem) {
+  /* Three columns do not fit a phone. The qualification drops under the claim
+     rather than being cut off or forcing a sideways scroll on the one block a
+     reader most needs to be able to read. */
+  .prov-table, .prov-table tbody, .prov-table tfoot, .prov-table tr,
+  .prov-table th, .prov-table td { display: block; width: auto; }
+  .prov-table tr { padding: .45rem 0; border-bottom: 1px solid var(--border); }
+  .prov-n { display: inline-block; text-align: left; padding: 0 .4rem 0 0; width: auto; }
+  .prov-table th[scope="row"] { display: inline; }
+  .prov-why { padding-left: 0; }
+}
+
 /* =====================================================================
    SHAREABLE REPORT CARD — one compact, logo-branded card used for all
    three share paths: printed to PDF via window.print() (no JS PDF
@@ -2361,45 +2442,45 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: #1f1e1d; letter-spacing: -0.02em;
 }
 .report-lockup-text span {
-  font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.09em;
+  font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.09em;
   color: #52504a;
 }
 .report-header img { width: 180px; height: auto; flex-shrink: 0; }
 .report-header-meta { text-align: right; }
 .report-eyebrow {
-  display: block; font-size: 0.72rem; font-weight: 700;
+  display: block; font-size: var(--fs-xs); font-weight: 700;
   letter-spacing: 1.2px; text-transform: uppercase; color: #6b6862;
 }
-.report-date { font-size: 0.82rem; color: #a5a29a; }
+.report-date { font-size: var(--fs-sm); color: #a5a29a; }
 
 .report-primary { border-left: 5px solid; padding-left: 1.1rem; margin-bottom: 0.9rem; }
-.report-primary-label { display: block; font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; }
+.report-primary-label { display: block; font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; }
 .report-primary h2 { font-size: 1.65rem; margin: 0.2rem 0 0.4rem; }
-.report-primary p { font-size: 0.95rem; color: #52504a; margin-bottom: 0.6rem; }
+.report-primary p { font-size: var(--fs-lg); color: #52504a; margin-bottom: 0.6rem; }
 .report-paths { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.report-path-tag { font-size: 0.76rem; background: #f2efe7; color: #52504a; padding: 0.2rem 0.65rem; border-radius: 999px; }
+.report-path-tag { font-size: var(--fs-xs); background: #f2efe7; color: #52504a; padding: 0.2rem 0.65rem; border-radius: 999px; }
 
-.report-secondary-line { font-size: 0.88rem; color: #52504a; margin-bottom: 1.1rem; }
+.report-secondary-line { font-size: var(--fs-md); color: #52504a; margin-bottom: 1.1rem; }
 
 .report-columns { display: grid; grid-template-columns: 1fr; gap: 1.2rem; margin-bottom: 1.1rem; }
 @media (min-width: 480px) { .report-columns { grid-template-columns: 1fr 1fr; } }
 
-.report-section-title { display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #6b6862; margin-bottom: 0.55rem; }
+.report-section-title { display: block; font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #6b6862; margin-bottom: 0.55rem; }
 /* The legend the on-screen results carry and the exported card used to drop.
  * Deliberately small and quiet — it exists so a number cannot be misread on
  * paper, not to compete with the number itself. Fixed colours throughout this
  * card because it prints, and a theme-dependent grey can come out invisible. */
-.report-legend { font-size: 0.66rem; line-height: 1.35; color: #6b6862; margin: -0.3rem 0 0.55rem; }
+.report-legend { font-size: var(--fs-xs); line-height: 1.35; color: #6b6862; margin: -0.3rem 0 0.55rem; }
 .report-bar-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
-.report-bar-label { font-size: 0.78rem; width: 68px; flex-shrink: 0; color: #52504a; }
+.report-bar-label { font-size: var(--fs-sm); width: 68px; flex-shrink: 0; color: #52504a; }
 .report-bar-track { flex: 1; height: 8px; background: #ece8dd; border-radius: 999px; overflow: hidden; }
 .report-bar-fill { height: 100%; border-radius: 999px; }
-.report-bar-pct { font-size: 0.78rem; width: 32px; text-align: right; color: #52504a; flex-shrink: 0; }
+.report-bar-pct { font-size: var(--fs-sm); width: 32px; text-align: right; color: #52504a; flex-shrink: 0; }
 
 .report-chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-.report-chip { font-size: 0.76rem; background: #f2efe7; color: #52504a; padding: 0.2rem 0.6rem; border-radius: 6px; }
+.report-chip { font-size: var(--fs-xs); background: #f2efe7; color: #52504a; padding: 0.2rem 0.6rem; border-radius: var(--radius-xs); }
 
-.report-courses ul { list-style: disc; padding-left: 1.2rem; font-size: 0.88rem; color: #52504a; line-height: 1.5; }
+.report-courses ul { list-style: disc; padding-left: 1.2rem; font-size: var(--fs-md); color: #52504a; line-height: 1.5; }
 
 /* The shortlist table. Fixed colours like the rest of this card because it
  * prints — a theme-dependent grey can come out invisible on paper.
@@ -2408,9 +2489,9 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * document a reader scans down one column at a time, and a full grid would add
  * ink without adding structure. Tuition and Entry are right-aligned so the
  * figures line up as digits rather than as text. */
-.report-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; color: #52504a; }
+.report-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); color: #52504a; }
 .report-table th {
-  text-align: left; font-size: 0.66rem; font-weight: 700;
+  text-align: left; font-size: var(--fs-xs); font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.5px; color: #6b6862;
   padding: 0 0.5rem 0.3rem 0; border-bottom: 1px solid #d9d4c7;
 }
@@ -2446,8 +2527,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * than force the column wider. Scoped to `screen` so print is untouched: the
  * PDF renders at A4 width where the four columns have room. */
 @media screen and (max-width: 520px) {
-  .report-table { font-size: 0.72rem; }
-  .report-table th { font-size: 0.6rem; letter-spacing: 0.3px; }
+  .report-table { font-size: var(--fs-xs); }
+  .report-table th { font-size: var(--fs-xs); letter-spacing: 0.3px; }
   .report-table td { padding-right: 0.35rem; }
   /* Aggressive breaking on the two prose columns only. Applied to every cell it
      split "Not published" across lines as "publishe / d" — a broken word reads
@@ -2463,10 +2544,10 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   .report-inst-county::before { content: none; }
 }
 .report-progress { margin-top: 0.55rem; }
-.report-progress-line { font-size: 0.88rem; color: #52504a; margin-bottom: 0.7rem; }
+.report-progress-line { font-size: var(--fs-md); color: #52504a; margin-bottom: 0.7rem; }
 
 .report-footer { border-top: 1px solid #e6e2d7; padding-top: 0.85rem; margin-top: 0.6rem; text-align: center; }
-.report-footer p { font-size: 0.78rem; color: #6b6862; margin: 0; }
+.report-footer p { font-size: var(--fs-sm); color: #6b6862; margin: 0; }
 .report-footer .report-url { font-weight: 600; color: var(--primary-dark) !important; }
 
 @page { size: A4; margin: 12mm 10mm; }
@@ -2494,14 +2575,14 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .sector-row-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
 .sector-name { font-weight: 600; }
 .sector-figure { font-weight: 700; color: var(--text); white-space: nowrap; }
-.sector-per { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-left: 0.2rem; }
-.sector-reality { color: var(--text-secondary); font-size: 0.9rem; margin-top: var(--space-1); max-width: var(--prose-max); }
+.sector-per { font-size: var(--fs-xs); font-weight: 500; color: var(--text-muted); margin-left: 0.2rem; }
+.sector-reality { color: var(--text-secondary); font-size: var(--fs-lg); margin-top: var(--space-1); max-width: var(--prose-max); }
 
 /* Disclosure for the contested automation estimates. Collapsed by default —
    the disagreement matters, but it should not bury the actionable line above
    it for a reader who only wants the answer for their own cluster. */
 .automation-detail { margin: var(--space-3) 0 var(--space-2); }
-.automation-detail summary { cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); padding: var(--space-2) 0; }
+.automation-detail summary { cursor: pointer; font-size: var(--fs-md); font-weight: 600; color: var(--text-secondary); padding: var(--space-2) 0; }
 .automation-detail summary:hover { color: var(--text); }
 .automation-detail[open] summary { margin-bottom: var(--space-2); }
 .automation-detail > p { max-width: var(--prose-max); }
@@ -2572,15 +2653,15 @@ body.modal-open { overflow: hidden; }
 .pay-row-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-3); flex-wrap: wrap; }
 .pay-role { font-weight: 600; }
 .pay-figure { font-weight: 700; white-space: nowrap; }
-.pay-per { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-left: 0.15rem; }
-.pay-note { color: var(--text-secondary); font-size: 0.85rem; margin-top: var(--space-1); max-width: var(--prose-max); }
+.pay-per { font-size: var(--fs-xs); font-weight: 500; color: var(--text-muted); margin-left: 0.15rem; }
+.pay-note { color: var(--text-secondary); font-size: var(--fs-md); margin-top: var(--space-1); max-width: var(--prose-max); }
 
 /* Progressive disclosure for the supporting evidence. The card ran past 1,000
    words with facts repeating across layers; the decision-relevant figures now
    lead and the rest is one tap away rather than a wall to scroll past. */
 .evidence-more { margin-top: var(--space-4); border-top: 1px solid var(--border); padding-top: var(--space-3); }
 .evidence-more > summary, .inline-detail > summary {
-  cursor: pointer; font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; font-size: var(--fs-md); font-weight: 600;
   color: var(--text-secondary); padding: var(--space-2) 0;
 }
 .evidence-more > summary:hover, .inline-detail > summary:hover { color: var(--text); }
@@ -2940,7 +3021,7 @@ p, li { text-wrap: pretty; }
  * qualifies — so the card says which reader it is talking to. Sits inside the
  * dark hero card, so the ink is the cream, not the body colour. */
 .landing-clock-note {
-  font-size: 0.8125rem;
+  font-size: var(--fs-sm);
   line-height: 1.5;
   margin: 0.75rem 0 0;
   padding-top: 0.75rem;

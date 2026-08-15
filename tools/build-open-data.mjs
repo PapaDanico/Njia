@@ -166,7 +166,9 @@ const page = `<!doctype html>
 <meta property="og:image" content="${OG_IMAGE}">
 <meta property="og:url" content="${SITE}/open-data/">
 <meta property="og:type" content="article">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
 <link rel="stylesheet" href="/css/styles.css">
 <style>
   body { max-width: 62rem; margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }

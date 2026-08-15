@@ -274,3 +274,79 @@ test('the generators ship alongside the artefacts they generate', () => {
       `tools/${tool} is gone, so ${what} can no longer be regenerated from the mark`);
   }
 });
+
+/* ---------- favicon.ico -------------------------------------------------
+ *
+ * The app's own tab was always fine: index.html declares an SVG favicon and a
+ * PNG fallback. But /favicon.ico is requested by PATH rather than by link —
+ * Google and most crawlers and link-preview services fetch that exact address
+ * to decide what icon sits beside a search result — and it 404'd. Njia has
+ * 57 URLs in its sitemap; every one of those results rendered with a blank
+ * icon.
+ *
+ * It is also the asset most likely to rot unnoticed, because nothing in the
+ * app ever loads it. Hence a guard that checks the bytes, not the filename. */
+test('favicon.ico exists and is a real, well-formed icon', () => {
+  const ico = path.join(root, 'favicon.ico');
+  assert.ok(fs.existsSync(ico), 'favicon.ico is missing — run node tools/build-icons.mjs');
+
+  const d = fs.readFileSync(ico);
+  assert.equal(d.readUInt16LE(0), 0, 'ICO reserved field is not 0');
+  assert.equal(d.readUInt16LE(2), 1, 'ICO type is not 1 (icon)');
+
+  const count = d.readUInt16LE(4);
+  assert.ok(count >= 3, `favicon.ico holds ${count} sizes; 16, 32 and 48 are the ones that get used`);
+
+  const PNG_MAGIC = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  let end = 0;
+  for (let i = 0; i < count; i++) {
+    const e = 6 + i * 16;
+    const declared = d.readUInt8(e) || 256;
+    const size = d.readUInt32LE(e + 8);
+    const offset = d.readUInt32LE(e + 12);
+    const payload = d.subarray(offset, offset + size);
+
+    assert.ok(payload.subarray(0, 8).equals(PNG_MAGIC),
+      `entry ${i} is not a PNG payload — the packer wrote something malformed`);
+    /* The IHDR dimensions must match what the directory entry claims. A
+       mismatch is the classic way a hand-packed ICO renders as nothing at all
+       while still looking like a valid file. */
+    assert.equal(payload.readUInt32BE(16), declared,
+      `entry ${i} declares ${declared}px but the PNG is ${payload.readUInt32BE(16)}px wide`);
+    assert.equal(payload.readUInt32BE(20), declared,
+      `entry ${i} declares ${declared}px but the PNG is ${payload.readUInt32BE(20)}px tall`);
+    end = Math.max(end, offset + size);
+  }
+  assert.equal(end, d.length, 'favicon.ico is truncated or has trailing junk');
+});
+
+test('favicon.ico is not older than the mark it is drawn from', () => {
+  const svg = fs.statSync(path.join(root, 'icons', 'logo-mark.svg')).mtimeMs;
+  const ico = fs.statSync(path.join(root, 'favicon.ico')).mtimeMs;
+  assert.ok(ico >= svg,
+    'favicon.ico predates icons/logo-mark.svg. Nothing in the app loads it, so a stale '
+    + 'one shows the retired brand in search results indefinitely — regenerate with '
+    + 'node tools/build-icons.mjs');
+});
+
+test('every page offers an icon a browser without SVG support can use', () => {
+  /* The 54 generated pages declared ONLY the SVG favicon. A browser that does
+     not support SVG favicons — older Android WebView, several in-app browsers,
+     which is precisely this audience's hardware — got no icon at all on them,
+     while the app itself was fine. Same shape as the dark-scheme gap: the app
+     is not the whole site. */
+  const pages = [path.join(root, 'index.html'), path.join(root, 'open-data', 'index.html')];
+  for (const dir of ['counties', 'grades']) {
+    const base = path.join(root, dir);
+    if (!fs.existsSync(base)) continue;
+    for (const e of fs.readdirSync(base, { withFileTypes: true })) {
+      pages.push(e.isDirectory() ? path.join(base, e.name, 'index.html') : path.join(base, e.name));
+    }
+  }
+  const bare = pages.filter((p) => fs.existsSync(p) && p.endsWith('.html'))
+    .filter((p) => !/rel="icon"[^>]*\.(png|ico)"/.test(fs.readFileSync(p, 'utf8')))
+    .map((p) => path.relative(root, p));
+  assert.deepEqual(bare, [],
+    `these pages declare only an SVG favicon, so a browser without SVG-favicon support shows `
+    + `nothing: ${bare.slice(0, 6).join(', ')}`);
+});

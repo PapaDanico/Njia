@@ -318,7 +318,36 @@ function renderDecidePage() {
                above the words "Not published". The three states are now named
                separately, because a learner about to commit two hundred
                thousand shillings should be told which one they are reading. -->
-          <span><strong>Where each fee comes from — all ${totalCount} of them.</strong> <strong>${publishedCount}</strong> carry a figure the institution itself publishes for that course, read off its own schedule. <strong>${derivedCount}</strong> were worked out by applying a published rate to the course — the government's consolidated Ksh 67,189 for public TVET, KMTC's own published schedule, or a university's annual fee multiplied by the length of the course. The rate behind each is real and sourced; the total shown was calculated, not quoted for that course. <strong>${illustrativeCount}</strong> show a figure that is sourced but is not the college's own price for that course, marked <em>Illustrative — see the note</em>, and the note on each one says where the number came from. <strong>${unpublishedCount}</strong> publish no fee at all and say so rather than showing a guess. <strong>${unsourcedCount}</strong> are older records carrying a figure with no citation at all; those are marked <em>Fee not confirmed</em> and no new record is allowed to ship that way. Those five groups are the whole catalogue — they add to ${totalCount}, and a test fails the build if they ever stop adding up. Separately, ${fundingVerified} of the ${FUNDING_SOURCES.length} funding sources have had their terms checked against a named public source. <strong>You will not find an employment rate or a salary on a course here</strong>: Kenya does not publish graduate outcomes per course, so rather than print an estimate and label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to appear with your Discover results. Confirm the fee with the institution before you decide — always, but especially on the three middle groups.</span>
+          <div class="prov-block">
+            <p class="prov-lede"><strong>Where each fee comes from — all ${totalCount} of them.</strong>
+              Every course in the catalogue falls into exactly one of these five, and a test fails
+              the build if they ever stop adding up.</p>
+            <table class="prov-table">
+              <caption class="visually-hidden">How the fee on each of the ${totalCount} courses was arrived at</caption>
+              <tbody>
+                <tr><td class="prov-n">${publishedCount}</td><th scope="row">Published by the college for that course</th>
+                    <td class="prov-why">Read off the institution's own schedule.</td></tr>
+                <tr><td class="prov-n">${derivedCount}</td><th scope="row">Worked out from a published rate</th>
+                    <td class="prov-why">The consolidated Ksh 67,189 for public TVET, KMTC's national schedule, or a university's annual fee times the course length. The rate is real and sourced; the total was calculated, not quoted.</td></tr>
+                <tr><td class="prov-n">${illustrativeCount}</td><th scope="row">Sourced, but not the college's price for this course</th>
+                    <td class="prov-why">Marked <em>Illustrative</em> on the card, and the note says where the number came from.</td></tr>
+                <tr><td class="prov-n">${unpublishedCount}</td><th scope="row">No fee published</th>
+                    <td class="prov-why">The institution publishes none, and the card says so rather than showing a guess.</td></tr>
+                <tr><td class="prov-n">${unsourcedCount}</td><th scope="row">Figure with no citation</th>
+                    <td class="prov-why">Older records, marked <em>Fee not confirmed</em>. No new record may ship this way.</td></tr>
+              </tbody>
+              <tfoot>
+                <tr><td class="prov-n">${totalCount}</td><th scope="row">Total</th><td class="prov-why">The whole catalogue.</td></tr>
+              </tfoot>
+            </table>
+            <p class="prov-foot"><strong>You will not find an employment rate or a salary on a course here.</strong>
+              Kenya does not publish graduate outcomes per course, so rather than print an estimate and
+              label it, Njia prints nothing. Sourced pay ranges for the kind of work a cluster leads to
+              appear with your Discover results. Separately, ${fundingVerified} of the
+              ${FUNDING_SOURCES.length} funding sources have had their terms checked against a named
+              public source. Confirm the fee with the institution before you decide — always, but
+              especially on the three middle rows.</p>
+          </div>
         </div>
         <div class="data-disclaimer data-disclaimer-open">
           <!-- Placed here rather than in the evidence layer on purpose: this is

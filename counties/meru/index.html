@@ -97,6 +97,60 @@
     .split > footer { grid-column: 1 / -1; }
   }
 
+  /* The eligibility floor, as a figure block rather than a sentence. */
+  .prov { margin: 1.1rem 0; padding: .85rem 0; border-top: 1px solid var(--ink-veil, rgba(61,28,2,.12));
+          border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); font-size: .88rem; }
+  .prov > div { display: flex; justify-content: space-between; gap: 1rem; padding: .22rem 0; }
+  .prov dt { color: inherit; opacity: .8; }
+  .prov dd { margin: 0; font-family: var(--mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
+             font-weight: 700; white-space: nowrap; }
+
+  /* The printed brief's masthead. Absent from the screen page, which already
+     has a heading and a back link and does not need a second identity. */
+  .brief-head { display: none; }
+
+  /* ---------- PRINT: a county page is a deliverable ----------------------
+   *
+   * Ctrl-P on a county page produces a branded provision brief — the mark, the
+   * county, the eligibility floor, who runs what, and every course with its
+   * fee and entry grade. It goes to a career teacher, a bursary committee or a
+   * county education officer, which is the audience Njia has no other way of
+   * reaching.
+   *
+   * No library and no server: the data is already in the page, so this is a
+   * stylesheet, not a feature. That also means it works offline and from a
+   * saved page, which matters for the offices that need it most.
+   *
+   * What gets dropped is anything that cannot be acted on from paper — the
+   * buttons, the back link, the scroll affordances. What gets kept is every
+   * figure and the provenance paragraph, because a brief whose numbers cannot
+   * be checked is the thing this project exists not to publish. */
+  @media print {
+    @page { margin: 14mm 12mm; }
+    body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }
+    .rail, .main { position: static !important; max-height: none !important; overflow: visible !important; }
+    .cta, .back, .jump { display: none !important; }
+    /* The scroll box must not clip on paper — there is no scrolling on paper,
+       so an overflow container silently truncates the right-hand columns. */
+    .wrap { overflow: visible !important; }
+    table { font-size: 8.5pt; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    h2 { break-after: avoid; margin-top: 1.2em; }
+    .brief-head {
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 2px solid var(--primary, #8B2500);
+      padding-bottom: 6px; margin-bottom: 10px;
+    }
+    .brief-mark { width: 26px; flex: none; }
+    .brief-mark svg { display: block; width: 100%; height: auto; }
+    .brief-word { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 15pt; line-height: 1; }
+    .brief-tag { font-size: 6.5pt; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+    .brief-meta { margin-left: auto; text-align: right; font-size: 7.5pt; line-height: 1.35; }
+    .prov { break-inside: avoid; }
+    .prov > div { padding: .12rem 0; }
+  }
+
   .rail h2 { font-size: 1rem; margin: 1.6rem 0 .4rem; }
   .rail ul { font-size: .88rem; line-height: 1.5; padding-left: 1.1rem; }
   .rail ul li { margin-bottom: .3rem; }
@@ -105,6 +159,18 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Courses in Meru County, Kenya","numberOfItems":13,"itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Course","name":"Artisan Certificate in Electrical Installation","description":"Domestic and light commercial wiring, entered on a KCPE certificate alone — the first such route in Njia outside Nairobi, Mombasa and Kiambu.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":2,"item":{"@type":"Course","name":"Artisan in Electrical Installation Instrumentation and Control","description":"Wiring plus basic automation and control inspection — a step beyond plain installation, still entered without a KCSE.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":3,"item":{"@type":"Course","name":"Artisan in Food and Beverage","description":"Kitchen production and service, entered on a KCPE certificate alone.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":4,"item":{"@type":"Course","name":"Certificate in Credit Management (CDACC Level 5)","description":"Appraising, disbursing and recovering credit for SACCOs, microfinance and bank branches.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":5,"item":{"@type":"Course","name":"Certificate in Office Administration (CDACC Level 5)","description":"Front office, mail, meetings, computerised documents and office security.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":6,"item":{"@type":"Course","name":"Certificate in Supply Chain Management (CDACC Level 5)","description":"Buying, receiving and moving goods — the clerical entry to procurement.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":7,"item":{"@type":"Course","name":"Certificate in Community Health Assistant","description":"Entry route into community health work, immunisation drives and health outreach.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":8,"item":{"@type":"Course","name":"Certificate in Community Health Assistant","description":"One-year entry point into community health work that ladders into the KRCHN diploma. Lower grade requirement than the diploma, and available in most counties.","provider":{"@type":"EducationalOrganization","name":"Kenya Medical Training College (KMTC) — Meru Campus","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":9,"item":{"@type":"Course","name":"Diploma in Community Development and Social Work","description":"Community mobilisation, project work and social welfare practice.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":10,"item":{"@type":"Course","name":"Diploma in Accountancy (CDACC Level 6)","description":"The accountancy technician curriculum, and a recognised stepping stone into KASNEB CPA.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":11,"item":{"@type":"Course","name":"Diploma in Information Communication Technology (CDACC Level 6)","description":"The ICT technician curriculum: networking, systems support and introductory development.","provider":{"@type":"EducationalOrganization","name":"Meru National Polytechnic","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":12,"item":{"@type":"Course","name":"Bachelor of Commerce (Accounting)","description":"Accounting, audit and taxation aligned to CPA exemptions.","provider":{"@type":"EducationalOrganization","name":"Kenya Methodist University (KeMU)","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}},{"@type":"ListItem","position":13,"item":{"@type":"Course","name":"Diploma in Kenya Registered Community Health Nursing (KRCHN)","description":"The core nursing diploma, taught to the same national curriculum at every KMTC campus — so you can train near home instead of relocating.","provider":{"@type":"EducationalOrganization","name":"Kenya Medical Training College (KMTC) — Meru Campus","address":{"@type":"PostalAddress","addressRegion":"Meru County","addressCountry":"KE"}}}}]}</script>
 </head>
 <body class="split">
+
+<div class="brief-head">
+  <div class="brief-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia"> <style> /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile. * * Nothing supplies --mark-edge outside the app, so the outline falls back * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16, * 32, 48 and 64px, the leaf edge disappeared into the ground completely. * The mark still read, because the terracotta field and the cream road * carry it, but the drawing lost its silhouette. * * This rule is inert inside the app: there the #i-njia sprite symbol in * index.html is a separate copy that takes --mark-edge from the page, and * it does not carry this stylesheet. The drift guard in * tests/provenance.test.js compares path geometry rather than styling, so * the two stay legitimately different in presentation and identical in * shape. */ @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg></div>
+  <div>
+    <div class="brief-word">Njia</div>
+    <div class="brief-tag">Data-driven career pathways for Kenyan youth</div>
+  </div>
+  <div class="brief-meta">
+    <strong>Meru County provision brief</strong><br>
+    13 courses &middot; 3 open to an E &middot; njiacareerpathways.work
+  </div>
+</div>
 
 <aside class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
@@ -117,6 +183,19 @@ Caring and health, Business, Working with people, Technical trades, Creative and
 
 <p>3 of these 13 courses list no minimum grade at all, so they are open to any KCSE result.</p>
 
+<!-- The eligibility floor, published. Njia has computed this number since the
+     coverage metric was introduced and kept it in a test constant, where no
+     reader could see it. "112 courses" and "15 of them open to an E" are the
+     same county described twice, and only the second tells a school-leaver
+     with an E, or the officer funding them, anything they can act on. -->
+<dl class="prov">
+  <div><dt>Courses listed</dt><dd>13</dd></div>
+  <div><dt>Open to an E-grade learner</dt><dd>3</dd></div>
+  <div><dt>Lowest entry requirement</dt><dd>Open entry</dd></div>
+  <div><dt>Institutions</dt><dd>3</dd></div>
+  <div><dt>Showing a fee figure</dt><dd>12 of 13</dd></div>
+</dl>
+
 <p><a class="cta" href="/#decide">Filter these by your grade and budget &rarr;</a>
 <a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 
@@ -124,8 +203,6 @@ Caring and health, Business, Working with people, Technical trades, Creative and
      list one item to a line under 7,800px of rows, which meant nobody reading
      a course ever saw it; beside the table it answers "who actually runs these"
      while the reader is looking at the answer. -->
-<h2>Institutions in Meru</h2>
-<ul class="cols"><li>Kenya Medical Training College (KMTC) — Meru Campus</li><li>Kenya Methodist University (KeMU)</li><li>Meru National Polytechnic</li></ul>
 </aside>
 
 <main class="main">
@@ -239,6 +316,33 @@ Caring and health, Business, Working with people, Technical trades, Creative and
           <td class="tok">Ksh 238,200</td>
           <td class="tok">36 mo</td>
         </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Institutions in Meru</h2>
+<div class="wrap" tabindex="0" role="region" aria-label="Institutions in Meru County">
+<table>
+  <caption>Who runs the courses above, what levels they teach, and the lowest door into each.</caption>
+  <thead><tr><th scope="col">Institution</th><th scope="col" class="tok">Ownership</th>
+  <th scope="col">Levels taught</th><th scope="col" class="tok">Courses</th>
+  <th scope="col" class="tok">Lowest entry</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Kenya Medical Training College (KMTC) — Meru Campus</th>
+    <td class="tok">Public</td>
+    <td>Certificate, Diploma</td>
+    <td class="tok">2</td>
+    <td class="tok">D+</td></tr>
+    <tr><th scope="row">Kenya Methodist University (KeMU)</th>
+    <td class="tok">Private</td>
+    <td>Degree</td>
+    <td class="tok">1</td>
+    <td class="tok">C+</td></tr>
+    <tr><th scope="row">Meru National Polytechnic</th>
+    <td class="tok">Public</td>
+    <td>Artisan, Certificate, Diploma</td>
+    <td class="tok">10</td>
+    <td class="tok">Open entry</td></tr>
   </tbody>
 </table>
 </div>

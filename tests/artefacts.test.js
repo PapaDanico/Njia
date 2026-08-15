@@ -268,7 +268,9 @@ test('the generators ship alongside the artefacts they generate', () => {
   for (const [tool, what] of [
     ['build-icons.mjs', 'the PWA icons'],
     ['build-og-image.mjs', 'the link-share card'],
-    ['build-brand-assets.mjs', 'the brand lockups and banner']
+    ['build-brand-assets.mjs', 'the brand lockups and banner'],
+    ['build-open-data.mjs', 'the CSV and JSON catalogue export'],
+    ['build-provision-analysis.mjs', 'the county provision analysis and its CSV']
   ]) {
     assert.ok(fs.existsSync(path.join(root, 'tools', tool)),
       `tools/${tool} is gone, so ${what} can no longer be regenerated from the mark`);

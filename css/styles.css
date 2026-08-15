@@ -2266,6 +2266,15 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   font-size: var(--fs-xs); color: #C9B693; line-height: 1.6;
   max-width: 92ch; margin: 0;
 }
+/* The "check it yourself" links sit mid-paragraph, and a link inside a block of
+ * text that differs from the text only in colour fails axe's link-in-text-block
+ * — it added four violations across the sweep the moment it went in. Underlined
+ * for the same reason .footer-inline-link above is: in running prose the
+ * underline is the affordance, not decoration. */
+.landing-footer-sources a {
+  color: #E8D8BA; text-decoration: underline; text-underline-offset: 2px;
+}
+.landing-footer-sources a:hover { color: #F5E9D4; }
 .landing-footer-bottom {
   display: flex; flex-direction: column; gap: 0.5rem;
   font-size: var(--fs-xs); color: #C9B693;

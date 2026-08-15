@@ -717,12 +717,32 @@ const LANDING_TOOLS = {
  * than written as prose — a hardcoded "applications close in May" quietly
  * becomes a lie in June. Sorted by urgency so the thing about to close leads.
  * Falls back to funding deadlines when no placement window is open. */
+/* FILTER ON THE MILLISECONDS, NOT ON daysLeft.
+ *
+ * This filtered on `daysLeft >= 0`, and daysLeft came out of Math.ceil(). For a
+ * window that closed within the last 24 hours the division is a small negative
+ * number, Math.ceil() of which is NEGATIVE ZERO — and `-0 >= 0` is true in
+ * JavaScript, as is `-0 === 0`. So a closed window survived the filter and then
+ * matched the daysLeft === 0 branch below, and the hero rendered:
+ *
+ *     Inter-institutional transfer
+ *     Closes today · closes 2026-08-14
+ *
+ * on 15 August. The row contradicted itself on screen, and the half that a
+ * reader acts on is the urgent one. It was live in production, on the landing
+ * page, above the fold, for exactly one day per expiring window — which is the
+ * one day the error does the most damage, because it is the day after the
+ * deadline that someone still thinks they can make it.
+ *
+ * Filtering on the raw difference means daysLeft is only ever computed for
+ * windows that are genuinely still open, so it cannot be -0. */
 function openPlacementWindows(now = new Date()) {
   if (typeof PLACEMENT_CALENDAR === 'undefined') return [];
   const day = 24 * 60 * 60 * 1000;
   return PLACEMENT_CALENDAR
-    .map((w) => ({ ...w, daysLeft: Math.ceil((new Date(w.closes + 'T23:59:59') - now) / day) }))
-    .filter((w) => new Date(w.opens) <= now && w.daysLeft >= 0)
+    .map((w) => ({ ...w, msLeft: new Date(w.closes + 'T23:59:59') - now }))
+    .filter((w) => new Date(w.opens) <= now && w.msLeft >= 0)
+    .map((w) => ({ ...w, daysLeft: Math.ceil(w.msLeft / day) }))
     .sort((a, b) => a.daysLeft - b.daysLeft);
 }
 
@@ -1008,7 +1028,7 @@ function renderHomePage() {
                most load-bearing thing Njia says about itself. Everything else
                here restated what the Decide page already explains beside the
                badges it is describing. */''}
-          <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong> — Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. Decide names all five fee-provenance groups; see Methodology for the rest.</p>
+          <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong> — Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. Decide names all five fee-provenance groups; see Methodology for the rest. ${/* Placed in the sources line rather than added to the Learn column above. Both are destinations for a reader who wants to CHECK the figures rather than use them, and this is the sentence that reader is already reading; a fourth footer column would have cost height on every screen to serve them somewhere less obvious. */''}Check it yourself: <a href="./open-data/">download the whole catalogue</a> or read the <a href="./analysis/">county provision analysis</a>.</p>
           <div class="landing-footer-bottom">
             <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
           </div>

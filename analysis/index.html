@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>County provision analysis — where the gaps are | Njia</title>
+<meta name="description" content="23 of Kenya's 47 counties list no course an E-grade school-leaver can enter, and 21 of those list no artisan course at all. A county-by-county analysis of Njia's catalogue — which measures what Njia has listed, not what each county runs.">
+<link rel="canonical" href="https://njiacareerpathways.work/analysis/">
+<meta property="og:title" content="County provision analysis — where the gaps are">
+<meta property="og:description" content="23 counties list nothing an E-grade leaver can enter. 21 of them list no artisan course at all.">
+<meta property="og:image" content="https://njiacareerpathways.work/icons/og-image.jpg?v=94c5b4cef8">
+<meta property="og:url" content="https://njiacareerpathways.work/analysis/">
+<meta property="og:type" content="article">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+  body { max-width: min(90rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  /* The app stylesheet zeroes paragraph margins and strips list markers because
+     in the app every block sits inside a component that owns its spacing. A
+     plain document page has no such component. */
+  p { margin: 0 0 .9rem; }
+  h1 { margin: .3rem 0 .6rem; }
+  h2 { margin: 2.4rem 0 .6rem; }
+  h3 { margin: 1.6rem 0 .4rem; }
+  ul { margin: 0 0 .9rem; padding-left: 1.3rem; }
+  li { list-style: disc; margin-bottom: .45rem; }
+  .lede { font-size: 1.08rem; }
+  .back { display: inline-block; margin-bottom: .5rem; }
+
+  .brief-head { display: flex; align-items: center; gap: .75rem; padding-bottom: .8rem;
+                margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); }
+  .brief-mark svg { width: 2.4rem; height: 2.4rem; display: block; }
+  .brief-word { font-weight: 800; font-size: 1.15rem; letter-spacing: .01em; }
+  .brief-tag { font-size: .8rem; opacity: .75; }
+  .brief-meta { margin-left: auto; text-align: right; font-size: .78rem; opacity: .8; }
+
+  /* The caveat is a component, not a sentence in a paragraph, because this is
+     the page most likely to be screenshotted into a slide deck with the prose
+     cropped off. */
+  .limit { border-left: 4px solid var(--primary, #8B2500); background: rgba(139,37,0,.06);
+           padding: .9rem 1.1rem; margin: 1.2rem 0 1.6rem; border-radius: 0 .5rem .5rem 0; }
+  .limit p:last-child { margin-bottom: 0; }
+
+  .figures { display: grid; gap: .8rem; margin: 1.4rem 0 1.8rem;
+             grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); }
+  .fig { border: 1px solid var(--border); border-radius: .6rem; padding: .9rem 1rem; }
+  .fig b { display: block; font-family: var(--mono); font-variant-numeric: tabular-nums;
+           font-size: 1.9rem; line-height: 1.1; }
+  .fig span { display: block; font-size: .82rem; opacity: .85; margin-top: .25rem; }
+
+  .wrap { overflow-x: auto; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  .tkey { font-size: .84rem; opacity: .85; margin: 0 0 .5rem; max-width: 62rem; }
+  th, td { text-align: left; padding: .4rem .55rem .4rem 0; border-bottom: 1px solid var(--border);
+           vertical-align: top; }
+  thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .03em; }
+  .n { font-family: var(--mono); font-variant-numeric: tabular-nums; text-align: right;
+       padding-right: .8rem; white-space: nowrap; }
+  /* A zero on this page is the point of the page, so it is marked rather than
+     left to be found by eye in 47 rows of digits. */
+  .zero { font-weight: 800; color: var(--primary, #8B2500); }
+  /* The caption promises the closed counties are named in bold. A <th> is bold
+     by default, so the first version made that promise and rendered all 47 rows
+     identically — a distinction stated and not drawn is worse than none, because
+     the reader trusts it and reads the wrong rows. The unflagged rows are
+     therefore lightened so the flagged ones can be the bold ones. */
+  tbody th { font-weight: 500; }
+  tr.flag th { font-weight: 800; }
+
+  .cta { display: inline-block; margin: .4rem .6rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
+         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
+  code { font-family: var(--mono); font-size: .9em; }
+  footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
+
+  @media print {
+    .back, .cta { display: none; }
+    .wrap { overflow-x: visible; }
+    table { font-size: 7.5pt; }
+    a { text-decoration: none; color: inherit; }
+    .limit { border-left-width: 3px; }
+  }
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+
+<div class="brief-head">
+  <div class="brief-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia"> <style> /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile. * * Nothing supplies --mark-edge outside the app, so the outline falls back * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16, * 32, 48 and 64px, the leaf edge disappeared into the ground completely. * The mark still read, because the terracotta field and the cream road * carry it, but the drawing lost its silhouette. * * This rule is inert inside the app: there the #i-njia sprite symbol in * index.html is a separate copy that takes --mark-edge from the page, and * it does not carry this stylesheet. The drift guard in * tests/provenance.test.js compares path geometry rather than styling, so * the two stay legitimately different in presentation and identical in * shape. */ @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg></div>
+  <div>
+    <div class="brief-word">Njia</div>
+    <div class="brief-tag">Data-driven career pathways for Kenyan youth</div>
+  </div>
+  <div class="brief-meta">
+    <strong>County provision analysis</strong><br>
+    47 counties &middot; 463 courses &middot; njiacareerpathways.work
+  </div>
+</div>
+
+<h1>Where the gaps are</h1>
+
+<p class="lede"><strong>23 of Kenya's 47 counties list no course a
+school-leaver with an E can enter.</strong> 21 of those
+23 list no artisan course at all — so this is not a grade problem
+that better filtering would solve. It is one missing tier.</p>
+
+<div class="limit">
+  <p><strong>Read every zero on this page as a fact about this catalogue, not
+  about a county.</strong> Every county in Kenya has public technical provision.
+  Where a row here shows none, Njia has not listed it — the institution exists
+  and its courses are running.</p>
+  <p>This page measures what a learner using Njia can currently find. It is a
+  worklist for Njia before it is a finding about Kenya, and it is published in
+  that spirit: if you know the college a row is missing, that is the most useful
+  thing you can tell us.</p>
+</div>
+
+<div class="figures">
+  <div class="fig"><b>23</b><span>counties with nothing an E-grade leaver can enter</span></div>
+  <div class="fig"><b>21</b><span>of those list no artisan course at all</span></div>
+  <div class="fig"><b>18</b><span>counties still closed to a learner with a D</span></div>
+  <div class="fig"><b>14</b><span>of 463 fees published by the institution for that course</span></div>
+</div>
+
+<p><a class="cta" href="/analysis/njia-county-provision.csv" download>Download this table as CSV</a>
+<a class="cta" href="/open-data/">The full catalogue</a></p>
+
+<h2>Finding 1 — the blindness is a missing tier, not a high bar</h2>
+
+<p>Level 4 (artisan) is the only qualification a learner with an E can enter.
+KUCCPS places at E for artisan; craft certificate generally opens at D and
+diploma at C-. So a county with no artisan provision listed is a county closed
+to the reader with the fewest alternatives, however many diplomas it runs.</p>
+
+<p>22 counties list no artisan course:
+<a href="/counties/bomet/">Bomet</a>, <a href="/counties/elgeyo-marakwet/">Elgeyo-Marakwet</a>, <a href="/counties/embu/">Embu</a>, <a href="/counties/homa-bay/">Homa Bay</a>, <a href="/counties/isiolo/">Isiolo</a>, <a href="/counties/kajiado/">Kajiado</a>, <a href="/counties/kirinyaga/">Kirinyaga</a>, <a href="/counties/kitui/">Kitui</a>, <a href="/counties/kwale/">Kwale</a>, <a href="/counties/laikipia/">Laikipia</a>, <a href="/counties/lamu/">Lamu</a>, <a href="/counties/machakos/">Machakos</a>, <a href="/counties/makueni/">Makueni</a>, <a href="/counties/migori/">Migori</a>, <a href="/counties/nakuru/">Nakuru</a>, <a href="/counties/narok/">Narok</a>, <a href="/counties/nyamira/">Nyamira</a>, <a href="/counties/nyandarua/">Nyandarua</a>, <a href="/counties/tana-river/">Tana River</a>, <a href="/counties/tharaka-nithi/">Tharaka-Nithi</a>, <a href="/counties/vihiga/">Vihiga</a>, <a href="/counties/wajir/">Wajir</a>.</p>
+
+<p>21 of those 22 are among the
+23 counties showing zero courses reachable at E — so the missing
+tier and the closed county are very nearly the same list.
+<strong>The fix in those 21 is an institution, not a
+filter.</strong> Eight counties were closed in a single
+earlier pass by searching for the county's technical college and finding one that
+had never been listed — every one of them already had a KMTC campus and a
+university in the catalogue, and still read as blind, because the tier that was
+missing was the only one that mattered to this learner.</p>
+
+<h3>The two that are a different problem</h3>
+
+<p><a href="/counties/kakamega/">Kakamega</a> and <a href="/counties/siaya/">Siaya</a> do list artisan courses, at a published minimum
+of D-, which an E does not clear. That is a genuine published entry requirement
+rather than a gap, so it is named here separately rather than folded into the
+21: the remedy is to confirm with the institution whether an
+E is in practice admitted, not to go looking for a college that is already
+listed.</p>
+
+<h2>Finding 2 — almost nobody publishes a course fee</h2>
+
+<p><strong>14 of 463 course fees in this catalogue
+were published by the institution for that specific course.</strong> Only
+4 of 47 counties contain a single
+one. Every other figure Njia shows is either derived from a published rate — the
+government's consolidated public-TVET fee, a national schedule — or absent
+entirely, and every card says which.</p>
+
+<p>That is a finding about Kenyan fee publication, not about Njia's research.
+A family comparing two colleges is comparing two numbers that mostly do not
+exist in public, which is why the comparison is usually made by phoning around
+and why it so often gets made badly. The <code>fee_published_by_institution</code>
+column in the CSV is the count per county; the
+<a href="/open-data/">full catalogue export</a> carries it per course.</p>
+
+<h2>The table</h2>
+
+
+<p class="tkey">All 47 counties. "Reachable at" counts courses whose published minimum
+that grade clears. Counties with nothing reachable at E are named in bold, and a zero is highlighted only
+in the three columns where it means a learner has nowhere to go — artisan, at E, at D. A zero under Degree
+is ordinary: most counties have no university and are not meant to.</p>
+
+<div class="wrap" tabindex="0" role="region" aria-label="County provision table, scrollable">
+<table>
+  <caption class="visually-hidden">Provision in all 47 counties: institutions, courses by
+  level, lowest published entry grade, courses reachable at E, D and C-, and fees published by the
+  institution.</caption>
+  <thead>
+    <tr>
+      <th scope="col">County</th>
+      <th scope="col" class="n">Inst.</th>
+      <th scope="col" class="n">Courses</th>
+      <th scope="col" class="n">Artisan</th>
+      <th scope="col" class="n">Certificate</th>
+      <th scope="col" class="n">Diploma</th>
+      <th scope="col" class="n">Degree</th>
+      <th scope="col">Lowest entry</th>
+      <th scope="col" class="n">At E</th>
+      <th scope="col" class="n">At D</th>
+      <th scope="col" class="n">At C-</th>
+      <th scope="col" class="n">Fee pub.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><a href="/counties/baringo/">Baringo</a></th>
+      <td class="n">2</td>
+      <td class="n">8</td>
+      <td class="n">6</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>Open entry</td>
+      <td class="n">6</td>
+      <td class="n">6</td>
+      <td class="n">7</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/bomet/">Bomet</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/bungoma/">Bungoma</a></th>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>E</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/busia/">Busia</a></th>
+      <td class="n">2</td>
+      <td class="n">4</td>
+      <td class="n">2</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>Open entry</td>
+      <td class="n">2</td>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/elgeyo-marakwet/">Elgeyo-Marakwet</a></th>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/embu/">Embu</a></th>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/garissa/">Garissa</a></th>
+      <td class="n">2</td>
+      <td class="n">7</td>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+      <td>E</td>
+      <td class="n">2</td>
+      <td class="n">4</td>
+      <td class="n">6</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/homa-bay/">Homa Bay</a></th>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/isiolo/">Isiolo</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/kajiado/">Kajiado</a></th>
+      <td class="n">3</td>
+      <td class="n">5</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">3</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/kakamega/">Kakamega</a></th>
+      <td class="n">5</td>
+      <td class="n">19</td>
+      <td class="n">3</td>
+      <td class="n">4</td>
+      <td class="n">11</td>
+      <td class="n">1</td>
+      <td>D-</td>
+      <td class="n zero">0</td>
+      <td class="n">6</td>
+      <td class="n">15</td>
+      <td class="n">1</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/kericho/">Kericho</a></th>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>E</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/kiambu/">Kiambu</a></th>
+      <td class="n">10</td>
+      <td class="n">19</td>
+      <td class="n">5</td>
+      <td class="n">1</td>
+      <td class="n">7</td>
+      <td class="n">6</td>
+      <td>Open entry</td>
+      <td class="n">5</td>
+      <td class="n">5</td>
+      <td class="n">10</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/kilifi/">Kilifi</a></th>
+      <td class="n">3</td>
+      <td class="n">11</td>
+      <td class="n">2</td>
+      <td class="n">1</td>
+      <td class="n">8</td>
+      <td class="n">0</td>
+      <td>Open entry</td>
+      <td class="n">2</td>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/kirinyaga/">Kirinyaga</a></th>
+      <td class="n">1</td>
+      <td class="n">5</td>
+      <td class="n zero">0</td>
+      <td class="n">5</td>
+      <td class="n">0</td>
+      <td class="n">0</td>
+      <td>D</td>
+      <td class="n zero">0</td>
+      <td class="n">5</td>
+      <td class="n">5</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/kisii/">Kisii</a></th>
+      <td class="n">3</td>
+      <td class="n">6</td>
+      <td class="n">2</td>
+      <td class="n">2</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td>E</td>
+      <td class="n">2</td>
+      <td class="n">2</td>
+      <td class="n">4</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/kisumu/">Kisumu</a></th>
+      <td class="n">5</td>
+      <td class="n">25</td>
+      <td class="n">9</td>
+      <td class="n">6</td>
+      <td class="n">8</td>
+      <td class="n">2</td>
+      <td>E</td>
+      <td class="n">9</td>
+      <td class="n">12</td>
+      <td class="n">21</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/kitui/">Kitui</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/kwale/">Kwale</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/laikipia/">Laikipia</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/lamu/">Lamu</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/machakos/">Machakos</a></th>
+      <td class="n">4</td>
+      <td class="n">21</td>
+      <td class="n zero">0</td>
+      <td class="n">6</td>
+      <td class="n">2</td>
+      <td class="n">13</td>
+      <td>Open entry</td>
+      <td class="n">5</td>
+      <td class="n">5</td>
+      <td class="n">7</td>
+      <td class="n">5</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/makueni/">Makueni</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/mandera/">Mandera</a></th>
+      <td class="n">2</td>
+      <td class="n">9</td>
+      <td class="n">2</td>
+      <td class="n">4</td>
+      <td class="n">3</td>
+      <td class="n">0</td>
+      <td>E</td>
+      <td class="n">2</td>
+      <td class="n">5</td>
+      <td class="n">8</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/marsabit/">Marsabit</a></th>
+      <td class="n">2</td>
+      <td class="n">8</td>
+      <td class="n">4</td>
+      <td class="n">2</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+      <td>E</td>
+      <td class="n">4</td>
+      <td class="n">4</td>
+      <td class="n">7</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/meru/">Meru</a></th>
+      <td class="n">3</td>
+      <td class="n">13</td>
+      <td class="n">3</td>
+      <td class="n">5</td>
+      <td class="n">4</td>
+      <td class="n">1</td>
+      <td>Open entry</td>
+      <td class="n">3</td>
+      <td class="n">6</td>
+      <td class="n">11</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/migori/">Migori</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/mombasa/">Mombasa</a></th>
+      <td class="n">6</td>
+      <td class="n">21</td>
+      <td class="n">6</td>
+      <td class="n">7</td>
+      <td class="n">7</td>
+      <td class="n">1</td>
+      <td>Open entry</td>
+      <td class="n">6</td>
+      <td class="n">11</td>
+      <td class="n">19</td>
+      <td class="n">1</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/murang-a/">Murang'a</a></th>
+      <td class="n">2</td>
+      <td class="n">7</td>
+      <td class="n">5</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>E</td>
+      <td class="n">5</td>
+      <td class="n">5</td>
+      <td class="n">6</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/nairobi/">Nairobi</a></th>
+      <td class="n">29</td>
+      <td class="n">112</td>
+      <td class="n">25</td>
+      <td class="n">35</td>
+      <td class="n">45</td>
+      <td class="n">6</td>
+      <td>Open entry</td>
+      <td class="n">26</td>
+      <td class="n">31</td>
+      <td class="n">89</td>
+      <td class="n">7</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/nakuru/">Nakuru</a></th>
+      <td class="n">6</td>
+      <td class="n">20</td>
+      <td class="n zero">0</td>
+      <td class="n">11</td>
+      <td class="n">8</td>
+      <td class="n">1</td>
+      <td>D</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">17</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/nandi/">Nandi</a></th>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>Open entry</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/narok/">Narok</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/nyamira/">Nyamira</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/nyandarua/">Nyandarua</a></th>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/nyeri/">Nyeri</a></th>
+      <td class="n">4</td>
+      <td class="n">16</td>
+      <td class="n">3</td>
+      <td class="n">5</td>
+      <td class="n">6</td>
+      <td class="n">2</td>
+      <td>Open entry</td>
+      <td class="n">3</td>
+      <td class="n">7</td>
+      <td class="n">13</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/samburu/">Samburu</a></th>
+      <td class="n">2</td>
+      <td class="n">15</td>
+      <td class="n">7</td>
+      <td class="n">5</td>
+      <td class="n">3</td>
+      <td class="n">0</td>
+      <td>E</td>
+      <td class="n">7</td>
+      <td class="n">12</td>
+      <td class="n">15</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/siaya/">Siaya</a></th>
+      <td class="n">3</td>
+      <td class="n">8</td>
+      <td class="n">4</td>
+      <td class="n">2</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+      <td>D-</td>
+      <td class="n zero">0</td>
+      <td class="n">5</td>
+      <td class="n">7</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/taita-taveta/">Taita-Taveta</a></th>
+      <td class="n">3</td>
+      <td class="n">10</td>
+      <td class="n">5</td>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n">2</td>
+      <td>E</td>
+      <td class="n">5</td>
+      <td class="n">5</td>
+      <td class="n">7</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/tana-river/">Tana River</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/tharaka-nithi/">Tharaka-Nithi</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/trans-nzoia/">Trans Nzoia</a></th>
+      <td class="n">2</td>
+      <td class="n">12</td>
+      <td class="n">7</td>
+      <td class="n">4</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>Open entry</td>
+      <td class="n">7</td>
+      <td class="n">10</td>
+      <td class="n">11</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/turkana/">Turkana</a></th>
+      <td class="n">2</td>
+      <td class="n">4</td>
+      <td class="n">2</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>E</td>
+      <td class="n">2</td>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/uasin-gishu/">Uasin Gishu</a></th>
+      <td class="n">5</td>
+      <td class="n">21</td>
+      <td class="n">8</td>
+      <td class="n">6</td>
+      <td class="n">6</td>
+      <td class="n">1</td>
+      <td>E</td>
+      <td class="n">8</td>
+      <td class="n">12</td>
+      <td class="n">19</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/vihiga/">Vihiga</a></th>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>D+</td>
+      <td class="n zero">0</td>
+      <td class="n zero">0</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+    </tr>
+    <tr class="flag">
+      <th scope="row"><a href="/counties/wajir/">Wajir</a></th>
+      <td class="n">2</td>
+      <td class="n">7</td>
+      <td class="n zero">0</td>
+      <td class="n">4</td>
+      <td class="n">3</td>
+      <td class="n">0</td>
+      <td>D</td>
+      <td class="n zero">0</td>
+      <td class="n">3</td>
+      <td class="n">6</td>
+      <td class="n">0</td>
+    </tr>
+    <tr>
+      <th scope="row"><a href="/counties/west-pokot/">West Pokot</a></th>
+      <td class="n">2</td>
+      <td class="n">3</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">0</td>
+      <td>E</td>
+      <td class="n">1</td>
+      <td class="n">1</td>
+      <td class="n">2</td>
+      <td class="n">0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>What this does and does not measure</h2>
+<ul>
+  <li><strong>It measures Njia's catalogue.</strong> 463 courses at
+  142 institutions. It is not the TVETA register and does not
+  claim to be a census of Kenyan provision.</li>
+  <li><strong>"Reachable at E" counts published minimums.</strong> An institution
+  may admit below its published grade; a learner should ring and ask. The column
+  records what is printed, because that is what a learner can check before
+  they travel.</li>
+  <li><strong>There is no employment rate and no salary column,</strong> here or
+  anywhere in Njia, because Kenya does not publish either per course. Any
+  analysis offering you those figures per course is telling you something it
+  cannot know.</li>
+  <li><strong>Fees change and grades change.</strong> Confirm with the
+  institution before anyone acts on a figure.</li>
+</ul>
+
+<h2>Using it</h2>
+<p>Please attribute to Njia and link back. If you are citing a zero, cite it as
+"not listed in Njia's catalogue" rather than "not available in the county" —
+the difference is the whole point of the box at the top.</p>
+
+<footer>
+  <p><a href="/counties/">Browse by county</a> &middot;
+     <a href="/grades/">Browse by grade</a> &middot;
+     <a href="/open-data/">Open data</a> &middot;
+     <a href="/">Njia home</a></p>
+</footer>
+</main>
+</body>
+</html>

@@ -156,7 +156,16 @@ const blindTierTooHigh = blindE.filter((c) => !noArtisanSet.has(c.county));
 
 const totals = {
   courses: COURSES.filter((c) => instById.has(c.institution_id)).length,
-  institutions: INSTITUTIONS.length,
+  /* Institutions that actually carry a course, NOT INSTITUTIONS.length.
+   *
+   * Two register entries — Mount Kenya University and Maseno University — are
+   * listed with no course attached, so the register is 144 and the catalogue is
+   * 142. This said 144 while the table beside it summed to 142, and the app's
+   * own Decide rail said 142: a page whose stated total disagrees with its own
+   * rows, which is the exact failure the prose guard exists to prevent. It got
+   * through because the guard checked the three headline findings and not this
+   * number. Caught by reading the rendered page against the running app. */
+  institutions: counties.reduce((n, c) => n + c.institutions, 0),
   counties: counties.length,
   published: COURSES.filter((c) => feeBasis(c) === 'published').length,
   countiesWithPublished: counties.filter((c) => c.feePublished > 0).length

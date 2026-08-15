@@ -141,6 +141,31 @@ test('every headline figure in the prose matches the catalogue', () => {
     + 'Regenerate with node tools/build-provision-analysis.mjs.');
 });
 
+test('the stated totals agree with the table beneath them', () => {
+  /* Added after the page shipped saying "144 institutions" while its own rows
+     summed to 142 and the app's Decide rail also said 142. Two register entries
+     carry no course, so INSTITUTIONS.length is not the catalogue size — and the
+     figure a reader checks against is the one in the table, not the one in
+     data/institutions.js.
+
+     The headline-figure test above did not catch it because it named the three
+     findings and stopped. Any number stated in prose has to be reconciled
+     against the rows, not just the interesting ones. */
+  const listed = new Set(
+    COURSES.filter((c) => instById.has(c.institution_id)).map((c) => c.institution_id)
+  );
+  const courses = COURSES.filter((c) => instById.has(c.institution_id)).length;
+
+  assert.match(page, new RegExp(`${listed.size}\\s*institutions`),
+    `the page does not state ${listed.size} institutions — the number of institutions that actually `
+    + `carry a course. data/institutions.js holds ${INSTITUTIONS.length} entries, but `
+    + `${INSTITUTIONS.length - listed.size} of them have no course attached, so quoting the register `
+    + "size makes the page's own total disagree with its own rows and with the app's Decide rail.");
+
+  assert.ok(page.includes(`${courses} courses`) || page.includes(`of ${courses}`),
+    `the page no longer states the catalogue size as ${courses} courses`);
+});
+
 test('the CSV agrees with the catalogue row for row', () => {
   const text = fs.readFileSync(csvPath, 'utf8').trim().split('\n');
   const header = text.shift().split(',');

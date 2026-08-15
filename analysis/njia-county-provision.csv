@@ -1,6 +1,6 @@
 county,institutions,courses,artisan,certificate,diploma,degree,lowest_entry,reachable_at_E,reachable_at_D,reachable_at_C_minus,fee_published_by_institution,fee_sourced_any,fee_absent
 Baringo,2,8,6,1,1,0,Open entry,6,6,7,0,8,0
-Bomet,1,2,0,1,1,0,D+,0,0,1,0,2,0
+Bomet,2,8,2,2,4,0,Open entry,2,3,7,0,8,0
 Bungoma,2,3,1,1,1,0,E,1,1,2,0,3,0
 Busia,2,4,2,1,1,0,Open entry,2,2,3,0,4,0
 Elgeyo-Marakwet,2,3,0,1,2,0,D+,0,0,1,0,3,0

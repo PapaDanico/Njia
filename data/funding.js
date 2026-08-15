@@ -95,12 +95,12 @@ const FUNDING_SOURCES = [
     description: 'Constituency-level bursary disbursed to needy secondary, TVET and university students through the local NG-CDF office. Most bursary applications fail on missing documents rather than on merit — assemble the full list below before you start, write in clear CAPITAL letters, and do not submit an incomplete form, because incomplete forms are commonly disqualified outright.',
     coverage: 'Partial tuition, paid directly to the institution', max_amount_kes: 30000,
     eligibility: 'Resident of the constituency, demonstrated financial need; open to secondary, TVET and university students',
-    min_grade: null, application_deadline: 'Varies by constituency — 2025/26 application notices are published on ngcdf.go.ke',
+    min_grade: null, application_deadline: 'A short window in early January, and it is easy to miss — for the 2025/26 cycle forms were issued from 8 December and received only between 5 and 9 January. Watch ngcdf.go.ke and your constituency office from early December',
     website: 'https://ngcdf.go.ke', application_url: null,
     requirements: ['Application form from the local NG-CDF office', 'Fee structure from the institution', 'Admission or continuing-student letter', 'Student national ID or birth certificate', 'Parent/guardian national ID', 'Latest performance report or transcript', 'Form taken back to the school/college to be confirmed and stamped', 'If orphaned or living with disability: death certificate, or a letter from the chief or a community leader'],
     interest_rate: null, repayment_period: null,
     data_confidence: 'verified',
-    verification_note: 'Award range (typically Ksh 5,000-30,000 per student per year, varying by constituency; some constituencies report up to 50,000), payment direct to institutions, and the 2025/26 application cycle confirmed via ngcdf.go.ke public notices and bursary guides, August 2026. Your constituency\'s actual range depends on its allocation — confirm at the local NG-CDF office.'
+    verification_note: 'Award range (typically Ksh 5,000-30,000 per student per year, varying by constituency; some constituencies report up to 50,000), payment direct to institutions, and the 2025/26 application cycle confirmed via ngcdf.go.ke public notices and bursary guides, August 2026. Your constituency\'s actual range depends on its allocation — confirm at the local NG-CDF office. The 2025/26 window is documented in NG-CDF public notices: forms available from the NG-CDF office, bookshops and cyber cafes from 8 December 2025 and downloadable from ngcdf.go.ke/downloads, completed forms received at ward collection centres from 5 January 2026, deadline Friday 9 January 2026, and notices stating that incomplete forms or forms without the prescribed supporting documents are not processed. Dates are set per constituency and per financial year, so treat five days in early January as the pattern to plan around rather than as next cycle\'s date — confirm yours locally.'
   },
   {
     id: 'f006', name: 'County Government Bursary Fund', type: 'bursary',
@@ -182,6 +182,28 @@ const FUNDING_SOURCES = [
     requirements: ['Reference letter from community leader', 'Fee structure', 'Personal interview'],
     interest_rate: null, repayment_period: null,
     data_confidence: 'illustrative'
+  },
+  {
+    id: 'f013',
+    name: 'Finlays Community Trust — TVET Scholarship',
+    type: 'scholarship',
+    description: 'The only scholarship in this list built for a learner with a D. Full tuition for a Level 5 certificate in automotive engineering, building and construction, electrical installation or plumbing technology, plus a start-up toolkit worth Ksh 50,000 on graduation and an industrial attachment at Browns Plantations Kenya. Forty places a year, split between Bomet and Kericho. It takes KCSE candidates from 2022, 2023 and 2024, so leaving school two years ago does not disqualify you.',
+    coverage: 'Full tuition at Belgut TTI (Kericho) or Konoin TTI (Bomet), plus a Ksh 50,000 toolkit on graduation and an attachment placement',
+    max_amount_kes: null,
+    eligibility: 'Resident of Bomet or Kericho County; KCSE 2022, 2023 or 2024 with a mean grade of D or D+; admission secured at Konoin TTI or Belgut TTI',
+    min_grade: 'D',
+    application_deadline: 'Annual cycle — 2026 applications opened for the intake announced August 2026',
+    website: 'https://finlayscommunitytrust.co.ke/tvet-scholarships/',
+    application_url: 'https://finlayscommunitytrust.co.ke/tvet-scholarships/',
+    requirements: [
+      'Proof of residence in Bomet or Kericho County',
+      'KCSE certificate from 2022, 2023 or 2024 showing D or D+',
+      'Admission letter from Konoin TTI or Belgut TTI'
+    ],
+    interest_rate: null,
+    repayment_period: null,
+    data_confidence: 'verified',
+    verification_note: 'Eligibility (Bomet and Kericho residency, KCSE 2022-2024, mean grade D or D+), the four Level 5 course areas, the forty annual places, the Ksh 50,000 graduation toolkit and the Browns Plantations attachment are as published by Finlays Community Trust and cross-reported by Education News, The Star and Kenya News Agency, August 2026, which put the 2026 award at Ksh 8.3-8.7 million across 39-40 students. Reports differ on whether 39 or 40 were awarded in 2026 against a stated forty places a year, so the figure here is the published intake rather than either count. Confirm the current window with the Trust before applying.'
   }
 ];
 

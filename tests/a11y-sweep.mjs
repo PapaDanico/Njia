@@ -65,7 +65,8 @@ const SCHEMES = ['light', 'dark'];
  * shape again. Auditing all 53 would be 212 states for no new markup. */
 const GENERATED = [
   '/counties/nairobi/', '/counties/turkana/', '/counties/',
-  '/grades/d-plain/', '/grades/e/', '/grades/'
+  '/grades/d-plain/', '/grades/e/', '/grades/',
+  '/open-data/'
 ];
 
 const HOWTO = 'Supply them out-of-tree, e.g.\n'

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open data — the whole catalogue, with provenance | Njia</title>
+<meta name="description" content="Download every course Njia lists as CSV or JSON, including how each fee was arrived at. 463 courses, 142 institutions, all 47 counties.">
+<link rel="canonical" href="https://njiacareerpathways.work/open-data/">
+<meta property="og:title" content="Njia open data — the whole catalogue, with provenance">
+<meta property="og:description" content="Every course, fee and entry grade Njia lists, and how each figure was arrived at.">
+<meta property="og:image" content="https://njiacareerpathways.work/icons/og-image.jpg?v=94c5b4cef8">
+<meta property="og:url" content="https://njiacareerpathways.work/open-data/">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+  body { max-width: 62rem; margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .94rem; }
+  th, td { text-align: left; padding: .5rem .5rem .5rem 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .n { font-family: var(--mono); font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; text-align: right; width: 4em; padding-right: .8rem; }
+  .cta { display: inline-block; margin: .4rem .6rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
+         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
+  code { font-family: var(--mono); font-size: .9em; }
+  /* The app stylesheet zeroes paragraph margins and strips list markers,
+     because in the app every block sits inside a component that owns its own
+     spacing. A plain document page has no such component, so without these it
+     renders as one unbroken slab with headings touching the line above and
+     bullets that are not bullets. */
+  p { margin: 0 0 .9rem; }
+  h1 { margin: .3rem 0 .6rem; }
+  h2 { margin: 2rem 0 .6rem; }
+  ul { margin: 0 0 .9rem; padding-left: 1.3rem; }
+  li { list-style: disc; margin-bottom: .45rem; }
+  .lede { font-size: 1.08rem; }
+  .back { display: inline-block; margin-bottom: .5rem; }
+  footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+
+<h1>The whole catalogue, with its provenance</h1>
+
+<p class="lede"><strong>463 courses</strong> at
+142 institutions across
+47 counties, as a single file.</p>
+
+<p>Plenty of places list Kenyan courses and fees. What this file adds is a
+column saying <strong>where each fee came from</strong> — whether the college
+published it, whether it was worked out from a published rate, or whether
+nobody publishes one at all. That column is the reason to use this rather than
+retyping a prospectus.</p>
+
+<p><a class="cta" href="/open-data/njia-catalogue.csv" download>Download CSV</a>
+<a class="cta" href="/open-data/njia-catalogue.json" download>Download JSON</a></p>
+
+<h2>What is in the fee_basis column</h2>
+<table>
+  <thead><tr><th scope="col" class="n">Rows</th><th scope="col">Value</th><th scope="col">Meaning</th></tr></thead>
+  <tbody>
+    <tr><td class="n">14</td><th scope="row"><code>published</code></th><td>The institution publishes this figure for this course.</td></tr>
+    <tr><td class="n">263</td><th scope="row"><code>derived</code></th><td>Worked out by applying a published rate to this course. The rate is sourced; the total was calculated.</td></tr>
+    <tr><td class="n">51</td><th scope="row"><code>illustrative</code></th><td>Sourced, but not the institution's own price for this course.</td></tr>
+    <tr><td class="n">116</td><th scope="row"><code>unpublished</code></th><td>No fee published. The cell is empty — this does not mean free.</td></tr>
+    <tr><td class="n">19</td><th scope="row"><code>unsourced</code></th><td>A figure carrying no citation. Legacy records only; no new record may ship this way.</td></tr>
+  </tbody>
+</table>
+
+<h2>Two empty cells that do not mean what you expect</h2>
+<p>A blank in a spreadsheet reads as "no data" or as zero depending on who is
+looking, and both readings are wrong here.</p>
+<ul>
+  <li><strong>Empty <code>min_grade</code> means open entry</strong> — the course
+  states no minimum. It is the most permissive value, not a missing one. There
+  is an <code>open_entry</code> column carrying yes/no so you never have to
+  infer it from a blank.</li>
+  <li><strong>Empty <code>tuition_kes</code> means no fee could be sourced.</strong>
+  It does not mean free. A course that genuinely costs nothing carries
+  <code>0</code> and says so in its note.</li>
+</ul>
+
+<h2>What is deliberately absent</h2>
+<p>There is no employment rate and no graduate salary column, because Kenya does
+not publish either per course. Rather than print an estimate and label it, Njia
+prints nothing. Any dataset that does offer you those figures per course is
+telling you something it cannot know.</p>
+
+<h2>Using it</h2>
+<p>Please attribute to Njia and link back, and tell readers that fees and entry
+grades change — confirm with the institution before anyone acts on a figure. A
+formal licence has not been chosen yet; if you need specific terms, ask.</p>
+<p>Found something wrong? That is the point of publishing it. Use the feedback
+link in the app and say which <code>course_id</code>.</p>
+
+<footer>
+  <p><a href="/counties/">Browse by county</a> &middot;
+     <a href="/grades/">Browse by grade</a> &middot;
+     <a href="/">Njia home</a></p>
+</footer>
+</main>
+</body>
+</html>

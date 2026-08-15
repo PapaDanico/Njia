@@ -30,6 +30,7 @@ const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
+const { skipInCI } = require('./mtime-guard.js');
 const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
@@ -172,7 +173,9 @@ test('the service worker cache version was bumped for this change', () => {
  * If this fails: node tools/build-icons.mjs, then bump CACHE_VERSION in sw.js,
  * because the icons are served cache-first.
  */
-test('the PNG icons are rebuilt whenever the source mark changes', () => {
+/* Skipped in CI: git does not preserve mtimes, so this comparison has no
+   information there. See tests/mtime-guard.js. */
+test('the PNG icons are rebuilt whenever the source mark changes', skipInCI, () => {
   const svg = path.join(root, 'icons', 'logo-mark.svg');
   const svgTime = fs.statSync(svg).mtimeMs;
   const derived = [
@@ -196,7 +199,7 @@ test('the PNG icons are rebuilt whenever the source mark changes', () => {
  *
  * The lesson is not "remember to rebuild". It is that an artefact with no
  * build step and no guard will drift, and the fix is to give it both. */
-test('every generated raster of the mark is rebuilt when the mark changes', () => {
+test('every generated raster of the mark is rebuilt when the mark changes', skipInCI, () => {
   const svgTime = fs.statSync(path.join(root, 'icons', 'logo-mark.svg')).mtimeMs;
   const derived = [
     'icons/og-image.jpg',
@@ -322,7 +325,7 @@ test('favicon.ico exists and is a real, well-formed icon', () => {
   assert.equal(end, d.length, 'favicon.ico is truncated or has trailing junk');
 });
 
-test('favicon.ico is not older than the mark it is drawn from', () => {
+test('favicon.ico is not older than the mark it is drawn from', skipInCI, () => {
   const svg = fs.statSync(path.join(root, 'icons', 'logo-mark.svg')).mtimeMs;
   const ico = fs.statSync(path.join(root, 'favicon.ico')).mtimeMs;
   assert.ok(ico >= svg,

@@ -717,12 +717,32 @@ const LANDING_TOOLS = {
  * than written as prose — a hardcoded "applications close in May" quietly
  * becomes a lie in June. Sorted by urgency so the thing about to close leads.
  * Falls back to funding deadlines when no placement window is open. */
+/* FILTER ON THE MILLISECONDS, NOT ON daysLeft.
+ *
+ * This filtered on `daysLeft >= 0`, and daysLeft came out of Math.ceil(). For a
+ * window that closed within the last 24 hours the division is a small negative
+ * number, Math.ceil() of which is NEGATIVE ZERO — and `-0 >= 0` is true in
+ * JavaScript, as is `-0 === 0`. So a closed window survived the filter and then
+ * matched the daysLeft === 0 branch below, and the hero rendered:
+ *
+ *     Inter-institutional transfer
+ *     Closes today · closes 2026-08-14
+ *
+ * on 15 August. The row contradicted itself on screen, and the half that a
+ * reader acts on is the urgent one. It was live in production, on the landing
+ * page, above the fold, for exactly one day per expiring window — which is the
+ * one day the error does the most damage, because it is the day after the
+ * deadline that someone still thinks they can make it.
+ *
+ * Filtering on the raw difference means daysLeft is only ever computed for
+ * windows that are genuinely still open, so it cannot be -0. */
 function openPlacementWindows(now = new Date()) {
   if (typeof PLACEMENT_CALENDAR === 'undefined') return [];
   const day = 24 * 60 * 60 * 1000;
   return PLACEMENT_CALENDAR
-    .map((w) => ({ ...w, daysLeft: Math.ceil((new Date(w.closes + 'T23:59:59') - now) / day) }))
-    .filter((w) => new Date(w.opens) <= now && w.daysLeft >= 0)
+    .map((w) => ({ ...w, msLeft: new Date(w.closes + 'T23:59:59') - now }))
+    .filter((w) => new Date(w.opens) <= now && w.msLeft >= 0)
+    .map((w) => ({ ...w, daysLeft: Math.ceil(w.msLeft / day) }))
     .sort((a, b) => a.daysLeft - b.daysLeft);
 }
 

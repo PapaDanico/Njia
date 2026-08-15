@@ -9,11 +9,81 @@
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
 <link rel="stylesheet" href="/css/styles.css">
 <style>
-  body { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.1rem 4rem; }
-  ul.counties { columns: 2; font-size: .95rem; line-height: 1.9; }
-  @media (min-width: 48rem) { ul.counties { columns: 4; } }
+  /* Deliberately minimal and self-contained. These pages reuse the app's
+     stylesheet for colour and type, but none of its layout JavaScript, so
+     they render identically with scripting switched off. */
+  body { max-width: min(96rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  .rail > :first-child { margin-top: 0; }
+  .main > :first-child { margin-top: 0; }
+  h1 { margin-top: .35rem; }
+  .lede { font-size: 1.05rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; }
+  th, td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
+  thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
+  tbody th { font-weight: 600; }
+  /* Level, entry grade, tuition and duration are short fixed tokens — "Artisan",
+     "D-", "Ksh 134,378", "24 mo". Left to wrap they each cost a second line and
+     doubled the height of every row in the table; there is no case where
+     breaking "Ksh 134,378" across two lines helps anyone read it. The course and
+     institution columns are the ones that genuinely need to wrap, and still do.
+
+     Gated, because on a phone it is the wrong trade and measuring said so. At
+     390px the county table went from 647px to 738px wide with nowrap on and the
+     page got no shorter — 13,580px to 13,560px. The rows were never the
+     constraint there, the 390px viewport was, so all nowrap bought was 91px
+     more sideways scrolling inside .wrap. From 48rem up the table fits the
+     screen outright and the second line is pure waste. */
+  @media (min-width: 48rem) { .tok { white-space: nowrap; } }
+  .open { font-weight: 700; }
+  .muted { opacity: .7; }
+  .wrap { overflow-x: auto; }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
+  .back { display: inline-block; margin-bottom: .75rem; }
+  footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
+  /* column-width rather than a column COUNT: a fixed count set at one breakpoint
+     is wrong at every other width, and these lists run from 1 item to 47. */
+  ul.cols { columns: 15rem; column-gap: 2rem; }
+  ul.cols li { break-inside: avoid; }
+
+  /* OPT-IN, AND NOT AT 1024px.
+   *
+   * Both halves of that were learned by measuring rather than reasoned out.
+   *
+   * Opt-in, because the grid targets body and the two index pages are a
+   * heading and a list of links with no rail to put anything in. Applied to
+   * them, their children would have auto-placed into two columns and the
+   * layout would simply have been wrong — so the split is a class the two
+   * table-bearing templates ask for, not something every page inherits.
+   *
+   * And not at 1024px, because the first version of this cut in there and made
+   * the page WORSE: a 20rem rail plus the gap left the Nairobi table 621px,
+   * narrower than the 957px it had before, so it began scrolling sideways and
+   * every row wrapped harder. The document went from 9,099px to 12,074px — a
+   * layout added to reclaim wasted space had spent 3,000px of extra scrolling
+   * to do it. The rail only pays once what is left over still fits the table,
+   * which for a six-column table is about 950px, so the cut is at 85rem. Below
+   * that the page is a single full-width column, which at 1280px is already a
+   * 1,200px table against the old 957px.
+   */
+  @media (min-width: 85rem) {
+    body.split { display: grid; grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+                 column-gap: clamp(2rem, 3vw, 3rem); align-items: start; }
+    /* min-width: 0 or the table's intrinsic width blows the column out and
+       takes the rail's space back, which is the bug this layout exists to fix. */
+    .split .main { min-width: 0; }
+    .split .rail { position: sticky; top: 1.5rem;
+            /* Nairobi lists 29 institutions, which is a rail taller than the
+               viewport — pinned without this, its foot is simply unreachable. */
+            max-height: calc(100vh - 3rem); overflow-y: auto; }
+    .split .rail ul.cols { columns: auto; }
+  }
+
+  /* Forty-seven links and three lines of prose is not a rail-and-content page:
+     no .split here, and a measure that stays readable at any width. */
+  body { max-width: 68rem; }
+  ul.counties { columns: 12rem; column-gap: 2rem; font-size: .95rem; line-height: 1.9; }
+  ul.counties li { break-inside: avoid; }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Njia","url":"https://njiacareerpathways.work/","description":"Free, evidence-based career pathway guidance for Kenyan youth, matched against real Kenyan courses, fees and funding."}</script>
 </head>

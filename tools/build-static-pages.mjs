@@ -86,6 +86,113 @@ const OG_IMAGE = (() => {
 })();
 
 
+/* ONE SHELL, SHARED BY ALL FOUR PAGE TYPES.
+ *
+ * These four templates each carried their own near-identical <style> block —
+ * the same body rule, the same table rule, the same .cta — copied four times.
+ * Three of the four said `max-width: 62rem` and the fourth said 48rem, and
+ * nothing recorded whether that difference was a decision or a slip.
+ *
+ * WHAT 62rem COST. Measured at 1600px: the content column was 957px and the
+ * page left ~320px of empty cream down each shoulder — 40% of the viewport
+ * unused. That would merely be plain if the content were comfortable, and it
+ * was not: inside those 957px the six-column county table wrapped "Open entry"
+ * onto two lines, wrapped "Not published" onto two lines, wrapped "Ksh 134,378"
+ * onto two lines, and wrapped nearly every institution name. Every row cost two
+ * line-heights instead of one, so the Nairobi page ran to 7,800px of table.
+ * The blank space was not the price of a comfortable measure — the reader was
+ * paying for the margins twice, once in emptiness and once in scrolling.
+ *
+ * THE FIX IS NOT SIMPLY "WIDER". A 1500px line of prose is unreadable, so the
+ * shell does not just uncap. It splits: a sticky rail holds the things a reader
+ * refers back to (the heading, what the page contains, the calls to action, and
+ * the county's institutions or the grade page's jump list), and the main column
+ * holds the table. Prose keeps a sane measure because the rail caps at 18rem;
+ * the table gets ~1130px because it is the thing that actually needed the room.
+ * The rail earns its place rather than filling space: on a page that scrolls
+ * for 6,000px, the "filter these by your grade" button and the list of
+ * institutions stay on screen instead of being left behind at the top.
+ *
+ * This is the same rail-plus-content shape .landing-block already uses in the
+ * app at 1024px+, so the static pages now read as part of the same site rather
+ * than as a separate, narrower one.
+ *
+ * Below the split breakpoint nothing changes structurally: the grid does not
+ * apply, the rail and the main column are ordinary blocks in source order, and
+ * the page reads top to bottom exactly as it did.
+ */
+const SHELL_CSS = `
+  /* Deliberately minimal and self-contained. These pages reuse the app's
+     stylesheet for colour and type, but none of its layout JavaScript, so
+     they render identically with scripting switched off. */
+  body { max-width: min(96rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  .rail > :first-child { margin-top: 0; }
+  .main > :first-child { margin-top: 0; }
+  h1 { margin-top: .35rem; }
+  .lede { font-size: 1.05rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; }
+  th, td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
+  thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
+  tbody th { font-weight: 600; }
+  /* Level, entry grade, tuition and duration are short fixed tokens — "Artisan",
+     "D-", "Ksh 134,378", "24 mo". Left to wrap they each cost a second line and
+     doubled the height of every row in the table; there is no case where
+     breaking "Ksh 134,378" across two lines helps anyone read it. The course and
+     institution columns are the ones that genuinely need to wrap, and still do.
+
+     Gated, because on a phone it is the wrong trade and measuring said so. At
+     390px the county table went from 647px to 738px wide with nowrap on and the
+     page got no shorter — 13,580px to 13,560px. The rows were never the
+     constraint there, the 390px viewport was, so all nowrap bought was 91px
+     more sideways scrolling inside .wrap. From 48rem up the table fits the
+     screen outright and the second line is pure waste. */
+  @media (min-width: 48rem) { .tok { white-space: nowrap; } }
+  .open { font-weight: 700; }
+  .muted { opacity: .7; }
+  .wrap { overflow-x: auto; }
+  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
+         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
+  .back { display: inline-block; margin-bottom: .75rem; }
+  footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
+  /* column-width rather than a column COUNT: a fixed count set at one breakpoint
+     is wrong at every other width, and these lists run from 1 item to 47. */
+  ul.cols { columns: 15rem; column-gap: 2rem; }
+  ul.cols li { break-inside: avoid; }
+
+  /* OPT-IN, AND NOT AT 1024px.
+   *
+   * Both halves of that were learned by measuring rather than reasoned out.
+   *
+   * Opt-in, because the grid targets body and the two index pages are a
+   * heading and a list of links with no rail to put anything in. Applied to
+   * them, their children would have auto-placed into two columns and the
+   * layout would simply have been wrong — so the split is a class the two
+   * table-bearing templates ask for, not something every page inherits.
+   *
+   * And not at 1024px, because the first version of this cut in there and made
+   * the page WORSE: a 20rem rail plus the gap left the Nairobi table 621px,
+   * narrower than the 957px it had before, so it began scrolling sideways and
+   * every row wrapped harder. The document went from 9,099px to 12,074px — a
+   * layout added to reclaim wasted space had spent 3,000px of extra scrolling
+   * to do it. The rail only pays once what is left over still fits the table,
+   * which for a six-column table is about 950px, so the cut is at 85rem. Below
+   * that the page is a single full-width column, which at 1280px is already a
+   * 1,200px table against the old 957px.
+   */
+  @media (min-width: 85rem) {
+    body.split { display: grid; grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+                 column-gap: clamp(2rem, 3vw, 3rem); align-items: start; }
+    /* min-width: 0 or the table's intrinsic width blows the column out and
+       takes the rail's space back, which is the bug this layout exists to fix. */
+    .split .main { min-width: 0; }
+    .split .rail { position: sticky; top: 1.5rem;
+            /* Nairobi lists 29 institutions, which is a rail taller than the
+               viewport — pinned without this, its foot is simply unreachable. */
+            max-height: calc(100vh - 3rem); overflow-y: auto; }
+    .split .rail ul.cols { columns: auto; }
+  }
+`;
+
 const LEVEL_LABEL = {
   artisan: 'Artisan', certificate: 'Certificate', diploma: 'Diploma',
   degree: 'Degree', short_course: 'Short course'
@@ -150,10 +257,10 @@ function coursePage(county, rows) {
         <tr>
           <th scope="row">${esc(c.name)}</th>
           <td>${esc(i.name)}</td>
-          <td>${esc(LEVEL_LABEL[c.level] || c.level)}</td>
-          <td>${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
-          <td>${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td>
-          <td>${c.duration_months} mo</td>
+          <td class="tok">${esc(LEVEL_LABEL[c.level] || c.level)}</td>
+          <td class="tok">${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
+          <td class="tok">${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td>
+          <td class="tok">${c.duration_months} mo</td>
         </tr>`).join('');
 
   /* ItemList of Course, which is what this page actually is. Only fields that
@@ -195,33 +302,22 @@ function coursePage(county, rows) {
 <meta property="og:type" content="article">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
 <link rel="stylesheet" href="/css/styles.css">
-<style>
-  /* Deliberately minimal and self-contained. These pages reuse the app's
-     stylesheet for colour and type, but none of its layout JavaScript, so
-     they render identically with scripting switched off. */
-  body { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.1rem 4rem; }
-  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; }
-  th, td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
-  thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
-  tbody th { font-weight: 600; }
-  .open { font-weight: 700; }
-  .muted { opacity: .7; }
-  .wrap { overflow-x: auto; }
-  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
-         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
-  .back { display: inline-block; margin-bottom: 1rem; }
-  footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
-  ul.counties { columns: 2; font-size: .9rem; }
-  @media (min-width: 48rem) { ul.counties { columns: 4; } }
+<style>${SHELL_CSS}
+  .rail h2 { font-size: 1rem; margin: 1.6rem 0 .4rem; }
+  .rail ul { font-size: .88rem; line-height: 1.5; padding-left: 1.1rem; }
+  .rail ul li { margin-bottom: .3rem; }
+  caption { text-align: left; font-size: .85rem; opacity: .75; padding-bottom: .4rem; }
 </style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
-<body>
+<body class="split">
+
+<div class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses in ${esc(county)} County</h1>
 
-<p><strong>${rows.length} course${rows.length === 1 ? '' : 's'}</strong> at
+<p class="lede"><strong>${rows.length} course${rows.length === 1 ? '' : 's'}</strong> at
 ${institutions.length} institution${institutions.length === 1 ? '' : 's'}, covering
 ${clusters.map((c) => esc(CLUSTER_LABEL[c] || c)).join(', ')}.</p>
 
@@ -230,18 +326,24 @@ ${clusters.map((c) => esc(CLUSTER_LABEL[c] || c)).join(', ')}.</p>
 <p><a class="cta" href="/#decide">Filter these by your grade and budget &rarr;</a>
 <a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 
+<!-- Moved up out of the page foot. Sitting below the table it was a bulleted
+     list one item to a line under 7,800px of rows, which meant nobody reading
+     a course ever saw it; beside the table it answers "who actually runs these"
+     while the reader is looking at the answer. -->
+<h2>Institutions in ${esc(county)}</h2>
+<ul class="cols">${institutions.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
+</div>
+
+<div class="main">
 <div class="wrap">
 <table>
   <caption>Every course Njia lists in ${esc(county)} County, lowest entry requirement first.</caption>
-  <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col">Level</th>
-  <th scope="col">Min grade</th><th scope="col">Tuition</th><th scope="col">Duration</th></tr></thead>
+  <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col" class="tok">Level</th>
+  <th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th><th scope="col" class="tok">Duration</th></tr></thead>
   <tbody>${rowsHtml}
   </tbody>
 </table>
 </div>
-
-<h2>Institutions in ${esc(county)}</h2>
-<ul>${institutions.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
 
 <h2>About these figures</h2>
 <p>Fees are tuition only and most are worked out by applying a published rate to the
@@ -256,6 +358,7 @@ publish that data and an invented figure is worse than a missing one.</p>
      <a href="/">Njia home</a> &middot;
      Free, no signup, works offline.</p>
 </footer>
+</div>
 </body>
 </html>
 `;
@@ -281,12 +384,12 @@ function indexPage(counties) {
 <link rel="canonical" href="${SITE}/counties/">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
 <link rel="stylesheet" href="/css/styles.css">
-<style>
-  body { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.1rem 4rem; }
-  ul.counties { columns: 2; font-size: .95rem; line-height: 1.9; }
-  @media (min-width: 48rem) { ul.counties { columns: 4; } }
-  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
-         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
+<style>${SHELL_CSS}
+  /* Forty-seven links and three lines of prose is not a rail-and-content page:
+     no .split here, and a measure that stays readable at any width. */
+  body { max-width: 68rem; }
+  ul.counties { columns: 12rem; column-gap: 2rem; font-size: .95rem; line-height: 1.9; }
+  ul.counties li { break-inside: avoid; }
 </style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
@@ -358,17 +461,28 @@ function gradePage(grade, rows) {
     const inCounty = rows.filter((r) => r.inst.county === county)
       .sort((a, b) => a.course.name.localeCompare(b.course.name));
     return `
-  <h3>${esc(county)} <span class="count">${inCounty.length}</span></h3>
+  <h3 id="c-${slug(county)}">${esc(county)} <span class="count">${inCounty.length}</span></h3>
   <div class="wrap"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
-    <th scope="col">Level</th><th scope="col">Min grade</th><th scope="col">Tuition</th></tr></thead>
+    <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>${inCounty.map(({ course: c, inst: i }) => `
       <tr><th scope="row">${esc(c.name)}</th><td>${esc(i.name)}</td>
-      <td>${esc(LEVEL_LABEL[c.level] || c.level)}</td>
-      <td>${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
-      <td>${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td></tr>`).join('')}
+      <td class="tok">${esc(LEVEL_LABEL[c.level] || c.level)}</td>
+      <td class="tok">${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
+      <td class="tok">${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td></tr>`).join('')}
     </tbody>
   </table></div>`;
+  }).join('');
+
+  /* THE RAIL EARNS ITS SPACE HERE.
+     A grade page is a stack of per-county tables — 21 of them on D plain — and
+     the reader's second question, immediately after "what can I do at all", is
+     "what can I do near me". Until now that meant scrolling several thousand
+     pixels looking for a county heading. The rail was going to be mostly empty
+     beside a page this long, so it holds the answer instead. */
+  const jump = counties.map((c) => {
+    const n = rows.filter((r) => r.inst.county === c).length;
+    return `<li><a href="#c-${slug(c)}">${esc(c)}</a> <span class="count">${n}</span></li>`;
   }).join('');
 
   const ld = {
@@ -402,25 +516,28 @@ function gradePage(grade, rows) {
 <meta property="og:type" content="article">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
 <link rel="stylesheet" href="/css/styles.css">
-<style>
-  body { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.1rem 4rem; }
-  table { width: 100%; border-collapse: collapse; margin: .6rem 0 1.4rem; font-size: .92rem; }
-  th, td { text-align: left; padding: .5rem .45rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
-  thead th { font-size: .76rem; text-transform: uppercase; letter-spacing: .07em; }
-  tbody th { font-weight: 600; }
-  h3 { margin-top: 1.8rem; }
+<style>${SHELL_CSS}
+  table { margin: .6rem 0 1.4rem; font-size: .92rem; }
+  th, td { padding: .5rem .45rem; }
+  thead th { font-size: .76rem; }
+  h3 { margin-top: 1.8rem; scroll-margin-top: 1.5rem; }
   .count { font-size: .8rem; font-weight: 400; opacity: .7; }
-  .open { font-weight: 700; }
-  .muted { opacity: .7; }
-  .wrap { overflow-x: auto; }
-  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
-         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
-  .lede { font-size: 1.05rem; }
+  .rail h2 { font-size: 1rem; margin: 1.6rem 0 .4rem; }
+  /* One county to a line is right in the rail and wrong on a phone, where the
+     rail is not a rail — it is the top of the page, and 21 stacked links cost
+     628px before the reader reaches a single course. Wrapped inline it costs
+     about a quarter of that and still does the job, which on a 21,000px page
+     matters more on the small screen than the large one. */
+  .jump { list-style: none; padding: 0; font-size: .9rem; line-height: 1.55;
+          display: flex; flex-wrap: wrap; gap: 0 .9rem; }
+  @media (min-width: 85rem) { .jump { display: block; } .jump li { margin-bottom: .25rem; } }
 </style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
-<body>
-<a href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<body class="split">
+
+<div class="rail">
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses you can do with ${GRADE_ARTICLE(grade)} ${esc(phrase)}</h1>
 
@@ -435,6 +552,11 @@ single annual window, so a closed university deadline is not the end of the cycl
 <p><a class="cta" href="/#decide">Filter these by county and budget &rarr;</a>
 <a class="cta" href="/#discover">Find which of them suits you</a></p>
 
+<h2>Jump to a county</h2>
+<ul class="jump">${jump}</ul>
+</div>
+
+<div class="main">
 ${groups}
 
 <h2>About these figures</h2>
@@ -447,6 +569,7 @@ Confirm both with the institution before you decide.</p>
   <p><a href="/grades/">All grades</a> &middot; <a href="/counties/">Browse by county</a> &middot;
      <a href="/">Njia home</a></p>
 </footer>
+</div>
 </body>
 </html>
 `;
@@ -463,11 +586,10 @@ function gradeIndexPage(grades) {
 <link rel="canonical" href="${SITE}/grades/">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
 <link rel="stylesheet" href="/css/styles.css">
-<style>
-  body { max-width: 48rem; margin: 0 auto; padding: 1.5rem 1.1rem 4rem; }
+<style>${SHELL_CSS}
+  /* Seven links: a single measure, like the county index. */
+  body { max-width: 52rem; }
   li { margin: .5rem 0; font-size: 1.02rem; }
-  .cta { display: inline-block; margin: .5rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
-         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
 </style>
 </head>
 <body>

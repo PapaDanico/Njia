@@ -2720,9 +2720,24 @@ p, li { text-wrap: pretty; }
   .landing-block > .landing-block-head .landing-h2-sub { margin-bottom: 0; }
   .landing-block > :not(.landing-block-head) { grid-column: 2; }
 
-  /* The hero, the quote and the closing call to action are full-bleed
-     statements, not heading-plus-content sections — they keep one column. */
-  .landing-hero, .landing-quote-section, .landing-final-cta { display: block; }
+  /* The quote and the closing call to action are full-bleed statements, not
+     heading-plus-content sections, so they keep one column.
+
+     THE HERO IS NOT IN THAT LIST, AND USED TO BE.
+
+     It has its own two-up layout — headline and CTAs left, the Application
+     Clock as a sidecar right — declared forty lines above in this same media
+     query. Listing it here overrode that with display: block, so the hero was
+     a genuine two-column grid at 768-1023px and collapsed back to a single
+     column on every desktop, which is the opposite of the intent and the
+     opposite of where the room is. At 1600px it left roughly half the viewport
+     as empty gradient while the sub-copy wrapped in a 570px column.
+
+     The reset was never needed here in the first place: .landing-hero does not
+     carry .landing-block, so the rail grid above could not have applied to it.
+     It was defensive, over-broad, and cost the hero its layout on the widest
+     screens for as long as both rules have existed. */
+  .landing-quote-section, .landing-final-cta { display: block; }
 }
 
 /* ---------- Desktop: stop stretching small things across the whole screen ----

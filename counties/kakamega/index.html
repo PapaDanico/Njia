@@ -41,7 +41,16 @@
   @media (min-width: 48rem) { .tok { white-space: nowrap; } }
   .open { font-weight: 700; }
   .muted { opacity: .7; }
+  /* tabindex="0" is not decoration. A table wider than the viewport scrolls
+     sideways inside this box, and a scroll container that cannot take focus
+     cannot be scrolled by keyboard — so at 390px a keyboard-only reader could
+     not reach the Tuition or Duration columns at all. axe rates it serious and
+     found 76 instances across the generated pages, 21 of them on the D-plain
+     grade page alone. The role and label come with it because a focus stop
+     with no accessible name announces as nothing. Set in the markup rather
+     than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
+  .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
@@ -82,6 +91,10 @@
                viewport — pinned without this, its foot is simply unreachable. */
             max-height: calc(100vh - 3rem); overflow-y: auto; }
     .split .rail ul.cols { columns: auto; }
+    /* The footer is a body-level landmark now (contentinfo), which makes it a
+       third grid child — without this it would drop into the rail's column
+       under the sticky box instead of closing the page across it. */
+    .split > footer { grid-column: 1 / -1; }
   }
 
   .rail h2 { font-size: 1rem; margin: 1.6rem 0 .4rem; }
@@ -93,7 +106,7 @@
 </head>
 <body class="split">
 
-<div class="rail">
+<aside class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses in Kakamega County</h1>
@@ -113,10 +126,10 @@ Caring and health, Business, Numbers and analysis, Technical trades, Creative an
      while the reader is looking at the answer. -->
 <h2>Institutions in Kakamega</h2>
 <ul class="cols"><li>Bukura Agricultural College</li><li>Kenya Medical Training College (KMTC) — Kakamega Campus</li><li>Masinde Muliro University of Science and Technology (MMUST)</li><li>Sigalagala National Polytechnic</li><li>St. Augustine Teachers Training College, Eregi</li></ul>
-</div>
+</aside>
 
-<div class="main">
-<div class="wrap">
+<main class="main">
+<div class="wrap" tabindex="0" role="region" aria-label="Course table for Kakamega County">
 <table>
   <caption>Every course Njia lists in Kakamega County, lowest entry requirement first.</caption>
   <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col" class="tok">Level</th>
@@ -285,12 +298,12 @@ which on every card, and never shows a figure it cannot source. Entry grades and
 change; confirm with the institution before you decide anything.</p>
 <p>Njia does not publish employment rates or salaries per course, because Kenya does not
 publish that data and an invented figure is worse than a missing one.</p>
+</main>
 
 <footer>
   <p><a href="/counties/">All 47 counties</a> &middot;
      <a href="/">Njia home</a> &middot;
      Free, no signup, works offline.</p>
 </footer>
-</div>
 </body>
 </html>

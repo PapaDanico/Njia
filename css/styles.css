@@ -2957,3 +2957,133 @@ p, li { text-wrap: pretty; }
    the numbers card: four violations, one per scheme and breakpoint, on a link
    that looked obviously like a link to anyone who can see the colour. */
 .landing-numbers-note a { text-decoration: underline; text-underline-offset: 0.18em; }
+
+
+/* ---------- Dark scheme WITHOUT JavaScript -----------------------------
+ *
+ * Every rule above is keyed to data-theme="dark", which an inline script in
+ * index.html stamps pre-paint from localStorage or the system preference. The
+ * app therefore has a dark scheme and the 53 GENERATED PAGES DO NOT — they
+ * carry no script by design, so the attribute is never stamped and a county or
+ * grade page renders cream at midnight on a phone that asked for dark.
+ *
+ * Those are the pages a learner arriving from a search engine meets first, so
+ * this is not a corner of the site.
+ *
+ * The mirror below is keyed to :not([data-theme]) — NO ATTRIBUTE AT ALL —
+ * rather than :not([data-theme="light"]). That distinction is the whole safety
+ * argument: the app always stamps the attribute to one of "light" or "dark"
+ * before first paint, so these rules can never match inside the app and cannot
+ * disturb any of the 32 audited states. They match only a page that has no
+ * stamp, which is exactly and only the generated pages.
+ *
+ * It duplicates declarations, which is a real cost, so tests/theme.test.js
+ * fails the build if the two sets ever drift apart. Adding a dark rule above
+ * without a twin here is the failure mode that guard exists to catch — it
+ * would look fine in the app and be silently missing on 53 pages.
+ *
+ * GENERATED SHAPE, HAND-CHECKED: only selector parts that actually begin with
+ * :root[data-theme="dark"] are mirrored. The .logo-mark rule is a list whose
+ * other two parts (.landing-hero-logo, .landing-footer .logo-mark) are
+ * unconditional already, and mirroring those would have been a no-op at best.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    /* The brand sheet's dark variant grounds everything on Earth Brown, so
+     * the page sits a shade below it and cards come up to #3D1C02 itself.
+     * Terracotta cannot carry text here — it measures 1.73:1 on earth brown —
+     * so the action colour lifts toward the Ochre Gold end, which measures
+     * 5.03:1 on that ground. This is the same identity, not a second one. */
+    --primary: #E09A3C;
+    --primary-dark: #EDB765;
+    --primary-light: #4A2608;
+    --primary-deep: #C8860A;
+    --primary-soft: rgba(224, 154, 60, 0.15);
+    --secondary: #8FBF6A;
+    --accent-ink: #E8B871;
+    --danger: #E8776A;
+
+    --bg: #241002;
+    --bg-elevated: #3D1C02;    /* Earth Brown */
+    --bg-card: #4A2608;
+    --bg-input: #56300E;
+
+    --text-primary: #F5E9D4;   /* Warm Cream */
+    --text-secondary: #DDCCAE;
+    --text-muted: #BFA783;
+
+    --border: #56300E;
+    --border-light: #6B4114;
+
+    --ink: #F5E9D4;
+    --ink-contrast: #241002;
+    --on-fill: #241002;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 14px rgba(0, 0, 0, 0.25);
+
+    --success-soft: rgba(143, 191, 106, 0.16);
+    --success-ink: #A8D186;
+    --success-border: rgba(143, 191, 106, 0.4);
+    --warn-soft: rgba(232, 184, 113, 0.14);
+    --warn-ink: #E8B871;
+    --warn-border: rgba(232, 184, 113, 0.45);
+    --danger-soft: rgba(232, 119, 106, 0.14);
+    --danger-ink: #F0A197;
+    --danger-border: rgba(232, 119, 106, 0.4);
+
+    --cluster-carer-ink: #f191b9;
+    --cluster-creator-ink: #e3b075;
+    --cluster-business-ink: #a5c583;
+    --cluster-tech-ink: #74c6e6;
+    --cluster-people-ink: #bba4f2;
+    --cluster-numbers-ink: #eb9a8e;
+    --cluster-maker-ink: #86d3c7;
+
+    --plan-life1: #6fc3e4;
+    --plan-life2: #a5c583;
+    --plan-life3: #e3b075;
+
+    --ink-veil: rgba(240, 236, 227, 0.1);
+    --scrim: rgba(0, 0, 0, 0.6);
+    --header-veil: rgba(22, 19, 15, 0.92);
+
+    color-scheme: dark;
+  }
+
+  :root:not([data-theme]) #page-home {
+    --landing-bg: #16130f;
+    --landing-card: #201c16;
+    --landing-ink: #F5E9D4;
+    --landing-ink-muted: #C9B693;
+    --landing-border: #37312a;
+  }
+
+  :root:not([data-theme]) .logo-mark {
+   --mark-edge: #F5E9D4; 
+  }
+
+  :root:not([data-theme]) .card {
+   border-color: var(--border); 
+  }
+
+  :root:not([data-theme]) .brand-rule {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='11' viewBox='0 0 36 11'%3E%3Cpath d='M0 1h36' stroke='%23F5E9D4' stroke-width='1.2'/%3E%3Cpath d='M0 10h36' stroke='%23F5E9D4' stroke-width='1.2'/%3E%3Cpath d='M0 2.4h9L4.5 8.6Z' fill='%238B2500'/%3E%3Cpath d='M9 8.6h9L13.5 2.4Z' fill='%23C8860A'/%3E%3Cpath d='M18 2.4h9l-4.5 6.2Z' fill='%23F5E9D4'/%3E%3Cpath d='M27 8.6h9l-4.5-6.2Z' fill='%232D5A1B'/%3E%3Ccircle cx='9' cy='5.5' r='1' fill='%23F5E9D4'/%3E%3Ccircle cx='27' cy='5.5' r='1' fill='%23F5E9D4'/%3E%3C/svg%3E");
+  }
+
+  :root:not([data-theme]) ::selection {
+   background: rgba(200, 134, 10, 0.28); color: #F5E9D4; 
+  }
+
+  :root:not([data-theme]) :where(a {
+    outline-color: #E09A3C;
+  }
+
+  :root:not([data-theme]) body {
+    background-image:
+      radial-gradient(rgba(245, 233, 212, 0.030) 0.5px, transparent 0.5px),
+      radial-gradient(rgba(245, 233, 212, 0.020) 0.5px, transparent 0.5px);
+  }
+}

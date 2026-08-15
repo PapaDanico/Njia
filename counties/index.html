@@ -36,7 +36,16 @@
   @media (min-width: 48rem) { .tok { white-space: nowrap; } }
   .open { font-weight: 700; }
   .muted { opacity: .7; }
+  /* tabindex="0" is not decoration. A table wider than the viewport scrolls
+     sideways inside this box, and a scroll container that cannot take focus
+     cannot be scrolled by keyboard — so at 390px a keyboard-only reader could
+     not reach the Tuition or Duration columns at all. axe rates it serious and
+     found 76 instances across the generated pages, 21 of them on the D-plain
+     grade page alone. The role and label come with it because a focus stop
+     with no accessible name announces as nothing. Set in the markup rather
+     than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
+  .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
@@ -77,6 +86,10 @@
                viewport — pinned without this, its foot is simply unreachable. */
             max-height: calc(100vh - 3rem); overflow-y: auto; }
     .split .rail ul.cols { columns: auto; }
+    /* The footer is a body-level landmark now (contentinfo), which makes it a
+       third grid child — without this it would drop into the rail's column
+       under the sticky box instead of closing the page across it. */
+    .split > footer { grid-column: 1 / -1; }
   }
 
   /* Forty-seven links and three lines of prose is not a rail-and-content page:
@@ -88,7 +101,8 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Njia","url":"https://njiacareerpathways.work/","description":"Free, evidence-based career pathway guidance for Kenyan youth, matched against real Kenyan courses, fees and funding."}</script>
 </head>
 <body>
-<a href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 <h1>Courses by county</h1>
 <p>436 courses at 133 institutions across all
 47 counties, with the entry grade and fee on every one.</p>
@@ -142,5 +156,6 @@
   <li><a href="/counties/wajir/">Wajir</a></li>
   <li><a href="/counties/west-pokot/">West Pokot</a></li>
 </ul>
+</main>
 </body>
 </html>

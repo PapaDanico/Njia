@@ -149,7 +149,16 @@ const SHELL_CSS = `
   @media (min-width: 48rem) { .tok { white-space: nowrap; } }
   .open { font-weight: 700; }
   .muted { opacity: .7; }
+  /* tabindex="0" is not decoration. A table wider than the viewport scrolls
+     sideways inside this box, and a scroll container that cannot take focus
+     cannot be scrolled by keyboard — so at 390px a keyboard-only reader could
+     not reach the Tuition or Duration columns at all. axe rates it serious and
+     found 76 instances across the generated pages, 21 of them on the D-plain
+     grade page alone. The role and label come with it because a focus stop
+     with no accessible name announces as nothing. Set in the markup rather
+     than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
+  .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
@@ -190,6 +199,10 @@ const SHELL_CSS = `
                viewport — pinned without this, its foot is simply unreachable. */
             max-height: calc(100vh - 3rem); overflow-y: auto; }
     .split .rail ul.cols { columns: auto; }
+    /* The footer is a body-level landmark now (contentinfo), which makes it a
+       third grid child — without this it would drop into the rail's column
+       under the sticky box instead of closing the page across it. */
+    .split > footer { grid-column: 1 / -1; }
   }
 `;
 
@@ -312,7 +325,7 @@ function coursePage(county, rows) {
 </head>
 <body class="split">
 
-<div class="rail">
+<aside class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses in ${esc(county)} County</h1>
@@ -332,10 +345,10 @@ ${clusters.map((c) => esc(CLUSTER_LABEL[c] || c)).join(', ')}.</p>
      while the reader is looking at the answer. -->
 <h2>Institutions in ${esc(county)}</h2>
 <ul class="cols">${institutions.map((n) => `<li>${esc(n)}</li>`).join('')}</ul>
-</div>
+</aside>
 
-<div class="main">
-<div class="wrap">
+<main class="main">
+<div class="wrap" tabindex="0" role="region" aria-label="Course table for ${esc(county)} County">
 <table>
   <caption>Every course Njia lists in ${esc(county)} County, lowest entry requirement first.</caption>
   <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col" class="tok">Level</th>
@@ -352,13 +365,13 @@ which on every card, and never shows a figure it cannot source. Entry grades and
 change; confirm with the institution before you decide anything.</p>
 <p>Njia does not publish employment rates or salaries per course, because Kenya does not
 publish that data and an invented figure is worse than a missing one.</p>
+</main>
 
 <footer>
   <p><a href="/counties/">All 47 counties</a> &middot;
      <a href="/">Njia home</a> &middot;
      Free, no signup, works offline.</p>
 </footer>
-</div>
 </body>
 </html>
 `;
@@ -394,7 +407,8 @@ function indexPage(counties) {
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body>
-<a href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 <h1>Courses by county</h1>
 <p>${total} courses at ${new Set(COURSES.map((c) => c.institution_id)).size} institutions across all
 ${counties.length} counties, with the entry grade and fee on every one.</p>
@@ -402,6 +416,7 @@ ${counties.length} counties, with the entry grade and fee on every one.</p>
 <ul class="counties">
 ${counties.map((c) => `  <li><a href="/counties/${slug(c)}/">${esc(c)}</a></li>`).join('\n')}
 </ul>
+</main>
 </body>
 </html>
 `;
@@ -462,7 +477,7 @@ function gradePage(grade, rows) {
       .sort((a, b) => a.course.name.localeCompare(b.course.name));
     return `
   <h3 id="c-${slug(county)}">${esc(county)} <span class="count">${inCounty.length}</span></h3>
-  <div class="wrap"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in ${esc(county)}"><table>
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>${inCounty.map(({ course: c, inst: i }) => `
@@ -536,7 +551,7 @@ function gradePage(grade, rows) {
 </head>
 <body class="split">
 
-<div class="rail">
+<aside class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses you can do with ${GRADE_ARTICLE(grade)} ${esc(phrase)}</h1>
@@ -554,9 +569,9 @@ single annual window, so a closed university deadline is not the end of the cycl
 
 <h2>Jump to a county</h2>
 <ul class="jump">${jump}</ul>
-</div>
+</aside>
 
-<div class="main">
+<main class="main">
 ${groups}
 
 <h2>About these figures</h2>
@@ -569,7 +584,6 @@ Confirm both with the institution before you decide.</p>
   <p><a href="/grades/">All grades</a> &middot; <a href="/counties/">Browse by county</a> &middot;
      <a href="/">Njia home</a></p>
 </footer>
-</div>
 </body>
 </html>
 `;
@@ -593,7 +607,8 @@ function gradeIndexPage(grades) {
 </style>
 </head>
 <body>
-<a href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 <h1>What can I study with my KCSE grade?</h1>
 <p><strong>TVET placement takes any grade, A to E</strong>, from anyone who sat KCSE from 2000
 onward, and intake runs continuously. Pick your grade to see every course Njia lists that
@@ -604,6 +619,7 @@ ${grades.map(([g, n]) => `  <li><a href="/grades/${GRADE_SLUG[g]}/">${esc(GRADE_
 <p>Grades above C+ are not listed separately because almost the whole catalogue is open to
 them — <a href="/#decide">use Decide</a> to filter by county, budget and interest instead.</p>
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
+</main>
 </body>
 </html>
 `;

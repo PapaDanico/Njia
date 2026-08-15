@@ -204,6 +204,27 @@ const FUNDING_SOURCES = [
     repayment_period: null,
     data_confidence: 'verified',
     verification_note: 'Eligibility (Bomet and Kericho residency, KCSE 2022-2024, mean grade D or D+), the four Level 5 course areas, the forty annual places, the Ksh 50,000 graduation toolkit and the Browns Plantations attachment are as published by Finlays Community Trust and cross-reported by Education News, The Star and Kenya News Agency, August 2026, which put the 2026 award at Ksh 8.3-8.7 million across 39-40 students. Reports differ on whether 39 or 40 were awarded in 2026 against a stated forty places a year, so the figure here is the published intake rather than either count. Confirm the current window with the Trust before applying.'
+  },
+  {
+    id: 'f014',
+    name: 'M-PESA Foundation — University of Embu TVET Scholarship',
+    type: 'scholarship',
+    description: 'Nationwide and built for the trades: 1,300 places across all 47 counties, covering full programme fees plus a monthly stipend for accommodation and upkeep, at the University of Embu TVET Institute. Craft certificates and diplomas in cosmetology, building and construction, mobile and electronic repairs, repair of two- and three-wheeled vehicles, electrical installation and maintenance, advanced welding, culinary arts and IT. The entry route matters as much as the money: alongside a KCSE mean grade of D plain, the Institute accepts a certificate in a relevant artisan course, and recognises prior learning from jua kali and other work experience — so not having sat KCSE is not automatically the end of it.',
+    coverage: 'Full programme fees plus a monthly stipend for accommodation and upkeep',
+    max_amount_kes: null,
+    eligibility: 'Open to youth from all 47 counties. Entry by KCSE mean grade D plain, OR a certificate in a relevant artisan course, OR recognition of prior learning including jua kali and work experience',
+    min_grade: 'D',
+    application_deadline: 'By cohort — the first cohort closed 7 October 2024; watch embuni.ac.ke and Safaricom shops for the current call',
+    website: 'https://uoemtvet.embuni.ac.ke',
+    application_url: 'https://embuni.ac.ke',
+    requirements: [
+      'KCSE mean grade D plain, an artisan certificate in a related course, or evidence of prior learning',
+      'Application form from embuni.ac.ke or a participating Safaricom shop'
+    ],
+    interest_rate: null,
+    repayment_period: null,
+    data_confidence: 'verified',
+    verification_note: 'Programme, the 1,300 places across 47 counties, the full-fees-plus-monthly-stipend coverage and the course list are as announced by the M-PESA Foundation and Safaricom in the joint launch with the University of Embu, September 2024, cross-reported by Business Quest and Africa Solutions Media Hub. Entry requirements (KCSE mean grade D plain, or a certificate in a relevant artisan course, or an equivalent determined by KNEC, with prior learning from the informal or formal sector - jua kali and work-related engagement - considered toward the minimum) are from the University of Embu TVET Institute prospectus. The 7 October 2024 deadline was for cohort one; no later cohort date has been sourced, so confirm the current call before relying on it. Training is at the Institute in Embu - budget for relocation if you live elsewhere.'
   }
 ];
 

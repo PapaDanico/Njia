@@ -35,6 +35,7 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
+const { skipInCI } = require('./mtime-guard.js');
 
 const root = path.join(__dirname, '..');
 const { COURSES } = require(path.join(root, 'data', 'courses.js'));
@@ -80,7 +81,7 @@ test('the analysis exists in both formats', () => {
   }
 });
 
-test('the analysis is not stale', () => {
+test('the analysis is not stale', skipInCI, () => {
   /* Same reasoning as the open-data staleness guard. A brief carrying last
      month's catalogue looks exactly as authoritative as a current one, and this
      one is designed to be printed and taken into a meeting where nobody can

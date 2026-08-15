@@ -1,7 +1,54 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+# Njia CI
+#
+# WHY THIS DOES NOT LOOK LIKE THE NODE.JS STARTER WORKFLOW.
+#
+# It was the starter workflow, and it failed on its first run twelve seconds
+# in. That template assumes a project shape Njia deliberately does not have:
+#
+#   cache: 'npm'   needs a package-lock.json — there is none, and setup-node
+#                  errors out before a single step runs
+#   npm ci         needs package.json + a lockfile — neither exists
+#   npm run build  there is nothing to build; netlify.toml runs an echo
+#   npm test       no package.json, so no test script to find
+#
+# Njia is a buildless, zero-dependency vanilla HTML/CSS/JS PWA. Netlify serves
+# the committed files as they are. The test suite is node:test with no
+# dependencies at all, so CI needs Node and a checkout and nothing else — no
+# install step, no cache, no lockfile.
+#
+# WHAT IT CHECKS, AND WHY THE SECOND JOB EXISTS.
+#
+# 1. The unit suite. 253 tests, zero dependencies, runs in under a second.
+#
+# 2. Artefact freshness — that the committed generated files still match what
+#    the generators produce from the current data. Njia commits its own build
+#    output (57 static pages, two CSV exports, a JSON export, the sitemap and
+#    the structured data), so data/courses.js can change while the pages that
+#    describe it do not, and nothing about the site looks wrong until a reader
+#    downloads a CSV carrying last month's fees.
+#
+#    The local suite guards this with FILE MTIMES, which works on a working
+#    copy and is useless in CI: git sets every mtime to checkout time in its
+#    own order, so the guards fire on a clean tree. This job compares CONTENT
+#    instead — regenerate, then `git diff --exit-code`. Same protection, no
+#    false positive, and it is the check that would have caught the two real
+#    staleness bugs this repo has had.
+#
+# WHY NODE 20 AND 22 AND NOT 18.
+#
+# Node 18 reached end of life in April 2025. Testing against an unsupported
+# runtime buys a green tick and no safety.
+#
+# WHY THE BROWSER LAYERS ARE NOT HERE.
+#
+# tests/functional-probe.mjs and tests/a11y-sweep.mjs need Playwright and a
+# Chromium, and they are the layers that actually find defects — the probe
+# caught a help page throwing while 214 unit tests passed. They are absent
+# because they were not verifiable from the environment this file was written
+# in, and a job that cannot be checked before it ships is how CI ends up red
+# and ignored. Add them deliberately, with a run you have watched go green.
 
-name: Node.js CI
+name: CI
 
 on:
   push:
@@ -10,22 +57,72 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  test:
+    name: Unit suite (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [20.x, 22.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          # No `cache:` on purpose — there is no lockfile to key a cache on,
+          # and asking for one is what broke the previous workflow.
+
+      # No install step. The suite requires nothing but Node.
+      - name: Run the test suite
+        run: node --test tests/*.test.js
+
+  artefacts:
+    name: Generated files match the data
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Regenerate everything the repo commits
+        run: |
+          # The sitemap stamps <lastmod> with the build date, so a plain
+          # regeneration would always differ by that one field. NJIA_BUILD_DATE
+          # exists for exactly this: pin it to the date already committed, so
+          # the diff shows real drift and nothing else.
+          LASTMOD=$(grep -m1 '<lastmod>' sitemap.xml | sed 's/.*<lastmod>\(.*\)<\/lastmod>.*/\1/')
+          echo "Pinning build date to committed lastmod: $LASTMOD"
+
+          # Order matters. build-structured-data.mjs injects JSON-LD into pages
+          # that build-open-data.mjs and build-provision-analysis.mjs own, so it
+          # must run last or its blocks are overwritten.
+          node tools/build-open-data.mjs
+          node tools/build-provision-analysis.mjs
+          NJIA_BUILD_DATE="$LASTMOD" node tools/build-static-pages.mjs
+          node tools/build-structured-data.mjs
+
+      # The icons, favicon.ico and share card are NOT regenerated here: those
+      # generators rasterise through Playwright, and a browser is a much larger
+      # dependency than this check is worth. tests/artefacts.test.js already
+      # fails if they fall behind icons/logo-mark.svg.
+
+      - name: Fail if the committed output has drifted from the data
+        run: |
+          if ! git diff --exit-code --stat; then
+            echo ""
+            echo "::error::Committed generated files do not match the current data."
+            echo "Someone changed data/ or a generator without re-running the build."
+            echo "Fix locally, in this order, and commit the result:"
+            echo "  node tools/build-open-data.mjs"
+            echo "  node tools/build-provision-analysis.mjs"
+            echo "  node tools/build-static-pages.mjs"
+            echo "  node tools/build-structured-data.mjs   # last — it injects into the others"
+            exit 1
+          fi

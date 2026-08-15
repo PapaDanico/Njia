@@ -562,6 +562,41 @@ awaiting sourcing, which flattered them enormously.
 across institutions of differing ownership. If you are tempted to fill a gap
 with a plausible number, that guard is aimed at you.
 
+## CI: git does not preserve mtimes
+
+The repo's staleness guards compare **file modification times** — is
+`counties/nairobi/index.html` older than `data/courses.js`. That is right on a
+working copy and carries **no information in CI**, because git stamps every file
+with the moment it wrote it, in its own order. A clean `git clone` therefore
+fails them on an unmodified tree: measured at 5 failures from a fresh clone and
+4 from a `git checkout main`, and in both cases regenerating produced a
+**byte-identical** diff. The artefacts were correct; only the timestamps moved.
+
+So all seven mtime guards share one definition in `tests/mtime-guard.js` and
+skip when `CI` is set — skipped rather than silently passed, so the log says
+which checks did not run.
+
+**What replaces them is stronger.** `.github/workflows/node.js.yml` regenerates
+the four content generators and runs `git diff --exit-code`. Comparing *content*
+beats comparing timestamps and has no false positive. Two things it needs:
+
+- **Pin `NJIA_BUILD_DATE`** to the `<lastmod>` already in `sitemap.xml`, or the
+  sitemap's build-date stamp makes every run dirty.
+- **Run `build-structured-data.mjs` last.** It injects JSON-LD into pages that
+  `build-open-data.mjs` and `build-provision-analysis.mjs` own, so any other
+  order silently drops its blocks — which is itself a diff, caught the same way.
+
+The three rasterisers are not in CI: they need Playwright, and they stay covered
+locally, which is where someone edits the SVG and forgets to rasterise.
+
+**The starter workflow was wrong for this repo, not slightly misconfigured.**
+`cache: 'npm'` needs a lockfile, `npm ci` needs a `package.json`, `npm test`
+needs a test script; none exists and none should. CI here is a checkout, a Node,
+and `node --test tests/*.test.js`. And the first fix for it was *also* red on
+every run until a clean-clone simulation caught it — **simulate the runner
+before pushing a workflow**, because a red `main` is what teaches people to stop
+reading CI.
+
 ## Verification before any deploy
 
 Regenerate first — the guards fail on stale artefacts, which is the point:

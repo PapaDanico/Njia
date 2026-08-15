@@ -21,6 +21,7 @@ const test = require('node:test');
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
+const { skipInCI } = require('./mtime-guard.js');
 
 const root = path.join(__dirname, '..');
 const { COURSES } = require(path.join(root, 'data', 'courses.js'));
@@ -47,7 +48,7 @@ test('every county with courses has a generated page, and no page is an orphan',
     `these county pages describe counties the catalogue no longer covers: ${stray.join(', ')}`);
 });
 
-test('county pages are rebuilt when the catalogue changes', () => {
+test('county pages are rebuilt when the catalogue changes', skipInCI, () => {
   /* Same blunt mtime instrument as the icon guard, for the same reason: it
    * needs no parsing and it fails in the situation that actually happens —
    * somebody edits the data and forgets the generator. A stale page publishes
@@ -177,7 +178,7 @@ test('each grade page lists only courses that grade can actually enter', () => {
   }
 });
 
-test('grade pages are rebuilt when the catalogue changes', () => {
+test('grade pages are rebuilt when the catalogue changes', skipInCI, () => {
   const newest = Math.max(
     fs.statSync(path.join(root, 'data', 'courses.js')).mtimeMs,
     fs.statSync(path.join(root, 'data', 'institutions.js')).mtimeMs

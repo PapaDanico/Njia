@@ -24,6 +24,7 @@ const { test } = require('node:test');
 const assert = require('node:assert');
 const fs = require('node:fs');
 const path = require('node:path');
+const { skipInCI } = require('./mtime-guard.js');
 const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
@@ -77,7 +78,7 @@ test('the export exists in both formats', () => {
   }
 });
 
-test('the export is not stale', () => {
+test('the export is not stale', skipInCI, () => {
   const newestSource = Math.max(
     fs.statSync(path.join(root, 'data', 'courses.js')).mtimeMs,
     fs.statSync(path.join(root, 'data', 'institutions.js')).mtimeMs,

@@ -129,7 +129,10 @@
     @page { margin: 14mm 12mm; }
     body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }
     .rail, .main { position: static !important; max-height: none !important; overflow: visible !important; }
-    .cta, .back, .jump { display: none !important; }
+    /* .jump-head goes with .jump. Hiding the list but keeping its heading
+       left "Jump to a county" printed above nothing at all — anchors do not
+       work on paper, so both halves have to go. */
+    .cta, .back, .jump, .jump-head { display: none !important; }
     /* The scroll box must not clip on paper — there is no scrolling on paper,
        so an overflow container silently truncates the right-hand columns. */
     .wrap { overflow: visible !important; }
@@ -168,7 +171,7 @@
   </div>
   <div class="brief-meta">
     <strong>Kiambu County provision brief</strong><br>
-    19 courses &middot; 5 open to an E &middot; njiacareerpathways.work
+    19 courses · 5 open to an E &middot; njiacareerpathways.work
   </div>
 </div>
 

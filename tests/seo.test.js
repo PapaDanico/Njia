@@ -252,3 +252,35 @@ test('the app links to the county pages, so they are not an island', () => {
     'nothing in the app links to /counties/, which leaves 48 pages with no internal links — '
     + 'the pattern search engines read as a doorway farm rather than part of the site');
 });
+
+test('every printable sheet carries the branded header', () => {
+  /* The print header started as a county-only thing, so the sheet a CAREER
+     TEACHER prints came off the printer unbranded, undated and with no address
+     on it while the county officer's sheet was a proper brief. That is
+     backwards — the teacher's copy is the one photocopied for a whole Form Four
+     class, so it is most likely to reach someone who has never heard of Njia
+     and needs to know where the numbers came from. */
+  const pages = [
+    ...fs.readdirSync(countiesDir, { withFileTypes: true })
+      .filter((e) => e.isDirectory()).map((e) => path.join(countiesDir, e.name, 'index.html')),
+    ...fs.readdirSync(gradesDir, { withFileTypes: true })
+      .filter((e) => e.isDirectory()).map((e) => path.join(gradesDir, e.name, 'index.html'))
+  ];
+  const missing = pages.filter((p) => !/<div class="brief-head">/.test(fs.readFileSync(p, 'utf8')))
+    .map((p) => path.relative(path.join(__dirname, '..'), p));
+  assert.deepEqual(missing, [],
+    `these pages print with no Njia header, date or address: ${missing.join(', ')}`);
+});
+
+test('no grade sheet says "a E"', () => {
+  /* GRADE_ARTICLE exists precisely for this and I hardcoded "a" in the print
+     header anyway, which produced "What a E can study" on the sheet aimed at
+     the readers with the fewest options. It reads as a typo to exactly the
+     person it is for. */
+  const bad = fs.readdirSync(gradesDir, { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => path.join(gradesDir, e.name, 'index.html'))
+    .filter((p) => /\ba E\b/.test(fs.readFileSync(p, 'utf8')))
+    .map((p) => path.basename(path.dirname(p)));
+  assert.deepEqual(bad, [], `these grade pages contain "a E" instead of "an E": ${bad.join(', ')}`);
+});

@@ -129,7 +129,10 @@
     @page { margin: 14mm 12mm; }
     body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }
     .rail, .main { position: static !important; max-height: none !important; overflow: visible !important; }
-    .cta, .back, .jump { display: none !important; }
+    /* .jump-head goes with .jump. Hiding the list but keeping its heading
+       left "Jump to a county" printed above nothing at all — anchors do not
+       work on paper, so both halves have to go. */
+    .cta, .back, .jump, .jump-head { display: none !important; }
     /* The scroll box must not clip on paper — there is no scrolling on paper,
        so an overflow container silently truncates the right-hand columns. */
     .wrap { overflow: visible !important; }
@@ -170,6 +173,18 @@
 </head>
 <body class="split">
 
+<div class="brief-head">
+  <div class="brief-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia"> <style> /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile. * * Nothing supplies --mark-edge outside the app, so the outline falls back * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16, * 32, 48 and 64px, the leaf edge disappeared into the ground completely. * The mark still read, because the terracotta field and the cream road * carry it, but the drawing lost its silhouette. * * This rule is inert inside the app: there the #i-njia sprite symbol in * index.html is a separate copy that takes --mark-edge from the page, and * it does not carry this stylesheet. The drift guard in * tests/provenance.test.js compares path geometry rather than styling, so * the two stay legitimately different in presentation and identical in * shape. */ @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg></div>
+  <div>
+    <div class="brief-word">Njia</div>
+    <div class="brief-tag">Data-driven career pathways for Kenyan youth</div>
+  </div>
+  <div class="brief-meta">
+    <strong>What an E can study</strong><br>
+    115 courses · 24 counties · for career teachers and students &middot; njiacareerpathways.work
+  </div>
+</div>
+
 <aside class="rail">
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
@@ -186,7 +201,7 @@ single annual window, so a closed university deadline is not the end of the cycl
 <p><a class="cta" href="/#decide">Filter these by county and budget &rarr;</a>
 <a class="cta" href="/#discover">Find which of them suits you</a></p>
 
-<h2>Jump to a county</h2>
+<h2 class="jump-head">Jump to a county</h2>
 <ul class="jump"><li><a href="#c-baringo">Baringo</a> <span class="count">6</span></li><li><a href="#c-bungoma">Bungoma</a> <span class="count">1</span></li><li><a href="#c-busia">Busia</a> <span class="count">2</span></li><li><a href="#c-garissa">Garissa</a> <span class="count">2</span></li><li><a href="#c-kericho">Kericho</a> <span class="count">1</span></li><li><a href="#c-kiambu">Kiambu</a> <span class="count">5</span></li><li><a href="#c-kilifi">Kilifi</a> <span class="count">2</span></li><li><a href="#c-kisii">Kisii</a> <span class="count">2</span></li><li><a href="#c-kisumu">Kisumu</a> <span class="count">9</span></li><li><a href="#c-machakos">Machakos</a> <span class="count">5</span></li><li><a href="#c-mandera">Mandera</a> <span class="count">2</span></li><li><a href="#c-marsabit">Marsabit</a> <span class="count">4</span></li><li><a href="#c-meru">Meru</a> <span class="count">3</span></li><li><a href="#c-mombasa">Mombasa</a> <span class="count">6</span></li><li><a href="#c-murang-a">Murang'a</a> <span class="count">5</span></li><li><a href="#c-nairobi">Nairobi</a> <span class="count">26</span></li><li><a href="#c-nandi">Nandi</a> <span class="count">1</span></li><li><a href="#c-nyeri">Nyeri</a> <span class="count">3</span></li><li><a href="#c-samburu">Samburu</a> <span class="count">7</span></li><li><a href="#c-taita-taveta">Taita-Taveta</a> <span class="count">5</span></li><li><a href="#c-trans-nzoia">Trans Nzoia</a> <span class="count">7</span></li><li><a href="#c-turkana">Turkana</a> <span class="count">2</span></li><li><a href="#c-uasin-gishu">Uasin Gishu</a> <span class="count">8</span></li><li><a href="#c-west-pokot">West Pokot</a> <span class="count">1</span></li></ul>
 </aside>
 

@@ -208,3 +208,47 @@ test('an OKR with no key results reports needs-key-results, never on-track', () 
   assert.equal(okrStatus({ id: 'o5', keyResults: [{ done: false }], createdAt: old }), 'at-risk');
   assert.equal(okrStatus({ id: 'o6', keyResults: [{ done: false }], createdAt: new Date().toISOString() }), 'on-track');
 });
+
+/* ---------- Found by driving the app, not by reading it ----------------- */
+
+test('the standalone suggestion select owns its line', () => {
+  /* A <select> is inline-block and .caption is an inline label. In the Odyssey
+     year fields this never showed, because .odyssey-year-field is a flex column
+     that stacks its children whatever their display. The OKR modal has no such
+     wrapper, so "Key Results (one per line, 2-3 recommended)" flowed onto the
+     same line as the dropdown and broke around it — the word KEY rendered to
+     the RIGHT of the select and "RESULTS..." dropped below. A form label
+     sheared in half and sitting against the wrong control.
+
+     Fixed on the control rather than on .caption, which is inline on purpose
+     where "Filter:" and "Sort:" genuinely sit beside their selects. */
+  const css = fs.readFileSync(path.join(__dirname, '..', 'css', 'styles.css'), 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+  const at = css.indexOf('.odyssey-suggest {');
+  assert.notEqual(at, -1, '.odyssey-suggest rule has gone');
+  const block = css.slice(at, css.indexOf('}', at));
+  assert.match(block, /display:\s*block/,
+    '.odyssey-suggest is not display:block — an inline select lets the next label '
+    + 'flow onto its line and break around it');
+  assert.match(block, /width:\s*100%/,
+    '.odyssey-suggest has no width:100%, so it will not fill its container');
+});
+
+test('the OKR empty state does not offer the same action twice', () => {
+  /* The toolbar carried "+ New OKR" and the empty state carried "+ New OKR",
+     both rendered at once, 296px apart, in a view whose only job is to get you
+     to press one. The empty state's is the better of the two because it comes
+     with a sentence explaining what an OKR is for, so the toolbar button is the
+     one that stands down — but only while the list is empty. */
+  const src = fs.readFileSync(path.join(__dirname, '..', 'js', 'track.js'), 'utf8');
+  const at = src.indexOf('emptyState(\'target\', \'No OKRs yet\'');
+  assert.notEqual(at, -1, 'the OKR empty state has moved');
+
+  /* The toolbar button must be conditional on there being something to list. */
+  const before = src.slice(Math.max(0, at - 700), at);
+  const toolbar = before.lastIndexOf('+ New OKR');
+  assert.notEqual(toolbar, -1, 'the toolbar + New OKR button has gone entirely');
+  assert.match(before.slice(Math.max(0, toolbar - 260), toolbar), /filtered\.length === 0 \?/,
+    'the toolbar "+ New OKR" is rendered unconditionally, so it appears alongside '
+    + 'the empty state\'s identical button');
+});

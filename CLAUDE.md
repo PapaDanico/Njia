@@ -66,6 +66,29 @@ Rules that the test suite enforces, and why:
   per-programme price to quote.
 - **Never repeat one figure across unrelated institutions.** See below.
 
+- **There is no longer an "uncited fee" tier, and there must never be one
+  again.** Forty records once carried a precise figure — some as high as Ksh
+  720,000 — with no verification note at all. That is the weakest thing this app
+  can display, because a confident number with nothing behind it is
+  indistinguishable from a researched one. The count went 40, then 19, then
+  zero, and `LEGACY_CEILING` in `tests/sector-coverage.test.js` is now a floor
+  rather than a ceiling.
+
+  The last nineteen were **not** closed by finding the fees. Eight were public
+  universities, where there is no per-programme price to find — the DUC was
+  retired in May 2023 for the means-tested SCFM, so the honest answer is that
+  the university does not publish one. The other eleven are private
+  institutions whose schedules are PDFs on their own sites, which this build
+  cannot reach; searching returned only per-institution ranges (KCA's
+  Ksh 28,400–55,867 per trimester, KIM's generic Ksh 110,000 diploma total)
+  that cannot be attributed to a named course.
+
+  Attaching one of those ranges to a specific course would have promoted the
+  record from `unsourced` to `illustrative` on provenance that does not exist —
+  a worse outcome than the figure being missing. So the figures were removed and
+  each record now says which kind of absence it is. **When research fails, the
+  answer is to delete the number, not to write a note that dresses it up.**
+
 ## Findability is not the SEO score
 
 Lighthouse reported SEO 100 for months while the app was effectively invisible

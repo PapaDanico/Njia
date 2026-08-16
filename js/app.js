@@ -1075,6 +1075,14 @@ function renderHomePage() {
                brand column gets the width the empty space was holding. */''}
           <div class="landing-footer-col">
             <p class="footer-col-label">Company &amp; legal</p>
+            ${/* Self-hosted rather than linked out. It is the maintainer's own
+                 deck, properly Njia-branded, and hosting it here means it works
+                 offline, needs no third-party account to open, and cannot expire
+                 — a generated deck's export URL lasts about a week, which is not
+                 long enough for a document a partner is meant to keep. Dated in
+                 the filename so a newer one is an obvious replacement rather
+                 than a silent overwrite. */''}
+            <a href="./docs/njia-pitch-deck-aug-2026.pdf" download>Partnership proposal (PDF)</a>
             <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
             <button type="button" onclick="openFeedbackModal()">Give Feedback</button>
             <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>

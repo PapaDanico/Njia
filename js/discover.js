@@ -735,6 +735,47 @@ function renderShareableReportHTML() {
     .filter(Boolean)
     .slice(0, 5);
 
+  /* A REPORT WITH NO COURSES IN IT ANSWERS THE WRONG QUESTION.
+   *
+   * This section used to render only what the reader had saved, so anyone who
+   * finished the questionnaire and printed straight away got a sheet naming
+   * their archetype and nothing they could act on — no course, no institution,
+   * no fee. That is the half of the page a parent, a teacher or a bursary
+   * committee actually reads.
+   *
+   * So when nothing is saved the report suggests, from the same catalogue the
+   * app uses and under the reader's own constraints: their primary cluster,
+   * filtered by their grade where they gave one. Ordered most-open-entry first
+   * and cheapest first within that, because the reader this project exists for
+   * is the one for whom a D and a fee are the binding constraints — showing
+   * them a C+ degree at the top of the page is showing them a door that is
+   * shut.
+   *
+   * Six, not five: a saved list is a decision already taken and five is plenty,
+   * while a suggested list is a starting point and wants enough spread to show
+   * that more than one kind of thing is open. Both still fit the page. */
+  const suggested = savedCourses.length ? [] : COURSES
+    .filter((c) => c.cluster === results.primary)
+    .filter((c) => !constraints.grade
+      || typeof meetsGradeRequirement !== 'function'
+      || meetsGradeRequirement(constraints.grade, c.min_grade))
+    .sort((a, b) => {
+      /* Open entry first, then the lowest published minimum. GRADE_ORDER runs
+         E-first, so a LOWER index is a more open door and ascending is right;
+         null sorts ahead of everything as -1. Written the other way round at
+         first, which put an A-grade degree at the top of a report meant for the
+         reader with the fewest options. */
+      const openness = (x) => (x.min_grade == null ? -1 : GRADE_ORDER.indexOf(x.min_grade));
+      const byOpen = openness(a) - openness(b);
+      if (byOpen !== 0) return byOpen;
+      /* Then cheapest, with unpriced records last rather than treated as free. */
+      const fee = (x) => (x.total_fees_kes == null ? Infinity : x.total_fees_kes);
+      return fee(a) - fee(b);
+    })
+    .slice(0, 6);
+
+  const reportCourses = savedCourses.length ? savedCourses : suggested;
+
   const doneOkrs = countDoneOkrs();
 
   // Applications count as progress too. `applicationStatus` lives in track.js,
@@ -845,15 +886,16 @@ function renderShareableReportHTML() {
             making the reader compute it from two numbers is a poor use of the
             one page. Unpriced records say so rather than showing a blank cell
             that reads as free. */''}
-      ${savedCourses.length ? `
+      ${reportCourses.length ? `
         <div class="report-courses">
-          <span class="report-section-title">Courses You Are Considering</span>
+          <span class="report-section-title">${savedCourses.length ? 'Courses You Are Considering' : 'Courses Open To You'}</span>
+          ${savedCourses.length ? '' : `<p class="report-legend">Njia has not been told what you have chosen yet, so these are the ${suggested.length} closest matches in the catalogue for ${escapeHtml(CLUSTERS[results.primary]?.name || 'your result')}${constraints.grade ? ` that ${/^[AE]/.test(constraints.grade) ? 'an' : 'a'} ${escapeHtml(constraints.grade)} can enter` : ''} — most open first. They are a starting point, not a shortlist.</p>`}
           <table class="report-table">
             <thead>
               <tr><th>Course</th><th>Institution</th><th class="ra">Tuition</th><th class="ra">Entry</th></tr>
             </thead>
             <tbody>
-              ${savedCourses.map((c) => {
+              ${reportCourses.map((c) => {
                 const inst = INSTITUTIONS.find((i) => i.id === c.institution_id);
                 const fee = c.total_fees_kes === null || c.total_fees_kes === undefined
                   ? 'Not published'

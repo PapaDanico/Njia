@@ -258,6 +258,7 @@ available in the county" — the difference is the whole point.
 - [Courses by grade](${SITE}/grades/): what is open at C plain and below, down to E.
 - [Open data](${SITE}/open-data/): the whole catalogue as CSV and JSON, including the fee-provenance column.
 - [County provision analysis](${SITE}/analysis/): which counties are closed to a low-grade learner, and why.
+- [Partnership proposal](${SITE}/docs/): the August 2026 proposal, for funders and partners rather than learners.
 
 ## Contact
 

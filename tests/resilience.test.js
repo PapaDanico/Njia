@@ -45,7 +45,7 @@ test('the lazy-module retry is bounded by an attempt count', () => {
   assert.match(app, /const MODULE_MAX_ATTEMPTS = \d+/,
     'MODULE_MAX_ATTEMPTS is gone from js/app.js. The lazy-module retry is now unbounded, which '
     + 'freezes the tab rather than rendering an empty page.');
-  assert.match(app, /moduleAttempts\[PAGE_MODULE\[AppState\.currentPage\]\][\s\S]{0,40}<\s*MODULE_MAX_ATTEMPTS/,
+  assert.match(app, /moduleAttempts\[AppState\.currentPage\][\s\S]{0,40}<\s*MODULE_MAX_ATTEMPTS/,
     "renderRoute() no longer checks the attempt count before retrying a page module. That check is "
     + 'the whole fix: re-entering on a resolved promise with no ceiling is an unbounded microtask '
     + 'loop, and microtasks drain before the event loop, so the main thread never comes back.');
@@ -58,7 +58,7 @@ test('a settled module load is not treated as a successful one', () => {
      failure is also what lets a later navigation make a genuinely new request
      rather than replaying a stale resolution — the difference between a dropped
      packet costing one page for one second and costing it for the session. */
-  assert.match(app, /typeof window\[rendererName\(name\)\] !== 'function'\)\s*delete moduleLoads\[name\]/,
+  assert.match(app, /typeof window\[rendererName\(page\)\] !== 'function'\)\s*\{\s*\n\s*scripts\.forEach\(\(src\) => \{ delete scriptLoads\[src\]; \}\);/,
     'ensurePageModule() no longer discards the cached promise when the module failed to define its '
     + 'renderer. Two regressions in one: a parse error (which fires onload) is recorded as success, '
     + 'and a transient network failure is latched for the rest of the session.');

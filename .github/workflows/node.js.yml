@@ -103,6 +103,7 @@ jobs:
           # Order matters. build-structured-data.mjs injects JSON-LD into pages
           # that build-open-data.mjs and build-provision-analysis.mjs own, so it
           # must run last or its blocks are overwritten.
+          node tools/build-landing-stats.mjs
           node tools/build-open-data.mjs
           node tools/build-provision-analysis.mjs
           NJIA_BUILD_DATE="$LASTMOD" node tools/build-static-pages.mjs
@@ -120,6 +121,7 @@ jobs:
             echo "::error::Committed generated files do not match the current data."
             echo "Someone changed data/ or a generator without re-running the build."
             echo "Fix locally, in this order, and commit the result:"
+            echo "  node tools/build-landing-stats.mjs"
             echo "  node tools/build-open-data.mjs"
             echo "  node tools/build-provision-analysis.mjs"
             echo "  node tools/build-static-pages.mjs"

@@ -336,9 +336,47 @@ function scrollAndCloseMenu(id) {
  * it needs and calls itself back. renderRoute already looked its renderers up
  * on `window` at call time and already no-opped when one was missing, so the
  * retry needed no new state, only somewhere to hang the wait. */
+/* Each page names the scripts it needs, IN LOAD ORDER, ending with its own
+ * module. The data files come first because the modules evaluate them at load
+ * rather than at call: decide.js builds its county list at module scope, so
+ * arriving before data/institutions.js is a ReferenceError, not a late render.
+ *
+ * DECIDE IS IN THIS LIST NOW, which it could not be before. It was eager
+ * because app.js called feeBasis() from it to build the landing page's
+ * provenance numbers; those are precomputed into data/landing-stats.js by
+ * tools/build-landing-stats.mjs, so the shell no longer needs decide.js, the
+ * catalogue or the institution register to render.
+ *
+ * Two of those files were the largest things on the critical path.
+ * data/courses.js is 57.6KB gzipped and js/decide.js 28.7KB — with
+ * data/institutions.js, 86.3KB of the 215KB that blocked DOMContentLoaded, for
+ * a page that displays eight integers and no course. Measured over a gzipping
+ * server on throttled 3G, median of three: DCL 5,635ms to 3,693ms, a 34% cut,
+ * and the render-blocking request count from 9 to 6.
+ *
+ * FIRST PAINT IS UNCHANGED at ~2,000ms, because it never waited on these — it
+ * waits on the stylesheet. The gain is entirely in when the page starts
+ * answering taps. Worth stating plainly rather than rounding up into "loads
+ * two seconds faster", which is the claim the numbers do not support.
+ *
+ * The ordering only works because injected scripts carry async=false below,
+ * which preserves insertion order the way a parser-inserted script does. */
 const PAGE_MODULE = {
-  discover: 'discover', design: 'design',
-  connect: 'connect', track: 'track', help: 'help'
+  /* Discover carries js/decide.js as well, and that is a real dependency rather
+     than caution: the report's course suggestions sort by GRADE_ORDER and filter
+     by meetsGradeRequirement(), both defined in decide.js. Listing only the data
+     files threw "GRADE_ORDER is not defined" on the results screen — through a
+     green 267-test suite, caught by the functional probe, which is the second
+     time this exact shape of mistake has been made and caught the same way.
+     Lifting those two into a shared file would be tidier and would touch four
+     other readers that address decide.js by name; not worth folding into this
+     change. */
+  discover: ['data/institutions.js', 'data/courses.js', 'js/decide.js', 'js/discover.js'],
+  design: ['data/institutions.js', 'data/courses.js', 'js/design.js'],
+  decide: ['data/institutions.js', 'data/courses.js', 'js/decide.js'],
+  connect: ['js/connect.js'],
+  track: ['js/track.js'],
+  help: ['js/help.js']
 };
 /* SETTLED IS NOT LOADED, AND THAT DISTINCTION IS THE WHOLE OF THIS BLOCK.
  *
@@ -372,41 +410,54 @@ const PAGE_MODULE = {
  * exactly one request for that module and never made another for the rest of
  * the session. */
 const MODULE_MAX_ATTEMPTS = 2;
-const moduleLoads = {};
+const scriptLoads = {};
 const moduleAttempts = {};
-const rendererName = (name) => `render${name[0].toUpperCase()}${name.slice(1)}Page`;
+const rendererName = (page) => `render${page[0].toUpperCase()}${page.slice(1)}Page`;
 
-function ensurePageModule(page) {
-  const name = PAGE_MODULE[page];
-  if (!name) return Promise.resolve();
-  if (!moduleLoads[name]) {
-    moduleAttempts[name] = (moduleAttempts[name] || 0) + 1;
-    moduleLoads[name] = new Promise((resolve) => {
+/* Keyed by src, not by page, so data/courses.js is fetched once and shared by
+   Discover, Design and Decide rather than three times. */
+function loadScript(src) {
+  if (!scriptLoads[src]) {
+    scriptLoads[src] = new Promise((resolve) => {
       const el = document.createElement('script');
-      el.src = `./js/${name}.js`;
-      /* async=false keeps injected scripts in insertion order, which matters
-         if two are requested in the same tick. */
+      el.src = `./${src}`;
+      /* async=false keeps injected scripts in insertion order, which is what
+         lets a module rely on the data file listed before it. */
       el.async = false;
-      const settle = () => {
-        if (typeof window[rendererName(name)] !== 'function') delete moduleLoads[name];
-        resolve();
-      };
-      el.onload = settle;
-      el.onerror = settle;
+      el.onload = () => resolve(true);
+      el.onerror = () => { delete scriptLoads[src]; resolve(false); };
       document.head.appendChild(el);
     });
   }
-  return moduleLoads[name];
+  return scriptLoads[src];
+}
+
+function ensurePageModule(page) {
+  const scripts = PAGE_MODULE[page];
+  if (!scripts) return Promise.resolve();
+  moduleAttempts[page] = (moduleAttempts[page] || 0) + 1;
+  /* Injected together in one tick rather than chained: async=false already
+     guarantees execution order, so serialising the requests would only add a
+     round trip per file on the connection least able to afford one. */
+  return Promise.all(scripts.map(loadScript)).then(() => {
+    /* The renderer is the proof, not the load event — a script with a syntax
+       error fires onload. If it is missing, drop every cached promise for this
+       page so a later navigation makes genuinely new requests rather than
+       replaying stale resolutions. */
+    if (typeof window[rendererName(page)] !== 'function') {
+      scripts.forEach((src) => { delete scriptLoads[src]; });
+    }
+  });
 }
 
 /* Reachable from the failure state's button. Clears the attempt count as well
    as the cached promise, because a reader pressing "Try again" has usually
    just done something about the connection. */
 function retryPageModule(page) {
-  const name = PAGE_MODULE[page];
-  if (!name) return;
-  delete moduleLoads[name];
-  delete moduleAttempts[name];
+  const scripts = PAGE_MODULE[page];
+  if (!scripts) return;
+  scripts.forEach((src) => { delete scriptLoads[src]; });
+  delete moduleAttempts[page];
   renderRoute({ focusHeading: true });
 }
 
@@ -461,7 +512,7 @@ function renderRoute({ focusHeading = false } = {}) {
   if (typeof renderFn === 'function') {
     renderFn();
   } else if (PAGE_MODULE[AppState.currentPage]
-      && (moduleAttempts[PAGE_MODULE[AppState.currentPage]] || 0) < MODULE_MAX_ATTEMPTS) {
+      && (moduleAttempts[AppState.currentPage] || 0) < MODULE_MAX_ATTEMPTS) {
     /* The module has not arrived yet. Fetch it and come back — the shell above
        has already switched pages, so the reader sees the right page frame while
        its contents are on the way. focusHeading is passed on rather than
@@ -680,23 +731,40 @@ const LANDING_PROCESS = [
 // added or removed. Mirrors the same verified-count logic Decide shows.
 function renderNjiaNumbersCard() {
   const clusterCount = Object.keys(CLUSTERS).length;
-  /* Counted from institutions that actually have a course, not from the whole
-   * directory. Three institutions sit in the directory with no course attached
-   * yet, so INSTITUTIONS.length told readers Njia covered places it could not
-   * send them to. decide.js already computed counties this way; this figure
-   * did not, which is how the two disagreed. */
-  const listedInstitutions = new Set(COURSES.map((c) => c.institution_id));
-  const countyCount = new Set(INSTITUTIONS.filter((i) => listedInstitutions.has(i.id)).map((i) => i.county)).size;
-  /* Counted the same way the Decide notice counts, via feeBasis() in decide.js
-   * — a global by the time any render runs, like DISTINCT_PROGRAMMES above it.
-   * This figure used to count fees_confidence === 'verified' and label the
-   * result "cross-checked against a named source". That was 274 of 391, and an
-   * audit put the true figure at 22: the rest were derived from a national fee
-   * rule or had no fee at all. Two screens made the same overstatement in the
-   * same words, which is what happens when a claim is computed twice instead of
-   * once. */
-  const publishedCount = COURSES.filter((c) => feeBasis(c) === 'published').length;
-  const derivedCount = COURSES.filter((c) => feeBasis(c) === 'derived').length;
+  /* READ FROM data/landing-stats.js, NOT COMPUTED HERE.
+   *
+   * Every figure below used to be counted live off COURSES and INSTITUTIONS,
+   * with the fee groups classified by feeBasis() from decide.js. That was the
+   * right instinct — a hardcoded 469 goes stale silently on the most-read page
+   * on the domain — and it cost 86.3KB gzipped on the critical path to render
+   * eight integers on a page that shows no course. Measured over a gzipping
+   * server on throttled 3G: DOMContentLoaded 5,635ms to 3,693ms once the
+   * catalogue came off the critical path, a 34% cut.
+   *
+   * The live-computation property is kept rather than traded away.
+   * tools/build-landing-stats.mjs does the same counting at build time, reading
+   * the SAME feeBasis() out of js/decide.js by brace extraction rather than
+   * reimplementing it, and tests/landing-stats.test.js recomputes every field
+   * from the catalogue and fails if this file has drifted. So the numbers still
+   * cannot go stale — they just are not counted on a reader's phone.
+   *
+   * Two notes preserved from what stood here, because both are still true and
+   * both are why the fields are named as they are:
+   *
+   * `institutions` counts institutions that actually carry a course, never
+   * INSTITUTIONS.length — two register entries have no course attached, and
+   * quoting the register size told readers Njia covered places it could not
+   * send them to.
+   *
+   * `published` is feeBasis() === 'published'. It used to count
+   * fees_confidence === 'verified' and call the result "cross-checked against a
+   * named source": 274 of 391, where the true figure was 22. Two screens made
+   * the same overstatement in the same words, which is what happens when a
+   * claim is computed twice instead of once. */
+  const listedInstitutions = LANDING_STATS.institutions;
+  const countyCount = LANDING_STATS.counties;
+  const publishedCount = LANDING_STATS.published;
+  const derivedCount = LANDING_STATS.derived;
   /* Courses, not courses + funding sources. The old denominator added the 12
    * funding records to a numerator counted over course fees, so the ratio
    * compared two different populations — and the same mixed denominator on the
@@ -704,7 +772,7 @@ function renderNjiaNumbersCard() {
    * is a claim about a course; funding provenance is a separate claim about a
    * separate record, and it now gets its own line rather than being folded in
    * to make a ratio look better. */
-  const totalRecords = COURSES.length;
+  const totalRecords = LANDING_STATS.courses;
 
   return `
     <div class="landing-numbers-card">
@@ -712,11 +780,11 @@ function renderNjiaNumbersCard() {
       <h2 class="landing-numbers-title">What's actually in the app right now</h2>
       <div class="landing-numbers-grid">
         <div class="landing-numbers-item">
-          <span class="landing-numbers-figure">${DISTINCT_PROGRAMMES}</span>
-          <span class="landing-numbers-label">distinct programmes across ${clusterCount} career clusters, offered at ${COURSES.length} places you could apply</span>
+          <span class="landing-numbers-figure">${LANDING_STATS.distinctProgrammes}</span>
+          <span class="landing-numbers-label">distinct programmes across ${clusterCount} career clusters, offered at ${LANDING_STATS.courses} places you could apply</span>
         </div>
         <div class="landing-numbers-item">
-          <span class="landing-numbers-figure">${listedInstitutions.size}</span>
+          <span class="landing-numbers-figure">${listedInstitutions}</span>
           <span class="landing-numbers-label">institutions across ${countyCount} counties</span>
         </div>
         <div class="landing-numbers-item">
@@ -763,7 +831,13 @@ function renderEconomySection() {
   const counted = SECTORS.map((s) => ({
     sector: s,
     pace: sectorPace(s),
-    routes: COURSES.filter((c) => sectorForCourse(c)?.id === s.id).length
+    /* Precomputed per sector for the same reason as the figures above: matching
+       469 course names against 19 sector regexes is 8,911 regex tests to render
+       a table of 19 rows, and doing it on the reader's phone meant shipping the
+       catalogue to a page that lists no course. sectorForCourse() still owns
+       the rule — tools/build-landing-stats.mjs calls it, rather than a second
+       copy of the matching. */
+    routes: LANDING_STATS.sectorRoutes[s.id] || 0
   }));
   /* Sourced first, fastest at the top; unsourced sectors follow, in the table
      rather than in a footnote.
@@ -778,7 +852,7 @@ function renderEconomySection() {
   const unpaced = counted.filter((r) => !r.pace).sort((a, b) => b.routes - a.routes);
   if (!paced.length) return '';
 
-  const catalogueSize = COURSES.length;
+  const catalogueSize = LANDING_STATS.courses;
   const routeCell = (routes) => `<td class="num">${routes >= MIN_SECTOR_SAMPLE
     ? `${routes} <span class="econ-share">(${Math.round((routes / catalogueSize) * 100)}%)</span>`
     : `${routes} <span class="econ-share">· too few to read as coverage</span>`}</td>`;
@@ -838,7 +912,7 @@ function renderEconomySection() {
              it as scrollable-region-focusable, and it flagged this one. */''}
         <div class="econ-table-wrap" tabindex="0" role="region" aria-label="Sector growth and Njia coverage, scrollable table">
           <table class="econ-table">
-            <caption>Sector growth in ${ECONOMY.year} against ${ECONOMY.gdpGrowth}% for the whole economy, and how many of Njia's ${COURSES.length} training routes lead into each.</caption>
+            <caption>Sector growth in ${ECONOMY.year} against ${ECONOMY.gdpGrowth}% for the whole economy, and how many of Njia's ${LANDING_STATS.courses} training routes lead into each.</caption>
             <thead>
               <tr><th scope="col">Sector</th><th scope="col">Growth</th><th scope="col">Routes in Njia</th></tr>
             </thead>

@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partnership proposal | Njia</title>
+<meta name="description" content="Njia's partnership proposal for Kenya's education-to-employment transition, August 2026 — the case, the evidence base and what partnership looks like, as a PDF.">
+<link rel="canonical" href="https://njiacareerpathways.work/docs/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+  /* Deliberately minimal and self-contained. These pages reuse the app's
+     stylesheet for colour and type, but none of its layout JavaScript, so
+     they render identically with scripting switched off. */
+  body { max-width: min(96rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  .rail > :first-child { margin-top: 0; }
+  .main > :first-child { margin-top: 0; }
+  h1 { margin-top: .35rem; }
+  .lede { font-size: 1.05rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; }
+  th, td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
+  thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
+  tbody th { font-weight: 600; }
+  /* Level, entry grade, tuition and duration are short fixed tokens — "Artisan",
+     "D-", "Ksh 134,378", "24 mo". Left to wrap they each cost a second line and
+     doubled the height of every row in the table; there is no case where
+     breaking "Ksh 134,378" across two lines helps anyone read it. The course and
+     institution columns are the ones that genuinely need to wrap, and still do.
+
+     Gated, because on a phone it is the wrong trade and measuring said so. At
+     390px the county table went from 647px to 738px wide with nowrap on and the
+     page got no shorter — 13,580px to 13,560px. The rows were never the
+     constraint there, the 390px viewport was, so all nowrap bought was 91px
+     more sideways scrolling inside .wrap. From 48rem up the table fits the
+     screen outright and the second line is pure waste. */
+  @media (min-width: 48rem) { .tok { white-space: nowrap; } }
+  .open { font-weight: 700; }
+  .muted { opacity: .7; }
+  /* tabindex="0" is not decoration. A table wider than the viewport scrolls
+     sideways inside this box, and a scroll container that cannot take focus
+     cannot be scrolled by keyboard — so at 390px a keyboard-only reader could
+     not reach the Tuition or Duration columns at all. axe rates it serious and
+     found 76 instances across the generated pages, 21 of them on the D-plain
+     grade page alone. The role and label come with it because a focus stop
+     with no accessible name announces as nothing. Set in the markup rather
+     than here: CSS cannot make an element focusable. */
+  .wrap { overflow-x: auto; }
+  .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
+  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
+         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
+  .back { display: inline-block; margin-bottom: .75rem; }
+  footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
+  /* column-width rather than a column COUNT: a fixed count set at one breakpoint
+     is wrong at every other width, and these lists run from 1 item to 47. */
+  ul.cols { columns: 15rem; column-gap: 2rem; }
+  ul.cols li { break-inside: avoid; }
+
+  /* OPT-IN, AND NOT AT 1024px.
+   *
+   * Both halves of that were learned by measuring rather than reasoned out.
+   *
+   * Opt-in, because the grid targets body and the two index pages are a
+   * heading and a list of links with no rail to put anything in. Applied to
+   * them, their children would have auto-placed into two columns and the
+   * layout would simply have been wrong — so the split is a class the two
+   * table-bearing templates ask for, not something every page inherits.
+   *
+   * And not at 1024px, because the first version of this cut in there and made
+   * the page WORSE: a 20rem rail plus the gap left the Nairobi table 621px,
+   * narrower than the 957px it had before, so it began scrolling sideways and
+   * every row wrapped harder. The document went from 9,099px to 12,074px — a
+   * layout added to reclaim wasted space had spent 3,000px of extra scrolling
+   * to do it. The rail only pays once what is left over still fits the table,
+   * which for a six-column table is about 950px, so the cut is at 85rem. Below
+   * that the page is a single full-width column, which at 1280px is already a
+   * 1,200px table against the old 957px.
+   */
+  @media (min-width: 85rem) {
+    body.split { display: grid; grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+                 column-gap: clamp(2rem, 3vw, 3rem); align-items: start; }
+    /* min-width: 0 or the table's intrinsic width blows the column out and
+       takes the rail's space back, which is the bug this layout exists to fix. */
+    .split .main { min-width: 0; }
+    .split .rail { position: sticky; top: 1.5rem;
+            /* Nairobi lists 29 institutions, which is a rail taller than the
+               viewport — pinned without this, its foot is simply unreachable. */
+            max-height: calc(100vh - 3rem); overflow-y: auto; }
+    .split .rail ul.cols { columns: auto; }
+    /* The footer is a body-level landmark now (contentinfo), which makes it a
+       third grid child — without this it would drop into the rail's column
+       under the sticky box instead of closing the page across it. */
+    .split > footer { grid-column: 1 / -1; }
+  }
+
+  /* The eligibility floor, as a figure block rather than a sentence. */
+  .prov { margin: 1.1rem 0; padding: .85rem 0; border-top: 1px solid var(--ink-veil, rgba(61,28,2,.12));
+          border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); font-size: .88rem; }
+  .prov > div { display: flex; justify-content: space-between; gap: 1rem; padding: .22rem 0; }
+  .prov dt { color: inherit; opacity: .8; }
+  .prov dd { margin: 0; font-family: var(--mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
+             font-weight: 700; white-space: nowrap; }
+
+  /* The printed brief's masthead. Absent from the screen page, which already
+     has a heading and a back link and does not need a second identity. */
+  .brief-head { display: none; }
+
+  /* ---------- PRINT: a county page is a deliverable ----------------------
+   *
+   * Ctrl-P on a county page produces a branded provision brief — the mark, the
+   * county, the eligibility floor, who runs what, and every course with its
+   * fee and entry grade. It goes to a career teacher, a bursary committee or a
+   * county education officer, which is the audience Njia has no other way of
+   * reaching.
+   *
+   * No library and no server: the data is already in the page, so this is a
+   * stylesheet, not a feature. That also means it works offline and from a
+   * saved page, which matters for the offices that need it most.
+   *
+   * What gets dropped is anything that cannot be acted on from paper — the
+   * buttons, the back link, the scroll affordances. What gets kept is every
+   * figure and the provenance paragraph, because a brief whose numbers cannot
+   * be checked is the thing this project exists not to publish. */
+  @media print {
+    @page { margin: 14mm 12mm; }
+    body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }
+    .rail, .main { position: static !important; max-height: none !important; overflow: visible !important; }
+    /* .jump-head goes with .jump. Hiding the list but keeping its heading
+       left "Jump to a county" printed above nothing at all — anchors do not
+       work on paper, so both halves have to go. */
+    .cta, .back, .jump, .jump-head { display: none !important; }
+    /* The scroll box must not clip on paper — there is no scrolling on paper,
+       so an overflow container silently truncates the right-hand columns. */
+    .wrap { overflow: visible !important; }
+    table { font-size: 8.5pt; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    h2 { break-after: avoid; margin-top: 1.2em; }
+    .brief-head {
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 2px solid var(--primary, #8B2500);
+      padding-bottom: 6px; margin-bottom: 10px;
+    }
+    .brief-mark { width: 26px; flex: none; }
+    .brief-mark svg { display: block; width: 100%; height: auto; }
+    .brief-word { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 15pt; line-height: 1; }
+    .brief-tag { font-size: 6.5pt; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+    .brief-meta { margin-left: auto; text-align: right; font-size: 7.5pt; line-height: 1.35; }
+    .prov { break-inside: avoid; }
+    .prov > div { padding: .12rem 0; }
+  }
+
+  /* One document and a paragraph about it: a single measure, like the county
+     and grade indexes. */
+  body { max-width: 52rem; }
+  li { margin: .45rem 0; }
+  .dl { display: inline-block; margin: .3rem 0 .2rem; }
+  .meta { color: var(--muted, #6b625a); font-size: .92rem; margin-top: .2rem; }
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+
+<div class="brief-head">
+  <div class="brief-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia"> <style> /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile. * * Nothing supplies --mark-edge outside the app, so the outline falls back * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16, * 32, 48 and 64px, the leaf edge disappeared into the ground completely. * The mark still read, because the terracotta field and the cream road * carry it, but the drawing lost its silhouette. * * This rule is inert inside the app: there the #i-njia sprite symbol in * index.html is a separate copy that takes --mark-edge from the page, and * it does not carry this stylesheet. The drift guard in * tests/provenance.test.js compares path geometry rather than styling, so * the two stay legitimately different in presentation and identical in * shape. */ @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg></div>
+  <div>
+    <div class="brief-word">Njia</div>
+    <div class="brief-tag">Data-driven career pathways for Kenyan youth</div>
+  </div>
+  <div class="brief-meta">
+    <strong>Partnership proposal</strong><br>
+    For funders, partners and county education offices<br>
+    16 August 2026 &middot; njiacareerpathways.work
+  </div>
+</div>
+<h1>A Partnership Proposal for Kenya's Education-to-Employment Transition</h1>
+<p>Njia is a free, open career-pathway platform for Kenyan school leavers. It lists
+469 courses at 143 institutions across 47 counties, with
+entry grades, fees and — unusually — a column saying where each fee figure came from.</p>
+<p>This proposal sets out the case for partnership: what the platform does, the evidence
+behind it, what it deliberately refuses to claim, and where support would go.</p>
+<p><a class="cta dl" href="/docs/njia-pitch-deck-aug-2026.pdf">Download the proposal (PDF, 2.5&nbsp;MB)</a></p>
+<p class="meta">August 2026 &middot; 2.5&nbsp;MB PDF</p>
+<h2>If you are a student, this is not the page you want</h2>
+<p>This document is written for funders and partners. If you are deciding what to study,
+these are for you instead:</p>
+<ul>
+<li><a href="/grades/">What you can study with your KCSE grade</a> — from C plain down to E.</li>
+<li><a href="/counties/">Every course by county</a> — 47 pages of entry grades and fees.</li>
+<li><a href="/#discover">The 20-minute diagnostic</a> — free, and nothing you enter leaves your phone.</li>
+</ul>
+<h2>If you want to check the numbers</h2>
+<p>Everything in the proposal comes from data published here in full:</p>
+<ul>
+<li><a href="/open-data/">The whole catalogue</a> as CSV and JSON, with a fee-provenance column.</li>
+<li><a href="/analysis/">County provision analysis</a> — which counties list nothing a
+school leaver with an E can enter, and why the gap is one missing tier.</li>
+</ul>
+</main>
+</body>
+</html>

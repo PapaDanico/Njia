@@ -71,7 +71,13 @@ const GENERATED = [
      table inside a horizontally scrolling region, which is its own set of ways
      to be unreadable — a scroll container needs to be keyboard-reachable, and a
      table this wide needs its headers to survive being scrolled past. */
-  '/analysis/'
+  '/analysis/',
+  /* Added with the page itself rather than after someone notices. Four of the
+     five "the app is not the whole site" defects in this repository were found
+     late precisely because a new surface shipped without being added to the
+     sweep — the sweep's own first section was mislabelled "static pages" and
+     audited the app's routes for as long as both existed. */
+  '/docs/'
 ];
 
 const HOWTO = 'Supply them out-of-tree, e.g.\n'

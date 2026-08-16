@@ -180,6 +180,29 @@ Two specific blind spots worth naming, because both look like coverage:
   threw `undefined is not iterable` on render — both questions *were* in the
   text. It now evaluates `HELP_FAQ` and checks every entry is a real pair.
 
+A third, found by an audit that turned all four layers green and then went
+looking anyway: **every layer runs against a server where every request
+succeeds.** Nothing here had ever asked what happens when a file does not turn
+up, and the answer was that the app stopped — `renderRoute()` retried a missing
+page module by awaiting a cached promise that resolved on failure, so it
+re-entered on the next microtask and never yielded. Main thread silent for 6s, a
+click timed out at 4s. 253 unit tests, 21 functional checks and 64 axe states all
+green. `tests/functional-probe.mjs` now has a degraded-network section that
+aborts a real request in a real browser, with service workers **blocked** — an
+installed worker serves the module from its precache and the failure cannot be
+reproduced at all, which is a genuine second line of defence and exactly why the
+section has to opt out of it. The exposure is the first visit, before any cache
+exists, which is when a new reader on a weak signal arrives.
+
+**And a guard can fail its own failure message.** `every printable sheet carries
+the branded header` reported that a failing page prints with "no Njia header,
+date or address", and checked only that the header `<div>` existed. It existed on
+all 53 pages and carried **no date on any of them** — found by print-emulating
+the pages and searching for a date token, not by reading the test. This is the
+paraphrase trap from the Dataset caveat one level up: there the guard accepted a
+paraphrase of the claim, here it accepted a *substring* of it. When a failure
+message lists three things, assert three things.
+
 ## Type has a floor, and it is 12px
 
 An audit found **nineteen distinct sub-1rem font sizes** in `css/styles.css` —

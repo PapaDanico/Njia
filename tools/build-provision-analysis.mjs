@@ -72,6 +72,16 @@ const { COURSES } = require('./data/courses.js');
 const { INSTITUTIONS } = require('./data/institutions.js');
 
 const SITE = 'https://njiacareerpathways.work';
+
+/* Dated for the same reason the county and grade briefs are: this is the page
+   most likely to be printed and carried into a room where nobody can check it
+   against the site. A table of 47 counties with 22 zeros in it is a claim about
+   a moving catalogue, and an undated copy of it never expires. Pinned to
+   NJIA_BUILD_DATE so CI's regenerate-and-diff stays byte-identical. */
+const BUILD_DATE = process.env.NJIA_BUILD_DATE || new Date().toISOString().slice(0, 10);
+const BUILD_DATE_LABEL = new Date(`${BUILD_DATE}T00:00:00Z`).toLocaleDateString('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+});
 const OUT = path.join(root, 'analysis');
 
 /* feeBasis() is read out of js/decide.js rather than reimplemented, by the same
@@ -341,7 +351,8 @@ const page = `<!doctype html>
   </div>
   <div class="brief-meta">
     <strong>County provision analysis</strong><br>
-    ${totals.counties} counties &middot; ${totals.courses} courses &middot; njiacareerpathways.work
+    ${totals.counties} counties &middot; ${totals.courses} courses<br>
+    ${BUILD_DATE_LABEL} &middot; njiacareerpathways.work
   </div>
 </div>
 

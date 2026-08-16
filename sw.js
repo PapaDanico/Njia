@@ -7,7 +7,7 @@
  * data — bump CACHE_VERSION on every deploy that changes cached files.
  */
 
-const CACHE_VERSION = 'njia-v143';
+const CACHE_VERSION = 'njia-v144';
 const ICON_ASSETS = [
   './icons/icon-192x192.png', './icons/icon-512x512.png',
   './icons/icon-maskable-192.png', './icons/icon-maskable-512.png',
@@ -61,6 +61,40 @@ self.addEventListener('message', (event) => {
   if (event.data === 'skipWaiting') self.skipWaiting();
 });
 
+/* THE OPPORTUNISTIC CACHE NEEDS A CEILING, AND IT DID NOT HAVE ONE.
+ *
+ * The network-first branch below writes every same-origin 200 into the cache.
+ * That is right for app code and data — it is what makes the app work offline —
+ * and wrong for the two things on this domain that are downloads rather than
+ * app: the partnership proposal in /docs/ and the bulk CSV/JSON in /open-data/.
+ *
+ * Measured with the worker installed: a fresh install holds 23 entries and
+ * 1.37MB. Tapping the proposal once takes it to 3.92MB — a 186% increase for a
+ * 2.5MB PDF written to a learner's phone by a single tap on a footer link.
+ * Browsing the open-data files and a county page as well reaches 4.86MB.
+ *
+ * The reader who pays for that is the one this project designs for: a cheap
+ * Android handset with little free storage, holding a document written for
+ * funders that they will never open. And origin quota is shared, so the failure
+ * does not stay in the cache — it surfaces as the "device storage may be full"
+ * toast in saveState(), which means the app would be losing a reader's saved
+ * courses to keep a PDF.
+ *
+ * Excluded by path rather than by byte count deliberately. A size threshold
+ * would have to sit above data/courses.js at 565KB and would then silently
+ * change meaning every time the catalogue grew; a path says what it means and a
+ * test can read it. These files stay perfectly available — they are simply
+ * fetched from the network like any other download, which is what they are.
+ *
+ * Not offline-regressing anything: neither path was ever in CACHE_ASSETS, so
+ * neither was ever guaranteed offline. They were only ever cached by accident,
+ * for whoever happened to tap them once. */
+const BULK_DOWNLOAD_PATHS = ['/docs/', '/open-data/njia-catalogue.'];
+function isBulkDownload(url) {
+  const pathname = new URL(url).pathname;
+  return BULK_DOWNLOAD_PATHS.some((prefix) => pathname.includes(prefix));
+}
+
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
@@ -89,7 +123,8 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        if (response && response.status === 200 && response.type === 'basic') {
+        if (response && response.status === 200 && response.type === 'basic'
+            && !isBulkDownload(event.request.url)) {
           const responseClone = response.clone();
           caches.open(CACHE_VERSION).then((cache) => cache.put(event.request, responseClone));
         }

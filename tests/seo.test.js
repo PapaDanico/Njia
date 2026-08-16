@@ -273,6 +273,47 @@ test('every printable sheet carries the branded header', () => {
     `these pages print with no Njia header, date or address: ${missing.join(', ')}`);
 });
 
+test('every printable sheet is dated', () => {
+  /* SPLIT OUT OF THE TEST ABOVE, WHICH FAILED ITS OWN FAILURE MESSAGE.
+     That test says a page without the header prints with "no Njia header, date
+     or address" — and then checks only that the header div exists. The header
+     existed on all 53 pages and carried no date on any of them, so the guard
+     passed while claiming to cover exactly what was missing. Found by
+     print-emulating the pages and searching the rendered text for a date, which
+     came back empty on county and analysis alike.
+
+     Why it matters more here than on screen: these sheets are printed and
+     carried away — photocopied for a Form Four class, taken into a bursary
+     committee. The catalogue has gone 436 to 463 to 469 courses in months, so
+     every figure on the sheet has a shelf life, and an undated copy from last
+     year is indistinguishable from one printed this morning.
+
+     Matches the long form the generator emits (16 August 2026) rather than an
+     ISO string, because the reader is a person holding paper. */
+  const dated = /\b\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December) 20\d\d\b/;
+  const pages = [
+    ...fs.readdirSync(countiesDir, { withFileTypes: true })
+      .filter((e) => e.isDirectory()).map((e) => path.join(countiesDir, e.name, 'index.html')),
+    ...fs.readdirSync(gradesDir, { withFileTypes: true })
+      .filter((e) => e.isDirectory()).map((e) => path.join(gradesDir, e.name, 'index.html')),
+    path.join(__dirname, '..', 'analysis', 'index.html')
+  ];
+  /* .brief-meta rather than the whole .brief-head: the header nests several
+     divs and an inline SVG, so a non-greedy match on the outer block closes at
+     the first nested </div> and never reaches the line the date is on. That is
+     how the first version of this guard reported all 54 pages undated when
+     every one of them was correct. .brief-meta contains only <strong> and <br>,
+     so the non-greedy match is exact there. */
+  const undated = pages.filter((p) => {
+    const meta = fs.readFileSync(p, 'utf8').match(/<div class="brief-meta">[\s\S]*?<\/div>/);
+    return !meta || !dated.test(meta[0]);
+  }).map((p) => path.relative(path.join(__dirname, '..'), p));
+  assert.deepEqual(undated, [],
+    `these printable sheets carry no date in their brief header: ${undated.slice(0, 5).join(', ')}`
+    + `${undated.length > 5 ? ` (+${undated.length - 5} more)` : ''}. Regenerate with `
+    + 'node tools/build-static-pages.mjs and node tools/build-provision-analysis.mjs.');
+});
+
 test('no grade sheet says "a E"', () => {
   /* GRADE_ARTICLE exists precisely for this and I hardcoded "a" in the print
      header anyway, which produced "What a E can study" on the sheet aimed at

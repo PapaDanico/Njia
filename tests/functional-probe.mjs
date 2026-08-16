@@ -243,6 +243,64 @@ for (const route of ['home', 'discover', 'design', 'decide', 'connect', 'track',
 
 check('no uncaught page errors', pageErrors.length === 0, pageErrors.slice(0, 3).join(' | ') || 'none');
 
+/* 6. THE DEGRADED NETWORK, WHICH NOTHING HERE HAD EVER TESTED.
+ *
+ * Every check above this line runs against a server where every request
+ * succeeds. So did the 253 unit tests and the 64 accessibility states, and all
+ * three were green while a single unreachable module froze the tab outright:
+ * renderRoute() retried by awaiting a cached promise that resolved on failure,
+ * so it re-entered on the next microtask and never yielded. Measured before the
+ * fix — main thread silent for 6s, click timed out at 4s.
+ *
+ * Service workers are blocked for this section. With one installed the worker
+ * serves the module from its precache and the failure cannot be reproduced at
+ * all, which is a genuine second line of defence and exactly why the section
+ * has to opt out of it: the exposure is the FIRST visit, before any cache
+ * exists, which is also when a new reader on a weak signal arrives.
+ *
+ * Three checks, covering the class rather than the instance: it must not hang,
+ * it must recover from a transient failure, and when it truly cannot load it
+ * must say so and offer a way back. */
+const degraded = await browser.newContext({ serviceWorkers: 'block' });
+
+async function moduleFailure(failCount) {
+  const p = await degraded.newPage();
+  let requests = 0;
+  await p.route('**/js/help.js', (r) => { requests += 1; return requests <= failCount ? r.abort() : r.continue(); });
+  await p.goto(`${BASE}/index.html`, { waitUntil: 'load' });
+  await p.waitForTimeout(1800);                      // the idle prefetch runs and fails
+  await p.evaluate(() => navigateTo('help')).catch(() => {});
+  await p.waitForTimeout(1500);                      // any retry completes
+  const responsive = await Promise.race([
+    p.evaluate(() => true),
+    new Promise((r) => setTimeout(() => r(false), 4000))
+  ]);
+  const dom = await p.evaluate(() => {
+    const el = document.getElementById('page-help');
+    const h = el && el.querySelector('h1');
+    return {
+      heading: h ? h.textContent.trim() : null,
+      retry: !!(el && el.querySelector('button[onclick^="retryPageModule"]'))
+    };
+  }).catch(() => ({ heading: null, retry: false }));
+  await p.close();
+  return { responsive, requests, ...dom };
+}
+
+const blip = await moduleFailure(1);
+check('a dropped module request does not freeze the app',
+  blip.responsive, blip.responsive ? 'main thread answered' : 'MAIN THREAD BLOCKED — the retry is unbounded again');
+check('a transient module failure is retried, not latched',
+  blip.requests >= 2 && blip.heading === 'How Njia works',
+  `requests=${blip.requests} heading=${JSON.stringify(blip.heading)}`);
+
+const dead = await moduleFailure(99);
+check('a module that never loads renders a failure with a way back',
+  dead.responsive && dead.retry && /didn't load/.test(dead.heading || ''),
+  `responsive=${dead.responsive} retry=${dead.retry} heading=${JSON.stringify(dead.heading)} requests=${dead.requests}`);
+
+await degraded.close();
+
 await browser.close();
 
 const failed = results.filter((r) => !r.pass);

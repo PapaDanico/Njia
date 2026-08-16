@@ -1771,7 +1771,12 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: var(--text-muted);
 }
 .icon-disc .icon { width: 26px; height: 26px; }
-.empty-state h3 { color: var(--text-secondary); margin-bottom: 0.5rem; }
+/* h1 as well as h3: a page whose module failed to load renders its failure
+   inside .empty-state, and it has to carry that page's h1 — every lazy page
+   renders one, so omitting it here would leave the document with no h1 at all
+   and would give renderRoute's focusHeading nothing to focus. */
+.empty-state h1, .empty-state h3 { color: var(--text-secondary); margin-bottom: 0.5rem; }
+.empty-state h1 { font-size: 1.25rem; }
 .empty-state p { max-width: 320px; margin: 0 auto 1.25rem; font-size: var(--fs-lg); }
 
 /* ---------- Toast ---------- */

@@ -1075,6 +1075,13 @@ function renderHomePage() {
                brand column gets the width the empty space was holding. */''}
           <div class="landing-footer-col">
             <p class="footer-col-label">Company &amp; legal</p>
+            ${/* External, not committed. The deck lives in Gamma so it stays
+                 current when it is edited there; a PDF copied into this repo
+                 would be a static snapshot with no guard against drifting from
+                 the live version, which is the stale-artefact trap this project
+                 avoids everywhere else. Gamma's own PDF export URL expires after
+                 about a week, so that one deliberately does not appear here. */''}
+            <a href="https://gamma.app/docs/99871jxeer6fv2r" target="_blank" rel="noopener noreferrer">Pitch deck ↗</a>
             <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
             <button type="button" onclick="openFeedbackModal()">Give Feedback</button>
             <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>

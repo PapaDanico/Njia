@@ -340,26 +340,91 @@ const PAGE_MODULE = {
   discover: 'discover', design: 'design',
   connect: 'connect', track: 'track', help: 'help'
 };
+/* SETTLED IS NOT LOADED, AND THAT DISTINCTION IS THE WHOLE OF THIS BLOCK.
+ *
+ * The first version of this resolved on failure as well as success so that a
+ * module which would not load left "an empty page rather than a promise nobody
+ * settles and a UI frozen mid-navigation". It cached the promise, and
+ * renderRoute retried by awaiting it and calling itself. Those two facts
+ * together produced the exact freeze the comment promised to avoid: the cached
+ * promise was already resolved, so the retry re-entered on the next microtask,
+ * found the renderer still missing, and asked again. Microtasks drain before
+ * the event loop runs, so the loop never yielded — the tab stopped dead rather
+ * than rendering an empty page. Measured with one module aborted: the main
+ * thread did not answer in 6s and a click on the nav timed out.
+ *
+ * Two things make that impossible now.
+ *
+ * ATTEMPTS ARE COUNTED, so the retry terminates. renderRoute only re-enters
+ * while attempts remain; when they run out it renders a failure the reader can
+ * act on, which is what the original comment was reaching for.
+ *
+ * THE RENDERER IS THE PROOF, not the event. A script with a syntax error fires
+ * onload, not onerror, so "settled" says nothing about whether the module
+ * defined anything. Only the renderer's own presence does. On failure the
+ * cached promise is discarded so a later navigation makes a genuinely new
+ * request rather than replaying a stale resolution.
+ *
+ * The second attempt is not padding. The idle prefetch below requests all five
+ * modules on every load, unprompted, so the likeliest failure by far is one
+ * dropped request on a mobile connection that is fine again seconds later when
+ * the reader actually taps the page. Measured: without a retry the app made
+ * exactly one request for that module and never made another for the rest of
+ * the session. */
+const MODULE_MAX_ATTEMPTS = 2;
 const moduleLoads = {};
+const moduleAttempts = {};
+const rendererName = (name) => `render${name[0].toUpperCase()}${name.slice(1)}Page`;
+
 function ensurePageModule(page) {
   const name = PAGE_MODULE[page];
   if (!name) return Promise.resolve();
   if (!moduleLoads[name]) {
+    moduleAttempts[name] = (moduleAttempts[name] || 0) + 1;
     moduleLoads[name] = new Promise((resolve) => {
       const el = document.createElement('script');
       el.src = `./js/${name}.js`;
       /* async=false keeps injected scripts in insertion order, which matters
          if two are requested in the same tick. */
       el.async = false;
-      /* Resolve on failure too. A module that will not load must leave the app
-         behaving exactly as it did before this change — an empty page rather
-         than a promise nobody settles and a UI frozen mid-navigation. */
-      el.onload = resolve;
-      el.onerror = resolve;
+      const settle = () => {
+        if (typeof window[rendererName(name)] !== 'function') delete moduleLoads[name];
+        resolve();
+      };
+      el.onload = settle;
+      el.onerror = settle;
       document.head.appendChild(el);
     });
   }
   return moduleLoads[name];
+}
+
+/* Reachable from the failure state's button. Clears the attempt count as well
+   as the cached promise, because a reader pressing "Try again" has usually
+   just done something about the connection. */
+function retryPageModule(page) {
+  const name = PAGE_MODULE[page];
+  if (!name) return;
+  delete moduleLoads[name];
+  delete moduleAttempts[name];
+  renderRoute({ focusHeading: true });
+}
+
+function renderPageModuleFailure(page) {
+  const el = document.getElementById(`page-${page}`);
+  if (!el) return;
+  /* Says which section, says the likeliest cause, and says the reader's own
+     work is safe — that last line matters because everything Njia holds lives
+     in this browser, so "something failed to load" is a frightening sentence
+     if you have just spent twenty minutes on a questionnaire. */
+  el.innerHTML = `
+    <div class="empty-state" role="alert">
+      <div class="icon-disc">${icon('alert')}</div>
+      <h1>${escapeHtml(PAGE_LABELS[page] || page)} didn't load</h1>
+      <p>This section needs one more file and it didn't arrive — usually a dropped
+         connection. Your saved courses and answers are safe on this device.</p>
+      <button type="button" class="btn btn-primary" onclick="retryPageModule('${page}')">Try again</button>
+    </div>`;
 }
 
 function renderRoute({ focusHeading = false } = {}) {
@@ -395,13 +460,21 @@ function renderRoute({ focusHeading = false } = {}) {
   const renderFn = renderers[AppState.currentPage];
   if (typeof renderFn === 'function') {
     renderFn();
-  } else if (PAGE_MODULE[AppState.currentPage]) {
+  } else if (PAGE_MODULE[AppState.currentPage]
+      && (moduleAttempts[PAGE_MODULE[AppState.currentPage]] || 0) < MODULE_MAX_ATTEMPTS) {
     /* The module has not arrived yet. Fetch it and come back — the shell above
        has already switched pages, so the reader sees the right page frame while
        its contents are on the way. focusHeading is passed on rather than
-       dropped, so the heading takes focus once there is a heading to take it. */
+       dropped, so the heading takes focus once there is a heading to take it.
+
+       The attempt guard is what stops this being a loop: without it the retry
+       re-enters on an already-resolved promise and never yields. */
     ensurePageModule(AppState.currentPage).then(() => renderRoute({ focusHeading }));
     return;
+  } else if (PAGE_MODULE[AppState.currentPage]) {
+    /* Attempts exhausted and still no renderer. Fall through to focusHeading so
+       the message takes focus rather than leaving it on whatever was there. */
+    renderPageModuleFailure(AppState.currentPage);
   }
 
   if (focusHeading) {

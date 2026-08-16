@@ -753,8 +753,33 @@ function renderShareableReportHTML() {
    *
    * Six, not five: a saved list is a decision already taken and five is plenty,
    * while a suggested list is a starting point and wants enough spread to show
-   * that more than one kind of thing is open. Both still fit the page. */
-  const suggested = savedCourses.length ? [] : COURSES
+   * that more than one kind of thing is open. Both still fit the page.
+   *
+   * AND WHERE THE COURSE IS HAS TO COUNT, which the first version left out.
+   *
+   * Openness and fee alone put four of six suggestions in Turkana, West Pokot,
+   * Marsabit and Lodwar for a reader whose own constraints read "obligations:
+   * high, income urgency: high". Not a bug in the sort — every KMTC certificate
+   * ties at D+ and Ksh 82,200, so both keys are exhausted and the order falls
+   * through to however the catalogue happens to be written.
+   *
+   * That inverts this project's own coverage argument. The eligibility-floor
+   * work exists because the reader who cannot move away from home is the one
+   * the catalogue was failing; handing that same reader a shareable sheet
+   * headed "Courses Open To You" listing campuses several hundred kilometres
+   * away is worse than a short list, because it looks researched.
+   *
+   * So county leads, taken from the filter the reader already set in Decide.
+   * Not as a tie-break — a tie-break would hide the fact that distance was
+   * weighed at all — and not as a hard filter either, because a county with two
+   * courses in it would then produce a two-row report and no hint that more
+   * exists. Nearby first, the rest after, and the legend says which is which. */
+  const homeCounty = AppState.decideFilters && AppState.decideFilters.county !== 'all'
+    ? AppState.decideFilters.county
+    : null;
+  const countyOf = (c) => INSTITUTIONS.find((i) => i.id === c.institution_id)?.county || null;
+
+  const eligible = savedCourses.length ? [] : COURSES
     .filter((c) => c.cluster === results.primary)
     .filter((c) => !constraints.grade
       || typeof meetsGradeRequirement !== 'function'
@@ -771,8 +796,12 @@ function renderShareableReportHTML() {
       /* Then cheapest, with unpriced records last rather than treated as free. */
       const fee = (x) => (x.total_fees_kes == null ? Infinity : x.total_fees_kes);
       return fee(a) - fee(b);
-    })
-    .slice(0, 6);
+    });
+
+  const nearby = homeCounty ? eligible.filter((c) => countyOf(c) === homeCounty) : [];
+  const farther = homeCounty ? eligible.filter((c) => countyOf(c) !== homeCounty) : eligible;
+  const suggested = [...nearby, ...farther].slice(0, 6);
+  const nearbyShown = homeCounty ? suggested.filter((c) => countyOf(c) === homeCounty).length : 0;
 
   const reportCourses = savedCourses.length ? savedCourses : suggested;
 
@@ -889,7 +918,18 @@ function renderShareableReportHTML() {
       ${reportCourses.length ? `
         <div class="report-courses">
           <span class="report-section-title">${savedCourses.length ? 'Courses You Are Considering' : 'Courses Open To You'}</span>
-          ${savedCourses.length ? '' : `<p class="report-legend">Njia has not been told what you have chosen yet, so these are the ${suggested.length} closest matches in the catalogue for ${escapeHtml(CLUSTERS[results.primary]?.name || 'your result')}${constraints.grade ? ` that ${/^[AE]/.test(constraints.grade) ? 'an' : 'a'} ${escapeHtml(constraints.grade)} can enter` : ''} — most open first. They are a starting point, not a shortlist.</p>`}
+          ${savedCourses.length ? '' : `<p class="report-legend">Njia has not been told what you have chosen yet, so these are the ${suggested.length} closest matches in the catalogue for ${escapeHtml(CLUSTERS[results.primary]?.name || 'your result')}${constraints.grade ? ` that ${/^[AE]/.test(constraints.grade) ? 'an' : 'a'} ${escapeHtml(constraints.grade)} can enter` : ''} — most open first.${/* Say the mix out loud. A reader who set a county filter and then reads a
+                list containing other counties needs to know that was a decision and
+                not an oversight; a reader whose county genuinely has nothing needs
+                to know that too, because "nothing near me" is information they can
+                act on and a silently national list is not. */
+              homeCounty
+                ? (nearbyShown === suggested.length
+                    ? ` All ${suggested.length} are in ${escapeHtml(homeCounty)}.`
+                    : nearbyShown
+                      ? ` ${nearbyShown} ${nearbyShown === 1 ? 'is' : 'are'} in ${escapeHtml(homeCounty)}; the rest are elsewhere in Kenya.`
+                      : ` Njia lists none of these in ${escapeHtml(homeCounty)}, so all are elsewhere in Kenya.`)
+                : ''} They are a starting point, not a shortlist.</p>`}
           <table class="report-table">
             <thead>
               <tr><th>Course</th><th>Institution</th><th class="ra">Tuition</th><th class="ra">Entry</th></tr>

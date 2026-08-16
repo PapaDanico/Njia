@@ -71,6 +71,18 @@ const { INSTITUTIONS } = require('./data/institutions.js');
 const SITE = 'https://njiacareerpathways.work';
 const OUT = path.join(root, 'counties');
 
+/* Declared up here rather than beside the sitemap, because briefHead() needs it
+   and a `const` read before its declaration is a temporal-dead-zone throw, not
+   an undefined. Same NJIA_BUILD_DATE the CI artefact job pins, so a rebuild on
+   an unchanged tree stays byte-identical instead of restamping 53 pages daily.
+   Two renderings of one value: ISO for <lastmod>, which is a machine format the
+   sitemap spec requires, and long-form for the printed sheet, which is read by
+   a person holding a piece of paper. */
+const BUILD_DATE = process.env.NJIA_BUILD_DATE || new Date().toISOString().slice(0, 10);
+const BUILD_DATE_LABEL = new Date(`${BUILD_DATE}T00:00:00Z`).toLocaleDateString('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+});
+
 /* The share-card URL carries a content hash so social platforms refetch it when
  * the card changes, instead of a human being asked to re-scrape in the Facebook
  * debugger. It is read out of index.html rather than restated here, because two
@@ -386,7 +398,25 @@ function institutionRows(rows) {
  * county officer was a proper brief. That is backwards: the teacher is the one
  * who photocopies it thirty times and hands it round a Form Four class, so it is
  * the copy most likely to be read by someone who has never heard of Njia and
- * needs to know where the numbers came from. */
+ * needs to know where the numbers came from.
+ *
+ * AND IT HAS TO CARRY A DATE, which for a long time it did not.
+ *
+ * Print-emulating all four page families and searching the rendered text for a
+ * date token returned nothing on any of them — county, grade and analysis alike
+ * — while the app's own in-page report stamped "16 August 2026" correctly. The
+ * branding shipped and the date did not, and nothing noticed because a print
+ * stylesheet is only ever seen on paper.
+ *
+ * It matters more here than anywhere else in this project. These sheets are
+ * designed to leave the internet: photocopied for a Form Four class, carried
+ * into a bursary committee, filed in a county education office. The catalogue
+ * has gone 436 to 463 to 469 courses inside a few months, so a brief quoting
+ * "112 courses, 26 open to an E" is a claim with a shelf life. Undated, a sheet
+ * printed last year is indistinguishable from one printed this morning — and
+ * this repository already argues, about the staleness guards, that a brief
+ * carrying last month's catalogue "looks exactly as authoritative as a current
+ * one". The guard protects the file on disk. Only this line protects the paper. */
 function briefHead(title, detail) {
   return `
 <div class="brief-head">
@@ -397,7 +427,8 @@ function briefHead(title, detail) {
   </div>
   <div class="brief-meta">
     <strong>${esc(title)}</strong><br>
-    ${detail} &middot; njiacareerpathways.work
+    ${detail}<br>
+    ${BUILD_DATE_LABEL} &middot; njiacareerpathways.work
   </div>
 </div>`;
 }
@@ -840,7 +871,7 @@ fs.writeFileSync(path.join(GRADES_OUT, 'index.html'), gradeIndexPage(gradePages)
 
 /* The sitemap is generated with them rather than maintained by hand, because a
  * hand-maintained list of 48 URLs is a list that goes stale. */
-const today = process.env.NJIA_BUILD_DATE || new Date().toISOString().slice(0, 10);
+const today = BUILD_DATE;
 const urls = [
   { loc: `${SITE}/`, priority: '1.0', changefreq: 'weekly' },
   { loc: `${SITE}/counties/`, priority: '0.8', changefreq: 'weekly' },

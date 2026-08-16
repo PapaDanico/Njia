@@ -1075,13 +1075,14 @@ function renderHomePage() {
                brand column gets the width the empty space was holding. */''}
           <div class="landing-footer-col">
             <p class="footer-col-label">Company &amp; legal</p>
-            ${/* External, not committed. The deck lives in Gamma so it stays
-                 current when it is edited there; a PDF copied into this repo
-                 would be a static snapshot with no guard against drifting from
-                 the live version, which is the stale-artefact trap this project
-                 avoids everywhere else. Gamma's own PDF export URL expires after
-                 about a week, so that one deliberately does not appear here. */''}
-            <a href="https://gamma.app/docs/99871jxeer6fv2r" target="_blank" rel="noopener noreferrer">Pitch deck ↗</a>
+            ${/* Self-hosted rather than linked out. It is the maintainer's own
+                 deck, properly Njia-branded, and hosting it here means it works
+                 offline, needs no third-party account to open, and cannot expire
+                 — a generated deck's export URL lasts about a week, which is not
+                 long enough for a document a partner is meant to keep. Dated in
+                 the filename so a newer one is an obvious replacement rather
+                 than a silent overwrite. */''}
+            <a href="./docs/njia-pitch-deck-aug-2026.pdf" download>Partnership proposal (PDF)</a>
             <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
             <button type="button" onclick="openFeedbackModal()">Give Feedback</button>
             <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>

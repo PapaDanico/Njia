@@ -126,11 +126,27 @@ like the icons and the share card, guarded by `tests/seo.test.js`. Rules:
   "Bachelor of Science in Nursing" at B, B, C, C+ and C+; a name-only test
   flagged the C page for listing the B ones when it was correct.
 
+**One list, not a guard per surface.** The fifth instance was the partnership
+proposal: `docs/njia-pitch-deck-aug-2026.pdf` was linked from exactly one
+place, a footer link `js/app.js` draws client-side. Not in the served
+`index.html`, not in the 53 generated pages, not in `sitemap.xml`, not in
+`llms.txt`, with no landing page of its own — and its audience is a funder or a
+ministry contact, every one of whom arrives by search or by a forwarded link,
+the two routes that cannot run JavaScript.
+
+There were already three guards for exactly this, one each in
+`open-data.test.js`, `provision-analysis.test.js` and `seo.test.js`, each
+written when its own surface shipped. **That is the flaw.** A per-surface guard
+has to be remembered by the person adding the next surface, which is precisely
+the thing that keeps not happening. `seo.test.js` now holds one `SURFACES` list
+and checks all three properties — served link, sitemap, `llms.txt` — at once.
+Add a surface, add a line.
+
 ## The app is not the whole site
 
-This mistake has now been made four separate times, by four different routes,
-and every instance had the same shape: something was verified in the app,
-worked in the app, and was silently absent from the 53 generated pages.
+This mistake has now been made **five** separate times, by five different
+routes, and every instance had the same shape: something was verified in the
+app, worked in the app, and was silently absent from everything else.
 
 - **Dark mode.** The scheme is keyed to `data-theme="dark"`, an attribute an
   inline script in `index.html` stamps pre-paint. The generated pages carry no
@@ -193,6 +209,34 @@ installed worker serves the module from its precache and the failure cannot be
 reproduced at all, which is a genuine second line of defence and exactly why the
 section has to opt out of it. The exposure is the first visit, before any cache
 exists, which is when a new reader on a weak signal arrives.
+
+**A lazy split is a dependency graph, and these are classic scripts.** Moving
+the catalogue off the critical path — 86.3KB gzipped of `data/courses.js`,
+`data/institutions.js` and `js/decide.js`, to render eight integers on a page
+that shows no course — took DOMContentLoaded on throttled 3G from **5,661ms to
+3,605ms, a 36% cut** (median of five, alternating, over a gzipping server; first
+paint moved only 176ms because it waits on the stylesheet, so this buys
+interactivity, not appearance). The figures are precomputed by
+`tools/build-landing-stats.mjs`, which calls the *same* `feeBasis()` and
+`sectorForCourse()` rather than a second copy, and `tests/landing-stats.test.js`
+recomputes every field — so they still cannot silently go stale.
+
+The trap is that there are no `import` statements to read. Deferring `decide.js`
+once threw `feeBasis is not defined`; listing only the data files for Discover
+threw `GRADE_ORDER is not defined`, because the report's suggestion sort uses
+`GRADE_ORDER` and `meetsGradeRequirement`, both defined in `decide.js`. **Same
+mistake, twice, and both times the unit suite was green and the functional probe
+caught it.** `tests/landing-stats.test.js` now reads the top-level declarations
+out of `decide.js`, finds which page modules reference them, and requires
+`PAGE_MODULE` to list the provider — and checks the *order*, because
+`async=false` makes insertion order the execution order and `decide.js` builds
+its county list at module scope.
+
+**And making it lazy must not make it optional.** Nothing in the served HTML
+references the catalogue any more, so `CACHE_ASSETS` is now the only thing
+putting it on the device. Verified by installing the worker, going offline and
+driving the app: Decide renders "469 of 469 places to apply match" with the
+network down.
 
 **And a guard can fail its own failure message.** `every printable sheet carries
 the branded header` reported that a failing page prints with "no Njia header,
@@ -645,16 +689,17 @@ Regenerate first — the guards fail on stale artefacts, which is the point:
 ```
 node tools/build-icons.mjs        # 4 PNGs + favicon.ico, needs Playwright
 node tools/build-og-image.mjs     # share card; rewrites its own hash in index.html
+node tools/build-landing-stats.mjs # data/landing-stats.js — the landing page's figures
 node tools/build-open-data.mjs    # CSV + JSON + /open-data/
 node tools/build-provision-analysis.mjs  # county CSV + /analysis/
-node tools/build-static-pages.mjs # 53 pages + sitemap; reads the others
+node tools/build-static-pages.mjs # 54 pages + sitemap + /docs/; reads the others
 node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS into the pages above
 ```
 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (231)
+node --test tests/*.test.js       # zero-dependency unit suite (268)
 node tests/functional-probe.mjs   # drives the real app, port 8080
 node tests/a11y-sweep.mjs         # 60 axe states, port 8106
 ```

@@ -326,3 +326,43 @@ test('no grade sheet says "a E"', () => {
     .map((p) => path.basename(path.dirname(p)));
   assert.deepEqual(bad, [], `these grade pages contain "a E" instead of "an E": ${bad.join(', ')}`);
 });
+
+test('every published surface is reachable without JavaScript, from the sitemap, and from llms.txt', () => {
+  /* ONE LIST, BECAUSE FIVE SCATTERED CHECKS IS HOW THE FIFTH ONE SHIPPED.
+   *
+   * "It works in the app and is absent from everything else" has now happened
+   * five times in this repository — dark mode, the accessibility sweep, the
+   * favicon, the print header, and the partnership proposal. The proposal was
+   * linked from exactly one place: a footer link js/app.js draws client-side.
+   * Not in the served index.html, not in the 53 generated pages, not in
+   * sitemap.xml, not in llms.txt, with no landing page of its own. Its audience
+   * is a funder or a ministry contact, and both arrive by search or by a
+   * forwarded link — the two routes that cannot run JavaScript.
+   *
+   * There were already three guards for exactly this, one each in
+   * open-data.test.js, provision-analysis.test.js and this file, each written
+   * when its own surface shipped. That is the flaw: a per-surface guard has to
+   * be remembered by the person adding the next surface, which is precisely the
+   * thing that keeps not happening. This is a list. Add a surface, add a line,
+   * and all three properties are checked at once.
+   *
+   * llms.txt is included because it is what ChatGPT Search, Perplexity, Gemini
+   * and Claude read, and a surface missing from it is invisible to every answer
+   * engine while looking perfectly fine in a browser. */
+  const SURFACES = ['./counties/', './grades/', './open-data/', './analysis/', './docs/'];
+  const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  const xml = fs.readFileSync(path.join(__dirname, '..', 'sitemap.xml'), 'utf8');
+  const llms = fs.readFileSync(path.join(__dirname, '..', 'llms.txt'), 'utf8');
+
+  const missing = [];
+  for (const surface of SURFACES) {
+    const bare = surface.replace('./', '/');
+    if (!html.includes(`href="${surface}"`)) missing.push(`${surface} is not linked in the served index.html`);
+    if (!xml.includes(`${bare}<`)) missing.push(`${surface} is not in sitemap.xml`);
+    if (!llms.includes(bare)) missing.push(`${surface} is not named in llms.txt`);
+  }
+  assert.deepEqual(missing, [],
+    `published surfaces are unreachable to something that does not run JavaScript:\n  ${missing.join('\n  ')}\n`
+    + 'Regenerate with node tools/build-static-pages.mjs then node tools/build-structured-data.mjs, '
+    + 'and add the link to the <noscript> block in index.html by hand.');
+});

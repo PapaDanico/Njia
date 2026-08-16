@@ -844,6 +844,89 @@ them — <a href="/#decide">use Decide</a> to filter by county, budget and inter
 `;
 }
 
+/* THE PROPOSAL WAS PUBLISHED AND UNFINDABLE.
+ *
+ * docs/njia-pitch-deck-aug-2026.pdf was linked from exactly one place: a footer
+ * link rendered client-side by js/app.js. Not in the served index.html, not in
+ * any of the 53 generated pages, not in sitemap.xml, not in llms.txt, and with
+ * no landing page of its own. That is the fifth instance of the pattern this
+ * repository has already named four times — it works in the app and is absent
+ * from everything else.
+ *
+ * It matters more for this file than for most. The audience is a funder, a
+ * partner or a ministry contact, and every one of them arrives by search or by
+ * a forwarded link, which are precisely the two routes that cannot see a link
+ * the app draws after JavaScript runs.
+ *
+ * A landing page rather than a bare sitemap entry, for three reasons: a PDF
+ * ranks poorly and previews badly when shared, a reader deserves to know what
+ * they are about to download and how large it is before they spend the data,
+ * and a learner who lands here by accident should be sent to the thing that is
+ * actually for them rather than handed a funder deck.
+ *
+ * The size is read off the file rather than written down, because a figure
+ * typed into prose beside a file that changes is a figure that goes wrong
+ * quietly. */
+const DECK_FILE = 'njia-pitch-deck-aug-2026.pdf';
+const DOCS_OUT = path.join(root, 'docs');
+
+function docsIndexPage(courseCount, institutionCount, countyCount) {
+  const bytes = fs.statSync(path.join(DOCS_OUT, DECK_FILE)).size;
+  const mb = (bytes / 1024 / 1024).toFixed(1);
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partnership proposal | Njia</title>
+<meta name="description" content="Njia's partnership proposal for Kenya's education-to-employment transition, August 2026 — the case, the evidence base and what partnership looks like, as a PDF.">
+<link rel="canonical" href="${SITE}/docs/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
+<link rel="stylesheet" href="/css/styles.css">
+<style>${SHELL_CSS}
+  /* One document and a paragraph about it: a single measure, like the county
+     and grade indexes. */
+  body { max-width: 52rem; }
+  li { margin: .45rem 0; }
+  .dl { display: inline-block; margin: .3rem 0 .2rem; }
+  .meta { color: var(--muted, #6b625a); font-size: .92rem; margin-top: .2rem; }
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+${briefHead('Partnership proposal', 'For funders, partners and county education offices')}
+<h1>A Partnership Proposal for Kenya's Education-to-Employment Transition</h1>
+<p>Njia is a free, open career-pathway platform for Kenyan school leavers. It lists
+${courseCount} courses at ${institutionCount} institutions across ${countyCount} counties, with
+entry grades, fees and — unusually — a column saying where each fee figure came from.</p>
+<p>This proposal sets out the case for partnership: what the platform does, the evidence
+behind it, what it deliberately refuses to claim, and where support would go.</p>
+<p><a class="cta dl" href="/docs/${DECK_FILE}">Download the proposal (PDF, ${mb}&nbsp;MB)</a></p>
+<p class="meta">August 2026 &middot; ${mb}&nbsp;MB PDF</p>
+<h2>If you are a student, this is not the page you want</h2>
+<p>This document is written for funders and partners. If you are deciding what to study,
+these are for you instead:</p>
+<ul>
+<li><a href="/grades/">What you can study with your KCSE grade</a> — from C plain down to E.</li>
+<li><a href="/counties/">Every course by county</a> — 47 pages of entry grades and fees.</li>
+<li><a href="/#discover">The 20-minute diagnostic</a> — free, and nothing you enter leaves your phone.</li>
+</ul>
+<h2>If you want to check the numbers</h2>
+<p>Everything in the proposal comes from data published here in full:</p>
+<ul>
+<li><a href="/open-data/">The whole catalogue</a> as CSV and JSON, with a fee-provenance column.</li>
+<li><a href="/analysis/">County provision analysis</a> — which counties list nothing a
+school leaver with an E can enter, and why the gap is one missing tier.</li>
+</ul>
+</main>
+</body>
+</html>
+`;
+}
+
 const counties = [...byCounty.keys()].sort();
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
@@ -869,6 +952,15 @@ for (const grade of Object.keys(GRADE_SLUG)) {
 }
 fs.writeFileSync(path.join(GRADES_OUT, 'index.html'), gradeIndexPage(gradePages));
 
+/* docs/ is NOT wiped and recreated the way counties/ and grades/ are: it holds
+   the proposal PDF and two hand-written working documents, none of them
+   generated. Only index.html is written here. */
+fs.writeFileSync(path.join(DOCS_OUT, 'index.html'), docsIndexPage(
+  COURSES.filter((c) => instById.has(c.institution_id)).length,
+  new Set(COURSES.filter((c) => instById.has(c.institution_id)).map((c) => c.institution_id)).size,
+  counties.length
+));
+
 /* The sitemap is generated with them rather than maintained by hand, because a
  * hand-maintained list of 48 URLs is a list that goes stale. */
 const today = BUILD_DATE;
@@ -886,6 +978,13 @@ const urls = [
      audience for it — a county education officer, a bursary committee — arrives
      by search rather than through the app. */
   { loc: `${SITE}/analysis/`, priority: '0.6', changefreq: 'monthly' },
+  /* The partnership proposal's landing page. Low changefreq because the deck is
+     dated and will be replaced rather than edited, and low priority because its
+     audience is small — but it has to be in here at all, which it was not: the
+     PDF was reachable only through a footer link the app drew client-side, so
+     the one document written for people who arrive by search was the one
+     document a search engine could not see. */
+  { loc: `${SITE}/docs/`, priority: '0.5', changefreq: 'yearly' },
   ...gradePages.map(([g]) => ({ loc: `${SITE}/grades/${GRADE_SLUG[g]}/`, priority: '0.8', changefreq: 'monthly' })),
   ...counties.map((c) => ({ loc: `${SITE}/counties/${slug(c)}/`, priority: '0.7', changefreq: 'monthly' }))
 ];

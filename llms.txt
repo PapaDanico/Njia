@@ -44,6 +44,7 @@ available in the county" — the difference is the whole point.
 - [Courses by grade](https://njiacareerpathways.work/grades/): what is open at C plain and below, down to E.
 - [Open data](https://njiacareerpathways.work/open-data/): the whole catalogue as CSV and JSON, including the fee-provenance column.
 - [County provision analysis](https://njiacareerpathways.work/analysis/): which counties are closed to a low-grade learner, and why.
+- [Partnership proposal](https://njiacareerpathways.work/docs/): the August 2026 proposal, for funders and partners rather than learners.
 
 ## Contact
 

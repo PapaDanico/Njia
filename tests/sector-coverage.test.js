@@ -544,8 +544,32 @@ test('both screens count verification the same way', () => {
   const app = fs.readFileSync(path.join(root, 'js', 'app.js'), 'utf8');
   assert.ok(!/records with fees or terms cross-checked against a named source/.test(app),
     'the landing page has reverted to the overstated verification claim');
-  assert.match(app, /feeBasis\(c\) === 'published'/,
-    'the landing page must derive its figure from feeBasis, not from the raw confidence flag');
+
+  /* THE RULE MOVED; THE INVARIANT DID NOT.
+     app.js used to call feeBasis() directly. It now reads LANDING_STATS, which
+     tools/build-landing-stats.mjs computes at build time — so the check follows
+     the rule to where it lives rather than being relaxed to fit. What must stay
+     true is that exactly one implementation of "published" exists, and that it
+     is the one js/decide.js renders the badge from. */
+  /* Comments stripped first. The prose above renderNjiaNumbersCard() explains
+     the old mistake by quoting it, and the first version of this check matched
+     that explanation and failed on correct code — a guard reading documentation
+     instead of behaviour, which is worth exactly nothing. */
+  const appCode = app.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  assert.ok(!/fees_confidence\s*===\s*['"]verified['"]/.test(appCode),
+    'the landing page is counting the raw confidence flag again. That is the exact substitution '
+    + 'that once claimed 274 of 391 records were "cross-checked against a named source" when the '
+    + 'true figure was 22.');
+  assert.match(app, /LANDING_STATS\.published/,
+    'the landing page no longer takes its published-fee figure from the generated stats');
+
+  const gen = fs.readFileSync(path.join(root, 'tools', 'build-landing-stats.mjs'), 'utf8');
+  assert.match(gen, /extractFn\(decideSource, 'feeBasis'\)/,
+    'tools/build-landing-stats.mjs no longer reads feeBasis() out of js/decide.js. A second copy '
+    + 'of the rule can disagree with the badge the app renders while both look right alone, and '
+    + 'this is the figure that claim rests on.');
+  assert.match(gen, /feeBasis\(c\) === 'published'/,
+    'the generator no longer classifies the published count with feeBasis()');
 });
 
 test('headline counts never claim institutions the catalogue cannot send anyone to', () => {

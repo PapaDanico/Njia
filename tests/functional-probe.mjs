@@ -243,7 +243,64 @@ for (const route of ['home', 'discover', 'design', 'decide', 'connect', 'track',
 
 check('no uncaught page errors', pageErrors.length === 0, pageErrors.slice(0, 3).join(' | ') || 'none');
 
-/* 6. THE DEGRADED NETWORK, WHICH NOTHING HERE HAD EVER TESTED.
+/* 6. THE PRINTED REPORT — the surface these two bugs hid on.
+ *
+ * The report card was fixed twice in two separate PRs (#91 and #92, both
+ * merged the same day from the same session), because neither fix added a
+ * guard. The unit suite, functional probe and axe sweep were all green through
+ * both defects, because all three run against a server where every request
+ * succeeds and nothing ever calls emulateMedia('print').
+ *
+ * BUG 1 — clipped header. @media print used to zero .report-card's padding on
+ * all four sides. .report-card::before is a 6px brand band pinned to the top
+ * edge, and the card is overflow:hidden — so every printed report came out
+ * with "CAREER PATHWAY REPORT" sheared along its top edge and its last letter
+ * cut off at the right. On screen the card's 1.7rem padding hid it completely.
+ *
+ * BUG 2 — empty report. The report listed only saved courses. Finish the
+ * questionnaire and print straight away and the sheet named an archetype but
+ * nothing actionable. The fix suggests six courses when nothing is saved.
+ *
+ * Both checks require emulateMedia('print'), which is the only way to see
+ * what @media print actually produces. This is the layer that would have
+ * caught them first. */
+await page.evaluate(() => navigateTo('discover'));
+await page.waitForTimeout(350);
+await page.emulateMedia({ media: 'print' });
+await page.waitForTimeout(150);
+
+const printReport = await page.evaluate(() => {
+  const card = document.querySelector('.report-card');
+  if (!card) return { found: false };
+  // Read the padding NOW — with @media print active, before any DOM mutation —
+  // so this is the value that determines whether the brand band is clipped.
+  const paddingTop = getComputedStyle(card).paddingTop;
+
+  // Clear saved courses so we test the "Courses Open To You" path, not
+  // "Courses You Are Considering". The questionnaire was completed earlier
+  // in this probe, so AppState.questionnaire.results is already set.
+  AppState.savedCourses = [];
+  renderDiscoverPage();   // re-render so the report picks up the empty list
+  const title = document.querySelector('.report-section-title');
+  const rows = document.querySelectorAll('.report-table tbody tr');
+  return {
+    found: true,
+    paddingTop,
+    sectionTitle: title ? title.textContent.trim() : null,
+    courseRows: rows.length
+  };
+});
+await page.emulateMedia({ media: null });   // restore screen media
+
+check('printed report card has non-zero top padding (header not clipped)',
+  printReport.found && printReport.paddingTop !== '0px',
+  printReport.found ? `paddingTop=${printReport.paddingTop}` : 'report-card not found');
+
+check('printed report suggests courses when nothing is saved',
+  printReport.courseRows > 0,
+  `courseRows=${printReport.courseRows} title=${JSON.stringify(printReport.sectionTitle)}`);
+
+/* 7. THE DEGRADED NETWORK, WHICH NOTHING HERE HAD EVER TESTED.
  *
  * Every check above this line runs against a server where every request
  * succeeds. So did the 253 unit tests and the 64 accessibility states, and all

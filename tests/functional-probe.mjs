@@ -272,19 +272,19 @@ await page.waitForTimeout(150);
 const printReport = await page.evaluate(() => {
   const card = document.querySelector('.report-card');
   if (!card) return { found: false };
-  const style = getComputedStyle(card);
+  // Read the padding NOW — with @media print active, before any DOM mutation —
+  // so this is the value that determines whether the brand band is clipped.
+  const paddingTop = getComputedStyle(card).paddingTop;
+
   // Clear saved courses so we test the "Courses Open To You" path, not
   // "Courses You Are Considering". The questionnaire was completed earlier
   // in this probe, so AppState.questionnaire.results is already set.
   AppState.savedCourses = [];
-  // Re-render the discover page so it picks up the empty savedCourses.
-  if (typeof renderDiscoverPage === 'function') renderDiscoverPage();
-  const cardAfter = document.querySelector('.report-card');
-  const paddingTop = cardAfter ? getComputedStyle(cardAfter).paddingTop : '0px';
+  renderDiscoverPage();   // re-render so the report picks up the empty list
   const title = document.querySelector('.report-section-title');
   const rows = document.querySelectorAll('.report-table tbody tr');
   return {
-    found: !!card,
+    found: true,
     paddingTop,
     sectionTitle: title ? title.textContent.trim() : null,
     courseRows: rows.length

@@ -373,6 +373,95 @@ Before adding a course, check whether the institution is already listed. Kisumu
 National Polytechnic already had all five artisan courses that looked missing —
 the duplicate guard caught the attempt to add them again.
 
+## An either/or in a published requirement is not a floor
+
+Sigalagala (Kakamega) and Siaya National Polytechnic both publish their artisan
+minimum as **"a KCPE certificate or a KCSE mean grade of D-"**. Seven records
+read that as D- and wrote the reasoning into the note: "the explicit KCSE figure
+is recorded rather than reading the slash as open entry".
+
+That is the Kisumu/Eldoret mistake again, at two more institutions, and it was
+what left Kakamega and Siaya reading as blind while their own national
+polytechnics sat in the catalogue. **A KCPE certificate is an alternative to the
+KCSE grade, not an addition to it**, so a learner holding an E clears the
+published bar. KCPE is not marked in letter grades at all, which is why "KCPE
+mean grade D-" cannot be the reading.
+
+It was not even a judgement call by the time it was found: five institutions
+with the identical wording — Kisumu, Eldoret, Kisii, Michuki, Bureti — were
+already at E, one of them saying outright "or a KCPE certificate, so an E clears
+it and E is recorded". Two were out of step with sixty. **When a record's own
+note explains why it departs from the rule, read the explanation — that is where
+this kind of error announces itself.**
+
+## A proxy guard fails on data that got better
+
+`artisan entry grades reflect what each institution publishes` required **three
+or more distinct entry values** across the artisan tier, on the reasoning that
+institutions publish different bars. Its comment named four: "Eldoret states D,
+Sigalagala D-, Meru D- or KCPE, Kabete E". Every one had since moved. The tier
+now legitimately holds two values, E and open, so the count fell to two and the
+guard failed — **on data that was more correct than the data it was written
+against**.
+
+Variety was never the property worth defending; it is an accident of which
+institutions happen to be listed. The property is that **no record claims the
+floor without evidence for the floor**. Asserted directly — a record at E must
+say *why* E in its own note — it immediately found eight records the count could
+never see, at Lodwar, Mandera and Laisamis. All eight were correct: they word
+their open tier as "open-ended" and "other course categories open", so the
+guard's vocabulary was widened rather than the records changed, exactly as the
+Don Bosco and St. Kizito case in the same file already records.
+
+Two smaller traps from the same change. **Break a guard properly before
+believing it works** — the first attempt to prove this one stripped one KCPE
+mention from a note that contained two, saw no failure, and nearly concluded the
+guard was inert. And **`COURSES` comes out of a `vm` context**, so arrays
+derived from it carry that realm's `Array` prototype and `deepStrictEqual`
+rejects them against a literal `[]` even when both are empty. That is why every
+other check in `provenance.test.js` joins to a string first.
+
+## Money may reach Njia, but never the catalogue
+
+Njia is free to every learner and funded from the institutional side: county and
+institutional deployment, data licensing, programme funding, and paid
+institution listings. All four are set out on `/docs/`, which now carries a
+contact address — it previously carried none, so a funder could read the whole
+proposal, spend 2.6MB on the deck, and have nowhere to write. **A conversion
+path that ends in a dead end is worse than one never built**, because the reader
+has already spent the attention.
+
+The listing route is the one that could end the project, so its refusals are on
+the page in the reader's words rather than in a policy nobody opens, and
+`tests/partnership.test.js` asserts them **one at a time**:
+
+- Payment never affects **ranking or ordering**. No paid placement.
+- Payment never affects a **fee basis or an entry grade**. A paid listing meets
+  the same provenance standard as every other record.
+- A paid listing is **disclosed** as one.
+- A listing that cannot be honest is **declined**, and the money with it.
+
+A page keeping three of the four has kept most of a sentence and lost the claim,
+which is why the guard does not accept the paragraph as a whole. The address
+must also stay byte-identical between the page and `llms.txt`: an answer engine
+quoting a mailbox the page does not advertise is the same dead end by a longer
+route.
+
+## The yield floor is real, and Nakuru is still behind it
+
+Three fresh searches against Rift Valley National Polytechnic confirmed its
+artisan bar again — "KCPE or KCSE mean grade of D- and E", so an E clears it —
+and returned **not one artisan course name**, the same result recorded the last
+time. The course lists are in institutional PDFs on egress-blocked hosts.
+
+Kenya's **first e-mobility curriculum** — Electric Vehicle Assistant Technician,
+NSC II, **KNQF Level 3**, developed by Pamoja for Transformation with GIZ WE4D,
+the WTS Foundation and NITA — is a genuine finding and sits *below* artisan,
+which makes it precisely this catalogue's reader. It is still a pilot training
+180 trainees with **no named delivering institution**, so it yields a lead and
+not a record. Recording it against a plausible polytechnic would be the
+placeholder trap with a curriculum attached.
+
 ## Coverage: measure what a reader can reach, not what exists
 
 County coverage was tracked as "single-cluster counties". That metric flattered

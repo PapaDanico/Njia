@@ -543,10 +543,23 @@ which institution is missing.
 
 **A count of institutions is not a count of institutions that do anything.** The
 provision-analysis guard reports the number that actually carry a course, and it
-caught that `mku` and `maseno` sit in `data/institutions.js` with **zero courses
+caught that `mku` and `maseno` sat in `data/institutions.js` with **zero courses
 attached** — invisible to every reader, and enough to make the register size
-disagree with the page's own rows. Whenever the register grows, check the two
-numbers against each other rather than quoting the register.
+disagree with the page's own rows. Both now carry records and the two numbers
+agree at 149. Whenever the register grows, check them against each other rather
+than quoting the register.
+
+Closing those two also settled how to list a university whose bar is not
+published. **Record the floor you can defend and drop the programmes you
+cannot.** Maseno is public, so there is no per-programme price and the SCFM note
+applies; MKU is private and publishes its fees where this build cannot read
+them. Both take the national KUCCPS degree minimum of C+ — but MKU's Bachelor of
+Pharmacy and BSc Nursing are *competitive*, and quoting C+ against them would
+send a C+ learner at an application they cannot win. They are **left out
+entirely**, and the note says they exist and why they are absent. Narrowing the
+scope is the honest move where narrowing the claim is not available; the
+eligibility rule says never quote a grade high, and it does not license quoting
+one low to look generous.
 
 **The search has a yield floor, and it has been reached for the thin counties.**
 Eight searches across Nakuru, Kwale, Makueni, Kitui and the county roll-ups

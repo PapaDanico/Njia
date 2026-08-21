@@ -1457,6 +1457,45 @@ test('an E-grade learner can apply somewhere in a meaningful number of counties'
     `an E-grade learner reaches artisan training in only ${artisanCounties.size} counties`);
 });
 
+/* A MIDPOINT OF A RANGE IS NOT A FEE.
+ *
+ * Seventeen records displayed a figure their own note described as "the middle
+ * of the published range" — EASA at Ksh 171,000 against a published band of
+ * 115,950 to 226,700, and Kenya Airways Pride Centre at Ksh 235,000 against
+ * 170,000 to 300,000. Neither number appears in any source. They are arithmetic
+ * performed on a range that was never per-course to begin with.
+ *
+ * Two things made it worse than an ordinary estimate. The figure did not move
+ * with duration — Ksh 171,000 rendered identically on a 36-month diploma and an
+ * 18-month one, and Ksh 235,000 on a 12-month diploma and a 6-month
+ * certificate — so it was one number pasted across unrelated courses, which is
+ * the placeholder pattern this file already guards against by value. And the
+ * EASA note claimed "the middle of the published diploma range" while its
+ * certificates showed the bottom of the IATA range instead, so the sentence did
+ * not describe its own records.
+ *
+ * This repository has ruled on it twice already. Eleven records lost their
+ * figures because a per-institution range "cannot be attributed to a named
+ * course", and c026 lost Ksh 560,000 because a note calling it a "four-year
+ * mid-range estimate" does not survive into the card. The rule is the same
+ * here: if the number is not the thing you can defend, remove the number.
+ *
+ * The notes still narrate what was removed, which is why this guard checks the
+ * pairing rather than the vocabulary — a record with no fee may say anything
+ * about midpoints, because there is no figure left to mislead anyone. */
+test('no course shows a fee its own note calls a midpoint of a range', () => {
+  const offenders = COURSES
+    .filter((c) => c.total_fees_kes !== null && c.total_fees_kes !== undefined)
+    .filter((c) => /middle of (the|that) published|mid-range/i.test(c.verification_note || ''))
+    .map((c) => `${c.id} (Ksh ${c.total_fees_kes}) ${c.name}`);
+
+  assert.equal(offenders.join('; '), '',
+    'these records display a figure their own note admits is the midpoint of a published range: '
+    + `${offenders.join('; ')}. A midpoint appears in no source — it is arithmetic on a band that was never `
+    + 'per-course. A caveat in the note does not reach the reader, who sees a number to the shilling and '
+    + 'budgets against it. Remove the figure and say the institution publishes no per-course fee.');
+});
+
 /* ---------- teaching is listed with the queue attached ---------- */
 
 /* Njia held no teacher training colleges at all, while teaching is one of the

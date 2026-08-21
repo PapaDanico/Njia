@@ -212,7 +212,7 @@ const SECTORS = [
     id: 'agriculture',
     name: 'Agriculture and agribusiness',
     broad: 'agriculture',
-    match: /agri|farm|horticultur|animal|veterinar|food techn|fisher|livestock|range management|pastoral/i,
+    match: /agri|farm|horticultur|environmental science|environmental management|conservation|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral/i,
     awardingBodies: ['TVET CDACC', 'public universities'],
     knbs: { series: 'Agriculture, forestry and fishing', mapping: 'exact', growth: 3.1, share: 23.2 },
     caution: 'Nearly a quarter of the entire economy and the largest single employer in the country, growing slower than the economy as a whole. Most of that work is on smallholdings and is not waged employment — which is the argument for agribusiness and processing rather than against agriculture.'

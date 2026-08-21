@@ -62,7 +62,7 @@ const universities = (ownership) =>
 
 /* RATCHETS. Raise these as institutions are added; they may never fall.
    They are floors on coverage, not targets — the target is the full register. */
-const MIN_PUBLIC_LISTED = 16;
+const MIN_PUBLIC_LISTED = 18;
 const MIN_PRIVATE_LISTED = 21;
 
 test('public university coverage never regresses', () => {

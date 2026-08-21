@@ -161,7 +161,7 @@ const SECTORS = [
     id: 'admin',
     name: 'Administration, HR and public service',
     broad: 'services',
-    match: /human resource|office administration|public administration|international relations|diplomacy|secretar|records|librar|information science|archiv|project management|governance|events management|security|emotional intelligence|leadership|disaster management|disaster risk|resilience|political science|librar|information science|archiv|cctv|alarm/i,
+    match: /human resource|office administration|public administration|international relations|diplomacy|secretar|records|librar|information science|archiv|project management|governance|events management|security|emotional intelligence|leadership|disaster management|disaster risk|resilience|political science|criminolog|penolog|security studies|librar|information science|archiv|cctv|alarm/i,
     awardingBodies: ['TVET CDACC', 'IHRM'],
     knbs: { series: 'Public administration and defence', mapping: 'component', growth: 8.3 },
     caution: 'Growth in public administration is measured as government activity, and hiring into it is capped by the wage bill rather than by demand. Most administrative work is in the private sector, which this series does not cover.'
@@ -212,7 +212,7 @@ const SECTORS = [
     id: 'agriculture',
     name: 'Agriculture and agribusiness',
     broad: 'agriculture',
-    match: /agri|farm|horticultur|environmental science|environmental management|conservation|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral/i,
+    match: /agri|farm|horticultur|environmental science|environmental management|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral/i,
     awardingBodies: ['TVET CDACC', 'public universities'],
     knbs: { series: 'Agriculture, forestry and fishing', mapping: 'exact', growth: 3.1, share: 23.2 },
     caution: 'Nearly a quarter of the entire economy and the largest single employer in the country, growing slower than the economy as a whole. Most of that work is on smallholdings and is not waged employment — which is the argument for agribusiness and processing rather than against agriculture.'
@@ -230,7 +230,7 @@ const SECTORS = [
     id: 'health',
     name: 'Health and care',
     broad: 'services',
-    match: /nursing|clinical|health|medical|nutrition|pharm|laborator|counsell|social work|community develop/i,
+    match: /nursing|clinical|health|medical|nutrition|pharm|laborator|counsell|psycholog|sports science|social work|community develop/i,
     awardingBodies: ['KMTC', 'Nursing Council of Kenya', 'Clinical Officers Council', 'TVET CDACC'],
     knbs: { series: 'Human health and social work activities', mapping: 'unsourced' },
     caution: 'Njia lists more health courses than any other sector, because KMTC runs some forty campuses and every one is catalogued. That is the shape of Kenya\'s public training estate, not a measure of demand, and it must not be read as one.'

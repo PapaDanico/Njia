@@ -693,6 +693,40 @@ Rules for anything published at this level of aggregation:
   footer's sources paragraph added four `link-in-text-block` violations
   immediately — in running prose the underline is the affordance, not decoration.
 
+## A push that prints success is not evidence the commit moved
+
+Work committed while `HEAD` was on `main`, then pushed with
+`git push -u origin <branch>`. That pushes the **local ref of that name**, not
+the current commit — and the branch was still at its old tip, so the pull
+request compared identical content and squash-merged an **empty diff**. Eight
+course records and two institutions never reached production, while `main`,
+the deploy and a status report all said they had.
+
+The failure survived every check that looked plausible: the suite was green,
+the generators were clean, the merge succeeded, and the deploy reported
+`state: ready` with a `commit_ref` that genuinely existed. None of those
+inspect *what the remote branch actually contains*.
+
+**The signal was there and was misread.** The PR's own first Netlify comment
+names the commit it is building: `Latest commit | c88dedf` — the stale tip, not
+the work. A deploy-preview comment naming a commit you do not recognise is the
+cheapest possible tell that the push went somewhere other than you think.
+
+Two things to do instead, both cheap:
+
+- **Check the remote ref, not the push output.** `git show
+  origin/<branch>:data/courses.js | grep -c "^  { id: 'c"` before opening the
+  PR. One line, and it compares content rather than trusting a success message.
+- **Confirm the PR has a non-empty diff before merging.** `get_files` returning
+  22 files and +561/-151 is the confirmation; a merge that squashes nothing
+  still reports success.
+
+And do not reach for a piece of evidence that flatters the story. The first
+account of this blamed Netlify's *"All files already uploaded by a previous
+deploy with the same commits"* — a routine file-hash cache note that appears on
+the correct deploy too, and never indicated anything. Inventing the signal you
+wish you had missed is the same error as inventing a figure.
+
 ## Verify a script by its effect, never by its own report
 
 A script that resolved the last nineteen uncited fees printed `records updated:

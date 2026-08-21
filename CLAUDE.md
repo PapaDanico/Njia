@@ -462,6 +462,40 @@ which makes it precisely this catalogue's reader. It is still a pilot training
 not a record. Recording it against a plausible polytechnic would be the
 placeholder trap with a curriculum attached.
 
+## Every coverage question with a guard is answered; every one without is drifting
+
+This project measured county reach to the county and did not measure its own
+institution register at all. So the county floor was accurate to the name, and
+the answer to "is this university listed" was whatever it happened to be —
+discovered only when a reader asked about a specific institution.
+
+What that concealed: **Gretsa**, chartered November 2025, absent. **Baraton**,
+**Great Lakes Kisumu**, **Kenya Highlands**, **Scott Christian**, absent. **The
+Co-operative University of Kenya** — a public university publishing a
+certificate-to-diploma-to-degree ladder, the rarest and most useful shape in
+this catalogue — absent. Njia held 16 of 36 chartered public universities and 16
+of 32 chartered private ones, and nothing in 270 tests said so.
+
+None of it was found by the suite. All of it was found by being asked, one name
+at a time, which is the slowest possible way to audit a register and the one
+that leaves the gaps you were not asked about.
+
+**The generalisation is the point.** A catalogue that ratchets one coverage
+metric and leaves the rest unmeasured is not careful, it is careful in one
+direction. `tests/university-coverage.test.js` now holds the CUE denominators —
+36 public and 32 private chartered, read August 2026 — ratchets both counts,
+fails if a listed university carries no course, and caps the number of
+single-course stubs, because eleven of seventeen private universities were stubs
+when it was first measured and a stub is not coverage.
+
+It also **names the institutions known to be missing** rather than reporting a
+number, for the same reason the closed counties are named: a gap inside an
+aggregate is a gap nobody looks at.
+
+**Before adding data, diff against the register.** Not after, and not when
+prompted. The question "what does the authority say exists" is one search, and
+it reorders everything that follows.
+
 ## Coverage: measure what a reader can reach, not what exists
 
 County coverage was tracked as "single-cluster counties". That metric flattered

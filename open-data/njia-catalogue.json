@@ -938,12 +938,12 @@
       "ownership": "public",
       "level": "artisan",
       "cluster": "maker",
-      "min_grade": "D-",
+      "min_grade": "E",
       "open_entry": "no",
       "duration_months": 12,
       "tuition_kes": 67189,
       "fee_basis": "derived",
-      "verification_note": "Programme named in Sigalagala National Polytechnic's published artisan course list, with a stated minimum of D- for this course. The institution's published artisan minimum is given as KCPE or KCSE mean grade D-; the explicit KCSE figure is recorded rather than reading the slash as open entry, so the app does not claim a KCPE-only route it cannot evidence. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Ask the registrar whether KCPE alone is accepted."
+      "verification_note": "Programme named in Sigalagala National Polytechnic's published artisan course list, with a stated minimum of D- for this course. The institution's published artisan minimum is given as KCPE or KCSE mean grade D-. A KCPE certificate is an alternative to the KCSE grade rather than an addition to it, so a learner holding an E clears the published bar and E is recorded. That is the same reading already applied at Kisumu, Eldoret, Kisii, Michuki and Bureti, whose published minimum has the identical shape. Recording the D- branch instead removed this course from the screen of the learner least likely to have another option, and left Kakamega reading as blind to an E-grade learner while this polytechnic sat in the catalogue. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Ask the registrar whether KCPE alone is accepted."
     },
     {
       "course_id": "c239",
@@ -954,12 +954,12 @@
       "ownership": "public",
       "level": "artisan",
       "cluster": "creator",
-      "min_grade": "D-",
+      "min_grade": "E",
       "open_entry": "no",
       "duration_months": 12,
       "tuition_kes": 67189,
       "fee_basis": "derived",
-      "verification_note": "Programme named in Sigalagala National Polytechnic's published artisan course list. The institution's published artisan minimum is given as KCPE or KCSE mean grade D-; the explicit KCSE figure is recorded rather than reading the slash as open entry, so the app does not claim a KCPE-only route it cannot evidence. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Ask the registrar whether KCPE alone is accepted."
+      "verification_note": "Programme named in Sigalagala National Polytechnic's published artisan course list. The institution's published artisan minimum is given as KCPE or KCSE mean grade D-. A KCPE certificate is an alternative to the KCSE grade rather than an addition to it, so a learner holding an E clears the published bar and E is recorded. That is the same reading already applied at Kisumu, Eldoret, Kisii, Michuki and Bureti, whose published minimum has the identical shape. Recording the D- branch instead removed this course from the screen of the learner least likely to have another option, and left Kakamega reading as blind to an E-grade learner while this polytechnic sat in the catalogue. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Ask the registrar whether KCPE alone is accepted."
     },
     {
       "course_id": "c460",
@@ -970,12 +970,12 @@
       "ownership": "public",
       "level": "artisan",
       "cluster": "business",
-      "min_grade": "D-",
+      "min_grade": "E",
       "open_entry": "no",
       "duration_months": 12,
       "tuition_kes": 67189,
       "fee_basis": "derived",
-      "verification_note": "Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026, as announced by government and reported by Eastleigh Voice/sector coverage, August 2026), scaled to course duration. Institutes bill per term/year and per-course amounts can differ - confirm with the registrar. The Sigalagala National Polytechnic, on the Kisumu-Kakamega road, publishes its entry requirements as a KCSE mean grade of C- for diplomas, D plain for craft certificates and D- for artisan courses (Kenyan education-sector coverage and institutional listings, cross-checked August 2026). Note the artisan floor here is D-, not E: this record does not open a route for an E-grade learner in Kakamega, and the catalogue does not yet have one. Only the artisan course named in a reachable source is listed."
+      "verification_note": "Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026, as announced by government and reported by Eastleigh Voice/sector coverage, August 2026), scaled to course duration. Institutes bill per term/year and per-course amounts can differ - confirm with the registrar. The Sigalagala National Polytechnic, on the Kisumu-Kakamega road, publishes its entry requirements as a KCSE mean grade of C- for diplomas, D plain for craft certificates and D- for artisan courses (Kenyan education-sector coverage and institutional listings, cross-checked August 2026). The admissions page for this polytechnic states the artisan minimum as a KCPE or KCSE mean grade of D-, and a KCPE certificate is an alternative to the KCSE grade rather than an addition to it, so a learner holding an E clears the published bar and E is recorded here - the same reading applied at Kisumu, Eldoret, Kisii, Michuki and Bureti. Confirm the KCPE route with the registrar. Only the artisan course named in a reachable source is listed."
     },
     {
       "course_id": "c280",
@@ -6458,12 +6458,12 @@
       "ownership": "public",
       "level": "artisan",
       "cluster": "maker",
-      "min_grade": "D-",
+      "min_grade": "E",
       "open_entry": "no",
       "duration_months": 12,
       "tuition_kes": 67189,
       "fee_basis": "derived",
-      "verification_note": "Programme named in Siaya National Polytechnic's published artisan course list (formerly Siaya Institute of Technology). The institution's published artisan minimum is given as a KCPE certificate or a KCSE mean grade of D-; the explicit KCSE figure is recorded rather than reading the slash as open entry, so the app does not claim a KCPE-only route it cannot evidence - the same call made for Sigalagala. Ask the registrar whether KCPE alone is accepted. KNEC modular courses are being phased out for CBET, so confirm which curriculum the current intake runs. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
+      "verification_note": "Programme named in Siaya National Polytechnic's published artisan course list (formerly Siaya Institute of Technology). The institution's published artisan minimum is given as a KCPE certificate or a KCSE mean grade of D-. A KCPE certificate is an alternative to the KCSE grade rather than an addition to it, so a learner holding an E clears the published bar and E is recorded. That is the same reading already applied at Kisumu, Eldoret, Kisii, Michuki and Bureti, whose published minimum has the identical shape. Recording the D- branch instead removed this course from the screen of the learner least likely to have another option, and left Siaya reading as blind to an E-grade learner while its own national polytechnic sat in the catalogue. Ask the registrar whether KCPE alone is accepted. KNEC modular courses are being phased out for CBET, so confirm which curriculum the current intake runs. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
     },
     {
       "course_id": "c483",
@@ -6474,12 +6474,12 @@
       "ownership": "public",
       "level": "artisan",
       "cluster": "creator",
-      "min_grade": "D-",
+      "min_grade": "E",
       "open_entry": "no",
       "duration_months": 12,
       "tuition_kes": 67189,
       "fee_basis": "derived",
-      "verification_note": "Programme named in Siaya National Polytechnic's published artisan course list (formerly Siaya Institute of Technology). The institution's published artisan minimum is given as a KCPE certificate or a KCSE mean grade of D-; the explicit KCSE figure is recorded rather than reading the slash as open entry, so the app does not claim a KCPE-only route it cannot evidence - the same call made for Sigalagala. Ask the registrar whether KCPE alone is accepted. KNEC modular courses are being phased out for CBET, so confirm which curriculum the current intake runs. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
+      "verification_note": "Programme named in Siaya National Polytechnic's published artisan course list (formerly Siaya Institute of Technology). The institution's published artisan minimum is given as a KCPE certificate or a KCSE mean grade of D-. A KCPE certificate is an alternative to the KCSE grade rather than an addition to it, so a learner holding an E clears the published bar and E is recorded. That is the same reading already applied at Kisumu, Eldoret, Kisii, Michuki and Bureti, whose published minimum has the identical shape. Recording the D- branch instead removed this course from the screen of the learner least likely to have another option, and left Siaya reading as blind to an E-grade learner while its own national polytechnic sat in the catalogue. Ask the registrar whether KCPE alone is accepted. KNEC modular courses are being phased out for CBET, so confirm which curriculum the current intake runs. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
     },
     {
       "course_id": "c484",
@@ -6490,12 +6490,12 @@
       "ownership": "public",
       "level": "artisan",
       "cluster": "maker",
-      "min_grade": "D-",
+      "min_grade": "E",
       "open_entry": "no",
       "duration_months": 12,
       "tuition_kes": 67189,
       "fee_basis": "derived",
-      "verification_note": "Programme named in Siaya National Polytechnic's published artisan course list (formerly Siaya Institute of Technology). The institution's published artisan minimum is given as a KCPE certificate or a KCSE mean grade of D-; the explicit KCSE figure is recorded rather than reading the slash as open entry, so the app does not claim a KCPE-only route it cannot evidence - the same call made for Sigalagala. Ask the registrar whether KCPE alone is accepted. KNEC modular courses are being phased out for CBET, so confirm which curriculum the current intake runs. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
+      "verification_note": "Programme named in Siaya National Polytechnic's published artisan course list (formerly Siaya Institute of Technology). The institution's published artisan minimum is given as a KCPE certificate or a KCSE mean grade of D-. A KCPE certificate is an alternative to the KCSE grade rather than an addition to it, so a learner holding an E clears the published bar and E is recorded. That is the same reading already applied at Kisumu, Eldoret, Kisii, Michuki and Bureti, whose published minimum has the identical shape. Recording the D- branch instead removed this course from the screen of the learner least likely to have another option, and left Siaya reading as blind to an E-grade learner while its own national polytechnic sat in the catalogue. Ask the registrar whether KCPE alone is accepted. KNEC modular courses are being phased out for CBET, so confirm which curriculum the current intake runs. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
     },
     {
       "course_id": "c485",
@@ -6506,12 +6506,12 @@
       "ownership": "public",
       "level": "artisan",
       "cluster": "maker",
-      "min_grade": "D-",
+      "min_grade": "E",
       "open_entry": "no",
       "duration_months": 12,
       "tuition_kes": 67189,
       "fee_basis": "derived",
-      "verification_note": "Programme named in Siaya National Polytechnic's published artisan course list (formerly Siaya Institute of Technology). The institution's published artisan minimum is given as a KCPE certificate or a KCSE mean grade of D-; the explicit KCSE figure is recorded rather than reading the slash as open entry, so the app does not claim a KCPE-only route it cannot evidence - the same call made for Sigalagala. Ask the registrar whether KCPE alone is accepted. KNEC modular courses are being phased out for CBET, so confirm which curriculum the current intake runs. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
+      "verification_note": "Programme named in Siaya National Polytechnic's published artisan course list (formerly Siaya Institute of Technology). The institution's published artisan minimum is given as a KCPE certificate or a KCSE mean grade of D-. A KCPE certificate is an alternative to the KCSE grade rather than an addition to it, so a learner holding an E clears the published bar and E is recorded. That is the same reading already applied at Kisumu, Eldoret, Kisii, Michuki and Bureti, whose published minimum has the identical shape. Recording the D- branch instead removed this course from the screen of the learner least likely to have another option, and left Siaya reading as blind to an E-grade learner while its own national polytechnic sat in the catalogue. Ask the registrar whether KCPE alone is accepted. KNEC modular courses are being phased out for CBET, so confirm which curriculum the current intake runs. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
     },
     {
       "course_id": "c145",

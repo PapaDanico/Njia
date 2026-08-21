@@ -185,7 +185,7 @@ const SECTORS = [
     broad: 'services',
     /* `comput`, not `computer`: the catalogue holds a "Mathematics and
      * Computing" degree that matched nothing. */
-    match: /information\s+(?:and\s+)?communication|information technology|comput|software|cyber|data sci|data analy|ict|networking|digital|instrumentation|control technician/i,
+    match: /information\s+(?:and\s+)?communication|information technology|comput|software|cyber|data sci|data analy|ict|telecom|information systems|networking|digital|instrumentation|control technician/i,
     awardingBodies: ['TVET CDACC', 'KNEC', 'ICT Authority'],
     knbs: { series: 'Information and communication', mapping: 'exact', growth: 4.8 },
     caution: 'Close to the whole-economy rate, despite being the sector most often described as booming. The online and platform work actually absorbing young Kenyans sits largely outside this measure — and outside any formal qualification Njia can point at.'

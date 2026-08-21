@@ -868,6 +868,20 @@ them — <a href="/#decide">use Decide</a> to filter by county, budget and inter
  * typed into prose beside a file that changes is a figure that goes wrong
  * quietly. */
 const DECK_FILE = 'njia-pitch-deck-aug-2026.pdf';
+
+/* THE PROPOSAL HAD NO WAY TO REPLY TO IT.
+ *
+ * The page above was written to make the deck findable, and it worked. What it
+ * never carried was a route back: a funder or a county education officer could
+ * read the whole case, download 2.6MB of deck, and then have no address to
+ * write to. A conversion path that ends in a dead end is worse than one that
+ * was never built, because the reader has already spent their attention.
+ *
+ * The address is a constant rather than prose in three places, so it can be
+ * changed once. It must be a real mailbox on the project's own domain — a
+ * personal address on a partnership page reads as a hobby, and a dead alias
+ * reproduces the exact defect this block exists to close. */
+const CONTACT_EMAIL = 'partnerships@njiacareerpathways.work';
 const DOCS_OUT = path.join(root, 'docs');
 
 function docsIndexPage(courseCount, institutionCount, countyCount) {
@@ -906,6 +920,45 @@ entry grades, fees and — unusually — a column saying where each fee figure c
 behind it, what it deliberately refuses to claim, and where support would go.</p>
 <p><a class="cta dl" href="/docs/${DECK_FILE}">Download the proposal (PDF, ${mb}&nbsp;MB)</a></p>
 <p class="meta">August 2026 &middot; ${mb}&nbsp;MB PDF</p>
+<h2>What partnership looks like</h2>
+<p>Njia is free to every learner who uses it and intends to stay that way, so it is
+funded from the institutional side rather than the student side. Four routes, in the
+order they tend to fit:</p>
+<ul>
+<li><strong>County and institutional deployment.</strong> Kenya's National Policy Framework
+on Career Guidance (2023) names career information as one of five thematic areas needing
+resourcing, and most county education offices have no career-information system at all.
+Njia already holds one, per county, with the provision analysis to show where the gaps are.</li>
+<li><strong>Data licensing.</strong> The catalogue is published free as
+<a href="/open-data/">CSV and JSON</a> and will remain so. What is licensable is the work
+around it: bespoke extracts, a re-verification cadence against a named cycle, and
+provenance auditing for organisations that need to cite the figures rather than browse them.</li>
+<li><strong>Programme and research funding.</strong> The
+<a href="/analysis/">county provision analysis</a> is the finding most likely to change how
+money is allocated, and it is published in full rather than held back for a pitch.</li>
+<li><strong>Institution listings.</strong> An institution may pay to have its provision
+listed and kept current. It buys presence and accuracy, nothing else &mdash; see below.</li>
+</ul>
+<h2>What money cannot buy here</h2>
+<p>This has to be said on the page rather than in a policy document nobody opens, because
+the entire value of this catalogue is that its figures are not for sale:</p>
+<ul>
+<li><strong>Payment never affects ranking or ordering.</strong> No paid placement, no
+featured slot, no thumb on the Course Matcher.</li>
+<li><strong>Payment never affects a fee basis or an entry grade.</strong> A paid listing is
+held to exactly the same provenance standard as every other record: a fee is published only
+where someone read it off the institution's own schedule, and an unsourced figure is removed
+rather than dressed up.</li>
+<li><strong>A paid listing is disclosed as one</strong>, wherever it appears.</li>
+<li>Njia remains independent and unaffiliated. If a listing cannot be honest, it is
+declined and the money with it.</li>
+</ul>
+<h2>Getting in touch</h2>
+<p>One address, read by a person:
+<a class="cta dl" href="mailto:${CONTACT_EMAIL}?subject=Njia%20partnership%20enquiry">${CONTACT_EMAIL}</a></p>
+<p class="meta">Useful things to include: who you are, which of the four routes above is
+closest, and the county or institution involved. There is no form, no tracker and no
+mailing list &mdash; the same reason the app has none.</p>
 <h2>If you are a student, this is not the page you want</h2>
 <p>This document is written for funders and partners. If you are deciding what to study,
 these are for you instead:</p>

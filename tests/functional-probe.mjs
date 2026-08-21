@@ -279,16 +279,26 @@ const printReport = await page.evaluate(() => {
   // Clear saved courses so we test the "Courses Open To You" path, not
   // "Courses You Are Considering". The questionnaire was completed earlier
   // in this probe, so AppState.questionnaire.results is already set.
+  const restore = AppState.savedCourses;
   AppState.savedCourses = [];
   renderDiscoverPage();   // re-render so the report picks up the empty list
-  const title = document.querySelector('.report-section-title');
-  const rows = document.querySelectorAll('.report-table tbody tr');
-  return {
+  // Scope the title lookup to the courses block. querySelector('.report-section-title')
+  // returns the FIRST one on the card — "Four Elements — Clarity Scores" — so the
+  // original check reported a section it was not testing, and would have named the
+  // wrong one in its own failure message.
+  const title = document.querySelector('.report-courses .report-section-title');
+  const rows = document.querySelectorAll('.report-courses .report-table tbody tr');
+  const result = {
     found: true,
     paddingTop,
     sectionTitle: title ? title.textContent.trim() : null,
     courseRows: rows.length
   };
+  // Leave the app as it was found. Section 7 runs after this one, and a probe
+  // section that silently empties saved state couples the two together.
+  AppState.savedCourses = restore;
+  renderDiscoverPage();
+  return result;
 });
 await page.emulateMedia({ media: null });   // restore screen media
 
@@ -296,8 +306,11 @@ check('printed report card has non-zero top padding (header not clipped)',
   printReport.found && printReport.paddingTop !== '0px',
   printReport.found ? `paddingTop=${printReport.paddingTop}` : 'report-card not found');
 
+/* Assert BOTH halves of what this check's name claims: that rows appear, and
+   that they are the *suggested* ones. Rows alone would still pass if the empty
+   state silently fell back to listing saved courses, which is the defect. */
 check('printed report suggests courses when nothing is saved',
-  printReport.courseRows > 0,
+  printReport.courseRows > 0 && printReport.sectionTitle === 'Courses Open To You',
   `courseRows=${printReport.courseRows} title=${JSON.stringify(printReport.sectionTitle)}`);
 
 /* 7. THE DEGRADED NETWORK, WHICH NOTHING HERE HAD EVER TESTED.

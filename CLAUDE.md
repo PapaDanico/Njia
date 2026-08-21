@@ -813,6 +813,42 @@ entry* — the most permissive value, not a missing one, so there is an explicit
 the three genuinely free courses carry `0`. Both are stated on the landing page,
 not only in a header row.
 
+## A midpoint of a range is not a fee
+
+Seventeen records displayed a figure their own note described as "the middle of
+the published range" — EASA at Ksh 171,000 against a published band of
+115,950–226,700, Kenya Airways Pride Centre at Ksh 235,000 against
+170,000–300,000. **Neither number appears in any source.** They are arithmetic
+performed on a range that was never per-course to begin with.
+
+Two things made it worse than an ordinary estimate:
+
+- **The figure did not move with duration.** Ksh 171,000 rendered identically on
+  a 36-month diploma and an 18-month one; Ksh 235,000 on a 12-month diploma and
+  a 6-month certificate. One number pasted across unrelated courses is the
+  placeholder pattern, and the existing guard could not see it because that one
+  checks for a value repeating across institutions of *differing ownership*.
+- **The note did not describe its own records.** It claimed "the middle of the
+  published diploma range" while the certificates showed the bottom of the IATA
+  range instead.
+
+This had already been ruled on twice. Eleven records lost their figures because
+a per-institution range "cannot be attributed to a named course", and c026 lost
+Ksh 560,000 because a note calling it a "four-year mid-range estimate" does not
+survive into the card. The rule did not need re-deciding, only applying: **if
+the number is not the thing you can defend, remove the number.** All seventeen
+now carry a null fee saying the institution publishes no per-course figure.
+
+The guard checks the *pairing*, not the vocabulary — a record with no fee may
+narrate midpoints freely, because there is no figure left to mislead anyone.
+That matters, because the honest notes now explain exactly what was removed.
+
+**And a shared note is a shared defect.** These sat behind `PARASTATAL_NOTES.easa`,
+one const serving thirteen records, so a `grep -c` for the offending sentence
+returns 1 while thirteen cards render it. An assertion written against the
+record count failed and stopped the write — correctly, and for the wrong reason.
+Count what the reader sees, not what the file says.
+
 ## The placeholder trap
 
 An audit found **Ksh 420,000 on twelve different degrees** at twelve different

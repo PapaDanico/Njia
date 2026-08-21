@@ -506,6 +506,27 @@ the county and searching per institution, then list only the courses a reachable
 source actually names — all four of these run more than is listed, and each note
 says so rather than padding the catalogue with plausible programme names.
 
+**Two more counties closed, and both were a missing institution.** Homa Bay held
+**Mawego National Polytechnic** — elevated from Mawego TTI on 1 January 2024 and
+never listed here, which is why the county read as blind while a national
+polytechnic sat inside it. It publishes the Konoin ladder verbatim ("C- for
+Diploma; D plain for Certificate; other course categories are open"), so artisan
+is open entry. Kajiado held **Masai Technical Training Institute**, teaching
+since 1986, whose county TVET guidance gives the artisan minimum as E outright
+and whose published list names two artisan courses. Eighteen counties remain.
+
+The pattern holds without exception now: **every county closed so far was closed
+by finding an institution, never by finding a course at an institution already
+listed.** When a county reads as blind, search the county roll-up first and ask
+which institution is missing.
+
+**A count of institutions is not a count of institutions that do anything.** The
+provision-analysis guard reports the number that actually carry a course, and it
+caught that `mku` and `maseno` sit in `data/institutions.js` with **zero courses
+attached** — invisible to every reader, and enough to make the register size
+disagree with the page's own rows. Whenever the register grows, check the two
+numbers against each other rather than quoting the register.
+
 **The search has a yield floor, and it has been reached for the thin counties.**
 Eight searches across Nakuru, Kwale, Makueni, Kitui and the county roll-ups
 returned exactly one usable institution-level fact — that Rift Valley National

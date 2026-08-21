@@ -881,6 +881,25 @@ const DECK_FILE = 'njia-pitch-deck-aug-2026.pdf';
  * changed once. It must be a real mailbox on the project's own domain — a
  * personal address on a partnership page reads as a hobby, and a dead alias
  * reproduces the exact defect this block exists to close. */
+/* THE ADDRESS IS GATED, BECAUSE THE DOMAIN CANNOT RECEIVE MAIL.
+ *
+ * partnerships@njiacareerpathways.work is the right thing to advertise once it
+ * exists. It does not exist. A raw DNS query for MX on njiacareerpathways.work
+ * returns NOERROR with zero answers from 8.8.8.8, 1.1.1.1, 9.9.9.9 and 8.8.4.4,
+ * against a control query that resolves google.com's MX fine - so the domain has
+ * no mail exchanger at all and anything sent there bounces.
+ *
+ * That is a verified negative, not an unknown, and it is worse than carrying no
+ * address: the reader writes, hears nothing, and concludes the project is dead.
+ * The first pass at this published the address anyway with the issue tracker
+ * underneath as a fallback, which still leaves the primary route a dead end for
+ * whoever tries it first.
+ *
+ * So the address is not published while this flag is false. Set up an MX record
+ * for the domain, flip this to true, regenerate, and the address appears on the
+ * page and in llms.txt at once. tests/partnership.test.js fails the build if a
+ * mailto on this domain is published while the flag says the mail is not live. */
+const DOMAIN_MAIL_LIVE = false;
 const CONTACT_EMAIL = 'partnerships@njiacareerpathways.work';
 
 /* A SECOND ROUTE, BECAUSE THE FIRST ONE CANNOT BE VERIFIED FROM HERE.
@@ -969,15 +988,17 @@ rather than dressed up.</li>
 declined and the money with it.</li>
 </ul>
 <h2>Getting in touch</h2>
-<p>One address, read by a person:
-<a class="cta dl" href="mailto:${CONTACT_EMAIL}?subject=Njia%20partnership%20enquiry">${CONTACT_EMAIL}</a></p>
+${DOMAIN_MAIL_LIVE ? `<p>One address, read by a person:
+<a class="cta dl" href="mailto:${CONTACT_EMAIL}?subject=Njia%20partnership%20enquiry">${CONTACT_EMAIL}</a></p>` : ''}
+<p><a class="cta dl" href="${CONTACT_FALLBACK}">Open an enquiry on the issue tracker</a></p>
 <p class="meta">Useful things to include: who you are, which of the four routes above is
 closest, and the county or institution involved. There is no form, no tracker and no
-mailing list &mdash; the same reason the app has none.</p>
-<p class="meta">If that address bounces, or you would rather write in the open, use the
-project's issue tracker instead: <a href="${CONTACT_FALLBACK}">github.com/PapaDanico/Njia/issues</a>.
-Corrections to the catalogue are welcome there too, and are the reason the data is published
-in full.</p>
+mailing list &mdash; the same reason the app has none.${DOMAIN_MAIL_LIVE ? '' : ` Njia does not yet
+advertise an email address, because the project domain has no mail exchanger configured and
+anything sent to it would bounce silently &mdash; which is worse than no address at all. The
+tracker is public, is read, and needs nothing set up.`}</p>
+<p class="meta">Corrections to the catalogue are welcome on the same tracker, and are the
+reason the data is published in full.</p>
 <h2>If you are a student, this is not the page you want</h2>
 <p>This document is written for funders and partners. If you are deciding what to study,
 these are for you instead:</p>

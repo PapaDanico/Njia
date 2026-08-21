@@ -1689,6 +1689,29 @@ test('the site stays dependency-free and buildless', () => {
   const cmd = toml.match(/^\s*command\s*=\s*"([^"]*)"/m);
   assert.ok(cmd, 'netlify.toml must pin a build command so a dashboard setting cannot replace it');
   assert.match(cmd[1], /^echo /, `build command is ${JSON.stringify(cmd[1])} — it must stay a no-op`);
+
+  /* The FIRST command in the file is production's, and it stays an echo for the
+     reason above. Deploy previews are a different matter: since 19 August 2026
+     GitHub Actions cannot place a job on a runner for this repository at all, so
+     the suite runs in the preview build instead — the half of CI that changes a
+     decision, because a pull request whose preview fails is one you do not
+     merge. Production is left alone, so a red guard can never be the reason a
+     learner cannot reach the site.
+
+     What this assertion defends is that the preview command stays as cheap as
+     production's: the suite has no dependencies and no install step, and the
+     original incident behind this test was an npm ECONNRESET on a site with
+     nothing to install. A preview command that reaches for a package manager
+     reintroduces exactly that. */
+  const preview = toml.match(/\[context\.deploy-preview\][\s\S]*?command\s*=\s*"([^"]*)"/);
+  if (preview) {
+    assert.match(preview[1], /^node --test /,
+      `the deploy-preview command is ${JSON.stringify(preview[1])} — it may only run the `
+      + 'zero-dependency suite. Anything that installs puts a network round trip between a '
+      + 'pull request and its preview, which is the failure this test exists for.');
+    assert.ok(!/npm|npx|yarn|pnpm/.test(preview[1]),
+      'the deploy-preview command invokes a package manager — Njia has nothing to install');
+  }
 });
 
 /* ---------- a tie is reported, not awarded ---------- */

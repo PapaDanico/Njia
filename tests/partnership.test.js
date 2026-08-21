@@ -42,48 +42,59 @@ const llms = fs.readFileSync(path.join(root, 'llms.txt'), 'utf8');
 
 const MAILTO = /href="mailto:([^"?]+)/;
 
-test('the partnership page offers a route back to a person', () => {
+/* THE PAGE MUST BE ANSWERABLE, AND THE ROUTE MUST ACTUALLY WORK.
+ *
+ * The first version of this file required a mailto: and required it to be on
+ * the project domain. Both checks passed while the advertised address could not
+ * receive mail at all — a raw DNS query for MX on njiacareerpathways.work
+ * returns NOERROR with zero answers from four independent resolvers, against a
+ * control that resolves google.com's MX fine. The domain has no mail exchanger.
+ *
+ * So the guard was asserting the shape of a contact route rather than whether
+ * one existed, which is the proxy trap this repository has now hit twice: the
+ * artisan-variety count measured spread instead of evidence, and this measured
+ * "there is a mailto" instead of "a reader can reach someone".
+ *
+ * What replaces it: a route that needs nothing configured must always be
+ * present, and an address on the project domain may only be advertised once
+ * DOMAIN_MAIL_LIVE is flipped in tools/build-static-pages.mjs — which is the
+ * one place that judgement is recorded. Publishing a dead address is worse than
+ * publishing none, because the reader writes and hears nothing. */
+test('the partnership page always offers a route that needs nothing set up', () => {
+  assert.match(page, /github\.com\/PapaDanico\/Njia\/issues/,
+    'docs/index.html no longer offers the issue tracker. It is the only contact route that is '
+    + 'live without anything being configured, so a funder or county officer who reads the '
+    + 'proposal has no way to answer it. Restore it in docsIndexPage().');
+});
+
+test('llms.txt gives answer engines the same working route', () => {
+  assert.match(llms, /github\.com\/PapaDanico\/Njia\/issues/,
+    'llms.txt does not name the issue tracker. An answer engine is how a funder or journalist '
+    + 'increasingly arrives, and it should be able to offer the route that certainly works.');
+});
+
+test('no email address is advertised while the domain cannot receive mail', () => {
   const m = page.match(MAILTO);
-  assert.ok(m, 'docs/index.html carries no mailto: link. A funder or county officer '
-    + 'who reads the proposal has no way to answer it — the conversion path ends here. '
-    + 'Restore the contact section in docsIndexPage() in tools/build-static-pages.mjs.');
-  assert.ok(/@/.test(m[1]), `the contact address is not an address: ${m[1]}`);
-});
+  const live = fs.readFileSync(path.join(root, 'tools', 'build-static-pages.mjs'), 'utf8')
+    .includes('const DOMAIN_MAIL_LIVE = true;');
 
-test('the contact address is on the project domain, not a personal mailbox', () => {
-  const addr = page.match(MAILTO)[1];
-  assert.ok(addr.endsWith('@njiacareerpathways.work'),
-    `the partnership contact is ${addr}. A personal address on a funder-facing page reads `
-    + 'as a hobby project rather than an institution worth contracting with.');
-});
-
-test('llms.txt gives answer engines the same address the page advertises', () => {
-  const addr = page.match(MAILTO)[1];
-  assert.ok(llms.includes(addr),
-    `docs/index.html advertises ${addr} and llms.txt does not carry it. An answer engine `
-    + 'quoting a different mailbox sends a funder to a dead end by a longer route. '
-    + 'CONTACT_EMAIL is declared in both tools/build-static-pages.mjs and '
-    + 'tools/build-structured-data.mjs and the two must agree.');
-});
-
-/* The primary address cannot be verified from this environment — every host is
-   egress-blocked — so the page must never depend on it alone. The fallback is
-   the one route that is provably live without anything being configured. */
-test('the page carries a second contact route that needs nothing set up', () => {
-  assert.ok(/github\.com\/PapaDanico\/Njia\/issues/.test(page),
-    'docs/index.html no longer offers the issue tracker as a fallback contact. The mailbox on '
-    + 'the project domain cannot be verified from this build environment, so if it is not '
-    + 'configured the page is a dead end again — silently, which is worse than carrying no '
-    + 'address at all. Keep a route that works with nothing set up.');
-  assert.ok(/bounces/i.test(page),
-    'the page offers a fallback route but no longer tells the reader when to use it.');
-});
-
-test('llms.txt names the fallback route too', () => {
-  assert.ok(/github\.com\/PapaDanico\/Njia\/issues/.test(llms),
-    'llms.txt gives answer engines only the unverifiable mailbox. An answer engine is how a '
-    + 'funder or journalist increasingly arrives, and it should be able to offer the route '
-    + 'that certainly works.');
+  if (!live) {
+    assert.equal(m, null,
+      `docs/index.html advertises ${m && m[1]} while DOMAIN_MAIL_LIVE is false in `
+      + 'tools/build-static-pages.mjs. njiacareerpathways.work has no MX record, so mail to it '
+      + 'bounces and the reader hears nothing — the silent dead end this page exists to close. '
+      + 'Configure the domain\'s mail, then flip the flag.');
+    assert.ok(!/mailto:[^"?]*njiacareerpathways\.work/.test(llms),
+      'llms.txt hands answer engines an address on a domain with no mail exchanger.');
+  } else {
+    assert.ok(m, 'DOMAIN_MAIL_LIVE is true but the page publishes no address.');
+    assert.ok(m[1].endsWith('@njiacareerpathways.work'),
+      `the contact address is ${m[1]}. A personal mailbox on a funder-facing page is a `
+      + 'disclosure decision that is not an agent\'s to make, and a weaker signal than the domain.');
+    assert.ok(llms.includes(m[1]),
+      'llms.txt must carry the same address the page advertises, or an answer engine sends a '
+      + 'funder to a mailbox the page does not name.');
+  }
 });
 
 test('all four funding routes are named on the page', () => {

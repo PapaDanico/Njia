@@ -917,6 +917,18 @@ verified from here, and the rule is:
   worse than finding no address. So the page carries the issue tracker as a
   second route, which is live today and needs no configuration, and
   `tests/partnership.test.js` fails the build if it goes.
+- **Verify the channel, do not just pick one.** The address above was published
+  with the issue tracker underneath it as a fallback, which still leaves the
+  *primary* route a dead end for whoever tries it first. A raw DNS query settled
+  it: `njiacareerpathways.work` returns NOERROR with **zero MX answers** from
+  8.8.8.8, 1.1.1.1, 9.9.9.9 and 8.8.4.4, against a control that resolves
+  google.com's MX fine. The domain has no mail exchanger, so anything sent there
+  bounces. That is a verified negative, not an unknown, and publishing the
+  address anyway recreates the silent dead end. It is now gated behind
+  `DOMAIN_MAIL_LIVE` in `tools/build-static-pages.mjs` — configure an MX record,
+  flip the flag, regenerate, and the address appears on the page and in
+  `llms.txt` at once. There is no dig, host or nslookup in this environment; the
+  query was 30 lines of `socket` and `struct`, and it is worth writing again.
 - **Never publish the maintainer's personal address** as the fix for this. A
   personal mailbox on a funder-facing page is both a disclosure decision that is
   not an agent's to make and a weaker signal than the domain.
@@ -964,6 +976,31 @@ assigned. That is not a step failing; it is the job never being placed. Same
 root, one level up: this repository's Actions settings changed four minutes
 after the copilot merge on 19 August, and the API paths that would read or write
 them are blocked by the build proxy on purpose.
+
+**All three event types fail identically.** push, pull_request and
+workflow_dispatch alike: run created, dead in about four seconds, `runner_id: 0`,
+empty `runner_name`, no log, and `get_check_run` returns empty `title`, `summary`
+and `text` because nothing ever wrote any. That rules out an event-scoped
+restriction and leaves runner availability, which is a repository setting the
+build proxy blocks on purpose.
+
+**So the guards moved to infrastructure that works.** Netlify builds run on every
+push and every deploy preview, so `netlify.toml` now runs the suite in
+`[context.deploy-preview]`. That is the half of CI that changes a decision: a
+pull request whose preview fails is one you do not merge.
+
+Production stays an `echo`, deliberately. A guard going red must never be the
+reason a learner cannot reach the site, and `tests/provenance.test.js` already
+required the build command to be a no-op after a production deploy failed on an
+npm ECONNRESET in August 2026. **That guard was right and I nearly overrode it** —
+the first attempt put the suite on the production command, which the
+`CI=true` simulation caught immediately. The guard now permits a preview command
+and asserts it stays dependency-free, because the original incident was an
+*install* failing, not a test.
+
+The lesson is the one this file already states about the CI workflow: **simulate
+the runner before pushing.** `CI=1` and `CI=true` are not the same environment —
+Netlify sets the latter, and the difference is what surfaced the conflict.
 
 So this is the rare case the section above allows for: **the part that can be
 done from here is done** — the workflow is policy-independent and will run the

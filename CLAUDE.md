@@ -826,6 +826,27 @@ What to check, in this order, because it is cheap to expensive:
    MCP config for a server this repo does not use in CI. Removing it is both the
    experiment and the cleanup, because the file was inert clutter either way.
 
+**What the bisect actually established.** Removing `.github/mcp.json` changed
+nothing, so the copilot's file was not the cause. Rewriting the workflow to use
+**no `uses:` at all** — a `git clone` for checkout, the runner image's own Node —
+moved the conclusion from `startup_failure` to an ordinary `failure`. That is
+the proof: the workflow now *compiles*, so what was blocking it was `uses:`
+resolution, which is an Actions policy and not anything in this repository.
+
+**A second layer sits behind it.** The job that now compiles fails in two
+seconds with `runner_id: 0` and an empty `runner_name` — no runner was ever
+assigned. That is not a step failing; it is the job never being placed. Same
+root, one level up: this repository's Actions settings changed four minutes
+after the copilot merge on 19 August, and the API paths that would read or write
+them are blocked by the build proxy on purpose.
+
+So this is the rare case the section above allows for: **the part that can be
+done from here is done** — the workflow is policy-independent and will run the
+moment a runner is available — and the remaining step is a repository setting
+under Settings → Actions → General, which no agent working in this environment
+can reach. Merging past it is legitimate here only because `main` is red for the
+identical reason, which makes it a base-branch failure rather than the branch's.
+
 `workflow_dispatch` is now on the workflow. It was absent, which meant there was
 no way to re-run CI against a ref on demand — the exact capability needed to
 test a hypothesis about why CI would not start.

@@ -1,7 +1,7 @@
 # Njia — data-driven career pathways for Kenyan youth
 
 > Free, offline-capable guidance for Kenyan school leavers deciding what to do
-> after KCSE. 633 courses at 161 institutions across all
+> after KCSE. 642 courses at 162 institutions across all
 > 47 counties, with entry grades, tuition and — unusually — a statement of where
 > every fee figure came from. Independent of KUCCPS, HELB and every institution listed.
 > No account, no cost, and nothing a user enters leaves their device.
@@ -12,7 +12,7 @@
   tier that takes an E, which most course listings omit entirely.
 - Tuition figures WITH PROVENANCE. Every fee is classified: published by the
   institution for that course, derived from a published rate, illustrative, or
-  not published at all. 633 courses carry this. Almost no other
+  not published at all. 642 courses carry this. Almost no other
   Kenyan source states which of its numbers it can stand behind.
 - County-level provision gaps — which counties list nothing a learner with an E
   can enter, and which qualification tier is missing.

@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 502,
-  "institution_count": 150,
+  "course_count": 504,
+  "institution_count": 151,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -5234,6 +5234,22 @@
       "verification_note": "The Kenya Red Cross Training Institute publishes this programme at Ksh 300,000 for the whole course, running 12 months full-time or 18 months part-time. Entry is a KCSE mean grade of C plain with at least a C in Biology and in English or Kiswahili, plus Chemistry, Physics or Mathematics. Confirm with the institute before paying."
     },
     {
+      "course_id": "c527",
+      "course_name": "Diploma in Law (Paralegal Studies)",
+      "institution": "Kenya School of Law",
+      "institution_id": "ksl",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "people",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Kenya School of Law is a state corporation established under the Kenya School of Law Act, and this is the one programme it runs that a school leaver can enter directly - placement is through KUCCPS, which opened the May 2026 intake in February 2026. Published entry is a KCSE mean grade of C plain with at least a C+ in English or Kiswahili, so the subject grade is the real gate and a C plain alone is not enough. Alternative routes are published too: one principal pass at KACE, a pass in a certificate of law course at an accredited legal education provider, or a certificate of experiential learning from the Council of Legal Education. Two academic years minimum, three maximum. Teaching runs at the Karen campus and the Nairobi Town campus on Moi Avenue, weekday in-person days with virtual evening classes. Njia does not list the Advocates Training Programme, which is the school's better-known course: it is postgraduate and requires a law degree, so it is not a route from KCSE and listing it here would mislead. The school sets its own fees and does not publish a figure for this programme in any source reachable from this build, so it could not be verified and no figure is shown rather than a guessed one - ring the school for the current schedule."
+    },
+    {
       "course_id": "c360",
       "course_name": "Certificate in Tax Administration",
       "institution": "Kenya School of Revenue Administration (KESRA)",
@@ -5792,6 +5808,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "This course previously displayed a precise-looking tuition figure that was never observed anywhere. An audit found the same value repeated across unrelated institutions - Ksh 420,000 appeared on twelve different degrees at twelve different universities, public and private, from nursing to design to actuarial science - which is not what real fee data looks like. It was a placeholder, so it has been removed rather than left wearing a caveat. The figure could not be verified against any source reachable here, so nothing is shown. Ask the institution directly; if it is a public university, note that a single per-programme price no longer exists."
+    },
+    {
+      "course_id": "c528",
+      "course_name": "Bachelor of Science in Hospitality Management",
+      "institution": "Strathmore University",
+      "institution_id": "strathmore",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "business",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Strathmore University is a CUE-chartered private university in Nairobi. Programme named in its published prospectus, and this is the one undergraduate programme for which a C+ mean grade is explicitly published - most Strathmore degrees ask a B plain or a B- minus, so do not read this entry as the university's general bar. Every applicant must additionally pass the Strathmore entrance examination in Mathematics and English and an oral interview, which no KCSE grade substitutes for. The university publishes no fee for this programme in any source reachable from this build, so it could not be verified and no figure is shown rather than a guessed one."
     },
     {
       "course_id": "c007",

@@ -161,7 +161,7 @@ const SECTORS = [
     id: 'admin',
     name: 'Administration, HR and public service',
     broad: 'services',
-    match: /human resource|office administration|public administration|secretar|records|project management|governance|events management|security|emotional intelligence|leadership|communication|disaster management|resilience/i,
+    match: /human resource|office administration|public administration|international relations|diplomacy|secretar|records|project management|governance|events management|security|emotional intelligence|leadership|communication|disaster management|resilience/i,
     awardingBodies: ['TVET CDACC', 'IHRM'],
     knbs: { series: 'Public administration and defence', mapping: 'component', growth: 8.3 },
     caution: 'Growth in public administration is measured as government activity, and hiring into it is capped by the wage bill rather than by demand. Most administrative work is in the private sector, which this series does not cover.'
@@ -174,7 +174,7 @@ const SECTORS = [
      * sector at all — the pattern had `financ` and `actuarial` but nothing that
      * matched the word insurance itself, so two records went invisible to both
      * the register and the landing table. */
-    match: /account|financ|insur|bank|tax|credit|econom|statistic|actuarial|audit|commerce|business management|business studies|sales|marketing|entrepreneur|customs/i,
+    match: /account|financ|insur|bank|tax|credit|econom|statistic|actuarial|audit|commerce|business management|business administration|business studies|sales|marketing|entrepreneur|customs/i,
     awardingBodies: ['KASNEB', 'TVET CDACC'],
     knbs: { series: 'Financial and insurance activities', mapping: 'exact', growth: 6.5 },
     caution: 'The sector grows faster than the economy, but entry is gated by professional papers — the KASNEB ladder runs years past the college award and costs money at each stage.'

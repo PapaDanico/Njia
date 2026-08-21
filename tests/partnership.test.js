@@ -66,6 +66,26 @@ test('llms.txt gives answer engines the same address the page advertises', () =>
     + 'tools/build-structured-data.mjs and the two must agree.');
 });
 
+/* The primary address cannot be verified from this environment — every host is
+   egress-blocked — so the page must never depend on it alone. The fallback is
+   the one route that is provably live without anything being configured. */
+test('the page carries a second contact route that needs nothing set up', () => {
+  assert.ok(/github\.com\/PapaDanico\/Njia\/issues/.test(page),
+    'docs/index.html no longer offers the issue tracker as a fallback contact. The mailbox on '
+    + 'the project domain cannot be verified from this build environment, so if it is not '
+    + 'configured the page is a dead end again — silently, which is worse than carrying no '
+    + 'address at all. Keep a route that works with nothing set up.');
+  assert.ok(/bounces/i.test(page),
+    'the page offers a fallback route but no longer tells the reader when to use it.');
+});
+
+test('llms.txt names the fallback route too', () => {
+  assert.ok(/github\.com\/PapaDanico\/Njia\/issues/.test(llms),
+    'llms.txt gives answer engines only the unverifiable mailbox. An answer engine is how a '
+    + 'funder or journalist increasingly arrives, and it should be able to offer the route '
+    + 'that certainly works.');
+});
+
 test('all four funding routes are named on the page', () => {
   const routes = {
     'county and institutional deployment': /County and institutional deployment/i,

@@ -476,8 +476,9 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Twenty-three remain — lower the
-constant when you close more.
+one inside an aggregate that still looks fine. Twenty remain — lower the constant when you close more. It was 23; Kakamega and
+Siaya were closed by re-reading an either/or in a published entry requirement
+rather than by finding new provision, and Bomet from the funding side.
 
 **The gap is almost always a missing institution, not a missing course.** Eight
 counties were closed in one pass by searching per county for its technical
@@ -698,13 +699,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 463 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 469 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 463 notes contains a comma or a quote and the
+  optional: **every one** of the 469 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -771,6 +772,64 @@ every run until a clean-clone simulation caught it — **simulate the runner
 before pushing a workflow**, because a red `main` is what teaches people to stop
 reading CI.
 
+## Resolve it here. Do not hand back an assignment.
+
+The standing instruction from the maintainer is that an agent working on this
+repository **finishes the work**, using every tool available to it, rather than
+closing with a list of things for a human to do. A report that ends "you must
+now create this mailbox / check this setting / run this command" has moved the
+task, not completed it.
+
+That does not license guessing. It changes what to do when something cannot be
+verified from here, and the rule is:
+
+- **Find a route that works with nothing set up.** The partnership page needed a
+  contact address. The obvious one, `partnerships@njiacareerpathways.work`, is
+  on the project's own domain and is the right thing to advertise — and it
+  cannot be confirmed from this environment, because every host is
+  egress-blocked. Publishing only that would have recreated the dead end it was
+  written to close, *silently*: the reader writes and hears nothing, which is
+  worse than finding no address. So the page carries the issue tracker as a
+  second route, which is live today and needs no configuration, and
+  `tests/partnership.test.js` fails the build if it goes.
+- **Never publish the maintainer's personal address** as the fix for this. A
+  personal mailbox on a funder-facing page is both a disclosure decision that is
+  not an agent's to make and a weaker signal than the domain.
+- **Where a thing genuinely cannot be done from here, do the part that can.**
+  Google Search Console submission and reading Netlify Analytics still need
+  credentials this environment does not hold. Say so once, in one line, having
+  already shipped everything around them.
+
+## CI can fail before it starts, and the run object will not say why
+
+CI went red on `main` on 19 August and stayed red, and the first audit of this
+session **missed it** — because it checked repository contents, the test suite
+and the open pull requests, and never looked at the Actions run history. A green
+local suite says nothing about whether CI ran at all.
+
+The signature is `conclusion: startup_failure` with **zero jobs**, `created_at`
+equal to `run_started_at`, and no log to read: the run never began, so
+`list_workflow_jobs` returns an empty array and `get_job_logs` has nothing to
+give. Everything the normal drive-to-green loop reaches for is absent.
+
+What to check, in this order, because it is cheap to expensive:
+
+1. **Diff the workflow file between the last green run and the first red one.**
+   Here it was byte-identical, which rules out the YAML immediately. Note that
+   PyYAML parses `on:` as the boolean `True` and tolerates duplicate keys that
+   GitHub rejects, so "it parses locally" is weak evidence.
+2. **Check repository visibility.** Njia is public, so Actions minutes are free
+   and unlimited and a billing ceiling cannot be the cause. On a private repo it
+   usually is.
+3. **Bisect by content.** The only difference between the last green commit and
+   the first red one was two files, one of them `.github/mcp.json` — a Copilot
+   MCP config for a server this repo does not use in CI. Removing it is both the
+   experiment and the cleanup, because the file was inert clutter either way.
+
+`workflow_dispatch` is now on the workflow. It was absent, which meant there was
+no way to re-run CI against a ref on demand — the exact capability needed to
+test a hypothesis about why CI would not start.
+
 ## Verification before any deploy
 
 Regenerate first — the guards fail on stale artefacts, which is the point:
@@ -778,6 +837,7 @@ Regenerate first — the guards fail on stale artefacts, which is the point:
 ```
 node tools/build-icons.mjs        # 4 PNGs + favicon.ico, needs Playwright
 node tools/build-og-image.mjs     # share card; rewrites its own hash in index.html
+node tools/build-brand-assets.mjs # lockups + social banner, needs Playwright
 node tools/build-landing-stats.mjs # data/landing-stats.js — the landing page's figures
 node tools/build-open-data.mjs    # CSV + JSON + /open-data/
 node tools/build-provision-analysis.mjs  # county CSV + /analysis/
@@ -788,12 +848,12 @@ node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (268)
+node --test tests/*.test.js       # zero-dependency unit suite (270)
 node tests/functional-probe.mjs   # drives the real app, port 8080
-node tests/a11y-sweep.mjs         # 60 axe states, port 8106
+node tests/a11y-sweep.mjs         # 68 axe states, port 8106
 ```
 
-The axe sweep is 60 states, not 32, because it now covers the generated county,
+The axe sweep is 68 states, not 32, because it now covers the generated county,
 grade and open-data pages as well as the app's routes. Its first section used to
 be labelled "static pages" and audited neither.
 

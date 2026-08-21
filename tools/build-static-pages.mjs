@@ -882,6 +882,21 @@ const DECK_FILE = 'njia-pitch-deck-aug-2026.pdf';
  * personal address on a partnership page reads as a hobby, and a dead alias
  * reproduces the exact defect this block exists to close. */
 const CONTACT_EMAIL = 'partnerships@njiacareerpathways.work';
+
+/* A SECOND ROUTE, BECAUSE THE FIRST ONE CANNOT BE VERIFIED FROM HERE.
+ *
+ * Every host is egress-blocked in this build environment, so there is no way to
+ * confirm that the alias above actually receives mail. Publishing an address
+ * that might not exist would recreate the dead end this section was written to
+ * close, only less visibly — the reader would write and hear nothing, which is
+ * worse than finding no address at all.
+ *
+ * So the page carries a second route that is live today and needs nothing set
+ * up: the repository's issue tracker. It is a strange thing to offer a funder
+ * and a natural thing to offer the journalists, researchers and county analysts
+ * who are the /open-data/ and /analysis/ audience, and it means the page
+ * converts whether or not the mailbox is configured. */
+const CONTACT_FALLBACK = 'https://github.com/PapaDanico/Njia/issues/new';
 const DOCS_OUT = path.join(root, 'docs');
 
 function docsIndexPage(courseCount, institutionCount, countyCount) {
@@ -959,6 +974,10 @@ declined and the money with it.</li>
 <p class="meta">Useful things to include: who you are, which of the four routes above is
 closest, and the county or institution involved. There is no form, no tracker and no
 mailing list &mdash; the same reason the app has none.</p>
+<p class="meta">If that address bounces, or you would rather write in the open, use the
+project's issue tracker instead: <a href="${CONTACT_FALLBACK}">github.com/PapaDanico/Njia/issues</a>.
+Corrections to the catalogue are welcome there too, and are the reason the data is published
+in full.</p>
 <h2>If you are a student, this is not the page you want</h2>
 <p>This document is written for funders and partners. If you are deciding what to study,
 these are for you instead:</p>

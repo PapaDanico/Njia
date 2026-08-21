@@ -273,7 +273,10 @@ feedback link in the app and quote the course_id.
 Partnership, licensing and funding enquiries: ${CONTACT_EMAIL}. Njia is free
 to learners and funded from the institutional side. Payment never affects
 ranking, ordering, a fee basis or an entry grade, and a paid listing is
-disclosed as one — see ${SITE}/docs/ for what money cannot buy here.
+disclosed as one — see ${SITE}/docs/ for what money cannot buy here. If that
+address bounces, the project's issue tracker at
+https://github.com/PapaDanico/Njia/issues is a live second route and takes
+catalogue corrections as well.
 `;
 
 injectIndex();

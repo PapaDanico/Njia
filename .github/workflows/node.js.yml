@@ -18,11 +18,11 @@
 #
 # WHAT IT CHECKS, AND WHY THE SECOND JOB EXISTS.
 #
-# 1. The unit suite. 253 tests, zero dependencies, runs in under a second.
+# 1. The unit suite. 270 tests, zero dependencies, runs in about a second.
 #
 # 2. Artefact freshness — that the committed generated files still match what
 #    the generators produce from the current data. Njia commits its own build
-#    output (57 static pages, two CSV exports, a JSON export, the sitemap and
+#    output (55 static pages, a CSV export, a JSON export, the sitemap and
 #    the structured data), so data/courses.js can change while the pages that
 #    describe it do not, and nothing about the site looks wrong until a reader
 #    downloads a CSV carrying last month's fees.
@@ -55,6 +55,10 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  # Manually runnable. Without this there is no way to re-run CI against a ref
+  # on demand, which is exactly what was needed when every run began reporting
+  # startup_failure with no job and no log to read.
+  workflow_dispatch:
 
 jobs:
   test:

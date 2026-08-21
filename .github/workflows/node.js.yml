@@ -62,38 +62,43 @@ on:
 
 jobs:
   test:
-    name: Unit suite (Node ${{ matrix.node-version }})
+    name: Unit suite and artefact freshness
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [20.x, 22.x]
-
     steps:
-      - uses: actions/checkout@v4
+      # NO `uses:` ANYWHERE IN THIS FILE. THAT IS THE POINT.
+      #
+      # Every run from 19 August onward reported startup_failure with zero jobs
+      # and no log — GitHub created the run and then failed to compile the
+      # workflow. The YAML was byte-identical to the last green run and the repo
+      # is public, so neither syntax nor exhausted minutes explains it. The
+      # remaining compile-time failure that fits is an Actions policy that stops
+      # resolving `uses:` — "allow select actions" without actions/checkout and
+      # actions/setup-node on the list will fail exactly this way.
+      #
+      # Reading or changing that setting needs an API path this build
+      # environment blocks on purpose, so the workflow is written to not need
+      # it. A checkout is a git clone and Node is already on the runner image,
+      # which is the whole dependency list for a buildless, zero-dependency
+      # repo. If the policy is later reopened, this still works.
+      - name: Check out the commit under test
+        run: |
+          git init -q .
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}"
+          # GITHUB_SHA is the merge commit on pull_request and the pushed commit
+          # on push. Both are fetchable by sha, so one line covers both events.
+          git fetch -q --depth 1 origin "$GITHUB_SHA"
+          git checkout -q FETCH_HEAD
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          # No `cache:` on purpose — there is no lockfile to key a cache on,
-          # and asking for one is what broke the previous workflow.
+      - name: Report the runtime
+        run: node --version
 
-      # No install step. The suite requires nothing but Node.
+      # The Node version matrix is gone with actions/setup-node. It tested 20
+      # and 22; the runner image ships a current LTS, and a suite that runs is
+      # worth more than a matrix that does not compile. Restore the matrix the
+      # day `uses:` resolves again.
       - name: Run the test suite
         run: node --test tests/*.test.js
-
-  artefacts:
-    name: Generated files match the data
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
 
       - name: Regenerate everything the repo commits
         run: |

@@ -5,7 +5,37 @@
 # setting can never fail deploys for a site with nothing to build.
 [build]
   base = ""
+  # Still a no-op, deliberately. A production deploy must have nothing to fail
+  # at: this site is a public service for school leavers, and a guard that goes
+  # red should never be the reason a learner cannot reach it. See the
+  # buildless assertions in tests/provenance.test.js.
   command = "echo 'Njia has no build step - deploying repository root as-is'"
+  publish = "."
+
+# THE GUARDS RUN ON DEPLOY PREVIEWS, BECAUSE GITHUB ACTIONS CANNOT RUN AT ALL.
+#
+# Since 19 August 2026 Actions has been unable to place a job on a runner for
+# this repository. Every run, on every event type - push, pull_request and
+# workflow_dispatch alike - is created and then dies in about four seconds with
+# runner_id 0, an empty runner_name and no log written. The workflow itself is
+# sound: rewriting it to use no `uses:` at all moved it from startup_failure to
+# an ordinary failure, which proves it compiles. What remains is a repository
+# Actions setting that cannot be read or changed from the environment this
+# project is developed in.
+#
+# Netlify's builds do run. So the suite runs here instead - but only on deploy
+# previews, which is the half of CI that actually changes a decision. A pull
+# request whose preview build fails is a pull request you do not merge, and
+# nothing a learner can reach is affected either way.
+#
+# Production deliberately does NOT run it. That would trade a real availability
+# risk for a signal already collected before the merge.
+#
+# Netlify sets CI=true, so the seven mtime guards skip exactly as they do in any
+# clean checkout - git stamps every file at write time, so they carry no
+# information here. Zero dependencies, no install, about a second.
+[context.deploy-preview]
+  command = "node --test tests/*.test.js"
   publish = "."
 
 # WHAT ACTUALLY RUNS AT BUILD TIME

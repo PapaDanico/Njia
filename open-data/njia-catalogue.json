@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 504,
-  "institution_count": 151,
+  "course_count": 508,
+  "institution_count": 153,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -2160,6 +2160,54 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "The university does not publish a single per-programme price for this course, and that is the honest answer rather than a gap. Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which what a student actually pays is set by an assessed means band - scholarship, loan and household contribution combined - rather than by one per-programme price. There is therefore no single number that is true for this course. This record previously displayed a precise-looking total carrying no citation of any kind. Check your own band on the HEF portal and confirm the balance with the university finance office."
+    },
+    {
+      "course_id": "c531",
+      "course_name": "Bachelor of Clinical Medicine and Community Health",
+      "institution": "Great Lakes University of Kisumu",
+      "institution_id": "gluk",
+      "county": "Kisumu",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Great Lakes University of Kisumu is a CUE-chartered private university in Kisumu focused on health sciences, and had not been listed here at all. Programme named in the university's published programme list. Published entry for bachelor's degrees is a KCSE mean grade of C+ overall - that is the university's own stated bar rather than the national minimum read onto it, though health programmes normally carry subject requirements in the sciences, so confirm those with admissions. GLUK also runs certificate programmes entering at a KCSE D plain and diplomas at C- or a recognised certificate, which reach considerably lower than this record does; the individual certificate and diploma courses were not named in any source reachable from this build, so they are not listed and it is worth asking the university directly. It reports 62 programmes in total. Fees are set by the university and no figure for this programme was reachable from this build, so the fee could not be verified and none is shown rather than a guessed one."
+    },
+    {
+      "course_id": "c532",
+      "course_name": "Bachelor of Community Health and Development",
+      "institution": "Great Lakes University of Kisumu",
+      "institution_id": "gluk",
+      "county": "Kisumu",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Great Lakes University of Kisumu is a CUE-chartered private university in Kisumu focused on health sciences, and had not been listed here at all. Programme named in the university's published programme list. Published entry for bachelor's degrees is a KCSE mean grade of C+ overall - that is the university's own stated bar rather than the national minimum read onto it, though health programmes normally carry subject requirements in the sciences, so confirm those with admissions. GLUK also runs certificate programmes entering at a KCSE D plain and diplomas at C- or a recognised certificate, which reach considerably lower than this record does; the individual certificate and diploma courses were not named in any source reachable from this build, so they are not listed and it is worth asking the university directly. It reports 62 programmes in total. Fees are set by the university and no figure for this programme was reachable from this build, so the fee could not be verified and none is shown rather than a guessed one."
+    },
+    {
+      "course_id": "c530",
+      "course_name": "Bachelor of Science in Nursing",
+      "institution": "Great Lakes University of Kisumu",
+      "institution_id": "gluk",
+      "county": "Kisumu",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Great Lakes University of Kisumu is a CUE-chartered private university in Kisumu focused on health sciences, and had not been listed here at all. Programme named in the university's published programme list. Published entry for bachelor's degrees is a KCSE mean grade of C+ overall - that is the university's own stated bar rather than the national minimum read onto it, though health programmes normally carry subject requirements in the sciences, so confirm those with admissions. GLUK also runs certificate programmes entering at a KCSE D plain and diplomas at C- or a recognised certificate, which reach considerably lower than this record does; the individual certificate and diploma courses were not named in any source reachable from this build, so they are not listed and it is worth asking the university directly. It reports 62 programmes in total. Fees are set by the university and no figure for this programme was reachable from this build, so the fee could not be verified and none is shown rather than a guessed one."
     },
     {
       "course_id": "c153",
@@ -6320,6 +6368,22 @@
       "tuition_kes": 238200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
+      "course_id": "c529",
+      "course_name": "Bachelor of Education (Science)",
+      "institution": "University of Eastern Africa, Baraton",
+      "institution_id": "ueab",
+      "county": "Nandi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The University of Eastern Africa, Baraton is a CUE-chartered Seventh-day Adventist private university at Baraton in Nandi County, and had not been listed here at all. Programme named in the university's published course pages. Published undergraduate entry is a KCSE mean grade of C+; Baraton additionally states that no student may take education courses with teaching subjects they did not pass at C+ or above, so the subject grades are a real gate on this programme and not a formality. A second route is published for people without a C+: a diploma from a recognised institution together with a KCSE mean grade of C plain. The university runs more programmes than are listed here; only what a reachable source names is recorded. It sets its own fees and publishes no figure reachable from this build, so the fee could not be verified and none is shown."
     },
     {
       "course_id": "c133",

@@ -4,6 +4,39 @@ Written after a systematic audit of the running platform in August 2026.
 This is the standing plan: what was wrong, what has been fixed, and what
 remains — with the honest reason each open item is still open.
 
+## Read this first: the figures below are the ones this plan was written against
+
+**Status as of 21 August 2026.** The catalogue has grown by roughly five and a
+half times since the phase tables were written, so every count in them is
+stale. They are left in place because the plan is a record of what was decided
+and why, and rewriting the numbers inside it would erase that. The current
+figures, computed from `data/courses.js` rather than typed here from memory:
+
+| | When the plan was written | Now |
+| --- | --- | --- |
+| Course records (places to apply) | 81 | **469** |
+| Distinct programmes | not tracked | **279** |
+| Institutions | 86 | **145** |
+| Counties with provision listed | 45 of 47 | **47 of 47** |
+| Records with a verified fee | 38 | **356** |
+| Unit tests | 56 | **270** |
+
+Two things in the tables below are not merely stale but superseded:
+
+- **`data_confidence` no longer exists as described.** Provenance is now five
+  fee bases — `published`, `derived`, `illustrative`, `unpublished`,
+  `unsourced` — which partition the catalogue exactly, and `published` is a
+  declared claim (`fee_observed: true`) rather than an inferred one.
+- **The "uncited fee" tier is gone**, and not because the fees were found. See
+  `CLAUDE.md`, which is the live standing-instructions document; this file is
+  the historical plan.
+
+**Where the money question now stands.** `/docs/` sets out four funding routes
+and carries a contact address. Njia is free to learners and funded from the
+institutional side; payment never affects ranking, a fee basis or an entry
+grade, and `tests/partnership.test.js` fails the build if that promise is
+weakened.
+
 ## The finding that reframed everything
 
 The platform was fabricating its central evidence.
@@ -138,14 +171,17 @@ verified.
 ## How to check this work
 
 ```
-node --test tests/*.test.js     # 56 tests, zero dependencies
+node --test tests/*.test.js       # 270 tests, zero dependencies
+node tests/functional-probe.mjs   # drives the real app, port 8080
+node tests/a11y-sweep.mjs         # 68 axe states, port 8106
 ```
 
-Plus, for anything touching the UI: axe-core across all 56 states (7 pages ×
-2 viewports × 2 colour schemes × 2 data states, full ruleset including WCAG
-2.2), and a full click-through journey on a CPU-throttled phone viewport.
-See `DESIGN.md` for why a desktop-only, WCAG-2.0-only audit is worse than no
-audit at all.
+The sweep is 68 states, not 56: it covers the generated county, grade and
+open-data pages as well as the app's routes, in both colour schemes. Regenerate
+the content generators before running any of it — the staleness guards fail on
+stale artefacts, which is the point. `CLAUDE.md` carries the current order, and
+`build-structured-data.mjs` must run last because it injects into pages the
+other generators own.
 
 ## Appendix — external audit review (11 August 2026)
 

@@ -208,6 +208,11 @@ function injectGenerated(file, dataset) {
 }
 
 /* ---- llms.txt ---------------------------------------------------------- */
+/* Kept byte-identical to the address on the partnership page — an answer
+   engine quoting a different mailbox from the one the page advertises sends a
+   funder to a dead end, which is the defect that page was fixed to close.
+   tests/partnership.test.js asserts the two agree. */
+const CONTACT_EMAIL = 'partnerships@njiacareerpathways.work';
 
 const fundingCount = FUNDING_SOURCES.length;
 const tvetReach = FUNDING_SOURCES.filter((f) => f.min_grade == null || ['D', 'D-', 'E'].includes(f.min_grade)).length;
@@ -264,6 +269,14 @@ available in the county" — the difference is the whole point.
 
 Corrections are welcome and are the reason the data is published. Use the
 feedback link in the app and quote the course_id.
+
+Partnership, licensing and funding enquiries: ${CONTACT_EMAIL}. Njia is free
+to learners and funded from the institutional side. Payment never affects
+ranking, ordering, a fee basis or an entry grade, and a paid listing is
+disclosed as one — see ${SITE}/docs/ for what money cannot buy here. If that
+address bounces, the project's issue tracker at
+https://github.com/PapaDanico/Njia/issues is a live second route and takes
+catalogue corrections as well.
 `;
 
 injectIndex();

@@ -1339,23 +1339,66 @@ test('robots.txt and sitemap.xml exist, agree, and parse', () => {
     'crawler files must stay out of the offline cache');
 });
 
-/* Artisan entry grades are not uniform, and flattening them is the tempting
- * error. KUCCPS sets the national artisan floor at E, but institutions publish
- * their own bars above it: Eldoret states D, Sigalagala D-, Meru D- or KCPE,
- * Kabete E. A well-meaning tidy-up that set every artisan record to the
- * national floor would read as consistent and be wrong in a way that costs the
- * learner something real — KUCCPS artisan applicants get only four choices, so
- * an overstated eligibility does not merely disappoint, it burns one of four.
+/* Artisan entry grades must not be flattened to the national floor, and the
+ * cost of getting this wrong is specific: KUCCPS artisan applicants get only
+ * four choices, so an overstated eligibility does not merely disappoint, it
+ * burns one of four.
+ *
+ * THIS GUARD USED TO COUNT DISTINCT VALUES, AND THAT WAS A PROXY.
+ *
+ * It required three or more distinct entry values across the artisan tier, on
+ * the reasoning that institutions publish different bars — the comment cited
+ * "Eldoret states D, Sigalagala D-, Meru D- or KCPE, Kabete E". Every one of
+ * those four had already moved by the time it fired: Eldoret and Kisumu were
+ * corrected to E when this repository decided that quoting a grade high is the
+ * exclusionary direction, Meru admits without a grade, and the tier now holds
+ * exactly two values, E and open.
+ *
+ * So the count fell to two and the guard failed on data that was more correct
+ * than the data it was written against. A proxy that fires on a legitimate
+ * convergence is not measuring the thing it is named after. What it was
+ * defending is not variety — variety is an accident of which institutions are
+ * listed — it is that no record claims the floor without evidence for the
+ * floor.
+ *
+ * So it is asserted directly instead. A record sitting at E must say WHY E in
+ * its own note: either the institution publishes E, or it publishes an
+ * alternative route — a KCPE certificate, an interview, open entry — that a
+ * learner with an E clears. A silent E is the flattening this guard exists to
+ * stop, and unlike a value count it stays true however the catalogue grows.
  *
  * Grade never hides a course from the results list (only cluster, mode, level,
- * county and ownership filter), so recording the stricter published figure
- * costs no visibility. There is no upside to flattening and a direct cost. */
+ * county and ownership filter), so recording a genuinely published stricter
+ * figure costs no visibility. */
 test('artisan entry grades reflect what each institution publishes', () => {
   const artisan = COURSES.filter((c) => c.level === 'artisan');
-  const grades = new Set(artisan.map((c) => String(c.min_grade)));
 
-  assert.ok(grades.size >= 3,
-    `every artisan record shares ${grades.size} entry value(s) — institutions publish different bars, from KCPE-only to D`);
+  /* An E must be argued for in the note, not merely typed. The alternation
+     covers both routes to it: an institution that publishes E outright, and
+     one whose published bar is a grade OR a non-grade alternative (a KCPE
+     certificate, an interview, open entry, "and below") that an E clears. */
+  /* The vocabulary has to cover how an institution actually words an open
+     tier, not how this test would word it. The first pass matched only
+     'open entry' and failed eight correct records at Lodwar, Mandera and
+     Laisamis, whose published ladders read 'artisan courses open-ended' and
+     'other course categories open'. Same failure this file already records
+     for Don Bosco and St. Kizito: the records were right and the test was
+     wrong. */
+  const JUSTIFIES_E = /KCPE|interview|open entry|open-ended|categories open|courses open|primary school|school leaver|and below|downwards|grade of E|as an E|E grade|minimum for Level 4|artisan floor|KUCCPS/i;
+  const unjustified = artisan
+    .filter((c) => c.min_grade === 'E' && !JUSTIFIES_E.test(c.verification_note || ''))
+    .map((c) => c.id);
+
+  /* Compared as a joined string, not with deepEqual. COURSES is built inside a
+     vm context, so arrays derived from it carry that realm's Array prototype
+     and deepStrictEqual rejects them against a literal [] even when both are
+     empty — which is why every other check in this file joins first. */
+  assert.equal(unjustified.join(', '), '',
+    `these artisan records sit at the KUCCPS floor of E without their note saying why: ${unjustified.join(', ')}. `
+    + 'E is the most permissive value this tier can carry, so it has to be evidenced rather than assumed — '
+    + 'either the institution publishes E, or it publishes an alternative route (a KCPE certificate, an '
+    + 'interview, open entry) that a learner with an E clears. An artisan applicant gets four KUCCPS choices; '
+    + 'an eligibility Njia overstated burns one of them.');
 
   // No artisan record may sit below the KUCCPS national floor of E. A value
   // beneath it would be a data-entry slip, not an institutional policy.

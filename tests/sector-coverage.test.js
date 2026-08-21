@@ -324,7 +324,7 @@ const gradeRank = (g) => (g == null ? GRADE_ORDER.length : GRADE_ORDER.indexOf(g
  *
  * Lower this number when you close more; a test that only ever gets weaker is
  * not a guard. */
-const E_GRADE_BLIND_COUNTIES = 22;
+const E_GRADE_BLIND_COUNTIES = 20;
 
 /* UNDER-CLAIM ON A FIGURE. NEVER ON AN ELIGIBILITY.
  *
@@ -386,7 +386,7 @@ test('no new county leaves its lowest-scoring learners with nothing', () => {
    * hiding inside an aggregate that still looks fine. */
   for (const fixed of ['Turkana', 'West Pokot', 'Mandera', 'Marsabit', 'Kisumu', 'Uasin Gishu',
     'Baringo', 'Busia', 'Nandi', 'Kisii', 'Taita-Taveta', "Murang'a",
-    'Bungoma', 'Kericho']) {
+    'Bungoma', 'Kericho', 'Kakamega', 'Siaya']) {
     assert.ok(!blind.includes(fixed),
       `${fixed} has gone back to showing an E-grade learner nothing. It was closed `
       + 'deliberately with sourced county technical provision — do not remove it without '

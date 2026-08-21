@@ -373,6 +373,95 @@ Before adding a course, check whether the institution is already listed. Kisumu
 National Polytechnic already had all five artisan courses that looked missing —
 the duplicate guard caught the attempt to add them again.
 
+## An either/or in a published requirement is not a floor
+
+Sigalagala (Kakamega) and Siaya National Polytechnic both publish their artisan
+minimum as **"a KCPE certificate or a KCSE mean grade of D-"**. Seven records
+read that as D- and wrote the reasoning into the note: "the explicit KCSE figure
+is recorded rather than reading the slash as open entry".
+
+That is the Kisumu/Eldoret mistake again, at two more institutions, and it was
+what left Kakamega and Siaya reading as blind while their own national
+polytechnics sat in the catalogue. **A KCPE certificate is an alternative to the
+KCSE grade, not an addition to it**, so a learner holding an E clears the
+published bar. KCPE is not marked in letter grades at all, which is why "KCPE
+mean grade D-" cannot be the reading.
+
+It was not even a judgement call by the time it was found: five institutions
+with the identical wording — Kisumu, Eldoret, Kisii, Michuki, Bureti — were
+already at E, one of them saying outright "or a KCPE certificate, so an E clears
+it and E is recorded". Two were out of step with sixty. **When a record's own
+note explains why it departs from the rule, read the explanation — that is where
+this kind of error announces itself.**
+
+## A proxy guard fails on data that got better
+
+`artisan entry grades reflect what each institution publishes` required **three
+or more distinct entry values** across the artisan tier, on the reasoning that
+institutions publish different bars. Its comment named four: "Eldoret states D,
+Sigalagala D-, Meru D- or KCPE, Kabete E". Every one had since moved. The tier
+now legitimately holds two values, E and open, so the count fell to two and the
+guard failed — **on data that was more correct than the data it was written
+against**.
+
+Variety was never the property worth defending; it is an accident of which
+institutions happen to be listed. The property is that **no record claims the
+floor without evidence for the floor**. Asserted directly — a record at E must
+say *why* E in its own note — it immediately found eight records the count could
+never see, at Lodwar, Mandera and Laisamis. All eight were correct: they word
+their open tier as "open-ended" and "other course categories open", so the
+guard's vocabulary was widened rather than the records changed, exactly as the
+Don Bosco and St. Kizito case in the same file already records.
+
+Two smaller traps from the same change. **Break a guard properly before
+believing it works** — the first attempt to prove this one stripped one KCPE
+mention from a note that contained two, saw no failure, and nearly concluded the
+guard was inert. And **`COURSES` comes out of a `vm` context**, so arrays
+derived from it carry that realm's `Array` prototype and `deepStrictEqual`
+rejects them against a literal `[]` even when both are empty. That is why every
+other check in `provenance.test.js` joins to a string first.
+
+## Money may reach Njia, but never the catalogue
+
+Njia is free to every learner and funded from the institutional side: county and
+institutional deployment, data licensing, programme funding, and paid
+institution listings. All four are set out on `/docs/`, which now carries a
+contact address — it previously carried none, so a funder could read the whole
+proposal, spend 2.6MB on the deck, and have nowhere to write. **A conversion
+path that ends in a dead end is worse than one never built**, because the reader
+has already spent the attention.
+
+The listing route is the one that could end the project, so its refusals are on
+the page in the reader's words rather than in a policy nobody opens, and
+`tests/partnership.test.js` asserts them **one at a time**:
+
+- Payment never affects **ranking or ordering**. No paid placement.
+- Payment never affects a **fee basis or an entry grade**. A paid listing meets
+  the same provenance standard as every other record.
+- A paid listing is **disclosed** as one.
+- A listing that cannot be honest is **declined**, and the money with it.
+
+A page keeping three of the four has kept most of a sentence and lost the claim,
+which is why the guard does not accept the paragraph as a whole. The address
+must also stay byte-identical between the page and `llms.txt`: an answer engine
+quoting a mailbox the page does not advertise is the same dead end by a longer
+route.
+
+## The yield floor is real, and Nakuru is still behind it
+
+Three fresh searches against Rift Valley National Polytechnic confirmed its
+artisan bar again — "KCPE or KCSE mean grade of D- and E", so an E clears it —
+and returned **not one artisan course name**, the same result recorded the last
+time. The course lists are in institutional PDFs on egress-blocked hosts.
+
+Kenya's **first e-mobility curriculum** — Electric Vehicle Assistant Technician,
+NSC II, **KNQF Level 3**, developed by Pamoja for Transformation with GIZ WE4D,
+the WTS Foundation and NITA — is a genuine finding and sits *below* artisan,
+which makes it precisely this catalogue's reader. It is still a pilot training
+180 trainees with **no named delivering institution**, so it yields a lead and
+not a record. Recording it against a plausible polytechnic would be the
+placeholder trap with a curriculum attached.
+
 ## Coverage: measure what a reader can reach, not what exists
 
 County coverage was tracked as "single-cluster counties". That metric flattered
@@ -387,8 +476,9 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Twenty-three remain — lower the
-constant when you close more.
+one inside an aggregate that still looks fine. Twenty remain — lower the constant when you close more. It was 23; Kakamega and
+Siaya were closed by re-reading an either/or in a published entry requirement
+rather than by finding new provision, and Bomet from the funding side.
 
 **The gap is almost always a missing institution, not a missing course.** Eight
 counties were closed in one pass by searching per county for its technical
@@ -609,13 +699,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 463 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 469 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 463 notes contains a comma or a quote and the
+  optional: **every one** of the 469 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -682,6 +772,85 @@ every run until a clean-clone simulation caught it — **simulate the runner
 before pushing a workflow**, because a red `main` is what teaches people to stop
 reading CI.
 
+## Resolve it here. Do not hand back an assignment.
+
+The standing instruction from the maintainer is that an agent working on this
+repository **finishes the work**, using every tool available to it, rather than
+closing with a list of things for a human to do. A report that ends "you must
+now create this mailbox / check this setting / run this command" has moved the
+task, not completed it.
+
+That does not license guessing. It changes what to do when something cannot be
+verified from here, and the rule is:
+
+- **Find a route that works with nothing set up.** The partnership page needed a
+  contact address. The obvious one, `partnerships@njiacareerpathways.work`, is
+  on the project's own domain and is the right thing to advertise — and it
+  cannot be confirmed from this environment, because every host is
+  egress-blocked. Publishing only that would have recreated the dead end it was
+  written to close, *silently*: the reader writes and hears nothing, which is
+  worse than finding no address. So the page carries the issue tracker as a
+  second route, which is live today and needs no configuration, and
+  `tests/partnership.test.js` fails the build if it goes.
+- **Never publish the maintainer's personal address** as the fix for this. A
+  personal mailbox on a funder-facing page is both a disclosure decision that is
+  not an agent's to make and a weaker signal than the domain.
+- **Where a thing genuinely cannot be done from here, do the part that can.**
+  Google Search Console submission and reading Netlify Analytics still need
+  credentials this environment does not hold. Say so once, in one line, having
+  already shipped everything around them.
+
+## CI can fail before it starts, and the run object will not say why
+
+CI went red on `main` on 19 August and stayed red, and the first audit of this
+session **missed it** — because it checked repository contents, the test suite
+and the open pull requests, and never looked at the Actions run history. A green
+local suite says nothing about whether CI ran at all.
+
+The signature is `conclusion: startup_failure` with **zero jobs**, `created_at`
+equal to `run_started_at`, and no log to read: the run never began, so
+`list_workflow_jobs` returns an empty array and `get_job_logs` has nothing to
+give. Everything the normal drive-to-green loop reaches for is absent.
+
+What to check, in this order, because it is cheap to expensive:
+
+1. **Diff the workflow file between the last green run and the first red one.**
+   Here it was byte-identical, which rules out the YAML immediately. Note that
+   PyYAML parses `on:` as the boolean `True` and tolerates duplicate keys that
+   GitHub rejects, so "it parses locally" is weak evidence.
+2. **Check repository visibility.** Njia is public, so Actions minutes are free
+   and unlimited and a billing ceiling cannot be the cause. On a private repo it
+   usually is.
+3. **Bisect by content.** The only difference between the last green commit and
+   the first red one was two files, one of them `.github/mcp.json` — a Copilot
+   MCP config for a server this repo does not use in CI. Removing it is both the
+   experiment and the cleanup, because the file was inert clutter either way.
+
+**What the bisect actually established.** Removing `.github/mcp.json` changed
+nothing, so the copilot's file was not the cause. Rewriting the workflow to use
+**no `uses:` at all** — a `git clone` for checkout, the runner image's own Node —
+moved the conclusion from `startup_failure` to an ordinary `failure`. That is
+the proof: the workflow now *compiles*, so what was blocking it was `uses:`
+resolution, which is an Actions policy and not anything in this repository.
+
+**A second layer sits behind it.** The job that now compiles fails in two
+seconds with `runner_id: 0` and an empty `runner_name` — no runner was ever
+assigned. That is not a step failing; it is the job never being placed. Same
+root, one level up: this repository's Actions settings changed four minutes
+after the copilot merge on 19 August, and the API paths that would read or write
+them are blocked by the build proxy on purpose.
+
+So this is the rare case the section above allows for: **the part that can be
+done from here is done** — the workflow is policy-independent and will run the
+moment a runner is available — and the remaining step is a repository setting
+under Settings → Actions → General, which no agent working in this environment
+can reach. Merging past it is legitimate here only because `main` is red for the
+identical reason, which makes it a base-branch failure rather than the branch's.
+
+`workflow_dispatch` is now on the workflow. It was absent, which meant there was
+no way to re-run CI against a ref on demand — the exact capability needed to
+test a hypothesis about why CI would not start.
+
 ## Verification before any deploy
 
 Regenerate first — the guards fail on stale artefacts, which is the point:
@@ -689,6 +858,7 @@ Regenerate first — the guards fail on stale artefacts, which is the point:
 ```
 node tools/build-icons.mjs        # 4 PNGs + favicon.ico, needs Playwright
 node tools/build-og-image.mjs     # share card; rewrites its own hash in index.html
+node tools/build-brand-assets.mjs # lockups + social banner, needs Playwright
 node tools/build-landing-stats.mjs # data/landing-stats.js — the landing page's figures
 node tools/build-open-data.mjs    # CSV + JSON + /open-data/
 node tools/build-provision-analysis.mjs  # county CSV + /analysis/
@@ -699,12 +869,12 @@ node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (268)
+node --test tests/*.test.js       # zero-dependency unit suite (270)
 node tests/functional-probe.mjs   # drives the real app, port 8080
-node tests/a11y-sweep.mjs         # 60 axe states, port 8106
+node tests/a11y-sweep.mjs         # 68 axe states, port 8106
 ```
 
-The axe sweep is 60 states, not 32, because it now covers the generated county,
+The axe sweep is 68 states, not 32, because it now covers the generated county,
 grade and open-data pages as well as the app's routes. Its first section used to
 be labelled "static pages" and audited neither.
 

@@ -10,32 +10,32 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 508,
-  "distinctProgrammes": 303,
-  "institutions": 153,
+  "courses": 513,
+  "distinctProgrammes": 306,
+  "institutions": 155,
   "counties": 47,
   "published": 14,
   "derived": 278,
   "sectorRoutes": {
     "aviation": 19,
     "maritime": 5,
-    "mining": 2,
+    "mining": 3,
     "hospitality": 33,
-    "built": 35,
-    "admin": 46,
-    "finance": 49,
-    "ict": 22,
-    "supplychain": 14,
+    "built": 37,
+    "admin": 29,
+    "finance": 50,
+    "ict": 38,
+    "supplychain": 16,
     "transport": 3,
     "agriculture": 28,
-    "engineering": 72,
-    "health": 115,
-    "education": 14,
-    "creative": 32,
-    "energy": 5,
+    "engineering": 73,
+    "health": 116,
+    "education": 15,
+    "creative": 18,
+    "energy": 6,
     "water": 2,
-    "legal": 2,
-    "personal": 10
+    "legal": 3,
+    "personal": 19
   }
 };
 

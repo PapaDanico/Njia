@@ -134,7 +134,7 @@ const SECTORS = [
     id: 'mining',
     name: 'Mining, quarrying and extractives',
     broad: 'industry',
-    match: /mining|quarry|geolog|extract|drilling|petroleum/i,
+    match: /mining|quarry|geolog|earth science|extract|drilling|petroleum/i,
     awardingBodies: ['TVET CDACC', 'State Department for Mining'],
     knbs: { series: 'Mining and quarrying', mapping: 'exact', growth: 14.9, prev: -7.8 },
     caution: 'The fastest-growing sector in the survey — and a rebound from a 7.8% contraction the year before, on a small base, driven largely by minerals for cement. Most quarrying work is informal and unwaged. Read this as movement, not as vacancies.'
@@ -152,7 +152,7 @@ const SECTORS = [
     id: 'built',
     name: 'Built environment and construction',
     broad: 'industry',
-    match: /building|construction|masonry|plumb|carpent|architect|quantity survey|civil/i,
+    match: /building|construction|masonry|plumb|carpent|architect|quantity survey|civil|concrete|painting and decoration/i,
     awardingBodies: ['National Construction Authority', 'Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Construction', mapping: 'exact', growth: 6.8, prev: -0.7 },
     caution: 'A rebound from a contraction, not a run of growth. Certified trades earn day rates rather than salaries, so the money is real but the month is not guaranteed.'
@@ -161,7 +161,7 @@ const SECTORS = [
     id: 'admin',
     name: 'Administration, HR and public service',
     broad: 'services',
-    match: /human resource|office administration|public administration|international relations|diplomacy|secretar|records|project management|governance|events management|security|emotional intelligence|leadership|communication|disaster management|resilience/i,
+    match: /human resource|office administration|public administration|international relations|diplomacy|secretar|records|librar|information science|archiv|project management|governance|events management|security|emotional intelligence|leadership|disaster management|resilience|political science|librar|information science|archiv|cctv|alarm/i,
     awardingBodies: ['TVET CDACC', 'IHRM'],
     knbs: { series: 'Public administration and defence', mapping: 'component', growth: 8.3 },
     caution: 'Growth in public administration is measured as government activity, and hiring into it is capped by the wage bill rather than by demand. Most administrative work is in the private sector, which this series does not cover.'
@@ -185,7 +185,7 @@ const SECTORS = [
     broad: 'services',
     /* `comput`, not `computer`: the catalogue holds a "Mathematics and
      * Computing" degree that matched nothing. */
-    match: /information communication|information technology|comput|software|cyber|data sci|data analy|ict|networking|digital|instrumentation|control technician/i,
+    match: /information\s+(?:and\s+)?communication|information technology|comput|software|cyber|data sci|data analy|ict|networking|digital|instrumentation|control technician/i,
     awardingBodies: ['TVET CDACC', 'KNEC', 'ICT Authority'],
     knbs: { series: 'Information and communication', mapping: 'exact', growth: 4.8 },
     caution: 'Close to the whole-economy rate, despite being the sector most often described as booming. The online and platform work actually absorbing young Kenyans sits largely outside this measure — and outside any formal qualification Njia can point at.'
@@ -194,7 +194,7 @@ const SECTORS = [
     id: 'supplychain',
     name: 'Procurement, supply chain and logistics',
     broad: 'services',
-    match: /supply chain|procure|logistic|store keep|stores|clearing|forward/i,
+    match: /supply chain|procure|logistic|storekeep|store keep|stores|clearing|forward/i,
     awardingBodies: ['TVET CDACC', 'KISM'],
     knbs: { series: 'Transportation and storage', mapping: 'component', growth: 3.7 },
     caution: 'Procurement is a component of a broad transport and storage series rather than a series of its own, so this figure describes the neighbourhood, not the job.'
@@ -221,7 +221,7 @@ const SECTORS = [
     id: 'engineering',
     name: 'Engineering, manufacturing and trades',
     broad: 'industry',
-    match: /engineering|mechanic|electric|automotive|weld|fitter|machinist|fabricat|refrigerat|metal|processing technology|plant technician/i,
+    match: /engineering|\bengine\b|mechanic|electric|automotive|weld|fitter|machinist|fabricat|refrigerat|metal|processing technology|plant technician/i,
     awardingBodies: ['Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Manufacturing', mapping: 'unsourced' },
     caution: 'Manufacturing is the largest formal employer in the country at 366,600 workers, and its share of the economy has been drifting down for over a decade. Njia did not source its 2025 growth figure, so none is shown.'
@@ -248,7 +248,7 @@ const SECTORS = [
     id: 'creative',
     name: 'Creative, media and design',
     broad: 'services',
-    match: /journalis|media|film|television|music|graphic|design|fashion|photograph|animation|art/i,
+    match: /journalis|media|film|television|music|graphic|design|fashion|photograph|animation|fine art|visual art|performing art|creative art|art and design|mass communication|public communication|corporate communication|public relations/i,
     awardingBodies: ['KIMC', 'TVET CDACC', 'Media Council of Kenya'],
     knbs: { series: 'Information and communication', mapping: 'component', growth: 4.8 },
     caution: 'Broadcast and film sit inside the information and communication series; design, fashion and craft do not, and are spread across manufacturing and other services. No single published figure covers this sector.'
@@ -284,7 +284,7 @@ const SECTORS = [
     id: 'personal',
     name: 'Beauty, personal care and services',
     broad: 'services',
-    match: /beauty|hairdress|cosmetolog|barber|tailor|garment|dressmak|leather/i,
+    match: /beauty|hairdress|cosmetolog|barber|tailor|garment|clothing|dressmak|leather/i,
     awardingBodies: ['TVET CDACC', 'NITA'],
     knbs: { series: 'Other service activities', mapping: 'unsourced' },
     caution: 'Almost all of this work is self-employment or informal, which national wage statistics do not capture at all. The absence of a figure here is a fact about the statistics, not about the earnings.'

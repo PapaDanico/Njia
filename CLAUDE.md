@@ -515,9 +515,30 @@ is open entry. Kajiado held **Masai Technical Training Institute**, teaching
 since 1986, whose county TVET guidance gives the artisan minimum as E outright
 and whose published list names two artisan courses. Eighteen counties remain.
 
-The pattern holds without exception now: **every county closed so far was closed
-by finding an institution, never by finding a course at an institution already
-listed.** When a county reads as blind, search the county roll-up first and ask
+**Two more, and the first private institution to close a county.** Kirinyaga was
+closed by **Sagana Technical Training Institute** — private, TVETA licence
+`TVETA/PRIVATE/TVC/0059/2016`, five named artisan courses and *no published fee
+or entry bar*. So the records carry a null fee saying the institute publishes
+none, and the KUCCPS national floor of E rather than a stricter figure invented
+for it. A private institution with named courses and no fee is still worth
+listing; a public one with a published fee and no named course is not.
+Nyandarua was closed by **Nyandarua National Polytechnic**, whose artisan bar is
+the familiar "KCPE or KCSE mean grade of D- and E". Sixteen counties remain.
+
+**The yield floor is a property of the source, not the county.** Four counties
+were worked and failed in the same pass, and all four failed the same way: the
+institution was confirmed and no artisan *course name* was published anywhere
+reachable. Embu has Manyatta TVC ("Diploma, Craft and Artisan courses", no
+artisan named). Elgeyo-Marakwet has Kerio Valley TVC, public, five departments,
+and an aggregator that lists its course count as literally `(0)`. Wajir South
+TVC names only craft and diploma. Nakuru has been searched three times now.
+**A named department is not a named course** — the Bungoma and Mawego records
+exist because a source states that department runs artisan *alongside* craft and
+diploma, which is a different claim from listing five department names.
+
+The pattern still holds without exception: **every county closed so far was
+closed by finding an institution, never by finding a course at an institution
+already listed.** When a county reads as blind, search the county roll-up first and ask
 which institution is missing.
 
 **A count of institutions is not a count of institutions that do anything.** The

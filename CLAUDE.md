@@ -1090,7 +1090,7 @@ node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (273)
+node --test tests/*.test.js       # zero-dependency unit suite (270)
 node tests/functional-probe.mjs   # drives the real app, port 8080
 node tests/a11y-sweep.mjs         # 68 axe states, port 8106
 ```

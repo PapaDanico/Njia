@@ -52,6 +52,7 @@
  * RUN:  node tools/build-static-pages.mjs
  */
 import fs from 'node:fs';
+import vm from 'node:vm';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
@@ -59,6 +60,21 @@ import { createRequire } from 'node:module';
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(path.join(root, '/'));
 
+/* HELP_FAQ IS READ, NOT RESTATED.
+ *
+ * js/help.js ends in `window.renderHelpPage = ...` and exports nothing, so it
+ * is evaluated in a vm with a window shim rather than required. That is
+ * deliberate and it is the same rule /open-data/ follows for feeBasis(): a
+ * second hand-written copy of the FAQ is a second thing free to drift, and the
+ * structured-data generator already had to be stopped from making a third. */
+const HELP_FAQ = (() => {
+  const src = fs.readFileSync(path.join(root, 'js', 'help.js'), 'utf8');
+  const ctx = vm.createContext({ window: {}, document: {} });
+  vm.runInContext(src, ctx);
+  return vm.runInContext('HELP_FAQ', ctx);
+})();
+
+const { EDUCATION_PIPELINE } = require('./data/labour-market.js');
 const { COURSES } = require('./data/courses.js');
 const { INSTITUTIONS } = require('./data/institutions.js');
 
@@ -916,6 +932,93 @@ const CONTACT_EMAIL = 'partnerships@njiacareerpathways.work';
  * who are the /open-data/ and /analysis/ audience, and it means the page
  * converts whether or not the mailbox is configured. */
 const CONTACT_FALLBACK = 'https://github.com/PapaDanico/Njia/issues/new';
+/* THE 48 ANSWERS THAT HAD NO URL.
+ *
+ * `HELP_FAQ` is six groups and forty-eight question-and-answer pairs, roughly
+ * 4,600 words — the largest single body of prose this project has written, and
+ * the closest thing it holds to what a learner actually types into a search
+ * box: "can I do nursing with a D+", "does my data leave my phone", "is the
+ * Germany 250,000 figure real". Every word of it lived inside the app, drawn
+ * client-side by js/help.js, and a crawler that does not run JavaScript got
+ * 2,980 characters of chrome from the served index.html and nothing else.
+ *
+ * The counties got static pages. The grades got static pages. /open-data/,
+ * /analysis/ and /docs/ got static pages. Help never did, and nothing noticed,
+ * because in the app it works perfectly. That is the sixth instance of the
+ * pattern this file already names five times.
+ *
+ * ONE page, not forty-eight. A page per question would be forty-eight thin
+ * documents differing by a paragraph, which is the doorway pattern the grade
+ * pages were deliberately capped to avoid. Grouped under their own headings
+ * with an id per question, one page carries the whole thing and still lets a
+ * search engine deep-link a single answer.
+ *
+ * The content is READ from js/help.js at build time, never restated here. A
+ * hand-written second copy is a second thing free to drift, and this project
+ * has already had to stop a third copy being made — tools/build-structured-data.mjs
+ * reads the same array for exactly this reason. */
+const HELP_OUT = path.join(root, 'help');
+
+function helpPage(groups) {
+  const total = groups.reduce((n, g) => n + g.items.length, 0);
+  const toc = groups.map((g) => `<li><a href="#${slug(g.group)}">${esc(g.group)}</a></li>`).join('\n');
+  const body = groups.map((g) => `
+<section>
+<h2 id="${slug(g.group)}">${esc(g.group)}</h2>
+${g.items.map(([q, a]) => `<div class="faq">
+  <h3 id="${slug(q).slice(0, 60)}">${esc(q)}</h3>
+  <div>${a}</div>
+</div>`).join('\n')}
+</section>`).join('\n');
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Questions about courses, fees and applying in Kenya | Njia</title>
+<meta name="description" content="${total} plain answers on KCSE grades, TVET and university entry, fees and what they exclude, HELB and bursaries, CBC pathways, and how Njia handles your data.">
+<link rel="canonical" href="${SITE}/help/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
+<meta property="og:title" content="Questions about courses, fees and applying in Kenya">
+<meta property="og:description" content="${total} plain answers for Kenyan school leavers — grades, fees, funding and applications.">
+<meta property="og:image" content="${SITE}/icons/og-image.jpg?v=${OG_IMAGE}">
+<meta property="og:url" content="${SITE}/help/">
+<link rel="stylesheet" href="/css/styles.css">
+<style>${SHELL_CSS}
+  body { max-width: 60rem; }
+  .faq { margin: 0 0 var(--space-5); }
+  .faq h3 { font-size: 1.02rem; margin: 0 0 .35rem; }
+  .faq > div { color: var(--text-secondary); max-width: var(--prose-max); }
+  .faq p { margin: 0 0 .6rem; }
+  section { margin-bottom: var(--space-7, 2.5rem); }
+  .toc { columns: 2; column-gap: 2rem; }
+  @media (max-width: 40rem) { .toc { columns: 1; } }
+  @media print { .toc, .cta { display: none; } .faq { break-inside: avoid; } }
+</style>
+</head>
+<body>
+${briefHead('Questions and answers', `${total} answers &middot; for career teachers and county officers`)}
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<h1>Questions about courses, fees and applying in Kenya</h1>
+<p>${total} plain answers, written for school leavers and the people advising them.
+Nothing here needs an account and nothing you read is tracked. If your question is
+about a specific course or county, <a href="/counties/">browse by county</a> or
+<a href="/grades/">start from your KCSE grade</a>.</p>
+<ul class="toc">
+${toc}
+</ul>
+${body}
+<p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
+</main>
+</body>
+</html>
+`;
+}
+
 const DOCS_OUT = path.join(root, 'docs');
 
 function docsIndexPage(courseCount, institutionCount, countyCount) {
@@ -972,6 +1075,67 @@ provenance auditing for organisations that need to cite the figures rather than 
 money is allocated, and it is published in full rather than held back for a pitch.</li>
 <li><strong>Institution listings.</strong> An institution may pay to have its provision
 listed and kept current. It buys presence and accuracy, nothing else &mdash; see below.</li>
+</ul>
+<h2>Why this is worth funding</h2>
+<p>The figures below are the platform's own, read from
+<a href="/open-data/">the published dataset</a> and from the sourced labour-market record
+that ships with it — ${esc(EDUCATION_PIPELINE.source)}.</p>
+<ul>
+<li><strong>${EDUCATION_PIPELINE.kcseCandidates.toLocaleString('en-KE')} KCSE candidates</strong>
+sat the 2025 exam, and most choose what comes next with no data-driven way to decide.</li>
+<li><strong>Capacity is not the constraint.</strong> Middle-level colleges can hold
+${EDUCATION_PIPELINE.middleLevelCapacity.toLocaleString('en-KE')} students. Placements across
+all institution types totalled 293,869 — roughly a quarter of the room available. The places
+exist; what is missing is a way to find them, price them and pay for them.</li>
+<li><strong>${(100 - EDUCATION_PIPELINE.qualifiedForDegreePct).toFixed(2)}% of candidates are not
+competing for degrees at all.</strong> ${EDUCATION_PIPELINE.qualifiedForDegree.toLocaleString('en-KE')}
+reached the C+ needed for direct university entry. Everyone else is choosing among diplomas,
+certificates and artisan courses — the tier career guidance in Kenya covers worst.</li>
+</ul>
+<h2>Five ways to partner</h2>
+<p>The four routes above are how Njia is funded. These are the five relationships that
+actually move the number, and most of them cost nothing:</p>
+<ul>
+<li><strong>Schools.</strong> Embed Njia in career weeks and KCSE transition support. Zero
+cost and zero data risk to students — nothing a learner enters leaves their phone. One
+career teacher reaches a whole Form Four class, which is the distribution channel this
+project otherwise lacks.</li>
+<li><strong>Institutions.</strong> Universities, colleges and TVETs publish verified fees
+and cut-offs and meet pre-matched applicants at the decision moment. Verified figures are
+the contribution that matters most: only ${COURSES.filter((c) => c.fee_observed === true).length} of ${courseCount} fees in the catalogue were read off an institution's own published schedule, and the rest say so plainly rather than guessing.</li>
+<li><strong>Employers and corporates.</strong> Sponsor sector or county coverage, offer
+mentorship and site visits, and build early pipelines into growing sectors.</li>
+<li><strong>NGOs and foundations.</strong> Fund county rollouts, offline access and reach
+for marginalised youth, with auditable metrics that do not require tracking anyone.</li>
+<li><strong>Government and agencies.</strong> Align with KUCCPS, TVETA, HELB and county
+education offices to route learners into funded, accredited, real pathways.</li>
+</ul>
+<h2>Four levels of commitment</h2>
+<p>Start anywhere. The first two cost nothing and move the needle today.</p>
+<ul>
+<li><strong>Join.</strong> List your institution, verify your fees and intakes, or register
+as a mentor.</li>
+<li><strong>Promote.</strong> Put Njia in front of your students, staff families or
+community — career weeks, WhatsApp groups, radio.</li>
+<li><strong>Support.</strong> Sponsor sector or county coverage, translations, offline packs
+or data acquisition, with named attribution.</li>
+<li><strong>Fund.</strong> Anchor multi-year sustainability. Grants or programme funding —
+never paywalls, and never influence over results.</li>
+</ul>
+<h2>What we would report back</h2>
+<p>Njia counts steps, never people. There are no accounts and no tracking, so partner
+reporting is built from aggregate counts of milestones reached — questionnaire finished,
+course shortlisted, application started — and from the catalogue itself, which anyone can
+audit. What that means in practice:</p>
+<ul>
+<li><strong>Reach</strong> by county and by the tier a learner can actually enter, not just
+totals.</li>
+<li><strong>Match quality</strong> — the share of readers reaching a grade-eligible,
+funded shortlist rather than an empty one. The
+<a href="/analysis/">county provision analysis</a> is the honest baseline for that, including
+the counties where the answer is currently zero.</li>
+<li><strong>Evidence integrity</strong> — every figure cited, and unverifiable ones removed
+rather than estimated. That is checked by the test suite on every deploy, not promised here.</li>
 </ul>
 <h2>What money cannot buy here</h2>
 <p>This has to be said on the page rather than in a policy document nobody opens, because
@@ -1045,6 +1209,9 @@ for (const grade of Object.keys(GRADE_SLUG)) {
 }
 fs.writeFileSync(path.join(GRADES_OUT, 'index.html'), gradeIndexPage(gradePages));
 
+fs.mkdirSync(HELP_OUT, { recursive: true });
+fs.writeFileSync(path.join(HELP_OUT, 'index.html'), helpPage(HELP_FAQ));
+
 /* docs/ is NOT wiped and recreated the way counties/ and grades/ are: it holds
    the proposal PDF and two hand-written working documents, none of them
    generated. Only index.html is written here. */
@@ -1077,6 +1244,7 @@ const urls = [
      PDF was reachable only through a footer link the app drew client-side, so
      the one document written for people who arrive by search was the one
      document a search engine could not see. */
+  { loc: `${SITE}/help/`, priority: '0.9', changefreq: 'monthly' },
   { loc: `${SITE}/docs/`, priority: '0.5', changefreq: 'yearly' },
   ...gradePages.map(([g]) => ({ loc: `${SITE}/grades/${GRADE_SLUG[g]}/`, priority: '0.8', changefreq: 'monthly' })),
   ...counties.map((c) => ({ loc: `${SITE}/counties/${slug(c)}/`, priority: '0.7', changefreq: 'monthly' }))
@@ -1109,4 +1277,5 @@ ${urls.map((u) => `  <url>
 
 console.log(`wrote counties/index.html + ${counties.length} county pages`);
 console.log(`wrote grades/index.html + ${gradePages.length} grade pages: ${gradePages.map(([g, n]) => `${g}=${n}`).join(' ')}`);
+console.log(`wrote help/index.html — ${HELP_FAQ.length} groups, ${HELP_FAQ.reduce((n, g) => n + g.items.length, 0)} answers`);
 console.log(`wrote sitemap.xml with ${urls.length} URLs (lastmod ${today})`);

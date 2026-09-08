@@ -165,6 +165,51 @@ test('the reader is told what is counted', () => {
   /* Against the rendered copy, not the file: an HTML comment recording why the
    * old promise was withdrawn necessarily quotes the old promise. */
   const visible = indexSource.replace(/<!--[\s\S]*?-->/g, '');
+  /* THE BAN WAS ON ONE PHRASING, AND A SYNONYM STOOD FOR MONTHS.
+   *
+   * This guard banned the exact string "no analytics of any kind" and then
+   * checked the modal body. Meanwhile the landing page's privacy block opened
+   * "No accounts, no tracking, no analytics." — a different wording, the same
+   * false claim, on the surface far more readers actually see. The regex never
+   * looked at it, and the file's own stated principle ("this project removes a
+   * claim it cannot defend rather than leaving it standing with a caveat
+   * elsewhere") was being broken by the app it guards.
+   *
+   * That is the paraphrase trap this repository has now hit three times: the
+   * Dataset caveat accepted a hedge instead of the claim, the branded-header
+   * guard accepted a substring of what it reported, and here a ban on one
+   * sentence let its synonym through. The fix is the same each time — assert
+   * the property, not the wording — so this now sweeps every shipped script for
+   * any claim that no analytics exist, wherever it is phrased. */
+  const SHIPPED = ['js/app.js', 'js/discover.js', 'js/decide.js', 'js/connect.js',
+    'js/track.js', 'js/help.js', 'js/design.js', 'index.html'];
+  /* Only the BLANKET claim is false. "no analytics scripts", "no third-party
+     analytics" and "no analytics pixels" are all true and worth saying — the
+     privacy modal says two of them — so the pattern excludes anything that
+     qualifies the noun. Written this way after the first version flagged its
+     own corrected wording, which is the danger of a guard aimed at a word
+     rather than at a claim. */
+  const NO_ANALYTICS = /\bno analytics\b(?!\s*(?:scripts?|pixels?|providers?|tags?))|zero analytics|analytics of any kind/i;
+  const offenders = [];
+  for (const rel of SHIPPED) {
+    const file = path.join(root, rel);
+    if (!fs.existsSync(file)) continue;
+    /* Comments carry this project's history, including the retired sentence
+       itself, so they are stripped before scanning — JS and HTML alike. Only
+       text a reader can see counts. */
+    const text = fs.readFileSync(file, 'utf8')
+      .replace(/<!--[\s\S]*?-->/g, '')
+      .replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const [i, line] of text.split('\n').entries()) {
+      const code = line.replace(/\/\/.*$/, '');
+      if (NO_ANALYTICS.test(code)) offenders.push(`${rel}:${i + 1} ${code.trim().slice(0, 90)}`);
+    }
+  }
+  assert.deepEqual(offenders.join('\n'), '',
+    'a shipped surface claims Njia runs no analytics while milestone counting ships:\n  '
+    + offenders.join('\n  ')
+    + '\nThe claim is false wherever it is phrased. Say what is counted, as the privacy modal does.');
+
   assert.ok(!/no analytics of any kind/i.test(visible),
     'the privacy modal has gone back to promising "no analytics of any kind" while '
     + 'milestone counting ships. This project removes a claim it cannot defend rather '

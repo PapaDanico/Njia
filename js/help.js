@@ -121,7 +121,7 @@ const HELP_FAQ = [
       ['Can you see my results?', 'No. There is nowhere for them to go. This is an architectural fact, not a policy promise we are asking you to trust.'],
       ['Can I use this on a shared or borrowed phone?', 'Yes — use “Clear My Data” (the lock icon in the header) before you hand the phone back. It wipes everything Njia has stored on that device.'],
       ['What happens if I uninstall Njia or clear my browser data?', 'It is gone for good, because everything lives in that browser’s storage. Export a backup first if you want to keep it — see Privacy &amp; your data.'],
-      ['Is there any tracking or analytics?', 'None. No cookies for tracking, no analytics scripts, no third-party pixels.']
+      ['Is there any tracking or analytics?', 'No cookies for tracking, no analytics scripts and no third-party pixels &mdash; nothing from outside Njia is loaded or told anything about you. One thing <em>is</em> counted: when you reach a milestone &mdash; finishing the questionnaire, saving a course, starting an application, downloading your report &mdash; Njia asks the server for a plain marker file, and the server counts how many times each was asked for. No identifier travels with it, nothing links two requests together, and it is switched off entirely if your browser sends Do Not Track or Global Privacy Control. It counts steps, not people.']
     ]
   },
   {

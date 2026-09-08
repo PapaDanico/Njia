@@ -406,6 +406,7 @@ const PLACEMENT_CALENDAR = [
     source: 'KUCCPS 2026 placement coverage: TVET placement is continuous and colleges report from May, unlike the degree track. The 31 December bound is the calendar year, not a published deadline.',
     verified: '2026-09-08' }
 ];
+
 /* THE YARDSTICK. Every figure in this file should be read against this.
  * Regulation of Wages (General) (Amendment) Order 2026, Gazette Supplement
  * No. 128, Legal Notices 95 and 96, in effect from 1 May 2026. */

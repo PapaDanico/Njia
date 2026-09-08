@@ -545,6 +545,49 @@ Figures are a **floor**: DNT and Global Privacy Control suppress everything, and
 offline readers are never counted. Queueing events until a device reconnects
 would mean storing behaviour on a reader's phone, which is the worse trade.
 
+## Fire on the outcome, never on the intent
+
+The PDF button on the report ran three lines: record the milestone, promise a
+print dialog, call `window.print()`. On a desktop browser that works, and it is
+what every layer of verification here runs on.
+
+Inside the **Facebook, Instagram and WhatsApp in-app browsers**, and on the
+older Android WebViews this file already names as this audience's hardware,
+`window.print()` is absent or a silent no-op. The reader tapped PDF, read
+"Opening print dialog — choose Save as PDF", and got **nothing**. No dialog, no
+error, no explanation. On the share route this project relies on most.
+
+And `recordMilestone('report-downloaded')` fired **first**, so the single usage
+measurement Njia takes counted a completed download on every failed attempt.
+That is the defect `tests/analytics.test.js` exists to prevent, arriving from a
+direction it did not cover: not a missing marker file reading as "nobody got
+there", but a *present* one reading as "everybody did" — a wrong number that
+looks real and errs in the flattering direction. The rule was already "fire on
+the state transition, never on the render". It now extends: **fire on the
+outcome, never on the intent.**
+
+`beforeprint` is the discriminator, and it was measured rather than assumed:
+real Chromium fires it; a deleted `print` throws and never fires it; a no-op
+`print` returns cleanly and never fires it. Nothing else separates the last case
+from success, which is why feature detection alone is not enough —
+`typeof window.print === 'function'` is `true` for the no-op.
+
+**Nothing in four layers could have seen this.** The unit suite has no browser.
+The axe sweep does not click. And the probe's own print checks
+`emulateMedia('print')`, which never goes near `window.print()` — so the two
+existing "printed report" checks passed throughout. It took reproducing an
+in-app browser to find, so the guard reproduces one: both failure shapes, plus
+the happy path, because a fix that silenced the milestone everywhere would pass
+a failure-only test while breaking the measurement it was meant to protect.
+Verified by restoring the original three lines and watching all four new checks
+fail.
+
+The general form, and it is the third instance in this file: **a feature
+verified only on the hardware the developer has is verified on the wrong
+hardware.** Dark mode was missing from 53 pages, the favicon fell back to
+nothing on older WebViews, and now the PDF button did nothing on the browsers a
+forwarded WhatsApp link opens in.
+
 ## Under-claim on a figure. Never on an eligibility.
 
 "When sources conflict, record the more restrictive figure" is this project's

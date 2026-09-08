@@ -371,6 +371,81 @@ check('a module that never loads renders a failure with a way back',
 
 await degraded.close();
 
+/* 8. THE PDF BUTTON, ON THE BROWSERS THIS AUDIENCE ACTUALLY USES.
+ *
+ * downloadReportPDF() used to fire the milestone, promise a print dialog and
+ * call window.print() unconditionally. Inside the Facebook, Instagram and
+ * WhatsApp in-app browsers — and on the older Android WebViews CLAUDE.md names
+ * as this audience's hardware — window.print() is absent or a silent no-op, so
+ * the reader was told a dialog was opening and got nothing. The milestone fired
+ * first, so `report-downloaded` counted a completed download on every failure:
+ * a wrong number that looks like a real one, erring in the flattering
+ * direction, which is the one thing tests/analytics.test.js exists to prevent.
+ *
+ * Nothing could see it. The unit suite has no browser, the a11y sweep does not
+ * click, and the probe's own print check emulates print media rather than
+ * pressing the button — media emulation does not go near window.print(). It
+ * took reproducing the in-app browser to surface it, so the guard reproduces
+ * the in-app browser.
+ *
+ * Both failure shapes are covered because they fail differently: a deleted
+ * print throws, a no-op print returns cleanly, and only `beforeprint` separates
+ * either from a real dialog. The happy path is asserted too — a fix that
+ * silenced the milestone everywhere would pass a failure-only test while
+ * breaking the measurement it was written to protect. */
+async function pdfButton(shim) {
+  const ctx = await browser.newContext();
+  const p = await ctx.newPage();
+  if (shim) await p.addInitScript(shim);
+  const fired = [];
+  await p.route('**/m/*', (r) => { fired.push(r.request().url().split('/').pop()); r.fulfill({ status: 200, body: '' }); });
+  await p.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  await p.evaluate(() => { navigateTo('discover'); startDiscoverQuestionnaire(); });
+  await p.waitForTimeout(250);
+  for (let i = 0; i < 150; i += 1) {
+    if (await p.evaluate(() => !!AppState.questionnaire.results)) break;
+    const clicked = await p.evaluate(() => {
+      const visible = (el) => el.offsetParent !== null;
+      const buttons = [...document.querySelectorAll('#page-discover button, #page-discover [onclick]')].filter(visible);
+      const next = buttons.find((el) => /selectDiscoverOption/.test(el.getAttribute('onclick') || ''))
+        || buttons.find((el) => /Next|Continue|results|Finish/i.test(el.innerText));
+      if (!next) return false;
+      next.click();
+      return true;
+    });
+    if (!clicked) break;
+    await p.waitForTimeout(40);
+  }
+  fired.length = 0;
+  await p.evaluate(() => {
+    document.querySelectorAll('.toast').forEach((t) => t.remove());
+    downloadReportPDF();
+  });
+  await p.waitForTimeout(2200);   // clears the 300ms call and the 900ms decision
+  const toasts = await p.evaluate(() => [...document.querySelectorAll('.toast')]
+    .map((t) => t.innerText.replace(/\s+/g, ' ').trim()));
+  await ctx.close();
+  return { fired, last: toasts.length ? toasts[toasts.length - 1] : '' };
+}
+
+const printWorks = await pdfButton(null);
+check('the PDF button still counts a real download when the dialog opens',
+  printWorks.fired.includes('report-downloaded.txt'),
+  `milestones=${printWorks.fired.join(',') || 'none'}`);
+
+for (const [name, shim] of [
+  ['window.print is missing', 'delete window.print;'],
+  ['window.print is a silent no-op', 'window.print = function () {};']
+]) {
+  const r = await pdfButton(shim);
+  check(`the PDF button does not count a download when ${name}`,
+    !r.fired.includes('report-downloaded.txt'),
+    `milestones=${r.fired.join(',') || 'none'}`);
+  check(`the reader is told what happened when ${name}`,
+    /cannot open a print dialog/.test(r.last),
+    JSON.stringify(r.last.slice(0, 70)));
+}
+
 await browser.close();
 
 const failed = results.filter((r) => !r.pass);

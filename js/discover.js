@@ -1072,10 +1072,57 @@ function shareReportWhatsApp() {
   window.open(`https://wa.me/?text=${text}`, '_blank', 'noopener,noreferrer');
 }
 
+/* THE PDF BUTTON DID NOTHING ON THIS AUDIENCE'S BROWSERS, AND COUNTED A
+ * SUCCESS EVERY TIME IT FAILED.
+ *
+ * The old body was three lines: fire the milestone, promise a print dialog,
+ * call window.print(). On a desktop browser that works. Inside the Facebook,
+ * Instagram or WhatsApp in-app browser — and on older Android WebViews, which
+ * CLAUDE.md already names as this audience's hardware — window.print() is
+ * either absent or a silent no-op. The reader tapped PDF, read "Opening print
+ * dialog", and nothing happened. No dialog, no error, no explanation.
+ *
+ * Worse, `recordMilestone('report-downloaded')` fired FIRST, so the one usage
+ * measurement this project takes recorded a completed download on every failed
+ * attempt. That is the same defect class as a missing marker file reading as
+ * "nobody got there": a wrong answer that looks like a real one, and pointing
+ * in the flattering direction. The existing rule is "fire on the state
+ * transition, never on the render"; this extends it — fire on the OUTCOME,
+ * never on the intent.
+ *
+ * `beforeprint` is the discriminator, and it was measured rather than assumed:
+ * real Chromium fires it, a deleted print throws and never fires it, a no-op
+ * print returns cleanly and never fires it. So the dialog is only counted as
+ * opened when the browser says it opened, and the reader gets an honest
+ * instruction when it did not. */
+function reportPrintUnavailable() {
+  showToast('This browser cannot open a print dialog — common inside the WhatsApp, '
+    + 'Facebook and Instagram browsers. Open njiacareerpathways.work in Chrome to save a '
+    + 'PDF, or screenshot the report above.', 'error', 9000);
+}
+
 function downloadReportPDF() {
-  recordMilestone('report-downloaded');
+  if (typeof window.print !== 'function') {
+    reportPrintUnavailable();
+    return;
+  }
+  let opened = false;
+  const sawDialog = () => { opened = true; };
+  window.addEventListener('beforeprint', sawDialog, { once: true });
   showToast('Opening print dialog — choose "Save as PDF" as the destination.', 'info');
-  setTimeout(() => window.print(), 300);
+  setTimeout(() => {
+    try {
+      window.print();
+    } catch (e) {
+      /* Swallowed on purpose: the check below is what decides what the reader
+         is told, and it covers the no-op case this throw cannot reach. */
+    }
+    setTimeout(() => {
+      window.removeEventListener('beforeprint', sawDialog);
+      if (opened) recordMilestone('report-downloaded');
+      else reportPrintUnavailable();
+    }, 900);
+  }, 300);
 }
 
 function confirmRetakeQuestionnaire() {

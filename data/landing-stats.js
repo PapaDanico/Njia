@@ -10,12 +10,12 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 664,
-  "distinctProgrammes": 404,
-  "institutions": 164,
+  "courses": 679,
+  "distinctProgrammes": 418,
+  "institutions": 168,
   "counties": 47,
   "published": 14,
-  "derived": 278,
+  "derived": 283,
   "sectorRoutes": {
     "aviation": 20,
     "maritime": 5,
@@ -27,7 +27,7 @@ const LANDING_STATS = {
     "ict": 57,
     "supplychain": 19,
     "transport": 3,
-    "agriculture": 45,
+    "agriculture": 60,
     "engineering": 77,
     "health": 141,
     "education": 30,

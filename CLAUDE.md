@@ -313,6 +313,65 @@ in *document height and content width at several viewports*, before and after.
 "It looks less empty" is not the same as "the reader does less work", and on a
 phone the two frequently point in opposite directions.
 
+## A date is a claim, and it perishes faster than a fee
+
+The Application Clock in the landing hero already had four guards on it, all
+green: a closed window cannot render, `-0` cannot say "Closes today", the
+calendar cannot silently run dry, and no window can close before it opens. On
+8 September 2026 that panel told every reader **"KMTC September intake · 23
+days left · closes 2026-09-30"**. KUCCPS opened that window on 24 July and
+closed it on **11 August**. It had been shut for four weeks.
+
+Every guard was working. All four asked whether the app handled the numbers
+correctly, and **not one asked where the numbers came from** — the two dates
+had never been sourced at all; they were the shape of a September intake
+rather than its published window. The whole rest of this project already knows
+the answer to that: a figure is either sourced or absent, and `published` is a
+declared claim rather than a fall-through. Fees had that discipline and the
+dates, which are more perishable and end in someone standing at a portal, had
+none.
+
+So `PLACEMENT_CALENDAR` entries now carry `source` and `verified`, and
+`tests/placement-clock.test.js` enforces both. The second guard is the one with
+teeth and it is deliberately asymmetric: a window still open on the clock must
+have been verified within **120 days**, chosen against the 90-day expiry runway
+so a date is re-read before the calendar it sits in starts warning it is about
+to run out. A stale *closed* window is invisible to every reader; a stale
+*open* one is an instruction to go somewhere that will not take them. That is
+the eligibility direction, not the fee direction — under-claim on money, never
+on a door.
+
+Two things the same sweep turned up, both of which the wrong date was hiding:
+
+- **The live window was missing entirely.** KUCCPS reopened KMTC and Kenya
+  Utalii College applications on 8 September, closing **14 September** — six
+  days. The catalogue's fabricated 30 September window was occupying the row
+  that should have carried it, so the fake deadline was also *displacing* the
+  real one. A wrong figure is not just wrong; it fills the slot.
+- **An empty clock has two meanings and rendered as one.** With no window
+  open, `renderApplicationClock()` fell back to funding rows reading "Rolling"
+  and "Varies — check annually". "No intake is open this week" and "Njia's
+  dates ran out" looked identical, and the second reads as the first. It now
+  names the last date Njia holds and points at kuccps.net, so a reader can see
+  how old the answer is instead of trusting a calm panel. The 90-day guard
+  should mean nobody ever meets it; it is the second line for a deploy that
+  outlives the refresh.
+
+The search per window is the same shape that works for institutions: name the
+body and the cycle (`KUCCPS KMTC September 2026 intake deadline`), not the
+concept. Every date in the calendar was confirmed or corrected against two or
+more outlets in one pass, and the only one that was wrong was the only one that
+had never been searched for.
+
+**And a stale comment about provenance is a provenance defect.** `data/funding.js`
+opened with "Every record carries `data_confidence: 'illustrative'`" while
+eleven of fifteen records were `'verified'`. That flag is not documentation:
+`js/decide.js` renders a verification tick from it and `js/app.js` chooses
+which deadlines reach the landing hero by filtering on it. The file's account
+of itself was *weaker* than what the app displays from it, which points the
+next editor at downgrading a real citation to match a comment. The header now
+describes the two tiers that actually exist.
+
 ## Measurement: count steps, never people
 
 Njia takes exactly one usage measurement. A milestone — questionnaire finished,
@@ -1031,7 +1090,7 @@ node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (270)
+node --test tests/*.test.js       # zero-dependency unit suite (273)
 node tests/functional-probe.mjs   # drives the real app, port 8080
 node tests/a11y-sweep.mjs         # 68 axe states, port 8106
 ```

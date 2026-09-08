@@ -1,11 +1,31 @@
 /* Njia — funding sources
  *
- * DATA PROVENANCE NOTICE: organisation names, websites and general
- * programme descriptions are real. Amounts, deadlines and eligibility
- * thresholds are illustrative approximations for MVP demonstration —
- * they change yearly and must be verified against each funder's current
- * call for applications before a user relies on them. Every record
- * carries `data_confidence: 'illustrative'` for this reason.
+ * DATA PROVENANCE NOTICE. This header used to read "Every record carries
+ * `data_confidence: 'illustrative'`", which stopped being true a long time
+ * before anyone noticed: eleven of the fifteen records are now `'verified'`
+ * and carry a `verification_note` naming what was read and when.
+ *
+ * That is not a harmless stale comment. `data_confidence` is not
+ * documentation — js/decide.js renders a verification tick from it, and
+ * js/app.js decides which deadlines reach the landing hero's Application
+ * Clock by filtering on it. So the file's own description of its provenance
+ * was weaker than what the app displays from it, which is the one direction
+ * this project treats as a defect: the next person to edit here would have
+ * believed nothing needed sourcing, and downgraded a real citation to match a
+ * comment.
+ *
+ * What is actually true, per record:
+ *
+ *   `verified`     — the programme, its coverage and its stated entry bar
+ *                    were read from a reachable source, named in
+ *                    `verification_note`. The app shows a tick and may put
+ *                    the deadline on the landing page.
+ *   `illustrative` — the organisation and programme are real; the amounts and
+ *                    thresholds are approximations that must be checked
+ *                    against the funder's current call.
+ *
+ * Amounts and deadlines change every cycle in both tiers. `verified` means
+ * sourced, not permanent.
  */
 
 const FUNDING_SOURCES = [
@@ -46,13 +66,13 @@ const FUNDING_SOURCES = [
      * No date is given for the stay: sources consulted disagreed on it, and a
      * wrong date on a legal claim is worse than no date. The judgment date and
      * petition number are firm. */
-    legalStatus: 'This model is running under a court stay, not a settled ruling. In Petition 412 of 2023 the High Court declared it unconstitutional on 20 December 2024, for want of public participation and legal foundation. The Court of Appeal stayed that judgment — which is why the model still operates — but has not decided the constitutional question, and the appeal is still pending. The Universities Fund says outright that the model may change depending on the outcome. Apply through it, because it is what exists today; do not build a multi-year plan on the assumption that these bands survive unchanged.',
+    legalStatus: 'This model is running under a court stay, not a settled ruling. In Petition 412 of 2023 the High Court declared it unconstitutional on 20 December 2024, for want of public participation and legal foundation. The Court of Appeal stayed that judgment — which is why the model still operates — but has not decided the constitutional question, and the appeal is still pending. The Universities Fund says outright that the model may change depending on the outcome. Apply through it, because it is what exists today; do not build a multi-year plan on the assumption that these bands survive unchanged. A replacement is already in Parliament: the Tertiary Education, Placement and Funding Bill 2026 would create a Tertiary Education Funding Authority taking over what HELB, the Universities Fund and the placement service do now, and would move students at universities, KMTC, TVET colleges and teacher training colleges onto it from first year to sixth. Until it becomes law nothing changes \u2014 the September 2026 intake was admitted under the existing model \u2014 so apply exactly as described above, and expect the administering body to be renamed under you rather than the money to disappear.',
     min_grade: 'D+', application_deadline: 'Rolling, opens with each intake',
     website: 'https://helb.co.ke', application_url: 'https://portal.helb.co.ke',
     requirements: ['National ID', 'Admission letter', 'Parent/guardian ID', 'HEF means-testing form'],
     interest_rate: '4% per annum on the loan portion', repayment_period: 'Starts 1 year after completion, up to 15 years',
     data_confidence: 'verified',
-    verification_note: 'Funding-model structure (bands, HEF portal, scholarship+loan+household split) confirmed via HELB/Tuko coverage of the 2025/26 funding model, July 2026. Exact band amounts vary by household means-testing and were not independently confirmed — check the HEF portal for your band.'
+    verification_note: 'Funding-model structure (bands, HEF portal, scholarship+loan+household split) confirmed via HELB/Tuko coverage of the 2025/26 funding model, July 2026. Re-checked 8 September 2026: the Court of Appeal stay still holds, the existing model was used for the September 2026 intake per the Education CS, 159,551 HEF applications had been filed by 20 August 2026, and the Tertiary Education, Placement and Funding Bill 2026 (TEFA) is before Parliament \u2014 Education News, Daily Nation and Kenyans.co.ke. Exact band amounts vary by household means-testing and were not independently confirmed — check the HEF portal for your band.'
   },
   {
     id: 'f002', name: 'Equity Group Foundation — Wings to Fly', type: 'scholarship',

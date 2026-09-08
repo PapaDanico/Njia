@@ -971,6 +971,24 @@ function openPlacementWindows(now = new Date()) {
     .sort((a, b) => a.daysLeft - b.daysLeft);
 }
 
+/* WHAT THE CLOCK SAYS WHEN IT HAS NOTHING TO SAY.
+ *
+ * openPlacementWindows() returning [] has two completely different meanings —
+ * "no intake is open this week", which is true and useful, and "Njia's dates
+ * ran out", which is a data failure. Rendered identically they were
+ * indistinguishable, and the second one reads as the first: a reader sees a
+ * calm panel of funding rows and concludes there is nothing to apply for.
+ *
+ * tests/placement-clock.test.js already fails the build 90 days before the
+ * calendar expires, so this should never be what a reader meets. It is the
+ * second line, for the case where a deploy outlives the refresh — and it names
+ * the last date Njia holds, so the reader can see for themselves how old the
+ * answer is rather than trusting an empty panel. */
+function lastPlacementClose() {
+  if (typeof PLACEMENT_CALENDAR === 'undefined' || !PLACEMENT_CALENDAR.length) return 'no published date';
+  return PLACEMENT_CALENDAR.map((w) => w.closes).sort().pop();
+}
+
 function renderApplicationClock() {
   const open = openPlacementWindows().slice(0, 3);
   const rows = FUNDING_SOURCES
@@ -997,6 +1015,9 @@ function renderApplicationClock() {
           </div>
         </div>
       `).join('')}
+      ${open.length ? '' : `
+        <p class="landing-clock-note">Njia&rsquo;s placement dates run to ${escapeHtml(lastPlacementClose())} and no window is open today. The rows above are funding, not placement. For the next cycle&rsquo;s KUCCPS, KMTC and TVET dates, check <strong>kuccps.net</strong> directly &mdash; do not read this panel&rsquo;s silence as &ldquo;nothing is open&rdquo;.</p>
+      `}
       ${typeof PLACEMENT_MECHANICS !== 'undefined' && PLACEMENT_MECHANICS.tvetEligibility ? `
         <p class="landing-clock-note">Counting down does not mean counting you out. <strong>TVET placement is continuous</strong> — any KCSE grade from A to E, from anyone who sat the exam from 2000 onward — so these dates gate the degree track, not the trades.</p>
       ` : ''}

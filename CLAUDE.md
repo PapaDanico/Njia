@@ -496,6 +496,38 @@ aggregate is a gap nobody looks at.
 prompted. The question "what does the authority say exists" is one search, and
 it reorders everything that follows.
 
+## The instructions drift too, and nothing was watching them
+
+An audit found this file quoting **469 courses** against a catalogue of 664,
+a unit suite of **270** against 283, an institution register of **149** against
+164, and "**Twenty** remain" three hundred lines above another paragraph in the
+same file saying sixteen. Every figure was true when it was typed.
+
+That is this file's own rule turned on itself — *every coverage question with a
+guard is answered; every one without is drifting* — and the drift is worse here
+than in a data file, because CLAUDE.md is what a new agent reads first. A stale
+figure in the instructions is a wrong instruction, and the specific error it
+invites is the one already warned about under `/open-data/`: quoting a number
+from earlier instead of re-measuring.
+
+`tests/claude-md.test.js` now recomputes the figures this file asserts about the
+**present** and fails when the prose falls behind. Two rules for extending it:
+
+- **Only guard a sentence that claims the current state.** "It was 23", "40,
+  then 19, then zero", "56 states passed while text sat at 9.6px" are incident
+  history. Rewriting history to match the present is how the lesson is lost.
+- **Where a number will keep moving, stop stating it.** The institution register
+  said "the two numbers agree at 149" as a present-tense claim. It now says they
+  must agree, and the guard defends the *absence* of a pinned value — because
+  the next 164 is just as perishable as the last 149.
+
+And the guard nearly shipped with the defect it exists to catch: its failure
+message read "(sentence not found at all)" instead of naming the stale figure,
+because the regex it built to find that figure was itself malformed. Same shape
+as the branded-header guard that reported three things and checked one. **Break
+a guard and read the message it actually prints**, not the one you meant to
+write.
+
 ## Coverage: measure what a reader can reach, not what exists
 
 County coverage was tracked as "single-cluster counties". That metric flattered
@@ -510,7 +542,7 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Twenty remain — lower the constant when you close more. It was 23; Kakamega and
+one inside an aggregate that still looks fine. Sixteen remain — lower the constant when you close more. It was 23; Kakamega and
 Siaya were closed by re-reading an either/or in a published entry requirement
 rather than by finding new provision, and Bomet from the funding side.
 
@@ -580,8 +612,9 @@ provision-analysis guard reports the number that actually carry a course, and it
 caught that `mku` and `maseno` sat in `data/institutions.js` with **zero courses
 attached** — invisible to every reader, and enough to make the register size
 disagree with the page's own rows. Both now carry records and the two numbers
-agree at 149. Whenever the register grows, check them against each other rather
-than quoting the register.
+agree — 164 at the last count, and the figure moves every time a university is
+added, so re-measure it rather than quoting this line. Whenever the register
+grows, check the two numbers against each other rather than quoting the register.
 
 Closing those two also settled how to list a university whose bar is not
 published. **Record the floor you can defend and drop the programmes you
@@ -727,8 +760,10 @@ guarding the claim.
 `tests/provision-analysis.test.js`. It exists because the most decision-changing
 number this project holds lived only as a constant in a test file.
 
-The finding it carries: **23 counties list nothing an E-grade leaver can enter,
-and 21 of those 23 list no artisan course at all.** The blindness is one missing
+The finding it carries: **16 counties list nothing an E-grade leaver can enter,
+and all 16 list no artisan course at all.** It was 23 and 21 when this page
+shipped; the page is generated, so it is correct by construction and this
+paragraph is the copy that goes stale. The blindness is one missing
 tier, not a high bar — which is why the fix is an institution rather than a
 filter, and why the "single-cluster counties" metric never saw it.
 
@@ -822,13 +857,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 469 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 664 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 469 notes contains a comma or a quote and the
+  optional: **every one** of the 664 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -1065,7 +1100,7 @@ node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (270)
+node --test tests/*.test.js       # zero-dependency unit suite (287 at the last count)
 node tests/functional-probe.mjs   # drives the real app, port 8080
 node tests/a11y-sweep.mjs         # 68 axe states, port 8106
 ```

@@ -247,6 +247,75 @@ paraphrase trap from the Dataset caveat one level up: there the guard accepted a
 paraphrase of the claim, here it accepted a *substring* of it. When a failure
 message lists three things, assert three things.
 
+## Bytes are an access question, and nothing was counting them
+
+Every coverage question in this repository that has a guard is answered, and
+every one without a guard drifts — that is the observation
+`tests/university-coverage.test.js` was written on. Payload was the next one.
+
+The lazy split took DOMContentLoaded on throttled 3G from 5,661ms to 3,605ms by
+moving 86.3KB gzipped of catalogue off the critical path, and then **nothing
+measured it again**. Two PRs in one afternoon took the catalogue from 469 to 664
+courses, a **15.5% rise in the lazy bundle**, and the only number anyone looked
+at afterwards was a Lighthouse score — which this file separately establishes is
+evidence in neither direction.
+
+It was not, in that instance, the payload: measured, the page Lighthouse audits
+grew **528 bytes gzipped, 0.6%**, because the split did its job. The reading of
+94 was noise, and blaming the diff would have been the same error as inventing
+the signal you wish you had missed. **A payload argument has to stand on its own
+bytes**, and here they exonerated the change.
+
+Measuring properly to prove that found something else, which is the actual
+lesson: **the critical path is 146KB gzipped, not the ~87KB an earlier estimate
+in this very session claimed**, because that estimate counted the files someone
+remembered rather than the files `index.html` actually loads. Read the surface,
+do not list it.
+
+And on that path sits **`data/labour-market.js` at 34.7KB gzipped — the largest
+single item, bigger than `js/app.js`.** Its only critical-path consumer is
+`js/app.js`, which uses **two of the thirty symbols it defines**:
+`PLACEMENT_CALENDAR` and `PLACEMENT_MECHANICS`, both for the Application Clock.
+The other twenty-eight are Discover and Design content paid for by every reader
+who opens neither. That is the same shape as the split already in this history —
+86.3KB "to render eight integers on a page that shows no course" — and it is
+**not yet fixed**, because splitting a classic-script dependency graph is where
+this project has already made the same mistake twice (`feeBasis is not defined`,
+then `GRADE_ORDER is not defined`, both green through the unit suite and caught
+by the functional probe). It needs its own pass with the probe in the loop.
+
+`tests/payload-budget.test.js` holds three guards, and the shape of each matters
+more than its number:
+
+- **The catalogue is not on the critical path** — a property, not a byte count.
+  It is the invariant the whole split exists for, it cannot be re-derived from a
+  total, and regressing it throws nothing and fails nothing else. It would look
+  like a slower first visit for the reader on the weakest signal.
+- **A hard ceiling on the critical path**, kept at ~3% headroom on purpose.
+  Nothing there should grow when the catalogue does, so a failure means
+  something got wired to the wrong side of the split — and the message prints
+  the per-file breakdown, because a failure reporting only a total sends you
+  hunting.
+- **Bytes per course, not total catalogue size.** Capping the total would fail
+  on data that got better, the exact trap the artisan entry-grade guard fell
+  into. Adding courses is the project; each record getting fatter is not.
+  Verified by simulating +200 records: the figure *falls* from 112.4 to 104,
+  so growth is genuinely free and only bloat trips it.
+
+The unit is gzip level 9, a proxy — Netlify serves brotli and sends fewer bytes.
+It is deterministic, in Node's standard library, and moves with the real thing.
+The ceilings mean nothing in absolute terms; what they defend is the delta.
+
+**And the break-test caught itself.** The first attempt to prove these guards
+work produced no failure on two of the three, and the guards were fine — the
+*breaks* were malformed. `index.html` writes `<script defer src="./data/…">`, so
+an insertion looking for `<script src="data/…"` was a no-op; and 664 *identical*
+padding strings gzip to almost nothing, so the bloat break had to use random
+bytes to be incompressible. Both restored to a real failure once written
+correctly. This is the Kisumu/KCPE lesson in a new place: **a break that does not
+fail is more often a bad break than an inert guard, and the difference is worth
+five minutes of looking.**
+
 ## Type has a floor, and it is 12px
 
 An audit found **nineteen distinct sub-1rem font sizes** in `css/styles.css` —
@@ -1159,7 +1228,7 @@ node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (289 at the last count)
+node --test tests/*.test.js       # zero-dependency unit suite (292 at the last count)
 node tests/functional-probe.mjs   # drives the real app, port 8080
 node tests/a11y-sweep.mjs         # 68 axe states, port 8106
 ```

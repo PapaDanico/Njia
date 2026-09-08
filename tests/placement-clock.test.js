@@ -46,7 +46,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
-const { PLACEMENT_CALENDAR } = require(path.join(root, 'data', 'labour-market.js'));
+const { PLACEMENT_CALENDAR } = require(path.join(root, 'data', 'placement.js'));
 
 /* Same brace-matching reader the fee-basis guards use, so the function under
    test is the one the app ships rather than a copy written for the test. */
@@ -145,7 +145,7 @@ test('the placement calendar has not run out', () => {
     + `(${new Date(last).toISOString().slice(0, 10)}). When it passes, the Application Clock in the `
     + 'landing hero stops showing any dated deadline and falls back to "Rolling, opens with each '
     + 'intake" — a silent drop in the most time-critical thing on the site. Add the next cycle\'s '
-    + 'KUCCPS, KMTC and TVET dates to PLACEMENT_CALENDAR in data/labour-market.js.');
+    + 'KUCCPS, KMTC and TVET dates to PLACEMENT_CALENDAR in data/placement.js.');
 });
 
 test('every calendar entry opens before it closes', () => {
@@ -187,7 +187,7 @@ test('every placement window says where its dates came from', () => {
     'these windows carry a date with nothing behind it: ' + unsourced.join('; ')
     + '. A confident deadline with no citation is indistinguishable from a researched one, '
     + 'and the KMTC September window proved it can be wrong by seven weeks. Add `source` '
-    + '(who published it) and `verified` (YYYY-MM-DD you last read it) to data/labour-market.js.');
+    + '(who published it) and `verified` (YYYY-MM-DD you last read it) to data/placement.js.');
 });
 
 test('a window that can still render has been checked recently', () => {

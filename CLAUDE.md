@@ -272,17 +272,23 @@ in this very session claimed**, because that estimate counted the files someone
 remembered rather than the files `index.html` actually loads. Read the surface,
 do not list it.
 
-And on that path sits **`data/labour-market.js` at 34.7KB gzipped — the largest
-single item, bigger than `js/app.js`.** Its only critical-path consumer is
-`js/app.js`, which uses **two of the thirty symbols it defines**:
+And on that path sat **`data/labour-market.js` at 34.7KB gzipped — the largest
+single item, bigger than `js/app.js`.** Its only critical-path consumer was
+`js/app.js`, which used **two of the thirty symbols it defines**:
 `PLACEMENT_CALENDAR` and `PLACEMENT_MECHANICS`, both for the Application Clock.
-The other twenty-eight are Discover and Design content paid for by every reader
-who opens neither. That is the same shape as the split already in this history —
-86.3KB "to render eight integers on a page that shows no course" — and it is
-**not yet fixed**, because splitting a classic-script dependency graph is where
-this project has already made the same mistake twice (`feeBasis is not defined`,
-then `GRADE_ORDER is not defined`, both green through the unit suite and caught
-by the functional probe). It needs its own pass with the probe in the loop.
+The other twenty-eight are Discover, Decide and Connect content that every
+reader who opened none of them was paying for.
+
+**Now split**, and the cut is at the consumers rather than the subject matter:
+`data/placement.js` holds the two the landing page needs and stays on the
+critical path; `data/labour-market.js` keeps the rest and is loaded by
+`PAGE_MODULE` for the three routes that use it. A placement date and a sector
+salary look like the same kind of fact — one is needed at first paint and the
+other is not, and that is the only distinction the reader pays for. **The
+critical path fell 145.8KB to 115.4KB gzipped, a 20.9% cut for every
+first-time reader**, and the ceiling was ratcheted 150 to 125KB to hold it: a
+ceiling left at its old value after a win is not a ratchet, it is headroom for
+the next regression to hide in.
 
 `tests/payload-budget.test.js` holds three guards, and the shape of each matters
 more than its number:
@@ -315,6 +321,70 @@ bytes to be incompressible. Both restored to a real failure once written
 correctly. This is the Kisumu/KCPE lesson in a new place: **a break that does not
 fail is more often a bad break than an inert guard, and the difference is worth
 five minutes of looking.**
+
+## A split is only proved by asking the page, and the question has to be right
+
+The `labour-market.js` split is the third time this project has moved a classic
+script off the critical path, and the first that did not ship a
+`X is not defined`. What made the difference was not care — both earlier
+attempts were careful — but *what was asked of the running page*.
+
+**The unit suite went green immediately and meant nothing**, exactly as it did
+both previous times. **The functional probe also passed, 26/26, including "no
+uncaught page errors" — and that was not proof either.** The symbols that would
+have thrown are read inside functions that the probe's route checks never reach
+without a completed questionnaire, so a genuinely broken split would have sat
+there silent. A probe that renders a route is not the same as a probe that
+exercises what the route needs.
+
+What settled it was asking each route directly, in a **cold context per route
+with the service worker blocked** — the first visit, which is the only state
+where a missing dependency is reachable — whether every symbol it references
+actually resolves. Twenty-two symbols across discover, decide and connect;
+`design`, `track` and `help` assert the empty set, so the check fails if a
+dependency is invented as readily as if one is missed.
+
+**Two instrument errors on the way, both of which looked exactly like a real
+failure**, and both worth recognising again:
+
+- **`typeof window[name]` is the wrong probe for a classic script.** A top-level
+  `const` creates a binding in the global *lexical* environment, not a property
+  on `window`. The first run reported all 22 symbols missing on all three
+  routes. The code was correct; the question was wrong. The tell was that the
+  one check written differently — `typeof PLACEMENT_CALENDAR !== 'undefined'`,
+  an identifier lookup — passed in the same breath.
+- **"Fetched on first paint" is not "on the critical path".** A request log up
+  to the load event showed `labour-market.js` *and* `courses.js` being fetched,
+  which reads as a total regression — `courses.js` coming off that path is the
+  invariant a guard in this repo asserts. Both were the idle prefetch in
+  `js/app.js`, which pulls every page module after load by design.
+  DOMContentLoaded was 71ms. The critical path is what `index.html` blocks on,
+  not what the tab eventually asks for.
+
+That is the same lesson as the malformed break-tests one section up, arriving
+from the other direction: there, a break that did not fail was a bad break
+rather than an inert guard; here, **a failure that did fire was a bad question
+rather than broken code.** Both cost five minutes to tell apart, and both would
+have been expensive to believe.
+
+The class is now guarded rather than the instance. `tests/landing-stats.test.js`
+already read decide.js's declarations and required `PAGE_MODULE` to list the
+provider; `data/labour-market.js` is a fourth entry in that same `PROVIDERS`
+list, with its symbols read out of the file rather than hand-copied. The same
+change closed a **transitive hole** that had been open the whole time: the guard
+checked only `js/<page>.js`, so a symbol needed by `js/decide.js` was unguarded
+on the `discover` route that pulls decide.js in — which is precisely the shape
+of both historical failures. It now treats every `js/` file a route injects as a
+consumer, since they all land in one shared global scope.
+
+Both breaks were watched to fail: removing `data/labour-market.js` from the
+connect route, and listing it *after* `js/connect.js` so it would execute too
+late.
+
+**And lazy still must not mean optional.** Verified the way this file already
+requires: worker installed, network off, all three routes driven, every
+labour-market symbol resolving, and Decide rendering "664 of 664 places to
+apply match" offline.
 
 ## Type has a floor, and it is 12px
 

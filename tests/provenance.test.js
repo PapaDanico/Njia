@@ -20,7 +20,7 @@ const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
 const context = vm.createContext({ console, module: { exports: {} } });
-for (const file of ['data/questions.js', 'data/institutions.js', 'data/courses.js', 'data/funding.js', 'data/labour-market.js']) {
+for (const file of ['data/questions.js', 'data/institutions.js', 'data/courses.js', 'data/funding.js', 'data/labour-market.js', 'data/placement.js']) {
   vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, { filename: file });
 }
 const grab = (name) => vm.runInContext(name, context);

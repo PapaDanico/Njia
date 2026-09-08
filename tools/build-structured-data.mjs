@@ -260,6 +260,7 @@ available in the county" — the difference is the whole point.
 - [Home](${SITE}/): the guidance app — questionnaire, course matcher, funding, planning tools.
 - [Courses by county](${SITE}/counties/): a page per county with its real course table, entry grades and fees.
 - [Courses by grade](${SITE}/grades/): what is open at C plain and below, down to E.
+- [Questions and answers](${SITE}/help/): 48 plain answers on grades, fees, funding and applications — the same text the app shows, at its own URL.
 - [Open data](${SITE}/open-data/): the whole catalogue as CSV and JSON, including the fee-provenance column.
 - [County provision analysis](${SITE}/analysis/): which counties are closed to a low-grade learner, and why.
 - [Partnership proposal](${SITE}/docs/): the August 2026 proposal, for funders and partners rather than learners.

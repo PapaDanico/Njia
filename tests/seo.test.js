@@ -349,7 +349,7 @@ test('every published surface is reachable without JavaScript, from the sitemap,
    * llms.txt is included because it is what ChatGPT Search, Perplexity, Gemini
    * and Claude read, and a surface missing from it is invisible to every answer
    * engine while looking perfectly fine in a browser. */
-  const SURFACES = ['./counties/', './grades/', './open-data/', './analysis/', './docs/'];
+  const SURFACES = ['./counties/', './grades/', './open-data/', './analysis/', './docs/', './help/'];
   const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
   const xml = fs.readFileSync(path.join(__dirname, '..', 'sitemap.xml'), 'utf8');
   const llms = fs.readFileSync(path.join(__dirname, '..', 'llms.txt'), 'utf8');

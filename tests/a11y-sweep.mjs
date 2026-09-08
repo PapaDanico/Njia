@@ -66,6 +66,12 @@ const SCHEMES = ['light', 'dark'];
 const GENERATED = [
   '/counties/nairobi/', '/counties/turkana/', '/counties/',
   '/grades/d-plain/', '/grades/e/', '/grades/',
+  /* /help/ is 48 question-and-answer pairs at 28KB of text — by some distance
+     the longest generated page, and the one most likely to be read end to end
+     by someone using a screen reader or a phone at 390px. Its heading order
+     (h1 → h2 per group → h3 per question) is the whole navigation structure for
+     that reader, and heading-order is exactly what axe checks. */
+  '/help/',
   '/open-data/',
   /* The analysis page is the only generated page with a 47-row, 12-column data
      table inside a horizontally scrolling region, which is its own set of ways

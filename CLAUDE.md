@@ -511,6 +511,88 @@ of itself was *weaker* than what the app displays from it, which points the
 next editor at downgrading a real citation to match a comment. The header now
 describes the two tiers that actually exist.
 
+## The 48 answers that had no URL
+
+Asked why the platform is absent from search indexes, the technical answer was
+that nothing is wrong: robots.txt invites crawling, the sitemap carries every
+generated page, canonicals and JSON-LD are in place, and 55 static pages exist
+precisely so a crawler has something to read. The submission to Google Search
+Console has never been made — that is credential-gated and stays the
+maintainer's — but it is not the whole story, and the rest of it was a gap
+nobody had looked for.
+
+**`HELP_FAQ` is six groups, forty-eight question-and-answer pairs and roughly
+4,600 words — the largest single body of prose this project has written — and it
+had no URL.** It lived entirely inside the app, drawn client-side by
+`js/help.js`. A crawler asking for the front door got **2,980 characters** of
+chrome. The counties got static pages, the grades got static pages,
+`/open-data/`, `/analysis/` and `/docs/` all got static pages. Help never did,
+and nothing noticed, because in the app it works perfectly.
+
+That is the sixth instance of *the app is not the whole site*, and the most
+expensive one, because those forty-eight questions are the closest thing this
+catalogue holds to what a learner actually types into a search box: "can I do
+nursing with a D+", "does my data leave my phone", "is the Germany 250,000
+figure real". `/help/` now carries all of it — **28,786 crawlable characters on
+one page**, against 2,980 for the entire app.
+
+Two decisions worth keeping:
+
+- **One page, not forty-eight.** A page per question would be forty-eight thin
+  documents differing by a paragraph, which is the doorway pattern the grade
+  pages were capped at 85% reachability to avoid. Grouped headings with an `id`
+  per question give a search engine a deep link without the doorway.
+- **The content is read from `js/help.js` at build time, never restated.**
+  `tools/build-structured-data.mjs` already reads the same array for the same
+  reason: a hand-written second copy is a second thing free to drift, and this
+  project has already had to stop a third being made.
+
+And it is in `SURFACES`, so the one-list guard checks all three properties —
+served link, sitemap, `llms.txt` — rather than someone remembering. Verified by
+pointing the `<noscript>` link at a wrong path and watching the guard fail.
+
+**The prospectus went in the same pass.** `/docs/` now carries the problem the
+platform exists for, the five partner relationships, the four levels of
+commitment and what would be reported back — 4,030 characters to 7,465. Every
+figure in it is computed at build time from `EDUCATION_PIPELINE` and the
+catalogue rather than typed, because a partnership page quoting a stale
+candidate count is the same defect as a course card quoting a stale fee. The
+partnership deck's own numbers were checked against the live data first and
+matched exactly — 664, 404, 164, 14, 7, 47 — which is what made integrating it
+safe.
+
+## A ban on one phrasing is not a ban on the claim
+
+`tests/analytics.test.js` banned the string "no analytics of any kind" and
+checked the privacy modal, because that sentence had once promised something
+milestone counting made false. It has been guarding one sentence on one surface
+ever since.
+
+Meanwhile the landing page's privacy block opened **"No accounts, no tracking,
+no analytics."** — a different wording, the same false claim, on the surface far
+more readers actually see. And the FAQ answered "Is there any tracking or
+analytics?" with **"None."** Both were found by widening the guard, not by
+reading the app.
+
+That is the paraphrase trap for the third time in this file: the Dataset caveat
+guard accepted a hedge instead of the claim, the branded-header guard accepted a
+substring of what it reported, and here a ban on one sentence let its synonyms
+stand for months. The fix is the same every time — **assert the property, not the
+wording.** The guard now sweeps every shipped script and `index.html`.
+
+**And the first version of the widened guard flagged its own fix.** "No
+analytics scripts", "no third-party analytics" and "no analytics pixels" are all
+true, and the privacy modal says two of them; a pattern aimed at the word
+matched them too. Only the *blanket* claim is false, so the pattern excludes
+anything that qualifies the noun. A guard aimed at a word rather than at a claim
+will fail on the correct text, which is the same failure as passing on the wrong
+text wearing different clothes.
+
+Timing worth noting: the FAQ instance was caught **while publishing `/help/`**,
+which would have put a false privacy claim on a crawlable, indexed URL. Widening
+the guard and publishing the page happened to be the same change, and each
+caught something for the other.
+
 ## Measurement: count steps, never people
 
 Njia takes exactly one usage measurement. A milestone — questionnaire finished,
@@ -1343,11 +1425,11 @@ Then four layers, all of which must be clean:
 ```
 node --test tests/*.test.js       # zero-dependency unit suite (292 at the last count)
 node tests/functional-probe.mjs   # drives the real app, port 8080
-node tests/a11y-sweep.mjs         # 68 axe states, port 8106
+node tests/a11y-sweep.mjs         # 72 axe states, port 8106
 ```
 
-The axe sweep is 68 states, not 32, because it now covers the generated county,
-grade and open-data pages as well as the app's routes. Its first section used to
+The axe sweep is 72 states, not 32, because it now covers the generated county,
+grade, help and open-data pages as well as the app's routes. Its first section used to
 be labelled "static pages" and audited neither.
 
 Plus a manual drive of every page at 1440px and 390px in both colour schemes,

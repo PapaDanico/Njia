@@ -1179,7 +1179,7 @@ function renderHomePage() {
         <div class="landing-block-head">
           <span class="landing-eyebrow">PRIVACY BY ARCHITECTURE</span>
           <h2 class="landing-h2">We cannot see your answers, because there is nowhere for them to go.</h2>
-          <p class="landing-h2-sub">No accounts, no tracking, no analytics. Everything you enter — questionnaire answers, plans, saved courses — lives in this browser's local storage and is computed on your device. The only exception: the optional Feedback and Partner forms below, sent to us only if you submit them. Use "Clear My Data" (the header lock) any time, especially on a shared phone.</p>
+          <p class="landing-h2-sub">No accounts and no tracking. Everything you enter — questionnaire answers, plans, saved courses — lives in this browser's local storage and is computed on your device. The only exception: the optional Feedback and Partner forms below, sent to us only if you submit them. Njia does count how many people reach a milestone — a finished questionnaire, a saved course — by requesting a plain marker file, with no identifier attached and nothing linking two requests. Use "Clear My Data" (the header lock) any time, especially on a shared phone.</p>
         </div>
         <div class="btn-row" style="max-width:420px">
           <button type="button" class="btn btn-secondary btn-sm" onclick="openPrivacyModal()">Privacy &amp; your data</button>

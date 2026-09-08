@@ -155,3 +155,52 @@ test('every calendar entry opens before it closes', () => {
   assert.deepEqual(inverted, [],
     `these windows close before they open, so they can never appear: ${inverted.join('; ')}`);
 });
+
+/* A DATE IS A CLAIM, AND NOTHING WAS CHECKING WHO MADE IT.
+ *
+ * Everything above this point guards the ARITHMETIC on the calendar — that a
+ * closed window cannot render, that -0 cannot say "Closes today", that the
+ * list cannot silently run dry. All four passed, in every scheme and at every
+ * simulated hour, while `KMTC September intake` carried the dates 1 July to
+ * 30 September 2026. KUCCPS actually opened that window on 24 July and closed
+ * it on 11 August. On 8 September the landing hero counted down "23 days left"
+ * to a deadline four weeks gone, and no test could see it, because the guards
+ * only ever asked whether the app handled the numbers correctly — never where
+ * the numbers came from.
+ *
+ * The rest of this project already knows the answer to that. A fee is either
+ * sourced or absent, and the strongest badge is a declared claim rather than a
+ * fall-through. These two tests are that rule applied to time, which perishes
+ * faster than a fee and is read by someone with a portal to reach.
+ *
+ * The second is the one with teeth: a stale CLOSED window is invisible to
+ * every reader, but a stale OPEN one is an instruction to go somewhere that
+ * will not take them. So the freshness requirement is scoped to the windows
+ * that can still render, and 120 days is chosen against the 90-day expiry
+ * runway above — a window must be re-checked before the calendar it sits in
+ * starts warning that it is about to run out. */
+test('every placement window says where its dates came from', () => {
+  const unsourced = PLACEMENT_CALENDAR
+    .filter((w) => !w.source || !String(w.source).trim() || !w.verified)
+    .map((w) => `${w.name} (${!w.source ? 'no source' : 'no verified date'})`);
+  assert.deepEqual(unsourced.join('; '), '',
+    'these windows carry a date with nothing behind it: ' + unsourced.join('; ')
+    + '. A confident deadline with no citation is indistinguishable from a researched one, '
+    + 'and the KMTC September window proved it can be wrong by seven weeks. Add `source` '
+    + '(who published it) and `verified` (YYYY-MM-DD you last read it) to data/labour-market.js.');
+});
+
+test('a window that can still render has been checked recently', () => {
+  const STALE_DAYS = 120;
+  const now = Date.now();
+  const stale = PLACEMENT_CALENDAR
+    .filter((w) => new Date(`${w.closes}T23:59:59`).getTime() >= now)
+    .map((w) => ({ w, age: Math.floor((now - new Date(w.verified).getTime()) / DAY) }))
+    .filter((x) => !(x.age < STALE_DAYS))
+    .map((x) => `${x.w.name} closes ${x.w.closes} but was last verified ${x.w.verified} (${x.age} days ago)`);
+  assert.deepEqual(stale.join('; '), '',
+    'these windows are still open on the Application Clock and their dates are older than '
+    + `${STALE_DAYS} days: ${stale.join('; ')}. Re-read the published window, correct the dates `
+    + 'if they moved, and bump `verified`. A stale closed window is invisible; a stale OPEN one '
+    + 'sends a reader to a portal that will not take them.');
+});

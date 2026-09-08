@@ -349,22 +349,62 @@ const CBE_PATHWAYS = {
 
 /* THE PLACEMENT CALENDAR. Dates, not prose, so the app can work out what is
  * actually open today rather than shipping a claim that quietly goes stale.
- * Every window below is for the 2026 cycle. */
+ * Every window below is for the 2026 cycle.
+ *
+ * A DATE IS A CLAIM, AND IT PERISHES FASTER THAN A FEE.
+ *
+ * On 8 September 2026 this file said the KMTC September intake ran
+ * 1 July to 30 September. It did not: KUCCPS opened it on 24 July and closed
+ * it on 11 August. The landing hero was therefore counting down "23 days
+ * left" for a window that had been shut for four weeks — the exact failure
+ * the -0 fix in tests/placement-clock.test.js was written to prevent, arriving
+ * by the other route. Correct code cannot save a wrong date, and the two
+ * bracketing dates had never been sourced; they were the shape of the intake
+ * rather than its published window.
+ *
+ * That is the fee rule applied to time: a figure is either sourced or absent.
+ * So every entry now carries `source` and `verified`, and
+ * tests/placement-clock.test.js fails the build if a window that is still open
+ * has not been re-checked inside 120 days. A stale closed window is invisible;
+ * a stale OPEN one sends someone to a portal that will not take them, which is
+ * the eligibility direction this project never rounds the wrong way. */
 const PLACEMENT_CALENDAR = [
   { name: 'KUCCPS main application (degree, diploma, certificate, TVET)', opens: '2026-04-07', closes: '2026-05-06',
-    note: 'The main window for the 2025 KCSE cohort.' },
+    note: 'The main window for the 2025 KCSE cohort.',
+    source: 'KUCCPS media release "KUCCPS Opens Application Window for 2026 Placement to Universities and Colleges" (kuccps.net), cross-reported by People Daily and Teacher.co.ke',
+    verified: '2026-09-08' },
   { name: 'KUCCPS second call — revise your choices', opens: '2026-05-16', closes: '2026-05-22',
-    note: 'For applicants not placed in the first round.' },
+    note: 'For applicants not placed in the first round.',
+    source: 'KUCCPS first revision window, reported by The Kenya Times, "KUCCPS Reopens Portal For Second Revision For 2026 University Placement"',
+    verified: '2026-09-08' },
+  { name: 'KUCCPS second revision — a last pass at your choices', opens: '2026-05-27', closes: '2026-05-31',
+    note: 'A further window for applicants who did not secure a course by 22 May. It was missing from this calendar entirely until the September 2026 sweep.',
+    source: 'The Kenya Times, "KUCCPS Reopens Portal For Second Revision For 2026 University Placement" — second revision ran 27 to 31 May 2026',
+    verified: '2026-09-08' },
   { name: 'KMTC March intake application', opens: '2026-01-07', closes: '2026-01-27',
-    note: 'KMTC runs its own intake cycles through KUCCPS.' },
-  { name: 'Inter-institutional transfer', opens: '2026-06-01', closes: '2026-08-14',
-    note: 'If you were placed somewhere you cannot take up, this is the route to move.' },
+    note: 'KMTC runs its own intake cycles through KUCCPS. 21,774 places across 36 programmes at 98 campuses.',
+    source: 'KUCCPS "KMTC March 2026 Intake" advert (kuccps.net), and The Star, 8 January 2026, "KUCCPS opens applications for KMTC March 2026 intake"',
+    verified: '2026-09-08' },
+  { name: 'Inter-institutional transfer', opens: '2026-07-17', closes: '2026-08-14',
+    note: 'If you were placed somewhere you cannot take up, this is the route to move. Open to the 2023, 2024 and 2025 KCSE cohorts.',
+    source: 'The Star, 17 July 2026, "KUCCPS opens 2026 inter-institution transfer window for students", and Capital FM — a 30-day window closing 14 August 2026',
+    verified: '2026-09-08' },
   { name: 'Kenya Utalii College (Ronald Ngala, Kilifi)', opens: '2026-06-01', closes: '2026-08-23',
-    note: 'Separate deadline from the main cycle.' },
-  { name: 'KMTC September intake', opens: '2026-07-01', closes: '2026-09-30',
-    note: 'Opens after university placement completes — a second chance for the 2025 cohort.' },
+    note: 'Separate deadline from the main cycle. Reopened in September — see the row below, which is the one still live.',
+    source: 'KUCCPS "Opens September Intake Application for Utalii College\u2019s New Campus" (kuccps.net); the opening date is the cycle shape rather than a published day, which is why the closing date is the only one this row is relied on for',
+    verified: '2026-09-08' },
+  { name: 'KMTC September intake', opens: '2026-07-24', closes: '2026-08-11',
+    note: 'Pre-service diploma and certificate programmes through the KUCCPS portal, for KCSE candidates from 2000 to 2025. In-service and upgrading applications go through KMTC\u2019s own admissions portal instead.',
+    source: 'KUCCPS media release for the KMTC September 2026 intake (kuccps.net), The Star 24 July 2026, and The Eastleigh Voice — 34 programmes, 24 diploma and 10 certificate, closing 11 August 2026',
+    verified: '2026-09-08' },
+  { name: 'KMTC and Kenya Utalii College — reopened applications', opens: '2026-09-08', closes: '2026-09-14',
+    note: 'A second chance for anyone who missed 11 August. KUCCPS reopened the portal for KMTC medical diploma and certificate programmes and for Kenya Utalii College hospitality and tourism courses, for the 2020 to 2025 KCSE cohorts.',
+    source: 'People Daily, 8 September 2026, "KUCCPS reopens KMTC and Utalii College applications for September 2026 intake", quoting KUCCPS CEO Agnes Mercy Wahome; also Education News and Kahawatungu',
+    verified: '2026-09-08' },
   { name: 'TVET placement (continuous)', opens: '2026-05-01', closes: '2026-12-31',
-    note: 'TVET admission is continuous rather than a single annual exercise, and colleges report from May. This is the door that stays open longest.' }
+    note: 'TVET admission is continuous rather than a single annual exercise, and colleges report from May. This is the door that stays open longest.',
+    source: 'KUCCPS 2026 placement coverage: TVET placement is continuous and colleges report from May, unlike the degree track. The 31 December bound is the calendar year, not a published deadline.',
+    verified: '2026-09-08' }
 ];
 
 /* THE YARDSTICK. Every figure in this file should be read against this.

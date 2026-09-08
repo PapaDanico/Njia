@@ -533,8 +533,26 @@ That is the sixth instance of *the app is not the whole site*, and the most
 expensive one, because those forty-eight questions are the closest thing this
 catalogue holds to what a learner actually types into a search box: "can I do
 nursing with a D+", "does my data leave my phone", "is the Germany 250,000
-figure real". `/help/` now carries all of it — **28,786 crawlable characters on
+figure real". `/help/` now carries all of it — **35,622 crawlable characters on
 one page**, against 2,980 for the entire app.
+
+**And the first version of that page fixed one third of the problem.** It
+published `HELP_FAQ` and stopped, because that was the array this section was
+written about. `js/help.js` holds *three* top-level structures, and the other
+two — `HELP_TUTORIALS` (five walkthroughs, ~621 words) and `HELP_GLOSSARY`
+(sixteen terms, ~285 words) — stayed exactly as invisible as before. Caught by
+being asked "does the tutorial have its own SEO page", not by any guard, and the
+honest answer at the time was no.
+
+The glossary was the sharpest of the three to nearly lose: **KCSE, KUCCPS, HELB,
+HEF, TVET, TVETA** are definitional queries a learner types verbatim, and each
+now has its own anchor (`/help/#kuccps`). Sixteen answers to "what does this
+abbreviation mean" were reachable only by tapping a tab inside a single-page app.
+
+The lesson is narrower than "check your work": **a page generated from one named
+export will silently omit the others in the same file.** The generator now reads
+all three by name and the build line prints all three counts, so a fourth added
+later shows up as an absence in the output rather than as nothing at all.
 
 Two decisions worth keeping:
 
@@ -592,6 +610,46 @@ Timing worth noting: the FAQ instance was caught **while publishing `/help/`**,
 which would have put a false privacy claim on a crawlable, indexed URL. Widening
 the guard and publishing the page happened to be the same change, and each
 caught something for the other.
+
+## The submission that needs an account, and the one that does not
+
+Getting indexed has exactly one step that genuinely requires the maintainer, and
+it is worth being precise about why rather than repeating "credential-gated".
+Submitting the sitemap to **Google Search Console** needs a Google account, a
+browser and a verified property. Checked again rather than assumed: every
+relevant host answers `000` from here, and the agent proxy logs the reason in
+plain text — `connect_rejected — gateway answered 403 to CONNECT (policy
+denial)` for `www.google.com`. No connected MCP exposes Search Console or any
+webmaster API; that was searched, not guessed. The block is real, it is current,
+and routing around it is forbidden by the first section of this file.
+
+**IndexNow is the half that needs nothing.** No account, no OAuth, no dashboard:
+host a key file at the domain root, POST the URL list to
+`https://api.indexnow.org/indexnow`, and Bing, Yandex, Seznam and Naver are all
+notified at once. `tools/submit-indexnow.mjs` does it, zero-dependency, from any
+machine with outbound network.
+
+**Google does not participate in IndexNow**, still true as of May 2026. So it is
+an addition to the Search Console submission and never a substitute — written
+into the script's own header, because a tool named "submit" is exactly what
+someone later assumes covered everything.
+
+Two details that are the whole reliability of it:
+
+- **The key is read from the key file, never written twice.** A key that
+  disagrees with the file it is served from is rejected, and rejected
+  *silently* — the engines simply ignore the submission. Same failure shape as a
+  milestone marker that 404s and reads as "nobody got there".
+  `tests/indexnow.test.js` asserts there is exactly one key file, that its
+  contents equal its own name with no stray whitespace, that the script carries
+  no hardcoded copy, that the file is not in the sitemap (an ownership token is
+  not a page), and that `robots.txt` still lets the engines fetch it.
+- **The error message has to name the real cause.** Run inside this environment
+  the POST returns `403 Forbidden`, which reads exactly like IndexNow rejecting
+  the key — and would send the next person to check a key file that is perfectly
+  fine. The proxy's refusal is detected from the body and reported as what it
+  is. A tool whose failure message blames the wrong thing is the same defect as
+  a guard whose failure message lists three things and checks one.
 
 ## Measurement: count steps, never people
 

@@ -67,11 +67,11 @@ const require = createRequire(path.join(root, '/'));
  * deliberate and it is the same rule /open-data/ follows for feeBasis(): a
  * second hand-written copy of the FAQ is a second thing free to drift, and the
  * structured-data generator already had to be stopped from making a third. */
-const HELP_FAQ = (() => {
+const HELP = (() => {
   const src = fs.readFileSync(path.join(root, 'js', 'help.js'), 'utf8');
   const ctx = vm.createContext({ window: {}, document: {} });
   vm.runInContext(src, ctx);
-  return vm.runInContext('HELP_FAQ', ctx);
+  return vm.runInContext('({ HELP_FAQ, HELP_TUTORIALS, HELP_GLOSSARY })', ctx);
 })();
 
 const { EDUCATION_PIPELINE } = require('./data/labour-market.js');
@@ -959,9 +959,41 @@ const CONTACT_FALLBACK = 'https://github.com/PapaDanico/Njia/issues/new';
  * reads the same array for exactly this reason. */
 const HELP_OUT = path.join(root, 'help');
 
-function helpPage(groups) {
+function helpPage({ HELP_FAQ: groups, HELP_TUTORIALS: tutorials, HELP_GLOSSARY: glossary }) {
   const total = groups.reduce((n, g) => n + g.items.length, 0);
-  const toc = groups.map((g) => `<li><a href="#${slug(g.group)}">${esc(g.group)}</a></li>`).join('\n');
+  /* All THREE structures, not just the FAQ. The first version of this page
+     published HELP_FAQ alone and the tutorials and glossary stayed invisible —
+     the same defect the page was written to fix, one third solved. The glossary
+     is the sharpest of the three for search: "what is KUCCPS", "what does TVETA
+     mean" are definitional queries a learner types verbatim, and sixteen of
+     them were reachable only by tapping a tab inside a single-page app. */
+  const toc = [
+    '<li><a href="#how-njia-works">How Njia works</a></li>',
+    ...groups.map((g) => `<li><a href="#${slug(g.group)}">${esc(g.group)}</a></li>`),
+    '<li><a href="#glossary">Glossary</a></li>'
+  ].join('\n');
+
+  const tutorialBlock = `
+<section>
+<h2 id="how-njia-works">How Njia works</h2>
+<p>Five steps, in the order most people take them. Every one is free, works on any
+phone browser, and needs no account.</p>
+${tutorials.map((t) => `<div class="faq">
+  <h3 id="${slug(t.title)}">${esc(t.title)}</h3>
+  <p class="meta">${esc(t.time)}</p>
+  <ol>${t.steps.map((st) => `<li>${st}</li>`).join('')}</ol>
+</div>`).join('\n')}
+</section>`;
+
+  const glossaryBlock = `
+<section>
+<h2 id="glossary">Glossary</h2>
+<p>The ${glossary.length} abbreviations that appear on every Kenyan admission page,
+in plain words.</p>
+<dl class="glossary">
+${glossary.map(([term, def]) => `  <dt id="${slug(term)}">${esc(term)}</dt>\n  <dd>${def}</dd>`).join('\n')}
+</dl>
+</section>`;
   const body = groups.map((g) => `
 <section>
 <h2 id="${slug(g.group)}">${esc(g.group)}</h2>
@@ -976,8 +1008,8 @@ ${g.items.map(([q, a]) => `<div class="faq">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Questions about courses, fees and applying in Kenya | Njia</title>
-<meta name="description" content="${total} plain answers on KCSE grades, TVET and university entry, fees and what they exclude, HELB and bursaries, CBC pathways, and how Njia handles your data.">
+<title>How Njia works, ${total} questions answered, and a glossary | Njia</title>
+<meta name="description" content="How to use Njia in five steps, ${total} plain answers on KCSE grades, TVET and university entry, fees, HELB and bursaries, and a glossary of ${glossary.length} Kenyan admission terms.">
 <link rel="canonical" href="${SITE}/help/">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
@@ -994,6 +1026,8 @@ ${g.items.map(([q, a]) => `<div class="faq">
   .faq > div { color: var(--text-secondary); max-width: var(--prose-max); }
   .faq p { margin: 0 0 .6rem; }
   section { margin-bottom: var(--space-7, 2.5rem); }
+  .glossary dt { font-weight: 700; margin-top: var(--space-4); }
+  .glossary dd { margin: .2rem 0 0; color: var(--text-secondary); max-width: var(--prose-max); }
   .toc { columns: 2; column-gap: 2rem; }
   @media (max-width: 40rem) { .toc { columns: 1; } }
   @media print { .toc, .cta { display: none; } .faq { break-inside: avoid; } }
@@ -1003,7 +1037,7 @@ ${g.items.map(([q, a]) => `<div class="faq">
 ${briefHead('Questions and answers', `${total} answers &middot; for career teachers and county officers`)}
 <main>
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
-<h1>Questions about courses, fees and applying in Kenya</h1>
+<h1>How Njia works, and answers to ${total} questions</h1>
 <p>${total} plain answers, written for school leavers and the people advising them.
 Nothing here needs an account and nothing you read is tracked. If your question is
 about a specific course or county, <a href="/counties/">browse by county</a> or
@@ -1011,7 +1045,9 @@ about a specific course or county, <a href="/counties/">browse by county</a> or
 <ul class="toc">
 ${toc}
 </ul>
+${tutorialBlock}
 ${body}
+${glossaryBlock}
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 </main>
 </body>
@@ -1210,7 +1246,7 @@ for (const grade of Object.keys(GRADE_SLUG)) {
 fs.writeFileSync(path.join(GRADES_OUT, 'index.html'), gradeIndexPage(gradePages));
 
 fs.mkdirSync(HELP_OUT, { recursive: true });
-fs.writeFileSync(path.join(HELP_OUT, 'index.html'), helpPage(HELP_FAQ));
+fs.writeFileSync(path.join(HELP_OUT, 'index.html'), helpPage(HELP));
 
 /* docs/ is NOT wiped and recreated the way counties/ and grades/ are: it holds
    the proposal PDF and two hand-written working documents, none of them
@@ -1277,5 +1313,5 @@ ${urls.map((u) => `  <url>
 
 console.log(`wrote counties/index.html + ${counties.length} county pages`);
 console.log(`wrote grades/index.html + ${gradePages.length} grade pages: ${gradePages.map(([g, n]) => `${g}=${n}`).join(' ')}`);
-console.log(`wrote help/index.html — ${HELP_FAQ.length} groups, ${HELP_FAQ.reduce((n, g) => n + g.items.length, 0)} answers`);
+console.log(`wrote help/index.html — ${HELP.HELP_TUTORIALS.length} tutorials, ${HELP.HELP_FAQ.reduce((n, g) => n + g.items.length, 0)} answers, ${HELP.HELP_GLOSSARY.length} glossary terms`);
 console.log(`wrote sitemap.xml with ${urls.length} URLs (lastmod ${today})`);

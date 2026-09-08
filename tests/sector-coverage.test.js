@@ -324,7 +324,7 @@ const gradeRank = (g) => (g == null ? GRADE_ORDER.length : GRADE_ORDER.indexOf(g
  *
  * Lower this number when you close more; a test that only ever gets weaker is
  * not a guard. */
-const E_GRADE_BLIND_COUNTIES = 16;
+const E_GRADE_BLIND_COUNTIES = 15;
 
 /* UNDER-CLAIM ON A FIGURE. NEVER ON AN ELIGIBILITY.
  *

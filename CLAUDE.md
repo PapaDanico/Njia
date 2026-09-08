@@ -923,7 +923,7 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Sixteen remain — lower the constant when you close more. It was 23; Kakamega and
+one inside an aggregate that still looks fine. Fifteen remain — lower the constant when you close more. It was 23; Kakamega and
 Siaya were closed by re-reading an either/or in a published entry requirement
 rather than by finding new provision, and Bomet from the funding side.
 
@@ -1024,6 +1024,77 @@ plausible one, not a "Certificate in General Studies" placeholder. The 14
 remaining thin counties each hold one KMTC campus and two courses; closing them
 needs a source this environment cannot currently reach, and saying so is the
 honest end of that thread rather than a reason to invent the last mile.
+
+## Agriculture is a quarter of the economy and was 44 courses
+
+`data/sectors.js` has said all along that agriculture is "nearly a quarter of
+the entire economy and the largest single employer in the country". The
+catalogue held **44 agriculture courses of 664**, across 15 institutions in
+**13 of 47 counties**, and exactly **one** of them was artisan — the only tier
+this project's core reader can enter.
+
+The gap was not the universities. Bukura, Egerton, Baraka and JKUAT were all
+listed. What was missing was an entire family of national training institutes
+that nobody had thought to search for, because they sit under the **State
+Department for Livestock Development** rather than under TVETA or KUCCPS, and
+they do not appear in a TVET roll-up:
+
+- **Dairy Training Institute, Naivasha** (Nakuru)
+- **Animal Health and Industry Training Institute (AHITI)** — five campuses:
+  Kabete, Nyahururu, Naivasha, **Wajir**, Ndomba
+- **Meat Training Institute, Athi River** (Machakos) — established 1972 and the
+  only institute in Kenya mandated to teach meat inspection
+
+**Nakuru is closed, on the fourth attempt.** This file records three previous
+searches against Rift Valley National Polytechnic that confirmed an entry bar
+and returned no artisan course name. The Dairy Training Institute has two —
+Dairy Farm Management and Dairy Plant Management, six months, **Ksh 47,800**,
+and an entry requirement of *"a KCSE or KCE certificate"* rather than a grade.
+That is the Sigalagala either/or pattern again: a certificate is not a mean
+grade, so the tier is open entry and a learner with an E clears it. Sixteen
+E-blind counties become fifteen.
+
+**The query that worked was the funder, not the county.** This is the
+scholarship-listing lesson generalised: when provision searches come back dry,
+search *who runs the training* rather than where it is. A ministry's own intake
+advertisement names institutes, courses, entry bars, durations and — unusually
+for this catalogue — **per-course fees**, all in one document.
+
+Three honest limits, recorded because the temptation was to round them up:
+
+- **AHITI Wajir and Nyahururu do not close their counties.** Both are in
+  E-blind counties and both advertise artisan courses, but no artisan course is
+  *named* in any reachable source — only certificates at C- and diplomas at C.
+  A confirmed institution with no sourced course name yields no record, so the
+  provision is listed and the floor is explicitly not claimed to have moved.
+- **The Meat Training Institute publishes the Konoin ladder verbatim** — "C-
+  and above for Diploma; D plain and above for Certificate; other course
+  categories are open" — so its artisan tier is open entry. Six certificates
+  are named; no artisan course is. Only the six are listed.
+- **A published range is not a fee, but its upper bound can be.** The Diploma
+  in Dairy Production and Processing is advertised at Ksh 160,300–165,300 for
+  one named course at one institution. The midpoint rule forbids splitting it;
+  the money rule says quote high. So 165,300 is recorded and the note states the
+  range. That is the opposite direction from the entry-grade rule on purpose:
+  over-quote a fee and the reader is prepared, over-quote a grade and the card
+  disappears.
+
+**And the sector register did not know the words the ministry uses.** "Dairy
+Plant Management", "Meat Inspection" and "Abattoir Operation" matched no sector
+at all — the pattern knew `farm` and `livestock` but not `dairy`, `meat` or
+`abattoir`, so three of the new courses would have been invisible to every
+sector filter. Vocabulary widened, course names left alone, exactly as the
+Don Bosco and Co-operative University cases in this file already record.
+
+**The insert broke and the script said it worked.** `data/courses.js` ends its
+last record with `}` and *no* trailing comma, so appending a block produced
+`} {` and the file stopped parsing — while the script printed "wrote 4
+institutions and 15 courses". Caught by the three-line read-back this file
+mandates, not by the script's own report. The second failure was subtler and
+the same shape: ten null-fee notes said the institute "publishes no per-course
+fee", which is not one of the four literal phrases the absence guard requires.
+Both were found by asserting the properties on the parsed data, which is the
+whole reason that rule exists.
 
 ## Funding is a barbell, and Njia's reader is in the gap
 
@@ -1141,8 +1212,8 @@ guarding the claim.
 `tests/provision-analysis.test.js`. It exists because the most decision-changing
 number this project holds lived only as a constant in a test file.
 
-The finding it carries: **16 counties list nothing an E-grade leaver can enter,
-and all 16 list no artisan course at all.** It was 23 and 21 when this page
+The finding it carries: **15 counties list nothing an E-grade leaver can enter,
+and all 15 list no artisan course at all.** It was 23 and 21 when this page
 shipped; the page is generated, so it is correct by construction and this
 paragraph is the copy that goes stale. The blindness is one missing
 tier, not a high bar — which is why the fix is an institution rather than a
@@ -1238,13 +1309,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 664 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 679 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 664 notes contains a comma or a quote and the
+  optional: **every one** of the 679 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

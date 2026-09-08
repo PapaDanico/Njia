@@ -169,19 +169,36 @@ test('every page module declares the cross-module symbols it actually uses', () 
   const decideSymbols = [...strip(decideSource)
     .matchAll(/^(?:function|const|let|var)\s+([A-Za-z_][A-Za-z0-9_]*)/gm)].map((m) => m[1]);
 
+  /* data/labour-market.js came off the critical path when its two
+     landing-page symbols moved to data/placement.js, so it is now a lazy
+     provider like the catalogue and needs the same guard. Its symbols are read
+     out of the file rather than listed here, for the reason decide.js's are:
+     a hand-kept copy is a second thing free to drift. */
+  const labourSymbols = [...strip(fs.readFileSync(path.join(root, 'data', 'labour-market.js'), 'utf8'))
+    .matchAll(/^(?:function|const|let|var)\s+([A-Za-z_][A-Za-z0-9_]*)/gm)].map((m) => m[1]);
+
   const PROVIDERS = [
     { file: 'js/decide.js', symbols: decideSymbols },
     { file: 'data/courses.js', symbols: ['COURSES', 'DISTINCT_PROGRAMMES'] },
-    { file: 'data/institutions.js', symbols: ['INSTITUTIONS'] }
+    { file: 'data/institutions.js', symbols: ['INSTITUTIONS'] },
+    { file: 'data/labour-market.js', symbols: labourSymbols }
   ];
 
   const missing = [];
   for (const [page, scripts] of Object.entries(declared)) {
     const own = `js/${page}.js`;
     if (!fs.existsSync(path.join(root, own))) continue;
-    const source = strip(fs.readFileSync(path.join(root, own), 'utf8'));
+
+    /* Every js/ file the route injects is a consumer, not just js/<page>.js.
+       The route loads them into one shared global scope, so a symbol js/decide.js
+       needs is just as missing when discover is what pulled decide.js in. Checking
+       only the page's own file left that transitive case unguarded — and it is the
+       case the two historical failures were both instances of. */
+    const consumers = [own, ...scripts.filter((f) => f.startsWith('js/'))]
+      .filter((f, i, a) => a.indexOf(f) === i && fs.existsSync(path.join(root, f)));
+    const source = consumers.map((f) => strip(fs.readFileSync(path.join(root, f), 'utf8'))).join('\n');
     for (const provider of PROVIDERS) {
-      if (provider.file === own) continue;
+      if (consumers.includes(provider.file)) continue;
       const used = provider.symbols.filter((s) => new RegExp(`\\b${s}\\b`).test(source));
       if (used.length && !scripts.includes(provider.file)) {
         missing.push(`${page} uses ${used.slice(0, 3).join(', ')}${used.length > 3 ? ` (+${used.length - 3})` : ''}`

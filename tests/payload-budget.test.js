@@ -109,8 +109,13 @@ test('the critical path stays inside its byte budget', () => {
   /* Tight headroom is the point. Nothing here should grow when the catalogue
      grows; if this fails, the question is not "raise the ceiling" but "what got
      wired to the wrong side of the split". Hence the breakdown in the message —
-     a failure that reports only a total sends you hunting. */
-  const CEILING = 150 * 1024;
+     a failure that reports only a total sends you hunting.
+
+     Ratcheted 150 -> 125KB when data/labour-market.js came off this path and
+     the total fell 145.8 -> 115.4KB, a 20.9% cut for every first-time reader.
+     A ceiling left at its old value after a win is not a ratchet, it is
+     headroom for the next regression to hide in. */
+  const CEILING = 125 * 1024;
   const files = criticalPath();
   const sizes = files.map((f) => [f, gz(f)]).sort((a, b) => b[1] - a[1]);
   const total = sizes.reduce((n, [, s]) => n + s, 0);

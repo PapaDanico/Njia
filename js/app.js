@@ -371,10 +371,10 @@ const PAGE_MODULE = {
      Lifting those two into a shared file would be tidier and would touch four
      other readers that address decide.js by name; not worth folding into this
      change. */
-  discover: ['data/institutions.js', 'data/courses.js', 'js/decide.js', 'js/discover.js'],
+  discover: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'js/decide.js', 'js/discover.js'],
   design: ['data/institutions.js', 'data/courses.js', 'js/design.js'],
-  decide: ['data/institutions.js', 'data/courses.js', 'js/decide.js'],
-  connect: ['js/connect.js'],
+  decide: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'js/decide.js'],
+  connect: ['data/labour-market.js', 'js/connect.js'],
   track: ['js/track.js'],
   help: ['js/help.js']
 };

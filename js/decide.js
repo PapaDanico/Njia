@@ -608,6 +608,55 @@ function byFee(a, b, dir) {
  * institution", which costs the reader a phone call they should make anyway and
  * costs them a year if they do not. Guarded in tests/provenance.test.js, so the
  * caveat cannot quietly go while the provenance is still missing. */
+/* AN INDICATIVE TIER RATE, FOR THE RECORD THAT HAS NO FEE OF ITS OWN.
+ *
+ * 348 records carry no tuition figure, and "nothing" is a poor answer to a
+ * learner who needs to know roughly what a year costs. The maintainer's rule
+ * applies: available verifiable information beats no information.
+ *
+ * What this is NOT is a per-course figure. Inventing one is the placeholder
+ * trap - Ksh 420,000 on twelve unrelated degrees - and splitting a published
+ * range is the midpoint rule this file forbids. So NOTHING IS WRITTEN INTO THE
+ * CATALOGUE: total_fees_kes stays null, the fee basis stays `unpublished`, and
+ * the five-way partition is untouched. This is a benchmark computed at render
+ * time from the SOURCED siblings at the same ownership and level, shown beside the
+ * absence and labelled as a typical figure rather than as this course's price.
+ *
+ * Two exclusions, both deliberate:
+ *
+ *   - DEGREES NEVER GET ONE. Kenya retired the Differentiated Unit Cost in May
+ *     2023 for the means-tested SCFM, so what a student pays depends on their
+ *     assessed band. A median of the eleven sourced public degrees would be a
+ *     confident number that is wrong for almost every reader, which is worse
+ *     than silence.
+ *   - A THIN BASE NEVER GETS ONE. Private diploma has exactly one sourced fee;
+ *     a "typical" drawn from n=1 is a single institution's price wearing the
+ *     word typical. The floor is 20 sourced siblings, which leaves public
+ *     artisan, certificate and diploma - where a real national rate sits
+ *     underneath the median - and excludes every private tier, none of which
+ *     has enough.
+ *
+ * Named "tier" rather than the obvious word, because a guard in
+ * tests/provenance.test.js forbids that word appearing in this file at all:
+ * Decide must never gate the catalogue on an unsourced CBE mapping, and the
+ * cheapest way to keep that true is to keep the vocabulary out.
+ *
+ * Median rather than mean, because one 720,000 outlier should not drag a figure
+ * a learner budgets against. */
+const TIER_BENCHMARK_MIN_SAMPLE = 20;
+
+function tierBenchmark(course, institution) {
+  if (!institution || course.total_fees_kes != null) return null;
+  if (course.level === 'degree') return null;
+  const priced = COURSES.filter((c) => {
+    if (c.total_fees_kes == null || c.level !== course.level) return false;
+    const i = INSTITUTIONS.find((x) => x.id === c.institution_id);
+    return i && i.ownership === institution.ownership;
+  }).map((c) => c.total_fees_kes).sort((a, b) => a - b);
+  if (priced.length < TIER_BENCHMARK_MIN_SAMPLE) return null;
+  return { median: priced[Math.floor(priced.length / 2)], sample: priced.length };
+}
+
 /* A DURATION CAN BE ABSENT, AND THE RECORD STILL BELONGS TO THE READER.
  *
  * Every record carried a duration until Ebukanga's Artisan in General Fitting:
@@ -1001,6 +1050,15 @@ function renderCourseCard(course, match) {
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
       <p class="text-muted text-sm mb-1">Intakes (confirm with the institution): ${course.intake_months.map(escapeHtml).join(', ')}</p>
+      ${(() => {
+        const rate = tierBenchmark(course, inst);
+        if (!rate) return '';
+        return `<p class="text-muted text-sm mb-2">This institution publishes no fee for this course.
+          <strong class="num">${formatKes(rate.median)}</strong> is the typical total for
+          ${escapeHtml(inst.ownership)} ${escapeHtml(course.level)} courses Njia has sourced
+          (${rate.sample} of them) &mdash; a guide to the order of magnitude, not this course's
+          price. Ask the institution for its own figure.</p>`;
+      })()}
       ${feePublished ? `
       <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
       <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation

@@ -1326,6 +1326,84 @@ yield floor suggested - two counties closed on the strength of asking a
 different page. What genuinely cannot be reached is a document that only exists
 as a PDF on an institution's own host.
 
+## A flat institutional rate is attributable; a per-programme one is not
+
+"The private institutions usually publish their fees. Find them." They do, and
+the earlier ruling - that private schedules are unreachable PDFs - was true of
+some and lazy about the rest. Searched properly, two shapes appear and they are
+not the same fact.
+
+**Kabarak publishes ONE tuition rate across all its undergraduate programmes:**
+Ksh 65,000 a semester, plus mandatory administrative charges of
+Ksh 29,350-30,850, over two semesters an academic year (its own published
+calendar - September and January, fifteen weeks each). A flat institutional rate
+**is** attributable to a named course, in exactly the way KMTC's national
+schedule is and a per-institution *range* is not. Fifteen records priced, the
+administrative band taken at its upper bound because over-quoting leaves a
+reader prepared.
+
+**Riara publishes per programme, and says so.** Bachelor of Business
+Administration is Ksh 97,300 a semester; the university states that computing,
+engineering and hospitality courses attract higher fees. So **one** record is
+priced and the other three keep a null fee. Transferring the BBA figure to
+Bachelor of Computer Science would be inventing a number the source explicitly
+warns against - the placeholder trap arriving through a legitimate-looking door.
+
+The distinction to carry forward: **ask whether the institution prices the
+institution or prices the course.** One flat rate closes every record at that
+institution; a per-programme schedule closes only the programmes it names.
+
+Sixteen records gained a sourced fee this way. 348 fee-less became 333.
+
+## An indicative tier benchmark, shown but never written
+
+For the records still without a fee, "nothing" is a poor answer to a learner who
+needs an order of magnitude. So the Decide card now shows the **median of the
+sourced siblings at the same ownership and level** beside the absence, labelled
+as a typical figure rather than as this course's price. 133 records gain one.
+
+The whole safety of it is that **it is never written into the catalogue**:
+`total_fees_kes` stays null, the record keeps its `unpublished` basis, and the
+five-way partition is untouched. Writing the benchmark in would turn a national
+median into a confident per-course price - the placeholder trap with better
+manners - so `tests/provenance.test.js` guards the absence.
+
+Two exclusions, both deliberate. **Degrees never get one**, because the SCFM
+means a student's cost is set by an assessed band and a median would be wrong
+for almost every reader. **A thin base never gets one**: the floor is 20 sourced
+siblings, which excludes every private tier.
+
+It is called a *tier* benchmark rather than the obvious word because a guard
+forbids that word appearing in `js/decide.js` at all - Decide must never gate
+the catalogue on an unsourced CBE mapping, and keeping the vocabulary out is the
+cheapest way to keep that true. The guard caught the naming immediately.
+
+## The SCFM is a method, and a method can be explained
+
+Refusing to quote a per-programme price for a public university is right. Saying
+nothing about what a student will actually pay is not - it is the pedantry the
+maintainer named, and it left 110 records ending at "there is no single number".
+
+The **method is published**, so `/help/` now carries it: a Means Testing
+Instrument run by HELB weighs household income, family size, school type,
+marginalisation and disability, and places a student in one of five bands, each
+fixing the split between government scholarship, HELB loan and household:
+
+- **Band 1** (vulnerable) - 70% scholarship + 25% loan, household **5%**
+- **Band 2** (extremely needy) - 70% + 30% loan, household **nothing**
+- **Band 3** (needy, reported to ~Ksh 70,000 a month) - 50% + 30%, household
+  **20%**, upkeep loan Ksh 50,000
+- **Band 4** (less needy, reported to ~Ksh 120,000) - 40% + 30%, household
+  **30%**, upkeep loan Ksh 45,000
+- **Band 5** - 30% + 30%, household **40%**
+
+The usable insight for a reader is that the shares are **percentages of the
+course cost**, so a cheaper programme lowers the shilling amount even when the
+band does not move - and two students in the same lecture hall can owe very
+different sums, by design rather than by error. What Njia will not say is which
+band anyone lands in: that instrument weighs household circumstances this
+project does not hold and should not hold.
+
 ## Funding is a barbell, and Njia's reader is in the gap
 
 A sweep of the funding landscape — government, county, constituency, corporate,

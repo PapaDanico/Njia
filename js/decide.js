@@ -645,16 +645,54 @@ function byFee(a, b, dir) {
  * a learner budgets against. */
 const TIER_BENCHMARK_MIN_SAMPLE = 20;
 
+/* Built once, not per card. The first version filtered all 683 courses and ran
+   an INSTITUTIONS.find inside the predicate for EVERY card rendered - roughly
+   116,000 operations per card, on a grid that can draw hundreds, on the cheap
+   Android phones this project designs for. The medians do not change between
+   cards, so they are computed once on first use. */
+let TIER_MEDIANS = null;
+function tierMedians() {
+  if (TIER_MEDIANS) return TIER_MEDIANS;
+  const owner = new Map(INSTITUTIONS.map((i) => [i.id, i.ownership]));
+  const buckets = new Map();
+  for (const c of COURSES) {
+    if (c.total_fees_kes == null) continue;
+    const key = `${owner.get(c.institution_id)}|${c.level}`;
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(c.total_fees_kes);
+  }
+  TIER_MEDIANS = new Map();
+  for (const [key, list] of buckets) {
+    if (list.length < TIER_BENCHMARK_MIN_SAMPLE) continue;
+    list.sort((a, b) => a - b);
+    TIER_MEDIANS.set(key, { median: list[Math.floor(list.length / 2)], sample: list.length });
+  }
+  return TIER_MEDIANS;
+}
+
 function tierBenchmark(course, institution) {
   if (!institution || course.total_fees_kes != null) return null;
   if (course.level === 'degree') return null;
-  const priced = COURSES.filter((c) => {
-    if (c.total_fees_kes == null || c.level !== course.level) return false;
-    const i = INSTITUTIONS.find((x) => x.id === c.institution_id);
-    return i && i.ownership === institution.ownership;
-  }).map((c) => c.total_fees_kes).sort((a, b) => a - b);
-  if (priced.length < TIER_BENCHMARK_MIN_SAMPLE) return null;
-  return { median: priced[Math.floor(priced.length / 2)], sample: priced.length };
+  return tierMedians().get(`${institution.ownership}|${course.level}`) || null;
+}
+
+/* THE CARD MUST NOT ASSERT A KIND OF ABSENCE THE RECORD DOES NOT CLAIM.
+ *
+ * The first version opened every benchmark with "This institution publishes no
+ * fee for this course." For 26 of the 133 records that is FALSE: their own note
+ * says the fee could not be verified, which is a different claim - the schedule
+ * exists and Njia could not read it. This catalogue's whole absence rule is that
+ * a missing fee must say WHICH KIND it is, and the card was overriding the
+ * record to say the more flattering one. Read the note, do not assert. */
+function absencePhrase(course) {
+  const note = course.verification_note || '';
+  if (/publishes no fee|does not publish/i.test(note)) {
+    return 'This institution publishes no fee for this course.';
+  }
+  if (/could not be verified|not reachable/i.test(note)) {
+    return 'Njia could not verify a fee for this course.';
+  }
+  return 'No fee is recorded for this course.';
 }
 
 /* A DURATION CAN BE ABSENT, AND THE RECORD STILL BELONGS TO THE READER.
@@ -1053,7 +1091,7 @@ function renderCourseCard(course, match) {
       ${(() => {
         const rate = tierBenchmark(course, inst);
         if (!rate) return '';
-        return `<p class="text-muted text-sm mb-2">This institution publishes no fee for this course.
+        return `<p class="text-muted text-sm mb-2">${escapeHtml(absencePhrase(course))}
           <strong class="num">${formatKes(rate.median)}</strong> is the typical total for
           ${escapeHtml(inst.ownership)} ${escapeHtml(course.level)} courses Njia has sourced
           (${rate.sample} of them) &mdash; a guide to the order of magnitude, not this course's

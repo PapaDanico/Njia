@@ -2071,6 +2071,22 @@ test('the indicative tier benchmark is rendered, never written into the catalogu
     + '2023 for the means-tested SCFM, so a median of the few sourced public degrees is a '
     + 'confident figure that is wrong for almost every reader — worse than showing nothing.');
 
+  /* THE CARD MAY NOT ASSERT A KIND OF ABSENCE THE RECORD DOES NOT CLAIM.
+   *
+   * The benchmark's first version opened every one of the 133 records with
+   * "This institution publishes no fee for this course." For 26 of them that
+   * was false - their own note says the fee could not be VERIFIED, a different
+   * claim: the schedule exists and Njia could not read it. The card was
+   * overriding the record with the more flattering absence, which is the exact
+   * thing the absence rule exists to stop. Found by reading the diff, not by a
+   * failing test. */
+  assert.match(decide, /function absencePhrase\(course\)/,
+    'the benchmark no longer derives its opening sentence from the record\'s own note. A card '
+    + 'that asserts "publishes no fee" over a note saying "could not be verified" tells the '
+    + 'reader the wrong kind of absence.');
+  assert.ok(!/>This institution publishes no fee for this course\./.test(decide),
+    'the card hardcodes one kind of absence again. Use absencePhrase(course).');
+
   assert.match(decide, /TIER_BENCHMARK_MIN_SAMPLE = \d+/,
     'the minimum sample for a tier benchmark is gone. A "typical" figure drawn from one or two '
     + 'sourced records is a single institution\'s price wearing the word typical.');

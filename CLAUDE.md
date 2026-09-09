@@ -1368,6 +1368,18 @@ five-way partition is untouched. Writing the benchmark in would turn a national
 median into a confident per-course price - the placeholder trap with better
 manners - so `tests/provenance.test.js` guards the absence.
 
+**Two defects in the first version, both found by reading the diff rather than
+by a failing test.** The card opened every benchmark with "This institution
+publishes no fee for this course" — false for 26 of the 133, whose own notes say
+the fee *could not be verified*, a different claim: the schedule exists and Njia
+could not read it. The card was overriding the record with the more flattering
+absence, which is exactly what the absence rule exists to stop. It now derives
+the sentence from the note, and a guard bans the hardcoded one. And the first
+implementation filtered all 683 courses with an `INSTITUTIONS.find` inside the
+predicate **per card** — about 116,000 operations for every card drawn, on the
+cheap Android phones this project designs for. The medians are identical between
+cards, so they are computed once: 200 full passes now take 20ms.
+
 Two exclusions, both deliberate. **Degrees never get one**, because the SCFM
 means a student's cost is set by an assessed band and a median would be wrong
 for almost every reader. **A thin base never gets one**: the floor is 20 sourced

@@ -101,8 +101,13 @@ test('no email address is advertised unless it has been verified to receive mail
       + 'tools/build-static-pages.mjs. An unverified address bounces and the reader hears '
       + 'nothing — the silent dead end this page exists to close. Verify the mailbox receives '
       + 'mail, then flip the flag.');
-    assert.ok(!/href="mailto:/.test(llms),
-      'llms.txt hands answer engines an address the partnership page will not advertise.');
+    /* Asserted as "no address at all", not "no mailto: href": llms.txt is plain
+     * text and never carries an href, so a check written that way could not
+     * fail — an inert guard reads as coverage while guarding nothing. */
+    const stray = llms.match(/[\w.+-]+@[\w-]+\.[\w.-]+/);
+    assert.equal(stray, null,
+      `llms.txt names ${stray && stray[0]} while MAIL_LIVE is false. An answer engine would `
+      + 'hand a funder an address the partnership page will not advertise.');
     return;
   }
 
@@ -117,10 +122,27 @@ test('no email address is advertised unless it has been verified to receive mail
 
   /* Not the maintainer's personal mailbox. Publishing one on a funder-facing
    * page is a disclosure decision that belongs to a person, not to an agent,
-   * and it is a weaker signal than a project address besides. */
-  assert.ok(/^njiacareerpathways@/.test(m[1]),
-    `the contact address is ${m[1]}, which is not a project mailbox. A personal address on a `
-    + 'funder-facing page is a disclosure decision that is not an agent\'s to make.');
+   * and it is a weaker signal than a project address besides.
+   *
+   * MATCHED ON THE PROJECT NAME ANYWHERE IN THE ADDRESS, not on a fixed local
+   * part. The first version of this line required /^njiacareerpathways@/, which
+   * would have REJECTED partnerships@njiacareerpathways.work — the very address
+   * the builder documents moving back to once the domain has an MX record. A
+   * guard that forbids its own documented next step is the proxy trap again,
+   * one level down: the property is that the mailbox is identifiably the
+   * project's, and the local part was standing in for it. */
+  assert.match(m[1], /njiacareerpathways/,
+    `the contact address is ${m[1]}, which does not identify itself as the project's mailbox. `
+    + 'A personal address on a funder-facing page is a disclosure decision that is not an '
+    + 'agent\'s to make.');
+
+  /* One source of truth: the page may only advertise the address the builder
+   * declares, so a hand-edit of the generated page cannot introduce a second. */
+  const declared = (builder.match(/const CONTACT_EMAIL = '([^']+)';/) || [])[1];
+  assert.equal(m[1], declared,
+    `docs/index.html advertises ${m[1]} but the builder declares ${declared}. The page is `
+    + 'generated; an address it carries that the builder does not is a hand-edit that the '
+    + 'next regeneration will silently drop.');
 
   assert.ok(llms.includes(m[1]),
     'llms.txt must carry the same address the page advertises, or an answer engine sends a '

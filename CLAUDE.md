@@ -1179,9 +1179,25 @@ is the midpoint rule this file already forbids.
 
 So both are recorded here as leads rather than as records, with the exact
 missing field named, because "search Vihiga" sends the next person over ground
-already covered. **What to search is the duration of those three named courses**
-— the college prospectus or the KUCCPS programme detail page for each, not the
-county and not the institution, both of which are done.
+already covered.
+
+**And the follow-up search settled WHY it cannot be filled, which is worth more
+than another dry attempt.** Three further angles were worked: the KUCCPS
+programme portal directly (`students.kuccps.net/programmes/detail/…`), the
+per-institution "KUCCPS course list, requirements, fees & duration" aggregator
+pages, and the examining body's own standard. The last one is the answer:
+**KNEC publishes no single artisan duration.** Sources give one year at some
+institutions, two years — four semesters with industrial attachment — at others,
+and 2–3 years elsewhere. Duration is genuinely institution-specific for this
+tier, which is exactly why no national figure can be cited the way the
+Ksh 67,189 rate is, and why picking twelve months would be inventing an
+institution's fact rather than applying a national one.
+
+So the remaining route is the institution itself: Ebukanga's registrar
+(`registrarebutvc@gmail.com`) or Borabu's prospectus. That is a phone call or an
+email, not a search, and it is the honest end of this thread from here. Do not
+re-run the county, institution or national-standard searches; all three are
+done and recorded.
 
 ## The field audit: two dead columns, and one live claim with no provenance
 

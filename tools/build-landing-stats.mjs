@@ -89,6 +89,25 @@ const stats = {
   counties: new Set([...listed].map((id) => instById.get(id).county)).size,
   published: COURSES.filter((c) => feeBasis(c) === 'published').length,
   derived: COURSES.filter((c) => feeBasis(c) === 'derived').length,
+  /* PROVENANCE COMPLETENESS - the only "100%" this catalogue can honestly show.
+   *
+   * Completeness here is NOT every field populated. Kenya publishes no
+   * per-course graduate outcomes, so employment_rate and median_salary_kes are
+   * null on every record by decision, and llms.txt declares that refusal. Half
+   * the catalogue has no fee because half of Kenyan TVET publishes none.
+   * Reporting those as gaps to be closed would invite exactly the invented
+   * figures this project spent months removing.
+   *
+   * What IS complete, and is the actual claim: every record states what it can
+   * stand behind. Each carries a verification note and lands in exactly one of
+   * the five fee bases, and every record with no fee says WHICH KIND of absence
+   * it is. Computed here rather than asserted, so the landing page cannot claim
+   * a completeness the data has stopped meeting. */
+  withNote: COURSES.filter((c) => c.verification_note && c.verification_note.trim()).length,
+  feeAbsent: COURSES.filter((c) => c.total_fees_kes == null).length,
+  feeAbsentStated: COURSES.filter((c) => c.total_fees_kes == null
+    && /does not publish|publishes no fee|could not be verified|not reachable/i
+      .test(c.verification_note || '')).length,
   sectorRoutes: Object.fromEntries(
     SECTORS.map((s) => [s.id, COURSES.filter((c) => sectorForCourse(c)?.id === s.id).length])
   )

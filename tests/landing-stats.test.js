@@ -222,3 +222,42 @@ test('every page module declares the cross-module symbols it actually uses', () 
     `page modules are missing dependencies they reference:\n  ${missing.join('\n  ')}\n`
     + 'This is a ReferenceError on the reader\'s screen, not a slow load.');
 });
+
+/* THE COMPLETENESS CLAIM ON THE LANDING CARD MUST BE THE MEASURED ONE.
+ *
+ * "Njia in numbers" now advertises that every record accounts for itself: a
+ * verification note on all of them, and every fee-absent record saying which
+ * kind of absence it is. That is the only 100% this catalogue can honestly
+ * show - Kenya publishes no per-course outcomes and half of TVET publishes no
+ * fee, so "every field populated" would be a target met by inventing figures,
+ * which is the exact failure this project spent months undoing.
+ *
+ * So the guard checks the property, not the number: LANDING_STATS must equal
+ * what the catalogue actually holds, and the card must render the measured
+ * values rather than a literal. A record that stops accounting for itself has
+ * to make the card say 679/680, never keep advertising 680. */
+test('the landing card states measured provenance completeness, not a literal', () => {
+  const { LANDING_STATS } = require(statsPath);
+  const withNote = COURSES.filter((c) => c.verification_note && c.verification_note.trim()).length;
+  const feeAbsent = COURSES.filter((c) => c.total_fees_kes == null).length;
+  const stated = COURSES.filter((c) => c.total_fees_kes == null
+    && /does not publish|publishes no fee|could not be verified|not reachable/i
+      .test(c.verification_note || '')).length;
+
+  assert.equal(LANDING_STATS.withNote, withNote,
+    `landing-stats says ${LANDING_STATS.withNote} records carry a verification note; the `
+    + `catalogue has ${withNote}. Regenerate with node tools/build-landing-stats.mjs.`);
+  assert.equal(LANDING_STATS.feeAbsent, feeAbsent, 'landing-stats feeAbsent has drifted.');
+  assert.equal(LANDING_STATS.feeAbsentStated, stated,
+    `landing-stats says ${LANDING_STATS.feeAbsentStated} fee-absent records state which kind of `
+    + `absence they are; the catalogue has ${stated}.`);
+
+  const app = fs.readFileSync(path.join(root, 'js', 'app.js'), 'utf8');
+  assert.match(app, /LANDING_STATS\.withNote\}\/\$\{totalRecords\}/,
+    'the landing card no longer renders LANDING_STATS.withNote against the catalogue size. A '
+    + 'completeness claim typed as a literal is a claim that keeps reading 100% after it stops '
+    + 'being true - which is the whole reason these figures are computed at build time.');
+  assert.match(app, /LANDING_STATS\.feeAbsentStated\}\/\$\{LANDING_STATS\.feeAbsent\}/,
+    'the card stopped showing the stated-absence ratio, which is the half of the completeness '
+    + 'claim that covers the 348 records with no fee.');
+});

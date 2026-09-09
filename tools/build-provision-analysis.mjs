@@ -177,6 +177,32 @@ const providersFor = (county) => new Set(
   COURSES.filter((c) => instById.get(c.institution_id)?.county === county)
     .map((c) => c.institution_id));
 const singleProvider = counties.filter((c) => providersFor(c.county).size === 1);
+
+/* THE FEE PICTURE IS CLEAR WHERE A NATIONAL RATE EXISTS, AND ABSENT WHERE THE
+ * INSTITUTION PRICES ITSELF. Reported per pathway rather than per course,
+ * because "51% of records carry no fee" is true and tells a reader nothing
+ * about whether THEIR pathway is priced. Split by ownership and level it turns
+ * out to be a sharp, explainable pattern rather than a uniform hole. */
+const FEE_TIERS = ['artisan', 'certificate', 'diploma', 'degree'];
+const feePathways = [];
+for (const own of ['public', 'private']) {
+  for (const lvl of FEE_TIERS) {
+    const rows = COURSES.filter((c) => instById.get(c.institution_id)?.ownership === own
+      && c.level === lvl);
+    if (!rows.length) continue;
+    /* `!= null`, never a truthiness test: the three genuinely free courses carry
+       0, and `if (fee)` would silently drop them - the same zero-is-falsy trap
+       the CSV export documents. */
+    const priced = rows.map((c) => c.total_fees_kes).filter((v) => v != null).sort((a, b) => a - b);
+    feePathways.push({
+      own, lvl, n: rows.length, priced: priced.length,
+      pct: Math.round((priced.length / rows.length) * 100),
+      median: priced.length ? priced[Math.floor(priced.length / 2)] : null,
+      lo: priced.length ? priced[0] : null,
+      hi: priced.length ? priced[priced.length - 1] : null,
+    });
+  }
+}
 const kmtcOnly = singleProvider.filter((c) => {
   const only = [...providersFor(c.county)][0];
   return /KMTC|Medical Training/i.test(instById.get(only)?.name || '');
@@ -452,7 +478,42 @@ ${blindNoTier.length}: the remedy is to confirm with the institution whether an
 E is in practice admitted, not to go looking for a college that is already
 listed.</p>
 
-<h2>Finding 3 — almost nobody publishes a course fee</h2>
+<h2>Finding 3 — the fee picture is clear per pathway, not per course</h2>
+
+<p>Half the catalogue carries no tuition figure, which is true and unhelpful: it
+says nothing about whether <em>a given pathway</em> is priced. Split by who owns
+the institution and what level it teaches, the hole is not uniform &mdash; it is
+a sharp and explainable pattern.</p>
+
+<div class="table-wrap" tabindex="0" role="region" aria-label="Fee coverage by pathway">
+<table>
+<caption>Tuition coverage by pathway. A figure describes what Njia has sourced, not what the pathway costs.</caption>
+<thead><tr><th scope="col">Pathway</th><th scope="col" class="num">Courses</th><th scope="col" class="num">Priced</th><th scope="col" class="num">Median</th><th scope="col" class="num">Range</th></tr></thead>
+<tbody>
+${feePathways.map((r) => `<tr><th scope="row">${r.own} ${r.lvl}</th><td class="num">${r.n}</td><td class="num">${r.priced} (${r.pct}%)</td><td class="num">${r.median == null ? '&mdash;' : 'Ksh ' + r.median.toLocaleString('en-KE')}</td><td class="num">${r.lo == null ? '&mdash;' : 'Ksh ' + r.lo.toLocaleString('en-KE') + '&ndash;' + r.hi.toLocaleString('en-KE')}</td></tr>`).join('\n')}
+</tbody>
+</table>
+</div>
+
+<p><strong>Public artisan is the best-priced pathway in the catalogue</strong>
+&mdash; and it is the tier a learner with the fewest options enters. Nearly all
+of it derives from one national figure, the consolidated public-TVET fee of
+Ksh 67,189 a year, which is why the median sits exactly there.</p>
+
+<p><strong>Public degrees are 9% priced, and that is correct rather than
+missing.</strong> Kenya retired the Differentiated Unit Cost in May 2023 for the
+Student-Centred Funding Model, under which what a student pays is set by an
+assessed means band. There is no per-programme price to publish, so a fuller
+column here would mean invented numbers.</p>
+
+<p><strong>Private provision is where the genuine gap sits</strong> &mdash; every
+private degree and every private artisan course in the catalogue carries no
+figure. Those institutions do publish schedules, as PDFs on their own sites,
+which is the one place this project's research cannot reach. That is a
+reachability limit, not a decision, and it is the honest place to point anyone
+asking what to fix next.</p>
+
+<h2>Finding 4 — almost nobody publishes a course fee</h2>
 
 <p><strong>${totals.published} of ${totals.courses} course fees in this catalogue
 were published by the institution for that specific course.</strong> Only

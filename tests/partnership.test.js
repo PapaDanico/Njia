@@ -73,28 +73,65 @@ test('llms.txt gives answer engines the same working route', () => {
     + 'increasingly arrives, and it should be able to offer the route that certainly works.');
 });
 
-test('no email address is advertised while the domain cannot receive mail', () => {
+/* THE GUARD ASSERTS DELIVERABILITY, NOT WHICH DOMAIN THE ADDRESS SITS ON.
+ *
+ * Its first version required a mailto: at all. Its second required one on the
+ * project domain — and njiacareerpathways.work has NO MX record (NOERROR, zero
+ * answers, from 8.8.8.8, 1.1.1.1, 9.9.9.9 and 8.8.4.4, against a control that
+ * resolves google.com fine), so that check would have mandated the one address
+ * certain to bounce. Both were asserting a proxy: the reader needs a mailbox
+ * that receives their mail, and the project domain was the preferred carrier of
+ * that property rather than the property itself. Same shape as the artisan
+ * variety count measuring spread instead of evidence.
+ *
+ * So what is checked now: a route needing nothing configured is always present;
+ * an address is published only when MAIL_LIVE records that someone verified it
+ * receives mail; the published address is never on the domain known to have
+ * none; and llms.txt names the same mailbox the page does, byte for byte. */
+const NO_MX_DOMAIN = 'njiacareerpathways.work';
+
+test('no email address is advertised unless it has been verified to receive mail', () => {
   const m = page.match(MAILTO);
-  const live = fs.readFileSync(path.join(root, 'tools', 'build-static-pages.mjs'), 'utf8')
-    .includes('const DOMAIN_MAIL_LIVE = true;');
+  const builder = fs.readFileSync(path.join(root, 'tools', 'build-static-pages.mjs'), 'utf8');
+  const live = builder.includes('const MAIL_LIVE = true;');
 
   if (!live) {
     assert.equal(m, null,
-      `docs/index.html advertises ${m && m[1]} while DOMAIN_MAIL_LIVE is false in `
-      + 'tools/build-static-pages.mjs. njiacareerpathways.work has no MX record, so mail to it '
-      + 'bounces and the reader hears nothing — the silent dead end this page exists to close. '
-      + 'Configure the domain\'s mail, then flip the flag.');
-    assert.ok(!/mailto:[^"?]*njiacareerpathways\.work/.test(llms),
-      'llms.txt hands answer engines an address on a domain with no mail exchanger.');
-  } else {
-    assert.ok(m, 'DOMAIN_MAIL_LIVE is true but the page publishes no address.');
-    assert.ok(m[1].endsWith('@njiacareerpathways.work'),
-      `the contact address is ${m[1]}. A personal mailbox on a funder-facing page is a `
-      + 'disclosure decision that is not an agent\'s to make, and a weaker signal than the domain.');
-    assert.ok(llms.includes(m[1]),
-      'llms.txt must carry the same address the page advertises, or an answer engine sends a '
-      + 'funder to a mailbox the page does not name.');
+      `docs/index.html advertises ${m && m[1]} while MAIL_LIVE is false in `
+      + 'tools/build-static-pages.mjs. An unverified address bounces and the reader hears '
+      + 'nothing — the silent dead end this page exists to close. Verify the mailbox receives '
+      + 'mail, then flip the flag.');
+    assert.ok(!/href="mailto:/.test(llms),
+      'llms.txt hands answer engines an address the partnership page will not advertise.');
+    return;
   }
+
+  assert.ok(m, 'MAIL_LIVE is true but the page publishes no address.');
+
+  /* The specific verified negative, named rather than spelled out inline, so a
+   * future editor who configures the domain's MX has one constant to change. */
+  assert.ok(!m[1].endsWith(`@${NO_MX_DOMAIN}`),
+    `the page advertises ${m[1]}, and ${NO_MX_DOMAIN} has no mail exchanger — a DNS query for `
+    + 'MX returns NOERROR with zero answers from four independent resolvers. Mail sent there '
+    + 'bounces. Configure the domain\'s mail and re-run that query before advertising it.');
+
+  /* Not the maintainer's personal mailbox. Publishing one on a funder-facing
+   * page is a disclosure decision that belongs to a person, not to an agent,
+   * and it is a weaker signal than a project address besides. */
+  assert.ok(/^njiacareerpathways@/.test(m[1]),
+    `the contact address is ${m[1]}, which is not a project mailbox. A personal address on a `
+    + 'funder-facing page is a disclosure decision that is not an agent\'s to make.');
+
+  assert.ok(llms.includes(m[1]),
+    'llms.txt must carry the same address the page advertises, or an answer engine sends a '
+    + 'funder to a mailbox the page does not name.');
+
+  /* The page keeps the zero-configuration route even once mail works: a funder
+   * reading on a machine with no mail client still needs somewhere to answer,
+   * and the tracker is the route that cannot silently stop working. */
+  assert.match(page, /github\.com\/PapaDanico\/Njia\/issues/,
+    'the page dropped the issue tracker once an email address was published. The address is an '
+    + 'addition to the route that always works, never a replacement for it.');
 });
 
 test('all four funding routes are named on the page', () => {

@@ -773,6 +773,22 @@ function renderNjiaNumbersCard() {
    * separate record, and it now gets its own line rather than being folded in
    * to make a ratio look better. */
   const totalRecords = LANDING_STATS.courses;
+  /* THE COMPLETENESS FIGURE, AND WHY IT IS NOT "ALL FIELDS POPULATED".
+   *
+   * The obvious reading of a 100% data-integrity target is every column full.
+   * This catalogue cannot honestly reach that and should not try: Kenya
+   * publishes no per-course graduate outcomes, so employment_rate and
+   * median_salary_kes are null on all 680 records by decision, and half of
+   * Kenyan TVET publishes no fee at all. Filling those to make a dashboard read
+   * 100% is precisely how Ksh 420,000 came to sit on twelve unrelated degrees.
+   *
+   * The completeness that IS real, and is this project's whole claim: every
+   * record accounts for itself. All 680 carry a verification note, all 680 land
+   * in exactly one of the five fee bases, and all 348 with no fee say which kind
+   * of absence it is rather than leaving a blank a reader could read as free.
+   * Both figures come from LANDING_STATS, computed from the catalogue at build
+   * time, so the card falls to 679/680 the moment a record stops accounting for
+   * itself instead of continuing to advertise a number someone once typed. */
 
   return `
     <div class="landing-numbers-card">
@@ -790,6 +806,10 @@ function renderNjiaNumbersCard() {
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${FUNDING_SOURCES.length}</span>
           <span class="landing-numbers-label">funding sources tracked</span>
+        </div>
+        <div class="landing-numbers-item">
+          <span class="landing-numbers-figure">${LANDING_STATS.withNote}/${totalRecords}</span>
+          <span class="landing-numbers-label">records that state where their fee figure came from &mdash; or that there isn't one, and which kind of absence it is (${LANDING_STATS.feeAbsentStated}/${LANDING_STATS.feeAbsent}). That is the completeness Njia can promise: not every number filled in, but every number accounted for.</span>
         </div>
         <div class="landing-numbers-item">
           <span class="landing-numbers-figure">${publishedCount}/${totalRecords}</span>

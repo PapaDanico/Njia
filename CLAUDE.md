@@ -1096,6 +1096,49 @@ fee", which is not one of the four literal phrases the absence guard requires.
 Both were found by asserting the properties on the parsed data, which is the
 whole reason that rule exists.
 
+## The floor is not the catalogue, and only the floor was measured
+
+Asked why the work kept fixating on E-grade counties, the honest answer is that
+**the eligibility floor is the only coverage question in this repository with a
+ratchet, so it is the only one that ever got answered.** That is this file's own
+warning — every coverage question with a guard is answered, every one without is
+drifting — with the author of the warning as the example.
+
+Measured across the grade range for the first time, the fixation was also
+**partly redundant**: the D-blind set is 11 counties and the E-blind set is 14,
+and they are very nearly the same counties. Closing an artisan course moves both
+at once, so the marginal reader reached by the fourteenth E closure is small.
+
+What no metric here had ever asked is **how much a county holds at all**:
+
+- **Six counties list exactly two courses**, and in all six the only provider in
+  the catalogue is a **KMTC campus** — Isiolo, Lamu, Makueni, Nyamira, Tana
+  River, Vihiga.
+- KMTC teaches one national programme set at forty-odd campuses, so those are
+  not six small catalogues. They are the same two records, six times.
+- Not one of them is "blind" at the top of the range. A learner there opens
+  Njia, is shown nursing and community health, and that is the county.
+
+The floor metric is structurally unable to see this: it asks whether the
+*lowest* door in a county is open, never how many doors exist. A county with two
+courses and a county with forty are identical to it.
+
+So there are now two ratchets, in `tests/sector-coverage.test.js` — counties
+whose entire provision is a single institution, and the sharper subset whose
+only provider is a KMTC campus — and **the finding is published on `/analysis/`
+as Finding 1** rather than living in a test file. That placement is the whole
+lesson repeated: the eligibility floor went unnoticed for months precisely
+because the most decision-changing number this project held existed only as a
+constant in a test.
+
+The remaining figures, measured in the same pass and left unguarded on purpose
+because they are findings about Kenya rather than about this catalogue:
+**2.1% of fees are published by the institution for that course** (14 of 680)
+and **51.2% carry no figure at all**; `employment_rate` and `median_salary_kes`
+are null on **every single record**, which llms.txt already declares as a
+refusal rather than a gap. Agriculture remains **14.4 percentage points** below
+its share of GVA. Do not fill any of these by inference.
+
 ## The gap can be a duration, not a course name
 
 Kwale is closed. **Kinango Technical and Vocational College**, public, in Samburu

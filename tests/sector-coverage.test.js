@@ -394,6 +394,83 @@ test('no new county leaves its lowest-scoring learners with nothing', () => {
   }
 });
 
+/* A COUNTY THAT IS NOT BLIND CAN STILL BE EMPTY, AND NOTHING MEASURED THAT.
+ *
+ * This file has ratcheted the E-grade eligibility floor since the "single
+ * cluster counties" metric was retired for flattering the catalogue. It is a
+ * good metric and it was the ONLY one, which is this repository's own warning
+ * turned on itself one more time: every coverage question with a guard is
+ * answered, every one without is drifting.
+ *
+ * What drifted: SIX counties - Nyamira, Lamu, Vihiga, Makueni, Isiolo and Tana
+ * River - list exactly TWO courses each, and in every one of the six the only
+ * provider in the catalogue is a KMTC campus. None of them is "blind" by any
+ * grade measure that matters at the top of the range; a learner there simply
+ * opens Njia and finds nursing and community health, or nothing they can enter.
+ * The eligibility floor cannot see this, because a county with two courses at
+ * C+ and D+ and a county with forty look identical to a metric that only asks
+ * whether the lowest one is open.
+ *
+ * It is also why the E-floor work kept feeling productive while moving little:
+ * measured across the grade range, the D-blind set (11 counties) and the
+ * E-blind set (14) are nearly the same counties. Closing an artisan course
+ * moves both, and neither says anything about whether the county has a
+ * catalogue worth reading.
+ *
+ * TWO PROPERTIES, BOTH RATCHETED:
+ *
+ *   - the number of counties whose entire listed provision is ONE institution;
+ *   - the number whose only listed provider is a KMTC campus, which is the
+ *     sharper version of the same thing, because KMTC runs one national
+ *     programme set at forty-odd campuses. Six counties reading "2 courses"
+ *     are not six catalogues, they are one catalogue repeated six times.
+ *
+ * Neither may rise. The fix is the same one the blind counties needed and it
+ * is worth stating so nobody looks for a filter: find the county's technical
+ * college and list what it actually names. */
+const SINGLE_PROVIDER_COUNTIES = 6;
+const KMTC_ONLY_COUNTIES = 6;
+
+test('no county has its entire provision supplied by a single institution more often than before', () => {
+  const county = new Map(INSTITUTIONS.map((i) => [i.id, i.county]));
+  const nameById = new Map(INSTITUTIONS.map((i) => [i.id, i.name]));
+  const byCounty = new Map();
+  for (const c of COURSES) {
+    const name = county.get(c.institution_id);
+    if (!name) continue;
+    if (!byCounty.has(name)) byCounty.set(name, []);
+    byCounty.get(name).push(c);
+  }
+
+  const providersFor = (list) => new Set(list.map((c) => c.institution_id));
+  const single = [...byCounty]
+    .filter(([, list]) => providersFor(list).size === 1)
+    .map(([name]) => name)
+    .sort();
+
+  assert.ok(single.length <= SINGLE_PROVIDER_COUNTIES,
+    `${single.length} counties now list courses from exactly one institution, up from `
+    + `${SINGLE_PROVIDER_COUNTIES}. A county is not served because it is not blind: one `
+    + `provider is one prospectus, and a learner who cannot relocate sees the whole of it in `
+    + `a single screen. Currently single-provider: ${single.join(', ')}. The fix is an `
+    + 'institution, not a filter - search the county TVET roll-up and list what it names.');
+
+  const kmtcOnly = [...byCounty]
+    .filter(([, list]) => {
+      const ids = providersFor(list);
+      if (ids.size !== 1) return false;
+      return /KMTC|Medical Training/i.test(nameById.get([...ids][0]) || '');
+    })
+    .map(([name]) => name)
+    .sort();
+
+  assert.ok(kmtcOnly.length <= KMTC_ONLY_COUNTIES,
+    `${kmtcOnly.length} counties list nothing but a KMTC campus, up from ${KMTC_ONLY_COUNTIES}. `
+    + 'KMTC teaches one national programme set at forty-odd campuses, so these counties are not '
+    + 'small catalogues - they are the same two records repeated. '
+    + `Currently KMTC-only: ${kmtcOnly.join(', ')}.`);
+});
+
 test('every course lands in exactly one named fee basis', () => {
   /* THE GUARD THAT WAS MISSING.
    *

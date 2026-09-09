@@ -923,7 +923,7 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Fifteen remain — lower the constant when you close more. It was 23; Kakamega and
+one inside an aggregate that still looks fine. Fourteen remain — lower the constant when you close more. It was 23; Kakamega and
 Siaya were closed by re-reading an either/or in a published entry requirement
 rather than by finding new provision, and Bomet from the funding side.
 
@@ -1096,6 +1096,50 @@ fee", which is not one of the four literal phrases the absence guard requires.
 Both were found by asserting the properties on the parsed data, which is the
 whole reason that rule exists.
 
+## The gap can be a duration, not a course name
+
+Kwale is closed. **Kinango Technical and Vocational College**, public, in Samburu
+in Kinango sub-county, was never listed — the county read as blind while a
+Ministry of Education TVC sat inside it, which is the pattern this file has now
+recorded a dozen times: *the gap is almost always a missing institution*.
+
+Its artisan entry is the Sigalagala either/or for the eighth time. One source
+gives a KCSE minimum of D-, the college's own artisan requirement is "a KCPE
+certificate or equivalent", and KCPE is not marked in letter grades at all — so
+the certificate is an alternative to the grade and an E clears it. Recorded as
+open entry with the conflict in the note. Fourteen E-blind counties remain.
+
+**But two counties failed on something this file had not seen before, and it is
+worth naming because it is not the yield floor as previously described.** That
+floor was always "a confirmed institution with no sourced *course name* yields
+no record" — Nakuru three times, Embu, Elgeyo-Marakwet, Wajir South. Vihiga and
+Nyamira are a different shape:
+
+- **Ebukanga TVC (Vihiga)**, public, under the Ministry of Education, names
+  **Artisan in General Fitting** and **Artisan in Welding and Fabrication**.
+- **Borabu TVC (Nyamira)**, public, names **Artisan Certificate in Electrical
+  Installation and Wiring**, and publishes the artisan minimum as **E outright**.
+
+Course names, tier, ownership and entry are all in hand. What is missing is
+**`duration_months`**, and no record in this catalogue carries a null one — it
+is displayed to the reader and it is what scales the national public-TVET rate
+into a total. So the missing field blocks two otherwise complete records.
+
+**The tempting fix is the placeholder trap wearing new clothes.** 109 of 131
+artisan records run twelve months, so twelve is the obvious guess and it would
+be invisible in the data — which is exactly what made Ksh 420,000 on twelve
+degrees invisible. A duration is a fact about a course, and a wrong one is the
+same class of defect as a wrong fee. Searched for a national standard to cite
+the way the Ksh 67,189 rate is cited, and KUCCPS publishes none: artisan sits at
+KNQF Level 3/4 with a 300–599 hour band, and turning a band into "three months"
+is the midpoint rule this file already forbids.
+
+So both are recorded here as leads rather than as records, with the exact
+missing field named, because "search Vihiga" sends the next person over ground
+already covered. **What to search is the duration of those three named courses**
+— the college prospectus or the KUCCPS programme detail page for each, not the
+county and not the institution, both of which are done.
+
 ## Funding is a barbell, and Njia's reader is in the gap
 
 A sweep of the funding landscape — government, county, constituency, corporate,
@@ -1212,8 +1256,8 @@ guarding the claim.
 `tests/provision-analysis.test.js`. It exists because the most decision-changing
 number this project holds lived only as a constant in a test file.
 
-The finding it carries: **15 counties list nothing an E-grade leaver can enter,
-and all 15 list no artisan course at all.** It was 23 and 21 when this page
+The finding it carries: **14 counties list nothing an E-grade leaver can enter,
+and all 14 list no artisan course at all.** It was 23 and 21 when this page
 shipped; the page is generated, so it is correct by construction and this
 paragraph is the copy that goes stale. The blindness is one missing
 tier, not a high bar — which is why the fix is an institution rather than a
@@ -1309,13 +1353,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 679 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 680 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 679 notes contains a comma or a quote and the
+  optional: **every one** of the 680 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

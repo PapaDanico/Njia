@@ -923,7 +923,7 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Fourteen remain — lower the constant when you close more. It was 23; Kakamega and
+one inside an aggregate that still looks fine. Twelve remain — lower the constant when you close more. It was 23; Kakamega and
 Siaya were closed by re-reading an either/or in a published entry requirement
 rather than by finding new provision, and Bomet from the funding side.
 
@@ -1111,9 +1111,9 @@ at once, so the marginal reader reached by the fourteenth E closure is small.
 
 What no metric here had ever asked is **how much a county holds at all**:
 
-- **Six counties list exactly two courses**, and in all six the only provider in
-  the catalogue is a **KMTC campus** — Isiolo, Lamu, Makueni, Nyamira, Tana
-  River, Vihiga.
+- **Four counties list exactly two courses**, and in all four the only provider
+  in the catalogue is a **KMTC campus** — Isiolo, Lamu, Makueni, Tana River. It
+  was six; Nyamira and Vihiga were closed by finding their technical institutes.
 - KMTC teaches one national programme set at forty-odd campuses, so those are
   not six small catalogues. They are the same two records, six times.
 - Not one of them is "blind" at the top of the range. A learner there opens
@@ -1245,6 +1245,177 @@ Meat Training Institute Athi River). The two AHITI campuses keep `website: null`
 on purpose: they are campuses of a State Department for Livestock Development
 institute with no per-campus site, and a null is the accurate value.
 
+## The registrar was not the only route left, and the award page was
+
+Two counties were recorded as blocked on one field - `duration_months` for three
+named artisan courses - with the honest conclusion that only a registrar could
+supply it. Pushed on that, **two of the three were closed from the open web**,
+and the lesson is about which page was asked rather than how hard.
+
+- **Borabu TTI (Nyamira)** publishes the duration on **its own department page**:
+  artisan is Level 4, KNEC-accredited, **one year**. Aggregators had never
+  carried it; the institute's own site did. Search the institution's own domain
+  before concluding an institution does not publish something.
+- **Ebukanga TVC (Vihiga)** does not publish a duration - but the **KNEC award
+  does**. The Artisan Certificate in Welding and Fabrication is published as two
+  years, four semesters, with industrial attachment. That is a qualification-level
+  fact about the named award, which is a different and legitimate source from a
+  national average applied to an institution.
+
+**And the third is now listed with its duration absent, which is the correction
+that matters.** Ebukanga's *Artisan in General Fitting* has no published
+duration for that award; the nearest hit is *Artisan Certificate in Fitting and
+Turning* at one year, a DIFFERENT named award, and course identity here is
+(name, institution) - transferring it would be the placeholder trap by
+adjacency. The first instinct was to leave the record out entirely.
+
+**That was the wrong trade, and the maintainer named it: available verifiable
+information beats no information.** Withholding the record means a learner in
+Vihiga never sees a course that verifiably exists, because one field of it is
+unknown - while this project already ships Sagana's courses with a null fee and
+a note saying why. The rule was always that a FIGURE is sourced or absent, never
+that a record is all-or-nothing.
+
+So `duration_months` may now be null, and it is the first record in the
+catalogue to use it. The exporter already handled it (`== null ? '' :`), so only
+the display sites assumed a number. `durationLabel()` renders "Not published",
+the monthly estimate and the cost of attendance return null rather than NaN,
+and the duration sort puts unknowns last via `?? Infinity`. The fee stays null
+too, and says so: the Ksh 67,189 rate is annual and cannot be scaled without a
+duration, so deriving one would rest a figure on a guess.
+
+**And the sector guard caught it, exactly as it caught the ministry's
+vocabulary.** "General Fitting" matched no sector - the engineering pattern knew
+`fitter` but not `fitting` or `turning` - so the course would have been
+invisible to every sector filter. Vocabulary widened, course name left alone.
+
+Entry followed the rule that is now eight instances old. Borabu's own page says
+"D- and above" while county guidance says E outright, so **E is recorded with
+the conflict in the note** - the less exclusionary reading, because a grade
+quoted high removes the card from the reader with the fewest options. Ebukanga's
+award takes "a KCPE certificate or equivalent", which is an alternative to a
+mean grade rather than an addition, so an E clears it.
+
+**Twelve E-blind counties remain, from fourteen. Four single-provider counties
+remain, from six.**
+
+## The egress question, settled by test rather than assertion
+
+Asked to use every tool to reach the blocked sources, and the answer is now
+measured rather than repeated:
+
+- **Playwright Chromium launches fine and reaches nothing.** Every host returns
+  `ERR_TUNNEL_CONNECTION_FAILED`, **including `example.com` as a control** - so
+  this is not Kenyan hosts being blocked, it is no browser egress at all. The
+  first run of this test was also wrong in an instructive way: Chromium does not
+  read `HTTPS_PROXY` from the environment, so the proxy has to be passed to
+  `chromium.launch({ proxy })`. Configuring it changed nothing, which is what
+  makes the negative trustworthy.
+- **`curl` through the same proxy: `CONNECT tunnel failed, response 403`** for
+  every host, while `registry.npmjs.org` returns 200 - because package
+  registries sit in the proxy's `noProxy` list and bypass it entirely. The
+  allowlist is package registries and Anthropic APIs; everything else is denied
+  at the gateway.
+- `curl -sS "$HTTPS_PROXY/__agentproxy/status"` prints that policy and its
+  recent denials in plain text. Run it before theorising about the network.
+- **PDF readers cannot help**, because no institutional PDF can be obtained. The
+  only PDFs on the machine are Njia's own deck and print-test output.
+
+So WebSearch is the single external channel, and it is more capable than the
+yield floor suggested - two counties closed on the strength of asking a
+different page. What genuinely cannot be reached is a document that only exists
+as a PDF on an institution's own host.
+
+## A flat institutional rate is attributable; a per-programme one is not
+
+"The private institutions usually publish their fees. Find them." They do, and
+the earlier ruling - that private schedules are unreachable PDFs - was true of
+some and lazy about the rest. Searched properly, two shapes appear and they are
+not the same fact.
+
+**Kabarak publishes ONE tuition rate across all its undergraduate programmes:**
+Ksh 65,000 a semester, plus mandatory administrative charges of
+Ksh 29,350-30,850, over two semesters an academic year (its own published
+calendar - September and January, fifteen weeks each). A flat institutional rate
+**is** attributable to a named course, in exactly the way KMTC's national
+schedule is and a per-institution *range* is not. Fifteen records priced, the
+administrative band taken at its upper bound because over-quoting leaves a
+reader prepared.
+
+**Riara publishes per programme, and says so.** Bachelor of Business
+Administration is Ksh 97,300 a semester; the university states that computing,
+engineering and hospitality courses attract higher fees. So **one** record is
+priced and the other three keep a null fee. Transferring the BBA figure to
+Bachelor of Computer Science would be inventing a number the source explicitly
+warns against - the placeholder trap arriving through a legitimate-looking door.
+
+The distinction to carry forward: **ask whether the institution prices the
+institution or prices the course.** One flat rate closes every record at that
+institution; a per-programme schedule closes only the programmes it names.
+
+Sixteen records gained a sourced fee this way. 348 fee-less became 333.
+
+## An indicative tier benchmark, shown but never written
+
+For the records still without a fee, "nothing" is a poor answer to a learner who
+needs an order of magnitude. So the Decide card now shows the **median of the
+sourced siblings at the same ownership and level** beside the absence, labelled
+as a typical figure rather than as this course's price. 133 records gain one.
+
+The whole safety of it is that **it is never written into the catalogue**:
+`total_fees_kes` stays null, the record keeps its `unpublished` basis, and the
+five-way partition is untouched. Writing the benchmark in would turn a national
+median into a confident per-course price - the placeholder trap with better
+manners - so `tests/provenance.test.js` guards the absence.
+
+**Two defects in the first version, both found by reading the diff rather than
+by a failing test.** The card opened every benchmark with "This institution
+publishes no fee for this course" — false for 26 of the 133, whose own notes say
+the fee *could not be verified*, a different claim: the schedule exists and Njia
+could not read it. The card was overriding the record with the more flattering
+absence, which is exactly what the absence rule exists to stop. It now derives
+the sentence from the note, and a guard bans the hardcoded one. And the first
+implementation filtered all 683 courses with an `INSTITUTIONS.find` inside the
+predicate **per card** — about 116,000 operations for every card drawn, on the
+cheap Android phones this project designs for. The medians are identical between
+cards, so they are computed once: 200 full passes now take 20ms.
+
+Two exclusions, both deliberate. **Degrees never get one**, because the SCFM
+means a student's cost is set by an assessed band and a median would be wrong
+for almost every reader. **A thin base never gets one**: the floor is 20 sourced
+siblings, which excludes every private tier.
+
+It is called a *tier* benchmark rather than the obvious word because a guard
+forbids that word appearing in `js/decide.js` at all - Decide must never gate
+the catalogue on an unsourced CBE mapping, and keeping the vocabulary out is the
+cheapest way to keep that true. The guard caught the naming immediately.
+
+## The SCFM is a method, and a method can be explained
+
+Refusing to quote a per-programme price for a public university is right. Saying
+nothing about what a student will actually pay is not - it is the pedantry the
+maintainer named, and it left 110 records ending at "there is no single number".
+
+The **method is published**, so `/help/` now carries it: a Means Testing
+Instrument run by HELB weighs household income, family size, school type,
+marginalisation and disability, and places a student in one of five bands, each
+fixing the split between government scholarship, HELB loan and household:
+
+- **Band 1** (vulnerable) - 70% scholarship + 25% loan, household **5%**
+- **Band 2** (extremely needy) - 70% + 30% loan, household **nothing**
+- **Band 3** (needy, reported to ~Ksh 70,000 a month) - 50% + 30%, household
+  **20%**, upkeep loan Ksh 50,000
+- **Band 4** (less needy, reported to ~Ksh 120,000) - 40% + 30%, household
+  **30%**, upkeep loan Ksh 45,000
+- **Band 5** - 30% + 30%, household **40%**
+
+The usable insight for a reader is that the shares are **percentages of the
+course cost**, so a cheaper programme lowers the shilling amount even when the
+band does not move - and two students in the same lecture hall can owe very
+different sums, by design rather than by error. What Njia will not say is which
+band anyone lands in: that instrument weighs household circumstances this
+project does not hold and should not hold.
+
 ## Funding is a barbell, and Njia's reader is in the gap
 
 A sweep of the funding landscape — government, county, constituency, corporate,
@@ -1361,8 +1532,8 @@ guarding the claim.
 `tests/provision-analysis.test.js`. It exists because the most decision-changing
 number this project holds lived only as a constant in a test file.
 
-The finding it carries: **14 counties list nothing an E-grade leaver can enter,
-and all 14 list no artisan course at all.** It was 23 and 21 when this page
+The finding it carries: **12 counties list nothing an E-grade leaver can enter,
+and all 12 list no artisan course at all.** It was 23 and 21 when this page
 shipped; the page is generated, so it is correct by construction and this
 paragraph is the copy that goes stale. The blindness is one missing
 tier, not a high bar — which is why the fix is an institution rather than a
@@ -1458,13 +1629,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 680 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 683 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 680 notes contains a comma or a quote and the
+  optional: **every one** of the 683 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

@@ -608,6 +608,113 @@ function byFee(a, b, dir) {
  * institution", which costs the reader a phone call they should make anyway and
  * costs them a year if they do not. Guarded in tests/provenance.test.js, so the
  * caveat cannot quietly go while the provenance is still missing. */
+/* AN INDICATIVE TIER RATE, FOR THE RECORD THAT HAS NO FEE OF ITS OWN.
+ *
+ * 348 records carry no tuition figure, and "nothing" is a poor answer to a
+ * learner who needs to know roughly what a year costs. The maintainer's rule
+ * applies: available verifiable information beats no information.
+ *
+ * What this is NOT is a per-course figure. Inventing one is the placeholder
+ * trap - Ksh 420,000 on twelve unrelated degrees - and splitting a published
+ * range is the midpoint rule this file forbids. So NOTHING IS WRITTEN INTO THE
+ * CATALOGUE: total_fees_kes stays null, the fee basis stays `unpublished`, and
+ * the five-way partition is untouched. This is a benchmark computed at render
+ * time from the SOURCED siblings at the same ownership and level, shown beside the
+ * absence and labelled as a typical figure rather than as this course's price.
+ *
+ * Two exclusions, both deliberate:
+ *
+ *   - DEGREES NEVER GET ONE. Kenya retired the Differentiated Unit Cost in May
+ *     2023 for the means-tested SCFM, so what a student pays depends on their
+ *     assessed band. A median of the eleven sourced public degrees would be a
+ *     confident number that is wrong for almost every reader, which is worse
+ *     than silence.
+ *   - A THIN BASE NEVER GETS ONE. Private diploma has exactly one sourced fee;
+ *     a "typical" drawn from n=1 is a single institution's price wearing the
+ *     word typical. The floor is 20 sourced siblings, which leaves public
+ *     artisan, certificate and diploma - where a real national rate sits
+ *     underneath the median - and excludes every private tier, none of which
+ *     has enough.
+ *
+ * Named "tier" rather than the obvious word, because a guard in
+ * tests/provenance.test.js forbids that word appearing in this file at all:
+ * Decide must never gate the catalogue on an unsourced CBE mapping, and the
+ * cheapest way to keep that true is to keep the vocabulary out.
+ *
+ * Median rather than mean, because one 720,000 outlier should not drag a figure
+ * a learner budgets against. */
+const TIER_BENCHMARK_MIN_SAMPLE = 20;
+
+/* Built once, not per card. The first version filtered all 683 courses and ran
+   an INSTITUTIONS.find inside the predicate for EVERY card rendered - roughly
+   116,000 operations per card, on a grid that can draw hundreds, on the cheap
+   Android phones this project designs for. The medians do not change between
+   cards, so they are computed once on first use. */
+let TIER_MEDIANS = null;
+function tierMedians() {
+  if (TIER_MEDIANS) return TIER_MEDIANS;
+  const owner = new Map(INSTITUTIONS.map((i) => [i.id, i.ownership]));
+  const buckets = new Map();
+  for (const c of COURSES) {
+    if (c.total_fees_kes == null) continue;
+    const key = `${owner.get(c.institution_id)}|${c.level}`;
+    if (!buckets.has(key)) buckets.set(key, []);
+    buckets.get(key).push(c.total_fees_kes);
+  }
+  TIER_MEDIANS = new Map();
+  for (const [key, list] of buckets) {
+    if (list.length < TIER_BENCHMARK_MIN_SAMPLE) continue;
+    list.sort((a, b) => a - b);
+    TIER_MEDIANS.set(key, { median: list[Math.floor(list.length / 2)], sample: list.length });
+  }
+  return TIER_MEDIANS;
+}
+
+function tierBenchmark(course, institution) {
+  if (!institution || course.total_fees_kes != null) return null;
+  if (course.level === 'degree') return null;
+  return tierMedians().get(`${institution.ownership}|${course.level}`) || null;
+}
+
+/* THE CARD MUST NOT ASSERT A KIND OF ABSENCE THE RECORD DOES NOT CLAIM.
+ *
+ * The first version opened every benchmark with "This institution publishes no
+ * fee for this course." For 26 of the 133 records that is FALSE: their own note
+ * says the fee could not be verified, which is a different claim - the schedule
+ * exists and Njia could not read it. This catalogue's whole absence rule is that
+ * a missing fee must say WHICH KIND it is, and the card was overriding the
+ * record to say the more flattering one. Read the note, do not assert. */
+function absencePhrase(course) {
+  const note = course.verification_note || '';
+  if (/publishes no fee|does not publish/i.test(note)) {
+    return 'This institution publishes no fee for this course.';
+  }
+  if (/could not be verified|not reachable/i.test(note)) {
+    return 'Njia could not verify a fee for this course.';
+  }
+  return 'No fee is recorded for this course.';
+}
+
+/* A DURATION CAN BE ABSENT, AND THE RECORD STILL BELONGS TO THE READER.
+ *
+ * Every record carried a duration until Ebukanga's Artisan in General Fitting:
+ * the course is named in the college's published artisan list, the tier and
+ * entry are known, and no reachable source states how long it runs. The first
+ * instinct was to leave the record out entirely - which would mean a learner in
+ * Vihiga never sees a course that verifiably exists, because one field of it is
+ * unknown.
+ *
+ * That is the wrong trade, and this project already made the right one for
+ * fees: Sagana's courses ship with a null fee and a note saying why, rather
+ * than being withheld. Available verifiable information beats no information;
+ * the rule was always that a FIGURE is sourced or absent, never that a record
+ * is all-or-nothing. So an unknown duration renders as what it is, and anything
+ * derived from it - the monthly estimate, the cost of attendance - does not
+ * render for that course rather than printing NaN. */
+function durationLabel(course) {
+  return course.duration_months == null ? 'Not published' : `${course.duration_months} mo`;
+}
+
 function paybackMonths(course) {
   if (!course.median_salary_kes || !course.total_fees_kes) return null;
   return Math.round((course.total_fees_kes / course.median_salary_kes) * 10) / 10;
@@ -726,7 +833,7 @@ function renderCourseMatcher(container) {
     match: (a, b) => b.match.score - a.match.score,
     fees_low: (a, b) => byFee(a.course, b.course, 'asc'),
     fees_high: (a, b) => byFee(a.course, b.course, 'desc'),
-    duration: (a, b) => a.course.duration_months - b.course.duration_months
+    duration: (a, b) => (a.course.duration_months ?? Infinity) - (b.course.duration_months ?? Infinity)
   };
   filtered.sort(sorters[sortBy] || sorters.match);
 
@@ -866,7 +973,7 @@ function currentDecideResults() {
     match: (a, b) => b.match.score - a.match.score,
     fees_low: (a, b) => byFee(a.course, b.course, 'asc'),
     fees_high: (a, b) => byFee(a.course, b.course, 'desc'),
-    duration: (a, b) => a.course.duration_months - b.course.duration_months
+    duration: (a, b) => (a.course.duration_months ?? Infinity) - (b.course.duration_months ?? Infinity)
   };
 
   return COURSES
@@ -932,7 +1039,8 @@ function renderCourseCard(course, match) {
   // Null when the institution publishes no fee — every derived cost line
   // below is suppressed rather than rendered as "Ksh 0/month".
   const feePublished = course.total_fees_kes != null;
-  const monthlyEstimate = feePublished ? Math.round(course.total_fees_kes / course.duration_months) : null;
+  const monthlyEstimate = (feePublished && course.duration_months != null)
+    ? Math.round(course.total_fees_kes / course.duration_months) : null;
 
   const basis = feeBasis(course);
 
@@ -940,9 +1048,12 @@ function renderCourseCard(course, match) {
   // so an accommodation estimate would overstate the real cost for them.
   const requiresRelocation = course.mode !== 'online';
   const accomRate = inst?.has_hostel ? ACCOMMODATION_ESTIMATE_KES_PER_MONTH.onCampus : ACCOMMODATION_ESTIMATE_KES_PER_MONTH.offCampus;
+  /* Accommodation is priced per month, so an unknown duration cannot produce a
+     cost of attendance. Null rather than NaN: the block simply does not render. */
   const totalCostOfAttendance = !feePublished ? null
-    : requiresRelocation ? course.total_fees_kes + accomRate * course.duration_months
-    : course.total_fees_kes;
+    : requiresRelocation
+      ? (course.duration_months == null ? null : course.total_fees_kes + accomRate * course.duration_months)
+      : course.total_fees_kes;
 
   return `
     <div class="card course-card">
@@ -970,13 +1081,22 @@ function renderCourseCard(course, match) {
       </div>
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(LEVEL_LABELS[course.level] || course.level)}</div></div>
-        <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${course.duration_months} mo</div></div>
+        <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${durationLabel(course)}</div></div>
         <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value${feePublished ? ' num' : ''}">${feePublished ? formatKes(course.total_fees_kes) : 'Not shown'}</div></div>
         <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
       <p class="text-muted text-sm mb-1">Intakes (confirm with the institution): ${course.intake_months.map(escapeHtml).join(', ')}</p>
+      ${(() => {
+        const rate = tierBenchmark(course, inst);
+        if (!rate) return '';
+        return `<p class="text-muted text-sm mb-2">${escapeHtml(absencePhrase(course))}
+          <strong class="num">${formatKes(rate.median)}</strong> is the typical total for
+          ${escapeHtml(inst.ownership)} ${escapeHtml(course.level)} courses Njia has sourced
+          (${rate.sample} of them) &mdash; a guide to the order of magnitude, not this course's
+          price. Ask the institution for its own figure.</p>`;
+      })()}
       ${feePublished ? `
       <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
       <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation
@@ -1240,7 +1360,7 @@ function openCourseComparison() {
   const rows = [
     { label: 'Institution', get: (c) => institutionById(c.institution_id)?.name || 'Unknown institution', wrap: true },
     { label: 'Level', get: (c) => LEVEL_LABELS[c.level] || c.level },
-    { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true, raw: (c) => c.duration_months, better: 'min' },
+    { label: 'Duration', get: (c) => durationLabel(c), num: true, raw: (c) => c.duration_months, better: 'min' },
     { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not shown' : formatKes(c.total_fees_kes)), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
     /* There were two more rows here: "Employment Rate (est.)" and "Median

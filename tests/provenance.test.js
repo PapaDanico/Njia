@@ -2048,3 +2048,71 @@ test('unsourced intake months are not presented as fact', () => {
       + 'not costs them a year, which is the eligibility direction, not the fee direction.');
   }
 });
+
+/* AN INDICATIVE PATHWAY RATE MAY BE SHOWN, BUT NEVER WRITTEN.
+ *
+ * The card offers a benchmark beside a missing fee - the median of the sourced
+ * siblings on that pathway - because "nothing" is a poor answer to a learner
+ * who needs an order of magnitude. The whole safety of it is that it is a
+ * RENDER-TIME figure: the catalogue keeps a null fee, the record keeps its
+ * `unpublished` basis, and the five-way partition is untouched. If a future
+ * edit ever writes the benchmark into total_fees_kes, the reader would see a
+ * confident per-course price with a national median behind it - which is the
+ * placeholder trap with better manners.
+ *
+ * So this asserts the two properties that keep it honest: degrees never get one
+ * (the SCFM means a student's cost is set by an assessed band, so a median is
+ * wrong for almost everyone), and a thin base never does. */
+test('the indicative tier benchmark is rendered, never written into the catalogue', () => {
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+
+  assert.match(decide, /if \(course\.level === 'degree'\) return null;/,
+    'tierBenchmark() no longer excludes degrees. Kenya retired the Differentiated Unit Cost in May '
+    + '2023 for the means-tested SCFM, so a median of the few sourced public degrees is a '
+    + 'confident figure that is wrong for almost every reader — worse than showing nothing.');
+
+  /* THE CARD MAY NOT ASSERT A KIND OF ABSENCE THE RECORD DOES NOT CLAIM.
+   *
+   * The benchmark's first version opened every one of the 133 records with
+   * "This institution publishes no fee for this course." For 26 of them that
+   * was false - their own note says the fee could not be VERIFIED, a different
+   * claim: the schedule exists and Njia could not read it. The card was
+   * overriding the record with the more flattering absence, which is the exact
+   * thing the absence rule exists to stop. Found by reading the diff, not by a
+   * failing test. */
+  assert.match(decide, /function absencePhrase\(course\)/,
+    'the benchmark no longer derives its opening sentence from the record\'s own note. A card '
+    + 'that asserts "publishes no fee" over a note saying "could not be verified" tells the '
+    + 'reader the wrong kind of absence.');
+  assert.ok(!/>This institution publishes no fee for this course\./.test(decide),
+    'the card hardcodes one kind of absence again. Use absencePhrase(course).');
+
+  assert.match(decide, /TIER_BENCHMARK_MIN_SAMPLE = \d+/,
+    'the minimum sample for a tier benchmark is gone. A "typical" figure drawn from one or two '
+    + 'sourced records is a single institution\'s price wearing the word typical.');
+
+  /* The catalogue itself must not have gained the benchmark. The precise
+   * invariant is that a record classified `unpublished` still carries a null
+   * fee: if the render-time guide is ever written in, that is where it lands
+   * and the classification and the figure would disagree.
+   *
+   * An earlier draft of this check matched absence PHRASES in the note and
+   * flagged five records at Taita Taveta National Polytechnic that carry the
+   * legitimate derived national rate - their notes say the ENTRY BAR was not
+   * reachable, not the fee. The wrong question, not wrong data. */
+  const TIER_MEDIANS = new Set([67189, 82200, 190000]);
+  /* FEE-SPECIFIC PHRASING ONLY. The first draft matched `not reachable` too and
+   * flagged five Taita Taveta records whose notes say the ENTRY BAR was
+   * unreachable while their fee is the legitimate derived national rate. */
+  const saysNoFee = /publishes no (?:per-course )?fee|does not publish a (?:single )?(?:per-programme )?(?:price|fee)/i;
+  const written = COURSES
+    .filter((c) => c.total_fees_kes != null && TIER_MEDIANS.has(c.total_fees_kes)
+      && saysNoFee.test(c.verification_note || ''))
+    .map((c) => `${c.id} ${c.name} (${c.total_fees_kes})`);
+
+  assert.equal(written.join('; '), '',
+    'these records say their institution publishes no fee yet carry a tier median as one: ' + written.join('; ')
+    + '. The tier benchmark is a render-time guide shown beside an absence, never a value '
+    + 'written into the catalogue — writing it would turn a national median into a confident '
+    + 'per-course price, which is the placeholder trap with better manners.');
+});

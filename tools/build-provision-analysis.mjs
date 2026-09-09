@@ -162,6 +162,25 @@ const noArtisanSet = new Set(noArtisan.map((c) => c.county));
 /* The two failures are different problems with different fixes, so they are
    reported apart. See the header comment. */
 const blindNoTier = blindE.filter((c) => noArtisanSet.has(c.county));
+
+/* DEPTH, WHICH NO METRIC HERE HAD EVER ASKED ABOUT.
+ *
+ * Every figure above measures the FLOOR — whether the lowest-entry course in a
+ * county is reachable. A county with two courses and a county with forty look
+ * identical to it as long as both have one open door. Six counties list exactly
+ * two courses, and in all six the only provider is a KMTC campus, which teaches
+ * one national programme set at forty-odd campuses: those are not six small
+ * catalogues, they are the same two records six times over. Published here
+ * rather than left in a test file, because that is precisely how the eligibility
+ * floor went unnoticed for so long. */
+const providersFor = (county) => new Set(
+  COURSES.filter((c) => instById.get(c.institution_id)?.county === county)
+    .map((c) => c.institution_id));
+const singleProvider = counties.filter((c) => providersFor(c.county).size === 1);
+const kmtcOnly = singleProvider.filter((c) => {
+  const only = [...providersFor(c.county)][0];
+  return /KMTC|Medical Training/i.test(instById.get(only)?.name || '');
+});
 const blindTierTooHigh = blindE.filter((c) => !noArtisanSet.has(c.county));
 
 const totals = {
@@ -378,13 +397,33 @@ that better filtering would solve. It is one missing tier.</p>
   <div class="fig"><b>${blindE.length}</b><span>counties with nothing an E-grade leaver can enter</span></div>
   <div class="fig"><b>${blindNoTier.length}</b><span>of those list no artisan course at all</span></div>
   <div class="fig"><b>${blindD.length}</b><span>counties still closed to a learner with a D</span></div>
+  <div class="fig"><b>${singleProvider.length}</b><span>counties whose entire listed provision is one institution</span></div>
   <div class="fig"><b>${totals.published}</b><span>of ${totals.courses} fees published by the institution for that course</span></div>
 </div>
 
 <p><a class="cta" href="/analysis/njia-county-provision.csv" download>Download this table as CSV</a>
 <a class="cta" href="/open-data/">The full catalogue</a></p>
 
-<h2>Finding 1 — the blindness is a missing tier, not a high bar</h2>
+<h2>Finding 1 — a county can be open and still be nearly empty</h2>
+
+<p><strong>${singleProvider.length} counties have their entire listed provision from a single
+institution</strong>${kmtcOnly.length === singleProvider.length ? ', and in every one of them that institution is a KMTC campus' : `, and in ${kmtcOnly.length} of them that institution is a KMTC campus`}:
+${nameList(singleProvider)}.</p>
+
+<p>This is a different failure from the closed counties below, and until this
+edition nothing here measured it. Every other figure on this page asks whether
+the <em>lowest</em> door in a county is open. None of them asks how many doors
+there are. A learner in one of these counties is not shown a short list — they
+are shown one prospectus, and KMTC runs one national programme set across
+forty-odd campuses, so the two records they see are the same two records their
+neighbours in the next county see.</p>
+
+<p class="caveat-inline">As everywhere on this page, a small number describes
+<strong>Njia's catalogue</strong> and not the county. These counties run
+technical and vocational provision that this catalogue has not yet listed;
+the worklist is Njia's.</p>
+
+<h2>Finding 2 — the blindness is a missing tier, not a high bar</h2>
 
 <p>Level 4 (artisan) is the only qualification a learner with an E can enter.
 KUCCPS places at E for artisan; craft certificate generally opens at D and
@@ -413,7 +452,7 @@ ${blindNoTier.length}: the remedy is to confirm with the institution whether an
 E is in practice admitted, not to go looking for a college that is already
 listed.</p>
 
-<h2>Finding 2 — almost nobody publishes a course fee</h2>
+<h2>Finding 3 — almost nobody publishes a course fee</h2>
 
 <p><strong>${totals.published} of ${totals.courses} course fees in this catalogue
 were published by the institution for that specific course.</strong> Only

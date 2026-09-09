@@ -52,10 +52,9 @@ available in the county" — the difference is the whole point.
 Corrections are welcome and are the reason the data is published. Use the
 feedback link in the app and quote the course_id.
 
-Partnership, licensing and funding enquiries go to the project's issue tracker
-at https://github.com/PapaDanico/Njia/issues, which also takes catalogue
-corrections. Njia does not advertise an email address: the project domain has no
-mail exchanger configured, so anything sent to one would bounce silently. Njia is
+Partnership, licensing and funding enquiries go to njiacareerpathways@gmail.com, or to
+the issue tracker at https://github.com/PapaDanico/Njia/issues, which also takes
+catalogue corrections and needs no account of ours to reach. Njia is
 free to learners and funded from the institutional side. Payment never affects
 ranking, ordering, a fee basis or an entry grade, and a paid listing is disclosed
 as one — see https://njiacareerpathways.work/docs/ for what money cannot buy here.

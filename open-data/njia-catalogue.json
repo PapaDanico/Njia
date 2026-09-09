@@ -3549,9 +3549,9 @@
       "min_grade": "C-",
       "open_entry": "no",
       "duration_months": 24,
-      "tuition_kes": "",
-      "fee_basis": "unpublished",
-      "verification_note": "Entry requirement is a KCSE mean grade of C- with C- in Biology or Biological Sciences, per the Kenya Veterinary Board's published minimum entry requirements for animal health courses and the institute's own listing. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. AHITI also advertises artisan and short courses at this campus, but no artisan course is named in any source reachable from this build, so none is listed here rather than a plausible name being invented."
+      "tuition_kes": 136700,
+      "fee_basis": "derived",
+      "verification_note": "Entry requirement is a KCSE mean grade of C- with C- in Biology or Biological Sciences, per the Kenya Veterinary Board's published minimum entry requirements for animal health courses and the institute's own listing. The fee is the total for the two-year course as published in the Ministry of Agriculture and Livestock Development's 2026 training advertisement for the institutes of the State Department for Livestock Development, which names this course, this institute and this fee together — the same certificate runs at AHITI Ndomba, AHITI Kabete and AHITI Nyahururu at this rate. It excludes the non-refundable Ksh 1,000 application fee; confirm accommodation, examination and attachment charges with the principal. AHITI also advertises artisan and short courses at this campus, but no artisan course is named in any source reachable from this build, so none is listed here rather than a plausible name being invented."
     },
     {
       "course_id": "c696",
@@ -4013,9 +4013,9 @@
       "min_grade": "D",
       "open_entry": "no",
       "duration_months": 12,
-      "tuition_kes": "",
-      "fee_basis": "unpublished",
-      "verification_note": "The institute publishes its ladder as \"C- and above for Diploma; D plain and above for Certificate; other course categories are open\", so a KCSE mean grade of D plain is recorded for the certificate tier. Course named in the State Department for Livestock Development 2026 training intake advertisement (Ministry of Agriculture and Livestock Development), reported by The Kenya Times and Education News Hub, and cross-read against the institute course listings on colleges.co.ke and Elimu Centre, September 2026. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. The open tier is real but no artisan course is named in any reachable source, so none is listed."
+      "tuition_kes": 45000,
+      "fee_basis": "derived",
+      "verification_note": "The institute publishes its ladder as \"C- and above for Diploma; D plain and above for Certificate; other course categories are open\", so a KCSE mean grade of D plain is recorded for the certificate tier. Course named in the State Department for Livestock Development 2026 training intake advertisement (Ministry of Agriculture and Livestock Development), reported by The Kenya Times and Education News Hub, and cross-read against the institute course listings on colleges.co.ke and Elimu Centre, September 2026. The fee is the course fee published in the Ministry of Agriculture and Livestock Development's 2026 training advertisement for the institutes of the State Department for Livestock Development, which names this course, this institute and this fee together. It excludes the non-refundable Ksh 1,000 application fee; confirm with the institute what else it covers and how long the course runs, since the advertisement prices the course without stating its duration. The open tier is real but no artisan course is named in any reachable source, so none is listed."
     },
     {
       "course_id": "c703",
@@ -4045,9 +4045,9 @@
       "min_grade": "D",
       "open_entry": "no",
       "duration_months": 12,
-      "tuition_kes": "",
-      "fee_basis": "unpublished",
-      "verification_note": "The institute publishes its ladder as \"C- and above for Diploma; D plain and above for Certificate; other course categories are open\", so a KCSE mean grade of D plain is recorded for the certificate tier. Course named in the State Department for Livestock Development 2026 training intake advertisement (Ministry of Agriculture and Livestock Development), reported by The Kenya Times and Education News Hub, and cross-read against the institute course listings on colleges.co.ke and Elimu Centre, September 2026. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. The open tier is real but no artisan course is named in any reachable source, so none is listed."
+      "tuition_kes": 45000,
+      "fee_basis": "derived",
+      "verification_note": "The institute publishes its ladder as \"C- and above for Diploma; D plain and above for Certificate; other course categories are open\", so a KCSE mean grade of D plain is recorded for the certificate tier. Course named in the State Department for Livestock Development 2026 training intake advertisement (Ministry of Agriculture and Livestock Development), reported by The Kenya Times and Education News Hub, and cross-read against the institute course listings on colleges.co.ke and Elimu Centre, September 2026. The fee is the course fee published in the Ministry of Agriculture and Livestock Development's 2026 training advertisement for the institutes of the State Department for Livestock Development, which names this course, this institute and this fee together. It excludes the non-refundable Ksh 1,000 application fee; confirm with the institute what else it covers and how long the course runs, since the advertisement prices the course without stating its duration. The open tier is real but no artisan course is named in any reachable source, so none is listed."
     },
     {
       "course_id": "c699",

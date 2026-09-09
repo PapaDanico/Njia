@@ -2116,3 +2116,33 @@ test('the indicative tier benchmark is rendered, never written into the catalogu
     + 'written into the catalogue — writing it would turn a national median into a confident '
     + 'per-course price, which is the placeholder trap with better manners.');
 });
+
+/* A FEE AND ITS OWN ABSENCE NOTE CANNOT BOTH BE TRUE.
+ *
+ * A script that resolved three fees from a ministry advertisement changed
+ * `total_fees_kes` and left the notes alone, because its replacement pattern
+ * expected a record to end `" }` when every record here ends `" },`. It
+ * printed "records touched: 3" and produced three cards showing a precise
+ * figure above the sentence "No figure is shown rather than an invented one".
+ * That is worse than either state alone: the reader is told the number is
+ * withheld while reading it.
+ *
+ * The sentence guarded here is only ever written about the record carrying it.
+ * The broader absence phrases are NOT usable for this: several notes correctly
+ * say that a SIBLING record keeps a null fee - Bukura's certificate explaining
+ * why its diplomas are unpriced, Riara's BBA explaining why its figure is not
+ * transferred - and a guard aimed at the vocabulary rather than at the claim
+ * would fail on both, which is the over-broad-note trap this file already
+ * records. */
+test('a record with a fee does not also say its fee is withheld', () => {
+  const offenders = COURSES
+    .filter((c) => c.total_fees_kes != null
+      && /No figure is shown rather than an invented one/.test(c.verification_note || ''))
+    .map((c) => `${c.id} (${c.name}) shows Ksh ${c.total_fees_kes}`);
+
+  assert.equal(offenders.join('\n'), '',
+    'These records display a fee and a note saying no figure is shown:\n'
+    + offenders.join('\n')
+    + '\nA script that sets a fee must rewrite the absence sentence in the same pass. '
+    + 'Verify what a script did to the parsed data, never what it reported.');
+});

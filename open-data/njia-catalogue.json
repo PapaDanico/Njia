@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 680,
-  "institution_count": 169,
+  "course_count": 683,
+  "institution_count": 171,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -8914,6 +8914,22 @@
       "verification_note": "Maasai Mara University is a public chartered university and had not been listed here at all. Programme named in its published course listing. It does not publish a single per-programme price: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which what a student pays is set by an assessed means band, so no fee is shown rather than a guessed one. Degrees are placed through KUCCPS at the national minimum of a KCSE mean grade of C+, with cluster-point cut-offs that move every cycle - so C+ is the floor to be eligible to apply rather than a guarantee of a place."
     },
     {
+      "course_id": "c706",
+      "course_name": "Artisan in Electrical Installation and Wiring",
+      "institution": "Borabu Technical Training Institute",
+      "institution_id": "borabu_tti",
+      "county": "Nyamira",
+      "ownership": "public",
+      "level": "artisan",
+      "cluster": "maker",
+      "min_grade": "",
+      "open_entry": "yes",
+      "duration_months": 12,
+      "tuition_kes": 67189,
+      "fee_basis": "derived",
+      "verification_note": "Programme named on Borabu Technical Training Institute's own Electrical and Electronics department page (borabutti.ac.ke), which states the artisan tier is Level 4, KNEC-accredited, and runs for ONE YEAR - the duration recorded here, read from the institution rather than inferred from a national standard, because KNEC publishes no single artisan duration (one year at some institutions, two with industrial attachment at others). ENTRY: sources conflict. The county TVET guidance gives Borabu's artisan minimum as E outright; the institute's own page states \"a mean grade of D- and above\". E is recorded, which is the KUCCPS national artisan floor and the less exclusionary reading - quoting the stricter figure would remove this card from the screen of the reader with the fewest options, who could then not even ring up to ask. Confirm with the institute before travelling. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to the twelve-month duration. Borabu is a public institution on that national rate; it bills per term and the NITA/KNEC examination charge is separate. Confirm with the registrar."
+    },
+    {
       "course_id": "c097",
       "course_name": "Certificate in Community Health Assistant",
       "institution": "Kenya Medical Training College (KMTC) — Nyamira Campus",
@@ -10672,6 +10688,38 @@
       "tuition_kes": 33595,
       "fee_basis": "illustrative",
       "verification_note": "This sub-year course sits under the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026); the figure shown pro-rates that rate across six months, but short courses are often billed per term rather than pro-rated, so it remains an estimate - confirm with the registrar. This record previously carried an uncited figure with no basis at all."
+    },
+    {
+      "course_id": "c708",
+      "course_name": "Artisan in General Fitting",
+      "institution": "Ebukanga Technical and Vocational College",
+      "institution_id": "ebukanga_tvc",
+      "county": "Vihiga",
+      "ownership": "public",
+      "level": "artisan",
+      "cluster": "maker",
+      "min_grade": "",
+      "open_entry": "yes",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Programme named in Ebukanga Technical and Vocational College's published artisan list as Artisan in General Fitting (KNEC), offered for a maximum of 20 trainees. The college is publicly managed under the Ministry of Education and TVETA-accredited at Diploma, Craft and Artisan levels. DURATION IS NOT PUBLISHED and is shown as absent rather than guessed. KNEC publishes no single artisan duration - one year for some awards, two years with industrial attachment for others - and the nearest published figure, one year for the Artisan Certificate in Fitting and Turning, is a DIFFERENT named award. Course identity here is (name, institution), so that figure is not transferred. Entry: the college states its artisan tier takes a KCSE mean grade of D- or below, and the KNEC artisan minimum is a KCPE certificate or equivalent - an alternative to a mean grade rather than an addition to it, so a learner holding an E clears the published bar and the tier is recorded as open entry. Fee could not be verified: the public-TVET rate of Ksh 67,189 is annual and cannot be scaled without a duration, so no figure is shown rather than a derived one resting on a guess. Ask the registrar for the length and the current fee."
+    },
+    {
+      "course_id": "c707",
+      "course_name": "Artisan in Welding and Fabrication",
+      "institution": "Ebukanga Technical and Vocational College",
+      "institution_id": "ebukanga_tvc",
+      "county": "Vihiga",
+      "ownership": "public",
+      "level": "artisan",
+      "cluster": "maker",
+      "min_grade": "",
+      "open_entry": "yes",
+      "duration_months": 24,
+      "tuition_kes": 134378,
+      "fee_basis": "derived",
+      "verification_note": "Programme named in Ebukanga Technical and Vocational College's published artisan list (the college is publicly managed under the Ministry of Education and TVETA-accredited at Diploma, Craft and Artisan levels). DURATION comes from the KNEC AWARD rather than from the college: the Artisan Certificate in Welding and Fabrication (KNEC) is published as two years, four semesters, including industrial attachment. That is a qualification-level fact about the named award, not a national average applied to an institution - KNEC publishes no single artisan duration, so a figure was taken only where the specific award states one. ENTRY: the award's published minimum is \"a KCPE certificate, or equivalent qualification approved by KNEC\", and the college's artisan tier is described as taking a KCSE mean grade of D- or below. A KCPE certificate is an ALTERNATIVE to the KCSE grade rather than an addition to it - KCPE is not marked in letter grades - so a learner holding an E clears the published bar and the tier is recorded as open entry. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026), scaled to the twenty-four-month duration. Confirm with the registrar; the college's own schedule was not reachable from this build."
     },
     {
       "course_id": "c129",

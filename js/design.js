@@ -148,7 +148,7 @@ function renderOdysseyAnchors(plan) {
         </select>
       </div>
     </div>
-    ${course ? `<p class="text-muted text-sm mb-2">${icon('pin')} ${escapeHtml(inst ? inst.name : 'Unknown institution')} · <span class="num">${course.duration_months} mo</span> · <span class="num">${formatKes(course.total_fees_kes)}</span> tuition · min grade <span class="num">${escapeHtml(course.min_grade || 'None')}</span> — figures from the Decide catalogue, illustrative pending verification.</p>` : ''}
+    ${course ? `<p class="text-muted text-sm mb-2">${icon('pin')} ${escapeHtml(inst ? inst.name : 'Unknown institution')} · <span class="num">${course.duration_months == null ? 'Duration not published' : course.duration_months + ' mo'}</span> · <span class="num">${formatKes(course.total_fees_kes)}</span> tuition · min grade <span class="num">${escapeHtml(course.min_grade || 'None')}</span> — figures from the Decide catalogue, illustrative pending verification.</p>` : ''}
   `;
 }
 

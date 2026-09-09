@@ -608,6 +608,26 @@ function byFee(a, b, dir) {
  * institution", which costs the reader a phone call they should make anyway and
  * costs them a year if they do not. Guarded in tests/provenance.test.js, so the
  * caveat cannot quietly go while the provenance is still missing. */
+/* A DURATION CAN BE ABSENT, AND THE RECORD STILL BELONGS TO THE READER.
+ *
+ * Every record carried a duration until Ebukanga's Artisan in General Fitting:
+ * the course is named in the college's published artisan list, the tier and
+ * entry are known, and no reachable source states how long it runs. The first
+ * instinct was to leave the record out entirely - which would mean a learner in
+ * Vihiga never sees a course that verifiably exists, because one field of it is
+ * unknown.
+ *
+ * That is the wrong trade, and this project already made the right one for
+ * fees: Sagana's courses ship with a null fee and a note saying why, rather
+ * than being withheld. Available verifiable information beats no information;
+ * the rule was always that a FIGURE is sourced or absent, never that a record
+ * is all-or-nothing. So an unknown duration renders as what it is, and anything
+ * derived from it - the monthly estimate, the cost of attendance - does not
+ * render for that course rather than printing NaN. */
+function durationLabel(course) {
+  return course.duration_months == null ? 'Not published' : `${course.duration_months} mo`;
+}
+
 function paybackMonths(course) {
   if (!course.median_salary_kes || !course.total_fees_kes) return null;
   return Math.round((course.total_fees_kes / course.median_salary_kes) * 10) / 10;
@@ -726,7 +746,7 @@ function renderCourseMatcher(container) {
     match: (a, b) => b.match.score - a.match.score,
     fees_low: (a, b) => byFee(a.course, b.course, 'asc'),
     fees_high: (a, b) => byFee(a.course, b.course, 'desc'),
-    duration: (a, b) => a.course.duration_months - b.course.duration_months
+    duration: (a, b) => (a.course.duration_months ?? Infinity) - (b.course.duration_months ?? Infinity)
   };
   filtered.sort(sorters[sortBy] || sorters.match);
 
@@ -866,7 +886,7 @@ function currentDecideResults() {
     match: (a, b) => b.match.score - a.match.score,
     fees_low: (a, b) => byFee(a.course, b.course, 'asc'),
     fees_high: (a, b) => byFee(a.course, b.course, 'desc'),
-    duration: (a, b) => a.course.duration_months - b.course.duration_months
+    duration: (a, b) => (a.course.duration_months ?? Infinity) - (b.course.duration_months ?? Infinity)
   };
 
   return COURSES
@@ -932,7 +952,8 @@ function renderCourseCard(course, match) {
   // Null when the institution publishes no fee — every derived cost line
   // below is suppressed rather than rendered as "Ksh 0/month".
   const feePublished = course.total_fees_kes != null;
-  const monthlyEstimate = feePublished ? Math.round(course.total_fees_kes / course.duration_months) : null;
+  const monthlyEstimate = (feePublished && course.duration_months != null)
+    ? Math.round(course.total_fees_kes / course.duration_months) : null;
 
   const basis = feeBasis(course);
 
@@ -940,9 +961,12 @@ function renderCourseCard(course, match) {
   // so an accommodation estimate would overstate the real cost for them.
   const requiresRelocation = course.mode !== 'online';
   const accomRate = inst?.has_hostel ? ACCOMMODATION_ESTIMATE_KES_PER_MONTH.onCampus : ACCOMMODATION_ESTIMATE_KES_PER_MONTH.offCampus;
+  /* Accommodation is priced per month, so an unknown duration cannot produce a
+     cost of attendance. Null rather than NaN: the block simply does not render. */
   const totalCostOfAttendance = !feePublished ? null
-    : requiresRelocation ? course.total_fees_kes + accomRate * course.duration_months
-    : course.total_fees_kes;
+    : requiresRelocation
+      ? (course.duration_months == null ? null : course.total_fees_kes + accomRate * course.duration_months)
+      : course.total_fees_kes;
 
   return `
     <div class="card course-card">
@@ -970,7 +994,7 @@ function renderCourseCard(course, match) {
       </div>
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(LEVEL_LABELS[course.level] || course.level)}</div></div>
-        <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${course.duration_months} mo</div></div>
+        <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${durationLabel(course)}</div></div>
         <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value${feePublished ? ' num' : ''}">${feePublished ? formatKes(course.total_fees_kes) : 'Not shown'}</div></div>
         <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
       </div>
@@ -1240,7 +1264,7 @@ function openCourseComparison() {
   const rows = [
     { label: 'Institution', get: (c) => institutionById(c.institution_id)?.name || 'Unknown institution', wrap: true },
     { label: 'Level', get: (c) => LEVEL_LABELS[c.level] || c.level },
-    { label: 'Duration', get: (c) => `${c.duration_months} mo`, num: true, raw: (c) => c.duration_months, better: 'min' },
+    { label: 'Duration', get: (c) => durationLabel(c), num: true, raw: (c) => c.duration_months, better: 'min' },
     { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not shown' : formatKes(c.total_fees_kes)), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
     /* There were two more rows here: "Employment Rate (est.)" and "Median

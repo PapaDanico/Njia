@@ -469,7 +469,7 @@ function coursePage(county, rows) {
           <td class="tok">${esc(LEVEL_LABEL[c.level] || c.level)}</td>
           <td class="tok">${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
           <td class="tok">${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td>
-          <td class="tok">${c.duration_months} mo</td>
+          <td class="tok">${c.duration_months == null ? 'Not published' : c.duration_months + ' mo'}</td>
         </tr>`).join('');
 
   /* ItemList of Course, which is what this page actually is. Only fields that

@@ -1183,6 +1183,52 @@ already covered. **What to search is the duration of those three named courses**
 — the college prospectus or the KUCCPS programme detail page for each, not the
 county and not the institution, both of which are done.
 
+## The field audit: two dead columns, and one live claim with no provenance
+
+Asked for *data* gaps rather than eligibility ones, the right instrument is
+field completeness across every record, and it found three different things
+that look alike and are not.
+
+**Honest absence.** `employment_rate` and `median_salary_kes` are null on all
+680 records. Every one was invented, all were removed, and `llms.txt` declares
+the refusal outright because Kenya publishes no per-course graduate outcomes.
+`paybackMonths()` therefore returns null for every course — and it stays,
+documented and unit-tested, because it is correct arithmetic waiting for
+evidence rather than dead code. Read the comment before deleting it.
+
+**Honest repetition.** 43 records share a description and 44 a career-path
+list. That is not the placeholder pattern: KMTC teaches one national curriculum
+at forty-odd campuses, so identical text is the *true* answer. The repeated-fee
+guard exists because a repeated **number** is indefensible; repeated prose about
+one national programme is not. Do not "fix" it.
+
+**And the real gap: `intake_months` is the only claim on a course card with no
+provenance at all.** All 680 records carry it, 364 the same
+`["January","May","September"]`, twelve distinct patterns across the catalogue —
+and **not one record has an intake source or verification field**. That is the
+shape of a TVET intake cycle rather than a set of published calendars, which is
+precisely what `closes 2026-09-30` was to a September intake. The placement
+calendar got `source` and `verified` after that incident; the per-course intakes
+never did, and there are 680 of them against one calendar row.
+
+It errs in the exclusionary direction as well: over-quote a fee and the reader
+is prepared, but tell them a college runs a May intake when it only takes
+September and they arrive at a door that will not open, a year late. That is the
+eligibility direction, where this project under-claims.
+
+Sourcing 680 records is not available — the yield floor established across a
+dozen counties is that institutional calendars sit in PDFs on egress-blocked
+hosts. So the fix is the one this file already prescribes when research fails:
+**stop stating it as fact.** The card now reads "Intakes (confirm with the
+institution)", and `tests/provenance.test.js` fails if that caveat goes while no
+record carries intake provenance — so sourcing the months is what removes the
+hedge, not editing the string.
+
+Two institution websites were found and added in the same pass (Mandera TTI,
+Meat Training Institute Athi River). The two AHITI campuses keep `website: null`
+on purpose: they are campuses of a State Department for Livestock Development
+institute with no per-campus site, and a null is the accurate value.
+
 ## Funding is a barbell, and Njia's reader is in the gap
 
 A sweep of the funding landscape — government, county, constituency, corporate,

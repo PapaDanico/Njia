@@ -2022,3 +2022,29 @@ test('nothing renders the retired logo bitmaps', () => {
       `${file} still references a retired logo bitmap`);
   }
 });
+
+/* An intake month is a date claim, and no record sources one.
+ *
+ * PLACEMENT_CALENDAR carries `source` and `verified` because a fabricated
+ * deadline once told every reader an intake was open four weeks after it shut.
+ * intake_months is the same kind of claim on 680 records and has neither, so
+ * the card may not present it as settled fact. If per-record intake provenance
+ * ever lands, source the months and this guard can be replaced by one that
+ * checks the source rather than the caveat. */
+test('unsourced intake months are not presented as fact', () => {
+  const anySourced = COURSES.some((c) => c.intake_source || c.intake_verified);
+  const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  const renders = decide.match(/Intakes[^<]*?:/);
+
+  assert.ok(renders, 'the course card no longer renders an intake line at all — if that is '
+    + 'deliberate, remove this guard; if not, the reader lost the only timing signal on the card.');
+
+  if (!anySourced) {
+    assert.match(decide, /Intakes \(confirm with the institution\)/,
+      'the course card states intake months without the "confirm with the institution" caveat '
+      + 'while no record carries an intake source or verification field. All 680 records assert '
+      + 'intake months and not one says where they came from — the same shape as the placement '
+      + 'date that was wrong by seven weeks. Telling a learner a May intake exists when it does '
+      + 'not costs them a year, which is the eligibility direction, not the fee direction.');
+  }
+});

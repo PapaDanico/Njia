@@ -583,6 +583,31 @@ function byFee(a, b, dir) {
  * invented and is now null, so this returns null for every real course. No
  * caller renders it. If per-course salary data is ever published and sourced,
  * this is ready; until then it is a function waiting for evidence. */
+/* INTAKE MONTHS ARE THE ONE CLAIM ON THIS CARD WITH NO PROVENANCE.
+ *
+ * Every other figure here is sourced or explicitly absent: a fee names its
+ * basis, an entry grade names the institution that publishes it, a placement
+ * window in PLACEMENT_CALENDAR carries `source` and `verified` because a date
+ * was once wrong by seven weeks and the panel read as authoritative anyway.
+ *
+ * intake_months got none of that. All 680 records carry it, 364 of them the
+ * same ["January","May","September"] triplet, and NOT ONE has an intake source
+ * or verification field. Twelve distinct patterns across the catalogue is the
+ * shape of a TVET intake cycle rather than a set of published calendars -
+ * exactly what "closes 2026-09-30" was to a September intake.
+ *
+ * It errs in the exclusionary direction too. Quote a fee high and the reader is
+ * prepared; tell them a college takes a May intake when it only takes
+ * September and they arrive at a door that will not open, having lost a year.
+ * That is the eligibility direction, where this project under-claims.
+ *
+ * Sourcing 680 records is not available: the yield floor established across a
+ * dozen counties is that institutional calendars live in PDFs on egress-blocked
+ * hosts. So the honest move is the one this file already takes when research
+ * fails - stop stating it as fact. The card says "confirm with the
+ * institution", which costs the reader a phone call they should make anyway and
+ * costs them a year if they do not. Guarded in tests/provenance.test.js, so the
+ * caveat cannot quietly go while the provenance is still missing. */
 function paybackMonths(course) {
   if (!course.median_salary_kes || !course.total_fees_kes) return null;
   return Math.round((course.total_fees_kes / course.median_salary_kes) * 10) / 10;
@@ -951,7 +976,7 @@ function renderCourseCard(course, match) {
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
-      <p class="text-muted text-sm mb-1">Intakes: ${course.intake_months.map(escapeHtml).join(', ')}</p>
+      <p class="text-muted text-sm mb-1">Intakes (confirm with the institution): ${course.intake_months.map(escapeHtml).join(', ')}</p>
       ${feePublished ? `
       <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
       <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation

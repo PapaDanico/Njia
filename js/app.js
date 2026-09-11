@@ -371,9 +371,9 @@ const PAGE_MODULE = {
      Lifting those two into a shared file would be tidier and would touch four
      other readers that address decide.js by name; not worth folding into this
      change. */
-  discover: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'js/decide.js', 'js/discover.js'],
+  discover: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'data/funding.js', 'js/decide.js', 'js/discover.js'],
   design: ['data/institutions.js', 'data/courses.js', 'js/design.js'],
-  decide: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'js/decide.js'],
+  decide: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'data/funding.js', 'js/decide.js'],
   connect: ['data/labour-market.js', 'js/connect.js'],
   track: ['js/track.js'],
   help: ['js/help.js']
@@ -804,7 +804,7 @@ function renderNjiaNumbersCard() {
           <span class="landing-numbers-label">institutions across ${countyCount} counties</span>
         </div>
         <div class="landing-numbers-item">
-          <span class="landing-numbers-figure">${FUNDING_SOURCES.length}</span>
+          <span class="landing-numbers-figure">${LANDING_STATS.fundingSources}</span>
           <span class="landing-numbers-label">funding sources tracked</span>
         </div>
         <div class="landing-numbers-item">
@@ -1011,9 +1011,13 @@ function lastPlacementClose() {
 
 function renderApplicationClock() {
   const open = openPlacementWindows().slice(0, 3);
-  const rows = FUNDING_SOURCES
-    .filter((f) => f.data_confidence === 'verified' && f.application_deadline)
-    .slice(0, open.length ? 1 : 4);
+  /* Precomputed in data/landing-stats.js rather than filtered from
+     FUNDING_SOURCES here, which is what took data/funding.js (10.1KB gzipped)
+     off the critical path. The filter itself — verified, and carrying a
+     deadline — now lives in the generator and is recomputed by
+     tests/landing-stats.test.js, so a record losing its verification still
+     drops out of this panel rather than being announced on a stale artefact. */
+  const rows = LANDING_STATS.fundingDeadlines.slice(0, open.length ? 1 : 4);
   return `
     <div class="landing-clock-card">
       <p class="landing-clock-title">The Application Clock</p>

@@ -36,6 +36,7 @@ const root = path.join(__dirname, '..');
 const { COURSES, DISTINCT_PROGRAMMES } = require(path.join(root, 'data', 'courses.js'));
 const { INSTITUTIONS } = require(path.join(root, 'data', 'institutions.js'));
 const { SECTORS, sectorForCourse } = require(path.join(root, 'data', 'sectors.js'));
+const { FUNDING_SOURCES } = require(path.join(root, 'data', 'funding.js'));
 
 const statsPath = path.join(root, 'data', 'landing-stats.js');
 
@@ -64,7 +65,8 @@ const expected = {
   institutions: listed.size,
   counties: new Set([...listed].map((id) => instById.get(id).county)).size,
   published: COURSES.filter((c) => feeBasis(c) === 'published').length,
-  derived: COURSES.filter((c) => feeBasis(c) === 'derived').length
+  derived: COURSES.filter((c) => feeBasis(c) === 'derived').length,
+  fundingSources: FUNDING_SOURCES.length
 };
 
 test('the generated landing stats exist', () => {
@@ -103,13 +105,42 @@ test('every sector route count matches a live recount', () => {
     `landing-stats.js counts sectors that no longer exist: ${stray.join(', ')}`);
 });
 
+test('the clock\'s funding rows match a live recount', () => {
+  /* The Application Clock's rows are precomputed, which is what took
+     data/funding.js (10.1KB gzipped) off the critical path. Precomputing a
+     DEADLINE is a sharper risk than precomputing a count: a stale one sends a
+     reader at a window that has shut, which is the exact defect that put
+     `source` and `verified` on PLACEMENT_CALENDAR after the hero announced a
+     KMTC window four weeks after KUCCPS closed it.
+
+     So the filter is recomputed here rather than trusted — including the
+     `verified` test, so a record downgraded in data/funding.js drops out of
+     the hero on the next build instead of outliving its own provenance. */
+  const { LANDING_STATS } = require(statsPath);
+  const live = FUNDING_SOURCES
+    .filter((f) => f.data_confidence === 'verified' && f.application_deadline)
+    .map((f) => ({ name: f.name, application_deadline: f.application_deadline }));
+  assert.deepEqual(JSON.parse(JSON.stringify(LANDING_STATS.fundingDeadlines)), live,
+    'the Application Clock\'s funding rows have drifted from data/funding.js. '
+    + 'Run node tools/build-landing-stats.mjs. These are deadlines shown in the landing '
+    + 'hero, so a stale one points a reader at a window that has already closed.');
+
+  /* The clock slices to at most four. Fewer rows than that available is a real
+     state (it renders what there is); more precomputed than it can show is
+     only wasted bytes. What must never happen is the array being empty while
+     records qualify, which would blank the panel on a stale artefact. */
+  assert.ok(LANDING_STATS.fundingDeadlines.length >= Math.min(4, live.length),
+    `the clock has ${LANDING_STATS.fundingDeadlines.length} rows precomputed but `
+    + `${live.length} records qualify — the hero would under-fill.`);
+});
+
 test('the catalogue is off the landing page\'s critical path', () => {
   /* The point of the whole change, and the thing most likely to be undone by
      someone adding a feature to the landing page and reaching for COURSES.
      If you need catalogue detail on the landing page, add a field to
      landing-stats.js — do not put 565KB back in front of first render. */
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-  for (const src of ['./data/courses.js', './data/institutions.js', './js/decide.js']) {
+  for (const src of ['./data/courses.js', './data/institutions.js', './js/decide.js', './data/funding.js']) {
     assert.ok(!html.includes(`<script defer src="${src}">`),
       `index.html loads ${src} eagerly again. That is 86.3KB gzipped back on the critical path, `
       + 'and measured on throttled 3G it is about 1.9 seconds of DOMContentLoaded. Whatever needs '
@@ -125,7 +156,7 @@ test('the service worker still precaches everything the app needs offline', () =
      more — CACHE_ASSETS is now the only thing guaranteeing an installed app
      still works on a train. */
   const sw = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
-  for (const asset of ['./data/landing-stats.js', './data/courses.js', './data/institutions.js', './js/decide.js']) {
+  for (const asset of ['./data/landing-stats.js', './data/courses.js', './data/institutions.js', './js/decide.js', './data/funding.js']) {
     assert.ok(sw.includes(`'${asset}'`),
       `sw.js no longer precaches ${asset}. Since it is no longer in index.html either, an installed `
       + 'app would have no copy of it at all and Decide would fail offline.');
@@ -177,11 +208,21 @@ test('every page module declares the cross-module symbols it actually uses', () 
   const labourSymbols = [...strip(fs.readFileSync(path.join(root, 'data', 'labour-market.js'), 'utf8'))
     .matchAll(/^(?:function|const|let|var)\s+([A-Za-z_][A-Za-z0-9_]*)/gm)].map((m) => m[1]);
 
+  /* data/funding.js came off the critical path the same way labour-market.js
+     did: js/app.js read FUNDING_SOURCES.length and the name and deadline of at
+     most four records, and carried all 10.1KB gzipped of the file to do it.
+     Those two reads are precomputed into LANDING_STATS now, so the file is a
+     lazy provider and needs the same guard — js/decide.js reads both its
+     symbols, and every route that injects decide.js therefore needs it. */
+  const fundingSymbols = [...strip(fs.readFileSync(path.join(root, 'data', 'funding.js'), 'utf8'))
+    .matchAll(/^(?:function|const|let|var)\s+([A-Za-z_][A-Za-z0-9_]*)/gm)].map((m) => m[1]);
+
   const PROVIDERS = [
     { file: 'js/decide.js', symbols: decideSymbols },
     { file: 'data/courses.js', symbols: ['COURSES', 'DISTINCT_PROGRAMMES'] },
     { file: 'data/institutions.js', symbols: ['INSTITUTIONS'] },
-    { file: 'data/labour-market.js', symbols: labourSymbols }
+    { file: 'data/labour-market.js', symbols: labourSymbols },
+    { file: 'data/funding.js', symbols: fundingSymbols }
   ];
 
   const missing = [];

@@ -386,6 +386,68 @@ requires: worker installed, network off, all three routes driven, every
 labour-market symbol resolving, and Decide rendering "664 of 664 places to
 apply match" offline.
 
+## The fourth split, and the probe that passed on a broken one
+
+`data/funding.js` was 10.1KB gzipped on the critical path, and `js/app.js` read
+**two things** out of it: `FUNDING_SOURCES.length` for the landing figures, and
+the name and deadline of at most four records for the Application Clock. The
+other sixteen fields on each record — description, eligibility, requirements,
+`bandAppeal`, `legalStatus`, `verification_note`, interest rate, repayment
+period — are Decide content, paid for by every reader who never opened Decide.
+That is the `labour-market.js` case exactly, and the same fix: **114.7 → 105.4KB
+gzipped, 8.1%**, ceiling ratcheted 125 → 109.
+
+Measured end to end rather than inferred from the bytes: on throttled 3G
+(400kbps, 400ms RTT) over a gzipping server, cold context with the worker
+blocked, alternating and median of five, **DOMContentLoaded falls 3,096 →
+2,979ms — 117ms, 3.8%**. Report that honestly against the first split's 36%:
+the remaining critical path is `css/styles.css` and `js/app.js`, so there is far
+less left to take off it, and each further split buys less. **First paint does
+not move** (1,856 vs 1,884ms, inside the run-to-run spread) for the reason this
+file already gives — FCP waits on the stylesheet, and claiming a split makes the
+page appear faster would be wrong in the same way both earlier times.
+
+**Precomputed into `LANDING_STATS`, not split into a second data file.** The
+earlier splits moved whole symbols, so a new file was right. Here the landing
+page needs a *field subset of the same records*, and a hand-written file of
+those would be a second copy free to drift — the thing
+`tools/build-landing-stats.mjs` exists to prevent. It emits all qualifying rows
+rather than the four the clock can show: capping there would couple the
+generator to a `slice()` constant, and the difference measured 0.47KB against a
+9.4KB saving. The filter is the app's own (`verified` **and** carrying a
+deadline) and `tests/landing-stats.test.js` recomputes it — a deadline is more
+perishable than a count, and this is the panel that once announced a KMTC
+window four weeks after KUCCPS closed it.
+
+**And the per-route symbol check passed on a genuinely broken `PAGE_MODULE`.**
+The check this file prescribes — cold context per route, service worker
+blocked, identifier lookup rather than `window[name]` — was run, reported all
+six routes clean, and was *inert*. Removing `data/funding.js` from
+`PAGE_MODULE.decide` changed nothing, because **the idle prefetch in
+`js/app.js` warms every page module on `load`** and had already fetched the
+file. The tell was in the output the whole time: `design`, `track`, `connect`
+and `help` were reported as resolving symbols they do not reference, which is
+the empty-set assertion failing to be empty.
+
+Suppressing the prefetch with `window.requestIdleCallback = function () {}`
+before `app.js` runs makes it exact — and that is not an artificial state, it
+is a reader tapping a nav item before the prefetch completes on a weak signal,
+which is the connection this project designs for. With it suppressed the same
+break produced `FUNDING_SOURCES is not defined` on `decide` and the empty sets
+came back empty.
+
+This is the **third** instrument error in this family and the first of its
+polarity. The two already recorded were failures that fired for the wrong
+reason — `typeof window[name]` on a classic script, and "fetched on first paint"
+read as "on the critical path". This one is the opposite: **a pass that should
+have been a failure.** The rule covers both directions — *a break that does not
+fail is more often a bad break than an inert guard* — and the corollary is
+that a probe reporting a property it cannot actually observe is worth five
+minutes of suspicion even when every line says PASS. The permanent guard is
+still the `PROVIDERS` list in `tests/landing-stats.test.js`, which caught both
+breaks (missing entry, and listed after `js/decide.js`) with the right message;
+the cold probe is what proves the guard is describing the running page.
+
 ## Type has a floor, and it is 12px
 
 An audit found **nineteen distinct sub-1rem font sizes** in `css/styles.css` —

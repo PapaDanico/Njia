@@ -114,8 +114,14 @@ test('the critical path stays inside its byte budget', () => {
      Ratcheted 150 -> 125KB when data/labour-market.js came off this path and
      the total fell 145.8 -> 115.4KB, a 20.9% cut for every first-time reader.
      A ceiling left at its old value after a win is not a ratchet, it is
-     headroom for the next regression to hide in. */
-  const CEILING = 125 * 1024;
+     headroom for the next regression to hide in.
+
+     Ratcheted again 125 -> 109KB when data/funding.js came off it the same
+     way: 114.7 -> 105.4KB, 8.1%. js/app.js read two things out of that file —
+     FUNDING_SOURCES.length and the name and deadline of at most four records
+     for the Application Clock — and carried all 10.1KB gzipped to do it. Both
+     are precomputed into LANDING_STATS now, which cost 0.7KB there. */
+  const CEILING = 109 * 1024;
   const files = criticalPath();
   const sizes = files.map((f) => [f, gz(f)]).sort((a, b) => b[1] - a[1]);
   const total = sizes.reduce((n, [, s]) => n + s, 0);

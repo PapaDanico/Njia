@@ -922,6 +922,53 @@ exact text, and an unscoped `querySelectorAll` finds the card's. Scoped to
 a failure that fires can be a bad question rather than broken code — and it is
 now the second one in this session alone.
 
+## The questionnaire made a promise and the app did not keep it
+
+`id_5` and `ho_2` are the diagnostic's only free-text questions. Both were
+stored and read back in **exactly one place** — refilling the textarea if a
+reader navigated backwards — and reached no result, no report and no printed
+sheet. Njia asked a young person to write something reflective and discarded it.
+
+Stated that way it reads as an unused field. It is worse, and the placeholder
+is where it announces itself: `ho_2` asks *"If money and image were not a factor
+at all, what would you do?"* and tells the reader, in those words, **"this feeds
+your 'Life Three' Odyssey Plan"**. `design.js` has that plan — `life3`, subtitle
+*"What you'd do if money or image were no object"*, the same question — and it
+opened blank, so the reader retyped what they had just written. That is the
+`"Backup downloaded."` defect in a different place: **a claim the interface
+makes and does not keep.**
+
+The difference is what to do about it. The backup toast asserted something
+unverifiable, so the claim was withdrawn. Here the claim is *deliverable* — the
+answer exists and the destination exists — so it is kept rather than deleted.
+**Withdrawing is the fix only when the promise cannot be met.**
+
+Two decisions inside it:
+
+- **Echoed onto the plan, not written into its year fields.** Those are a design
+  exercise the reader authors; putting their questionnaire sentence into one as
+  though they had typed it there is presumptuous, and it makes a five-year plan
+  out of an offhand answer. Showing it where they are writing is what "feeds"
+  honestly means.
+- **Printed verbatim and never scored.** Mining the text for keywords to move
+  cluster totals would be a claim about what the words mean, made by a matcher
+  nobody could check — the thing this catalogue refuses everywhere else. Their
+  value is that they are the reader's own sentences on a sheet carried into a
+  conversation with a parent or a bursary committee, beside figures that are
+  otherwise all Njia's. The report says so: *"Njia does not score these."*
+
+The helper lives in `js/app.js` rather than `js/discover.js` because
+`js/design.js` needs it and does not load discover.js — putting it there would
+have thrown on the Odyssey tab, which is the shape this repo has shipped twice
+and the `PROVIDERS` guard exists to catch. It costs 0.6KB gzipped on the
+critical path with the CSS, leaving 3.0KB under the ratcheted ceiling.
+
+**And a third instrument slip in the same session**, worth recording because it
+is the cheapest kind to believe: the verification run printed the report section
+sliced to 190 characters and `ho_2` fell off the end, which read exactly like
+"the second answer is missing". It was present. Print the whole thing before
+concluding something is absent.
+
 ## Under-claim on a figure. Never on an eligibility.
 
 "When sources conflict, record the more restrictive figure" is this project's

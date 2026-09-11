@@ -98,6 +98,20 @@ for (let i = 0; i < 150; i += 1) {
   if (await page.evaluate(() => !!AppState.questionnaire.results)) break;
   const clicked = await page.evaluate(() => {
     const visible = (el) => el.offsetParent !== null;
+    /* The two free-text questions are answered rather than skipped, because
+       their answers now have to reach the report card and the Life Three
+       Odyssey plan, and a run that leaves them blank asserts nothing about
+       either. They were stored and never read by anything for as long as they
+       existed. */
+    const ta = document.getElementById('discover-text-input');
+    if (ta && visible(ta)) {
+      ta.value = ta.placeholder.includes('Odyssey')
+        ? 'Run a community radio station in Kisumu'
+        : 'Helping my younger siblings with their homework';
+      const submit = [...document.querySelectorAll('#page-discover button')].filter(visible)
+        .find((b) => /submitDiscoverText/.test(b.getAttribute('onclick') || ''));
+      if (submit) { submit.click(); return true; }
+    }
     const buttons = [...document.querySelectorAll('#page-discover button, #page-discover [onclick]')].filter(visible);
     const next = buttons.find((el) => /selectDiscoverOption/.test(el.getAttribute('onclick') || ''))
       || buttons.find((el) => /Next|Continue|results|Finish/i.test(el.innerText));
@@ -312,6 +326,46 @@ check('printed report card has non-zero top padding (header not clipped)',
 check('printed report suggests courses when nothing is saved',
   printReport.courseRows > 0 && printReport.sectionTitle === 'Courses Open To You',
   `courseRows=${printReport.courseRows} title=${JSON.stringify(printReport.sectionTitle)}`);
+
+/* THE READER'S OWN SENTENCES, ON THE SHEET THEY CARRY AWAY.
+ *
+ * id_5 and ho_2 are the diagnostic's only free-text questions. Both were
+ * stored and read back in exactly one place — refilling the textarea when
+ * someone navigated backwards — and reached no result, no report and no
+ * printed sheet. The app asked a young person to write something reflective
+ * and discarded it.
+ *
+ * Asserted on the PRINTED card specifically: this is the artefact taken into a
+ * conversation with a parent, a teacher or a bursary committee, and their own
+ * words are the only thing on it that is not Njia's. */
+const ownWords = await page.evaluate(() => {
+  const el = document.querySelector('.report-words');
+  return el ? el.innerText.replace(/\s+/g, ' ').trim() : null;
+});
+check('the printed report carries the answers the reader wrote',
+  !!ownWords && /lose track of time/.test(ownWords)
+    && /younger siblings/.test(ownWords) && /community radio station/.test(ownWords),
+  ownWords ? `${ownWords.length} chars` : 'section absent');
+check('the report does not claim to score those answers',
+  !!ownWords && /does not score these/.test(ownWords));
+
+/* And the promise ho_2's own placeholder makes — "this feeds your Life Three
+   Odyssey Plan" — which fed nothing: the plan opened blank and the reader
+   retyped what they had just written. */
+await page.evaluate(() => navigateTo('design'));
+await page.waitForTimeout(1200);
+const odyssey = await page.evaluate(() => [...document.querySelectorAll('.odyssey-plan-grid > .card')]
+  .map((c) => ({
+    label: (c.querySelector('.caption')?.innerText || '').trim(),
+    echo: c.querySelector('.odyssey-echo')?.innerText.replace(/\s+/g, ' ').trim() || null
+  })));
+const lifeThree = odyssey.find((o) => /life three/i.test(o.label));
+check('the Life Three plan shows what the reader wrote it would be',
+  !!lifeThree && /community radio station/.test(lifeThree.echo || ''),
+  lifeThree ? `echo=${JSON.stringify(lifeThree.echo)}` : 'Life Three plan not rendered');
+check('the other Odyssey plans are not given that answer',
+  odyssey.filter((o) => !/life three/i.test(o.label)).every((o) => o.echo === null),
+  odyssey.map((o) => `${o.label}:${o.echo ? 'echo' : '-'}`).join(' '));
 
 /* 7. THE DEGRADED NETWORK, WHICH NOTHING HERE HAD EVER TESTED.
  *

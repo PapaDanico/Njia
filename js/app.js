@@ -602,6 +602,23 @@ function closeModal() {
 }
 
 /* ---------- Shared utilities ---------- */
+/* The questionnaire's two free-text answers, read back by name.
+ *
+ * They were stored and never read anywhere: the only access was
+ * js/discover.js re-filling the textarea when a reader navigated back. So the
+ * app asked a young person to write something reflective and then discarded
+ * it — and in one case had told them what it would do with it, which is the
+ * part that made this a broken promise rather than an unused field.
+ *
+ * Lives here rather than in js/discover.js because js/design.js needs it too
+ * and does not load discover.js; putting it there would have thrown on the
+ * Odyssey tab, which is the shape of failure this repo has shipped twice and
+ * the PROVIDERS guard in tests/landing-stats.test.js now exists to catch. */
+function questionnaireText(id) {
+  const answer = AppState.questionnaire?.answers?.[id];
+  return answer && typeof answer.value === 'string' ? answer.value.trim() : '';
+}
+
 function escapeHtml(str) {
   if (str == null) return '';
   return String(str)

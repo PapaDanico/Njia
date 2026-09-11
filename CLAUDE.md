@@ -1164,7 +1164,7 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Twelve remain — lower the constant when you close more. It was 23; Kakamega and
+one inside an aggregate that still looks fine. Eleven remain — lower the constant when you close more. It was 23; Kakamega and
 Siaya were closed by re-reading an either/or in a published entry requirement
 rather than by finding new provision, and Bomet from the funding side.
 
@@ -1537,8 +1537,55 @@ quoted high removes the card from the reader with the fewest options. Ebukanga's
 award takes "a KCPE certificate or equivalent", which is an alternative to a
 mean grade rather than an addition, so an E clears it.
 
-**Twelve E-blind counties remain, from fourteen. Four single-provider counties
-remain, from six.**
+**That pass took the E-blind set from fourteen to twelve, and the
+single-provider set from six to four.** Both have moved again since; the
+current figures are the ratchets in `tests/sector-coverage.test.js` and the
+generated table on `/analysis/`, never this line.
+
+## Migori, and the name collision that nearly wrote a course into the wrong county
+
+Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
+— public, TVETA `TVETA/PUBLIC/TVC/0031/2017`, Suna East sub-county, opened
+January 2019 — was never listed, so Migori read as blind while a government TVC
+with 600 trainees sat inside it. The pattern this file has now recorded a dozen
+times: *the gap is almost always a missing institution.*
+
+It publishes its artisan bar as **"a KCSE mean grade of D- or below"**, so an E
+clears it and E is recorded. Two trade-test courses are named with their licensed
+trainee caps — Grade III-I Masonry (20) and Grade III-I Arc Welding (15) — which
+is the same TVETA licence shape the Maralal VTC records already use.
+
+**Both carry a null duration and a null fee, and that is the finding rather than
+a shortfall.** No duration is published for either award, and this file already
+establishes that KNEC and NITA publish no single artisan duration; 12 months is
+the catalogue's commonest value, which is exactly what would make a guess
+invisible. Without a duration the consolidated Ksh 67,189 rate cannot be scaled,
+so the fee goes too — deriving one would rest a figure on a guess. The Ebukanga
+precedent applies: a record is not all-or-nothing, a *figure* is sourced or
+absent.
+
+**The near-miss is the part worth keeping.** The search that named those two
+courses also returned **Kiptaragon TVC** in the same result set, and this file
+already warns that Rift Valley National Polytechnic and Rift Valley TTI bleed
+into each other's results — *a course attributed to the wrong county is worse
+than a missing one*. The trainee-cap phrasing is licence data, but licence data
+for whom? It was not written until a second, independent search returned the
+TVETA licence number against Kakrao by name **and** described it as running "36
+KUCCPS-listed programmes plus NITA trade-test courses", which is what
+attributes the trade tests to this college rather than to the one beside it in
+the results. **When two institutions share a result set, the course names are
+not attributable until something institution-specific ties them down.**
+
+**And the read-back caught the absence phrasing, again.** The notes explained at
+length why no fee is shown and used none of the four literal phrases the guard
+requires, exactly as the ministry-advert insert did. Caught by parsing the data
+back and asserting every property together — never by the insert script's own
+report, which said it had written two records and had.
+
+Checked at the reader's end rather than in the data alone: `counties/migori/`
+prints "25 courses · 2 open to an E", its blind-county warning is gone, both
+rows show "Not published" for duration and fee, and both appear on `/grades/e/`.
+The ratchet was broken to 12 and watched to fail, naming Migori.
 
 ## The egress question, settled by test rather than assertion
 
@@ -1616,7 +1663,7 @@ the fee *could not be verified*, a different claim: the schedule exists and Njia
 could not read it. The card was overriding the record with the more flattering
 absence, which is exactly what the absence rule exists to stop. It now derives
 the sentence from the note, and a guard bans the hardcoded one. And the first
-implementation filtered all 683 courses with an `INSTITUTIONS.find` inside the
+implementation filtered all 685 courses with an `INSTITUTIONS.find` inside the
 predicate **per card** — about 116,000 operations for every card drawn, on the
 cheap Android phones this project designs for. The medians are identical between
 cards, so they are computed once: 200 full passes now take 20ms.
@@ -1773,8 +1820,8 @@ guarding the claim.
 `tests/provision-analysis.test.js`. It exists because the most decision-changing
 number this project holds lived only as a constant in a test file.
 
-The finding it carries: **12 counties list nothing an E-grade leaver can enter,
-and all 12 list no artisan course at all.** It was 23 and 21 when this page
+The finding it carries: **11 counties list nothing an E-grade leaver can enter,
+and all 11 list no artisan course at all.** It was 23 and 21 when this page
 shipped; the page is generated, so it is correct by construction and this
 paragraph is the copy that goes stale. The blindness is one missing
 tier, not a high bar — which is why the fix is an institution rather than a
@@ -1870,13 +1917,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 683 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 685 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 683 notes contains a comma or a quote and the
+  optional: **every one** of the 685 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

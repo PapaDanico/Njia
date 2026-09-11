@@ -388,7 +388,21 @@ const INSTITUTIONS = [
   { "id":"mti_athiriver","name":"Meat Training Institute (MTI), Athi River","ownership":"public","type":"tvet","location":"Athi River, Machakos","county":"Machakos","accreditation":"State Department for Livestock Development; established 1972, the only meat training institute in Kenya","website":"https://www.meattraininginstitute.ac.ke","modes":["full_time"],"has_workstudy":false,"has_hostel":true,"fee_regime":"parastatal_own_rate" },
   { "id":"kinango_tvc","name":"Kinango Technical and Vocational College","ownership":"public","type":"tvet","location":"Samburu, Kinango sub-county","county":"Kwale","accreditation":"Public technical and vocational college under the Ministry of Education, accredited by TVETA; TVET-CDACC examining body","website":"https://www.kinangotvc.ac.ke","modes":["full_time"],"has_workstudy":false,"has_hostel":true,"fee_regime":"tvet_consolidated" },
   { "id":"borabu_tti","name":"Borabu Technical Training Institute","ownership":"public","type":"tvet","location":"Borabu, Nyamira","county":"Nyamira","accreditation":"Public technical training institute; KNEC examination centre","website":"https://borabutti.ac.ke","modes":["full_time"],"has_workstudy":false,"has_hostel":true,"fee_regime":"tvet_consolidated" },
-  { "id":"ebukanga_tvc","name":"Ebukanga Technical and Vocational College","ownership":"public","type":"tvet","location":"Luanda, Emuhaya sub-county","county":"Vihiga","accreditation":"Publicly managed under the Ministry of Education, TVETA-accredited at Diploma, Craft and Artisan levels","website":"https://ebukangatvc.ac.ke","modes":["full_time"],"has_workstudy":false,"has_hostel":true,"fee_regime":"tvet_consolidated" }
+  { "id":"ebukanga_tvc","name":"Ebukanga Technical and Vocational College","ownership":"public","type":"tvet","location":"Luanda, Emuhaya sub-county","county":"Vihiga","accreditation":"Publicly managed under the Ministry of Education, TVETA-accredited at Diploma, Craft and Artisan levels","website":"https://ebukangatvc.ac.ke","modes":["full_time"],"has_workstudy":false,"has_hostel":true,"fee_regime":"tvet_consolidated" },
+  {
+    id: 'kakrao_tvc',
+    name: 'Kakrao Technical and Vocational College',
+    ownership: 'public',
+    type: 'tvet',
+    location: 'Rongo-Migori road, Suna East sub-county',
+    county: 'Migori',
+    accreditation: 'Public technical and vocational college under the Ministry of Education, registered by TVETA as TVETA/PUBLIC/TVC/0031/2017. Opened January 2019. Runs 36 KUCCPS-listed programmes plus NITA trade-test courses; TVET-CDACC examines the KUCCPS programmes and NITA the trade tests.',
+    website: 'https://www.kakraotvc.ac.ke',
+    modes: ['full_time'],
+    has_workstudy: false,
+    has_hostel: false,
+    fee_regime: 'tvet_consolidated'
+  }
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

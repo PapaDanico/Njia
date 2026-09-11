@@ -525,6 +525,123 @@ check('copying the backup falls back to text the reader can select',
   copied.includes('Work worth losing') && copied.includes('questionnaire'),
   `${copied.length} chars`);
 
+/* TRACK: destructive actions confirm, and the OKR bar says how far along it is.
+ *
+ * Both found by driving the module rather than by the suite, which had no
+ * browser and no coverage of Track's interactive state at all. Deleting an OKR
+ * took one tap, removed it immediately and offered no undo — while "Clear My
+ * Data", which destroys strictly more, was already behind a confirmation.
+ *
+ * The bar was measured against the accessibility tree, not guessed at: an empty
+ * styled div exposes no node, so a reader got the objective, the status badge
+ * and each key result and never a summary. The app's three other bars each sit
+ * beside their own number as text and are deliberately left alone. */
+const trackCtx = await browser.newContext();
+const trackPage = await trackCtx.newPage();
+await trackPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+await trackPage.evaluate(() => {
+  AppState.okrs = [{
+    id: 'probe-okr', title: 'Get into a counselling diploma',
+    keyResults: [{ text: 'Shortlist 5 institutions', done: true },
+      { text: 'Sit the entrance test', done: false },
+      { text: 'Submit HELB application', done: false }],
+    createdAt: new Date().toISOString()
+  }];
+  AppState.applications = [{
+    id: 'probe-app', courseId: 'c001', courseName: 'Diploma in Community Health',
+    createdAt: new Date().toISOString(),
+    steps: [{ title: 'Research admission requirements', done: true }, { title: 'Collect documents', done: false }]
+  }];
+  saveState();
+  navigateTo('track');
+});
+await trackPage.waitForTimeout(700);
+
+/* Scoped, because once the dialog is open there are TWO visible buttons reading
+   "Delete OKR" — the card's and the dialog's confirm — and an unscoped
+   querySelectorAll finds the card's first. The first version of this probe did
+   exactly that and reported "confirming actually deletes the OKR" as a failure
+   while the code was correct: a bad question, not a broken fix. */
+const clickByText = (text, scope = 'body') => trackPage.evaluate(([t, sc]) => {
+  const root = document.querySelector(sc);
+  if (!root) return false;
+  const el = [...root.querySelectorAll('button')].filter((b) => b.offsetParent !== null)
+    .find((b) => b.innerText.trim() === t);
+  if (!el) return false;
+  el.click();
+  return true;
+}, [text, scope]);
+
+const okrsBefore = await trackPage.evaluate(() => AppState.okrs.length);
+await clickByText('Delete OKR');
+await trackPage.waitForTimeout(400);
+const afterFirstTap = await trackPage.evaluate(() => ({
+  okrs: AppState.okrs.length,
+  modalOpen: !!document.querySelector('#modal-overlay.open'),
+  names: document.querySelector('.modal-sheet')?.innerText.includes('counselling diploma')
+}));
+check('deleting an OKR asks first instead of destroying it',
+  okrsBefore === 1 && afterFirstTap.okrs === 1 && afterFirstTap.modalOpen,
+  `before=${okrsBefore} after=${afterFirstTap.okrs} dialog=${afterFirstTap.modalOpen}`);
+check('the OKR confirmation names the objective being deleted',
+  afterFirstTap.names === true, `named=${afterFirstTap.names}`);
+
+await trackPage.evaluate(() => closeModal());
+await trackPage.waitForTimeout(300);
+check('cancelling the OKR dialog keeps the OKR',
+  (await trackPage.evaluate(() => AppState.okrs.length)) === 1);
+
+await clickByText('Delete OKR');
+await trackPage.waitForTimeout(300);
+await clickByText('Delete OKR', '.modal-sheet');   // the confirm, not the card's button
+await trackPage.waitForTimeout(400);
+check('confirming actually deletes the OKR',
+  (await trackPage.evaluate(() => AppState.okrs.length)) === 0,
+  `okrs=${await trackPage.evaluate(() => AppState.okrs.length)}`);
+
+await trackPage.evaluate(() => setTrackTab('applications'));
+await trackPage.waitForTimeout(500);
+await clickByText('Remove Application');
+await trackPage.waitForTimeout(400);
+const appAfterTap = await trackPage.evaluate(() => ({
+  apps: AppState.applications.length,
+  modalOpen: !!document.querySelector('#modal-overlay.open'),
+  saysCourseKept: document.querySelector('.modal-sheet')?.innerText.includes('stays saved')
+}));
+check('removing an application asks first instead of destroying it',
+  appAfterTap.apps === 1 && appAfterTap.modalOpen,
+  `apps=${appAfterTap.apps} dialog=${appAfterTap.modalOpen}`);
+check('the application dialog says the course itself is kept',
+  appAfterTap.saysCourseKept === true, `stated=${appAfterTap.saysCourseKept}`);
+await trackPage.evaluate(() => closeModal());
+
+/* The bar, read the way an assistive technology reads it. */
+await trackPage.evaluate(() => {
+  AppState.okrs = [{
+    id: 'probe-okr2', title: 'Get into a counselling diploma',
+    keyResults: [{ text: 'a', done: true }, { text: 'b', done: false }, { text: 'c', done: false }],
+    createdAt: new Date().toISOString()
+  }];
+  saveState(); setTrackTab('okrs');
+});
+await trackPage.waitForTimeout(600);
+const bar = await trackPage.evaluate(() => {
+  const el = document.querySelector('.okr-item .progress-track');
+  if (!el) return null;
+  return {
+    role: el.getAttribute('role'),
+    now: el.getAttribute('aria-valuenow'),
+    text: el.getAttribute('aria-valuetext'),
+    label: el.getAttribute('aria-label')
+  };
+});
+check('the OKR progress bar states its value to a screen reader',
+  !!bar && bar.role === 'progressbar' && bar.now === '33' && /1 of 3 key results done/.test(bar.text || ''),
+  bar ? `role=${bar.role} valuenow=${bar.now} valuetext="${bar.text}"` : 'bar not rendered');
+check('the OKR progress bar is named after its objective',
+  !!bar && /counselling diploma/.test(bar.label || ''), bar ? `label="${bar.label}"` : '');
+await trackCtx.close();
+
 await browser.close();
 
 const failed = results.filter((r) => !r.pass);

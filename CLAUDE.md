@@ -859,6 +859,69 @@ Both breaks were watched to fail, and deliberately on the two surfaces the old
 guards could not see: stripping the header from `/open-data/` and the date from
 `/help/`.
 
+## The lesser destructive action was the unguarded one
+
+`deleteOkr()` and `deleteApplication()` filtered the array, saved and
+re-rendered. One tap, gone, no confirmation and no undo — while **"Clear My
+Data", which destroys strictly more, has always been behind a confirmation**,
+as has "Retake Discovery". The guarded action was the big one; the everyday one
+was not. There is no recovery path either: state lives only in that browser,
+and the backup a reader would restore from is one most of them have never made.
+
+Confirmation rather than an undo toast, because this app already has a
+confirmation pattern and a second mechanism for the same job is a thing to
+maintain twice. Each dialog **names what is about to go** — the objective, or
+the course and how many steps are marked done — so the reader is deciding about
+this record rather than agreeing to a generic warning. The application dialog
+also says the course stays saved in Decide, because that is the fear that would
+make someone hesitate and it is unfounded.
+
+Found by driving Track in a browser. Nothing in the suite covered that module's
+interactive state at all: the probe rendered the route and never created,
+toggled or deleted anything in it.
+
+## Count the bars, then ask what a reader actually hears
+
+The same audit said the progress bars needed `role="progressbar"`. Measured
+against the accessibility tree rather than applied on sight, that was **wrong in
+both directions**.
+
+It was wrong about the count. The audit found one bar, because the probe
+listing selectors guessed at `.progress-track`, `.progress-fill`, `.score-bar`
+and missed `.score-bar-track` and `.report-bar-track` entirely. There are
+**four**.
+
+And it was wrong about the fix for three of them. `Question 3 of 16` is text
+directly above the questionnaire bar; both Element bars sit beside their own
+`${score}%`. Giving those a progressbar role would make a screen reader
+**announce the same figure twice**. They expose no node at all as empty styled
+divs, which is the correct outcome for a graphic that duplicates adjacent text,
+so they were left alone.
+
+The OKR bar is the one that was genuinely carrying information: its percentage
+is **never rendered as text**, so a reader got the objective, the status badge
+and each key result and no summary of how far along it was. Confirmed by
+reading the CDP accessibility tree — `(no exposed node)` — rather than by
+inferring it from the markup. It now carries the role, the value, a name from
+its objective, and `aria-valuetext` phrased as *"1 of 3 key results done"*
+rather than leaving the reader with "33 percent", because the count is the
+sentence the bar is drawing.
+
+The general rule, and it is the same one this file keeps arriving at from new
+directions: **an accessibility fix is a claim about what a reader receives, so
+measure what they receive.** "Add ARIA to the bars" is the vocabulary answer;
+"three of these already say it in words" is the property answer. Adding a role
+where the information is already spoken is not a neutral improvement — it is
+noise added to the reader least able to skip it.
+
+**And the probe for it asked the wrong question first.** `clickByText('Delete
+OKR')` reported "confirming actually deletes the OKR" as a failure while the fix
+was correct: once the dialog is open there are **two** visible buttons with that
+exact text, and an unscoped `querySelectorAll` finds the card's. Scoped to
+`.modal-sheet` it passes. That is the same five-minute distinction as always —
+a failure that fires can be a bad question rather than broken code — and it is
+now the second one in this session alone.
+
 ## Under-claim on a figure. Never on an eligibility.
 
 "When sources conflict, record the more restrictive figure" is this project's

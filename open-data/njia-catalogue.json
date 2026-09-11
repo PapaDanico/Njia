@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 685,
+  "course_count": 686,
   "institution_count": 172,
   "county_count": 47,
   "column_notes": {
@@ -7552,6 +7552,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "This course previously displayed a precise-looking tuition figure that was never observed anywhere. An audit found the same value repeated across unrelated institutions - Ksh 420,000 appeared on twelve different degrees at twelve different universities, public and private, from nursing to design to actuarial science - which is not what real fee data looks like. It was a placeholder, so it has been removed rather than left wearing a caveat. The figure could not be verified against any source reachable here, so nothing is shown. Ask the institution directly; if it is a public university, note that a single per-programme price no longer exists."
+    },
+    {
+      "course_id": "c711",
+      "course_name": "Bachelor of Laws (LLB)",
+      "institution": "Strathmore University",
+      "institution_id": "strathmore",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "B",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": 2051438,
+      "fee_basis": "derived",
+      "verification_note": "Programme total published by Strathmore Law School: Ksh 2,051,438 for the four-year, eight-semester LLB, confirmed against two independent reports of the same schedule (about Ksh 250,000-258,000 a semester) and stated to cover lectures, course materials, a laptop and an academic trip abroad. fee_observed is NOT set: this is read from reporting of the schedule rather than off the university own current fee structure, so the record stays derived rather than published. ENTRY IS THE PUBLISHED BAR, NOT THE EXCEPTION: the school states an aggregate KCSE B with a B in English or Kiswahili, and that a B- may exceptionally be considered - B is recorded, because the exception is discretionary and recording B- would quote the bar low. A grade alone does not secure a place: every candidate meeting the requirement sits a University entrance examination in English (Ksh 2,000) and an oral interview, and this is reported as the most selective LLB entry in the country. The July intake is the published single intake for this programme, which is why it is stated here rather than left to the catalogue default cycle."
     },
     {
       "course_id": "c528",

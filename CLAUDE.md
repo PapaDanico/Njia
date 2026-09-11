@@ -1542,6 +1542,64 @@ single-provider set from six to four.** Both have moved again since; the
 current figures are the ratchets in `tests/sector-coverage.test.js` and the
 generated table on `/analysis/`, never this line.
 
+## The private half of the catalogue is the unmeasured one
+
+Asked what else mattered besides the E-grade floor, the honest answer is that
+**this file predicted the failure and I made it anyway**: the eligibility floor
+is the only coverage question with a ratchet, so it is the only one that gets
+answered, and a session left to choose its own work will grind the guarded
+metric. Measured for the first time, the private side is where the catalogue is
+thin:
+
+- **Private provision is 16.2% of the catalogue** — 111 of 685 records.
+- **11 of 36 private institutions are single-course stubs**, and this file
+  already says a stub is not coverage.
+- **31 of 36 private institutions carried not one priced course.** Of the 21
+  private records with a fee, **15 were Kabarak alone.**
+
+The irony is that **private institutions are the ones that publish fees.** The
+Kabarak/Riara pass proved the method — sixteen records priced in a single
+session — and then nothing continued it, because no guard was counting.
+
+**The blocker is not the fee, it is the pairing.** Searched properly, the
+schedules are reachable; what fails is that the course the schedule names is not
+the course this catalogue lists. Strathmore publishes an exact LLB total and we
+listed Marketing and Hospitality. Zetech prices a named group —
+`BIT, BBIT, BSE, BCS, BMDC, BAJ` at Ksh 66,000 a semester — and three of the
+five Zetech records sit outside it. **So the productive move is to add the
+courses the fee schedules already name, rather than hunt fees for the courses we
+happen to list.** That inverts how this work has been done.
+
+Two rulings from the same pass:
+
+- **Zetech is not priced, and the reason is the trap.** Its published table runs
+  Year 1 Semester 1 to Year 3 Semester 1 — five of the eight semesters a
+  48-month degree needs — with admin varying 8,900 to 14,400. The tuition
+  component is flat at 66,000, so 528,000 is computable and **wrong to use**: it
+  is tuition-only and would *under*-quote, which is the forbidden direction on
+  money. Completing it means inventing three semesters. Null until the table is.
+- **Strathmore LLB is priced**, and it is the shape to look for: a **published
+  programme total**, Ksh 2,051,438 over eight semesters, corroborated by two
+  independent reports and stated to cover lectures, materials, a laptop and a
+  trip. Not `fee_observed`, because it is read from reporting of the schedule
+  rather than off the university's own current structure.
+
+**And its entry grade is the interesting half.** The school publishes an
+aggregate B with a B in English or Kiswahili, and says a B- *may exceptionally*
+be considered. **B is recorded.** The eligibility rule says never quote a grade
+high — it does not license quoting one low, and an exception granted at
+discretion is not the bar. The note carries the exception, the entrance
+examination and the interview, so a reader learns that the grade alone does not
+secure a place. That is the MKU ruling applied in the other direction: there the
+fix was to omit competitive programmes rather than quote a bar that would send a
+learner at an application they could not win; here the bar is publishable and
+the selectivity belongs beside it.
+
+Its `intake_months` is `["July"]` and **sourced**, which almost no record in this
+catalogue can say — the school publishes a single annual intake. That does not
+lift the card-level caveat, which stays until records carry an intake
+provenance field, but it is what a sourced intake looks like.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -1663,7 +1721,7 @@ the fee *could not be verified*, a different claim: the schedule exists and Njia
 could not read it. The card was overriding the record with the more flattering
 absence, which is exactly what the absence rule exists to stop. It now derives
 the sentence from the note, and a guard bans the hardcoded one. And the first
-implementation filtered all 685 courses with an `INSTITUTIONS.find` inside the
+implementation filtered all 686 courses with an `INSTITUTIONS.find` inside the
 predicate **per card** — about 116,000 operations for every card drawn, on the
 cheap Android phones this project designs for. The medians are identical between
 cards, so they are computed once: 200 full passes now take 20ms.
@@ -1917,13 +1975,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 685 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 686 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 685 notes contains a comma or a quote and the
+  optional: **every one** of the 686 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

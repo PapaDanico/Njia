@@ -254,19 +254,47 @@ test('the app links to the county pages, so they are not an island', () => {
     + 'the pattern search engines read as a doorway farm rather than part of the site');
 });
 
-test('every printable sheet carries the branded header', () => {
-  /* The print header started as a county-only thing, so the sheet a CAREER
-     TEACHER prints came off the printer unbranded, undated and with no address
-     on it while the county officer's sheet was a proper brief. That is
-     backwards — the teacher's copy is the one photocopied for a whole Form Four
-     class, so it is most likely to reach someone who has never heard of Njia
-     and needs to know where the numbers came from. */
-  const pages = [
+/* ONE LIST, BOTH PROPERTIES — and the list is derived, not typed.
+ *
+ * The print header started as a county-only thing, so the sheet a CAREER
+ * TEACHER prints came off the printer unbranded while the county officer's was
+ * a proper brief. Grades were added. Then the date check was split out of the
+ * header check, because the header guard failed its own failure message —
+ * it reported "no Njia header, date or address" and asserted only that the
+ * div existed, while all 53 pages carried no date at all.
+ *
+ * That split fixed the message and left a worse bug behind it: the two guards
+ * were free to disagree about WHICH pages they covered, and they did. The
+ * header guard scanned counties and grades. The date guard scanned counties,
+ * grades and analysis — one directory bolted on by hand. So /help/ and /docs/
+ * carried the header by the generator's care with nothing holding them to it,
+ * and /open-data/ carried none at all and printed unbranded and undated. That
+ * is the dataset page a county planner or a journalist prints, and /docs/ is
+ * the funder-facing prospectus.
+ *
+ * This is the per-surface-guard flaw this repository already diagnosed for
+ * served links, sitemap and llms.txt — "add a surface, add a line" — recurring
+ * INSIDE the pair of guards written to fix a different instance of it. So the
+ * fix is the same one: a single list, every property asserted off it.
+ *
+ * And the list is read off the disk rather than typed, because a typed list is
+ * the thing that drifted. Any directory holding a generated index.html is a
+ * printable sheet; a new surface is covered the day it is generated, without
+ * anyone remembering. */
+const PRINTABLE_SHEETS = () => {
+  const dirs = [
     ...fs.readdirSync(countiesDir, { withFileTypes: true })
-      .filter((e) => e.isDirectory()).map((e) => path.join(countiesDir, e.name, 'index.html')),
+      .filter((e) => e.isDirectory()).map((e) => path.join(countiesDir, e.name)),
     ...fs.readdirSync(gradesDir, { withFileTypes: true })
-      .filter((e) => e.isDirectory()).map((e) => path.join(gradesDir, e.name, 'index.html'))
+      .filter((e) => e.isDirectory()).map((e) => path.join(gradesDir, e.name)),
+    ...['analysis', 'open-data', 'help', 'docs'].map((d) => path.join(__dirname, '..', d))
   ];
+  return dirs.map((d) => path.join(d, 'index.html')).filter((p) => fs.existsSync(p));
+};
+
+test('every printable sheet carries the branded header', () => {
+  const pages = PRINTABLE_SHEETS();
+  assert.ok(pages.length > 55, `only ${pages.length} sheets found — the list stopped resolving`);
   const missing = pages.filter((p) => !/<div class="brief-head">/.test(fs.readFileSync(p, 'utf8')))
     .map((p) => path.relative(path.join(__dirname, '..'), p));
   assert.deepEqual(missing, [],
@@ -274,44 +302,30 @@ test('every printable sheet carries the branded header', () => {
 });
 
 test('every printable sheet is dated', () => {
-  /* SPLIT OUT OF THE TEST ABOVE, WHICH FAILED ITS OWN FAILURE MESSAGE.
-     That test says a page without the header prints with "no Njia header, date
-     or address" — and then checks only that the header div exists. The header
-     existed on all 53 pages and carried no date on any of them, so the guard
-     passed while claiming to cover exactly what was missing. Found by
-     print-emulating the pages and searching the rendered text for a date, which
-     came back empty on county and analysis alike.
-
-     Why it matters more here than on screen: these sheets are printed and
+  /* Why it matters more here than on screen: these sheets are printed and
      carried away — photocopied for a Form Four class, taken into a bursary
-     committee. The catalogue has gone 436 to 463 to 469 courses in months, so
+     committee. The catalogue has gone 436 to 463 to 683 courses in months, so
      every figure on the sheet has a shelf life, and an undated copy from last
      year is indistinguishable from one printed this morning.
 
      Matches the long form the generator emits (16 August 2026) rather than an
      ISO string, because the reader is a person holding paper. */
   const dated = /\b\d{1,2} (January|February|March|April|May|June|July|August|September|October|November|December) 20\d\d\b/;
-  const pages = [
-    ...fs.readdirSync(countiesDir, { withFileTypes: true })
-      .filter((e) => e.isDirectory()).map((e) => path.join(countiesDir, e.name, 'index.html')),
-    ...fs.readdirSync(gradesDir, { withFileTypes: true })
-      .filter((e) => e.isDirectory()).map((e) => path.join(gradesDir, e.name, 'index.html')),
-    path.join(__dirname, '..', 'analysis', 'index.html')
-  ];
   /* .brief-meta rather than the whole .brief-head: the header nests several
      divs and an inline SVG, so a non-greedy match on the outer block closes at
      the first nested </div> and never reaches the line the date is on. That is
      how the first version of this guard reported all 54 pages undated when
      every one of them was correct. .brief-meta contains only <strong> and <br>,
      so the non-greedy match is exact there. */
-  const undated = pages.filter((p) => {
+  const undated = PRINTABLE_SHEETS().filter((p) => {
     const meta = fs.readFileSync(p, 'utf8').match(/<div class="brief-meta">[\s\S]*?<\/div>/);
     return !meta || !dated.test(meta[0]);
   }).map((p) => path.relative(path.join(__dirname, '..'), p));
   assert.deepEqual(undated, [],
     `these printable sheets carry no date in their brief header: ${undated.slice(0, 5).join(', ')}`
     + `${undated.length > 5 ? ` (+${undated.length - 5} more)` : ''}. Regenerate with `
-    + 'node tools/build-static-pages.mjs and node tools/build-provision-analysis.mjs.');
+    + 'node tools/build-static-pages.mjs, node tools/build-provision-analysis.mjs '
+    + 'and node tools/build-open-data.mjs.');
 });
 
 test('no grade sheet says "a E"', () => {

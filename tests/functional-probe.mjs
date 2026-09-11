@@ -446,6 +446,85 @@ for (const [name, shim] of [
     JSON.stringify(r.last.slice(0, 70)));
 }
 
+/* The backup button, same defect class as the PDF button one section up and
+ * found by the same method — reproducing an in-app browser rather than reading
+ * the source. It reported "Backup downloaded." unconditionally, so inside the
+ * WhatsApp, Facebook and Instagram browsers, where a download anchor is inert,
+ * a reader was told their data was safe and had nothing.
+ *
+ * It matters more than the PDF button because of what the app tells them to do
+ * next: the privacy panel and the FAQ at /help/ both say to export a backup
+ * BEFORE switching phones. A false success there is the last thing between a
+ * reader and a wiped handset.
+ *
+ * There is no `beforeprint` equivalent for a download, so unlike the PDF button
+ * this cannot be fixed by detecting the outcome — only by not asserting one.
+ * These checks therefore assert the absence of a success claim, and the
+ * presence of a route that survives the anchor being inert. The happy path is
+ * asserted too: a fix that simply deleted the download would pass a
+ * failure-only test while removing the feature. */
+async function backupButton(shim) {
+  const ctx = await browser.newContext({ acceptDownloads: true });
+  const p = await ctx.newPage();
+  if (shim) await p.addInitScript(shim);
+  let downloaded = false;
+  p.on('download', () => { downloaded = true; });
+  await p.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  await p.evaluate(() => {
+    AppState.okrs.push({ id: 'probe', title: 'Work worth losing', keyResults: [{ text: 'kr', done: false }], createdAt: new Date().toISOString() });
+    saveState();
+    document.querySelectorAll('.toast').forEach((t) => t.remove());
+    exportMyData();
+  });
+  await p.waitForTimeout(1200);
+  const toasts = await p.evaluate(() => [...document.querySelectorAll('.toast')]
+    .map((t) => t.innerText.replace(/\s+/g, ' ').trim()));
+  await ctx.close();
+  return { downloaded, last: toasts.length ? toasts[toasts.length - 1] : '' };
+}
+
+const backupWorks = await backupButton(null);
+check('the backup button still writes a real file where downloads work',
+  backupWorks.downloaded, `download=${backupWorks.downloaded}`);
+
+/* An anchor whose click is inert for download links — what the in-app browsers
+   do. The attribute is supported, so feature detection cannot see this. */
+const inertAnchor = `const orig = HTMLAnchorElement.prototype.click;
+  HTMLAnchorElement.prototype.click = function () {
+    if (this.hasAttribute('download')) return;
+    return orig.apply(this, arguments);
+  };`;
+for (const [name, shim] of [
+  ['the download anchor is inert', inertAnchor],
+  ['the download attribute is unsupported', 'delete HTMLAnchorElement.prototype.download;']
+]) {
+  const r = await backupButton(shim);
+  check(`the backup button claims no success when ${name}`,
+    !r.downloaded && !/backup downloaded|backup saved/i.test(r.last),
+    `downloaded=${r.downloaded} toast=${JSON.stringify(r.last.slice(0, 60))}`);
+  check(`the reader is pointed at a route that works when ${name}`,
+    /copy backup text/i.test(r.last),
+    JSON.stringify(r.last.slice(0, 80)));
+}
+
+/* The route itself has to exist and produce the data, not just be named in a
+   toast. Clipboard is denied here so the fallback panel is what answers. */
+const copyCtx = await browser.newContext();
+const copyPage = await copyCtx.newPage();
+await copyPage.addInitScript(`Object.defineProperty(navigator, 'clipboard', { get: () => undefined });`);
+await copyPage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+const copied = await copyPage.evaluate(() => {
+  AppState.okrs.push({ id: 'probe2', title: 'Work worth losing', keyResults: [], createdAt: new Date().toISOString() });
+  saveState();
+  copyBackupText();
+  const el = document.getElementById('backup-text');
+  return el ? el.value : '';
+});
+await copyCtx.close();
+check('copying the backup falls back to text the reader can select',
+  copied.includes('Work worth losing') && copied.includes('questionnaire'),
+  `${copied.length} chars`);
+
 await browser.close();
 
 const failed = results.filter((r) => !r.pass);

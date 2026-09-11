@@ -728,6 +728,75 @@ hardware.** Dark mode was missing from 53 pages, the favicon fell back to
 nothing on older WebViews, and now the PDF button did nothing on the browsers a
 forwarded WhatsApp link opens in.
 
+## Where the outcome cannot be read, do not report one
+
+The rule above was applied to the PDF button and **not to the button beside
+it.** `exportMyData()` built a blob, called `a.click()`, and showed *"Backup
+downloaded."* unconditionally. Inside the Facebook, Instagram and WhatsApp
+browsers a download anchor is inert, so the reader tapped Export, read a green
+success toast, and had nothing.
+
+It is worse than the PDF case, and the reason is what the app says next. The
+privacy panel says *"Switching phones? Export a backup below"* and the FAQ —
+now crawlable at `/help/` — says *"Export a backup first if you want to keep
+it."* Both instruct the reader to back up **before wiping a handset**, so the
+false toast was the last thing between them and losing everything. The PDF
+button failing costs a printout.
+
+**The fix is not a better detector, because there isn't one.** `beforeprint`
+made the print case observable; there is no completion event for a download
+started from an anchor. That rules out detecting the failure — it does not
+license claiming the success. So the unverifiable claim was withdrawn rather
+than qualified, which is the same trade every fee record in this catalogue
+makes, and a route that works everywhere now sits **beside** it rather than
+being offered after the first one has silently failed: **Copy Backup Text**,
+clipboard with a selectable-textarea fallback. The toast now says where to look
+and what to do if it isn't there.
+
+Two details worth keeping:
+
+- **Feature detection catches only half, exactly as it did for print.**
+  `'download' in HTMLAnchorElement.prototype` finds the older WebViews;
+  it is `true` for the in-app browsers whose click is inert, the same way
+  `typeof window.print === 'function'` is `true` for a no-op print.
+- **`URL.revokeObjectURL()` ran in the same tick as the click**, which has
+  historically cancelled the download before it began. Now deferred.
+
+The guard reproduces both failure shapes and the happy path, in
+`tests/functional-probe.mjs` alongside the print checks — a fix that simply
+deleted the download would pass a failure-only test while removing the feature.
+Verified by restoring the original `showToast('Backup downloaded.', 'success')`
+and watching two checks fail, and by gutting the fallback panel and watching a
+third.
+
+## A guard split in two is two guards free to disagree
+
+`every printable sheet carries the branded header` was split into a second test,
+`every printable sheet is dated`, because the first failed its own failure
+message — it reported "no Njia header, date or address" and asserted only that
+the div existed. That split fixed the message and **left a worse bug behind
+it**: the two were then free to disagree about *which pages they covered*, and
+they did. The header guard scanned counties and grades. The date guard scanned
+counties, grades **and `analysis`** — one directory bolted on by hand.
+
+What fell through the gap between them: `/help/` and `/docs/` carried the header
+only by the generator's care, with nothing holding them to it, and
+**`/open-data/` carried none at all** — the one generated surface printing
+unbranded and undated, which is the dataset page a county planner or a
+journalist prints. `/docs/` is the funder-facing prospectus.
+
+That is the per-surface-guard flaw this file already diagnosed for served links,
+sitemap and `llms.txt` — *add a surface, add a line* — recurring **inside the
+pair of guards written to fix a different instance of it.** So the fix is the
+same one, with one improvement: a single `PRINTABLE_SHEETS()` list, both
+properties asserted off it, and **the list read off the disk rather than
+typed** — because a typed list is precisely the thing that drifted. A new
+surface is covered the day it is generated, without anyone remembering.
+
+Both breaks were watched to fail, and deliberately on the two surfaces the old
+guards could not see: stripping the header from `/open-data/` and the date from
+`/help/`.
+
 ## Under-claim on a figure. Never on an eligibility.
 
 "When sources conflict, record the more restrictive figure" is this project's
@@ -1872,7 +1941,7 @@ node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (292 at the last count)
+node --test tests/*.test.js       # zero-dependency unit suite (302 at the last count)
 node tests/functional-probe.mjs   # drives the real app, port 8080
 node tests/a11y-sweep.mjs         # 72 axe states, port 8106
 ```

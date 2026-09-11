@@ -109,13 +109,35 @@ jobs:
           LASTMOD=$(grep -m1 '<lastmod>' sitemap.xml | sed 's/.*<lastmod>\(.*\)<\/lastmod>.*/\1/')
           echo "Pinning build date to committed lastmod: $LASTMOD"
 
+          # EXPORTED FOR THE WHOLE STEP, not set on one command.
+          #
+          # It used to prefix build-static-pages.mjs alone, because that was the
+          # only generator stamping a date when this was written. It is now the
+          # third of three: build-provision-analysis.mjs date-stamps the brief
+          # header on /analysis/, and build-open-data.mjs does the same on
+          # /open-data/. Unpinned, each regenerates with TODAY and the
+          # freshness diff below fails on any day that is not the committed
+          # lastmod — reporting "someone changed data without re-running the
+          # build" when nothing had changed but the calendar.
+          #
+          # /analysis/ had been in that state since it shipped, and no run ever
+          # said so, because every run since 19 August has died before placing a
+          # job. A guard that cannot execute cannot report what it would have
+          # caught: this was found by simulating the runner locally on a clean
+          # clone, which is what this repo's own notes prescribe and what the
+          # dead CI had made easy to skip.
+          #
+          # Exporting rather than prefixing is the fix that survives a fourth
+          # generator learning to stamp a date.
+          export NJIA_BUILD_DATE="$LASTMOD"
+
           # Order matters. build-structured-data.mjs injects JSON-LD into pages
           # that build-open-data.mjs and build-provision-analysis.mjs own, so it
           # must run last or its blocks are overwritten.
           node tools/build-landing-stats.mjs
           node tools/build-open-data.mjs
           node tools/build-provision-analysis.mjs
-          NJIA_BUILD_DATE="$LASTMOD" node tools/build-static-pages.mjs
+          node tools/build-static-pages.mjs
           node tools/build-structured-data.mjs
 
       # The icons, favicon.ico and share card are NOT regenerated here: those

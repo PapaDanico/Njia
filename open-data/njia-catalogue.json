@@ -122,12 +122,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c098",
@@ -154,12 +154,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c108",
@@ -298,12 +298,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c124",
@@ -362,12 +362,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c126",
@@ -394,12 +394,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c150",
@@ -442,12 +442,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c100",
@@ -490,12 +490,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c104",
@@ -618,12 +618,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c110",
@@ -714,12 +714,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c142",
@@ -874,12 +874,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c166",
@@ -1370,12 +1370,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c106",
@@ -1514,12 +1514,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c158",
@@ -2442,12 +2442,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c116",
@@ -3194,12 +3194,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c168",
@@ -3338,12 +3338,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c152",
@@ -3802,12 +3802,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c102",
@@ -4154,12 +4154,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c118",
@@ -4234,12 +4234,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c138",
@@ -4554,12 +4554,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c120",
@@ -4698,12 +4698,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c160",
@@ -5146,12 +5146,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c134",
@@ -5274,12 +5274,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c094",
@@ -5418,12 +5418,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c090",
@@ -5546,12 +5546,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c162",
@@ -5850,12 +5850,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c114",
@@ -6378,12 +6378,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c154",
@@ -6826,12 +6826,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c122",
@@ -8202,12 +8202,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c003",
@@ -10506,12 +10506,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c156",
@@ -10650,12 +10650,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c130",
@@ -10826,12 +10826,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c132",
@@ -11114,12 +11114,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c096",
@@ -11162,12 +11162,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c136",
@@ -11242,12 +11242,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c164",
@@ -11706,12 +11706,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c112",
@@ -11834,12 +11834,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c144",
@@ -11994,12 +11994,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c146",
@@ -12250,12 +12250,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c148",
@@ -12282,12 +12282,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c140",
@@ -12474,12 +12474,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c086",
@@ -12762,12 +12762,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c170",
@@ -13354,12 +13354,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c128",
@@ -13418,12 +13418,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c092",
@@ -13530,12 +13530,12 @@
       "ownership": "public",
       "level": "certificate",
       "cluster": "carer",
-      "min_grade": "D+",
+      "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 12,
-      "tuition_kes": 82200,
+      "duration_months": 24,
+      "tuition_kes": 160200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
       "course_id": "c088",

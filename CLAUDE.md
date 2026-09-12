@@ -1964,6 +1964,54 @@ carelessness, it is a missing affordance: the generators print useful numbers,
 so people will keep running them alone. **If you want a count, read it from the
 data, not from a generator's console output.**
 
+## A subject grade written into the mean-grade field, on 44 records
+
+The KMTC certificate tier carried `min_grade: 'D+'`, `duration_months: 12` and
+Ksh 82,200 across **44 records at 44 campuses**. All three were wrong, and the
+grade was wrong in the way that matters most: **D+ is the BIOLOGY SUBJECT
+requirement for the award, and it had been written into the mean-grade field.**
+KMTC publishes a minimum KCSE **mean grade of C-** for every certificate
+programme, with the cluster-subject requirement on top - for Community Health
+Assistant a D+ in Biology and a D in one of Maths, Chemistry, Physics or
+Physical Sciences. A learner needs the C- **and** the subject grades.
+
+Corroborated across four independent sources before a line was changed: the
+KMTC Isiolo and Lamu campus pages, the programme page for the award itself, and
+KUCCPS's own certificate entry listing. The duration and the fee move with it -
+the certificate runs **two years**, so the national schedule multiplies out to
+**Ksh 160,200** rather than the Year-1-only 82,200. The arithmetic is the same
+one the 36-month diploma already uses (82,200 + 78,000 + 78,000 = 238,200).
+
+**This is the eligibility rule failing in the direction nobody was watching.**
+The rule is written as *never quote a grade high, because it removes the card*,
+with the corollary that it does not license quoting one low. Every instance
+recorded in this file until now was the first half. This was the second: a card
+shown to D+ learners for a programme that requires C-, which sends them at a
+door that will not open. That is the intake-months harm, arriving through the
+entry grade.
+
+**And the feared consequence did not materialise, which is worth recording
+because the fear nearly stopped the fix.** The correction was held back for two
+turns on the expectation that it would reopen nine counties and force ratchets
+that may never rise. Measured after the change: **E-blind stays at 11 and
+D-blind stays at 9** - the nine counties that lose a D+ option are *the same
+nine already blind at D*, so the guarded metrics do not move at all. The D+ tier
+in those counties had been resting entirely on a mis-recorded grade, which is
+the finding rather than a side effect.
+
+**Two traps inside the edit.**
+
+- **`c031` is a Certificate in Community Health Assistant at Meru National
+  Polytechnic**, not KMTC - same course name, different institution, different
+  fee regime (the Ksh 67,189 consolidated TVET rate). A rewrite scoped by course
+  name would have given a polytechnic KMTC's schedule. Scope by
+  `institution_id`, and assert afterwards that nothing outside the set moved.
+- **The first script reported `rewrote 0 records` and was right to.** It matched
+  the single-line JSON shape the recent inserts use; these records predate that
+  and are single-quoted JS literals. The honest zero is what sent me to look at
+  the actual line instead of trusting a pattern - the inverse of every case in
+  this file where a script reported success it had not earned.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**

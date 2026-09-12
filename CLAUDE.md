@@ -3046,7 +3046,18 @@ grew **892 to 1,019 records**, roughly 25KB gzipped, and the critical path moved
 Two things follow, and the second is the more useful one. A 0.4KB delta cannot
 move a score this file already establishes could not see an **11.24KB** swing,
 so 93 is noise at a slightly lower centre rather than a regression. And **the
-noise band is itself a perishable figure** - exactly the kind this file warns
+**And the control case then arrived for free, which is better evidence
+than the measurement.** The commit that recorded this paragraph changed
+`CLAUDE.md` and nothing else - **zero bytes of shipped payload** - and its
+preview scored **94, "no change from production"**, a point ABOVE the 93 before
+it. Five readings now run 93, 94, 94, 93, 94. A score that moves up a point when
+the served page is byte-identical is the cleanest possible demonstration that
+the swing is the instrument rather than the diff, and it cost nothing but
+waiting for the next comment. **When a score moves and you suspect noise, the
+next docs-only commit is a free control - read it before arguing from bytes
+alone.**
+
+The other half stands: **the noise band is itself a perishable figure** - exactly the kind this file warns
 about everywhere else. It is recorded as 93-94 at the last four readings;
 re-measure it rather than quoting either range, and go to the bytes before the
 diff every time.

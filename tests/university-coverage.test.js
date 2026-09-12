@@ -62,7 +62,7 @@ const universities = (ownership) =>
 
 /* RATCHETS. Raise these as institutions are added; they may never fall.
    They are floors on coverage, not targets — the target is the full register. */
-const MIN_PUBLIC_LISTED = 27;
+const MIN_PUBLIC_LISTED = 35;
 const MIN_PRIVATE_LISTED = 25;
 
 test('public university coverage never regresses', () => {
@@ -98,15 +98,7 @@ test('private university coverage never regresses', () => {
    which this file separately refuses as coverage. It is a lead with the exact
    blocker named, not an oversight. */
 const KNOWN_MISSING_PUBLIC = [
-  'Alupe University',                     // Busia, chartered 2022
-  'Bomet University',                     // Bomet, chartered 4 February 2026 - the 36th
-  'Jaramogi Oginga Odinga University of Science and Technology', // Siaya
-  'Karatina University',                  // Nyeri, chartered 2013
-  'Kibabii University',                   // Bungoma, chartered 2015
-  'Meru University of Science and Technology', // Meru
-  'Tharaka University',                   // Tharaka-Nithi, chartered 2022
-  'University of Eldoret',                // Uasin Gishu
-  'University of Embu'                    // Embu, chartered 2016
+  'Alupe University'                      // Busia, chartered 2022 — see the note above
 ];
 
 test('the known-missing public universities are still named, or listed', () => {

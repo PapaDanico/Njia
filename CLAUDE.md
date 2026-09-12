@@ -2316,6 +2316,50 @@ reader ends up filtering for law and being shown a degree in Arabic. When a
 course matches no sector, ask which of the two it is before reaching for the
 regex.
 
+## The rest of the public register, and Alupe as the only one left
+
+The nine named in `KNOWN_MISSING_PUBLIC` were worked in one pass and **eight
+of them closed**, taking public coverage from 27 to **35 of 36**. The list now
+holds one name, which is the shape a known-missing list should end in.
+
+Kibabii (Bungoma), the University of Embu, JOOUST (Siaya), Karatina (Nyeri),
+Meru University of Science and Technology, the University of Eldoret, Tharaka
+University and **Bomet University** - the 36th public university in Kenya,
+chartered 4 February 2026 - all now carry the programmes their own listings
+name. 935 to **1,019 courses**.
+
+**What this pass bought that a fee pass could not.** Six counties gained their
+first or second university-level provider, and the agricultural depth is the
+part worth naming: Embu and Eldoret between them publish **range management,
+agro-ecosystem management, water resource management, agricultural
+biotechnology, animal production, horticulture and crop protection**. This file
+has recorded for months that agriculture is a quarter of the economy and was
+14.4 percentage points under-represented here. That gap does not close by
+searching for agriculture; it closes by listing the universities that teach it,
+which were absent for an unrelated reason.
+
+**Bomet is two records and that is not a shortfall to be padded.** It runs 28
+undergraduate programmes and exactly two are named in any reachable source,
+which is normal for a university chartered seven months ago - its own listing
+is the last thing to be indexed. Two is above the single-course stub floor, so
+it is listed with the other 26 declared in the note as a known gap rather than
+guessed at.
+
+**Alupe is the one left, and it stays a lead.** Chartered 2022, in Busia,
+reachable, and exactly one of its programmes - Bachelor of Education (Arts) -
+is named anywhere this build can read. One record would be the single-course
+stub this file refuses as coverage. The blocker is a per-programme listing, not
+a search that has not been run.
+
+**And the sector register failed again, four more times, but as vocabulary
+rather than as category.** `agro-ecosystem` (the pattern knew `agri` and not
+`agro`), `development policy`, `spatial planning`, and `electronic` - which the
+engineering pattern missed because it held `electric`, and *electric* is not a
+prefix of *electronics*. That is the same near-miss shape as `physiolog`
+against `physiotherap`. The distinction drawn one section up held up under
+use: these four had an honest home and needed a word, the previous two had no
+home and needed a sector.
+
 ## Two campuses of one college in one county defeat every geographic check
 
 KMTC Kapkatet was added as a new institution alongside the existing
@@ -2722,13 +2766,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 935 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1019 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 935 notes contains a comma or a quote and the
+  optional: **every one** of the 1019 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

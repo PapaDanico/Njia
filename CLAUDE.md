@@ -2210,7 +2210,35 @@ same edit, **before** the courses that need them arrive, because the remaining
 KMTC campuses clearly run them. Widening the pattern ahead of the data is
 cheaper than the tenth failure.
 
-What remains is the other 28 campuses, and the method is now proven rather than
+**Siaya +3, and a new campus the search almost misattributed.** Siaya opened in
+September 2005 with 66 clinical medicine students and now holds 934; its listing
+is dated the way Kisii's is - Community Health Nursing March 2006, the Health
+Records certificate March 2008 - so those went in. Its **in-service** Health
+Records route did not: like Garissa's distance-learning diploma, that is an
+upgrading pathway for people already working.
+
+**And the Kericho search returned Kapkatet, which is a different campus.**
+KMTC runs both a Kericho campus and a **Kapkatet** campus inside Kericho County,
+and a query for "KMTC Kericho" surfaces Kapkatet's page. Writing Kapkatet's
+clinical medicine and medical imaging onto the Kericho record would have been
+the Rift Valley Polytechnic error in a new place - *a course attributed to the
+wrong institution is worse than a missing one*, and here the two are in the same
+county, so no county-level check would ever have caught it.
+
+Kapkatet is therefore **added as its own institution** - five acres, opened
+September 2007 with 50 clinical medicine students, over 500 now, founded by the
+KMTC board with local people to serve the former Kericho, Kipkelion, Bureti and
+Bomet districts. Kericho County gains a second provider and **KMTC Kericho is
+still unworked**, which is the honest state rather than a campus quietly marked
+done by its neighbour's data.
+
+**The general form, and it is new enough to name:** the county-collision warnings
+already in this file all involve institutions in *different* counties, where a
+county check catches the error. **Two campuses of the same college in the same
+county defeat every geographic check there is.** The only defence is reading the
+campus name in the result and comparing it to the one you searched for.
+
+What remains is the other 27 campuses, and the method is now proven rather than
 theoretical - along with the query that makes it work. **The half-year programmes are deliberately untouched throughout**:
 Enrolled Community Health Nursing runs two and a half years and Community Health
 Nursing three and a half, and the national schedule is annual, so a total for
@@ -2592,13 +2620,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 886 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 892 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 886 notes contains a comma or a quote and the
+  optional: **every one** of the 892 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

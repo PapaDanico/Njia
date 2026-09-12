@@ -2217,26 +2217,13 @@ Records certificate March 2008 - so those went in. Its **in-service** Health
 Records route did not: like Garissa's distance-learning diploma, that is an
 upgrading pathway for people already working.
 
-**And the Kericho search returned Kapkatet, which is a different campus.**
-KMTC runs both a Kericho campus and a **Kapkatet** campus inside Kericho County,
-and a query for "KMTC Kericho" surfaces Kapkatet's page. Writing Kapkatet's
-clinical medicine and medical imaging onto the Kericho record would have been
-the Rift Valley Polytechnic error in a new place - *a course attributed to the
-wrong institution is worse than a missing one*, and here the two are in the same
-county, so no county-level check would ever have caught it.
-
-Kapkatet is therefore **added as its own institution** - five acres, opened
-September 2007 with 50 clinical medicine students, over 500 now, founded by the
-KMTC board with local people to serve the former Kericho, Kipkelion, Bureti and
-Bomet districts. Kericho County gains a second provider and **KMTC Kericho is
-still unworked**, which is the honest state rather than a campus quietly marked
-done by its neighbour's data.
-
-**The general form, and it is new enough to name:** the county-collision warnings
-already in this file all involve institutions in *different* counties, where a
-county check catches the error. **Two campuses of the same college in the same
-county defeat every geographic check there is.** The only defence is reading the
-campus name in the result and comparing it to the one you searched for.
+**And the Kericho search returned Kapkatet, which I read as a second campus.**
+It is not. That paragraph stood here for one commit saying KMTC runs both a
+Kericho campus and a Kapkatet campus inside Kericho County, and it is corrected
+in place rather than left standing: **Kapkatet is the KMTC campus for Kericho
+County**, 35km south of Kericho town in Bureti, and there is no separate
+Kericho-town campus. The record was split in two and has been merged back - see
+the section below, which is where the lesson is written down.
 
 What remains is the other 27 campuses, and the method is now proven rather than
 theoretical - along with the query that makes it work. **The half-year programmes are deliberately untouched throughout**:
@@ -2244,6 +2231,37 @@ Enrolled Community Health Nursing runs two and a half years and Community Health
 Nursing three and a half, and the national schedule is annual, so a total for
 either would require inventing what KMTC charges for a half year. Those are
 leads, not records.
+
+## Two campuses of one college in one county defeat every geographic check
+
+KMTC Kapkatet was added as a new institution alongside the existing
+`kmtc_kericho`, on the belief that they were two campuses. **They are one.**
+Kapkatet sits 35km south of Kericho town in Bureti, and it *is* the KMTC
+campus for Kericho County; no separate Kericho-town campus exists, and a
+search naming Kericho returns Kapkatet every time - which is exactly what
+made the split look like a finding rather than a duplicate.
+
+Caught inside the same session by searching for the thing that should have
+existed and finding nothing. Merged: the duplicate institution deleted, its
+clinical medicine and imaging records repointed to `kmtc_kericho`, its KRCHN
+record deleted as a duplicate `(name, institution)` pair, the survivor renamed
+to Kapkatet, and both surviving notes rewritten - they asserted in so many
+words that this was "a SEPARATE campus from KMTC Kericho", a sentence that
+became false the moment the merge was right.
+
+**The class of error is new here and it is worth naming.** Every collision
+this file already records - Rift Valley National Polytechnic against Rift
+Valley TTI, Kakrao against Kiptaragon - is two institutions in *different*
+counties, where the county is the check that catches it. Two campuses of one
+college **in the same county** pass every geographic check there is, and the
+only thing that separates them is asking whether the second one exists at all.
+
+The check to run before adding a campus of a multi-campus college: search for
+the campus you believe is already listed, **by its own name**, and require a
+source that describes it as a distinct facility. Absence of a result is the
+finding. **Baringo is the same shape and is sound** - `kmtc_baringo` is named
+Kabarnet Campus, and Chemolingot (opened 2 August 2024, 69 students) is a
+genuinely distinct second campus, so it may be added as one.
 
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
@@ -2620,13 +2638,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 892 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 891 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 892 notes contains a comma or a quote and the
+  optional: **every one** of the 891 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

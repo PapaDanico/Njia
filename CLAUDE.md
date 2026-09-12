@@ -3033,6 +3033,24 @@ off a single reading. If it ever leaves that band, measure the app-side payload
 before assuming the diff caused it; most changes here touch only the generated
 pages, which the audit of `/` never loads.
 
+**The band has since moved down, and the instruction above is what found it
+rather than what missed it.** Four consecutive preview readings on one branch
+went **93, 94, 94, 93**, with production itself sitting at 94 - below the 95-97
+recorded here. So the payload was measured before the diff was blamed, and it
+exonerates the diff completely: across those same four commits the catalogue
+grew **892 to 1,019 records**, roughly 25KB gzipped, and the critical path moved
+**106.1 to 106.5KB gz** - 0.4KB, all of it two new entries in `data/sectors.js`.
+`data/courses.js` is off that path as a property, and 128 new records added
+**zero bytes** to the page Lighthouse audits.
+
+Two things follow, and the second is the more useful one. A 0.4KB delta cannot
+move a score this file already establishes could not see an **11.24KB** swing,
+so 93 is noise at a slightly lower centre rather than a regression. And **the
+noise band is itself a perishable figure** - exactly the kind this file warns
+about everywhere else. It is recorded as 93-94 at the last four readings;
+re-measure it rather than quoting either range, and go to the bytes before the
+diff every time.
+
 ## A manual step is usually a missing build step
 
 The share card once needed a human to "re-scrape the URL in the Facebook

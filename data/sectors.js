@@ -230,7 +230,7 @@ const SECTORS = [
     id: 'health',
     name: 'Health and care',
     broad: 'services',
-    match: /nursing|clinical|health|medical|medicine|surgery|dental|dentist|anatomy|physiolog|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|anthropolog|sports science|social work|social science|development studies|community develop|child and youth|youth studies|philosoph/i,
+    match: /nursing|clinical|health|medical|medicine|surgery|dental|dentist|orthopaed|orthoped|anatomy|physiolog|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|anthropolog|sports science|social work|social science|development studies|community develop|child and youth|youth studies|philosoph/i,
     awardingBodies: ['KMTC', 'Nursing Council of Kenya', 'Clinical Officers Council', 'TVET CDACC'],
     knbs: { series: 'Human health and social work activities', mapping: 'unsourced' },
     caution: 'Njia lists more health courses than any other sector, because KMTC runs some forty campuses and every one is catalogued. That is the shape of Kenya\'s public training estate, not a measure of demand, and it must not be read as one.'

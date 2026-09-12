@@ -2012,6 +2012,49 @@ the finding rather than a side effect.
   the actual line instead of trusting a pattern - the inverse of every case in
   this file where a script reported success it had not earned.
 
+## KMTC is 45 campuses and was four programme names
+
+KMTC runs **more than 126 programmes** and reaches nearly every county. This
+catalogue held **45 campuses carrying four distinct programme names between
+them** - the same two or three records repeated forty-five times. For a provider
+that sits in the C-minus to C-plus band in more counties than any other, that is
+the largest single coverage gap here, and it went unmeasured because no ratchet
+counted programmes *per provider*.
+
+**Per-campus lists are reachable**, which is the finding that unblocks it. KMTC
+publishes what each campus actually teaches, and so do the campus-profile pages
+that mirror it. The three thinnest counties are now worked: **Isiolo 2 to 5,
+Lamu 2 to 5, Tana River 2 to 3.**
+
+**The discipline that makes this safe is one sentence, and it is in every note:**
+*KMTC runs more than 126 programmes nationally but not every campus runs every
+one, so a national list is not evidence that a course is taught at this campus.*
+That is the Kakrao/Kiptaragon rule in a new setting - a name in a shared result
+set is not attributable until something ties it to this institution. Here the
+thing that ties it down is the campus's own course list.
+
+**And the trap fired on the first campus.** The Isiolo search returned **two
+lists of different scope**: a specific four, and a long "extended" list running
+to fourteen programme families including higher diplomas. The long one is the
+national catalogue bleeding into a campus query. A second independent search
+returned the same **four** - so the narrow, corroborated list is what was
+written and the long one was discarded. **When two lists for one campus differ
+in scope, the narrower corroborated one is the attributable one.**
+
+Tana River is the smallest addition and the clearest provenance: the campus
+opened in Hola in September 2016 as the first higher-learning institution in the
+county, and **Health Records and Information Technology is the course it opened
+with.** One record, and it doubles what a Tana River reader can see at
+certificate level.
+
+**The sector register needed `orthopaed` for the ninth time.** Certificate in
+Orthopaedic Plaster Technology matched nothing. Nine instances is past the point
+where this is a surprise: **assume a new course brings a word the register does
+not hold, and check the guard output rather than waiting to be told.**
+
+What remains is the other 42 campuses, and the method is now proven rather than
+theoretical.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -2387,13 +2430,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 847 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 854 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 847 notes contains a comma or a quote and the
+  optional: **every one** of the 854 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

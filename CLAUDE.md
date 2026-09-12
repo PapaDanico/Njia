@@ -2078,7 +2078,37 @@ that "plans are underway to mount" that same diploma. A source that contradicts
 itself inside one paragraph attributes nothing. Bungoma stays at three courses
 and is still listed here as unworked rather than quietly counted as done.
 
-What remains is the other 39 campuses, and the method is now proven rather than
+**A third batch, and the yield rate is the finding.** Four more campuses worked:
+West Pokot +2, Iten (Elgeyo-Marakwet) +1, **Nyamira 0, Vihiga 0**. Eight of ten
+campuses attempted have produced records; two produced none, and that ratio is
+what an honest method looks like against sources that paste a national template
+onto campus pages.
+
+**Three signals now separate a campus list from the template**, and they are
+cheap to check:
+
+- **A source that separates current from planned is trustworthy.** Kapenguria's
+  listing names what it teaches *and* four courses it plans to add in a future
+  intake. Bungoma's, by contrast, listed a Diploma in Orthopaedic Technology as
+  offered and two sentences later said plans were underway to mount it - the
+  same fact in both tenses, which attributes nothing.
+- **Corroborate, and take the intersection.** Iten returned a twelve-family list
+  from one source; a second said *"the programmes currently offered include
+  Clinical Medicine and Surgery and Diploma in Community Health Nursing"* and
+  described the rest as what search results "also indicate". One record was
+  written.
+- **Student population is a sanity check on list length.** Iten holds a little
+  over 226 students and opened in 2016. **A campus of 226 does not run eighteen
+  programmes.** Where a campus publishes its size, use it: it is the cheapest
+  available test of whether a long list belongs to the campus or to the college.
+
+Nyamira is the clearest instance of the template: an eighteen-family list whose
+only campus-specific sentence names the one programme already in this
+catalogue. Vihiga is a sixteen-family list from a single source with nothing to
+corroborate it. **Both are recorded here as attempted and unyielding**, so the
+next person does not re-run them expecting a result.
+
+What remains is the other 35 campuses, and the method is now proven rather than
 theoretical. **The half-year programmes are deliberately untouched throughout**:
 Enrolled Community Health Nursing runs two and a half years and Community Health
 Nursing three and a half, and the national schedule is annual, so a total for
@@ -2460,13 +2490,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 862 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 865 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 862 notes contains a comma or a quote and the
+  optional: **every one** of the 865 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

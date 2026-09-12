@@ -2162,7 +2162,26 @@ lesson generalises: **a guard aimed at an external source does not notice when
 the catalogue is the source.** Ask, of any field repeated across dozens of
 records, whether it was verified that many times or asserted once.
 
-What remains is the other 31 campuses, and the method is now proven rather than
+**Garissa +4**, and it is the largest campus worked so far - 710 students,
+established 1980, two sites, and the main health-training institution for the
+north east. Its listing also names a Diploma in Community Health Nursing by
+distance learning for people who already hold the certificate; **that is an
+upgrading route, not an entry route from school, and it is not recorded.** Apply
+the same test to anything labelled *upgrading*: this catalogue is read by people
+deciding what to do after KCSE.
+
+**And Marsabit answered the Vihiga question from the other side.** It yielded no
+new programme - but it independently confirmed the **Certificate in Community
+Health Assistant at Marsabit specifically, at a C- mean grade with a D+ in
+Biology and a D in one science**. That is corroboration of two separate things
+at once: the grade correction made earlier in this session, and the fact that
+the blanket certificate row is **genuine at least at some campuses**. So the
+43-campus concern is a question to answer campus by campus, not a defect to
+assume. Two campuses have now answered it in opposite directions - Marsabit
+confirms, Vihiga contradicts - which is exactly why it cannot be settled in
+bulk.
+
+What remains is the other 30 campuses, and the method is now proven rather than
 theoretical - along with the query that makes it work. **The half-year programmes are deliberately untouched throughout**:
 Enrolled Community Health Nursing runs two and a half years and Community Health
 Nursing three and a half, and the national schedule is annual, so a total for
@@ -2544,13 +2563,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 877 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 881 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 877 notes contains a comma or a quote and the
+  optional: **every one** of the 881 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

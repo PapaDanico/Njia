@@ -1840,6 +1840,116 @@ every figure whose provenance is the document's own confidence. The parts worth
 having were the ones that named an authority and a date; the parts to refuse
 were the ones whose only citation was a plausible range.
 
+## A programme map is a legitimate basis for a record. Only FIGURES need a source.
+
+The maintainer's instruction, and it corrects a drift in how this file was being
+read: **use the documents provided as a guide and a map, integrate all useful
+information rather than none, and stop disputing every source into silence.**
+
+What went wrong is worth naming precisely, because the rules themselves were
+right and the *scope* they were applied at was wrong. "A figure is either
+sourced or absent" is about **figures** - fees, durations, cut-offs, employment
+rates. It was being applied to **existence**, so a programme that plainly runs
+at an institution was withheld because no single page named it in the exact
+words the catalogue wanted. The result was indefensible and the maintainer said
+so: **the University of Nairobi, Kenyatta and Moi carried one course each**,
+while the catalogue held eight records for a technical institute in Vihiga.
+
+So the standard for LISTING a course is now, explicitly:
+
+- **A reputable programme map plus institution-level verification.** A national
+  programme list (KUCCPS, CUE, a prepared handover) that names the programme,
+  *plus* confirmation that the institution runs that faculty or school, is
+  enough to create a record. Moi's own A-Z listing, UoN's nine named faculties
+  and Kenyatta's 117 accredited bachelor's degrees are that confirmation.
+- **The note states the basis it was listed on**, and tells the reader to
+  confirm the programme code on the KUCCPS portal for the cycle they are
+  applying in. That is what a learner has to do anyway.
+- **Every FIGURE on the record still obeys the old rules.** No fee for a public
+  university, because the SCFM means none exists. No employment rate. No
+  invented duration - the durations here are the published national programme
+  lengths (MBChB six years, dentistry, pharmacy, veterinary medicine and
+  engineering five, most degrees four), which is a qualification-level fact of
+  exactly the kind the Ebukanga KNEC award already set the precedent for.
+
+**And competitive programmes are now listed rather than omitted.** The MKU
+ruling dropped Pharmacy and Nursing rather than quote the C+ national minimum
+against a programme that in practice takes far more. Applied to the University
+of Nairobi that rule would delete medicine, dentistry, pharmacy, veterinary
+medicine, law, architecture and every engineering degree - which is to say, most
+of what the institution is known for, and precisely what a school-leaver opens
+Njia to look up. **Omission is not the conservative choice when it removes the
+whole institution from view.**
+
+The replacement is the Strathmore treatment, which this file already prefers:
+record the published mean-grade bar, and put the **subject requirements and the
+competitiveness beside it in the note** - "B plain in Biology, Chemistry and
+Maths or Physics, and in practice a cluster weighting well above the minimum;
+confirm the current cut-off on the KUCCPS portal". A reader told the bar is high
+and told where to check keeps their agency. A reader shown nothing does not.
+
+**The general rule to carry forward: withholding a record is itself a claim**,
+and it is the one claim this catalogue cannot caveat. A missing fee prompts a
+phone call. A missing *course* tells a learner the thing does not exist.
+
+## The four biggest public universities, filled in
+
+Applying the widened standard immediately: **University of Nairobi 1 to 25,
+Kenyatta 1 to 21, Moi 1 to 29, Technical University of Mombasa 1 to 11.**
+758 to **840 courses**, and the stub cap is ratcheted to **zero** - no
+university in this catalogue now carries a single course.
+
+Public universities hold 265 records across 24 institutions against private's
+135 across 25, which is the right shape: these are the institutions a Kenyan
+school-leaver names first, and until this pass the catalogue answered "University
+of Nairobi" with one row.
+
+**What each was listed on, because the basis differs and should be visible:**
+
+- **Moi** is the strongest - its own published A-Z bachelors listing names the
+  programmes, so those 29 are institution-sourced. That listing is also where
+  the **Bachelor of Civil Aviation Management** came from, which is an unusual
+  degree in Kenya and the only one of its kind in this catalogue.
+- **UoN, Kenyatta and TUM** are the national KUCCPS programme map checked
+  against each university's own published faculty or school structure - nine
+  faculties at UoN, 117 accredited bachelor degrees at Kenyatta, the engineering
+  and maritime faculties at TUM. Every note says so and points the reader at the
+  KUCCPS portal for the programme code and the current cut-off.
+
+**Competitive programmes are in, with the bar beside them.** MBChB, dentistry,
+pharmacy, nursing, veterinary medicine, law, architecture and the whole
+engineering set carry `min_grade: 'C+'` - the national bar that decides whether
+a card can appear at all - with the published subject requirements and the
+competition stated in the note: *"the published subject requirement is a B plain
+in Biology, Chemistry, Mathematics or Physics and English or Kiswahili, and
+placement runs at the very top of the cluster range. Treat the C+ as the door,
+not the queue."* Under the old ruling every one of these would have been
+omitted, which is how the country's oldest medical school came to be absent from
+a Kenyan career catalogue.
+
+**No fee on any of them, and that is correct rather than a gap.** All four are
+public, so the SCFM applies and there is no per-programme price in existence to
+find. The note says so and sends the reader to the band explainer on `/help/`.
+Durations are the published national programme lengths - six years for MBChB,
+five for dentistry, pharmacy, veterinary medicine and engineering, four for the
+rest - which is a qualification-level fact, the same class of source as the KNEC
+award that unblocked Ebukanga.
+
+**The sector register needed six more words** - `medicine`, `surgery`, `dental`,
+`dentist`, `anthropolog`, plus `real estate`/`land econom` and
+`environmental studies`/`meteorolog`/`climate`. The health pattern knew
+*medical* and not *medicine*, so **every MBChB and BDS record would have been
+invisible to every sector filter**. That is the eighth instance, and the first
+where the missing word was the single most-searched programme in the country.
+
+**And the convenience-invocation trap fired a third time, in the same session
+that recorded it.** `build-open-data.mjs` was run alone to read its row count
+and fee-basis line, stripping the JSON-LD from `/open-data/` again. Caught
+immediately this time because the rule was fresh. Three occurrences is not
+carelessness, it is a missing affordance: the generators print useful numbers,
+so people will keep running them alone. **If you want a count, read it from the
+data, not from a generator's console output.**
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -2215,13 +2325,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 758 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 840 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 758 notes contains a comma or a quote and the
+  optional: **every one** of the 840 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

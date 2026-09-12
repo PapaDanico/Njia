@@ -152,7 +152,7 @@ const SECTORS = [
     id: 'built',
     name: 'Built environment and construction',
     broad: 'industry',
-    match: /building|construction|masonry|plumb|carpent|architect|quantity survey|civil|concrete|painting and decoration/i,
+    match: /building|construction|masonry|plumb|carpent|architect|quantity survey|real estate|land econom|civil|concrete|painting and decoration/i,
     awardingBodies: ['National Construction Authority', 'Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Construction', mapping: 'exact', growth: 6.8, prev: -0.7 },
     caution: 'A rebound from a contraction, not a run of growth. Certified trades earn day rates rather than salaries, so the money is real but the month is not guaranteed.'
@@ -212,7 +212,7 @@ const SECTORS = [
     id: 'agriculture',
     name: 'Agriculture and agribusiness',
     broad: 'agriculture',
-    match: /agri|farm|horticultur|environmental science|environmental management|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur/i,
+    match: /agri|farm|horticultur|environmental science|environmental management|environmental studies|meteorolog|climate|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur/i,
     awardingBodies: ['TVET CDACC', 'public universities'],
     knbs: { series: 'Agriculture, forestry and fishing', mapping: 'exact', growth: 3.1, share: 23.2 },
     caution: 'Nearly a quarter of the entire economy and the largest single employer in the country, growing slower than the economy as a whole. Most of that work is on smallholdings and is not waged employment — which is the argument for agribusiness and processing rather than against agriculture.'
@@ -230,7 +230,7 @@ const SECTORS = [
     id: 'health',
     name: 'Health and care',
     broad: 'services',
-    match: /nursing|clinical|health|medical|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|sports science|social work|social science|development studies|community develop|child and youth|youth studies|philosoph/i,
+    match: /nursing|clinical|health|medical|medicine|surgery|dental|dentist|anatomy|physiolog|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|anthropolog|sports science|social work|social science|development studies|community develop|child and youth|youth studies|philosoph/i,
     awardingBodies: ['KMTC', 'Nursing Council of Kenya', 'Clinical Officers Council', 'TVET CDACC'],
     knbs: { series: 'Human health and social work activities', mapping: 'unsourced' },
     caution: 'Njia lists more health courses than any other sector, because KMTC runs some forty campuses and every one is catalogued. That is the shape of Kenya\'s public training estate, not a measure of demand, and it must not be read as one.'

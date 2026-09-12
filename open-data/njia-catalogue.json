@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 865,
+  "course_count": 869,
   "institution_count": 176,
   "county_count": 47,
   "column_notes": {
@@ -306,6 +306,22 @@
       "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
+      "course_id": "c892",
+      "course_name": "Diploma in Clinical Medicine and Surgery",
+      "institution": "Kenya Medical Training College (KMTC) — Bungoma Campus",
+      "institution_id": "kmtc_bungoma",
+      "county": "Bungoma",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "illustrative",
+      "verification_note": "KMTC Bungoma Campus opened in 2011 next to Bungoma County Referral Hospital, as part of the college’s expansion into western Kenya, and holds over 400 students. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. The campus listing names what it currently teaches and separately says plans are underway to mount a Certificate in Medical Engineering and a Diploma in Orthopaedic Technology - those two are NOT recorded here, because a planned course is not a course. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster subjects in English or Kiswahili, Biology or Biological Sciences, and Mathematics, Chemistry or Physics. Diploma courses run three years, except Community Health Nursing which runs three and a half. KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure. Total here is that schedule multiplied out by course length. Tuition only - accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
       "course_id": "c124",
       "course_name": "Diploma in Kenya Registered Community Health Nursing (KRCHN)",
       "institution": "Kenya Medical Training College (KMTC) — Bungoma Campus",
@@ -368,6 +384,22 @@
       "tuition_kes": 160200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
+    },
+    {
+      "course_id": "c891",
+      "course_name": "Diploma in Clinical Medicine and Surgery",
+      "institution": "Kenya Medical Training College (KMTC) — Busia Campus",
+      "institution_id": "kmtc_busia",
+      "county": "Busia",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "illustrative",
+      "verification_note": "KMTC Busia Campus is in Matayos, 500 metres from the Kenya-Uganda border and next to Busia County Referral Hospital, which is its clinical training site. It was commissioned in 2005, accredited by the Clinical Officers Council in November 2016 and by the Nursing Council of Kenya in March 2017, and holds over 397 students. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. The campus listing states plainly that it runs two diploma courses and names them, and separately names the courses it hopes to add - only the two current ones are recorded here. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster subjects in English or Kiswahili, Biology or Biological Sciences, and Mathematics, Chemistry or Physics. Diploma courses run three years, except Community Health Nursing which runs three and a half. KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure. Total here is that schedule multiplied out by course length. Tuition only - accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
     },
     {
       "course_id": "c126",
@@ -11362,6 +11394,22 @@
       "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
+      "course_id": "c893",
+      "course_name": "Diploma in Clinical Medicine and Surgery",
+      "institution": "Kenya Medical Training College (KMTC) — Nyandarua Campus",
+      "institution_id": "kmtc_nyandarua",
+      "county": "Nyandarua",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "illustrative",
+      "verification_note": "KMTC Nyandarua Campus is at Ol Kalou next to JM Kariuki Memorial County Referral Hospital, established in September 2014 and officially opened in April 2016, with over 343 students. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. This programme is named on the campus’s own current listing. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster subjects in English or Kiswahili, Biology or Biological Sciences, and Mathematics, Chemistry or Physics. Diploma courses run three years, except Community Health Nursing which runs three and a half. KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure. Total here is that schedule multiplied out by course length. Tuition only - accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
       "course_id": "c136",
       "course_name": "Diploma in Kenya Registered Community Health Nursing (KRCHN)",
       "institution": "Kenya Medical Training College (KMTC) — Nyandarua Campus",
@@ -11376,6 +11424,22 @@
       "tuition_kes": 238200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
+      "course_id": "c894",
+      "course_name": "Diploma in Pharmacy",
+      "institution": "Kenya Medical Training College (KMTC) — Nyandarua Campus",
+      "institution_id": "kmtc_nyandarua",
+      "county": "Nyandarua",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "illustrative",
+      "verification_note": "KMTC Nyandarua Campus is at Ol Kalou next to JM Kariuki Memorial County Referral Hospital, established in September 2014 and officially opened in April 2016, with over 343 students. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. This programme is named on the campus’s own current listing. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster subjects in English or Kiswahili, Biology or Biological Sciences, and Mathematics, Chemistry or Physics. Diploma courses run three years, except Community Health Nursing which runs three and a half. KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure. Total here is that schedule multiplied out by course length. Tuition only - accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
     },
     {
       "course_id": "c507",

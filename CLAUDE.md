@@ -2072,11 +2072,14 @@ KMTC programme names across the estate: **4 to 13.**
   disproportionately there - Turkana runs recurrent food-security programmes and
   the county had no nutrition training listed at all.
 
-**And one campus yielded nothing, which is the rule working.** Bungoma's summary
-said it offers a Diploma in Orthopaedic Technology **and**, two sentences later,
-that "plans are underway to mount" that same diploma. A source that contradicts
-itself inside one paragraph attributes nothing. Bungoma stays at three courses
-and is still listed here as unworked rather than quietly counted as done.
+**And one campus yielded nothing on the first attempt, which is the rule
+working.** Bungoma's summary said it offers a Diploma in Orthopaedic Technology
+**and**, two sentences later, that "plans are underway to mount" that same
+diploma. A source that contradicts itself inside one paragraph attributes
+nothing, so nothing was written. **It was resolved two batches later by asking
+differently** - see below; the contradiction was the summariser collapsing a
+current list and a planned list into one sentence, and the county was never the
+problem.
 
 **A third batch, and the yield rate is the finding.** Four more campuses worked:
 West Pokot +2, Iten (Elgeyo-Marakwet) +1, **Nyamira 0, Vihiga 0**. Eight of ten
@@ -2108,8 +2111,29 @@ catalogue. Vihiga is a sixteen-family list from a single source with nothing to
 corroborate it. **Both are recorded here as attempted and unyielding**, so the
 next person does not re-run them expecting a result.
 
-What remains is the other 35 campuses, and the method is now proven rather than
-theoretical. **The half-year programmes are deliberately untouched throughout**:
+**A fourth batch, and the query itself turned out to be the variable.** Adding
+the words **"background information student population programmes currently
+offered"** to a campus search reliably surfaces a different class of page - one
+that gives the campus's founding date, its student count, what it teaches *now*
+and, separately, what it plans to add. That phrasing resolved three campuses in
+one pass: **Busia +1, Bungoma +1, Nyandarua +2.**
+
+**Bungoma is the correction worth carrying.** It was recorded two batches ago as
+yielding nothing because its source contradicted itself. Asked the better way,
+the same campus reports cleanly: *currently* a Diploma in Community Health
+Nursing (pre-service) and a Diploma in Clinical Medicine and Surgery, and
+*planned*, a Certificate in Medical Engineering and a Diploma in Orthopaedic
+Technology. The original caution was right - Orthopaedic Technology really is
+planned and is still not recorded - **but "this county is dry" was the wrong
+conclusion to draw from a bad summary.** That is the Borabu lesson again: the
+registrar was not the only route left, and the award page was. **When a source
+contradicts itself, change the question before writing the county off.**
+
+Nyandarua also brings the catalogue its **first Diploma in Pharmacy**, which is
+a whole pharmaceutical-technologist pathway that was absent.
+
+What remains is the other 32 campuses, and the method is now proven rather than
+theoretical - along with the query that makes it work. **The half-year programmes are deliberately untouched throughout**:
 Enrolled Community Health Nursing runs two and a half years and Community Health
 Nursing three and a half, and the national schedule is annual, so a total for
 either would require inventing what KMTC charges for a half year. Those are
@@ -2490,13 +2514,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 865 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 869 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 865 notes contains a comma or a quote and the
+  optional: **every one** of the 869 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

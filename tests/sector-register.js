@@ -178,6 +178,18 @@ const SECTOR_QA = {
     gap: 'Fee figures circulating for the Railway Training Institute are short-course rates and must not be read as diploma fees; its diploma schedule is unpublished, so those records carry null.',
     source: 'Railway Training Institute; Kenya Institute of Highways and Building Technology'
   },
+  sciences: {
+    feeRegimes: ['public_university'],
+    expect: 1,
+    gap: 'One record - the University of Nairobi astronomy and astrophysics degree, which is the only programme of its kind in Kenya. Physics and pure-science degrees at the other public universities are not yet sourced, and there is no tier below degree level here at all.',
+    source: 'uonbi.ac.ke Faculty of Science and Technology undergraduate programme listing, read September 2026'
+  },
+  humanities: {
+    feeRegimes: ['public_university'],
+    expect: 1,
+    gap: 'One record - Arabic with Islamic Studies at Garissa University. The University of Nairobi arts faculty publishes philosophy, religious studies, linguistics, literature and French options that are not yet listed individually, and this sector exists because those programmes had no honest home in the register: they were being claimed by the law sector, which attached a Council of Legal Education caution to a languages degree.',
+    source: 'gau.ac.ke course listing and uonbi.ac.ke Faculty of Arts and Social Sciences listing, read September 2026'
+  },
   legal: {
     feeRegimes: ['public_university', 'private_own_rate'],
     expect: 2,

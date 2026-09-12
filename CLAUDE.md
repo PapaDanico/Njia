@@ -2232,6 +2232,90 @@ Nursing three and a half, and the national schedule is annual, so a total for
 either would require inventing what KMTC charges for a half year. Those are
 leads, not records.
 
+## The public register was measured in one direction and the gap was nine
+
+Asked what had been done about the public universities, the honest answer was
+that the four biggest had been deepened earlier in the session and **the
+register itself had never been counted against CUE on the public side.**
+`tests/university-coverage.test.js` held a ratchet for both counts and a
+**named** known-missing list for private universities only. So the private gap
+was seven institutions anybody could read, and the public gap was a number
+nobody could see behind - which is this file's own rule about gaps inside
+aggregates, applied to one half of a test and not the other.
+
+Measured: Njia held **24 of 36 chartered public universities**, and twelve were
+absent. Three are now listed, nine are named in a new `KNOWN_MISSING_PUBLIC`
+list with their counties, and the ratchet is 27.
+
+**The three added are worth more than their record count, because of where they
+are.**
+
+- **Kaimosi Friends University** is the **first and only university in Vihiga
+  County** - a county this file already names among the thinnest in the
+  catalogue. Chartered 2 August 2022 after seven years as a constituent college
+  of MMUST. Ten programmes, including a **Bachelor of Science in Optometry and
+  Vision Science**, which is a scarce profession in Kenya and a degree route
+  into it that almost nothing else in this catalogue offers.
+- **Garissa University** is the only university in Garissa County **and the only
+  public university in the whole of North Eastern Kenya**. Eleven programmes,
+  including **Arabic with Islamic Studies**, which no other record here
+  resembles. It publishes 49 approved programmes of which 29 are currently on
+  offer, and the source separates the two - so only the current ones are
+  recorded, the same test that decides a KMTC campus list.
+- **Tom Mboya University** (Homa Bay, chartered 2022) - four programmes, the
+  fewest of the three, because its own listing names the fewest.
+
+**And the University of Nairobi gained eighteen, read off four faculty
+domains rather than off an aggregator.** The faculty sites enumerate
+programmes the roll-up pages do not: fifteen named BSc degrees at Science and
+Technology alone. This is the Borabu lesson at a much larger institution -
+*search the institution's own domain before concluding it does not publish
+something* - and it is why a university with 300-plus programmes had been
+sitting on a partial list.
+
+**Alupe is a lead, not an oversight, and the blocker is named.** It is
+chartered, reachable and absent, because exactly one of its programmes -
+Bachelor of Education (Arts) - is named in any source this build can reach.
+The rest surface as school names, and *a named department is not a named
+course*. One record would make it a single-course stub, which this file
+refuses as coverage. Do not re-run the general search; the specific missing
+thing is a per-programme listing.
+
+**Four guards caught this batch, and the suite being green caught none of them.**
+
+- **Every cluster id in the payload was invented.** `thinker`, `organiser`,
+  `builder` and `grower` are plausible English and **none of them exists**: the
+  catalogue's clusters are `business`, `carer`, `creator`, `maker`, `numbers`,
+  `people`, `tech`. Twenty-nine records would have pointed at nothing. Caught by
+  `every course points at a real institution and a real cluster`, and the lesson
+  is the placeholder trap in a new field - a value that *reads* right is the
+  dangerous kind.
+- **The absence phrase, for the third time in this file.** Forty-three notes
+  explained at length that a public university has no per-programme price to
+  quote and used **none of the four literal phrases** the guard requires.
+  Explaining an absence is not declaring one.
+- **The teaching descriptions did not lead with the queue.** Seven new Bachelor
+  of Education records mentioned the TSC employment queue in their second
+  sentence, which the guard rejects by design: *a caveat below the fold is a
+  caveat most readers never reach.*
+- **The sector register had no honest home for two of the new courses**, and the
+  first fix was worse than the gap. Widening the existing patterns put
+  **Astronomy and Astrophysics into "Mining, quarrying and extractives"** and
+  **Arabic with Islamic Studies into "Law and governance"** - which would have
+  attached a Council of Legal Education caution to a languages degree. Both were
+  reverted. Two sectors were added instead, **Physical sciences and research**
+  and **Languages, humanities and religious studies**, each with an honest
+  `unsourced` KNBS mapping and a declared gap.
+
+That last one is the general point and it is new here. Every previous instance
+of this was *vocabulary* - the register knew `medical` but not `medicine`,
+`physiolog` but not `physiotherap` - and the fix was always to widen a pattern
+and leave the course name alone. **This time the register was missing a
+category, not a word**, and widening a pattern to swallow the course is how a
+reader ends up filtering for law and being shown a degree in Arabic. When a
+course matches no sector, ask which of the two it is before reaching for the
+regex.
+
 ## Two campuses of one college in one county defeat every geographic check
 
 KMTC Kapkatet was added as a new institution alongside the existing
@@ -2638,13 +2722,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 891 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 935 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 891 notes contains a comma or a quote and the
+  optional: **every one** of the 935 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

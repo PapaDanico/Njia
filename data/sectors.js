@@ -161,7 +161,7 @@ const SECTORS = [
     id: 'admin',
     name: 'Administration, HR and public service',
     broad: 'services',
-    match: /human resource|office administration|public administration|international relations|diplomacy|secretar|records|librar|information science|archiv|project management|governance|events management|security|emotional intelligence|leadership|disaster management|disaster risk|resilience|political science|criminolog|penolog|security studies|librar|information science|archiv|cctv|alarm/i,
+    match: /human resource|office administration|public administration|international relations|diplomacy|secretar|records|librar|information science|archiv|project management|project planning|urban planning|regional planning|arts in planning|governance|events management|security|emotional intelligence|leadership|disaster management|disaster risk|resilience|political science|criminolog|penolog|security studies|librar|information science|archiv|cctv|alarm/i,
     awardingBodies: ['TVET CDACC', 'IHRM'],
     knbs: { series: 'Public administration and defence', mapping: 'component', growth: 8.3 },
     caution: 'Growth in public administration is measured as government activity, and hiring into it is capped by the wage bill rather than by demand. Most administrative work is in the private sector, which this series does not cover.'
@@ -174,7 +174,7 @@ const SECTORS = [
      * sector at all — the pattern had `financ` and `actuarial` but nothing that
      * matched the word insurance itself, so two records went invisible to both
      * the register and the landing table. */
-    match: /account|financ|insur|bank|tax|credit|econom|statistic|actuarial|audit|commerce|business management|business administration|business studies|sales|marketing|entrepreneur|customs|co-?operative|sacco|microfinance/i,
+    match: /account|financ|insur|bank|tax|credit|econom|statistic|actuarial|mathematic|audit|commerce|business management|business administration|business studies|sales|marketing|entrepreneur|customs|co-?operative|sacco|microfinance/i,
     awardingBodies: ['KASNEB', 'TVET CDACC'],
     knbs: { series: 'Financial and insurance activities', mapping: 'exact', growth: 6.5 },
     caution: 'The sector grows faster than the economy, but entry is gated by professional papers — the KASNEB ladder runs years past the college award and costs money at each stage.'
@@ -212,7 +212,7 @@ const SECTORS = [
     id: 'agriculture',
     name: 'Agriculture and agribusiness',
     broad: 'agriculture',
-    match: /agri|farm|horticultur|environmental science|environmental management|environmental studies|meteorolog|climate|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur/i,
+    match: /agri|farm|horticultur|environmental science|environmental management|environmental studies|geograph|meteorolog|climate|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur/i,
     awardingBodies: ['TVET CDACC', 'public universities'],
     knbs: { series: 'Agriculture, forestry and fishing', mapping: 'exact', growth: 3.1, share: 23.2 },
     caution: 'Nearly a quarter of the entire economy and the largest single employer in the country, growing slower than the economy as a whole. Most of that work is on smallholdings and is not waged employment — which is the argument for agribusiness and processing rather than against agriculture.'
@@ -221,7 +221,7 @@ const SECTORS = [
     id: 'engineering',
     name: 'Engineering, manufacturing and trades',
     broad: 'industry',
-    match: /engineering|\bengine\b|mechanic|electric|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|processing technology|plant technician/i,
+    match: /engineering|\bengine\b|mechanic|electric|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|chemist|chemistry|processing technology|plant technician/i,
     awardingBodies: ['Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Manufacturing', mapping: 'unsourced' },
     caution: 'Manufacturing is the largest formal employer in the country at 366,600 workers, and its share of the economy has been drifting down for over a decade. Njia did not source its 2025 growth figure, so none is shown.'
@@ -230,7 +230,7 @@ const SECTORS = [
     id: 'health',
     name: 'Health and care',
     broad: 'services',
-    match: /nursing|clinical|health|medical|medicine|surgery|dental|dentist|orthopaed|orthoped|physiotherap|occupational therap|radiograph|imaging|anatomy|physiolog|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|anthropolog|sports science|social work|social science|development studies|community develop|child and youth|youth studies|philosoph/i,
+    match: /nursing|clinical|health|medical|medicine|surgery|dental|dentist|orthopaed|orthoped|optometr|vision science|physiotherap|occupational therap|radiograph|imaging|anatomy|physiolog|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|anthropolog|sports science|social work|social science|development studies|community develop|child and youth|youth studies|philosoph/i,
     awardingBodies: ['KMTC', 'Nursing Council of Kenya', 'Clinical Officers Council', 'TVET CDACC'],
     knbs: { series: 'Human health and social work activities', mapping: 'unsourced' },
     caution: 'Njia lists more health courses than any other sector, because KMTC runs some forty campuses and every one is catalogued. That is the shape of Kenya\'s public training estate, not a measure of demand, and it must not be read as one.'
@@ -279,6 +279,24 @@ const SECTORS = [
     awardingBodies: ['Council of Legal Education', 'Kenya School of Law'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'Only the degree route is catalogued, and the Advocates Training Programme that follows it is a further mandatory year with its own fee. There is no sourced route into legal work below degree level.'
+  },
+  {
+    id: 'sciences',
+    name: 'Physical sciences and research',
+    broad: 'services',
+    match: /astronom|astrophys|\bphysics\b|physical science|pure science|research science/i,
+    awardingBodies: ['Commission for University Education'],
+    knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
+    caution: 'Njia holds no employment or earnings data for research careers in Kenya, and there is no TVET tier beneath these programmes - the route is a degree and then postgraduate study or a research institute. Read the absence of a figure here as an absence of published data, not as an absence of work.'
+  },
+  {
+    id: 'humanities',
+    name: 'Languages, humanities and religious studies',
+    broad: 'services',
+    match: /arabic|islamic studies|religious studies|linguistic|literature|\bfrench\b|kiswahili|language and communication/i,
+    awardingBodies: ['Commission for University Education'],
+    knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
+    caution: 'These programmes most often lead into teaching, translation, media or further study, and Kenya publishes no graduate-outcome data for any of them. Where teaching is the intended destination, read the note on the education sector too - entry to the classroom runs through the TSC employment queue.'
   },
   {
     id: 'personal',

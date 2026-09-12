@@ -62,7 +62,7 @@ const universities = (ownership) =>
 
 /* RATCHETS. Raise these as institutions are added; they may never fall.
    They are floors on coverage, not targets — the target is the full register. */
-const MIN_PUBLIC_LISTED = 24;
+const MIN_PUBLIC_LISTED = 27;
 const MIN_PRIVATE_LISTED = 25;
 
 test('public university coverage never regresses', () => {
@@ -82,6 +82,51 @@ test('private university coverage never regresses', () => {
 /* The known-missing list is the working front. An institution named here has
    been confirmed to exist and confirmed to be absent; removing a name from this
    list without adding the institution is how a gap gets quietly forgotten. */
+/* The public side had no list at all, which is the asymmetry this very file
+   warns about: the private gap was named institution by institution and the
+   public gap was reported as nothing, so nobody could see that nine chartered
+   public universities were absent. Every one of these was confirmed to exist,
+   with its charter year and county, in September 2026. Several sit in counties
+   where Njia is thin, which is why the gap is worth naming rather than
+   counting: a learner in Bungoma or Siaya is not helped by knowing that
+   coverage is 27 of 36.
+
+   Alupe is the instructive one. It IS reachable and it is NOT listed, because
+   only one of its programmes - Bachelor of Education (Arts) - is named in any
+   source this build can reach; the rest surface as school names, and a named
+   school is not a named course. One course would make it a single-course stub,
+   which this file separately refuses as coverage. It is a lead with the exact
+   blocker named, not an oversight. */
+const KNOWN_MISSING_PUBLIC = [
+  'Alupe University',                     // Busia, chartered 2022
+  'Bomet University',                     // Bomet, chartered 4 February 2026 - the 36th
+  'Jaramogi Oginga Odinga University of Science and Technology', // Siaya
+  'Karatina University',                  // Nyeri, chartered 2013
+  'Kibabii University',                   // Bungoma, chartered 2015
+  'Meru University of Science and Technology', // Meru
+  'Tharaka University',                   // Tharaka-Nithi, chartered 2022
+  'University of Eldoret',                // Uasin Gishu
+  'University of Embu'                    // Embu, chartered 2016
+];
+
+test('the known-missing public universities are still named, or listed', () => {
+  const names = INSTITUTIONS
+    .filter((i) => i.type === 'university')
+    .map((i) => i.name.toLowerCase());
+  const stillMissing = KNOWN_MISSING_PUBLIC.filter((n) => {
+    const key = n.toLowerCase().replace(/^the /, '').split(' ')[0];
+    return !names.some((have) => have.includes(key));
+  });
+
+  const listed = universities('public').length;
+  assert.ok(listed + stillMissing.length <= CUE_PUBLIC_CHARTERED,
+    `${listed} public universities listed and ${stillMissing.length} named as missing is more than `
+    + `the ${CUE_PUBLIC_CHARTERED} CUE records — one of those figures is stale, so re-read the register.`);
+
+  assert.ok(stillMissing.length <= KNOWN_MISSING_PUBLIC.length,
+    'the known-missing public list grew without the register count moving');
+});
+
 const KNOWN_MISSING_PRIVATE = [
   'Africa International University',
   'Adventist University of Africa',

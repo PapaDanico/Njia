@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 840,
+  "course_count": 847,
   "institution_count": 176,
   "county_count": 47,
   "column_notes": {
@@ -6546,6 +6546,22 @@
       "verification_note": "This course previously displayed a precise-looking tuition figure that was never observed anywhere. An audit found the same value repeated across unrelated institutions - Ksh 420,000 appeared on twelve different degrees at twelve different universities, public and private, from nursing to design to actuarial science - which is not what real fee data looks like. It was a placeholder, so it has been removed rather than left wearing a caveat. The figure could not be verified against any source reachable here, so nothing is shown. Ask the institution directly; if it is a public university, note that a single per-programme price no longer exists."
     },
     {
+      "course_id": "c871",
+      "course_name": "Bachelor of Business Administration",
+      "institution": "Technical University of Mombasa (TUM)",
+      "institution_id": "tum",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "business",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+    },
+    {
       "course_id": "c862",
       "course_name": "Bachelor of Commerce",
       "institution": "Technical University of Mombasa (TUM)",
@@ -6559,7 +6575,55 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+    },
+    {
+      "course_id": "c857",
+      "course_name": "Bachelor of Engineering in Electrical and Electronic Engineering",
+      "institution": "Technical University of Mombasa (TUM)",
+      "institution_id": "tum",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "tech",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 60,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+    },
+    {
+      "course_id": "c872",
+      "course_name": "Bachelor of Information Science",
+      "institution": "Technical University of Mombasa (TUM)",
+      "institution_id": "tum",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "tech",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+    },
+    {
+      "course_id": "c866",
+      "course_name": "Bachelor of Medicine and Bachelor of Surgery (MBChB)",
+      "institution": "Technical University of Mombasa (TUM)",
+      "institution_id": "tum",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 72,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a B plain in Biology, a B plain in Chemistry, a B plain in Mathematics or Physics and a B plain in English or Kiswahili - well above the mean-grade minimum - and placement runs at the very top of the cluster range. Treat the C+ as the door, not the queue. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
       "course_id": "c864",
@@ -6575,7 +6639,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
       "course_id": "c856",
@@ -6591,7 +6655,23 @@
       "duration_months": 60,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+    },
+    {
+      "course_id": "c869",
+      "course_name": "Bachelor of Science in Community Health",
+      "institution": "Technical University of Mombasa (TUM)",
+      "institution_id": "tum",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Biology, Chemistry and Mathematics or Physics. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
       "course_id": "c860",
@@ -6607,23 +6687,23 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
-      "course_id": "c857",
-      "course_name": "Bachelor of Science in Electrical and Electronic Engineering",
+      "course_id": "c870",
+      "course_name": "Bachelor of Science in Environmental Health Science",
       "institution": "Technical University of Mombasa (TUM)",
       "institution_id": "tum",
       "county": "Mombasa",
       "ownership": "public",
       "level": "degree",
-      "cluster": "tech",
+      "cluster": "carer",
       "min_grade": "C+",
       "open_entry": "no",
-      "duration_months": 60,
+      "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Biology, Chemistry and Mathematics or Physics. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
       "course_id": "c863",
@@ -6639,7 +6719,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
       "course_id": "c861",
@@ -6655,7 +6735,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
       "course_id": "c859",
@@ -6671,7 +6751,23 @@
       "duration_months": 60,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+    },
+    {
+      "course_id": "c867",
+      "course_name": "Bachelor of Science in Marine Resource Management",
+      "institution": "Technical University of Mombasa (TUM)",
+      "institution_id": "tum",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
       "course_id": "c858",
@@ -6687,7 +6783,7 @@
       "duration_months": 60,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
       "course_id": "c865",
@@ -6703,7 +6799,23 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Biology, Chemistry and Mathematics or Physics. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Biology, Chemistry and Mathematics or Physics. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
+    },
+    {
+      "course_id": "c868",
+      "course_name": "Bachelor of Science in Public Health",
+      "institution": "Technical University of Mombasa (TUM)",
+      "institution_id": "tum",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Technical University of Mombasa is a public technical university at Tudor in Mombasa, the coast's main engineering, maritime and applied-sciences institution, and a KUCCPS placement institution. Programme named against the university's own published school structure - five schools and two institutes, including the School of Engineering and Technology and the School of Applied and Health Sciences. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade, which is the bar that decides whether this card can appear for you at all. The published subject requirement is a C+ in Biology, Chemistry and Mathematics or Physics. Confirm the programme code and the current cluster cut-off on the KUCCPS portal for the cycle you are applying in, because placement is competitive and cut-offs move every year. This is a public university, so there is no per-programme price to show: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which the university does not publish a single figure for a course - what you pay is set by the band a HELB means test places you in. /help/ explains the five bands and what each leaves the household to find."
     },
     {
       "course_id": "c123",

@@ -1910,11 +1910,25 @@ of Nairobi" with one row.
   programmes, so those 29 are institution-sourced. That listing is also where
   the **Bachelor of Civil Aviation Management** came from, which is an unusual
   degree in Kenya and the only one of its kind in this catalogue.
-- **UoN, Kenyatta and TUM** are the national KUCCPS programme map checked
-  against each university's own published faculty or school structure - nine
-  faculties at UoN, 117 accredited bachelor degrees at Kenyatta, the engineering
-  and maritime faculties at TUM. Every note says so and points the reader at the
-  KUCCPS portal for the programme code and the current cut-off.
+- **UoN and Kenyatta** are the national KUCCPS programme map checked against
+  each university's own published structure - nine faculties at UoN, 117
+  accredited bachelor degrees at Kenyatta. Every note says so and points the
+  reader at the KUCCPS portal for the programme code and the current cut-off.
+- **TUM was the thinnest and was flagged as such**, then closed on the next
+  pass once search capacity returned: checked against its own published five
+  schools and two institutes, 11 records to 18. Two of the additions are the
+  point of doing it - **TUM runs an MBChB**, so the coast has its own medical
+  school and the catalogue did not say so, and **BSc Marine Resource
+  Management**, which has few equivalents anywhere inland. Flagging a weak
+  basis and returning to it is the habit worth keeping; the alternative is that
+  "verified against the national map" quietly becomes the standard.
+
+**And the same pass corrected a name.** TUM awards a **Bachelor of Engineering**
+in Electrical and Electronic Engineering, not a BSc; it had been written with
+the BSc convention the other three use. Course identity here is
+(name, institution), so the award has to be the one the university actually
+confers - a reader searching the exact programme title is the person that
+convention exists for.
 
 **Competitive programmes are in, with the bar beside them.** MBChB, dentistry,
 pharmacy, nursing, veterinary medicine, law, architecture and the whole
@@ -2325,13 +2339,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 840 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 847 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 840 notes contains a comma or a quote and the
+  optional: **every one** of the 847 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

@@ -2181,7 +2181,36 @@ assume. Two campuses have now answered it in opposite directions - Marsabit
 confirms, Vihiga contradicts - which is exactly why it cannot be settled in
 bulk.
 
-What remains is the other 30 campuses, and the method is now proven rather than
+**Kisii and Homa Bay, and a better class of source than any so far.** Kisii +2,
+Homa Bay +3.
+
+- **Kisii's listing is a dated history**, and that is the strongest attribution
+  this catalogue has found for a KMTC campus: established 1958 to train nurse
+  aides, structured enrolled-nurse training from 1972, the ECHN certificate from
+  1980, KRCHN from 1999, **Clinical Medicine and Surgery from 2000, Medical
+  Laboratory Sciences from September 2007** - each programme carrying the year it
+  began. A year attached to a programme is a fact a template cannot fake. It
+  also names Medical Imaging Sciences, Medical Engineering and two higher
+  diplomas as planned, which are not recorded.
+- **Homa Bay names four departments** - Nursing, Clinical Medicine,
+  Physiotherapy, Nutrition - across 870 students. That bounded claim is what was
+  used, **not** the looser prose list beside it, which also mentioned Medical
+  Laboratory Sciences: a named department set and a prose list disagreeing means
+  the department set wins, because it is the claim the campus makes about
+  itself.
+
+Homa Bay brings the catalogue its **first Diploma in Physiotherapy** - a
+rehabilitation pathway with no equivalent listed anywhere else in it.
+
+**The sector register needed `physiotherap` - the tenth instance.** The health
+pattern held `physiolog`, which does not match *physiotherapy*: the two words
+share a stem and diverge, which is exactly the kind of near-miss that reads as
+covered. `occupational therap`, `radiograph` and `imaging` were added in the
+same edit, **before** the courses that need them arrive, because the remaining
+KMTC campuses clearly run them. Widening the pattern ahead of the data is
+cheaper than the tenth failure.
+
+What remains is the other 28 campuses, and the method is now proven rather than
 theoretical - along with the query that makes it work. **The half-year programmes are deliberately untouched throughout**:
 Enrolled Community Health Nursing runs two and a half years and Community Health
 Nursing three and a half, and the national schedule is annual, so a total for
@@ -2563,13 +2592,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 881 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 886 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 881 notes contains a comma or a quote and the
+  optional: **every one** of the 886 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

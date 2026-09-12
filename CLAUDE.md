@@ -2052,8 +2052,38 @@ Orthopaedic Plaster Technology matched nothing. Nine instances is past the point
 where this is a surprise: **assume a new course brings a word the register does
 not hold, and check the guard output rather than waiting to be told.**
 
-What remains is the other 42 campuses, and the method is now proven rather than
-theoretical.
+**Three more campuses in the same pass, and the narrow-versus-long rule paid
+for itself twice more.** Embu 2 to 4, Kwale 2 to 5, Turkana 2 to 5. Distinct
+KMTC programme names across the estate: **4 to 13.**
+
+- **Embu returned the long list again** - fifteen programme families including
+  higher diplomas and Medical Education. A second independent search described
+  the campus in prose instead of names: clinical practice, community health
+  nursing, medical laboratory, pain management. **Only the intersection was
+  written** - Clinical Medicine and Surgery, and Medical Laboratory Sciences.
+  Two records from a list of fifteen is the correct yield, not a poor one.
+- **Kwale names three specifically** - Certificate and Diploma in Environmental
+  Health Sciences, Certificate in Nutrition and Dietetics - and then appends the
+  same generic catalogue. The three named ones were written and the appended
+  list discarded.
+- **Turkana is the clean case**: a specific list with no generic bleed, so
+  Health Records and Information Technology, Community Health and Development,
+  and Community Nutrition all went in. Community Nutrition matters
+  disproportionately there - Turkana runs recurrent food-security programmes and
+  the county had no nutrition training listed at all.
+
+**And one campus yielded nothing, which is the rule working.** Bungoma's summary
+said it offers a Diploma in Orthopaedic Technology **and**, two sentences later,
+that "plans are underway to mount" that same diploma. A source that contradicts
+itself inside one paragraph attributes nothing. Bungoma stays at three courses
+and is still listed here as unworked rather than quietly counted as done.
+
+What remains is the other 39 campuses, and the method is now proven rather than
+theoretical. **The half-year programmes are deliberately untouched throughout**:
+Enrolled Community Health Nursing runs two and a half years and Community Health
+Nursing three and a half, and the national schedule is annual, so a total for
+either would require inventing what KMTC charges for a half year. Those are
+leads, not records.
 
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
@@ -2430,13 +2460,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 854 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 862 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 854 notes contains a comma or a quote and the
+  optional: **every one** of the 862 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

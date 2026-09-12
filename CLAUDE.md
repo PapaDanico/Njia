@@ -1774,6 +1774,72 @@ or read the number, never a pattern that is equally happy to match a failure.
 That is the same shape as every paraphrase trap in this file: a check that
 passes on the evidence of the thing going wrong.
 
+## A handover of "ready-to-insert data" is a source like any other
+
+A second handover arrived offering structured data for `courses.js`,
+`institutions.js` and `funding.js`. It is worth recording how it was triaged,
+because the document is **partly excellent and partly the exact thing this file
+exists to refuse**, and a future agent will be handed one like it.
+
+**Its baseline was a year stale, as the first one's was.** It opens by stating
+`courses.js` holds 80 programmes and `institutions.js` 88, against 758 and 176.
+A handover's gap analysis is the first thing to re-measure, never the thing to
+act on.
+
+**What was refused, and why it is not a close call:**
+
+- **Section 6, graduate employment rates and starting salaries**, offered as a
+  table of twenty fields and explicitly labelled "Illustrative - estimates
+  based on industry reports". Those are the same `employment_rate` and
+  `median_salary_kes` columns that were invented, found, removed catalogue-wide,
+  and declared in `llms.txt` as a **refusal rather than a gap**, because Kenya
+  publishes no per-course graduate outcomes. A caveat in a field name does not
+  make a number sourced, and `data_confidence: 'illustrative'` is a label, not
+  a provenance.
+- **Section 4.1, fee ranges by programme category** - "Arts/Humanities
+  100,000-250,000", "Law 300,000-650,000". A per-category range is one step
+  further from a named course than the per-institution ranges already rejected.
+- **Section 10.2's instruction to mark a fee `derived` "if estimated from
+  similar programmes", and 10.3's checklist item "all programmes have realistic
+  fee ranges."** Read plainly, that is the placeholder trap written down as a
+  procedure. *Realistic* is the property a fabricated figure has.
+- **Section 8.2's proposed institution fields** `graduation_rate: 0.72` and
+  `graduate_employment_rate_6mo: 0.65`, both commented `illustrative` - the same
+  defect moved up a level, where no guard was watching.
+- **Sections 3.4 and 4.2's fees**, which would *downgrade* what is already here:
+  KMTC is carried at its real national schedule and the handover offers
+  "~60,000-80,000"; Kabarak is carried at its published 65,000 a semester plus a
+  sourced administrative band and the handover offers "~323,700/year".
+
+**What was taken, and it is genuinely good.** Section 4.3 carries a fact this
+catalogue did not hold and could not have derived: **under the SCFM a student at
+a private university can apply for the HELB loan but NOT the government
+scholarship**, which is reserved for public universities and the Open University
+of Kenya. Corroborated independently before writing, against KUCCPS's own
+published 2026 eligibility lists.
+
+It matters more here than it would have a week ago, because this catalogue now
+lists **25 private universities** and actively invites the comparison. The
+scholarship is **30% to 70% of course cost** depending on band, so a Band 2
+learner who pays *nothing* from the household at a public university faces the
+loan and the family covering the rest at a private one - and **none of that is
+visible on a course card**. It is now in the SCFM answer on `/help/`, phrased so
+it does not read as a warning against private institutions, which would be its
+own distortion.
+
+`tests/provenance.test.js` guards it **on both `js/help.js` and
+`help/index.html` separately**, because *the app is not the whole site* has been
+learned here six times and an answer living only in the source reaches no
+crawler. Both surfaces were broken independently and watched to fail. The guard
+also requires the bands to survive beside it: the exclusion is only meaningful
+because the scholarship is the large share of the split.
+
+**The general rule. A handover is a source, and sources get checked.** Take the
+sourced national facts, verify them independently before writing, and refuse
+every figure whose provenance is the document's own confidence. The parts worth
+having were the ones that named an authority and a date; the parts to refuse
+were the ones whose only citation was a plausible range.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**

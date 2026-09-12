@@ -1600,6 +1600,87 @@ catalogue can say — the school publishes a single annual intake. That does not
 lift the card-level caveat, which stays until records carry an intake
 provenance field, but it is what a sourced intake looks like.
 
+## Four private universities, and the county the charter settled
+
+The private side was measured last pass and left at 30 of 36 private
+institutions carrying no priced course. This pass did **not** close that,
+and the reason is worth recording before the coverage it did close.
+
+**Pricing was attempted at the big private stubs and refused at every one.**
+Daystar is the instructive failure: it genuinely publishes a per-credit-hour
+rate and a graduation requirement of 129 credit hours, which is the Kabarak
+shape and would multiply out to a whole-degree total. Two searches of **the
+same 2025-26 document** returned **different rates** - 5,650/6,410 against
+6,640/7,380 for Athi River and Nairobi. A 15% disagreement multiplied by 129
+credit hours is not a figure anyone can defend, so nothing was written.
+Management University of Africa went the same way: 186,000 a year full-time
+and 154,500 a year on open and distance learning, both reported as
+*approximately* and *estimated*, which is a summariser rounding rather than a
+published total. USIU prices per unit with per-semester bands spanning
+147,750 to 383,450 across programme families, on a trimester year - a range
+again, not a course price. **Two searches that disagree about one document
+are the signal to write nothing**, and that is a different failure from the
+yield floor: the schedule was reachable, and it was the *reading* of it that
+could not be corroborated.
+
+**So the coverage that was available was the register, not the fee.** Four
+CUE-chartered private universities named on the known-missing list in
+`tests/university-coverage.test.js` were confirmed to exist, confirmed absent,
+and added with the programmes their own listings name: **Management University
+of Africa** (4), **Kiriri Women's University of Science and Technology** (7),
+**Tangaza University** (6) and **Lukenya University** (6) - 23 records, every
+fee null and saying which kind of absence it is. Private universities listed
+went 21 to 25 and the ratchet with them.
+
+**And the fourth one closed a county the fee work could never have.** Lukenya
+University's main campus is at **Mtito Andei in Makueni**, which took Makueni
+from two courses at a single KMTC campus to eight across two providers. The
+single-provider and KMTC-only ratchets both fall 4 to 3; Isiolo, Lamu and Tana
+River remain.
+
+**The county was disputed, and the charter settled it.** The maintainer said
+Machakos, several course aggregators say "Kambu, Machakos", and there is a real
+Lukenya area in Machakos County that explains both - but Kambu is in Kibwezi
+West, Makueni, the university's own account places the main campus on the
+Athi/Galana beside Tsavo East 270km from Nairobi, and **Legal Notice 162 of
+2022, the charter itself, establishes the institution "situated in Makueni
+County"**. Makueni is recorded and the note names the Machakos confusion
+explicitly, because the next person to check will hit the same aggregators.
+The general rule: when a county is contested, the charter or the gazette
+outranks every aggregator and every recollection, and a course attributed to
+the wrong county is still worse than a missing one.
+
+**Three guards caught this insert, and none of them was the suite being green.**
+
+- **The absence phrase failed on a word.** The note said no figure "could be
+  verified", which is not the required "could not be verified" - the literal
+  phrase inverted by one word while reading as though it meant the same thing.
+  That is the paraphrase trap in its sharpest form yet: not a synonym accepted,
+  but the claim reversed and still passing a human read. Caught by parsing the
+  data back and asserting the properties together, as this file already
+  mandates, on all 23 records at once.
+- **The sector register did not know three of the words.** Philosophy, Social
+  Communication and Child and Youth Studies matched no sector, so they would
+  have been invisible to every sector filter. Vocabulary widened, course names
+  left alone - the fourth time this exact thing has happened here.
+- **The teacher-training guard caught the one record that did not lead with the
+  employment queue**, the Early Childhood degree.
+
+**And the insert script was wrong twice, in opposite directions.** Its
+apostrophe ban fired on a correct payload - the records are emitted as JSON, so
+a straight apostrophe inside a double-quoted string is safe, and the historical
+breakage was single-quoted JS literals. Then, with the ban removed, it wrote
+records with **no commas between them** and reported success. Both are the same
+lesson from the two sides: the script's own report is worth nothing, and only
+the read-back settled either.
+
+**One more instrument slip, and it is the cheap kind again.** The first break
+of the single-provider ratchet was reported here as producing no failure. It
+had failed correctly and named Makueni; the grep reading the output was wrong.
+A break that appears not to fail is worth re-reading the raw output before
+concluding anything about the guard - that is now the fourth time in this file,
+and the second where the instrument rather than the code was at fault.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -1975,13 +2056,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 686 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 709 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 686 notes contains a comma or a quote and the
+  optional: **every one** of the 709 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

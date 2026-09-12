@@ -402,7 +402,11 @@ const INSTITUTIONS = [
     has_workstudy: false,
     has_hostel: false,
     fee_regime: 'tvet_consolidated'
-  }
+  },
+  {"id":"mua","ownership":"private","type":"university","name":"Management University of Africa (MUA)","location":"South C, Nairobi","county":"Nairobi","accreditation":"CUE Chartered - one of the 32 chartered private universities; runs certificate to doctoral programmes on a three-semester year","website":"https://mua.ac.ke","modes":["full_time","evening","online"],"has_workstudy":false,"has_hostel":false,"fee_regime":"private_own_rate"},
+  {"id":"kwust","ownership":"private","type":"university","name":"Kiriri Women's University of Science and Technology (KWUST)","location":"Nairobi","county":"Nairobi","accreditation":"CUE Chartered - founded 2002, one of the 32 chartered private universities and the only women-only university in Kenya","website":"https://www.kwust.ac.ke","modes":["full_time","evening"],"has_workstudy":false,"has_hostel":true,"fee_regime":"private_own_rate"},
+  {"id":"tangaza","ownership":"private","type":"university","name":"Tangaza University","location":"Lang'ata, Nairobi","county":"Nairobi","accreditation":"CUE Chartered - one of the 32 chartered private universities; Catholic, schools of Theology, Arts and Social Sciences, Education and Applied Sciences","website":"https://tangaza.ac.ke","modes":["full_time","evening","online"],"has_workstudy":false,"has_hostel":false,"fee_regime":"private_own_rate"},
+  {"id":"lukenya","ownership":"private","type":"university","name":"Lukenya University","location":"Mtito Andei","county":"Makueni","accreditation":"CUE Chartered - founded 2015, one of the 32 chartered private universities; main campus at Mtito Andei with a branch campus in Machakos","website":"https://lukenyauniversity.ac.ke","modes":["full_time","evening"],"has_workstudy":false,"has_hostel":true,"fee_regime":"private_own_rate"}
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

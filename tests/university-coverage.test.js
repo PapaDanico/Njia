@@ -63,7 +63,7 @@ const universities = (ownership) =>
 /* RATCHETS. Raise these as institutions are added; they may never fall.
    They are floors on coverage, not targets — the target is the full register. */
 const MIN_PUBLIC_LISTED = 24;
-const MIN_PRIVATE_LISTED = 21;
+const MIN_PRIVATE_LISTED = 25;
 
 test('public university coverage never regresses', () => {
   const listed = universities('public').length;
@@ -88,11 +88,7 @@ const KNOWN_MISSING_PRIVATE = [
   'KAG EAST University',
   'Presbyterian University of East Africa',
   'Aga Khan University',
-  "Kiriri Women's University of Science and Technology",
   'The East African University',
-  'Lukenya University',
-  'Management University of Africa',
-  'Tangaza University',
   'Islamic University of Kenya'
 ];
 

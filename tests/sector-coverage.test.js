@@ -429,8 +429,8 @@ test('no new county leaves its lowest-scoring learners with nothing', () => {
  * Neither may rise. The fix is the same one the blind counties needed and it
  * is worth stating so nobody looks for a filter: find the county's technical
  * college and list what it actually names. */
-const SINGLE_PROVIDER_COUNTIES = 4;
-const KMTC_ONLY_COUNTIES = 4;
+const SINGLE_PROVIDER_COUNTIES = 3;
+const KMTC_ONLY_COUNTIES = 3;
 
 test('no county has its entire provision supplied by a single institution more often than before', () => {
   const county = new Map(INSTITUTIONS.map((i) => [i.id, i.county]));

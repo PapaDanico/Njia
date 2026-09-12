@@ -1689,10 +1689,18 @@ while the real figure fell to twelve, which is not a cap, it is **eight records
 of headroom for the next regression to hide in** - the same mistake this file
 already names about a ceiling left at its old value after a win.
 
-Ratcheted to 7 after deepening five private universities that were stubs, with
-the programmes their own listings name: **CUEA** (+5), **USIU-Africa** (+4),
-**Daystar** (+6), **Africa Nazarene** (+7), **Kenya Methodist** (+4). 709 to
-**736 courses**, stubs 12 to 7.
+Ratcheted to 4 after deepening **eight** private universities that were stubs,
+with the programmes their own listings name: **CUEA** (+5), **USIU-Africa**
+(+4), **Daystar** (+6), **Africa Nazarene** (+7), **Kenya Methodist** (+4),
+**Pan Africa Christian** (+6), **St Paul's** (+8) and **Baraton** (+8). 709 to
+**758 courses**, stubs 12 to 4 - and **not one of the four is private.**
+
+Measured against the figure that opened this work: private provision was
+**16.2%** of the catalogue and is now **24.3%** (184 of 758). What did *not*
+move is pricing - 34 of 40 private institutions still carry no priced course,
+up in absolute terms only because four institutions were added. **This pass
+bought breadth, not provenance**, and saying so is the point: the fee gap is
+still the open one.
 
 **Three rulings inside it, all of them precedent being applied rather than made.**
 
@@ -1718,11 +1726,11 @@ the programmes their own listings name: **CUEA** (+5), **USIU-Africa** (+4),
   them would send a C+ learner at an application they cannot win.
 
 **And the ratchet break named the finding this pass did not go looking for.**
-Broken to 6 and watched to fail, the message listed the seven remaining stubs -
-and four of them are **public**: **University of Nairobi, Kenyatta University,
-Moi University and the Technical University of Mombasa carry one course each.**
-Those are the three largest and oldest universities in the country, running
-hundreds of programmes between them.
+Watched to fail, the message listed the remaining stubs - and **every one is
+public**: **University of Nairobi, Kenyatta University, Moi University and the
+Technical University of Mombasa carry one course each.** Those are the three
+largest and oldest universities in the country, running hundreds of programmes
+between them.
 
 That is worth stating plainly because it inverts the framing the work had been
 given. The instruction was to deepen the *private* side, and the private side is
@@ -1733,10 +1741,23 @@ actually name. **A stub at Pan Africa Christian is a thin record; a stub at the
 University of Nairobi is the catalogue failing at the single most-searched
 institution in the country.** That is the next front, and it is a public one.
 
-**The sector register needed one more word**, "social science", for CUEA's
-Bachelor of Arts in Social Sciences - the fifth time a new course has arrived in
-vocabulary the register did not hold, and the fifth time the fix was the pattern
-rather than the course name.
+**The sector register needed three more words** across the pass - "social
+science", "arts in communication" and "development studies" - the fifth, sixth
+and seventh time a new course has arrived in vocabulary the register did not
+hold, and every time the fix was the pattern rather than the course name. The
+bare "communication" case is worth the care it took: the pattern is
+`arts in communication` rather than `communication`, because the technology
+sector already owns `information and communication` and a looser word would
+have pulled ICT degrees into the creative sector.
+
+**And the idempotency check caught something no test could have.** Running
+`build-open-data.mjs` alone, to read its fee-basis report line during
+verification, **stripped the JSON-LD** that `build-structured-data.mjs` injects
+into that page - which is exactly the ordering hazard recorded under CI, arriving
+through a route nobody had considered: not a generator run in the wrong order,
+but a generator run *alone* for its console output. Regenerating twice and
+diffing the tree is what found it. A convenience invocation is still an
+invocation.
 
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
@@ -2113,13 +2134,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 736 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 758 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 736 notes contains a comma or a quote and the
+  optional: **every one** of the 758 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

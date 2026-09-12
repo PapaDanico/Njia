@@ -230,7 +230,7 @@ const SECTORS = [
     id: 'health',
     name: 'Health and care',
     broad: 'services',
-    match: /nursing|clinical|health|medical|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|sports science|social work|social science|community develop|child and youth|youth studies|philosoph/i,
+    match: /nursing|clinical|health|medical|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|sports science|social work|social science|development studies|community develop|child and youth|youth studies|philosoph/i,
     awardingBodies: ['KMTC', 'Nursing Council of Kenya', 'Clinical Officers Council', 'TVET CDACC'],
     knbs: { series: 'Human health and social work activities', mapping: 'unsourced' },
     caution: 'Njia lists more health courses than any other sector, because KMTC runs some forty campuses and every one is catalogued. That is the shape of Kenya\'s public training estate, not a measure of demand, and it must not be read as one.'
@@ -248,7 +248,7 @@ const SECTORS = [
     id: 'creative',
     name: 'Creative, media and design',
     broad: 'services',
-    match: /journalis|media|film|television|music|graphic|design|fashion|photograph|animation|fine art|visual art|performing art|creative art|art and design|mass communication|public communication|corporate communication|social communication|public relations/i,
+    match: /journalis|media|film|television|music|graphic|design|fashion|photograph|animation|fine art|visual art|performing art|creative art|art and design|mass communication|public communication|corporate communication|social communication|arts in communication|public relations/i,
     awardingBodies: ['KIMC', 'TVET CDACC', 'Media Council of Kenya'],
     knbs: { series: 'Information and communication', mapping: 'component', growth: 4.8 },
     caution: 'Broadcast and film sit inside the information and communication series; design, fashion and craft do not, and are spread across manufacturing and other services. No single published figure covers this sector.'

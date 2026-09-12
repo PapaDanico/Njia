@@ -2316,7 +2316,42 @@ reader ends up filtering for law and being shown a degree in Arabic. When a
 course matches no sector, ask which of the two it is before reaching for the
 regex.
 
-## The rest of the public register, and Alupe as the only one left
+## The public register is closed: 36 of 36
+
+Alupe was the last, and the way it closed is the lesson rather than the count.
+
+It sat as a **lead with its blocker named** for two passes: chartered, in Busia,
+reachable, and a general "Alupe University courses" query returned **school
+names and cluster cut-offs and no programme names**. A named school is not a
+named course, so the only listable thing was one Bachelor of Education (Arts) —
+which would have been the single-course stub this file refuses as coverage. The
+honest move was to record it as a lead and say exactly what was missing: a
+per-programme listing.
+
+**Asking per school found it.** The School of Business, Economics and Human
+Resource Development publishes its own programmes, and four are named across the
+university's listings. That is the Borabu ruling for the third time in this
+session — *search the institution's own domain, and when the institution is
+large, its school's* — and it is why "blocked" was written as a named blocker
+rather than as a dry county. **A lead that names the missing field gets closed;
+a lead that says "nothing found" gets re-run from scratch.**
+
+**Its diplomas are deliberately absent, and that is the MKU ruling.** Alupe runs
+diplomas in business management, banking and finance, hotel and restaurant
+management and tourism management. None has a published entry requirement
+reachable from here, and a university diploma bar is genuinely variable — so
+narrowing the scope beat narrowing the claim, and the note says the diplomas
+exist, names them, and says to ring the university. Recording a guessed C- would
+have been the placeholder trap in the eligibility field.
+
+**`KNOWN_MISSING_PUBLIC` is now an empty array rather than a deleted constant.**
+The empty list is the finding: it says the register was measured and closed,
+where a deleted list would say only that nobody is looking. If CUE charters a
+37th, the gap belongs there by name.
+
+## How the rest of the public register closed
+
+
 
 The nine named in `KNOWN_MISSING_PUBLIC` were worked in one pass and **eight
 of them closed**, taking public coverage from 27 to **35 of 36**. The list now
@@ -2766,13 +2801,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1019 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1023 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1019 notes contains a comma or a quote and the
+  optional: **every one** of the 1023 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

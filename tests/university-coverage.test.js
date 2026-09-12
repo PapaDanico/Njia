@@ -62,7 +62,7 @@ const universities = (ownership) =>
 
 /* RATCHETS. Raise these as institutions are added; they may never fall.
    They are floors on coverage, not targets — the target is the full register. */
-const MIN_PUBLIC_LISTED = 35;
+const MIN_PUBLIC_LISTED = 36;
 const MIN_PRIVATE_LISTED = 25;
 
 test('public university coverage never regresses', () => {
@@ -84,22 +84,19 @@ test('private university coverage never regresses', () => {
    list without adding the institution is how a gap gets quietly forgotten. */
 /* The public side had no list at all, which is the asymmetry this very file
    warns about: the private gap was named institution by institution and the
-   public gap was reported as nothing, so nobody could see that nine chartered
-   public universities were absent. Every one of these was confirmed to exist,
-   with its charter year and county, in September 2026. Several sit in counties
-   where Njia is thin, which is why the gap is worth naming rather than
-   counting: a learner in Bungoma or Siaya is not helped by knowing that
-   coverage is 27 of 36.
+   public gap was reported as nothing, so nobody could see that twelve chartered
+   public universities were absent. All twelve have since been listed, and this
+   list is EMPTY rather than deleted — the empty array is the finding. If a
+   future CUE register grows past 36, the gap belongs here by name, not as a
+   number nobody can see behind.
 
-   Alupe is the instructive one. It IS reachable and it is NOT listed, because
-   only one of its programmes - Bachelor of Education (Arts) - is named in any
-   source this build can reach; the rest surface as school names, and a named
-   school is not a named course. One course would make it a single-course stub,
-   which this file separately refuses as coverage. It is a lead with the exact
-   blocker named, not an oversight. */
-const KNOWN_MISSING_PUBLIC = [
-  'Alupe University'                      // Busia, chartered 2022 — see the note above
-];
+   Alupe was the last, and it is why the list is kept. It was held back for one
+   pass as a lead, because a general search returned only school names and a
+   named school is not a named course — one record would have been the
+   single-course stub this file refuses as coverage. A per-school query found
+   four named programmes. A lead with its blocker named is worth more than a
+   number, and it is what made the difference here. */
+const KNOWN_MISSING_PUBLIC = [];
 
 test('the known-missing public universities are still named, or listed', () => {
   const names = INSTITUTIONS

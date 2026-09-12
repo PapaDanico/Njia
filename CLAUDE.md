@@ -1750,14 +1750,29 @@ bare "communication" case is worth the care it took: the pattern is
 sector already owns `information and communication` and a looser word would
 have pulled ICT degrees into the creative sector.
 
-**And the idempotency check caught something no test could have.** Running
+**And a convenience invocation is still an invocation.** Running
 `build-open-data.mjs` alone, to read its fee-basis report line during
 verification, **stripped the JSON-LD** that `build-structured-data.mjs` injects
-into that page - which is exactly the ordering hazard recorded under CI, arriving
-through a route nobody had considered: not a generator run in the wrong order,
-but a generator run *alone* for its console output. Regenerating twice and
-diffing the tree is what found it. A convenience invocation is still an
-invocation.
+into that page - the ordering hazard recorded under CI, arriving through a route
+nobody had considered: not a generator run in the wrong order, but a generator
+run *alone* for its console output. Regenerating twice and diffing the tree
+caught it before it was committed.
+
+**Then it happened again and reached the remote.**
+`build-provision-analysis.mjs` was run alone for its E-blind count, stripping
+the Dataset block from `/analysis/`, and that one was pushed. So the rule is
+not "run the generators in order" - it is that **any run of a generator whose
+page is injected into must be followed by `build-structured-data.mjs`, even
+when the run was only meant to print a number.**
+
+**What let it through is worth more than the defect.** The verification command
+chained `node --test` into `grep "^not ok"` and then into the commit with `&&`.
+Two tests were failing; `grep` found them, **`grep` succeeded**, and the `&&`
+carried on to commit and push. The chain reported on the grep, not on the tests.
+**Assert the fail count, not the presence of output** - `grep -E "^# fail 0"`,
+or read the number, never a pattern that is equally happy to match a failure.
+That is the same shape as every paraphrase trap in this file: a check that
+passes on the evidence of the thing going wrong.
 
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 

@@ -146,6 +146,21 @@ const order = ['published', 'derived', 'illustrative', 'unpublished', 'unsourced
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
   .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+/* Dated for the same reason the county and analysis sheets are: this page is
+   printed and carried — by a county planner, a journalist or a researcher
+   checking the figures — and the catalogue behind it moves. An undated copy of
+   "683 courses, 14 published fees" never expires. Pinned to NJIA_BUILD_DATE so
+   CI's regenerate-and-diff stays byte-identical. */
+const BUILD_DATE = process.env.NJIA_BUILD_DATE || new Date().toISOString().slice(0, 10);
+const BUILD_DATE_LABEL = new Date(`${BUILD_DATE}T00:00:00Z`).toLocaleDateString('en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+});
+
+/* Inlined rather than linked, because the sheet is printed and browsers
+   routinely drop external images from print. */
+const BRAND_MARK = fs.readFileSync(path.join(root, 'icons', 'logo-mark.svg'), 'utf8')
+  .replace(/<!--[\s\S]*?-->/g, '').replace(/\s+/g, ' ').trim();
+
 const OG_IMAGE = (() => {
   const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   const m = html.match(/<meta property="og:image" content="([^"]+)"/);
@@ -191,11 +206,35 @@ const page = `<!doctype html>
   .lede { font-size: 1.08rem; }
   .back { display: inline-block; margin-bottom: .5rem; }
   footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
+
+  .brief-head { display: flex; align-items: center; gap: .75rem; padding-bottom: .8rem;
+                margin-bottom: 1.2rem; border-bottom: 2px solid var(--border); }
+  .brief-mark svg { width: 2.4rem; height: 2.4rem; display: block; }
+  .brief-word { font-weight: 800; font-size: 1.15rem; letter-spacing: .01em; }
+  .brief-tag { font-size: .8rem; opacity: .75; }
+  .brief-meta { margin-left: auto; text-align: right; font-size: .78rem; opacity: .8; }
+  @media (max-width: 30rem) {
+    .brief-head { flex-wrap: wrap; }
+    .brief-meta { margin-left: 0; text-align: left; width: 100%; }
+  }
 </style>
 </head>
 <body>
 <main>
 <a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+
+<div class="brief-head">
+  <div class="brief-mark">${BRAND_MARK}</div>
+  <div>
+    <div class="brief-word">Njia</div>
+    <div class="brief-tag">Data-driven career pathways for Kenyan youth</div>
+  </div>
+  <div class="brief-meta">
+    <strong>Open data &mdash; the whole catalogue</strong><br>
+    ${rows.length} courses &middot; ${new Set(rows.map((r) => r.institution_id)).size} institutions<br>
+    ${BUILD_DATE_LABEL} &middot; njiacareerpathways.work
+  </div>
+</div>
 
 <h1>The whole catalogue, with its provenance</h1>
 

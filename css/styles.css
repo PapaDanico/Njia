@@ -1103,6 +1103,18 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 /* Anchor selects (cluster / course / confidence) sit in one wrapping row
  * above the year inputs — three side-by-side where the card is wide
  * enough, stacking naturally on narrow screens via min-width + wrap. */
+/* The reader's own questionnaire sentence, echoed onto the Life Three plan it
+   was promised to. Quoted and set apart so it reads as something they wrote
+   rather than as a prompt Njia is offering them. */
+.odyssey-echo {
+  border-left: 3px solid var(--accent);
+  background: var(--bg-card);
+  padding: 0.6rem 0.8rem;
+  margin: 0 0 0.9rem;
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+}
+.odyssey-echo p { margin: 0.2rem 0 0; font-style: italic; }
+
 .odyssey-anchor-row { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
 .odyssey-anchor-row > div { flex: 1; min-width: 170px; }
 .odyssey-year-row { display: flex; gap: 0.5rem; align-items: flex-start; margin-bottom: 0.6rem; }
@@ -2518,6 +2530,16 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .report-bar-track { flex: 1; height: 8px; background: #ece8dd; border-radius: 999px; overflow: hidden; }
 .report-bar-fill { height: 100%; border-radius: 999px; }
 .report-bar-pct { font-size: var(--fs-sm); width: 32px; text-align: right; color: #52504a; flex-shrink: 0; }
+
+/* The reader's own two sentences on the printed sheet. Fixed colours like the
+   rest of this card, for the reason stated above — it prints, and a
+   theme-dependent grey can come out invisible on paper. Quoted and indented so
+   it is legible as THEIR words beside figures that are all Njia's. */
+.report-words { margin-bottom: 1.1rem; }
+.report-quote { border-left: 2px solid #d9d4c7; padding-left: 0.7rem; margin-bottom: 0.6rem; }
+.report-quote:last-child { margin-bottom: 0; }
+.report-quote-q { display: block; font-size: var(--fs-xs); color: #6b6862; margin-bottom: 0.15rem; }
+.report-quote p { font-size: var(--fs-sm); color: #52504a; font-style: italic; line-height: 1.4; margin: 0; }
 
 .report-chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .report-chip { font-size: var(--fs-xs); background: #f2efe7; color: #52504a; padding: 0.2rem 0.6rem; border-radius: var(--radius-xs); }

@@ -393,7 +393,6 @@
        unchanged at ~2,000ms; it waits on the stylesheet, not on these. -->
   <script defer src="./data/questions.js"></script>
   <script defer src="./data/landing-stats.js"></script>
-  <script defer src="./data/funding.js"></script>
   <script defer src="./data/placement.js"></script>
   <script defer src="./data/sectors.js"></script>
 
@@ -439,24 +438,82 @@
         <p class="text-secondary text-sm mb-2">Switching phones? Export a backup below and import it on the new device — nothing here syncs automatically.</p>
         <div class="btn-row mb-2">
           <button type="button" class="btn btn-secondary" onclick="exportMyData()">⬇ Export Backup</button>
+          <button type="button" class="btn btn-secondary" onclick="copyBackupText()">⧉ Copy Backup Text</button>
           <button type="button" class="btn btn-secondary" onclick="document.getElementById('import-file-input').click()">⬆ Import Backup</button>
         </div>
+        <p class="text-secondary text-sm mb-2">If the WhatsApp, Facebook or Instagram browser blocks the download, <strong>Copy Backup Text</strong> works everywhere &mdash; paste it into a message to yourself.</p>
         <input type="file" id="import-file-input" accept="application/json" class="hidden" onchange="importMyData(this.files[0])">
         <p class="text-secondary text-sm mb-2">If you're using a shared or borrowed phone, use "Clear My Data" below before handing it back — it wipes everything Njia stored on this device. It can't do anything about a Feedback or Partner Inquiry you already submitted, since that already left the device.</p>
         <button type="button" class="btn btn-danger" onclick="confirmClearAllData()">Clear My Data</button>
       `);
     }
+    /* A download cannot be observed the way a print dialog can.
+     *
+     * The PDF button carried this same defect and was fixed with `beforeprint`:
+     * the browser says the dialog opened, so success is claimed only when it
+     * did. There is no equivalent for a download started from an anchor — no
+     * completion event, no callback, nothing to listen for — so the outcome
+     * here is genuinely unobservable. That rules out DETECTING the failure. It
+     * does not license claiming the success.
+     *
+     * Inside the Facebook, Instagram and WhatsApp browsers, and on the older
+     * Android WebViews CLAUDE.md names as this audience's hardware, a download
+     * anchor is inert. The reader tapped Export, read "Backup downloaded." and
+     * had nothing. That is worse here than on the PDF button: the paragraph
+     * above and the FAQ at /help/ both tell them to back up BEFORE switching
+     * phones, so the green toast was the last thing between a reader and a
+     * wiped handset.
+     *
+     * So the unverifiable claim is withdrawn rather than qualified — the same
+     * trade every fee record in this catalogue makes — and a route that works
+     * in every browser sits beside it rather than being offered only after the
+     * first one has silently failed. Fire on the outcome, never on the intent;
+     * where the outcome cannot be read, do not report one. */
+    function backupFilename() {
+      return `njia-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    }
+    function backupJSON() {
+      return JSON.stringify(AppState, null, 2);
+    }
     function exportMyData() {
-      const blob = new Blob([JSON.stringify(AppState, null, 2)], { type: 'application/json' });
+      /* The detectable half. `typeof window.print === 'function'` is true for a
+         no-op print, and this is the same shape: support for the attribute does
+         not mean the click does anything. It catches the older WebViews only,
+         which is why it is not the whole fix. */
+      if (!('download' in HTMLAnchorElement.prototype)) {
+        showToast('This browser cannot save a file directly — common inside the WhatsApp, '
+          + 'Facebook and Instagram browsers. Use "Copy Backup Text" instead.', 'error', 9000);
+        return;
+      }
+      const name = backupFilename();
+      const blob = new Blob([backupJSON()], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `njia-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      a.download = name;
       document.body.appendChild(a);
       a.click();
       a.remove();
-      URL.revokeObjectURL(url);
-      showToast('Backup downloaded.', 'success');
+      /* Deferred rather than immediate: revoking in the same tick as the click
+         has historically cancelled the download before it began. */
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
+      showToast(`Check your Downloads for ${name}. If it is not there, this browser blocked it — use "Copy Backup Text".`, 'info', 9000);
+    }
+    function copyBackupText() {
+      const text = backupJSON();
+      if (!navigator.clipboard) { showBackupText(text); return; }
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Backup copied. Paste it somewhere you will still have after this phone — '
+          + 'a message to yourself, or an email.', 'success', 9000);
+      }).catch(() => showBackupText(text));
+    }
+    function showBackupText(text) {
+      openModal(`
+        <h2 class="mb-2">Your backup</h2>
+        <p class="text-secondary text-sm mb-2">Select all of this and copy it somewhere you will still have after this phone — a message to yourself, or an email. To put it back later, save it as a <code>.json</code> file and use <strong>Import Backup</strong>.</p>
+        <textarea class="q-input" id="backup-text" readonly rows="8" style="width:100%">${escapeHtml(text)}</textarea>
+      `);
+      setTimeout(() => document.getElementById('backup-text')?.select(), 60);
     }
     function importMyData(file) {
       if (!file) return;

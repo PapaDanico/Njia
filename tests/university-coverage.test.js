@@ -62,8 +62,8 @@ const universities = (ownership) =>
 
 /* RATCHETS. Raise these as institutions are added; they may never fall.
    They are floors on coverage, not targets — the target is the full register. */
-const MIN_PUBLIC_LISTED = 24;
-const MIN_PRIVATE_LISTED = 21;
+const MIN_PUBLIC_LISTED = 36;
+const MIN_PRIVATE_LISTED = 25;
 
 test('public university coverage never regresses', () => {
   const listed = universities('public').length;
@@ -82,17 +82,47 @@ test('private university coverage never regresses', () => {
 /* The known-missing list is the working front. An institution named here has
    been confirmed to exist and confirmed to be absent; removing a name from this
    list without adding the institution is how a gap gets quietly forgotten. */
+/* The public side had no list at all, which is the asymmetry this very file
+   warns about: the private gap was named institution by institution and the
+   public gap was reported as nothing, so nobody could see that twelve chartered
+   public universities were absent. All twelve have since been listed, and this
+   list is EMPTY rather than deleted — the empty array is the finding. If a
+   future CUE register grows past 36, the gap belongs here by name, not as a
+   number nobody can see behind.
+
+   Alupe was the last, and it is why the list is kept. It was held back for one
+   pass as a lead, because a general search returned only school names and a
+   named school is not a named course — one record would have been the
+   single-course stub this file refuses as coverage. A per-school query found
+   four named programmes. A lead with its blocker named is worth more than a
+   number, and it is what made the difference here. */
+const KNOWN_MISSING_PUBLIC = [];
+
+test('the known-missing public universities are still named, or listed', () => {
+  const names = INSTITUTIONS
+    .filter((i) => i.type === 'university')
+    .map((i) => i.name.toLowerCase());
+  const stillMissing = KNOWN_MISSING_PUBLIC.filter((n) => {
+    const key = n.toLowerCase().replace(/^the /, '').split(' ')[0];
+    return !names.some((have) => have.includes(key));
+  });
+
+  const listed = universities('public').length;
+  assert.ok(listed + stillMissing.length <= CUE_PUBLIC_CHARTERED,
+    `${listed} public universities listed and ${stillMissing.length} named as missing is more than `
+    + `the ${CUE_PUBLIC_CHARTERED} CUE records — one of those figures is stale, so re-read the register.`);
+
+  assert.ok(stillMissing.length <= KNOWN_MISSING_PUBLIC.length,
+    'the known-missing public list grew without the register count moving');
+});
+
 const KNOWN_MISSING_PRIVATE = [
   'Africa International University',
   'Adventist University of Africa',
   'KAG EAST University',
   'Presbyterian University of East Africa',
   'Aga Khan University',
-  "Kiriri Women's University of Science and Technology",
   'The East African University',
-  'Lukenya University',
-  'Management University of Africa',
-  'Tangaza University',
   'Islamic University of Kenya'
 ];
 
@@ -136,7 +166,7 @@ test('listed universities are not left as single-course stubs', () => {
     .filter((i) => i.type === 'university' && count(i.id) === 1)
     .map((i) => i.name);
 
-  const MAX_STUBS = 20;
+  const MAX_STUBS = 0;
   assert.ok(stubs.length <= MAX_STUBS,
     `${stubs.length} universities carry exactly one course, up from the ${MAX_STUBS} recorded when this `
     + `was last measured: ${stubs.join('; ')}. Deepen one rather than adding another stub.`);

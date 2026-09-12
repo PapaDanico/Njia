@@ -901,6 +901,39 @@ function renderShareableReportHTML() {
           </div>` : ''}
       </div>
 
+      ${/* THE TWO ANSWERS THE READER WROTE, WHICH THE APP USED TO DISCARD.
+            id_5 and ho_2 are the only free-text questions in the diagnostic.
+            Both were stored and read back in exactly one place — refilling the
+            textarea if someone navigated backwards — and appeared in no result,
+            no report and no printed sheet. The app asked a young person to
+            write something reflective and then threw it away.
+
+            They are printed verbatim and NOT scored. Mining them for keywords
+            to move cluster totals would be a claim about what the words mean,
+            made by a matcher nobody could check — the shape of thing this
+            catalogue refuses everywhere else. Their value is that they are the
+            reader's own sentences on a sheet they carry into a conversation
+            with a parent, a teacher or a bursary committee, next to figures
+            that are otherwise all Njia's. */''}
+      ${(() => {
+        const written = [
+          ['What makes you lose track of time', questionnaireText('id_5')],
+          ['If money and image were no object', questionnaireText('ho_2')]
+        ].filter(([, v]) => v);
+        if (!written.length) return '';
+        return `
+      <div class="report-words">
+        <span class="report-section-title">In your own words</span>
+        <p class="report-legend">Written by you during the diagnostic, printed here unchanged. Njia does not score these.</p>
+        ${written.map(([q, v]) => `
+          <div class="report-quote">
+            <span class="report-quote-q">${q}</span>
+            <p>&ldquo;${escapeHtml(v)}&rdquo;</p>
+          </div>
+        `).join('')}
+      </div>`;
+      })()}
+
       ${/* This was a bulleted list of bare course names, and it was the
             thinnest section on the page while holding the most useful data
             Njia has. "Diploma in Counselling Psychology" tells a parent or a

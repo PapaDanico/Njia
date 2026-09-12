@@ -2146,3 +2146,41 @@ test('a record with a fee does not also say its fee is withheld', () => {
     + '\nA script that sets a fee must rewrite the absence sentence in the same pass. '
     + 'Verify what a script did to the parsed data, never what it reported.');
 });
+
+/* The SCFM explainer on /help/ answers "a public university shows no fee, so
+ * what will I actually pay". It had no guard of any kind, which is how the
+ * rest of this file describes every figure that later drifted.
+ *
+ * The half guarded hardest is the private-university one, because it is the
+ * half a course card cannot show. Under the Student-Centred Funding Model a
+ * student at a private university can apply for the HELB loan but NOT the
+ * government scholarship, which is reserved for public universities and the
+ * Open University of Kenya. The scholarship is 30-70% of the course cost
+ * depending on band, so that single fact moves what a Band 2 learner pays from
+ * nothing to most of it - and Njia now lists 25 private universities, so the
+ * comparison it enables is one this catalogue actively invites.
+ *
+ * Asserted as a property on BOTH the source and the generated page, because
+ * "the app is not the whole site" has been learned here six times: an answer
+ * that lives only in js/help.js reaches no crawler and no JavaScript-less
+ * reader. */
+test('the funding explainer states that a private university gets the loan but not the scholarship', () => {
+  const helpSrc = fs.readFileSync(path.join(root, 'js', 'help.js'), 'utf8');
+  const helpPage = fs.readFileSync(path.join(root, 'help', 'index.html'), 'utf8');
+
+  for (const [label, text] of [['js/help.js', helpSrc], ['help/index.html', helpPage]]) {
+    assert.match(text, /HELB loan only/,
+      `${label} no longer says a private university gets the loan only. `
+      + 'That is the largest single difference in what a learner actually pays, and it '
+      + 'cannot be read off a course card.');
+    assert.match(text, /reserved for public universities and the Open University of Kenya/,
+      `${label} no longer names who the government scholarship IS for. `
+      + 'Stating the exclusion without the rule reads as a complaint rather than as guidance.');
+  }
+
+  /* The bands have to survive alongside it: the private-university point is
+     only meaningful because the scholarship is the big share of the split. */
+  assert.match(helpPage, /Band 2/,
+    'the SCFM bands have gone from the generated help page, so the sentence about '
+    + 'losing the scholarship no longer says how much is being lost.');
+});

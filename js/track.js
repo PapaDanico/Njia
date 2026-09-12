@@ -155,7 +155,22 @@ function renderOkrItem(okr) {
         <h2>${escapeHtml(okr.title)}</h2>
         <span class="status-badge ${status}">${statusLabels[status]}</span>
       </div>
-      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      ${/* THE ONE BAR IN THIS APP THAT CARRIES A FIGURE NOTHING ELSE STATES.
+            Measured against the accessibility tree rather than assumed: an
+            empty styled div exposes no node at all, so a reader heard the
+            objective, the status badge and each key result, and never how far
+            along the OKR was. The other three bars in the app (questionnaire
+            progress, and the two Element score bars) each sit beside their own
+            number as text, so giving THEM a role would announce the same figure
+            twice — which is why this is the only one that changed.
+
+            aria-valuetext carries the count rather than leaving the reader with
+            "33 percent", because "1 of 3 key results done" is the sentence the
+            bar is actually drawing. */''}
+      <div class="progress-track" role="progressbar"
+           aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"
+           aria-valuetext="${okr.keyResults.length ? `${done} of ${okr.keyResults.length} key results done` : 'No key results yet'}"
+           aria-label="Progress on ${escapeHtml(okr.title)}"><div class="progress-fill" style="width:${pct}%"></div></div>
       ${okr.keyResults.map((kr, i) => `
         <div class="check-item ${kr.done ? 'done' : ''}">
           <input type="checkbox" id="kr-${okr.id}-${i}" ${kr.done ? 'checked' : ''} onchange="toggleKeyResult('${okr.id}', ${i})">
@@ -206,9 +221,37 @@ function toggleKeyResult(okrId, index) {
   renderOkrsTab(document.getElementById('track-tab-content'));
 }
 
+/* CONFIRM FIRST. Deleting an OKR took one tap, removed it immediately and
+ * offered no undo — while "Clear My Data", which destroys strictly more, has
+ * always been behind a confirmation. The lesser action was the unguarded one.
+ *
+ * There is no recovery path either: state lives only in this browser, and the
+ * backup a reader would restore from is one most of them have never made.
+ *
+ * Confirmation rather than an undo toast, because this app already has a
+ * confirmation pattern (confirmClearAllData, confirmRetakeQuestionnaire) and a
+ * second mechanism for the same job is a thing to maintain twice. The dialog
+ * names what is about to go, so the reader is deciding about THIS objective
+ * rather than agreeing to a generic warning. */
 function deleteOkr(okrId) {
+  const okr = AppState.okrs.find((o) => o.id === okrId);
+  if (!okr) return;
+  const n = okr.keyResults.length;
+  openModal(`
+    <h3 class="mb-2">Delete this OKR?</h3>
+    <p class="text-secondary mb-3">&ldquo;${escapeHtml(okr.title)}&rdquo;${n ? ` and its ${n} key result${n === 1 ? '' : 's'}` : ''} will be removed from this device. This cannot be undone.</p>
+    <div class="btn-row">
+      <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-danger" onclick="deleteOkrConfirmed('${okr.id}')">Delete OKR</button>
+    </div>
+  `);
+}
+
+function deleteOkrConfirmed(okrId) {
   AppState.okrs = AppState.okrs.filter((o) => o.id !== okrId);
   saveState();
+  closeModal();
+  showToast('OKR deleted.', 'success');
   renderOkrsTab(document.getElementById('track-tab-content'));
 }
 
@@ -311,9 +354,31 @@ function toggleApplicationStep(appId, stepIndex) {
   renderApplicationsTab(document.getElementById('track-tab-content'));
 }
 
+/* Same rule as deleteOkr above, and the loss here is larger: an application
+ * carries the steps a reader has worked through, so removing it discards
+ * progress rather than a plan. The dialog says how much is being discarded,
+ * and says that the course itself stays saved in Decide — the fear that
+ * removing the tracker also loses the course is the reason someone would
+ * hesitate, and it is unfounded. */
 function deleteApplication(appId) {
+  const app = AppState.applications.find((a) => a.id === appId);
+  if (!app) return;
+  const done = app.steps.filter((s) => s.done).length;
+  openModal(`
+    <h3 class="mb-2">Remove this application?</h3>
+    <p class="text-secondary mb-3">Your tracker for &ldquo;${escapeHtml(app.courseName)}&rdquo; will be removed from this device, including the ${done} of ${app.steps.length} step${app.steps.length === 1 ? '' : 's'} you have marked done. The course stays saved in Decide. This cannot be undone.</p>
+    <div class="btn-row">
+      <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button type="button" class="btn btn-danger" onclick="deleteApplicationConfirmed('${app.id}')">Remove Application</button>
+    </div>
+  `);
+}
+
+function deleteApplicationConfirmed(appId) {
   AppState.applications = AppState.applications.filter((a) => a.id !== appId);
   saveState();
+  closeModal();
+  showToast('Application removed.', 'success');
   renderApplicationsTab(document.getElementById('track-tab-content'));
 }
 

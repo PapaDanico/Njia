@@ -10,36 +10,85 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 683,
-  "distinctProgrammes": 420,
-  "institutions": 171,
+  "courses": 1023,
+  "distinctProgrammes": 559,
+  "institutions": 189,
   "counties": 47,
   "published": 14,
-  "derived": 289,
-  "withNote": 683,
-  "feeAbsent": 330,
-  "feeAbsentStated": 330,
+  "derived": 290,
+  "withNote": 1023,
+  "feeAbsent": 624,
+  "feeAbsentStated": 624,
   "sectorRoutes": {
-    "aviation": 20,
-    "maritime": 5,
-    "mining": 4,
-    "hospitality": 35,
-    "built": 39,
-    "admin": 48,
-    "finance": 83,
-    "ict": 57,
-    "supplychain": 19,
+    "aviation": 21,
+    "maritime": 7,
+    "mining": 5,
+    "hospitality": 45,
+    "built": 48,
+    "admin": 74,
+    "finance": 138,
+    "ict": 86,
+    "supplychain": 21,
     "transport": 3,
-    "agriculture": 60,
-    "engineering": 81,
-    "health": 141,
-    "education": 30,
-    "creative": 23,
-    "energy": 6,
-    "water": 3,
-    "legal": 7,
+    "agriculture": 92,
+    "engineering": 102,
+    "health": 231,
+    "education": 66,
+    "creative": 35,
+    "energy": 7,
+    "water": 4,
+    "legal": 14,
+    "sciences": 3,
+    "humanities": 2,
     "personal": 19
-  }
+  },
+  "fundingSources": 14,
+  "fundingDeadlines": [
+    {
+      "name": "HELB (Higher Education Loans Board)",
+      "application_deadline": "Rolling, opens with each intake"
+    },
+    {
+      "name": "Equity Group Foundation — Wings to Fly",
+      "application_deadline": "Varies — check annually"
+    },
+    {
+      "name": "Mastercard Foundation Scholars Program",
+      "application_deadline": "Varies by partner university"
+    },
+    {
+      "name": "Zawadi Africa Education Fund",
+      "application_deadline": "Annually — check zawadiafrica.org for the current open call"
+    },
+    {
+      "name": "National Government Constituency Development Fund (NG-CDF) Bursary",
+      "application_deadline": "A short window in early January, and it is easy to miss — for the 2025/26 cycle forms were issued from 8 December and received only between 5 and 9 January. Watch ngcdf.go.ke and your constituency office from early December"
+    },
+    {
+      "name": "Youth Enterprise Development Fund (YEDF)",
+      "application_deadline": "Rolling"
+    },
+    {
+      "name": "KCB Foundation — KCB Scholars Programme",
+      "application_deadline": "Annually — the 2026 application form is published on foundation.kcbgroup.com"
+    },
+    {
+      "name": "Elimu Scholarship Programme (Ministry of Education / JKF)",
+      "application_deadline": "Announced per cycle on education.go.ke — the 2026 call opened December 2025"
+    },
+    {
+      "name": "TVET Government Funding (Capitation + HEF)",
+      "application_deadline": "Capitation is institutional; apply for HEF support with each intake"
+    },
+    {
+      "name": "Finlays Community Trust — TVET Scholarship",
+      "application_deadline": "Annual cycle — 2026 applications opened for the intake announced August 2026"
+    },
+    {
+      "name": "M-PESA Foundation — University of Embu TVET Scholarship",
+      "application_deadline": "By cohort — the first cohort closed 7 October 2024; watch embuni.ac.ke and Safaricom shops for the current call"
+    }
+  ]
 };
 
 if (typeof module !== 'undefined' && module.exports) {

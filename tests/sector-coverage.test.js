@@ -324,7 +324,7 @@ const gradeRank = (g) => (g == null ? GRADE_ORDER.length : GRADE_ORDER.indexOf(g
  *
  * Lower this number when you close more; a test that only ever gets weaker is
  * not a guard. */
-const E_GRADE_BLIND_COUNTIES = 12;
+const E_GRADE_BLIND_COUNTIES = 11;
 
 /* UNDER-CLAIM ON A FIGURE. NEVER ON AN ELIGIBILITY.
  *
@@ -429,8 +429,8 @@ test('no new county leaves its lowest-scoring learners with nothing', () => {
  * Neither may rise. The fix is the same one the blind counties needed and it
  * is worth stating so nobody looks for a filter: find the county's technical
  * college and list what it actually names. */
-const SINGLE_PROVIDER_COUNTIES = 4;
-const KMTC_ONLY_COUNTIES = 4;
+const SINGLE_PROVIDER_COUNTIES = 3;
+const KMTC_ONLY_COUNTIES = 3;
 
 test('no county has its entire provision supplied by a single institution more often than before', () => {
   const county = new Map(INSTITUTIONS.map((i) => [i.id, i.county]));

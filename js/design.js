@@ -284,6 +284,25 @@ function renderOdysseyTab(container) {
     <div class="card">
       <span class="caption" style="color:${(ODYSSEY_TEMPLATE.find((t) => t.id === plan.id) || plan).color}">${plan.label}</span>
       <h2 class="mb-1">${escapeHtml(plan.subtitle)}</h2>
+      ${/* KEEPING A PROMISE THE QUESTIONNAIRE ALREADY MADE.
+            ho_2 asks "If money and image were not a factor at all, what would
+            you do?" and its placeholder tells the reader, in those words, that
+            it "feeds your Life Three Odyssey Plan". It fed nothing: the answer
+            was stored and never read, and this plan — same question, same
+            subtitle — opened blank, so the reader retyped what they had just
+            written. That is the "Backup downloaded." defect in a different
+            place: a claim the interface makes and does not keep.
+
+            Echoed rather than written into the year fields. Those are a design
+            exercise the reader authors; putting their questionnaire sentence
+            into one as though they had typed it there is presumptuous, and it
+            would make a five-year plan out of an offhand answer. Showing it
+            where they are writing is what "feeds" honestly means. */''}
+      ${plan.id === 'life3' && questionnaireText('ho_2') ? `
+        <div class="odyssey-echo">
+          <span class="caption">In Discovery you wrote</span>
+          <p class="text-secondary">&ldquo;${escapeHtml(questionnaireText('ho_2'))}&rdquo;</p>
+        </div>` : ''}
       ${renderOdysseyAnchors(plan)}
       ${plan.years.map((val, i) => `
         <div class="odyssey-year-row">

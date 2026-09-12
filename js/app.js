@@ -371,9 +371,9 @@ const PAGE_MODULE = {
      Lifting those two into a shared file would be tidier and would touch four
      other readers that address decide.js by name; not worth folding into this
      change. */
-  discover: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'js/decide.js', 'js/discover.js'],
+  discover: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'data/funding.js', 'js/decide.js', 'js/discover.js'],
   design: ['data/institutions.js', 'data/courses.js', 'js/design.js'],
-  decide: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'js/decide.js'],
+  decide: ['data/institutions.js', 'data/courses.js', 'data/labour-market.js', 'data/funding.js', 'js/decide.js'],
   connect: ['data/labour-market.js', 'js/connect.js'],
   track: ['js/track.js'],
   help: ['js/help.js']
@@ -602,6 +602,23 @@ function closeModal() {
 }
 
 /* ---------- Shared utilities ---------- */
+/* The questionnaire's two free-text answers, read back by name.
+ *
+ * They were stored and never read anywhere: the only access was
+ * js/discover.js re-filling the textarea when a reader navigated back. So the
+ * app asked a young person to write something reflective and then discarded
+ * it — and in one case had told them what it would do with it, which is the
+ * part that made this a broken promise rather than an unused field.
+ *
+ * Lives here rather than in js/discover.js because js/design.js needs it too
+ * and does not load discover.js; putting it there would have thrown on the
+ * Odyssey tab, which is the shape of failure this repo has shipped twice and
+ * the PROVIDERS guard in tests/landing-stats.test.js now exists to catch. */
+function questionnaireText(id) {
+  const answer = AppState.questionnaire?.answers?.[id];
+  return answer && typeof answer.value === 'string' ? answer.value.trim() : '';
+}
+
 function escapeHtml(str) {
   if (str == null) return '';
   return String(str)
@@ -804,7 +821,7 @@ function renderNjiaNumbersCard() {
           <span class="landing-numbers-label">institutions across ${countyCount} counties</span>
         </div>
         <div class="landing-numbers-item">
-          <span class="landing-numbers-figure">${FUNDING_SOURCES.length}</span>
+          <span class="landing-numbers-figure">${LANDING_STATS.fundingSources}</span>
           <span class="landing-numbers-label">funding sources tracked</span>
         </div>
         <div class="landing-numbers-item">
@@ -1011,9 +1028,13 @@ function lastPlacementClose() {
 
 function renderApplicationClock() {
   const open = openPlacementWindows().slice(0, 3);
-  const rows = FUNDING_SOURCES
-    .filter((f) => f.data_confidence === 'verified' && f.application_deadline)
-    .slice(0, open.length ? 1 : 4);
+  /* Precomputed in data/landing-stats.js rather than filtered from
+     FUNDING_SOURCES here, which is what took data/funding.js (10.1KB gzipped)
+     off the critical path. The filter itself — verified, and carrying a
+     deadline — now lives in the generator and is recomputed by
+     tests/landing-stats.test.js, so a record losing its verification still
+     drops out of this panel rather than being announced on a stale artefact. */
+  const rows = LANDING_STATS.fundingDeadlines.slice(0, open.length ? 1 : 4);
   return `
     <div class="landing-clock-card">
       <p class="landing-clock-title">The Application Clock</p>

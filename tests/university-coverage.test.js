@@ -132,7 +132,7 @@ test('listed universities are not left as single-course stubs', () => {
     .filter((i) => i.type === 'university' && count(i.id) === 1)
     .map((i) => i.name);
 
-  const MAX_STUBS = 20;
+  const MAX_STUBS = 7;
   assert.ok(stubs.length <= MAX_STUBS,
     `${stubs.length} universities carry exactly one course, up from the ${MAX_STUBS} recorded when this `
     + `was last measured: ${stubs.join('; ')}. Deepen one rather than adding another stub.`);

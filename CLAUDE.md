@@ -2132,7 +2132,37 @@ contradicts itself, change the question before writing the county off.**
 Nyandarua also brings the catalogue its **first Diploma in Pharmacy**, which is
 a whole pharmaceutical-technologist pathway that was absent.
 
-What remains is the other 32 campuses, and the method is now proven rather than
+**Nyamira reopened on the better query too** - two independent listings agree on
+seven programme families, so the certificate and diploma levels of all seven are
+recorded and the higher diplomas are not, because those are post-basic
+qualifications for people already in practice. Nyamira 2 to 10; the county goes
+3 to 11 and stops being the thinnest in the catalogue.
+
+## And the same query found this catalogue making the error it was guarding against
+
+**Vihiga is the result that matters most from this pass, and it points inward.**
+Asked properly, the campus reports: *"At present, KMTC Vihiga offers a single
+but highly relevant diploma course"* - Diploma in Community Health Nursing. One
+programme, 336 students, opened 2013. The sixteen-family list seen earlier was
+definitively the national template.
+
+**Njia lists two courses at Vihiga.** And the second one is the tell:
+**Certificate in Community Health Assistant appears at 43 of the 45 KMTC
+campuses in this catalogue** - which is exactly the shape of a national
+programme applied blanket to every campus, the precise error every note added in
+this batch warns about. *This project has been committing the template error
+itself, in the same data it was carefully protecting.*
+
+That is not fixed here, and deliberately so: **deleting 43 records on one
+campus's evidence would be the same recklessness in the other direction.** What
+is needed is the per-campus check, which is the work already underway - each
+campus worked confirms or refutes its own certificate row. It is recorded here
+so it is visible rather than discovered again in six months, and because the
+lesson generalises: **a guard aimed at an external source does not notice when
+the catalogue is the source.** Ask, of any field repeated across dozens of
+records, whether it was verified that many times or asserted once.
+
+What remains is the other 31 campuses, and the method is now proven rather than
 theoretical - along with the query that makes it work. **The half-year programmes are deliberately untouched throughout**:
 Enrolled Community Health Nursing runs two and a half years and Community Health
 Nursing three and a half, and the national schedule is annual, so a total for
@@ -2514,13 +2544,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 869 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 877 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 869 notes contains a comma or a quote and the
+  optional: **every one** of the 877 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

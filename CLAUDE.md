@@ -2424,6 +2424,51 @@ finding. **Baringo is the same shape and is sound** - `kmtc_baringo` is named
 Kabarnet Campus, and Chemolingot (opened 2 August 2024, 69 students) is a
 genuinely distinct second campus, so it may be added as one.
 
+**And Mombasa is the same error inverted: ONE record standing for TWO campuses.**
+Kapkatet was two records for one campus, caught by searching for the second and
+finding nothing. Mombasa was the opposite, and it hid for far longer because the
+record's own name contained both: `kmtc_mombasa` was called *"Port Reitz,
+Mombasa Campus"*, which reads as one campus with a district attached.
+
+It is two. **Port Reitz Campus** opened in 1985 beside Moi International
+Airport, the SGR terminal and Port Reitz Hospital, with its own admissions
+address (`portreitz@kmtc.ac.ke`). **Mombasa Campus** is older and elsewhere:
+founded 1948 at Lady Grigg maternity to train enrolled nurses and midwives,
+moved to Tononoka on Mombasa Island in 1980, next to Coast General Hospital,
+about 1,200 students. Different founding years, different sites, different
+programme lists, and KMTC's own channel posts them separately.
+
+**The tell was in the name, and a comma is not a county check.** Both campuses
+sit in Mombasa County, so every geographic guard passes - the same blind spot
+Kapkatet exposed. What is new is the direction: **a record whose name contains
+two place words is worth one search.** "Port Reitz, Mombasa" looks like
+"Kabarnet, Baringo" and is not; it is two institutions wearing one row.
+
+So the check now runs both ways. Before adding a campus, search for the one you
+think is listed and require a source calling it distinct - *absence is the
+finding*. And when a campus record's name carries a second place name, search
+that name **on its own** and require a source that merges them - *presence of a
+second distinct facility is also the finding*.
+
+**The split is deliberately uneven, and that is the honest yield.** Port Reitz
+gains Clinical Medicine and Surgery, Physiotherapy and Medical Laboratory
+Sciences - all three named by two independent listings, with the campus's own
+published physiotherapy gymnasium tying that one down. Mombasa Campus gains
+**one** record, because the two honest searches of it returned different lists
+and Clinical Medicine and Surgery is their whole intersection. Its note names
+the four programmes the other listing claims and says plainly that they are not
+recorded because a second search did not repeat them - the *report what was
+found* ruling applied to courses rather than to fees.
+
+**And the seeded-query rule caught me inside the hour it was written.** The
+first Mombasa Campus corroboration named the four courses in the query, and the
+summary came back "the search results confirm that all the courses you
+mentioned..." - which is the Pan Africa Christian trap exactly, one source asked
+twice. Re-run without the names, the campus reported a *different* list, and
+that disagreement is what reduced four candidate records to one. **A rule
+written in the morning is not a habit by the afternoon; the query you are about
+to send is the one to check.**
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -3010,13 +3055,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1027 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1031 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1027 notes contains a comma or a quote and the
+  optional: **every one** of the 1031 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1027,
-  "institution_count": 189,
+  "course_count": 1031,
+  "institution_count": 190,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -7826,9 +7826,25 @@
       "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus, which admits on a KCPE certificate, so min_grade is null. The centre publishes no fee structure, so no figure is shown rather than a guessed one."
     },
     {
+      "course_id": "c1057",
+      "course_name": "Diploma in Clinical Medicine and Surgery",
+      "institution": "Kenya Medical Training College (KMTC) — Mombasa Campus",
+      "institution_id": "kmtc_mombasa_island",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. Mombasa County holds TWO distinct KMTC campuses and this catalogue recorded them as one until now. This is the older of the two: founded in 1948 at Lady Grigg maternity to train enrolled nurses and midwives, moved to Tononoka in Mombasa Island in 1980, beside Coast General Hospital, and holding about 1,200 students. It is a separate facility from Port Reitz Campus, which opened in 1985 by the airport. Two independent listings name this programme here. Its other programmes are NOT recorded, and the reason is worth stating rather than hiding: one listing names Medical Laboratory Sciences, Health Records and Information Technology, Orthopaedic Technology and Medical Imaging Sciences at this campus, and a second, independently phrased search named only Clinical Medicine and Surgery and Medical Laboratory Sciences. Only the programme both agree on is recorded. Ring the campus about the rest rather than assuming they are absent. Entry is the Clinical Officers Council bar applied at every accredited college: a C plain mean grade, with a C plain in Biology and in English or Kiswahili and a C- in Chemistry and in Mathematics or Physics."
+    },
+    {
       "course_id": "c155",
       "course_name": "Certificate in Community Health Assistant",
-      "institution": "Kenya Medical Training College (KMTC) — Port Reitz, Mombasa Campus",
+      "institution": "Kenya Medical Training College (KMTC) — Port Reitz Campus",
       "institution_id": "kmtc_mombasa",
       "county": "Mombasa",
       "ownership": "public",
@@ -7842,9 +7858,25 @@
       "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
+      "course_id": "c1054",
+      "course_name": "Diploma in Clinical Medicine and Surgery",
+      "institution": "Kenya Medical Training College (KMTC) — Port Reitz Campus",
+      "institution_id": "kmtc_mombasa",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. Mombasa County holds TWO distinct KMTC campuses and this catalogue recorded them as one until now. Port Reitz Campus opened in 1985 beside Moi International Airport, the SGR terminal and Port Reitz Hospital, and has its own admissions address (portreitz@kmtc.ac.ke); the Mombasa Campus is a separate, older facility on Mombasa Island. This programme is named at PORT REITZ specifically by two independent listings. Entry is the Clinical Officers Council bar applied at every accredited college: a C plain mean grade, with a C plain in Biology and in English or Kiswahili and a C- in Chemistry and in Mathematics or Physics."
+    },
+    {
       "course_id": "c154",
       "course_name": "Diploma in Kenya Registered Community Health Nursing (KRCHN)",
-      "institution": "Kenya Medical Training College (KMTC) — Port Reitz, Mombasa Campus",
+      "institution": "Kenya Medical Training College (KMTC) — Port Reitz Campus",
       "institution_id": "kmtc_mombasa",
       "county": "Mombasa",
       "ownership": "public",
@@ -7856,6 +7888,38 @@
       "tuition_kes": 238200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
+      "course_id": "c1056",
+      "course_name": "Diploma in Medical Laboratory Sciences",
+      "institution": "Kenya Medical Training College (KMTC) — Port Reitz Campus",
+      "institution_id": "kmtc_mombasa",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. Mombasa County holds TWO distinct KMTC campuses and this catalogue recorded them as one until now. Port Reitz Campus opened in 1985 beside Moi International Airport, the SGR terminal and Port Reitz Hospital, and has its own admissions address (portreitz@kmtc.ac.ke); the Mombasa Campus is a separate, older facility on Mombasa Island. This programme is named at PORT REITZ specifically by two independent listings. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster-subject requirements on top; confirm the current subject grades with the campus."
+    },
+    {
+      "course_id": "c1055",
+      "course_name": "Diploma in Physiotherapy",
+      "institution": "Kenya Medical Training College (KMTC) — Port Reitz Campus",
+      "institution_id": "kmtc_mombasa",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. Mombasa County holds TWO distinct KMTC campuses and this catalogue recorded them as one until now. Port Reitz Campus opened in 1985 beside Moi International Airport, the SGR terminal and Port Reitz Hospital, and has its own admissions address (portreitz@kmtc.ac.ke); the Mombasa Campus is a separate, older facility on Mombasa Island. This programme is named at PORT REITZ specifically by two independent listings. The campus publishes a gymnasium equipped for physiotherapy training, which is what ties this programme to this site rather than to the national list. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster-subject requirements on top; confirm the current subject grades with the campus."
     },
     {
       "course_id": "c429",

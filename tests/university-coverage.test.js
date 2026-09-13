@@ -171,3 +171,77 @@ test('listed universities are not left as single-course stubs', () => {
     `${stubs.length} universities carry exactly one course, up from the ${MAX_STUBS} recorded when this `
     + `was last measured: ${stubs.join('; ')}. Deepen one rather than adding another stub.`);
 });
+
+/* KMTC IS THE LARGEST PROVIDER IN THIS CATALOGUE AND ITS REGISTER WAS NEVER COUNTED.
+ *
+ * Everything above measures universities against CUE's denominator. KMTC sits
+ * in the C-minus to C-plus band in more counties than any university does, and
+ * nothing here had ever asked how many campuses it actually has - which is this
+ * file's own warning (a coverage question with a guard is answered; one without
+ * drifts) applied to the provider this catalogue leans on hardest.
+ *
+ * Measured: KMTC's own site says 92 campuses across 46 of the 47 counties. Its
+ * e-learning page still says 71, and a third source says 88 campuses plus 5
+ * satellites, which lands back at about 93. So the denominator is genuinely
+ * uncertain and the LOW figure is used deliberately - a floor nobody can argue
+ * with, rather than a number this catalogue would be flattered by missing.
+ *
+ * Njia holds 47. Against 71 that is a third of the estate absent; against 92 it
+ * is half. Either way the gap is larger than every university gap on this page
+ * put together, and it was invisible because nothing counted it.
+ *
+ * Do NOT close this by inventing campuses from the national campus list. A KMTC
+ * campus earns a row the same way every other institution here does: its own
+ * background-and-programmes listing, and at least one course named by two
+ * independently phrased searches. The named-missing list below is the honest
+ * shape - a gap inside an aggregate is a gap nobody looks at. */
+const KMTC_CAMPUSES_CLAIMED_LOW = 71;
+
+/* Campuses confirmed to exist by search and absent from the register. Add to
+   this list whenever one surfaces; remove a name only when it is LISTED. */
+const KNOWN_MISSING_KMTC = [
+  'Maua (Meru County)',
+  'Miathene (Meru County)',
+  'Imenti (Meru County, announced by the county government)',
+];
+
+test('KMTC campus coverage never regresses, and the gap stays named', () => {
+  const campuses = INSTITUTIONS.filter((i) => /^kmtc/.test(i.id));
+  const MIN_KMTC_LISTED = 47;
+
+  assert.ok(campuses.length >= MIN_KMTC_LISTED,
+    `Njia lists ${campuses.length} KMTC campuses, down from ${MIN_KMTC_LISTED}. `
+    + 'This ratchet may rise and may never fall.');
+
+  assert.ok(campuses.length <= KMTC_CAMPUSES_CLAIMED_LOW,
+    `Njia lists ${campuses.length} KMTC campuses against the LOWEST figure KMTC itself `
+    + `publishes (${KMTC_CAMPUSES_CLAIMED_LOW}). Either a campus is duplicated - Mombasa and `
+    + 'Kapkatet both were - or that denominator is stale and needs re-reading.');
+
+  assert.ok(KNOWN_MISSING_KMTC.every((n) => typeof n === 'string' && n.length > 0),
+    'Every known-missing KMTC campus must be named, not counted.');
+
+  const listedNames = campuses.map((i) => i.name).join(' | ');
+  const wronglyListed = KNOWN_MISSING_KMTC.filter((n) => listedNames.includes(n.split(' (')[0]));
+  assert.deepStrictEqual(wronglyListed.join(''), '',
+    `These are named as missing but appear in the register: ${wronglyListed.join('; ')}. `
+    + 'Remove them from KNOWN_MISSING_KMTC — a stale gap list is worse than none.');
+});
+
+test('no two KMTC campuses share a county without saying so', () => {
+  /* Mombasa held ONE row for two campuses (Port Reitz, and the 1948 Mombasa
+     Campus on the island) and every geographic guard passed, because both sit
+     in one county. This does not forbid two campuses in a county - Mombasa and
+     Meru genuinely have them - it forbids the thing that hid it: a campus name
+     carrying a second place name, which reads as one campus with a district
+     attached and is how the two stayed merged. */
+  const offenders = INSTITUTIONS
+    .filter((i) => /^kmtc/.test(i.id))
+    .filter((i) => (i.name.split('—')[1] || '').includes(','))
+    .map((i) => `${i.id} (${i.name})`);
+
+  assert.deepStrictEqual(offenders.join('; '), '',
+    `A KMTC campus name carries two place names: ${offenders.join('; ')}. `
+    + 'Search the second name on its own: "Port Reitz, Mombasa Campus" was two campuses in one row. '
+    + 'If they are genuinely one campus, name it for the one place; if two, split them.');
+});

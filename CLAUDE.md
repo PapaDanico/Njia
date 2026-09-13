@@ -2594,6 +2594,53 @@ but the pattern is now twice-seen, and the question to carry into every
 remaining campus is *how many KMTC campuses does this county actually have*,
 not *what does this campus teach*.
 
+## The largest provider in this catalogue had no denominator at all
+
+Asking that question once, at the national level rather than per county, found
+the biggest coverage gap on this page - and it had been invisible for exactly
+the reason this file keeps writing down.
+
+**KMTC's own site says 92 campuses across 46 of the 47 counties.** Its
+e-learning page still says **71**. A third source says 88 campuses plus 5
+satellites, which lands back near 93. **Njia holds 47.**
+
+Against 71 that is a third of the estate absent. Against 92 it is half. Either
+figure is a larger gap than every university gap in
+`tests/university-coverage.test.js` put together - and that file measured
+universities against CUE's denominator while **the provider this catalogue
+leans on hardest had no denominator at all.** Every coverage question with a
+guard is answered; every one without is drifting, and this is the most
+expensive instance of it yet, because KMTC sits in the C-minus to C-plus band
+in more counties than any university does.
+
+**The low figure is the one in the guard, deliberately.** 71 against 92 is a
+real disagreement between two pages of the same institution, and picking the
+high number would let this catalogue look worse than the evidence supports
+while picking neither would leave it unmeasured. A floor nobody can argue with
+is the honest instrument: `KMTC_CAMPUSES_CLAIMED_LOW = 71`, with the
+disagreement written into the comment so the next reader re-reads it rather
+than trusting it.
+
+Two guards, both watched to fail and restored:
+
+- **A ratchet plus a named-missing list.** Maua, Miathene and Imenti are in it
+  by name, because a gap inside an aggregate is a gap nobody looks at. It also
+  fails if the register ever *exceeds* the low denominator - which would mean
+  either a duplicate campus (Mombasa and Kapkatet both were) or a stale
+  denominator, and both are worth stopping for.
+- **A ban on the shape that hid Mombasa.** Not two campuses in one county -
+  Mombasa and Meru genuinely have those - but a campus *name* carrying a second
+  place name, which reads as one campus with a district attached. Restoring
+  "Port Reitz, Mombasa Campus" fails it immediately.
+
+**And the closing instruction matters more than the count.** Do not close this
+gap from KMTC's national campus list. A campus earns a row the way every other
+institution here does: its own background-and-programmes listing, and at least
+one course named by two independently phrased searches. Six campuses worked
+this session produced 15 records and one produced zero, which is what that
+standard costs - and it is the only reason the 47 rows already here mean
+anything.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**

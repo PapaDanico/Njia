@@ -3154,6 +3154,46 @@ range rather than a found one, it is the placeholder trap with a better
 vocabulary, and it will be harder to catch than the original because it reads
 like diligence.
 
+## The second mission-hospital school, and a college that publishes its own size
+
+Tenwek Hospital College of Health Sciences, in Bomet, has trained nurses inside
+Tenwek Mission Hospital since June 1987 under the Africa Gospel Church and World
+Gospel Mission. It is the second record in the category AIC Kijabe opened, and
+it was found the same way: by searching the *pattern* - a mission hospital that
+trains - rather than a name already on a register.
+
+**Its student population is the cheapest available test of its course list, and
+it passed.** The college publishes 130 to 150 students at any one time. Two
+independently phrased searches named the same two entry-level diplomas and
+nothing else, which is what a college that size should look like. This file
+already uses population against KMTC Iten - *a campus of 226 does not run
+eighteen programmes* - and here the check confirms a short list rather than
+refuting a long one, which is the other half of the same instrument.
+
+**Entry is C plain, below KMTC's C+ for the same awards**, with a C plain in
+English or Kiswahili, a C plain in Biology and a C- in one other science, plus
+an entrance examination in English and Mathematics and an interview. The
+Strathmore treatment applies: the published bar is recorded and the selectivity
+goes in the note, because a grade alone does not secure a place and a reader
+should know that before spending an application on it.
+
+**No fee was found at all, and that is stated as a found absence rather than as
+a refusal.** The reporting paragraph this file introduced exists to publish what
+research turned up; here research turned up nothing, so the note says so
+explicitly and names the college's own phone number as the route. Writing a
+plausible bracket there would be the placeholder trap wearing the vocabulary of
+diligence, which is the boundary that section already draws.
+
+**One record carries a null duration on purpose.** The KRCHN is published at
+three and a half years and is recorded at 42 months - the second record in the
+catalogue to carry the longer figure from its own source, after Kijabe, and the
+estate-wide 36 months is still flagged rather than settled. The Diploma in
+Clinical Medicine and Surgery publishes a September intake and **no length**.
+This catalogue records 36 months for that award elsewhere because those
+institutions publish it; transferring the figure here would assert an
+institution fact nothing sourced supports, which is the Ebukanga *Fitting and
+Turning* ruling in the duration field rather than the fee field.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who
@@ -3428,13 +3468,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1058 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1060 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1058 notes contains a comma or a quote and the
+  optional: **every one** of the 1060 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

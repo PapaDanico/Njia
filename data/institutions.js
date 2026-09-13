@@ -428,6 +428,7 @@ const INSTITUTIONS = [
   {"id": "tharaka_university", "name": "Tharaka University", "ownership": "public", "type": "university", "location": "Marimanti", "county": "Tharaka-Nithi", "accreditation": "CUE Chartered", "website": "https://tharaka.ac.ke", "modes": ["full_time"], "has_workstudy": false, "has_hostel": true, "fee_regime": "public_university"},
   {"id": "bomet_university", "name": "Bomet University", "ownership": "public", "type": "university", "location": "Bomet", "county": "Bomet", "accreditation": "CUE Chartered", "website": "https://bu.ac.ke", "modes": ["full_time"], "has_workstudy": false, "has_hostel": true, "fee_regime": "public_university"},
   {"id": "alupe_university", "name": "Alupe University", "ownership": "public", "type": "university", "location": "Busia", "county": "Busia", "accreditation": "CUE Chartered", "website": "https://au.ac.ke", "modes": ["full_time"], "has_workstudy": false, "has_hostel": true, "fee_regime": "public_university"},
+  {"id":"tenwek_chs","name":"Tenwek Hospital College of Health Sciences","ownership":"private","type":"tvet","location":"Tenwek Mission Hospital, Bomet Central","county":"Bomet","accreditation":"Nursing Council of Kenya accredited; Ministry of Health recognised","website":"https://tenwekhospitalcollege.ac.ke","modes":["full_time"],"has_workstudy":false,"has_hostel":true,"fee_regime":"private_own_rate"},
 ];
 
 if (typeof module !== 'undefined' && module.exports) {

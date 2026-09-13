@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1058,
-  "institution_count": 197,
+  "course_count": 1060,
+  "institution_count": 198,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -320,6 +320,38 @@
       "tuition_kes": 67189,
       "fee_basis": "derived",
       "verification_note": "Konoin Technical Training Institute publishes its entry ladder as \"C- and above for all Diploma Courses; D plain and above for Certificate; other course categories are open\". Programme named in the institute's course listing, which reports 55 programmes for the 2025/2026 cycle. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026), not quoted by the institute for this course - confirm with the registrar."
+    },
+    {
+      "course_id": "c1086",
+      "course_name": "Diploma in Clinical Medicine and Surgery",
+      "institution": "Tenwek Hospital College of Health Sciences",
+      "institution_id": "tenwek_chs",
+      "county": "Bomet",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Tenwek Hospital College of Health Sciences trains inside Tenwek Mission Hospital in Bomet County, run under the Africa Gospel Church with World Gospel Mission, and has been training nurses there since June 1987. It is the second mission-hospital training school in this catalogue, after AIC Kijabe. Its size is published and it is a useful check on the course list: 130 to 150 students at any one time, which is a college running a small number of programmes rather than a long national catalogue. Two independently phrased searches name the same two diplomas and nothing else at entry level. ENTRY IS MORE OPEN HERE THAN AT KMTC. The published bar is a C plain mean grade, with a C plain in English or Kiswahili, a C plain in Biology or Biological Sciences, and a C- in Mathematics, Physics, Chemistry or Physical Science. KMTC asks C+ for the same awards, so a learner holding a C plain who has been told these courses are closed to them may still have a route here. There is also an entrance examination in English and Mathematics and an interview, so the grade alone does not secure a place. Confirm the current requirement with the college before applying. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure for either programme was returned by any source reachable from this build - not a range, not a per-semester rate, nothing. That is a genuine absence rather than a reading Njia refused, and it is stated plainly so nobody re-runs the search expecting a number. The fee could not be verified, so none is shown; ring the college on the number published on its own site. DURATION IS DELIBERATELY ABSENT. The college names a September intake for this programme and publishes no length for it, and no length for this award at this institution is reachable from here. This catalogue records 36 months for the same award elsewhere because those institutions publish it; transferring that figure here would be asserting an institution fact that nothing sourced supports, which is the same error as transferring a fee between awards. Ask the college how long the programme runs when you ring about the fee."
+    },
+    {
+      "course_id": "c1085",
+      "course_name": "Diploma in Kenya Registered Community Health Nursing (KRCHN)",
+      "institution": "Tenwek Hospital College of Health Sciences",
+      "institution_id": "tenwek_chs",
+      "county": "Bomet",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 42,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Tenwek Hospital College of Health Sciences trains inside Tenwek Mission Hospital in Bomet County, run under the Africa Gospel Church with World Gospel Mission, and has been training nurses there since June 1987. It is the second mission-hospital training school in this catalogue, after AIC Kijabe. Its size is published and it is a useful check on the course list: 130 to 150 students at any one time, which is a college running a small number of programmes rather than a long national catalogue. Two independently phrased searches name the same two diplomas and nothing else at entry level. ENTRY IS MORE OPEN HERE THAN AT KMTC. The published bar is a C plain mean grade, with a C plain in English or Kiswahili, a C plain in Biology or Biological Sciences, and a C- in Mathematics, Physics, Chemistry or Physical Science. KMTC asks C+ for the same awards, so a learner holding a C plain who has been told these courses are closed to them may still have a route here. There is also an entrance examination in English and Mathematics and an interview, so the grade alone does not secure a place. Confirm the current requirement with the college before applying. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure for either programme was returned by any source reachable from this build - not a range, not a per-semester rate, nothing. That is a genuine absence rather than a reading Njia refused, and it is stated plainly so nobody re-runs the search expecting a number. The fee could not be verified, so none is shown; ring the college on the number published on its own site. DURATION IS SOURCED AND IT IS THREE AND A HALF YEARS, not the three this catalogue records for KRCHN elsewhere. The college publishes a three-and-a-half-year programme, which is what 42 months here means. This is the second record in the catalogue carrying the longer figure from its own source, after AIC Kijabe, and the discrepancy with the 36 months recorded across the rest of the estate is flagged rather than settled. The March intake is what this college publishes for this programme, which is unusual enough to be worth confirming."
     },
     {
       "course_id": "c486",

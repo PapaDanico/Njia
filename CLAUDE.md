@@ -2351,8 +2351,6 @@ where a deleted list would say only that nobody is looking. If CUE charters a
 
 ## How the rest of the public register closed
 
-
-
 The nine named in `KNOWN_MISSING_PUBLIC` were worked in one pass and **eight
 of them closed**, taking public coverage from 27 to **35 of 36**. The list now
 holds one name, which is the shape a known-missing list should end in.
@@ -2526,6 +2524,217 @@ institution or prices the course.** One flat rate closes every record at that
 institution; a per-programme schedule closes only the programmes it names.
 
 Sixteen records gained a sourced fee this way. 348 fee-less became 333.
+
+## Private fees: the schedules are reachable and the READINGS are not
+
+The fee gap on the private side has been recorded here twice as the open one,
+both times with the implication that it is simply work nobody has done yet.
+Seven more institutions were worked in one pass and **every one was refused**,
+and the refusals are consistent enough to change what the gap actually is.
+
+| Institution | What came back | Why nothing was written |
+|---|---|---|
+| Africa Nazarene | 269,250 in one search; 921,600-1,057,700 in the next | Two readings of one structure, and its own FAQ says the fee depends on the programme |
+| Umma | "56,000 per trimester" in one search; "Business 49,000, Islamic Sharia 17,500" in the next | Prices per programme - a 3x spread - and the two readings disagree on Business |
+| Mount Kenya | "about Ksh 45,550 to 59,550 per semester" for business degrees | A per-CATEGORY range, which is one step further from a named course than the per-institution ranges already refused |
+| Baraton | Credit-hour based; fees cut 20-30% and trimesters changed to semesters in 2026 | The Daystar shape, and the structure moved this year |
+| Gretsa | **45,300, then 55,000, then 67,000-72,000** across three searches | Three readings of one programme |
+| St Paul's | No figure at all | Nothing reachable to read |
+| Kiriri Women's | No figure at all | Nothing reachable to read |
+| CUEA | "tuition 8,000 + statutory 12,000 = 20,000 per semester" | 160,000 for a four-year degree is not a private-university price; almost certainly a per-unit rate, and the same source says fees vary by programme |
+| Kenya Methodist | Per-SCHOOL rates, then ranges of 50,000-68,000 for later years, on 2023/24 data | The Mount Kenya per-category shape, and stale |
+| Scott Christian | Ksh 72,700 per semester for degrees, 3,995 per credit hour | Not corroborated, unit words disagree, and a cross-border name collision - see below |
+| Tangaza | "Ksh 78,480 to 109,000" for bachelor's degrees, with no unit word | A per-programme range whose source could not say whether it was a semester or a year |
+| Kenya Highlands | Ksh 10,000 a semester government-sponsored, Ksh 25,000 self-sponsored, neither attached to a named programme | Two sponsorship regimes and no programme named in either |
+| Great Lakes Kisumu | BSc Nursing at 65,000 a trimester, then 67,000 a trimester, then 66,700 a semester | Three readings of one programme, and the unit word moves with them |
+| Uzima | No figure at all | Nothing reachable to read |
+| Amref | Per-semester 111,700-115,200 and a four-year total of 1,363,100 in one search; 155,700-160,700 a semester and "over 1.8 million" in the next | A 40% disagreement on the total, and the first summary contradicted itself inside one paragraph |
+| Lukenya | Tuition "starts at" 38,500 a semester; the next search gave a flat 38,000 across BCom and BEd, and 27,500 school-based | The right SHAPE and the wrong readings - see below |
+| Pan Africa Christian | 126,390 a semester twice, then 99,000 + 9,000 statutory on a TRIMESTER calendar | See below: the first two agreed because I seeded the number |
+
+**The finding is the third column, not the first.** This file already says the
+private schedules are reachable, and that remains true - Gretsa's own fee PDFs
+came back in the result set, on its own domain. What fails is one level in:
+**the only channel this build has cannot read a fee table consistently.** Three
+searches returned three different numbers for one programme at one university.
+That is not a yield floor and it is not an egress block; it is an instrument
+that is unreliable on exactly the field where an unreliable reading does the
+most damage.
+
+So the honest reframing: **private fees are not unreached, they are unread.**
+The remaining route is the institution itself - the Ebukanga registrar case at
+university scale - and that is a phone call, not a search. Do not re-run the
+seven above; each one's blocker is named.
+
+**And the near-miss in the Gretsa pass is the part to carry forward.** The
+first search returned "Computing and Library & Information Science, Ksh 25,000
+per semester" and it was about to be written onto the BSc in Computer Science.
+It is the **DIPLOMA** in Computer Science - a different named award at the same
+institution, in a PDF that sits beside the degree's in every result set. The
+degree is priced at roughly twice that. Writing it would have **under-quoted a
+fee by more than half**, which is the forbidden direction on money, and it
+would have looked entirely plausible on the card.
+
+That is the Ebukanga *Fitting and Turning* ruling arriving at a university:
+**course identity is (name, institution), and "Computer Science" is not one
+course - it is a diploma and a degree with a 2x price gap.** When a fee comes
+back for a subject rather than for an award, check which award it belongs to
+before anything else.
+
+**And Scott Christian brought a collision class this file has not recorded: a
+CROSS-BORDER one, with numerically adjacent figures.** The first search
+returned Ksh 72,700 per semester for its degrees. The second returned **Scott
+Christian College, Nagercoil, Tamil Nadu** in the same result set - a different
+institution in a different country - whose flagship programme totals **INR
+72,000**. Two near-identical names, two currencies, and two figures three
+digits apart. Every collision this file already records is domestic, where a
+county check is the defence; there is no county check for India.
+
+The Kenyan institution also failed the unit test in the same breath: the second
+search describes it as running **trimesters** while the first quoted figures
+**per semester** and "18 credit hours per semester". That is the Gretsa
+mismatch again, so nothing was written on either ground.
+
+**And the arithmetic that looked like corroboration was mine, not the
+source's.** 18 credit hours x Ksh 3,995 = 71,910, which sits close to the
+72,700 quoted and reads as two figures agreeing. It is one figure and a
+multiplication I performed. A sum you computed yourself is not a second
+source, however neatly it lands.
+
+**Two things this pass did NOT do, deliberately.** It did not take Gretsa's
+55,000 x 8 semesters: the same sentence called those terms both "semesters"
+and "trimesters", and a total resting on two mismatched unit words is the
+Bungoma self-contradiction in arithmetic form. And it did not extend the
+**tier benchmark** to private degrees. That exclusion's stated reason is the
+SCFM, which is a PUBLIC university mechanism and does not apply here - so the
+reason is wrong for this case even though the outcome is right. The 20-sibling
+floor is what correctly blocks it: there are 17 priced private degree records
+and **15 are Kabarak**, so the median would be Kabarak's own number wearing the
+authority of a computed benchmark, shown to a reader looking at Tangaza.
+
+Measured at the start of the pass, and unchanged by it: **22 of 184 private
+records carry a fee, 15 of them Kabarak, and 3 of 25 private universities have
+any priced course at all.**
+
+**The register of attempts is now closed, and that is the result.** The table
+holds seventeen institutions; this file separately records refusals for
+**Daystar** (two searches disagreed on one document), **USIU** (per-unit
+bands), **Management University of Africa** ("approximately" and "estimated"),
+**Zetech** (a table covering five of eight semesters) and **KCA**
+(Ksh 28,400-55,867 per trimester, a range). That is **twenty-two private
+universities attempted and twenty-two refused**, which is every private
+university in this catalogue bar the three already priced. Do not re-run any
+of them expecting a different answer; each blocker is a property of what the
+institution publishes or of how it reads back, not of how hard the search
+tried.
+
+Twenty-two for twenty-two is a stronger statement than the seven that opened
+this section. Seven refusals could still be a run of bad luck. Twenty-two is
+the instrument, and it says the same thing every time: **the schedules are
+reachable and the readings are not.** The route left is the institution
+itself.
+
+**Two of the last seven are worth more than their refusal.**
+
+- **Lukenya had the right shape and failed on the reading.** One flat tuition
+  figure across Bachelor of Commerce and Bachelor of Education is the Kabarak
+  case exactly - an institution pricing the INSTITUTION - and it would have
+  closed all six Lukenya records at once. It failed on nothing structural:
+  38,500 in one search against 38,000 in the next, with the first summary
+  saying "starts at" in the same breath. A floor is not a price, and quoting
+  one as a price under-quotes, which is the forbidden direction on money.
+  **The Kabarak shape is not rare; reading it to the shilling twice is.**
+- **Pan Africa Christian is a new trap, and I walked into it.** The first
+  search returned a flat undergraduate rate of Ksh 126,390 a semester. The
+  second returned the same figure - **because I put the figure in the query.**
+  A search seeded with the number you are hoping to confirm will find the
+  page you got it from and report agreement, and that is not two sources, it
+  is one source asked twice. The third search, phrased without it, returned
+  **Ksh 99,000 plus 9,000 statutory** and described the calendar as
+  **trimesters** rather than semesters - so the figure and the unit word both
+  moved the moment the question stopped leading.
+
+That belongs beside the rule it resembles: *a sum you computed yourself is not
+a second source*. This is the same error with the arithmetic taken out.
+**Corroboration has to be able to disagree with you.** Phrase the second
+search from the programme and the institution, never from the figure, and if
+a number appears in your own query it cannot come back as evidence.
+
+## Refusing to WRITE a figure is not a licence to DISCARD what you found
+
+The maintainer's standing correction, and this is the third time it has had to
+be made: **any useful information beats none.** The first two instances were
+about withholding a whole record (Ebukanga's missing duration) and withholding a
+whole institution (the University of Nairobi's competitive programmes). This is
+the third and the least obvious, because the rule being over-applied is the
+strongest rule in the file.
+
+Twenty-two private universities were worked for fees and all twenty-two refused,
+correctly, on the rules above. Then the research was **thrown away**. Every one
+of those refusals had produced real figures - Gretsa's 45,300, 55,000 and
+67,000-72,000; Daystar's per-credit-hour rate against a published 129-credit
+graduation requirement; Amref's two irreconcilable totals - and all of it went
+into *this file*, an internal document no learner will ever open. What the
+reader got on the card was:
+
+> *"The university publishes no fee for this programme in any source reachable
+> from this build, so it could not be verified."*
+
+Read plainly by someone deciding where to apply, that says **there is nothing to
+know**. It is the most discouraging possible rendering of "we found four numbers
+and could not tell you which one is right", and it is the *opposite* error from
+the placeholder trap while wearing the same clothes.
+
+**The distinction that was missing, and it is a clean one:**
+
+- **WRITING a figure** into `total_fees_kes` is a claim by Njia that this is
+  what the course costs. Every rule above still stands, unchanged and
+  unsoftened. Two searches must agree, the unit words must match, the award must
+  be the right one, a floor is not a price, a range is not a quote.
+- **REPORTING what was found** is a different speech act: it is Njia saying what
+  its research turned up and why it would not stand behind it. That is not a
+  fee, it cannot be mistaken for one, and it is strictly more use to a reader
+  than silence.
+
+So 92 records now carry a **`WHAT NJIA FOUND, AND COULD NOT RECONCILE:`**
+paragraph naming the actual figures, the actual disagreement, and the reason
+nothing was recorded. `total_fees_kes` stays null on every one, the required
+absence phrase stays, `fee_basis` does not move and the five-way partition still
+sums to `COURSES.length` - verified on the parsed data, not asserted here.
+
+**That is the same architecture the tier benchmark already uses** - *shown but
+never written* - and it should have been reached for the moment the refusals
+started stacking up. A median of sourced siblings is displayed beside an absence
+without entering the catalogue; a reported band is displayed on exactly the same
+terms. The precedent existed and was not applied because the refusal felt like
+the end of the work rather than the middle of it.
+
+**The test to apply from here, to any refusal.** When you decline to write a
+figure, ask what the reader ends up holding. If the honest answer is "less than
+I know", you have not finished - you have stopped. The three questions:
+
+1. **Is the number unsafe, or is the CLAIM unsafe?** Gretsa's figures are real
+   quotes from real sources; what is unsafe is asserting one of them as the
+   price. Report them and the assertion problem disappears.
+2. **Would a reader act differently knowing it?** A learner choosing between a
+   public university at SCFM band rates and a private one is deciding on order
+   of magnitude. "Somewhere between 45,000 and 72,000 a semester, confirm it" is
+   decision-changing. "Not published" is not.
+3. **Does the reader have a route you do not?** They can ring the registrar; this
+   build cannot. Anything that makes that phone call sharper - which award to
+   ask about, which figure to challenge, what the range looks like - is worth
+   giving them even when it is not worth recording.
+
+**What this does NOT license, and the boundary matters more than the permission.**
+A reported band may never migrate into the fee field, never set `fee_observed`,
+never be averaged, never be multiplied out into a total, and never be written for
+an institution where nothing was actually found - St Paul's, Kiriri Women's and
+Uzima returned no figure at all and their records say exactly that, with no
+invented bracket. **A paragraph reporting research is only honest while it is
+reporting research that happened.** The moment it starts describing a plausible
+range rather than a found one, it is the placeholder trap with a better
+vocabulary, and it will be harder to catch than the original because it reads
+like diligence.
 
 ## An indicative tier benchmark, shown but never written
 
@@ -2801,13 +3010,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1023 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1027 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1023 notes contains a comma or a quote and the
+  optional: **every one** of the 1027 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -3080,9 +3289,10 @@ grew **892 to 1,019 records**, roughly 25KB gzipped, and the critical path moved
 
 Two things follow, and the second is the more useful one. A 0.4KB delta cannot
 move a score this file already establishes could not see an **11.24KB** swing,
-so 93 is noise at a slightly lower centre rather than a regression. And **the
-**And the control case then arrived for free, which is better evidence
-than the measurement.** The commit that recorded this paragraph changed
+so 93 is noise at a slightly lower centre rather than a regression.
+
+**And the control case then arrived for free, which is better evidence than the
+measurement.** The commit that recorded this paragraph changed
 `CLAUDE.md` and nothing else - **zero bytes of shipped payload** - and its
 preview scored **94, "no change from production"**, a point ABOVE the 93 before
 it. Five readings now run 93, 94, 94, 93, 94. A score that moves up a point when
@@ -3092,10 +3302,12 @@ waiting for the next comment. **When a score moves and you suspect noise, the
 next docs-only commit is a free control - read it before arguing from bytes
 alone.**
 
-The other half stands: **the noise band is itself a perishable figure** - exactly the kind this file warns
-about everywhere else. It is recorded as 93-94 at the last four readings;
-re-measure it rather than quoting either range, and go to the bytes before the
-diff every time.
+The other half stands: **the noise band is itself a perishable figure** -
+exactly the kind this file warns about everywhere else. It has sat at 93-94
+across every reading since it moved, and that is deliberately not written as a
+count, because the count keeps moving and this paragraph would go stale the
+next time a preview posts. Re-measure it rather than quoting either range, and
+go to the bytes before the diff every time.
 
 ## A manual step is usually a missing build step
 

@@ -293,7 +293,7 @@ const SECTORS = [
     id: 'humanities',
     name: 'Languages, humanities and religious studies',
     broad: 'services',
-    match: /arabic|islamic studies|religious studies|theolog|biblical|intercultural studies|church educational|christian ministr|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication/i,
+    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|intercultural studies|church educational|christian ministr|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'These programmes most often lead into teaching, translation, media or further study, and Kenya publishes no graduate-outcome data for any of them. Where teaching is the intended destination, read the note on the education sector too - entry to the classroom runs through the TSC employment queue.'

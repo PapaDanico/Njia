@@ -2541,6 +2541,9 @@ and the refusals are consistent enough to change what the gap actually is.
 | Gretsa | **45,300, then 55,000, then 67,000-72,000** across three searches | Three readings of one programme |
 | St Paul's | No figure at all | Nothing reachable to read |
 | Kiriri Women's | No figure at all | Nothing reachable to read |
+| CUEA | "tuition 8,000 + statutory 12,000 = 20,000 per semester" | 160,000 for a four-year degree is not a private-university price; almost certainly a per-unit rate, and the same source says fees vary by programme |
+| Kenya Methodist | Per-SCHOOL rates, then ranges of 50,000-68,000 for later years, on 2023/24 data | The Mount Kenya per-category shape, and stale |
+| Scott Christian | Ksh 72,700 per semester for degrees, 3,995 per credit hour | Not corroborated, unit words disagree, and a cross-border name collision - see below |
 
 **The finding is the third column, not the first.** This file already says the
 private schedules are reachable, and that remains true - Gretsa's own fee PDFs
@@ -2571,6 +2574,26 @@ course - it is a diploma and a degree with a 2x price gap.** When a fee comes
 back for a subject rather than for an award, check which award it belongs to
 before anything else.
 
+**And Scott Christian brought a collision class this file has not recorded: a
+CROSS-BORDER one, with numerically adjacent figures.** The first search
+returned Ksh 72,700 per semester for its degrees. The second returned **Scott
+Christian College, Nagercoil, Tamil Nadu** in the same result set - a different
+institution in a different country - whose flagship programme totals **INR
+72,000**. Two near-identical names, two currencies, and two figures three
+digits apart. Every collision this file already records is domestic, where a
+county check is the defence; there is no county check for India.
+
+The Kenyan institution also failed the unit test in the same breath: the second
+search describes it as running **trimesters** while the first quoted figures
+**per semester** and "18 credit hours per semester". That is the Gretsa
+mismatch again, so nothing was written on either ground.
+
+**And the arithmetic that looked like corroboration was mine, not the
+source's.** 18 credit hours x Ksh 3,995 = 71,910, which sits close to the
+72,700 quoted and reads as two figures agreeing. It is one figure and a
+multiplication I performed. A sum you computed yourself is not a second
+source, however neatly it lands.
+
 **Two things this pass did NOT do, deliberately.** It did not take Gretsa's
 55,000 x 8 semesters: the same sentence called those terms both "semesters"
 and "trimesters", and a total resting on two mismatched unit words is the
@@ -2585,6 +2608,18 @@ authority of a computed benchmark, shown to a reader looking at Tangaza.
 Measured at the start of the pass, and unchanged by it: **22 of 184 private
 records carry a fee, 15 of them Kabarak, and 3 of 25 private universities have
 any priced course at all.**
+
+**Ten private universities have now been attempted and refused, and the list
+of what is left is shorter than it looks.** Beyond the ten in the table, this
+file already records refusals for **Daystar** (two searches disagreed on one
+document), **USIU** (per-unit bands), **Management University of Africa**
+("approximately" and "estimated"), **Zetech** (a table covering five of eight
+semesters) and **KCA** (Ksh 28,400-55,867 per trimester, a range). That is
+fifteen. Do not re-run any of them expecting a different answer; each blocker
+is a property of what the institution publishes, not of how hard the search
+tried. What remains genuinely untried is Tangaza, Kenya Highlands, Great Lakes
+Kisumu, Uzima, Amref, Lukenya and Pan Africa Christian - and on the evidence of
+the fifteen, the prior for any of them is low.
 
 ## An indicative tier benchmark, shown but never written
 

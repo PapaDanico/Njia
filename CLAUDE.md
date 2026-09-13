@@ -2527,6 +2527,67 @@ institution; a per-programme schedule closes only the programmes it names.
 
 Sixteen records gained a sourced fee this way. 348 fee-less became 333.
 
+## Private fees: the schedules are reachable and the READINGS are not
+
+The fee gap on the private side has been recorded here twice as the open one,
+both times with the implication that it is simply work nobody has done yet.
+Seven more institutions were worked in one pass and **every one was refused**,
+and the refusals are consistent enough to change what the gap actually is.
+
+| Institution | What came back | Why nothing was written |
+|---|---|---|
+| Africa Nazarene | 269,250 in one search; 921,600-1,057,700 in the next | Two readings of one structure, and its own FAQ says the fee depends on the programme |
+| Umma | "56,000 per trimester" in one search; "Business 49,000, Islamic Sharia 17,500" in the next | Prices per programme - a 3x spread - and the two readings disagree on Business |
+| Mount Kenya | "about Ksh 45,550 to 59,550 per semester" for business degrees | A per-CATEGORY range, which is one step further from a named course than the per-institution ranges already refused |
+| Baraton | Credit-hour based; fees cut 20-30% and trimesters changed to semesters in 2026 | The Daystar shape, and the structure moved this year |
+| Gretsa | **45,300, then 55,000, then 67,000-72,000** across three searches | Three readings of one programme |
+| St Paul's | No figure at all | Nothing reachable to read |
+| Kiriri Women's | No figure at all | Nothing reachable to read |
+
+**The finding is the third column, not the first.** This file already says the
+private schedules are reachable, and that remains true - Gretsa's own fee PDFs
+came back in the result set, on its own domain. What fails is one level in:
+**the only channel this build has cannot read a fee table consistently.** Three
+searches returned three different numbers for one programme at one university.
+That is not a yield floor and it is not an egress block; it is an instrument
+that is unreliable on exactly the field where an unreliable reading does the
+most damage.
+
+So the honest reframing: **private fees are not unreached, they are unread.**
+The remaining route is the institution itself - the Ebukanga registrar case at
+university scale - and that is a phone call, not a search. Do not re-run the
+seven above; each one's blocker is named.
+
+**And the near-miss in the Gretsa pass is the part to carry forward.** The
+first search returned "Computing and Library & Information Science, Ksh 25,000
+per semester" and it was about to be written onto the BSc in Computer Science.
+It is the **DIPLOMA** in Computer Science - a different named award at the same
+institution, in a PDF that sits beside the degree's in every result set. The
+degree is priced at roughly twice that. Writing it would have **under-quoted a
+fee by more than half**, which is the forbidden direction on money, and it
+would have looked entirely plausible on the card.
+
+That is the Ebukanga *Fitting and Turning* ruling arriving at a university:
+**course identity is (name, institution), and "Computer Science" is not one
+course - it is a diploma and a degree with a 2x price gap.** When a fee comes
+back for a subject rather than for an award, check which award it belongs to
+before anything else.
+
+**Two things this pass did NOT do, deliberately.** It did not take Gretsa's
+55,000 x 8 semesters: the same sentence called those terms both "semesters"
+and "trimesters", and a total resting on two mismatched unit words is the
+Bungoma self-contradiction in arithmetic form. And it did not extend the
+**tier benchmark** to private degrees. That exclusion's stated reason is the
+SCFM, which is a PUBLIC university mechanism and does not apply here - so the
+reason is wrong for this case even though the outcome is right. The 20-sibling
+floor is what correctly blocks it: there are 17 priced private degree records
+and **15 are Kabarak**, so the median would be Kabarak's own number wearing the
+authority of a computed benchmark, shown to a reader looking at Tangaza.
+
+Measured at the start of the pass, and unchanged by it: **22 of 184 private
+records carry a fee, 15 of them Kabarak, and 3 of 25 private universities have
+any priced course at all.**
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who

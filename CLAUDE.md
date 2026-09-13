@@ -2756,6 +2756,46 @@ institutions carried them. That is the invented-cluster-id failure again -
 same lesson: **a value that reads right is the dangerous kind**, and the only
 thing that catches it is a guard asserting membership of a known set.
 
+### The private register, closed as far as it honestly closes: 29 of 32
+
+Four of the seven names came off the list by being **listed** - Africa
+International University (+3), KAG EAST (+2), the Presbyterian University of
+East Africa (+4) and the Islamic University of Kenya (+3). A fifth came off for
+a different reason, and that reason is the useful part.
+
+**Adventist University of Africa is postgraduate only.** Two schools, a
+Theological Seminary and a School of Postgraduate Studies, and every award in
+both is a master's or a doctorate. It can never produce a row in a catalogue
+read by people deciding what to do after KCSE - so leaving it on a *missing*
+list would overstate the gap permanently, and the aggregate would never close
+with nobody able to say why. It now sits in `OUT_OF_SCOPE_PRIVATE` **with its
+reason on the same line**, and a guard requires that reason to be there.
+
+**A missing list should only hold gaps that can be closed.** That is the
+correction this pass makes to the shape the public list already set: naming a
+gap is better than counting it, and naming a *permanent* one as though it were
+temporary is worse than either.
+
+**Two names remain and both have named blockers rather than "not done yet".**
+
+- **Aga Khan University** - its Kenyan work is medical and nursing and runs
+  heavily at postgraduate level; no reachable source names an undergraduate
+  award with an entry requirement.
+- **The East African University** - worked, and it yielded **one** corroborated
+  programme: Bachelor of Business Information Technology, named by two
+  independently phrased searches, with its three schools corroborated too. Its
+  other degrees rest on a single listing. **One record would make it the
+  single-course stub `MAX_STUBS` forbids**, so it stays a lead - the Alupe
+  ruling exactly, and the blocker is corroboration rather than effort.
+
+**And TEAU produced a duration conflict worth recording.** One source says its
+degrees take **two and a half years**, another that most take a minimum of
+**four**. Nothing was written, because a duration is a fact about a course and
+this catalogue has already refused to guess one at Ebukanga and Kakrao. If TEAU
+is ever listed, that conflict has to be settled or the field left null - an
+accelerated trimester route and a four-year degree are different products, and
+a reader planning around the wrong one loses eighteen months.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**

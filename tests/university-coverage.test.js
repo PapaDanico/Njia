@@ -116,12 +116,44 @@ test('the known-missing public universities are still named, or listed', () => {
     'the known-missing public list grew without the register count moving');
 });
 
+/* A MISSING LIST SHOULD ONLY HOLD GAPS THAT CAN BE CLOSED.
+ *
+ * Five names came off this list on 13 Sep 2026 - Africa International
+ * University, KAG EAST, the Presbyterian University of East Africa and the
+ * Islamic University of Kenya were listed, and Adventist University of Africa
+ * was moved out of the list entirely rather than counted as a gap.
+ *
+ * AUA is POSTGRADUATE ONLY. It runs two schools, a Theological Seminary and a
+ * School of Postgraduate Studies, and every award in both is a master's or a
+ * doctorate. It can never produce a row in a catalogue read by people deciding
+ * what to do after KCSE, so carrying it as "missing" would overstate the gap
+ * for ever - the aggregate would never close and nobody would know why. That is
+ * the same reasoning that keeps upgrading and in-service routes out of the KMTC
+ * campuses: the exclusion is about who the reader is, not about the institution
+ * being lesser. */
+const OUT_OF_SCOPE_PRIVATE = [
+  'Adventist University of Africa — postgraduate only, no bachelor awards',
+];
+
 const KNOWN_MISSING_PRIVATE = [
-  /* Africa International University and KAG EAST listed 13 Sep 2026. */
-  'Adventist University of Africa',
+  /* Blocker: its Kenyan programmes are medical and nursing and run heavily at
+     postgraduate level; no reachable source names an undergraduate award with
+     an entry requirement. Not re-run without a per-programme listing. */
   'Aga Khan University',
+  /* Blocker: worked 13 Sep 2026 and yielded ONE corroborated programme
+     (Bachelor of Business Information Technology, named by two independently
+     phrased searches). Its other degrees rest on a single listing. One record
+     would make it the single-course stub MAX_STUBS forbids, so it stays a lead
+     until a second source names a second award. Do not re-run the general
+     search; the missing thing is corroboration, not effort. */
   'The East African University'
 ];
+
+test('the out-of-scope private universities say WHY, not just that', () => {
+  assert.ok(OUT_OF_SCOPE_PRIVATE.every((n) => n.includes('—')),
+    'every out-of-scope university must carry its reason on the same line, '
+    + 'or the next reader re-works it and finds the same nothing.');
+});
 
 test('the known-missing private universities are still named, or listed', () => {
   const names = INSTITUTIONS.map((i) => i.name.toLowerCase());
@@ -133,9 +165,10 @@ test('the known-missing private universities are still named, or listed', () => 
   /* The arithmetic has to hold: listed plus still-missing cannot exceed the
      register, or one of the two numbers is wrong and the gap is misreported. */
   const listed = universities('private').length;
-  assert.ok(listed + stillMissing.length <= CUE_PRIVATE_CHARTERED + 2,
-    `${listed} private universities listed and ${stillMissing.length} named as missing is more than `
-    + `the ${CUE_PRIVATE_CHARTERED} CUE records — one of those figures is stale, so re-read the register.`);
+  assert.ok(listed + stillMissing.length + OUT_OF_SCOPE_PRIVATE.length <= CUE_PRIVATE_CHARTERED + 2,
+    `${listed} private universities listed, ${stillMissing.length} named as missing and `
+    + `${OUT_OF_SCOPE_PRIVATE.length} out of scope is more than the ${CUE_PRIVATE_CHARTERED} CUE `
+    + 'records — one of those figures is stale, so re-read the register.');
 
   assert.ok(stillMissing.length <= KNOWN_MISSING_PRIVATE.length,
     'the known-missing list grew without the register count moving');

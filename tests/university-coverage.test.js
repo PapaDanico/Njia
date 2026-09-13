@@ -202,6 +202,50 @@ test('listed universities are not left as single-course stubs', () => {
     + `was last measured: ${stubs.join('; ')}. Deepen one rather than adding another stub.`);
 });
 
+/* A CAP ON SINGLE-COURSE STUBS IS NOT A MEASURE OF DEPTH.
+ *
+ * The stub cap above bans a university with ONE course and says nothing about a
+ * university with two, so the register satisfied it completely while 28
+ * universities carried fewer than five records and three carried no degree at
+ * all - Egerton, TU-K and Multimedia - and KCA held five certificates and
+ * diplomas and none of the degrees it is known for. An audit found it; no guard
+ * could have, because nothing was counting.
+ *
+ * This ratchets the thin tail. It may fall and never rise. Deepening one
+ * university is what lowers it; adding a two-course university is what the
+ * guard is aimed at. */
+test('the thin tail of shallow universities only shrinks', () => {
+  const count = (id) => COURSES.filter((c) => c.institution_id === id).length;
+  const thin = INSTITUTIONS
+    .filter((i) => i.type === 'university' && count(i.id) < 5)
+    .map((i) => `${i.name} (${count(i.id)})`);
+
+  /* Ratchet. Lower it when you deepen one; never raise it. It was 28 when the
+     audit that prompted this guard was run, with three universities carrying no
+     degree at all. */
+  const MAX_THIN = 23;
+  assert.ok(thin.length <= MAX_THIN,
+    `${thin.length} universities carry fewer than five courses, above the ceiling of ${MAX_THIN}: `
+    + `${thin.join('; ')}. A university running several schools and listed with two programmes `
+    + 'answers a reader searching its name with almost nothing. Deepen one rather than adding another.');
+});
+
+/* A UNIVERSITY THAT AWARDS DEGREES MUST CARRY AT LEAST ONE.
+ *
+ * Egerton is Kenya's oldest agricultural university and this catalogue listed
+ * four of its diplomas and certificates and not one degree. That is not a thin
+ * record, it is a wrong answer to the question a school-leaver actually asks. */
+test('every listed university carries at least one degree', () => {
+  const degreeless = INSTITUTIONS
+    .filter((i) => i.type === 'university')
+    .filter((i) => !COURSES.some((c) => c.institution_id === i.id && c.level === 'degree'))
+    .map((i) => i.name);
+
+  assert.deepStrictEqual(degreeless.join('; '), '',
+    `these universities carry no degree record at all: ${degreeless.join('; ')}. `
+    + 'A university listed only with its diplomas tells a reader it does not teach degrees.');
+});
+
 /* KMTC IS THE LARGEST PROVIDER IN THIS CATALOGUE AND ITS REGISTER WAS NEVER COUNTED.
  *
  * Everything above measures universities against CUE's denominator. KMTC sits

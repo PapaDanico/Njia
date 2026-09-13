@@ -1892,6 +1892,127 @@ and told where to check keeps their agency. A reader shown nothing does not.
 and it is the one claim this catalogue cannot caveat. A missing fee prompts a
 phone call. A missing *course* tells a learner the thing does not exist.
 
+## Research priority: work the institutions readers actually name
+
+The maintainer's correction, and it is the sharpest one in this file because it
+is about **what gets worked on** rather than about how a record is written:
+*the obsession with KMTC and with E and D grades has left huge gaps where it
+matters.*
+
+It is true and the mechanism is already documented here twice - *the eligibility
+floor is the only coverage question with a ratchet, so it is the only one that
+ever gets answered*, written down, and then repeated anyway. Three ratchets
+(E-blind counties, single-provider counties, KMTC-only counties) all point at the
+same handful of thin rural counties, so every unguided pass went there. Meanwhile
+**JKUAT held three courses, Egerton had no degree at all, Strathmore three, MMUST
+two, and KCA five certificates and none of its degrees.**
+
+Those are not equivalent gaps. A KMTC campus's fifth programme is a marginal
+addition for a few hundred readers. **JKUAT, Kenyatta, Egerton, Strathmore, MKU
+and KCA are the names a Kenyan school-leaver types first**, and a catalogue that
+answers them with two rows is failing at its most-asked question while
+optimising its best-instrumented one.
+
+**The priority order, to be followed unless the maintainer says otherwise:**
+
+1. **Depth at the institutions readers name.** Any university or large college
+   carrying fewer than five records is a gap worth more than a marginal county
+   record. The audit that produced this section is one script and should be
+   re-run rather than assumed - `type === 'university'`, count the records, sort
+   ascending, start at the top.
+2. **Programme families absent from the whole catalogue**, not absent from one
+   county - the way medicine, physiotherapy, pharmacy and renewable energy each
+   arrived here by being noticed as missing outright.
+3. **Fees and figures for records that already exist**, which is where the
+   catalogue's distinctive claim lives.
+4. **The county floor metrics**, which are real and are now the *fourth* call on
+   attention rather than the first.
+
+**And the general rule about guards, one level up from the one this file already
+states.** A ratchet makes a number improve. It does not make it the right number
+to improve, and a session that optimises whatever is instrumented will look
+diligent the entire time it is going wrong. **Before starting a pass, ask what a
+reader typed into a search box this week** - then check whether the thing you are
+about to work on is the answer to it.
+
+## The stub cap was zero and the register was still a stub register
+
+The maintainer asked how a whole university can offer one degree course, called
+for an audit of every institution, and said this file is too restrictive. All
+three are the same finding and the audit settles it:
+
+- **28 institutions carry exactly one record. 94 of 202 carry two to four.**
+- **28 universities carry fewer than five**, among them **JKUAT (3), Strathmore
+  (3), Egerton (4), MMUST (2), DeKUT (2), Machakos (2), Kisii (2)**.
+- **Three universities carry no degree record at all** - Egerton, the Technical
+  University of Kenya and Multimedia University - while KCA University held five
+  certificates and diplomas and none of the degrees it is known for.
+
+**The stub cap is not the metric it was taken for.** It bans a university with
+*one* course and says nothing about a university with two, so a register can
+satisfy it completely and still answer "Egerton" with four diplomas. That is
+this file's own rule about guarded and unguarded coverage questions, one more
+time: *the cap was ratcheted to zero, so the thing the cap measures is the only
+thing that got fixed.*
+
+**And the restrictiveness is real, so the standard is stated once, here, in its
+widened form.** The ruling that a reputable programme map plus institution-level
+verification is enough to create a record was written about the four biggest
+public universities and has been read ever since as an exception for them. **It
+is not an exception. It is the standard for every chartered university and every
+accredited college in this catalogue.** A university's own school and faculty
+listings, the national KUCCPS programme map, or a CUE accreditation list, with
+confirmation that the institution runs that school or faculty, creates a record.
+The note says what it was listed on and sends the reader to the KUCCPS portal
+for the code and the cut-off.
+
+**What did NOT change, and this is the whole of the boundary.** Every FIGURE on
+the record still obeys every rule in this file, unsoftened: no fee without a
+source, no invented duration, no employment rate, no grade quoted high and none
+quoted low, no figure repeated across unrelated institutions, and the absence
+phrases where a figure is missing. **Listing is a claim about existence.
+Figures are claims about quantity.** The rules were written for the second and
+were being applied to the first, which is how a catalogue built to be
+trustworthy ended up telling a Kenyan school-leaver that Egerton does not teach
+degrees.
+
+**The depth question now gets a guard, because every coverage question here that
+lacks one drifts.** `tests/university-coverage.test.js` ratchets the number of
+universities carrying fewer than five records, so the thin tail can fall and
+never rise - the stub cap survives underneath it for the single-record case.
+A count that can only improve is what stops the next pass optimising whichever
+number happens to be watched.
+
+## The first pass under the new priority
+
+Worked in priority order rather than by ratchet, in one pass: **KCA +8 degrees**
+(it had five certificates and diplomas and none of its degrees), **Egerton +13**,
+**Technical University of Kenya +8**, **Multimedia +8**, **JKUAT +13**,
+**Strathmore +5**. 1064 to **1119 courses**, and the degreeless-university count
+is zero.
+
+Three things the pass established beyond the records:
+
+- **TU-K confers Bachelor of Technology degrees, not BSc**, and the records use
+  the university's own award names - the TUM correction applied before it could
+  become an error rather than after.
+- **Strathmore's bar is B-, above the national C+, and it is recorded as
+  published.** The eligibility rule is never to quote a grade high and it has
+  never licensed quoting one low; softening B- to C+ to make the card appear for
+  more readers would send them at an application they cannot win.
+- **A typo put a 96-month Information Technology degree into the catalogue**,
+  and the read-back caught it in the same minute - `'48'-0+48` is 96, which is
+  what happens when a value is computed instead of written. It never reached a
+  commit. A sweep for degree durations outside 36 to 72 months now runs with
+  every read-back, and it is a cheap thing to keep doing.
+
+**The sector register needed three more words** - `dryland`/`range management`,
+`optic`/`laser`, and `biotechnolog` - which is the eleventh instance and no
+longer worth being surprised by. The bytes-per-course guard fired twice more and
+the ceiling was not raised either time; the repeated SCFM paragraph was cut
+instead, which is the correct response to *a note pasted across many* because
+that is precisely what it was.
+
 ## The four biggest public universities, filled in
 
 Applying the widened standard immediately: **University of Nairobi 1 to 25,
@@ -3578,13 +3699,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1072 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1119 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1072 notes contains a comma or a quote and the
+  optional: **every one** of the 1119 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

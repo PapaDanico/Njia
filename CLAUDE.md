@@ -2469,6 +2469,69 @@ that disagreement is what reduced four candidate records to one. **A rule
 written in the morning is not a habit by the afternoon; the query you are about
 to send is the one to check.**
 
+**The sweep that finding implies was run and came back empty**, which is worth
+recording so nobody runs it again: no other institution in the register carries
+a comma in the campus half of its name. Mombasa was the only one of its shape.
+
+## Silence is not corroboration, and a partly seeded query yields partial evidence
+
+Three more campuses in the same batch - **Kisumu 0, Nakuru +6** - and both
+outcomes turned on how a second search behaved rather than on what the first
+one said.
+
+**Kisumu is the yield floor, cleanly.** Two searches confirm the campus in
+detail: Kondele, next to Jaramogi Oginga Odinga Teaching and Referral Hospital,
+two kilometres from town, operational 1953, 1,052 students, over 200 graduates a
+year. Neither names a single programme taught there - both fall back on the
+national framing of 126 courses across 7 faculties. A confirmed campus with no
+sourced course name yields no record, so Kisumu is recorded here as **attempted
+and unyielding** rather than left looking unworked.
+
+**Nakuru needed a distinction this file had not drawn.** Its first listing is
+strong - 1973, 52.6 acres shared with Nakuru County Teaching and Referral
+Hospital, 1,530 students across pre-service, upgrading and post-basic, and an
+explicit claim of **14 courses** with eight programme families named. The second
+search corroborated the campus and said **nothing at all about courses**,
+returning the national "more than 120" line instead.
+
+That is not agreement and it is not contradiction. **Silence is not
+corroboration** - a second source that does not mention the thing has not
+confirmed it - and treating it as either would be wrong in opposite directions.
+So a third search was run, and it is the one with the lesson in it: **it was
+partly seeded.** The query named pharmacy, oral health and imaging, so those
+three came back and cannot count, exactly as the Pan Africa Christian figure
+could not. But the same result *also* named four families the query did not
+mention - Clinical Medicine and Surgery, Medical Laboratory Sciences,
+Orthopaedic and Trauma Medicine, and Health Records and Information Technology -
+and those four are genuine second sightings.
+
+**A partly seeded query is not worthless; it is worthless for the part you
+seeded.** Read the result in two halves and keep only the half you did not ask
+for. Six records written, all from that half.
+
+What the notes say is not recorded matters as much:
+
+- **The long tail is template bleed.** One listing added Dental Technology,
+  Nursing, Public Health, Nutrition and Dietetics, Occupational Therapy and
+  Health Promotion; the other did not, and a list that long is the national
+  catalogue rather than a campus that states it runs fourteen courses.
+- **Pharmacy, Community Oral Health and Medical Imaging Sciences are left out on
+  the narrower ground** - they are real programmes at a campus of this size and
+  they appeared only in the search that named them. That is the honest reason,
+  and it is in the note so a reader rings the campus rather than reading their
+  absence as evidence.
+- **Physiotherapy is left out because the sources disagree**: one places a
+  physiotherapy department inside the referral hospital, the other omits it from
+  the course list. The Bungoma rule - a source that contradicts itself, or two
+  that contradict each other, attributes nothing.
+- **Higher diplomas are not recorded anywhere in this batch.** Clinical
+  Medicine, Medical Laboratory Sciences, Medical Imaging and Medical Education
+  all run at that level here, and all are post-basic qualifications for people
+  already in practice.
+
+Nakuru county goes to 45 courses. The campus itself goes 2 to 8, which is the
+second-largest single-campus gain of this whole KMTC effort after Nairobi.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -3055,13 +3118,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1031 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1037 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1031 notes contains a comma or a quote and the
+  optional: **every one** of the 1037 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

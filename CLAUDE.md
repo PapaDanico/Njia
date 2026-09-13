@@ -2013,6 +2013,21 @@ the ceiling was not raised either time; the repeated SCFM paragraph was cut
 instead, which is the correct response to *a note pasted across many* because
 that is precisely what it was.
 
+**MMUST +10, and the thin-tail ratchet moves 23 to 22.** Masinde Muliro runs
+over 400 programmes across eleven schools and this catalogue held two of them -
+a BSc Nursing and a diploma in statistics. The additions include the degrees
+from its **School of Disaster Management and Humanitarian Assistance**, which is
+the only school of its kind in the region and has few equivalents anywhere in
+this catalogue: disaster management with international diplomacy, emergency
+management and humanitarian assistance, and peace and conflict studies.
+
+**The sector register needed a fourth category word in one session** -
+`humanitarian`, `disaster management`, `emergency management`, `peace and
+conflict`, all added to public administration. One of the three new disaster
+degrees matched on `diplomacy` and the other two matched nothing, which is the
+near-miss shape this file keeps recording: a pattern that catches one member of
+a family reads as covering the family.
+
 ## The four biggest public universities, filled in
 
 Applying the widened standard immediately: **University of Nairobi 1 to 25,
@@ -3699,13 +3714,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1119 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1129 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1119 notes contains a comma or a quote and the
+  optional: **every one** of the 1129 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

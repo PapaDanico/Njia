@@ -161,7 +161,7 @@ const SECTORS = [
     id: 'admin',
     name: 'Administration, HR and public service',
     broad: 'services',
-    match: /human resource|office administration|public administration|international relations|diplomacy|secretar|records|librar|information science|archiv|project management|project planning|development policy|spatial planning|urban planning|regional planning|arts in planning|governance|events management|security|emotional intelligence|leadership|disaster management|disaster risk|resilience|political science|criminolog|penolog|security studies|librar|information science|archiv|cctv|alarm/i,
+    match: /human resource|office administration|public administration|international relations|diplomacy|humanitarian|disaster management|emergency management|peace and conflict|secretar|records|librar|information science|archiv|project management|project planning|development policy|spatial planning|urban planning|regional planning|arts in planning|governance|events management|security|emotional intelligence|leadership|disaster management|disaster risk|resilience|political science|criminolog|penolog|security studies|librar|information science|archiv|cctv|alarm/i,
     awardingBodies: ['TVET CDACC', 'IHRM'],
     knbs: { series: 'Public administration and defence', mapping: 'component', growth: 8.3 },
     caution: 'Growth in public administration is measured as government activity, and hiring into it is capped by the wage bill rather than by demand. Most administrative work is in the private sector, which this series does not cover.'

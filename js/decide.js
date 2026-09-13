@@ -1158,6 +1158,26 @@ function renderCourseCard(course, match) {
       ${inst && inst.fee_regime === 'public_university' && feePublished && typeof UNIVERSITY_FUNDING_TRANSITION !== 'undefined' ? `
         <p class="text-sm mb-2"><strong>Public university fees do not work like a price list.</strong> The single per-programme cost was retired in 2023 for a model that sets what you pay from your assessed household means, and Parliament is mid-way through changing it again — so treat the figure above as an order of magnitude, not a bill. ${escapeHtml(UNIVERSITY_FUNDING_TRANSITION.legislativeStage.split('.')[0])}. Ask the university what your intake is being billed and under which model, in writing.</p>
       ` : ''}
+      ${/* WHAT NJIA FOUND BUT WOULD NOT RECORD.
+           *
+           * 92 records carry a paragraph naming figures real sources reported
+           * for that institution, which Njia could not reconcile well enough to
+           * write into total_fees_kes. Those stay in the provenance note, where
+           * the detail belongs - but the note is inside a <details>, and this
+           * file already establishes that a caveat below the fold is a caveat
+           * most readers never reach. The same is true of INFORMATION below the
+           * fold: moving the research out of CLAUDE.md and into a collapsed
+           * element would have been half the fix.
+           *
+           * So the card face says the figures exist and points at them. It
+           * deliberately does NOT repeat the numbers here: the whole reason they
+           * are not recorded is that Njia cannot say which is right, and a
+           * bracket rendered in the fee's own position would read as a price at
+           * a glance no matter how it is labelled. The reader gets told there is
+           * something to open, and what it is for. */''}
+      ${/WHAT NJIA FOUND/.test(course.verification_note || '') ? `
+        <p class="text-sm mb-2"><strong>Njia found reported figures for this institution and could not reconcile them.</strong> They are named below with the disagreement that stopped them being recorded — worth reading before you ring admissions, so you know the order of magnitude and which award to ask about.</p>
+      ` : ''}
       ${course.verification_note ? `<details class="fee-provenance"><summary>${basis === 'unpublished' ? 'Why there is no fee here' : basis === 'derived' ? 'How this fee was worked out' : 'How this fee was checked'}</summary><p class="text-muted text-sm">${escapeHtml(course.verification_note)}${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? ` ${escapeHtml(PUBLIC_TVET_CAPITATION.residual)}` : ''}</p></details>` : ''}
       ${/* WHERE THIS SITS IN THE ECONOMY.
            *

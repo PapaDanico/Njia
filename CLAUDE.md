@@ -2660,6 +2660,82 @@ a second source*. This is the same error with the arithmetic taken out.
 search from the programme and the institution, never from the figure, and if
 a number appears in your own query it cannot come back as evidence.
 
+## Refusing to WRITE a figure is not a licence to DISCARD what you found
+
+The maintainer's standing correction, and this is the third time it has had to
+be made: **any useful information beats none.** The first two instances were
+about withholding a whole record (Ebukanga's missing duration) and withholding a
+whole institution (the University of Nairobi's competitive programmes). This is
+the third and the least obvious, because the rule being over-applied is the
+strongest rule in the file.
+
+Twenty-two private universities were worked for fees and all twenty-two refused,
+correctly, on the rules above. Then the research was **thrown away**. Every one
+of those refusals had produced real figures - Gretsa's 45,300, 55,000 and
+67,000-72,000; Daystar's per-credit-hour rate against a published 129-credit
+graduation requirement; Amref's two irreconcilable totals - and all of it went
+into *this file*, an internal document no learner will ever open. What the
+reader got on the card was:
+
+> *"The university publishes no fee for this programme in any source reachable
+> from this build, so it could not be verified."*
+
+Read plainly by someone deciding where to apply, that says **there is nothing to
+know**. It is the most discouraging possible rendering of "we found four numbers
+and could not tell you which one is right", and it is the *opposite* error from
+the placeholder trap while wearing the same clothes.
+
+**The distinction that was missing, and it is a clean one:**
+
+- **WRITING a figure** into `total_fees_kes` is a claim by Njia that this is
+  what the course costs. Every rule above still stands, unchanged and
+  unsoftened. Two searches must agree, the unit words must match, the award must
+  be the right one, a floor is not a price, a range is not a quote.
+- **REPORTING what was found** is a different speech act: it is Njia saying what
+  its research turned up and why it would not stand behind it. That is not a
+  fee, it cannot be mistaken for one, and it is strictly more use to a reader
+  than silence.
+
+So 92 records now carry a **`WHAT NJIA FOUND, AND COULD NOT RECONCILE:`**
+paragraph naming the actual figures, the actual disagreement, and the reason
+nothing was recorded. `total_fees_kes` stays null on every one, the required
+absence phrase stays, `fee_basis` does not move and the five-way partition still
+sums to `COURSES.length` - verified on the parsed data, not asserted here.
+
+**That is the same architecture the tier benchmark already uses** - *shown but
+never written* - and it should have been reached for the moment the refusals
+started stacking up. A median of sourced siblings is displayed beside an absence
+without entering the catalogue; a reported band is displayed on exactly the same
+terms. The precedent existed and was not applied because the refusal felt like
+the end of the work rather than the middle of it.
+
+**The test to apply from here, to any refusal.** When you decline to write a
+figure, ask what the reader ends up holding. If the honest answer is "less than
+I know", you have not finished - you have stopped. The three questions:
+
+1. **Is the number unsafe, or is the CLAIM unsafe?** Gretsa's figures are real
+   quotes from real sources; what is unsafe is asserting one of them as the
+   price. Report them and the assertion problem disappears.
+2. **Would a reader act differently knowing it?** A learner choosing between a
+   public university at SCFM band rates and a private one is deciding on order
+   of magnitude. "Somewhere between 45,000 and 72,000 a semester, confirm it" is
+   decision-changing. "Not published" is not.
+3. **Does the reader have a route you do not?** They can ring the registrar; this
+   build cannot. Anything that makes that phone call sharper - which award to
+   ask about, which figure to challenge, what the range looks like - is worth
+   giving them even when it is not worth recording.
+
+**What this does NOT license, and the boundary matters more than the permission.**
+A reported band may never migrate into the fee field, never set `fee_observed`,
+never be averaged, never be multiplied out into a total, and never be written for
+an institution where nothing was actually found - St Paul's, Kiriri Women's and
+Uzima returned no figure at all and their records say exactly that, with no
+invented bracket. **A paragraph reporting research is only honest while it is
+reporting research that happened.** The moment it starts describing a plausible
+range rather than a found one, it is the placeholder trap with a better
+vocabulary, and it will be harder to catch than the original because it reads
+like diligence.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who

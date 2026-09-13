@@ -2666,6 +2666,27 @@ Information Technology - so that is the one row it gets. 47 campuses to 48, and
   different institution is not corroboration, it is contamination** - and the
   tell is that it matched *too* well.
 
+**And the third campus settled it.** KMTC **Miathene** - Tigania West, built
+with the Tigania West NG-CDF, first students 13 March 2023 - came back with
+**824 students as well.** Three campuses in one county carrying one figure is
+not coincidence and is no longer a suspicion: a source is pasting a county-level
+number across every Meru KMTC query. Nothing about size is recorded for any of
+them. **Contamination announces itself by repetition; the second instance is
+where you should stop trusting the field, not the third.**
+
+Miathene is listed with **two** records, and the reason it earns both is worth
+the contrast with Maua: its two sources agree on its *whole* list rather than on
+one item of it - the Certificate in Orthopaedic and Trauma Medicine it opened
+with in March 2023, and the KRCHN diploma. **A short list two sources can repeat
+in full is what a genuinely small, genuinely new campus looks like**, and it is
+the opposite signal from a sixteen-family list that matches the national
+catalogue. 48 campuses to 49, and `KNOWN_MISSING_KMTC` is down to Imenti alone.
+
+Meru County now carries **three** KMTC campuses where the register held one this
+morning. That is the answer to the question this section opened with, and it
+suggests the remaining gap is concentrated rather than spread: counties with one
+listed campus and an NG-CDF that has built others.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -3252,13 +3273,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1043 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1045 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1043 notes contains a comma or a quote and the
+  optional: **every one** of the 1045 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

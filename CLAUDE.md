@@ -3256,6 +3256,44 @@ meals charge in a new costume: a real number, genuinely published, and not the
 thing the fee field asks about. Ksh 1,000 to apply is not what it costs to
 train.
 
+**The sixth school closes the recorded leads, and it is the one that is NOT more
+open than KMTC.** Catherine McAuley Nursing School, inside The Mater
+Misericordiae Hospital in South B, Nairobi, run by the Sisters of Mercy since
+1972, publishes **C+ with a C+ in English, Biology and Chemistry** - the same
+bar KMTC asks - and admits a maximum of 20 trainees. Every other school in this
+category was listed partly because its bar is lower than KMTC's, and the note
+says outright that this one's is not. **A category is not a thesis**: if five
+records support a pattern and the sixth does not, the sixth is recorded as it
+is, not omitted for spoiling it.
+
+Its fee is the clearest case yet for the reporting paragraph: Ksh 60,000 to
+100,000 a semester is a 67 per cent spread with no published semester count
+behind it, so nothing is written - and a reader ringing the school now knows the
+order of magnitude and knows to ask whether that range is per programme or per
+year, which is the question the range itself raises.
+
+**All five mission-hospital leads recorded in this file are now worked**: Tenwek,
+Chogoria, Maua, PCEA Kikuyu and the Mater, alongside AIC Kijabe which opened the
+category. Six schools, eight records, **not one of them carrying a fee** - which
+is the honest summary of the category and the reason the note on every card
+names the phone call as the route.
+
+**And the payload guard caught this category, correctly.** The first version of
+these six notes ran 2,100 to 2,700 characters each against a catalogue mean of
+about 950, and `data/courses.js` crossed the bytes-per-course budget at 125.4
+against 125. That guard exists for exactly this - *adding courses is the project;
+each record getting fatter is not* - and the temptation was to raise the ceiling
+by a rounding error, which this file separately calls headroom for the next
+regression to hide in.
+
+The notes were cut instead, by roughly a third, and the cut improved them: what
+went was the discursive explanation of *why* a rule was applied, which belongs
+here rather than on a card a learner reads on a phone. What stayed was every
+fact - the bar, the basis it rests on, the reported figures, the excluded
+programmes and the missing fields. **A provenance note is not the place to
+argue the provenance rules**, and a byte budget is a reasonable thing to be
+reminded of that by.
+
 **One record carries a null duration on purpose.** The KRCHN is published at
 three and a half years and is recorded at 42 months - the second record in the
 catalogue to carry the longer figure from its own source, after Kijabe, and the
@@ -3540,13 +3578,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1063 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1064 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1063 notes contains a comma or a quote and the
+  optional: **every one** of the 1064 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

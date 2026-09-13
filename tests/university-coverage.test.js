@@ -63,7 +63,7 @@ const universities = (ownership) =>
 /* RATCHETS. Raise these as institutions are added; they may never fall.
    They are floors on coverage, not targets — the target is the full register. */
 const MIN_PUBLIC_LISTED = 36;
-const MIN_PRIVATE_LISTED = 25;
+const MIN_PRIVATE_LISTED = 27;
 
 test('public university coverage never regresses', () => {
   const listed = universities('public').length;
@@ -117,9 +117,8 @@ test('the known-missing public universities are still named, or listed', () => {
 });
 
 const KNOWN_MISSING_PRIVATE = [
-  'Africa International University',
+  /* Africa International University and KAG EAST listed 13 Sep 2026. */
   'Adventist University of Africa',
-  'KAG EAST University',
   'Presbyterian University of East Africa',
   'Aga Khan University',
   'The East African University',

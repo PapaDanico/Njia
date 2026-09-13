@@ -2687,6 +2687,75 @@ morning. That is the answer to the question this section opened with, and it
 suggests the remaining gap is concentrated rather than spread: counties with one
 listed campus and an NG-CDF that has built others.
 
+## Told to stop grinding KMTC, and the private register had the sharper defect
+
+The maintainer's correction, and it is this file's own warning quoted back:
+*a session left to choose its own work will grind the guarded metric.* Six KMTC
+campuses and a new ratchet in one stretch is exactly that, with the ratchet
+making it worse rather than better - a fresh metric is the most attractive thing
+in the repository to grind.
+
+**The private register had seven names sitting unworked on its own missing
+list**, and most of them are faith-based: Africa International University,
+Adventist University of Africa, KAG EAST, Presbyterian University of East
+Africa, Aga Khan University, The East African University, Islamic University of
+Kenya. Two are now listed - **AIU +3, KAG EAST +2**, private universities 25 to
+**27 of 32** - and the list is down to five.
+
+Two rulings inside them:
+
+- **AIU's second record is the Meru medical-engineering shape again.** One
+  search names development studies as an undergraduate programme AREA, the
+  other names the degree. A programme area is not an award; together they
+  attribute it, and the note says which source gave which half.
+- **KAG EAST's county is contested and is recorded with the conflict stated.**
+  Both sources place a precisely addressed campus at Buru Buru in Nairobi - next
+  to Mutindwa Market, Mumias South Road - and both also describe a Kitengela site
+  in Kajiado, one calling it the current main campus and the other a 58-acre
+  property being *developed* into one. Nairobi is recorded because it is the
+  campus both sources pin down; Kitengela is a lead for a separate row. That is
+  the Lukenya ruling without a charter to settle it, so the note carries the
+  disagreement rather than hiding it.
+
+### And the sector register was filing every theology degree under Law
+
+This is the find of the pass, and it was sitting in the data the whole time.
+
+`data/sectors.js` had `theolog` **inside the legal pattern** -
+`/law|legal|paralegal|theolog/i` - so **Bachelor of Theology at Kabarak and at
+Kenya Highlands both resolved to "Law and governance"**, the sector that carries
+a Council of Legal Education caution.
+
+That is *precisely* the error this file already records reverting: widening a
+pattern put Arabic with Islamic Studies into law, and it was caught because
+someone looked at a new course. **The theology case was identical, already
+shipped, and invisible** - because nothing re-checks the mapping of records that
+already have a sector. A guard aimed at courses with NO sector cannot see a
+course with the WRONG one.
+
+Fixed by narrowing `legal` to `/law|legal|paralegal/i` and widening the
+humanities sector - which exists precisely for this - to hold `theolog`,
+`biblical`, `intercultural studies`, `church educational`, `christian ministr`
+and `divinity`. Legal falls 14 records to 12, theology moves to Languages,
+humanities and religious studies, and **no course is left without a sector**,
+which is the check that proves the narrowing did not strand anything.
+
+The lesson to carry: **when a course matches no sector you find out immediately,
+and when it matches the wrong one you never find out at all.** Every instance
+recorded in this file until now was the first kind. Before widening any pattern,
+read what it already matches - `theolog` in a law pattern is the kind of thing
+that looks deliberate until you ask why.
+
+### And two invented enum values were caught by guards, not by review
+
+`fees_confidence: 'unverified'` and `fee_regime: 'private_university'` are both
+plausible English and neither exists: the catalogue's values are
+`illustrative`/`verified`, and `private_own_rate`. Five course records and two
+institutions carried them. That is the invented-cluster-id failure again -
+`thinker`, `organiser`, `builder`, `grower` - in two new fields, and it is the
+same lesson: **a value that reads right is the dangerous kind**, and the only
+thing that catches it is a guard asserting membership of a known set.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -3273,13 +3342,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1045 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1050 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1045 notes contains a comma or a quote and the
+  optional: **every one** of the 1050 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

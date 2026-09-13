@@ -2788,6 +2788,52 @@ temporary is worse than either.
   single-course stub `MAX_STUBS` forbids**, so it stays a lead - the Alupe
   ruling exactly, and the blocker is corroboration rather than effort.
 
+### The category nobody had looked for: mission-hospital training schools
+
+Pushed further on faith-based provision, the register was searched for the
+pattern rather than for a name - and **not one mission-hospital training school
+was listed**. Kenya has a well-known set of them, church-run, Nursing Council
+accredited, training at exactly the grade band this project exists for, and the
+catalogue held none.
+
+**AIC Kijabe College of Health Sciences is the first**, inside Kijabe Mission
+Hospital at Lari in Kiambu, run by the Africa Inland Church. One record, and it
+carries three things worth more than the count:
+
+- **Its entry bar is MORE OPEN than KMTC's, which is the whole point of listing
+  it.** The published requirement is a **C plain** mean grade with a C plain in
+  English or Kiswahili and in Biology, and a C- in Mathematics, Physics or
+  Chemistry. KMTC asks **C+** for the same award. A learner holding a C plain
+  who has been told nursing is closed to them has a route here, and until today
+  this catalogue could not show it to them. *A whole category of provision
+  missing is an eligibility-floor problem as much as a coverage one.*
+- **Its duration is sourced at three and a half years** - 42 months, published
+  by the college itself - and it is the **first record in the catalogue to carry
+  the longer figure from its own source.** That is the KRCHN question parked
+  with the maintainer, arriving from outside KMTC: 36 months is recorded across
+  the rest of the estate, this record says 42, and the discrepancy is now
+  visible in the data rather than only in a note.
+- **Its fee is reported and not written.** Ksh 56,000 per semester, payable in
+  instalments. No total, because the number of semesters in a three-and-a-half
+  year programme is published nowhere reachable and multiplying by a count I
+  picked myself would invent the part that matters. The per-semester figure is
+  in the note under the *what Njia found* heading, which is that ruling doing
+  exactly the job it was written for.
+
+**And its intake months are deliberately unsourced.** One search says March and
+October, the other January and September. Two sources disagreeing about a date
+is the one thing this catalogue treats as more perishable than a fee, so the
+card keeps its standing confirm-with-the-institution caveat.
+
+**The lesson is about how the gap was found.** Every previous register gap here
+was found by checking a *list* - CUE's, KMTC's, a county roll-up. This one was
+found by searching the register for a **pattern** (`kijabe|tenwek|chogoria|
+mission|catholic|methodist`) and finding it empty. **Ask what KIND of provider
+is absent, not only which named one**, because a category with no examples
+returns nothing from a list you never thought to consult. Tenwek, PCEA Chogoria,
+PCEA Kikuyu, Maua Methodist and the Mater are the obvious next ones and are
+recorded here as leads.
+
 **And TEAU produced a duration conflict worth recording.** One source says its
 degrees take **two and a half years**, another that most take a minimum of
 **four**. Nothing was written, because a duration is a fact about a course and
@@ -3382,13 +3428,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1057 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1058 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1057 notes contains a comma or a quote and the
+  optional: **every one** of the 1058 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

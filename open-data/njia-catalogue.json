@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1057,
-  "institution_count": 196,
+  "course_count": 1058,
+  "institution_count": 197,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -2576,6 +2576,22 @@
       "tuition_kes": 238200,
       "fee_basis": "illustrative",
       "verification_note": "KMTC Kapkatet Campus sits on five acres in Kericho County and was started by the KMTC board with local community members to serve the former Kericho, Kipkelion, Bureti and Bomet districts. It opened in September 2007 with 50 clinical medicine students and now holds over 500. A search for KMTC Kericho returns this campus, because there is no separate Kericho-town campus - Kapkatet is the KMTC campus for Kericho County. This record was briefly split in two on the assumption that they were two places, and merged back once that was checked. KMTC runs more than 126 programmes nationally but not every campus runs every one; this programme is named on Kapkatet’s own listing. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster subjects in English or Kiswahili, Biology or Biological Sciences, and Mathematics, Chemistry or Physics. Diploma courses run three years, except Community Health Nursing which runs three and a half. KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure. Total here is that schedule multiplied out by course length. Tuition only - accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
+      "course_id": "c1084",
+      "course_name": "Diploma in Kenya Registered Community Health Nursing (KRCHN)",
+      "institution": "AIC Kijabe College of Health Sciences",
+      "institution_id": "kijabe_chs",
+      "county": "Kiambu",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 42,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "AIC Kijabe College of Health Sciences trains inside Kijabe Mission Hospital at Lari in Kiambu County, run by the Africa Inland Church, and its nursing programme is accredited by the Nursing Council of Kenya. This is the first mission-hospital training school in this catalogue: a whole category of faith-based provision that serves exactly the reader Njia is built for and had never been listed. Both the college and this programme are named by two independently phrased searches. ENTRY IS MORE OPEN HERE THAN AT KMTC AND THAT IS THE POINT OF LISTING IT. The published bar is a C plain mean grade, with a C plain in English or Kiswahili, a C plain in Biology or Biological Sciences and a C- in Mathematics, Physics or Chemistry. KMTC asks C+ for the same award, so a learner holding a C plain who has been told nursing is closed to them may still have a route here. Confirm the current requirement with the college before applying. DURATION IS SOURCED AND IT IS THREE AND A HALF YEARS, not the three this catalogue records for KRCHN elsewhere. The college publishes 3 years 6 months, which is what 42 months here means, and it matches what several KMTC campus listings say about the same award. Njia records 36 months across the rest of the estate and that discrepancy is unresolved rather than settled by this record - it is flagged here because this is the first record in the catalogue carrying the longer figure from its own source. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the college is reported at Ksh 56,000 per semester, payable in instalments. No total is written from it, because the number of semesters in a three-and-a-half-year programme is not published anywhere reachable and multiplying by a semester count I picked myself would be inventing the part that matters. The fee could not be verified as a course total, so none is shown - but the per-semester figure is here because a reader ringing the college is better off knowing the order of magnitude than being told nothing. Intake months are NOT recorded as sourced: one search gives March and October, the other January and September. Two sources disagreeing about a date is the one thing this catalogue treats as more perishable than a fee, so the card keeps its standing caveat to confirm with the institution. Also not recorded: a three-year Kenya Registered Clinical Medicine and Surgery diploma appears in one listing only, and the college’s higher diplomas in critical care nursing, nurse anaesthesia and perioperative nursing are post-basic routes for people already registered and practising."
     },
     {
       "course_id": "c516",

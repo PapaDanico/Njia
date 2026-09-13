@@ -2556,6 +2556,44 @@ are the two worth reading - one for what a dry campus looks like when it is
 genuinely dry, the other for a second source that disagreed in the exclusionary
 direction.
 
+**Thika +1 and Meru +3, and the register defect recurs in a second county.**
+
+Thika's history is dated the way Kisii's and Machakos's are - opened 1969 as
+Thika School of Community Nursing with Norwegian government support and thirty
+students, opened officially by Jomo Kenyatta on 16 November 1969, about 1,000
+students beside Thika Level 5 Hospital - and its two listings still intersect on
+only **one** unrecorded programme. **And its second listing repeats this
+project's own worst data error back at it**: a diploma entry bar given as
+"Mean Grade D+" with subject grades beneath. D+ is a cluster-SUBJECT
+requirement, and writing it into the mean-grade field is exactly what went wrong
+on 44 KMTC certificate records here. Seeing the same mistake in the wild is a
+reminder that the aggregators are where it came from.
+
+**Meru is the best-attributed campus of the batch.** Its listing dates each
+programme: School of Nursing 1979, School of Medical Engineering 1987, merged
+1993, nursing upgraded to KRCHN in 1999, **Clinical Medicine and Surgery from
+September 2006, Medical Laboratory Sciences from September 2008**. A second
+search names the same programmes and, usefully, **corroborates the C plain
+diploma bar independently** - which settles the Machakos conflict one paragraph
+up rather than leaving it as one source against another.
+
+**Its third record is a new shape of corroboration and worth naming.** The
+Certificate in Medical Engineering Technology rests on two sources describing
+the same thing *at different grain*: the campus history records a School of
+Medical Engineering established in 1987 to train technicians for hospital
+equipment, and the second listing names the award. **A school is not an award**,
+so neither alone would have done it - this file has refused a dozen records on
+exactly that ground. Together they attribute it, and the note says which source
+supplied which half.
+
+**And Mombasa's defect is not unique.** Meru County's searches surfaced KMTC
+campuses at **Maua** and **Miathene**, and the county government has announced
+one at **Imenti**; the register holds one KMTC Meru. They are recorded as named
+leads, not rows, because each needs its own background and programme search -
+but the pattern is now twice-seen, and the question to carry into every
+remaining campus is *how many KMTC campuses does this county actually have*,
+not *what does this campus teach*.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -3142,13 +3180,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1038 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1042 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1038 notes contains a comma or a quote and the
+  optional: **every one** of the 1042 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

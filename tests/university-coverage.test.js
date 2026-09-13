@@ -200,14 +200,14 @@ const KMTC_CAMPUSES_CLAIMED_LOW = 71;
 /* Campuses confirmed to exist by search and absent from the register. Add to
    this list whenever one surfaces; remove a name only when it is LISTED. */
 const KNOWN_MISSING_KMTC = [
-  'Maua (Meru County)',
+  /* Maua closed 13 Sep 2026 - listed with one corroborated programme. */
   'Miathene (Meru County)',
   'Imenti (Meru County, announced by the county government)',
 ];
 
 test('KMTC campus coverage never regresses, and the gap stays named', () => {
   const campuses = INSTITUTIONS.filter((i) => /^kmtc/.test(i.id));
-  const MIN_KMTC_LISTED = 47;
+  const MIN_KMTC_LISTED = 48;
 
   assert.ok(campuses.length >= MIN_KMTC_LISTED,
     `Njia lists ${campuses.length} KMTC campuses, down from ${MIN_KMTC_LISTED}. `

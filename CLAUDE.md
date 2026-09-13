@@ -2641,6 +2641,31 @@ this session produced 15 records and one produced zero, which is what that
 standard costs - and it is the only reason the 47 rows already here mean
 anything.
 
+**The first name came off that list the same hour it went on.** KMTC **Maua**
+is listed: a satellite in Maua town, Igembe South, built with the Igembe South
+NG-CDF and inspected and approved by the KMTC national board, designed for 200
+students across four programmes. Two independently phrased searches name it,
+and they agree on exactly **one** programme - Certificate in Health Records and
+Information Technology - so that is the one row it gets. 47 campuses to 48, and
+`KNOWN_MISSING_KMTC` is down to Miathene and Imenti.
+
+**Two things it did not get, and both are the guards working.**
+
+- **Its other certificates are not recorded**, because the two searches name
+  *different* ones: Community Health Assistant in the first, Health Care
+  Assistant in the second. Those are different awards, so neither is
+  corroborated - and Community Health Assistant is in any case the row this
+  file already flags as appearing at 43 of 45 campuses, which is the shape of a
+  national list applied blanket.
+- **Its student population is not recorded, and the near-miss is the keeper.**
+  The first search returned **824 students for Maua** - which is *exactly* the
+  figure KMTC **Meru** publishes for itself, read three searches earlier in the
+  same session. One campus's number bleeding into another campus's query, the
+  same failure that nearly attributed Kiptaragon's courses to Kakrao. Maua was
+  approved for 200. **A figure that matches one you read a moment ago for a
+  different institution is not corroboration, it is contamination** - and the
+  tell is that it matched *too* well.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -3227,13 +3252,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1042 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1043 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1042 notes contains a comma or a quote and the
+  optional: **every one** of the 1043 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1060,
-  "institution_count": 198,
+  "course_count": 1061,
+  "institution_count": 199,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -15088,6 +15088,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Chuka University is a public chartered university and had not been listed here at all. Programme named in its published course listing; degrees are placed through KUCCPS at the national minimum of a KCSE mean grade of C+, with cluster-point cut-offs that move every cycle, so C+ is the floor to be eligible to apply rather than a guarantee of a place - check the current cut-off on the KUCCPS portal. It does not publish a single per-programme price: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which what a student pays is set by an assessed means band, so no fee is shown rather than a guessed one. The university also runs 25 diploma and 20 certificate programmes, which enter well below C+ and are the more useful route for many readers here; their individual names were not published in any source reachable from this build, so they are not listed and are worth asking about."
+    },
+    {
+      "course_id": "c1087",
+      "course_name": "Diploma in Kenya Registered Community Health Nursing (KRCHN)",
+      "institution": "Clive Irvine College of Health Sciences (PCEA Chogoria)",
+      "institution_id": "clive_irvine_chs",
+      "county": "Tharaka-Nithi",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Clive Irvine College of Health Sciences sits inside PCEA Chogoria Hospital on the eastern slopes of Mount Kenya in Tharaka-Nithi County, run by the Presbyterian Church of East Africa, and has trained nurses there since 1951 - the oldest mission-hospital training school in this catalogue. It is accredited by the Nursing Council of Kenya and registered by TVETA, and it takes around 300 students a year, capped at 200 trainees on this programme. ENTRY IS MORE OPEN HERE THAN AT KMTC AND IT IS CORROBORATED. The published bar is a KCSE mean grade of C plain or its equivalent, with a C- in Mathematics, Physics, Chemistry or Physical Science. KMTC asks C+ for the same award, so a learner holding a C plain who has been told nursing is closed to them may still have a route here. That bar came back from two differently phrased searches, the second of which named no grade at all, so it is not an echo of the question. Placement runs through KUCCPS, so confirm the current requirement on the student portal for the cycle you are applying in. DURATION IS THREE YEARS AND THAT MATTERS BEYOND THIS RECORD: both this college's own programme page and an independent listing say three years, which is the 36 months this catalogue records for the KRCHN across the estate - and it is the opposite reading from AIC Kijabe and Tenwek, which publish three and a half years for the same award. Three sources now say 36 and two say 42. Njia records what each institution publishes about its own programme rather than choosing between them, and that unresolved split is stated here so a reader does not assume the figure is national. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the only money figure returned by any reachable source is Ksh 15,500 per semester for day-scholar meals - ten o'clock tea, lunch and four o'clock tea. That is a catering charge, not tuition, and writing it into the fee field would understate the cost of the course by an order of magnitude, which is the forbidden direction on money. Tuition itself could not be verified from anything reachable, so no figure is shown; the college says fees vary by programme and directs applicants to its admissions office. Ring them, and ask for the tuition figure separately from the meals charge, because the published one is only the second of those."
     },
     {
       "course_id": "c149",

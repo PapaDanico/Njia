@@ -3184,6 +3184,33 @@ explicitly and names the college's own phone number as the route. Writing a
 plausible bracket there would be the placeholder trap wearing the vocabulary of
 diligence, which is the boundary that section already draws.
 
+**And the third school in the category split the duration question open.** Clive
+Irvine College of Health Sciences, inside PCEA Chogoria Hospital in
+Tharaka-Nithi, has trained nurses since 1951 - the oldest mission-hospital
+school here - and publishes its KRCHN at **three years**, which is the 36 months
+this catalogue already records across the estate. Kijabe and Tenwek publish
+three and a half. Three sources now say 36 and two say 42, for the same named
+award. **That is not a discrepancy to average or to resolve by majority**: each
+record carries what its own institution publishes about its own programme, and
+the split is stated on the cards rather than smoothed away. A national figure
+would be exactly the kind of institution fact nothing sourced supports.
+
+**Its entry bar is C plain and it survived the seeding test.** The first query
+that returned it had the words *C plain*, *biology* and *english* in it, and the
+summariser duly reported that the results "confirm" them - the Pan Africa
+Christian trap firing again, in the eligibility field this time rather than the
+fee field. A second query naming no grade at all returned the same C plain mean
+with a C- in one science, and that is what the record rests on. **A grade
+recovered from a seeded query is worth no more than a fee recovered from one.**
+
+**And its only published money figure is a meals charge.** Ksh 15,500 a semester
+for day-scholar meals is the sole number any reachable source carries, and
+writing it into the fee field would understate the course by an order of
+magnitude - the forbidden direction on money, arriving through a figure that is
+genuinely published and simply not the thing being asked about. It is reported
+in the note with what it actually buys, and the reader is told to ask for
+tuition separately.
+
 **One record carries a null duration on purpose.** The KRCHN is published at
 three and a half years and is recorded at 42 months - the second record in the
 catalogue to carry the longer figure from its own source, after Kijabe, and the
@@ -3468,13 +3495,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1060 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1061 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1060 notes contains a comma or a quote and the
+  optional: **every one** of the 1061 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

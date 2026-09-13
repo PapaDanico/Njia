@@ -2544,6 +2544,13 @@ and the refusals are consistent enough to change what the gap actually is.
 | CUEA | "tuition 8,000 + statutory 12,000 = 20,000 per semester" | 160,000 for a four-year degree is not a private-university price; almost certainly a per-unit rate, and the same source says fees vary by programme |
 | Kenya Methodist | Per-SCHOOL rates, then ranges of 50,000-68,000 for later years, on 2023/24 data | The Mount Kenya per-category shape, and stale |
 | Scott Christian | Ksh 72,700 per semester for degrees, 3,995 per credit hour | Not corroborated, unit words disagree, and a cross-border name collision - see below |
+| Tangaza | "Ksh 78,480 to 109,000" for bachelor's degrees, with no unit word | A per-programme range whose source could not say whether it was a semester or a year |
+| Kenya Highlands | Ksh 10,000 a semester government-sponsored, Ksh 25,000 self-sponsored, neither attached to a named programme | Two sponsorship regimes and no programme named in either |
+| Great Lakes Kisumu | BSc Nursing at 65,000 a trimester, then 67,000 a trimester, then 66,700 a semester | Three readings of one programme, and the unit word moves with them |
+| Uzima | No figure at all | Nothing reachable to read |
+| Amref | Per-semester 111,700-115,200 and a four-year total of 1,363,100 in one search; 155,700-160,700 a semester and "over 1.8 million" in the next | A 40% disagreement on the total, and the first summary contradicted itself inside one paragraph |
+| Lukenya | Tuition "starts at" 38,500 a semester; the next search gave a flat 38,000 across BCom and BEd, and 27,500 school-based | The right SHAPE and the wrong readings - see below |
+| Pan Africa Christian | 126,390 a semester twice, then 99,000 + 9,000 statutory on a TRIMESTER calendar | See below: the first two agreed because I seeded the number |
 
 **The finding is the third column, not the first.** This file already says the
 private schedules are reachable, and that remains true - Gretsa's own fee PDFs
@@ -2609,17 +2616,49 @@ Measured at the start of the pass, and unchanged by it: **22 of 184 private
 records carry a fee, 15 of them Kabarak, and 3 of 25 private universities have
 any priced course at all.**
 
-**Ten private universities have now been attempted and refused, and the list
-of what is left is shorter than it looks.** Beyond the ten in the table, this
-file already records refusals for **Daystar** (two searches disagreed on one
-document), **USIU** (per-unit bands), **Management University of Africa**
-("approximately" and "estimated"), **Zetech** (a table covering five of eight
-semesters) and **KCA** (Ksh 28,400-55,867 per trimester, a range). That is
-fifteen. Do not re-run any of them expecting a different answer; each blocker
-is a property of what the institution publishes, not of how hard the search
-tried. What remains genuinely untried is Tangaza, Kenya Highlands, Great Lakes
-Kisumu, Uzima, Amref, Lukenya and Pan Africa Christian - and on the evidence of
-the fifteen, the prior for any of them is low.
+**The register of attempts is now closed, and that is the result.** The table
+holds seventeen institutions; this file separately records refusals for
+**Daystar** (two searches disagreed on one document), **USIU** (per-unit
+bands), **Management University of Africa** ("approximately" and "estimated"),
+**Zetech** (a table covering five of eight semesters) and **KCA**
+(Ksh 28,400-55,867 per trimester, a range). That is **twenty-two private
+universities attempted and twenty-two refused**, which is every private
+university in this catalogue bar the three already priced. Do not re-run any
+of them expecting a different answer; each blocker is a property of what the
+institution publishes or of how it reads back, not of how hard the search
+tried.
+
+Twenty-two for twenty-two is a stronger statement than the seven that opened
+this section. Seven refusals could still be a run of bad luck. Twenty-two is
+the instrument, and it says the same thing every time: **the schedules are
+reachable and the readings are not.** The route left is the institution
+itself.
+
+**Two of the last seven are worth more than their refusal.**
+
+- **Lukenya had the right shape and failed on the reading.** One flat tuition
+  figure across Bachelor of Commerce and Bachelor of Education is the Kabarak
+  case exactly - an institution pricing the INSTITUTION - and it would have
+  closed all six Lukenya records at once. It failed on nothing structural:
+  38,500 in one search against 38,000 in the next, with the first summary
+  saying "starts at" in the same breath. A floor is not a price, and quoting
+  one as a price under-quotes, which is the forbidden direction on money.
+  **The Kabarak shape is not rare; reading it to the shilling twice is.**
+- **Pan Africa Christian is a new trap, and I walked into it.** The first
+  search returned a flat undergraduate rate of Ksh 126,390 a semester. The
+  second returned the same figure - **because I put the figure in the query.**
+  A search seeded with the number you are hoping to confirm will find the
+  page you got it from and report agreement, and that is not two sources, it
+  is one source asked twice. The third search, phrased without it, returned
+  **Ksh 99,000 plus 9,000 statutory** and described the calendar as
+  **trimesters** rather than semesters - so the figure and the unit word both
+  moved the moment the question stopped leading.
+
+That belongs beside the rule it resembles: *a sum you computed yourself is not
+a second source*. This is the same error with the arithmetic taken out.
+**Corroboration has to be able to disagree with you.** Phrase the second
+search from the programme and the institution, never from the figure, and if
+a number appears in your own query it cannot come back as evidence.
 
 ## An indicative tier benchmark, shown but never written
 

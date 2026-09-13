@@ -3211,6 +3211,30 @@ genuinely published and simply not the thing being asked about. It is reported
 in the note with what it actually buys, and the reader is told to ask for
 tuition separately.
 
+**A fourth school, and a month recorded alone because the sources split on the
+second one.** Methodist College of Health Sciences sits inside Maua Methodist
+Hospital in Igembe South, Meru - a 230-bed referral hospital serving about
+600,000 people, training there since 1942. Its KRCHN entry bar is C plain with a
+C plain in English and Kiswahili and a C- in one science, unseeded, and its
+duration is three years, which makes it the fourth source on the 36 side of the
+36-versus-42 split.
+
+Its nursing intakes run twice a year and every source agrees one of them is
+April. One says the other is October and two say September, so **only April is
+recorded.** That is the placement-clock rule applied at record level: a stale
+fee surprises a reader and a wrong month sends them to a door a year late, which
+is the exclusionary direction this project under-claims in.
+
+**And four named courses are left out on a field, not on a doubt.** The college's
+own listing names medical records and information technology, clinical
+counselling psychology, community health development and social work, and
+community health and HIV management as current, and medical laboratory sciences
+as planned. The planned one is excluded as planned ones always are. The other
+four are excluded because **no reachable source says whether each is a
+certificate or a diploma**, and level decides the entry bar, the duration and
+which grade page the card appears on. Naming the missing field is what makes
+this a closable lead rather than a dry county - the Alupe ruling, at a college.
+
 **One record carries a null duration on purpose.** The KRCHN is published at
 three and a half years and is recorded at 42 months - the second record in the
 catalogue to carry the longer figure from its own source, after Kijabe, and the
@@ -3495,13 +3519,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1061 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1062 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1061 notes contains a comma or a quote and the
+  optional: **every one** of the 1062 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

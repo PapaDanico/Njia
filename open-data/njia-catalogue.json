@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1061,
-  "institution_count": 199,
+  "course_count": 1062,
+  "institution_count": 200,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -7552,6 +7552,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Meru University of Science and Technology is in Meru County. Only programmes named on its own academic-programmes listing are recorded here. It publishes the national degree minimum of a KCSE mean grade of C+. This is a public university and it does not publish a per-programme fee for this course, because there is no single price to publish: the Differentiated Unit Cost was retired in May 2023 for the Student-Centred Funding Model, under which a Means Testing Instrument places a student in one of five bands and the band fixes the split between government scholarship, HELB loan and household. What a household actually pays therefore depends on assessed circumstances rather than on the programme. /help/ sets out the five bands. Confirm the intake months and the current cluster requirements with the university or on the KUCCPS portal before applying."
+    },
+    {
+      "course_id": "c1088",
+      "course_name": "Diploma in Kenya Registered Community Health Nursing (KRCHN)",
+      "institution": "Methodist College of Health Sciences, Maua",
+      "institution_id": "methodist_chs_maua",
+      "county": "Meru",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Methodist College of Health Sciences sits inside Maua Methodist Hospital at Maua in Igembe South, Meru County, under the Methodist Church in Kenya. The hospital opened in 1928 and is a 230-bed referral hospital serving roughly 600,000 people in Meru North; training started there in 1942 with dressers, became an enrolled-nurse certificate in 1976, and is now a Nursing Council of Kenya accredited college. It is the fourth mission-hospital training school in this catalogue. ENTRY IS MORE OPEN HERE THAN AT KMTC. The published bar for this programme is a KCSE mean grade of C plain, with a C plain in English and Kiswahili and a C- in Physics, Mathematics or Chemistry. KMTC asks C+ for the same award, so a learner holding a C plain who has been told nursing is closed to them may still have a route here. The grade was not put into the query that returned it, so it is not an echo of the question. Confirm the current requirement with the college before applying. Duration is published as three years by the college's own listing, which matches the 36 months this catalogue records for the KRCHN across most of the estate; AIC Kijabe and Tenwek publish three and a half for the same award, and that split is unresolved rather than settled. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure of any kind was returned for this college by any source reachable from this build. That is a genuine absence rather than a reading Njia refused, and it is stated plainly so nobody re-runs the search expecting a number. The fee could not be verified, so none is shown - ring the college. Intake months are recorded as April only, and deliberately: three sources agree the nursing intakes run twice a year and agree on April, then one says the second is October while two say September. A month is more perishable than a fee in this catalogue and a reader who arrives a year late has lost more than one who was surprised by a price, so only the month every source agrees on is recorded. ALSO NAMED AND NOT RECORDED: the college's own listing names medical records and information technology, clinical counselling psychology, community health development and social work, and community health and HIV management as courses it currently runs, and medical laboratory sciences as one to be rolled out soon. The planned one is correctly excluded. The other four are excluded on a different and narrower ground: no reachable source says whether each is a certificate or a diploma, and the level decides the entry bar, the duration and where the card appears. That is the missing field, named here so the next person searching Maua knows exactly what to look for rather than re-running the college from scratch."
     },
     {
       "course_id": "c710",

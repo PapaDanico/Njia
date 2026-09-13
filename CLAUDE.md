@@ -3235,6 +3235,27 @@ certificate or a diploma**, and level decides the entry bar, the duration and
 which grade page the card appears on. Naming the missing field is what makes
 this a closable lead rather than a dry county - the Alupe ruling, at a college.
 
+**A fifth school, and the first in this category listed on award-level facts
+alone.** PCEA Kikuyu Hospital School of Nursing trains inside a hospital founded
+in 1908, is NCK-accredited and TVETA-registered, and publishes **no mean grade
+and no programme length at all** - three searches, one of them naming no grade,
+returned what documents to attach and a Ksh 1,000 application fee and nothing
+else. What is published is the national requirement for the award: C plain with
+a C in English or Kiswahili, a C in Biology and a C- in one science, over three
+years.
+
+So the record rests on the **Ebukanga KNEC precedent** - a qualification-level
+fact about a named award is a legitimate source where the institution publishes
+none - and the note says so on the card in those terms, because a reader should
+know which half of what they are reading the school itself stands behind. The
+three other mission colleges here all publish C plain for the same award, which
+is corroboration of the award bar rather than of this school's.
+
+**Its only published figure is an application fee**, and that is the Chogoria
+meals charge in a new costume: a real number, genuinely published, and not the
+thing the fee field asks about. Ksh 1,000 to apply is not what it costs to
+train.
+
 **One record carries a null duration on purpose.** The KRCHN is published at
 three and a half years and is recorded at 42 months - the second record in the
 catalogue to carry the longer figure from its own source, after Kijabe, and the
@@ -3519,13 +3540,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1062 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1063 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1062 notes contains a comma or a quote and the
+  optional: **every one** of the 1063 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

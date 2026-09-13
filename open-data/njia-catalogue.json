@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1062,
-  "institution_count": 200,
+  "course_count": 1063,
+  "institution_count": 201,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -3360,6 +3360,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "No figure is shown. This record previously carried a precise-looking total with no citation of any kind behind it, which is the weakest thing this catalogue can display because it reads exactly like a researched number. The institution publishes a fee schedule, but it could not be verified against any source reachable from this build - the schedules are PDFs on the institution's own site. The figure has been removed rather than left wearing a caveat. Ask the admissions office for the current per-programme fee and what it excludes."
+    },
+    {
+      "course_id": "c1089",
+      "course_name": "Diploma in Community Health Nursing",
+      "institution": "PCEA Kikuyu Hospital School of Nursing",
+      "institution_id": "pcea_kikuyu_son",
+      "county": "Kiambu",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "PCEA Kikuyu Hospital School of Nursing trains inside PCEA Kikuyu Hospital, founded in 1908 and one of the oldest hospitals in Kenya, under the Presbyterian Church of East Africa. It is accredited by the Nursing Council of Kenya and registered by TVETA, and it is the fifth mission-hospital training school in this catalogue. It is also academically linked to the Presbyterian University of East Africa, which is listed here separately; this record covers the hospital school's own diploma, not any degree awarded through the university. THE ENTRY GRADE AND THE DURATION HERE ARE AWARD-LEVEL FACTS, NOT THIS SCHOOL'S OWN PUBLISHED FIGURES, and that is stated because it changes how much weight to put on them. Three searches, including one naming no grade, returned no institution-specific bar for this programme - the school publishes what documents to attach and a Ksh 1,000 non-refundable application fee, and not a mean grade. What is published is the national requirement for the award itself: a KCSE mean grade of C plain with a C in English or Kiswahili, a C in Biology and a C- in Chemistry, Physics or Mathematics, over three years. That is the same class of source as the KNEC award length this catalogue already uses where an institution publishes none, and it is corroborated by the three other mission-hospital colleges listed here, all of which publish C plain for the same award. KMTC asks C+ for it, so a C plain learner may still have a route here. Confirm both the grade and the length with the school before applying - the school's own number is published on its site. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no tuition figure of any kind was returned by any reachable source. The only money published is the Ksh 1,000 application fee, which is what it costs to apply and not what it costs to train, and writing that into the fee field would understate the course by orders of magnitude. Tuition could not be verified, so none is shown. INTAKE MONTHS ARE NOT TREATED AS SOURCED HERE: the school's own announcements name a March intake and a September intake, and an older one names January, so the card keeps its standing caveat to confirm with the institution rather than presenting these as a published calendar. ALSO NAMED AND NOT RECORDED: the school lists Perioperative Theatre Technology, Counselling, Social Work and Community Development, an Ophthalmic Assistant programme and a Certificate in Health Care Assistant. For the first three no reachable source states the level, and for the certificate no entry bar or length is published at either institution or award level. Those are the missing fields, named here so the next search knows what it is looking for."
     },
     {
       "course_id": "c1079",

@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1023,
+  "course_count": 1027,
   "institution_count": 189,
   "county_count": 47,
   "column_notes": {
@@ -2234,12 +2234,12 @@
       "ownership": "public",
       "level": "diploma",
       "cluster": "carer",
-      "min_grade": "C+",
+      "min_grade": "C",
       "open_entry": "no",
       "duration_months": 36,
       "tuition_kes": 238200,
       "fee_basis": "derived",
-      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was recorded here as a C+ mean grade and that was wrong in the exclusionary direction. The Clinical Officers Council bar, standard at every accredited college teaching this diploma and carried by the fourteen other KMTC records of the same award in this catalogue, is a mean grade of C plain, with a C plain in Biology and in English or Kiswahili and a C- in Chemistry and in Mathematics or Physics. A grade quoted high removes the card from the reader who needed it."
     },
     {
       "course_id": "c030",
@@ -9666,6 +9666,22 @@
       "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry was previously recorded here as a D+ mean grade. That was wrong, and the error is worth naming: D+ is the BIOLOGY SUBJECT requirement for this award, not the mean grade, and it had been written into the mean-grade field. KMTC publishes a minimum KCSE mean grade of C- for every certificate programme, with the cluster-subject requirement on top - for this course a D+ in Biology or Biological Sciences and a D in one of Mathematics, Chemistry, Physics or Physical Sciences. So the C- is needed overall AND the subject grades on top. The duration and the fee moved with it: the certificate runs two years rather than one, so the national schedule multiplies out to Ksh 160,200 instead of Ksh 82,200."
     },
     {
+      "course_id": "c1050",
+      "course_name": "Diploma in Clinical Medicine and Surgery",
+      "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
+      "institution_id": "kmtc",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. This record rests on the Nairobi campus itself: it is KMTC headquarters, operational since 1927 on 20 acres opposite Kenyatta National Hospital, and holds more than 8,000 students — the largest campus in the college. Two independent searches name this programme at Nairobi, one as a named award and one as the professional group the campus trains, and only programmes appearing in both were recorded. Entry is the Clinical Officers Council bar applied at every accredited college: C plain overall, with a C plain in Biology and in English or Kiswahili and a C- in Chemistry and in Mathematics or Physics — the mean grade is the door, the cluster subjects are the rest of it."
+    },
+    {
       "course_id": "c003",
       "course_name": "Diploma in Kenya Registered Community Health Nursing (KRCHN)",
       "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
@@ -9680,6 +9696,54 @@
       "tuition_kes": 238200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
+      "course_id": "c1051",
+      "course_name": "Diploma in Medical Laboratory Sciences",
+      "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
+      "institution_id": "kmtc",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. This record rests on the Nairobi campus itself: it is KMTC headquarters, operational since 1927 on 20 acres opposite Kenyatta National Hospital, and holds more than 8,000 students — the largest campus in the college. Two independent searches name this programme at Nairobi, one as a named award and one as the professional group the campus trains, and only programmes appearing in both were recorded. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster-subject requirements on top; confirm the current subject grades with the campus."
+    },
+    {
+      "course_id": "c1053",
+      "course_name": "Diploma in Nutrition and Dietetics",
+      "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
+      "institution_id": "kmtc",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. This record rests on the Nairobi campus itself: it is KMTC headquarters, operational since 1927 on 20 acres opposite Kenyatta National Hospital, and holds more than 8,000 students — the largest campus in the college. Two independent searches name this programme at Nairobi, one as a named award and one as the professional group the campus trains, and only programmes appearing in both were recorded. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster-subject requirements on top; confirm the current subject grades with the campus."
+    },
+    {
+      "course_id": "c1052",
+      "course_name": "Diploma in Pharmacy",
+      "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
+      "institution_id": "kmtc",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. This record rests on the Nairobi campus itself: it is KMTC headquarters, operational since 1927 on 20 acres opposite Kenyatta National Hospital, and holds more than 8,000 students — the largest campus in the college. Two independent searches name this programme at Nairobi, one as a named award and one as the professional group the campus trains, and only programmes appearing in both were recorded. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster-subject requirements on top; confirm the current subject grades with the campus."
     },
     {
       "course_id": "c367",

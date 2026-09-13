@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1037,
+  "course_count": 1038,
   "institution_count": 190,
   "county_count": 47,
   "column_notes": {
@@ -5984,6 +5984,22 @@
       "tuition_kes": 238200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure across all campuses, so this figure does not depend on which campus you attend: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
+      "course_id": "c1064",
+      "course_name": "Diploma in Medical Laboratory Sciences",
+      "institution": "Kenya Medical Training College (KMTC) — Machakos Campus",
+      "institution_id": "kmtc_machakos",
+      "county": "Machakos",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 in each subsequent year for regular Kenyan students, 2025/26 structure (kmtc.ac.ke, cross-reported by Tuko, EduGuide and Education News Hub, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC runs more than 126 programmes nationally but not every campus runs every one, so a national list is not evidence that a course is taught at this campus. KMTC Machakos opened in 1959 as a training school for Enrolled Nurses under the then Machakos General Hospital, replaced that award with Kenya Enrolled Community Health Nursing in 1978 and with the KRCHN diploma in 2000, and holds about 900 students beside Machakos County Teaching and Referral Hospital, its clinical site. A programme list carrying dates like that is the strongest attribution available for a KMTC campus, because a national template cannot fake them. This is the ONE programme two independently phrased searches both name here, and neither query contained it. Four other programmes appear in one listing only and are therefore not recorded: a Certificate in Medical Engineering in the first, and Orthopaedic and Trauma Medicine, Occupational Therapy and Clinical Medicine and Surgery in the second. One of them may well run here - ring the campus rather than reading their absence as evidence. Higher Diploma in Critical Care Nursing is excluded on a different ground: it is post-basic, for people already in practice. One source gives the diploma entry bar as a C- mean grade. That is NOT what is recorded: KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, corroborated across several campus listings, and the eligibility rule here forbids quoting a grade high but has never licensed quoting one low - a learner sent at a diploma on a C- they cannot use is harmed in the other direction. C plain is recorded, the conflict is stated, and the campus is the place to confirm it."
     },
     {
       "course_id": "c032",

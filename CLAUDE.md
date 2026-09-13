@@ -2532,6 +2532,30 @@ What the notes say is not recorded matters as much:
 Nakuru county goes to 45 courses. The campus itself goes 2 to 8, which is the
 second-largest single-campus gain of this whole KMTC effort after Nairobi.
 
+**Machakos is the batch's smallest yield and its clearest method.** A dated
+history again - opened 1959 as a training school for Enrolled Nurses under
+Machakos General Hospital, the award scrapped in 1978 for Kenya Enrolled
+Community Health Nursing, replaced in turn by the KRCHN diploma in 2000, about
+900 students beside Machakos County Teaching and Referral Hospital. Two
+independently phrased searches, and their intersection is **one** programme:
+Diploma in Medical Laboratory Sciences. Four others appear in one listing each
+and are named in the note rather than recorded.
+
+**And its second source tried to lower an entry grade.** One listing gives the
+diploma bar as a **C- mean grade**, against the C plain KMTC publishes and that
+several campus listings corroborate. Recording the C- would have been quoting a
+grade LOW, which this file has had to say twice now is not licensed by the rule
+against quoting one high: a learner sent at a diploma on a C- they cannot
+actually use is harmed in the other direction, and it is the same shape as the
+CUEA D+ floor that reaches certificates and not degrees. C plain is recorded and
+the conflict is in the note.
+
+**The batch in one line: Mombasa +4 and a register defect, Kisumu 0, Nakuru +6,
+Machakos +1.** Four campuses, eleven records, and the two that produced least
+are the two worth reading - one for what a dry campus looks like when it is
+genuinely dry, the other for a second source that disagreed in the exclusionary
+direction.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -3118,13 +3142,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1037 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1038 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1037 notes contains a comma or a quote and the
+  optional: **every one** of the 1038 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

@@ -2351,8 +2351,6 @@ where a deleted list would say only that nobody is looking. If CUE charters a
 
 ## How the rest of the public register closed
 
-
-
 The nine named in `KNOWN_MISSING_PUBLIC` were worked in one pass and **eight
 of them closed**, taking public coverage from 27 to **35 of 36**. The list now
 holds one name, which is the shape a known-missing list should end in.
@@ -3141,9 +3139,10 @@ grew **892 to 1,019 records**, roughly 25KB gzipped, and the critical path moved
 
 Two things follow, and the second is the more useful one. A 0.4KB delta cannot
 move a score this file already establishes could not see an **11.24KB** swing,
-so 93 is noise at a slightly lower centre rather than a regression. And **the
-**And the control case then arrived for free, which is better evidence
-than the measurement.** The commit that recorded this paragraph changed
+so 93 is noise at a slightly lower centre rather than a regression.
+
+**And the control case then arrived for free, which is better evidence than the
+measurement.** The commit that recorded this paragraph changed
 `CLAUDE.md` and nothing else - **zero bytes of shipped payload** - and its
 preview scored **94, "no change from production"**, a point ABOVE the 93 before
 it. Five readings now run 93, 94, 94, 93, 94. A score that moves up a point when
@@ -3153,10 +3152,12 @@ waiting for the next comment. **When a score moves and you suspect noise, the
 next docs-only commit is a free control - read it before arguing from bytes
 alone.**
 
-The other half stands: **the noise band is itself a perishable figure** - exactly the kind this file warns
-about everywhere else. It is recorded as 93-94 at the last four readings;
-re-measure it rather than quoting either range, and go to the bytes before the
-diff every time.
+The other half stands: **the noise band is itself a perishable figure** -
+exactly the kind this file warns about everywhere else. It has sat at 93-94
+across every reading since it moved, and that is deliberately not written as a
+count, because the count keeps moving and this paragraph would go stale the
+next time a preview posts. Re-measure it rather than quoting either range, and
+go to the bytes before the diff every time.
 
 ## A manual step is usually a missing build step
 

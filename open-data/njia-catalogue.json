@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1204,
+  "course_count": 1205,
   "institution_count": 202,
   "county_count": 47,
   "column_notes": {
@@ -1760,6 +1760,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Tom Mboya University is in Homa Bay and was elevated from a constituent college of Maseno University to a full chartered university in 2022. Only programmes named on its own listing are recorded here. It publishes a general minimum of an aggregate C+ at KCSE with a C plain in Mathematics, or two principal passes at A-level, or a recognised diploma in a related area, which admits with exemptions. Individual programmes ask for more: the Bachelor of Science in Mathematical Sciences requires a B- in Mathematics. Subject requirements are stated here rather than in the mean-grade field, because a learner who clears the mean grade still has to read what else is asked. This is a public university and it does not publish a per-programme fee for this course, because there is no single price to publish: the Differentiated Unit Cost was retired in May 2023 for the Student-Centred Funding Model, under which a Means Testing Instrument places a student in one of five bands and the band fixes the split between government scholarship, HELB loan and household. What a household actually pays therefore depends on assessed circumstances rather than on the programme. /help/ sets out the five bands. Confirm the intake months and the current cluster requirements with the university or on the KUCCPS portal before applying."
+    },
+    {
+      "course_id": "c1231",
+      "course_name": "Bachelor of Education (Science) with IT",
+      "institution": "Tom Mboya University",
+      "institution_id": "tom_mboya_university",
+      "county": "Homa Bay",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Tom Mboya University is public and CUE-chartered at Homa Bay, chartered in 2022 after years as a constituent college of Maseno. Listed on its KUCCPS approved-course listing, which publishes this programme under Cluster 22 with its requirements. ENTRY IS THE C+ MEAN GRADE WITH PUBLISHED SUBJECT BARS ON TOP: a C plain in Mathematics and a C+ in each of the two teaching subjects. The card filters on the mean grade, and a learner who clears it still has to meet the subject requirement, so read both. Teaching is not the safe default it looks like - about 369,000 trained teachers are TSC-registered and waiting for a job. A DELIBERATE LIMIT: this university publishes no per-programme listing this build can reach beyond its KUCCPS cluster entries, so only the programmes named there are recorded rather than a guessed faculty list. That is the missing thing if someone works it again. No per-programme price exists to quote: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which what a student pays is set by an assessed means band, so the fee could not be verified as a course total. See the funding note on this card for what you would be asked for."
     },
     {
       "course_id": "c931",

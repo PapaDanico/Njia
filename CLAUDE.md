@@ -4694,3 +4694,37 @@ Two figures that would have been written carelessly, and were not:
 
 Do not re-run the trade-name searches; they are done and their result is above.
 The closable step is the brochure, which is a phone call or an email to NITA.
+
+### The building-finishing trades did not close, and two leads are named
+
+Worked, and the result is the yield floor rather than records. Two institutions
+were confirmed and neither yielded one:
+
+- **Beacon Technical Training College** (Nairobi, TVETA-accredited, a KNEC *and*
+  NITA examination centre) publishes **Artisan in Painting and Decoration** on
+  its own domain — and that is a family this catalogue already holds. A second,
+  differently phrased search confirmed the college in detail and **named no
+  course list at all**. Its entry bar surfaced only as a generic artisan
+  requirement that contradicted itself across two sources — E in one, D plain in
+  the other — never as something the college states about itself.
+- **Nachu Technical and Vocational College** names an Artisan Certificate in
+  Plumbing Pipe Fitter, and plumbing is already eight records here.
+
+So both are **confirmed institutions whose one named course closes no gap**, with
+no institution-specific entry bar, no duration and no fee. One record each would
+add a row and answer nothing. The missing field for both is a **published course
+list on the college's own domain**, which is what makes these closable leads
+rather than dry searches.
+
+**The absent trades are absent for a structural reason, not a search reason.**
+Tiling, glazing, aluminium fabrication, roofing, panel beating, spray painting,
+upholstery, baking and pastry are overwhelmingly **NITA trade tests and county
+VTC courses**, and both of those publish course lists as PDFs or not at all —
+which is the same wall the NITA brochure sits behind one section up. The
+aggregators that carry artisan listings carry the KNEC-examined trades well and
+the NITA-examined ones barely.
+
+That is worth stating because it changes what would close this family: not more
+county searches, but **one document** — NITA's course brochure — which would
+close the trades, the awards and their levels together. Do not re-run the trade
+searches; three phrasings are now recorded as done.

@@ -4654,3 +4654,43 @@ Mean note **914 to 877**, no fact removed from any record. That is the fifth
 time the byte guard has pointed at a national fact stored per course rather than
 at a verbose note, and the rule is now simply the default: **when it fires,
 measure the most-repeated sentences before reading any single note.**
+
+### The next absent category: NITA's own training centres
+
+The building-finishing and food trades measured as absent, and working them found
+something one level up. **Eight institutions in this register use NITA as an
+examining body — CITC Nairobi and Mombasa, YMCA, Don Bosco, Kitale VTC, Kilifi
+Saidia, Kisii National Polytechnic, Kakrao — and not one of NITA's OWN training
+centres is listed.** NITA Nairobi, NITA Athi River, NITA Mombasa, NITA Kisumu and
+the NITA Textile Training Institute are government centres training at exactly
+the artisan band this project exists for.
+
+That is the mission-hospital finding again, and by the same instrument: searching
+the register for a **kind** of provider rather than for a name. *A category with
+no examples returns nothing from a list you never thought to consult* — and here
+the near-miss is sharper, because the register is full of the word NITA while
+holding none of the institutions.
+
+**It is a lead and not a record, and the missing field is named.** Two
+independently phrased searches of nita.go.ke agree on NTTI — Commercial Street,
+Industrial Area, Nairobi — and on **Garment Making**. Everything else arrives as
+a *section* (Leather Technology, Upholstery) or a **value-chain area** (spinning,
+weaving, processing), and *a named department is not a named course* has refused
+a dozen records here already. What is missing is the **award name and its level**
+for each, and both sit in NITA's own course brochure, a PDF on its domain — the
+yield floor exactly as this file defines it, not a search nobody ran.
+
+Two figures that would have been written carelessly, and were not:
+
+- **Entry is open.** NITA's artisan requirement is *"a KCPE certificate or
+  equivalent"*, which is the Sigalagala either/or for the ninth time: a
+  certificate is an alternative to a mean grade, not an addition, so an E clears
+  it. That much is safe to carry into the records when they are written.
+- **The duration cannot be.** *"Up to five terms"* is a range whose
+  terms-per-year is published nowhere reachable — the Railway Training Institute
+  ruling in the same field, where a term COUNT was deleted rather than converted
+  into months on the common-pattern assumption that put twelve months on every
+  artisan record.
+
+Do not re-run the trade-name searches; they are done and their result is above.
+The closable step is the brochure, which is a phone call or an email to NITA.

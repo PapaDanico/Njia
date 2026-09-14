@@ -5036,12 +5036,23 @@ and nothing else.** `git diff --name-only` between the 92 and the 89, excluding
 that file, returns **empty**: the served page is byte-identical. A three-point
 drop on a page that did not change by a single byte.
 
+**And a second docs-only commit then landed on top and scored 90.** So the last
+three readings on this branch are **92, 89, 90** across a served page that is
+byte-identical at every step — `git diff --name-only` excluding CLAUDE.md
+returns empty for all three pairings. That is a **three-point spread with zero
+bytes changing**, measured rather than argued.
+
 This file already records a docs-only commit scoring a point ABOVE the reading
 before it, and calls that the cleanest demonstration available that the swing
-is the instrument. This is the same control in the other direction and with a
-wider excursion, which makes it the stronger of the two: noise that can move a
-point up can move three points down, and **the recorded 91–94 band was too
-narrow.** It reaches at least 89.
+is the instrument. Two more controls have now arrived unprompted, and together
+they are stronger than any of the three alone: a single control shows the score
+can move without the payload, a *spread* shows how far. **The recorded 91–94
+band was too narrow.** It reaches at least 89.
+
+The practical consequence is the one worth carrying: **a preview comment
+reporting "down 4 from production" on this project is not, on its own, evidence
+of anything at all.** Two of the three commits that produced these numbers
+shipped nothing a reader could download.
 
 **The bytes were measured before the control arrived, not after**, which is the
 order that matters. Critical path **107.0 → 107.3KB gz** across the whole

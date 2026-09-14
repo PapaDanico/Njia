@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1266,
+  "course_count": 1270,
   "institution_count": 202,
   "county_count": 47,
   "column_notes": {
@@ -10962,6 +10962,22 @@
       "verification_note": "This course previously displayed a precise-looking tuition figure that was never observed anywhere. An audit found the same value repeated across unrelated institutions - Ksh 420,000 appeared on twelve different degrees at twelve different universities, public and private, from nursing to design to actuarial science - which is not what real fee data looks like. It was a placeholder, so it has been removed rather than left wearing a caveat. The figure could not be verified against any source reachable here, so nothing is shown. Ask the institution directly; if it is a public university, note that a single per-programme price no longer exists. WHAT NJIA FOUND, AND COULD NOT RECONCILE: a reading of Ksh 8,000 tuition plus Ksh 12,000 statutory per semester came back, which would total about Ksh 160,000 for a four-year degree - too low for a private university and almost certainly a per-UNIT rate rather than a per-semester one. The same source says fees vary by programme. None of these is this course’s fee - treat it as a bracket to check, and ask which AWARD the quote covers and what it excludes."
     },
     {
+      "course_id": "c1295",
+      "course_name": "Bachelor of Arts in Philosophy",
+      "institution": "Catholic University of Eastern Africa (CUEA)",
+      "institution_id": "cuea",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on CUEA's own bachelors listing for the faculty or school that runs it, corroborated at a second grain by its published faculty structure - theology, arts and social sciences, education, science, law and library and information science, with schools of business and of nursing. CUEA publishes a general undergraduate bar of a KCSE mean grade of C+ and that aggregate is what is recorded here; the university also publishes a separate D+ floor that reaches its certificate and diploma entry rather than a degree, so do not read that as the degree bar. Cluster-subject requirements apply on top for several programmes - confirm them for this named programme with admissions. CUEA is private and publishes fees per programme; a total for this one could not be verified from anything reachable from this build, so no figure is shown. Ask the admissions office for the schedule for this named programme and whether the figure quoted is per semester or for the whole course."
+    },
+    {
       "course_id": "c739",
       "course_name": "Bachelor of Arts in Social Sciences",
       "institution": "Catholic University of Eastern Africa (CUEA)",
@@ -11026,6 +11042,22 @@
       "verification_note": "The Catholic University of Eastern Africa is a CUE-chartered private university in Langata, Nairobi, serving the AMECEA region. Programme named in the university's own published undergraduate listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade. CUEA publishes a lower general floor of D+ for its certificate and diploma entry, which does not reach a degree, so the degree bar is what is recorded here. CUEA additionally requires a B plain in English or Kiswahili, which is the Council of Legal Education subject bar, so the mean grade alone does not open this programme. The university publishes a fee schedule, but its figure for this named programme could not be verified against any source reachable from this build, so none is shown rather than a guessed one. Ring admissions for the current schedule. WHAT NJIA FOUND, AND COULD NOT RECONCILE: a reading of Ksh 8,000 tuition plus Ksh 12,000 statutory per semester came back, which would total about Ksh 160,000 for a four-year degree - too low for a private university and almost certainly a per-UNIT rate rather than a per-semester one. The same source says fees vary by programme. None of these is this course’s fee - treat it as a bracket to check, and ask which AWARD the quote covers and what it excludes."
     },
     {
+      "course_id": "c1294",
+      "course_name": "Bachelor of Science in Community Health and Development",
+      "institution": "Catholic University of Eastern Africa (CUEA)",
+      "institution_id": "cuea",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on CUEA's own bachelors listing for the faculty or school that runs it, corroborated at a second grain by its published faculty structure - theology, arts and social sciences, education, science, law and library and information science, with schools of business and of nursing. CUEA publishes a general undergraduate bar of a KCSE mean grade of C+ and that aggregate is what is recorded here; the university also publishes a separate D+ floor that reaches its certificate and diploma entry rather than a degree, so do not read that as the degree bar. Cluster-subject requirements apply on top for several programmes - confirm them for this named programme with admissions. CUEA is private and publishes fees per programme; a total for this one could not be verified from anything reachable from this build, so no figure is shown. Ask the admissions office for the schedule for this named programme and whether the figure quoted is per semester or for the whole course."
+    },
+    {
       "course_id": "c736",
       "course_name": "Bachelor of Science in Computer Science",
       "institution": "Catholic University of Eastern Africa (CUEA)",
@@ -11040,6 +11072,38 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "The Catholic University of Eastern Africa is a CUE-chartered private university in Langata, Nairobi, serving the AMECEA region. Programme named in the university's own published undergraduate listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade. CUEA publishes a lower general floor of D+ for its certificate and diploma entry, which does not reach a degree, so the degree bar is what is recorded here. CUEA additionally requires a C plain in Mathematics at KCSE, so the mean grade alone is not enough. The university publishes a fee schedule, but its figure for this named programme could not be verified against any source reachable from this build, so none is shown rather than a guessed one. Ring admissions for the current schedule. WHAT NJIA FOUND, AND COULD NOT RECONCILE: a reading of Ksh 8,000 tuition plus Ksh 12,000 statutory per semester came back, which would total about Ksh 160,000 for a four-year degree - too low for a private university and almost certainly a per-UNIT rate rather than a per-semester one. The same source says fees vary by programme. None of these is this course’s fee - treat it as a bracket to check, and ask which AWARD the quote covers and what it excludes."
+    },
+    {
+      "course_id": "c1296",
+      "course_name": "Bachelor of Science in Library and Information Science",
+      "institution": "Catholic University of Eastern Africa (CUEA)",
+      "institution_id": "cuea",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on CUEA's own bachelors listing for the faculty or school that runs it, corroborated at a second grain by its published faculty structure - theology, arts and social sciences, education, science, law and library and information science, with schools of business and of nursing. CUEA publishes a general undergraduate bar of a KCSE mean grade of C+ and that aggregate is what is recorded here; the university also publishes a separate D+ floor that reaches its certificate and diploma entry rather than a degree, so do not read that as the degree bar. Cluster-subject requirements apply on top for several programmes - confirm them for this named programme with admissions. CUEA is private and publishes fees per programme; a total for this one could not be verified from anything reachable from this build, so no figure is shown. Ask the admissions office for the schedule for this named programme and whether the figure quoted is per semester or for the whole course."
+    },
+    {
+      "course_id": "c1293",
+      "course_name": "Bachelor of Science in Nursing",
+      "institution": "Catholic University of Eastern Africa (CUEA)",
+      "institution_id": "cuea",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on CUEA's own bachelors listing for the faculty or school that runs it, corroborated at a second grain by its published faculty structure - theology, arts and social sciences, education, science, law and library and information science, with schools of business and of nursing. CUEA publishes a general undergraduate bar of a KCSE mean grade of C+ and that aggregate is what is recorded here; the university also publishes a separate D+ floor that reaches its certificate and diploma entry rather than a degree, so do not read that as the degree bar. Nursing is regulated by the Nursing Council of Kenya, carries cluster-subject requirements in the sciences on top of the mean grade, and places are competitive - treat the C+ as the door rather than the queue, and confirm the current subject requirement with admissions. CUEA is private and publishes fees per programme; a total for this one could not be verified from anything reachable from this build, so no figure is shown. Ask the admissions office for the schedule for this named programme and whether the figure quoted is per semester or for the whole course."
     },
     {
       "course_id": "c203",

@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1266 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1270 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1266 notes contains a comma or a quote and the
+  optional: **every one** of the 1270 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -4834,3 +4834,38 @@ on **92 records each, about 35KB** of one reporting convention stored per
 course. Compressed to a single canonical sentence keeping every fact: mean note
 880 to 861. Six times running the guard has pointed at a national or conventional
 fact stored per course rather than at a verbose note.
+
+### CUEA, and philosophy had been filed under Health and care
+
+CUEA 6 to 10: **BSc Nursing, BSc Community Health and Development, BA Philosophy
+and BSc Library and Information Science**, each named on the university's own
+bachelors listing and corroborated at a second grain by its published faculty
+structure — theology, arts and social sciences, education, science, law and
+library and information science, with schools of business and of nursing. *A
+faculty is not an award*, so neither grain would have done it alone; together
+they attribute, which is the Meru medical-engineering shape.
+
+Entry is the published C+ aggregate, and the note repeats the ruling this file
+already made about CUEA: its separate **D+ floor reaches certificate and diploma
+entry, not a degree**, so it must not be read as the degree bar. Nursing carries
+the Nursing Council subject requirements and competition beside the C+, the
+Strathmore treatment.
+
+**And printing the sector on insert caught a defect that was already shipped.**
+`philosoph` sat inside the **Health and care** pattern, so *Bachelor of Arts in
+Philosophy* resolved to health — at CUEA and at Lukenya, where it had been
+sitting wrong since the day it was listed.
+
+That is the theology-in-Law error exactly, and this file records the cause:
+philosophy "matched no sector", so the vocabulary was widened — into whichever
+pattern was nearest rather than the one that fits. **The fix for a course with no
+sector is the right sector, not the nearest one**, and a word added to close a
+gap is a word that will silently misfile everything else matching it. Moved to
+Languages, humanities and religious studies alongside theology, with `ethic`
+added for the same family; no course is left without a sector, which is the
+check that proves the narrowing stranded nothing.
+
+The habit that found it is cheap and should stay: **print the resolved sector
+for every new record at read-back time.** A guard can see a course with NO
+sector; nothing sees a course with the WRONG one, and both instances so far were
+humanities words sitting in services patterns.

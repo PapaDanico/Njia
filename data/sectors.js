@@ -230,7 +230,7 @@ const SECTORS = [
     id: 'health',
     name: 'Health and care',
     broad: 'services',
-    match: /nursing|clinical|health|medical|medicine|surgery|dental|dentist|orthopaed|orthoped|optometr|vision science|physiotherap|occupational therap|radiograph|imaging|anatomy|physiolog|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|anthropolog|sports science|social work|social science|development studies|community develop|child and youth|youth studies|philosoph/i,
+    match: /nursing|clinical|health|medical|medicine|surgery|dental|dentist|orthopaed|orthoped|optometr|vision science|physiotherap|occupational therap|radiograph|imaging|anatomy|physiolog|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|anthropolog|sports science|social work|social science|development studies|community develop|child and youth|youth studies/i,
     awardingBodies: ['KMTC', 'Nursing Council of Kenya', 'Clinical Officers Council', 'TVET CDACC'],
     knbs: { series: 'Human health and social work activities', mapping: 'unsourced' },
     caution: 'Njia lists more health courses than any other sector, because KMTC runs some forty campuses and every one is catalogued. That is the shape of Kenya\'s public training estate, not a measure of demand, and it must not be read as one.'
@@ -293,7 +293,7 @@ const SECTORS = [
     id: 'humanities',
     name: 'Languages, humanities and religious studies',
     broad: 'services',
-    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|intercultural studies|church educational|christian ministr|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication/i,
+    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|intercultural studies|church educational|christian ministr|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication|philosoph|ethic/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'These programmes most often lead into teaching, translation, media or further study, and Kenya publishes no graduate-outcome data for any of them. Where teaching is the intended destination, read the note on the education sector too - entry to the classroom runs through the TSC employment queue.'

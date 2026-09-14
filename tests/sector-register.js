@@ -48,6 +48,16 @@
  *                       authority, the water institute. Each a state
  *                       corporation under a line ministry with its own
  *                       schedule; several publish none at all.
+ *   county_vtc          County vocational training centres (village
+ *                       polytechnics). Vocational training is a DEVOLVED
+ *                       function under Fourth Schedule Part 2, and each county
+ *                       government sets the fees chargeable in its own VTCs -
+ *                       so the national consolidated rate does not reach them,
+ *                       and the May 2026 standardisation directive scopes
+ *                       itself to national polytechnics, technical training
+ *                       institutes, institutes of science and technology and
+ *                       vocational colleges. No record on this regime carries
+ *                       a fee: the counties do not publish per-course figures.
  *   public_university   Public universities, differentiated unit cost.
  *   private_own_rate    Private universities and colleges, own published rates.
  */
@@ -57,7 +67,7 @@ const vm = require('node:vm');
 
 const FEE_REGIMES = [
   'tvet_consolidated', 'ttc_consolidated', 'kmtc', 'tourism_corporation',
-  'parastatal_own_rate', 'public_university', 'private_own_rate'
+  'parastatal_own_rate', 'public_university', 'private_own_rate', 'county_vtc'
 ];
 
 /* A note may only claim to DERIVE a fee from a regime the institution is on.

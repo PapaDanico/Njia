@@ -762,7 +762,14 @@ const ANNUAL_BANDS = {
   /* Floor is 0, not a positive number: the Open University's free courses are a
    * real, deliberate 0 and must not be mistaken for a missing value. The
    * distinction matters elsewhere too — see feeBasis in decide.js. */
-  public_university: [0, 400000]
+  public_university: [0, 400000],
+  /* County VTCs set their own county-funded charges and publish none reachable
+   * from here, so no record on this regime carries a fee at all. The band is
+   * deliberately generous rather than absent: a figure appearing here would be
+   * a county rate, which is far BELOW the national consolidated one - the five
+   * records that used to derive Ksh 67,189 at Kitale and Maralal over-quoted
+   * many times over, to the readers with the least room. */
+  county_vtc: [1000, 80000]
 };
 
 /* A course that is genuinely free, and says so with a source.

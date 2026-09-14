@@ -147,7 +147,7 @@ const INSTITUTIONS = [
   { id: 'stkizito', name: 'St. Kizito Vocational Training Institute', ownership: 'private', type: 'tvet', location: 'Githurai Kimbo', county: 'Kiambu', accreditation: 'KNEC examination centre (Catholic, founded on Cardinal Otunga initiative 1990)', website: 'https://stkizito.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false, fee_regime: 'private_own_rate' },
   { id: 'donbosco_karen', name: 'Don Bosco Boys Technical Training Centre', ownership: 'private', type: 'tvet', location: 'Langata-Karen Road, Karen', county: 'Nairobi', accreditation: 'TVETA Registered · NITA-accredited trades (Salesians of Don Bosco)', website: 'https://donboscoboystown.org', modes: ['full_time'], has_workstudy: false, has_hostel: true, fee_regime: 'private_own_rate' },
   { id: 'citc_nairobi', name: 'Christian Industrial Training Centre (CITC) Nairobi', ownership: 'private', type: 'tvet', location: 'Pumwani, Meru Road', county: 'Nairobi', accreditation: 'KNEC and NITA training and examination centre (Anglican Church of Kenya, Diocese of Nairobi)', website: 'https://citcnairobi.ac.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false, fee_regime: 'private_own_rate' },
-  { id: 'maralalvtc', name: 'Maralal Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Maralal', county: 'Samburu', accreditation: 'TVETA Registered (TVETA/PUBLIC/VTC/0090/2018)', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false, fee_regime: 'tvet_consolidated' },
+  { id: 'maralalvtc', name: 'Maralal Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Maralal', county: 'Samburu', accreditation: 'TVETA Registered (TVETA/PUBLIC/VTC/0090/2018)', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false, fee_regime: 'county_vtc' },
 
   /* Vocational Training Centres — the tier below the polytechnics, and the one
    * that actually admits at the bottom of the range. County VTCs (still widely
@@ -159,7 +159,7 @@ const INSTITUTIONS = [
    * their entire catalogue presence taught medicine at entry bars a low-scoring
    * learner cannot reach. These are their first non-medical, low-entry
    * institutions. */
-  { id: 'kitalevtc', name: 'Kitale Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Kitale', county: 'Trans Nzoia', accreditation: 'Public Vocational Training Centre · KNEC and NITA examination centre', website: 'https://transnzoia.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false, fee_regime: 'tvet_consolidated' },
+  { id: 'kitalevtc', name: 'Kitale Vocational Training Centre', ownership: 'public', type: 'tvet', location: 'Kitale', county: 'Trans Nzoia', accreditation: 'Public Vocational Training Centre · KNEC and NITA examination centre', website: 'https://transnzoia.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false, fee_regime: 'county_vtc' },
   { id: 'kilifisaidia', name: 'Kilifi Saidia College', ownership: 'private', type: 'tvet', location: 'Kilifi', county: 'Kilifi', accreditation: 'TVETA Registered and Licensed · NITA trade-test centre', website: 'https://tveta.go.ke', modes: ['full_time'], has_workstudy: false, has_hostel: false, fee_regime: 'private_own_rate' },
   /* Opening for its pioneer intake in September 2026 with roughly 1,000 places,
    * placed through KUCCPS. A brand-new public hospitality college on the coast

@@ -743,6 +743,23 @@ function feeGuidance(course, institution) {
 function tierBenchmark(course, institution) {
   if (!institution || course.total_fees_kes != null) return null;
   if (course.level === 'degree') return null;
+  /* A COUNTY VTC GETS NO BENCHMARK, FOR THE SAME REASON IT GETS NO GUIDANCE.
+   *
+   * feeGuidance() already refuses to tell a county vocational training centre
+   * that the consolidated Ksh 67,189 rate governs its course: vocational
+   * training is a devolved function, each county sets the fees chargeable in
+   * its own VTCs, and a county charge is far lower. That ruling was applied
+   * where the bug was noticed and NOT here - so when the five Kitale and
+   * Maralal records finally lost their wrongly derived 67,189, this function
+   * stood ready to hand the same cards the median of every sourced public
+   * certificate instead: Ksh 160,200, more than double the figure just
+   * withdrawn, labelled as typical.
+   *
+   * That is the third time a ruling written at one site has failed to reach
+   * the others. The siblings here are polytechnics on the national rate and
+   * KMTC on its own national schedule; a county VTC is neither, so the median
+   * is not its tier in any sense the reader would recognise. */
+  if (isVocationalCentre(institution)) return null;
   return tierMedians().get(`${institution.ownership}|${course.level}`) || null;
 }
 

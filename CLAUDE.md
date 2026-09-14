@@ -4930,3 +4930,72 @@ resolved sector for every new record.** That habit was added two passes ago
 after philosophy turned up under Health and care; it has now caught a defect in
 each of the three passes since. A course with no sector announces itself. A
 course with the wrong one never does, so print it.
+
+## The parked VTC question, settled: the rate follows the INSTITUTION, and two other sites were live
+
+This file parked a narrow question and said it was closable rather than dry:
+*does the consolidated Ksh 67,189 rate follow the KUCCPS-placed PROGRAMME or
+the institution TYPE?* Two independently phrased searches, neither naming a
+figure, settle it as the institution - and the reason is not about programmes
+at all, it is about **who has the power to set the fee**:
+
+- The Ministry's **May 2026 standardisation directive scopes itself** to
+  national polytechnics, technical training institutes, institutes of science
+  and technology and vocational colleges. That is the national estate.
+- **Vocational training is a DEVOLVED function** under Fourth Schedule Part 2
+  of the 2010 Constitution, and county governments develop the guidelines
+  determining the fees chargeable in their own VTCs. Village polytechnics were
+  transferred to the counties on promulgation.
+
+So a CDACC Level 5 certificate at a county VTC is not on the national rate no
+matter who placed the trainee, because the county sets that centre's charge.
+`isVocationalCentre()` was right, and the five records deriving Ksh 67,189 at
+Kitale and Maralal were wrong - over-quoting many times over, to the readers
+with the least room, which is the exclusionary direction arriving through the
+fee field. All five now carry a null fee, the absence phrase, and a paragraph
+naming the withdrawn figure and why.
+
+**A new `county_vtc` fee regime carries the ruling in the register**, because
+leaving the two centres on `tvet_consolidated` leaves in place the exact field
+that derived the wrong number - a future pass would re-derive it in good faith.
+
+### And the withdrawal armed a SECOND national figure, larger than the first
+
+This is the part worth the whole entry. `tierBenchmark()` keys on
+`ownership|level` and had no VTC exclusion, so the moment those five fees went
+null the same cards became eligible for the median of every sourced public
+certificate: **Ksh 160,200 - more than double the figure just withdrawn**,
+rendered beside the absence and labelled as typical. Measured, not feared: the
+126 sourced siblings are polytechnics on the national rate and KMTC on its own
+national schedule, and a county VTC is neither.
+
+**That is the third time a ruling written at one site has failed to reach the
+others**, and each time the fix went where the bug was noticed: the guidance
+renderer when a Maralal card was read, the catalogue when the sweep found the
+contradiction sideways, the benchmark only because the fix to the second one
+happened to arm it. The generalisation this file already states - *whenever a
+predicate is added that says this rate does not apply here, grep for that rate
+at those institutions* - was too narrow. **Grep for the rate, then enumerate
+every mechanism that can put a national figure on the card: the fee field, the
+guidance, and the benchmark.**
+
+So the guard asserts all three together on every VTC record rather than one
+each, and all three breaks were watched to fail and restored: the derived fee
+back on c281, `kitalevtc` back on `tvet_consolidated`, and the benchmark
+exclusion deleted.
+
+### The byte guard fired on the seventh category error
+
+**86 records carried 312 characters** of *"KMTC publishes one national fee
+structure across all campuses, so this figure does not depend on which campus
+you attend…"* - 26.2KB of one national schedule stored per course, the seventh
+consecutive time this guard has pointed at a category error rather than at a
+verbose note.
+
+Two things made the cut safe, and both are checks this file already mandates:
+**all 86 carry a fee**, so no absence phrase was inside the block being edited
+- the trap that nearly stripped `does not publish` from a third of the
+catalogue - and the `kmtc` entry in `DERIVATION_SIGNATURES` requires the literal
+*"KMTC publishes one national fee structure"*, so only the tail could be
+compressed. Every fact kept: both figures, the student category, the year and
+the source. Mean note back to 861.

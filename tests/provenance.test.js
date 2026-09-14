@@ -2063,6 +2063,56 @@ test('unsourced intake months are not presented as fact', () => {
  * So this asserts the two properties that keep it honest: degrees never get one
  * (the SCFM means a student's cost is set by an assessed band, so a median is
  * wrong for almost everyone), and a thin base never does. */
+/* A COUNTY VTC IS EXEMPT FROM EVERY NATIONAL-RATE MECHANISM, NOT JUST ONE.
+ *
+ * feeGuidance() has refused to quote the consolidated Ksh 67,189 rate at a
+ * county vocational training centre since the Maralal card was rendered and
+ * read. The same reasoning was never applied to the two OTHER places a
+ * national figure can reach that card, and both were live:
+ *
+ *   - five records at Kitale and Maralal DERIVED Ksh 67,189 into
+ *     total_fees_kes, so the catalogue displayed as a number the rate the card
+ *     was forbidden to mention in prose;
+ *   - tierBenchmark() would have offered the median of every sourced public
+ *     certificate - Ksh 160,200, MORE THAN DOUBLE - the moment those fees were
+ *     withdrawn.
+ *
+ * Vocational training is a devolved function under Fourth Schedule Part 2 and
+ * each county sets the fees chargeable in its own VTCs, so no national rate
+ * governs these courses. This asserts all three sites together, because the
+ * defect each time was a ruling applied where the bug was noticed. */
+test('no national fee rate reaches a county vocational training centre', () => {
+  const src = ['data/institutions.js', 'data/courses.js', 'data/funding.js', 'js/decide.js']
+    .map((f) => fs.readFileSync(path.join(root, f), 'utf8')).join('\n');
+  const { feeGuidance, tierBenchmark, isVocationalCentre, COURSES, INSTITUTIONS } = vm.runInNewContext(
+    `${src};({ feeGuidance, tierBenchmark, isVocationalCentre, COURSES, INSTITUTIONS })`,
+    { escapeHtml: (x) => x, formatKes: (n) => `Ksh ${n}` },
+  );
+  const vtcs = INSTITUTIONS.filter(isVocationalCentre);
+  assert.ok(vtcs.length > 0, 'no county VTC in the register - this guard is inert');
+
+  const priced = COURSES
+    .filter((c) => vtcs.some((i) => i.id === c.institution_id) && c.total_fees_kes != null)
+    .map((c) => `${c.id} (${c.total_fees_kes})`);
+  assert.strictEqual(priced.join(', '), '',
+    'a county VTC course carries a fee. The county sets its own charge and publishes none '
+    + 'reachable from here; a figure here is almost certainly the national consolidated rate, '
+    + 'which over-quotes these readers many times over: ' + priced.join(', '));
+
+  for (const inst of vtcs) {
+    assert.notStrictEqual(inst.fee_regime, 'tvet_consolidated',
+      `${inst.id} is on fee_regime tvet_consolidated, which is what DERIVED the wrong figure. `
+      + 'A county VTC belongs on county_vtc.');
+    for (const course of COURSES.filter((c) => c.institution_id === inst.id)) {
+      assert.strictEqual(tierBenchmark(course, inst), null,
+        `${course.id} at ${inst.id} is offered a tier benchmark. Its siblings are polytechnics `
+        + 'on the national rate and KMTC on its own national schedule; a county VTC is neither.');
+      assert.strictEqual(feeGuidance(course, inst), '',
+        `${course.id} at ${inst.id} is shown national fee guidance.`);
+    }
+  }
+});
+
 test('the indicative tier benchmark is rendered, never written into the catalogue', () => {
   const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
 

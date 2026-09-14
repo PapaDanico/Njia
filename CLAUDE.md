@@ -3695,6 +3695,34 @@ made reachable to a reader most degree provision is closed to. A thin tail is
 not a uniform thing; it was hiding the least duplicated provision in the
 catalogue.
 
+### A note that says "this institution publishes nothing" is a claim with a shelf life
+
+Two records this pass said exactly that and both had become false. **KEWI** does
+publish a Diploma Fee Structure - Ksh 221,500 over three years, now recorded.
+**The Railway Training Institute** publishes a term-based one: a Level 6 diploma
+at nine terms, a Level 5 certificate at six, corroborated by two independently
+phrased searches, with hostel at Ksh 19,500 a term.
+
+Neither institution changed. **The catalogue's account of them had gone stale
+and nothing re-reads an absence**, because a guard can check that a missing fee
+says WHICH KIND of absence it is and cannot check whether that is still true.
+Re-read the notes that assert a source does not exist; they are the only claims
+here with no expiry and no guard.
+
+**RTI is not priced even so, and the reason is instructive.** Its per-term
+figures come with the source giving the diploma Term 1 as Ksh 38,600 - the
+figure it separately gives for a HIGHER diploma - so it contradicts itself
+inside one paragraph, and a Term 1 charge usually carries one-off costs, so
+multiplying by nine would overstate the course. The structure is reported and
+no total is written.
+
+**And its duration was deleted rather than converted.** The record said 24
+months; RTI publishes a term COUNT, and turning nine terms into months needs
+the number of terms in its academic year, which is not published anywhere
+reachable. Three terms a year is the common pattern and "common pattern" is not
+a citation - it is exactly the reasoning that put twelve months on every artisan
+record. The field is null and the note says nine terms.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who

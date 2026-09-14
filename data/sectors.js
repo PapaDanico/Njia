@@ -284,7 +284,7 @@ const SECTORS = [
     id: 'sciences',
     name: 'Physical sciences and research',
     broad: 'services',
-    match: /astronom|astrophys|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|biotechnolog|biochemist/i,
+    match: /astronom|astrophys|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|biotechnolog|biochemist|parasitolog|microbiolog/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'Njia holds no employment or earnings data for research careers in Kenya, and there is no TVET tier beneath these programmes - the route is a degree and then postgraduate study or a research institute. Read the absence of a figure here as an absence of published data, not as an absence of work.'

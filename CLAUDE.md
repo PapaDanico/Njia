@@ -3669,6 +3669,32 @@ insert rather than on the ones that feel risky.
 instance, and the pattern is now so reliable that the right move is to check the
 guard output before the guard has to tell you.
 
+### The thin tail is closed: no university carries fewer than five records
+
+It was **28** when the audit that prompted this work was run, with three
+universities carrying no degree at all. It is **zero**. The ratchet in
+`tests/university-coverage.test.js` now holds at 0, underneath the single-course
+stub cap that already held there.
+
+**The last two closed the same way, and it is the ruling this file keeps
+re-learning.** Bomet was recorded as carrying two programmes because its own
+listing "is the last thing to be indexed"; Alupe sat as a named lead for
+several passes because a general query returned school names and no programme
+names. Both publish their programmes on their **school** sites - `sbe.buc.ac.ke`
+and `soe.buc.ac.ke`, `ss.auc.ac.ke` - so both closed in one search each.
+**Search the institution's own domain, and when the institution is large, its
+school's.** That is the fourth time, and the corollary holds every time: *a lead
+that names the missing field gets closed; a lead that says nothing found gets
+re-run from scratch.*
+
+Worth naming from the tail rather than the count: **Taita Taveta's mining
+degrees**, **PUEA's occupational therapy**, **Umma's Islamic banking and
+finance**, **AIU's translation and linguistics**, **Alupe's parasitology**, and
+the **D+ certificates at Scott Christian and KAG East** - a chartered university
+made reachable to a reader most degree provision is closed to. A thin tail is
+not a uniform thing; it was hiding the least duplicated provision in the
+catalogue.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who
@@ -3943,13 +3969,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1239 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1251 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1239 notes contains a comma or a quote and the
+  optional: **every one** of the 1251 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

@@ -3723,6 +3723,34 @@ reachable. Three terms a year is the common pattern and "common pattern" is not
 a citation - it is exactly the reasoning that put twelve months on every artisan
 record. The field is null and the note says nine terms.
 
+### Morendat is priced, and a standing instruction stopped being stored 226 times
+
+**MIOG publishes an annual tuition of Ksh 71,700**, corroborated by two
+independently phrased searches along with the five programmes it placed on the
+KUCCPS portal and their entry bars - C- for the three-year diplomas, D plain for
+the two-year certificate. An annual institution-wide rate scales to a named
+award the way a per-institution RANGE never can, so those five are listed and
+priced: Ksh 215,100 for a diploma, Ksh 143,400 for the certificate.
+
+**The institute's own pipeline-technician awards are NOT priced from it**, and
+that restraint is the point: both sources attach the rate to the KUCCPS-placed
+programmes, the older records' entry bars do not match the published ones, and
+assuming they are the same product is how a figure ends up on the wrong award.
+The rate is reported on those cards with the question to ask.
+
+**And the byte guard found another standing instruction stored per record.**
+*Confirm the programme code and the current cluster cut-off on the KUCCPS
+portal* was written into **226 notes in six slightly different wordings** - which
+is how one instruction becomes six claims free to drift. It is a property of the
+placement system rather than of any course, so it now renders once on every
+university degree card, including the several hundred that never carried it.
+Mean note 967 to 946.
+
+That is the second time in two days that the byte guard has pointed at a
+**category error rather than at bloat**: a fact about the national system was
+being stored as if it were a fact about a course. Ask that question whenever it
+fires on a sentence that appears in more than a handful of notes.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who
@@ -3997,13 +4025,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1251 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1256 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1251 notes contains a comma or a quote and the
+  optional: **every one** of the 1256 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

@@ -1194,6 +1194,15 @@ function renderCourseCard(course, match) {
       : `
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> This institution sets its own fees and none could be verified from a source Njia can reach. Ring or email the admissions office and ask for the full cost per year, what it includes, and what is charged separately — accommodation, exams and materials usually are.</p>`}
       ${feeGuidance(course, inst)}
+      ${/* ONE STANDING INSTRUCTION, RENDERED ONCE RATHER THAN STORED 399 TIMES.
+             Every degree placed through KUCCPS needs the same sentence, and it
+             was being written into the notes - in six slightly different
+             wordings, which is how a standing instruction becomes six claims
+             free to drift. It is a property of the placement system, not of the
+             course, so it belongs here. The notes keep whatever is specific to
+             the institution. */''}
+      ${inst && inst.type === 'university' && course.level === 'degree' ? `
+      <p class="text-muted text-sm mb-2">Confirm the programme code and the current cluster cut-off on the <a href="https://students.kuccps.net">KUCCPS portal</a> for the cycle you are applying in &mdash; the cut-off moves each year with the competition.</p>` : ''}
       `}
       ${/* For the 29 courses priced off the government's consolidated public-TVET
             fee, the tuition figure above is the PUBLISHED fee, not the invoice.

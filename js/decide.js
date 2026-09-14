@@ -670,6 +670,33 @@ function tierMedians() {
   return TIER_MEDIANS;
 }
 
+/* A COUNTY VTC IS NOT A KUCCPS-PLACED TVET COLLEGE, AND THE DIFFERENCE IS AN
+ * ORDER OF MAGNITUDE.
+ *
+ * The consolidated public-TVET fee of Ksh 67,189 a year governs colleges a
+ * learner is PLACED into by KUCCPS. County vocational training centres set
+ * their own, far lower, county-funded charges. The first version of
+ * feeGuidance() keyed on fee_regime alone and told a Maralal VTC reader the
+ * consolidated rate governed their artisan course - overstating it many times
+ * over, to the readers with the least room, which is the exclusionary
+ * direction this project refuses.
+ *
+ * The card already had this test inline. It is one function now because two
+ * copies of a predicate are two things free to disagree, which this repository
+ * has already been bitten by in a pair of print guards. */
+function isVocationalCentre(institution) {
+  if (!institution || institution.type !== 'tvet') return false;
+  const text = `${institution.name} ${institution.accreditation || ''}`;
+  /* "Technical and Vocational College" contains the word vocational and is NOT
+     one of these: a TVC is a KUCCPS-listed college on the consolidated rate.
+     The loose test that preceded this one put county-VTC advice - ring them,
+     mind the NITA trade test - onto Ebukanga and Kakrao, which run 36
+     KUCCPS-listed programmes between them. Match the institution KIND, not a
+     word that appears in both names. */
+  if (/technical and vocational|\bTVC\b/i.test(text)) return false;
+  return /vocational training (centre|center)|village polytechnic|\bVTC\b/i.test(text);
+}
+
 /* A FEE-LESS CARD STILL OWES THE READER SOMETHING CHECKABLE.
  *
  * "Not shown" is the honest answer about this course's price and a poor answer
@@ -685,6 +712,9 @@ function tierMedians() {
  * this project has had to stop three times. */
 function feeGuidance(course, institution) {
   if (course.total_fees_kes != null) return '';
+  /* The card's own VTC branch already gives the right advice for these, and the
+     consolidated rate would be wrong for them by an order of magnitude. */
+  if (isVocationalCentre(institution)) return '';
   const regime = institution && institution.fee_regime;
   const scfm = typeof SCFM_HOUSEHOLD_SHARE !== 'undefined' ? SCFM_HOUSEHOLD_SHARE : null;
 
@@ -1157,7 +1187,7 @@ function renderCourseCard(course, match) {
              call, a university needs an understanding of how its fees are now
              set, and everyone else needs to be told the figure is simply
              absent. */''}
-      ${inst && inst.type === 'tvet' && /vocational|village polytechnic|VTC/i.test(inst.name + ' ' + (inst.accreditation || '')) ? `
+      ${isVocationalCentre(inst) ? `
       <p class="text-muted text-sm mb-2"><strong>This centre does not publish its fees.</strong> County vocational training centres are usually the cheapest formal training available and often the only option without relocating — but you have to ring them to find out what it costs. Ask for the fee per term, what the county capitation covers, and whether tools or exam fees are separate. The Grade III trade test is charged by NITA on top of tuition.</p>`
       : inst && inst.fee_regime === 'public_university' ? `
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> Public universities do publish fees, but there is no longer a single per-programme price to quote: what you pay is set from your assessed household means, and the model is being changed again by Parliament. Ask the university what your intake is being billed and under which model — in writing.</p>`

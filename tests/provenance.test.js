@@ -2232,3 +2232,40 @@ test('every fee-less card names a published instrument, and none of it reaches t
     'the SCFM share constant carries no source line, which is the one thing that makes it '
     + 'a guideline rather than an assertion.');
 });
+
+/* THE CONSOLIDATED TVET RATE GOVERNS COLLEGES, NOT COUNTY CENTRES, AND THE
+ * DIFFERENCE IS AN ORDER OF MAGNITUDE.
+ *
+ * Ksh 67,189 a year is the published fee for a public TVET college a learner is
+ * PLACED into by KUCCPS. A county vocational training centre sets its own,
+ * far lower, county-funded charge. Telling a VTC reader the consolidated rate
+ * applies overstates their cost many times over, to the readers with the least
+ * room - the exclusionary direction this project refuses everywhere else.
+ *
+ * And the predicate has to match the KIND of institution rather than a word:
+ * "Technical and Vocational College" contains "vocational" and is not one of
+ * these. The loose version put county-VTC advice onto Ebukanga and Kakrao,
+ * which run 36 KUCCPS-listed programmes between them. */
+test('county vocational centres are told to ring, and colleges are told the published rate', () => {
+  const src = ['data/institutions.js', 'data/courses.js', 'data/funding.js', 'js/decide.js']
+    .map((f) => fs.readFileSync(path.join(root, f), 'utf8')).join('\n');
+  const { feeGuidance, isVocationalCentre, COURSES, INSTITUTIONS } = vm.runInNewContext(
+    `${src};({ feeGuidance, isVocationalCentre, COURSES, INSTITUTIONS })`,
+    { escapeHtml: (x) => x, formatKes: (n) => `Ksh ${n}` },
+  );
+  const inst = (id) => INSTITUTIONS.find((i) => i.id === id);
+
+  const centres = INSTITUTIONS.filter(isVocationalCentre).map((i) => i.name);
+  assert.ok(centres.length > 0, 'no institution matches as a county vocational centre at all.');
+  assert.ok(!centres.some((n) => /technical and vocational college/i.test(n)),
+    `a technical and vocational COLLEGE is being treated as a county centre: ${centres.join('; ')}. `
+    + 'A TVC is KUCCPS-listed and sits on the consolidated rate; matching the word "vocational" '
+    + 'rather than the institution kind is what put village-polytechnic advice on a college card.');
+
+  const wrong = COURSES
+    .filter((c) => c.total_fees_kes == null && isVocationalCentre(inst(c.institution_id)))
+    .filter((c) => /67,?189/.test(feeGuidance(c, inst(c.institution_id)) || ''));
+  assert.deepStrictEqual(wrong.map((c) => c.id).join('; '), '',
+    'a county vocational centre card claims the consolidated public-TVET fee governs it. '
+    + 'That rate is for KUCCPS-placed colleges and overstates a county centre many times over.');
+});

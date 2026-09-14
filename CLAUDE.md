@@ -3624,6 +3624,32 @@ Verified at the reader's end rather than in the source: the Decide route drawn
 in a real browser shows **14 of its first 25 cards carrying guidance**, and the
 functional probe is 49/49.
 
+### And the guidance shipped a defect of exactly the kind it was fixing
+
+The first `feeGuidance()` keyed on `fee_regime` alone, so a **county vocational
+training centre** was told the consolidated public-TVET fee of Ksh 67,189 a year
+governs its artisan course. It does not: that rate is for a college a learner is
+PLACED into by KUCCPS, while a county VTC sets its own far lower county-funded
+charge. The card would have overstated the cost many times over **to the readers
+with the least room** - the exclusionary direction, arriving through the fee
+field this time.
+
+Caught by rendering a Maralal card rather than by the suite, which was green.
+
+**And narrowing the test surfaced an older bug underneath it.** The card's own
+inline predicate matched the word `vocational`, so **"Ebukanga Technical and
+Vocational College" and "Kakrao Technical and Vocational College" were being
+given village-polytechnic advice** - ring the centre, mind the NITA trade test -
+when between them they run 36 KUCCPS-listed programmes on the consolidated rate.
+Match the institution KIND, not a word that appears in both names. The predicate
+is now one shared `isVocationalCentre()` rather than two copies, because two
+copies of a test are two things free to disagree.
+
+**The break-test on it was inconclusive and is recorded as such.** Breaking
+either half alone changes nothing, because each half independently catches the
+case; only breaking both reproduces the original bug. That is worth knowing
+about the guard rather than claiming a clean red-green.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who

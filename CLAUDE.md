@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1261 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1266 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1261 notes contains a comma or a quote and the
+  optional: **every one** of the 1266 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -4781,3 +4781,56 @@ silently is when a course matches the WRONG sector, which no guard can see.
 Still thin and named, so the next pass starts here rather than re-measuring:
 **USIU-Africa (6), CUEA (6), Daystar (7)**, then Zetech, Amref, Great Lakes
 Kisumu, Murang'a, Tom Mboya, MUA and IUK at five.
+
+### USIU-Africa: a subject grade in the mean-grade field, for the second time
+
+USIU was next on the thin list at six records, and deepening it found a defect
+rather than only a gap. **This file recorded a ruling that USIU-Africa publishes
+B- for direct KCSE entry — "the first record here above the national minimum" —
+and that is a cluster-SUBJECT grade written into the mean-grade field.**
+
+Two independently phrased searches, both citing USIU's own admission and
+entrance-requirements pages, give the general undergraduate bar as an
+**aggregate KCSE mean of C+**, with cluster-subject minima on top — Mathematics
+and English at B- for several programmes — and B- as the *programme-specific
+aggregate for Bachelor of Pharmacy*, alongside C+ subject minima in Maths or
+Physics, English or Kiswahili, Chemistry and Biology.
+
+So B- was real and was the wrong field, which is precisely the 44-record KMTC
+certificate error — D+ in Biology recorded as the mean — arriving at a private
+university. **It runs in the exclusionary direction**: six USIU cards were
+hidden from C+ learners who meet the published bar, on a university most of them
+would want to see. All six are corrected to C+ with the subject requirement in
+the note, which is the CUEA ruling applied exactly.
+
+Worth naming as a habit rather than an incident: **the prior ruling was written
+confidently and was wrong, and nothing re-reads a recorded entry grade.** A
+guard can check that a grade is in the valid set; none can check that it came
+out of the right row of the source. Ask, of any bar above the national minimum,
+whether it is the aggregate or a cluster subject — that is now two instances and
+both were found by re-reading rather than by a test.
+
+**Five programmes added**: BSc Accounting, BSc Finance, BSc Hotel and Restaurant
+Management, BSc Software Engineering, and **Bachelor of Pharmacy** at its own
+published B- with the Pharmacy and Poisons Board competition stated beside it.
+USIU 6 to 11.
+
+**BSc Artificial Intelligence and Robotics is deliberately not recorded.** It is
+named once, flagged "New!", on the School of Science and Technology's own list,
+and the second search did not repeat it. A programme announced as new and named
+by one source is the current-versus-planned test this file already applies to
+KMTC campus lists; it is a lead, not a row.
+
+**And the absence phrase failed on a paraphrase for the fifth time.** The new
+notes said *"none could be verified"* — which is not the literal
+`could not be verified`, and reads as though it means the same thing. The
+read-back caught all five before the commit, as it has every time.
+
+**The byte guard then fired on the sixth category error.** Two sentences of
+standing instruction about how to read a reported fee band — *"None of these is
+recorded as this course's fee and Njia does not stand behind any single one of
+them…"* plus *"Treat it as a bracket to check against, ask which AWARD…"* — sat
+on **92 records each, about 35KB** of one reporting convention stored per
+course. Compressed to a single canonical sentence keeping every fact: mean note
+880 to 861. Six times running the guard has pointed at a national or conventional
+fact stored per course rather than at a verbose note.

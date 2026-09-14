@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1256 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1257 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1256 notes contains a comma or a quote and the
+  optional: **every one** of the 1257 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -4447,3 +4447,76 @@ git push --force-with-lease
 ```
 
 Then re-run the full suite. A clean rebase is not evidence of clean code.
+
+## Re-reading an absence: what the stale-absence sweep is actually for
+
+558 records assert that a source does not exist. This file already names them as
+the only claims here with no expiry and no guard, and the sweep now has three
+passes behind it — KEWI and RTI, where the claim had simply *become false*;
+MIOG, which yielded a published rate; and EASA, which yielded neither and was
+still worth the two searches.
+
+**EASA is the useful shape, because nothing was written and the note improved
+anyway.** Thirteen records rest on one shared note. It said *"Published 2026
+figures give a diploma range of roughly Ksh 115,950 to 226,700"*. Two
+independently phrased searches, neither seeded with a figure, agree that there
+are **two** schedules and not one — KNEC diplomas over three terms at about
+115,950 to 158,450, and EASA's own diplomas over one or two years at about
+120,500 to 180,500, with IATA on a third schedule — and both date them to
+**2023/24**, not 2026.
+
+So the note was wrong twice about its own provenance while every figure in it was
+real. The quoted 115,950–226,700 span is the KNEC band's floor joined to the
+price of a *separately priced six-month Aircraft Maintenance Licence course* —
+two documents read as one range, which is how a band ends up spanning nearly two
+to one and looking like a schedule. And "2026" overstated a three-year-old
+reading, which is the perishability warning this file applies to dates
+everywhere else, arriving inside a note about fees.
+
+**A figure being genuinely published is not the same as the note describing
+where it came from.** The reporting paragraph exists to say what research turned
+up; it inherits the discipline of everything else here, so the *year* and the
+*document* are part of the claim, not decoration. Re-reading an absence is worth
+doing even when it stays an absence, because the reported band is a claim with
+the same shelf life as a fee.
+
+The rewritten note names the three schedules separately, says none of their
+durations matches the length on the card, and tells the reader to ask which
+schedule their programme sits on — a sharper phone call than a single invented
+span could produce. It also lost the paragraph arguing *why* a midpoint is not a
+fee, which belongs here and not on a card a learner reads on a phone; that cut
+paid for the added facts and the note came out shorter.
+
+**And the discursive cut was not the only thing the pass bought.** Don Bosco
+Karen's note told the reader to "ask admissions" and gave no way to; its centre
+publishes two numbers. CITC Mombasa's note inferred open artisan entry from the
+KCPE route, and the centre in fact **publishes the Konoin ladder verbatim** —
+C- for diplomas, D plain for certificates, other categories open — so the
+inference is now a published statement. **A note that says ring them should say
+what to ring**, and an entry claim resting on an inference should be upgraded
+the moment the institution states it outright.
+
+**The seventh course at CITC Mombasa was found by the fee search, not by a
+coverage one.** Its listing names Grade III-I Motor Vehicle Mechanics (NITA)
+alongside the KNEC Artisan in Motor Vehicle Mechanics, and this catalogue held
+only the second — while already carrying *both* variants for electrical, which
+is what shows the omission was an accident rather than a ruling. Course identity
+is (name, institution) and these are two named awards from two examining bodies,
+so it earns its own row. Corroborated by a second search naming no course.
+
+Its `duration_months` is null, and that is the Kakrao ruling rather than a gap:
+NITA publishes no single artisan duration, this catalogue's own Grade III-I
+records run 15 months at one institution and 24 at another, and without a
+duration the consolidated rate cannot be scaled — so the fee goes too. **Two
+institutions in this catalogue disagreeing about one award's length is the
+evidence that no national figure exists**, and it is sitting in the data rather
+than in a source.
+
+**The guard caught the record the sweep almost got right.** `artisan entry
+grades reflect what each institution publishes` failed on it: the new note
+carried the provenance of the award and the fee and dropped the sentence
+explaining *why* entry is open, which the six records beside it all carry. The
+record claimed the floor with no evidence for the floor — exactly what that
+guard was rewritten to assert after the variety-count proxy failed on data that
+had got better. Copying a record's neighbours is not the same as copying their
+reasoning.

@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1256,
+  "course_count": 1257,
   "institution_count": 202,
   "county_count": 47,
   "column_notes": {
@@ -9919,7 +9919,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus, which admits on a KCPE certificate, so min_grade is null. The centre publishes no fee structure, so no figure is shown rather than a guessed one."
+      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus. The centre publishes its entry ladder as a C- for diplomas and a D plain for certificates, with other course categories open, so this artisan trade carries no grade and an E clears it. It publishes no fee structure, so no figure is shown rather than a guessed one; ring 0718 393125 or 0751 317303 - the centre is at Buxton, next to the Kilifi/Malindi stage - and ask what this trade costs."
     },
     {
       "course_id": "c208",
@@ -9935,7 +9935,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus, which admits on a KCPE certificate, so min_grade is null. The centre publishes no fee structure, so no figure is shown rather than a guessed one."
+      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus. The centre publishes its entry ladder as a C- for diplomas and a D plain for certificates, with other course categories open, so this artisan trade carries no grade and an E clears it. It publishes no fee structure, so no figure is shown rather than a guessed one; ring 0718 393125 or 0751 317303 - the centre is at Buxton, next to the Kilifi/Malindi stage - and ask what this trade costs."
     },
     {
       "course_id": "c212",
@@ -9951,7 +9951,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus, which admits on a KCPE certificate, so min_grade is null. The centre publishes no fee structure, so no figure is shown rather than a guessed one."
+      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus. The centre publishes its entry ladder as a C- for diplomas and a D plain for certificates, with other course categories open, so this artisan trade carries no grade and an E clears it. It publishes no fee structure, so no figure is shown rather than a guessed one; ring 0718 393125 or 0751 317303 - the centre is at Buxton, next to the Kilifi/Malindi stage - and ask what this trade costs."
     },
     {
       "course_id": "c211",
@@ -9967,7 +9967,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus, which admits on a KCPE certificate, so min_grade is null. The centre publishes no fee structure, so no figure is shown rather than a guessed one."
+      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus. The centre publishes its entry ladder as a C- for diplomas and a D plain for certificates, with other course categories open, so this artisan trade carries no grade and an E clears it. It publishes no fee structure, so no figure is shown rather than a guessed one; ring 0718 393125 or 0751 317303 - the centre is at Buxton, next to the Kilifi/Malindi stage - and ask what this trade costs."
     },
     {
       "course_id": "c209",
@@ -9983,7 +9983,7 @@
       "duration_months": 15,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus, which admits on a KCPE certificate, so min_grade is null. The centre publishes no fee structure, so no figure is shown rather than a guessed one."
+      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus. The centre publishes its entry ladder as a C- for diplomas and a D plain for certificates, with other course categories open, so this artisan trade carries no grade and an E clears it. It publishes no fee structure, so no figure is shown rather than a guessed one; ring 0718 393125 or 0751 317303 - the centre is at Buxton, next to the Kilifi/Malindi stage - and ask what this trade costs."
     },
     {
       "course_id": "c210",
@@ -9999,7 +9999,23 @@
       "duration_months": 15,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus, which admits on a KCPE certificate, so min_grade is null. The centre publishes no fee structure, so no figure is shown rather than a guessed one."
+      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. Same Christian Industrial Training Centre network as the Pumwani campus. The centre publishes its entry ladder as a C- for diplomas and a D plain for certificates, with other course categories open, so this artisan trade carries no grade and an E clears it. It publishes no fee structure, so no figure is shown rather than a guessed one; ring 0718 393125 or 0751 317303 - the centre is at Buxton, next to the Kilifi/Malindi stage - and ask what this trade costs."
+    },
+    {
+      "course_id": "c1283",
+      "course_name": "Grade III-I Motor Vehicle Mechanics",
+      "institution": "Christian Industrial Training Centre (CITC) Mombasa",
+      "institution_id": "citc_mombasa",
+      "county": "Mombasa",
+      "ownership": "private",
+      "level": "artisan",
+      "cluster": "maker",
+      "min_grade": "",
+      "open_entry": "yes",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Private technical and vocational centre in Mombasa County, accredited as both a training and examination centre by KNEC and NITA. This NITA trade test is a different named award from the KNEC Artisan in Motor Vehicle Mechanics listed beside it, and both are named by two independently phrased searches of the centre. The centre publishes its entry ladder as a C- for diplomas and a D plain for certificates, with other course categories open, so this artisan trade carries no grade and an E clears it. No source publishes a length for it and NITA publishes no single artisan duration, so the duration is left absent rather than copied from another institution - and because the consolidated rate cannot be scaled without one, no fee is derived either. The centre publishes no fee structure in any case; ring 0718 393125 or 0751 317303 - the centre is at Buxton, next to the Kilifi/Malindi stage - and ask what this trade costs and how long it runs."
     },
     {
       "course_id": "c1057",
@@ -11119,7 +11135,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored."
+      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored on 0722 203646 or (020) 3882996."
     },
     {
       "course_id": "c200",
@@ -11135,7 +11151,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored."
+      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored on 0722 203646 or (020) 3882996."
     },
     {
       "course_id": "c201",
@@ -11151,7 +11167,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored."
+      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored on 0722 203646 or (020) 3882996."
     },
     {
       "course_id": "c197",
@@ -11167,7 +11183,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored."
+      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored on 0722 203646 or (020) 3882996."
     },
     {
       "course_id": "c199",
@@ -11183,7 +11199,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored."
+      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored on 0722 203646 or (020) 3882996."
     },
     {
       "course_id": "c202",
@@ -11199,7 +11215,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored."
+      "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so min_grade is null - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored on 0722 203646 or (020) 3882996."
     },
     {
       "course_id": "c371",
@@ -11215,7 +11231,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c370",
@@ -11231,7 +11247,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c373",
@@ -11247,7 +11263,7 @@
       "duration_months": 6,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c372",
@@ -11263,7 +11279,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c374",
@@ -11279,7 +11295,7 @@
       "duration_months": 6,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c329",
@@ -11295,7 +11311,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c325",
@@ -11311,7 +11327,7 @@
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c327",
@@ -11327,7 +11343,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c368",
@@ -11343,7 +11359,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c326",
@@ -11359,7 +11375,7 @@
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c369",
@@ -11375,7 +11391,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c328",
@@ -11391,7 +11407,7 @@
       "duration_months": 18,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c330",
@@ -11407,7 +11423,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. Published 2026 figures give a diploma range of roughly Ksh 115,950 to 226,700 and IATA programmes from Ksh 125,900 to 197,700, with accommodation about Ksh 18,000 a month and a Ksh 1,000 application fee. EASA does not publish a per-course fee in any source reachable from here, only those institution-wide ranges, so no figure is shown. A midpoint of a band that spans nearly two to one is not a fee: Ksh 171,000 appears in no source, and it was displayed identically on a 36-month diploma and an 18-month one - a number a reader would budget against, against a duration it does not describe. The sentence that carried it also claimed 'the middle of the published diploma range' while the certificates showed the bottom of the IATA range instead, so the note did not describe its own records. Ring the school for the fee for your specific programme, and budget separately for accommodation at about Ksh 18,000 a month and the Ksh 1,000 application fee."
+      "verification_note": "East African School of Aviation is the training directorate of the Kenya Civil Aviation Authority, a state corporation that sets its own fees rather than sitting on the consolidated public-TVET rate. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two separate schedules, both reading as 2023/24 rather than current - KNEC diplomas run three terms at about Ksh 115,950 to 158,450, and EASA's own diplomas run one or two years at about Ksh 120,500 to 180,500, with IATA programmes on a third schedule from about Ksh 125,900 to 197,700. A separately priced six-month Aircraft Maintenance Licence course is quoted at USD 2,267. None of those bands is stated for a named course, and none of the durations in them matches the length shown on this card, so the school does not publish a per-course fee that this build can read and no figure is shown. Ask the school which of the three schedules your programme sits on and what the current year's figure is - the acceptance letter states the actual fee. Budget separately for accommodation at about Ksh 18,000 a month and a Ksh 1,000 application fee."
     },
     {
       "course_id": "c375",

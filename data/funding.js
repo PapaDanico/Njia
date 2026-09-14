@@ -306,6 +306,31 @@ const PUBLIC_TVET_CAPITATION = {
   residual: 'Ask about the gap. Capitation plus the trainee balance comes to Ksh 56,420, the approved annual fee — they close exactly. The consolidated fee effective May 2026 is Ksh 67,189, which is Ksh 10,769 higher. Published sources do not say who carries that difference, and the sector press quotes the 30,000/26,420 pairing against the new figure without noting it. Until capitation or the published balance is revised, treat Ksh 10,769 a year as the amount to raise with the registrar before you enrol.'
 };
 
+/* WHAT A FEE-LESS CARD CAN STILL TELL A READER, VERIFIABLY.
+ *
+ * 743 records carry no figure, and 459 of those are public-university degrees
+ * where no per-programme price EXISTS to find - the SCFM sets what a student
+ * pays from an assessed household band. The card said so and stopped, which
+ * reads to someone deciding where to apply as "there is nothing to know".
+ * There is: the band SHARES are published, they are percentages of the course
+ * cost, and a reader who knows their band can work out their own number.
+ *
+ * This is the tier-benchmark architecture again - shown at render time, never
+ * written into total_fees_kes - applied to a published METHOD rather than to a
+ * median. It names the instrument in every case, because a guideline a reader
+ * cannot check is worth no more than a fee they cannot check. */
+const SCFM_HOUSEHOLD_SHARE = {
+  source: 'Higher Education Funding model band structure as published for 2025/26 (HELB Means Testing Instrument; Universities Fund; cross-reported in sector press, August 2026). The same figures are carried in the SCFM answer on /help/ and must agree with it.',
+  bands: 5,
+  householdSharePctMin: 0,
+  householdSharePctMax: 40,
+  scholarshipPctMax: 70,
+  scholarshipPctMin: 30,
+  portal: 'the HEF portal',
+  reading: 'What you pay is a percentage of the course cost, set by your assessed band: the household share runs from nothing in Band 2 up to about 40% in Band 5, with the government scholarship covering 70% down to 30% and a HELB loan over the rest. A cheaper programme therefore costs you less in shillings at the same band. Apply on the HEF portal and appeal the band if your circumstances were misread.',
+  privateExclusion: 'At a private university you can take the HELB loan but NOT the government scholarship, which is reserved for public universities and the Open University of Kenya - so the same band leaves a much larger share with your household.'
+};
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { FUNDING_SOURCES, PUBLIC_TVET_CAPITATION };
+  module.exports = { FUNDING_SOURCES, PUBLIC_TVET_CAPITATION, SCFM_HOUSEHOLD_SHARE };
 }

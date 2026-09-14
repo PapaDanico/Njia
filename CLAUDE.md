@@ -1374,8 +1374,12 @@ constant in a test.
 
 The remaining figures, measured in the same pass and left unguarded on purpose
 because they are findings about Kenya rather than about this catalogue:
-**2.1% of fees are published by the institution for that course** (14 of 680)
-and **51.2% carry no figure at all**; `employment_rate` and `median_salary_kes`
+**the institution's own published figure for that named course sits on 14
+records** - a count that has not moved since it was first measured, because
+earning it means reading a fee off a schedule this build cannot open - and
+about two thirds of the catalogue carries no figure at all. Re-measure both
+rather than quoting this line: the denominators move every pass, and the second
+figure moved by twenty points while this sentence sat still. `employment_rate` and `median_salary_kes`
 are null on **every single record**, which llms.txt already declares as a
 refusal rather than a gap. Agriculture remains **14.4 percentage points** below
 its share of GVA. Do not fill any of these by inference.
@@ -1446,8 +1450,8 @@ Asked for *data* gaps rather than eligibility ones, the right instrument is
 field completeness across every record, and it found three different things
 that look alike and are not.
 
-**Honest absence.** `employment_rate` and `median_salary_kes` are null on all
-680 records. Every one was invented, all were removed, and `llms.txt` declares
+**Honest absence.** `employment_rate` and `median_salary_kes` are null on every
+record in the catalogue. Every one was invented, all were removed, and `llms.txt` declares
 the refusal outright because Kenya publishes no per-course graduate outcomes.
 `paybackMonths()` therefore returns null for every course — and it stays,
 documented and unit-tested, because it is correct arithmetic waiting for
@@ -1460,7 +1464,7 @@ guard exists because a repeated **number** is indefensible; repeated prose about
 one national programme is not. Do not "fix" it.
 
 **And the real gap: `intake_months` is the only claim on a course card with no
-provenance at all.** All 680 records carry it, 364 the same
+provenance at all.** Every record carries it, most the same
 `["January","May","September"]`, twelve distinct patterns across the catalogue —
 and **not one record has an intake source or verification field**. That is the
 shape of a TVET intake cycle rather than a set of published calendars, which is
@@ -1473,7 +1477,7 @@ is prepared, but tell them a college runs a May intake when it only takes
 September and they arrive at a door that will not open, a year late. That is the
 eligibility direction, where this project under-claims.
 
-Sourcing 680 records is not available — the yield floor established across a
+Sourcing every record is not available — the yield floor established across a
 dozen counties is that institutional calendars sit in PDFs on egress-blocked
 hosts. So the fix is the one this file already prescribes when research fails:
 **stop stating it as fact.** The card now reads "Intakes (confirm with the
@@ -1891,6 +1895,244 @@ and told where to check keeps their agency. A reader shown nothing does not.
 **The general rule to carry forward: withholding a record is itself a claim**,
 and it is the one claim this catalogue cannot caveat. A missing fee prompts a
 phone call. A missing *course* tells a learner the thing does not exist.
+
+## Research priority: work the institutions readers actually name
+
+The maintainer's correction, and it is the sharpest one in this file because it
+is about **what gets worked on** rather than about how a record is written:
+*the obsession with KMTC and with E and D grades has left huge gaps where it
+matters.*
+
+It is true and the mechanism is already documented here twice - *the eligibility
+floor is the only coverage question with a ratchet, so it is the only one that
+ever gets answered*, written down, and then repeated anyway. Three ratchets
+(E-blind counties, single-provider counties, KMTC-only counties) all point at the
+same handful of thin rural counties, so every unguided pass went there. Meanwhile
+**JKUAT held three courses, Egerton had no degree at all, Strathmore three, MMUST
+two, and KCA five certificates and none of its degrees.**
+
+Those are not equivalent gaps. A KMTC campus's fifth programme is a marginal
+addition for a few hundred readers. **JKUAT, Kenyatta, Egerton, Strathmore, MKU
+and KCA are the names a Kenyan school-leaver types first**, and a catalogue that
+answers them with two rows is failing at its most-asked question while
+optimising its best-instrumented one.
+
+**The priority order, to be followed unless the maintainer says otherwise:**
+
+1. **Depth at the institutions readers name.** Any university or large college
+   carrying fewer than five records is a gap worth more than a marginal county
+   record. The audit that produced this section is one script and should be
+   re-run rather than assumed - `type === 'university'`, count the records, sort
+   ascending, start at the top.
+2. **Programme families absent from the whole catalogue**, not absent from one
+   county - the way medicine, physiotherapy, pharmacy and renewable energy each
+   arrived here by being noticed as missing outright.
+3. **Fees and figures for records that already exist**, which is where the
+   catalogue's distinctive claim lives.
+4. **The county floor metrics**, which are real and are now the *fourth* call on
+   attention rather than the first.
+
+**And the general rule about guards, one level up from the one this file already
+states.** A ratchet makes a number improve. It does not make it the right number
+to improve, and a session that optimises whatever is instrumented will look
+diligent the entire time it is going wrong. **Before starting a pass, ask what a
+reader typed into a search box this week** - then check whether the thing you are
+about to work on is the answer to it.
+
+## The stub cap was zero and the register was still a stub register
+
+The maintainer asked how a whole university can offer one degree course, called
+for an audit of every institution, and said this file is too restrictive. All
+three are the same finding and the audit settles it:
+
+- **28 institutions carry exactly one record. 94 of 202 carry two to four.**
+- **28 universities carry fewer than five**, among them **JKUAT (3), Strathmore
+  (3), Egerton (4), MMUST (2), DeKUT (2), Machakos (2), Kisii (2)**.
+- **Three universities carry no degree record at all** - Egerton, the Technical
+  University of Kenya and Multimedia University - while KCA University held five
+  certificates and diplomas and none of the degrees it is known for.
+
+**The stub cap is not the metric it was taken for.** It bans a university with
+*one* course and says nothing about a university with two, so a register can
+satisfy it completely and still answer "Egerton" with four diplomas. That is
+this file's own rule about guarded and unguarded coverage questions, one more
+time: *the cap was ratcheted to zero, so the thing the cap measures is the only
+thing that got fixed.*
+
+**And the restrictiveness is real, so the standard is stated once, here, in its
+widened form.** The ruling that a reputable programme map plus institution-level
+verification is enough to create a record was written about the four biggest
+public universities and has been read ever since as an exception for them. **It
+is not an exception. It is the standard for every chartered university and every
+accredited college in this catalogue.** A university's own school and faculty
+listings, the national KUCCPS programme map, or a CUE accreditation list, with
+confirmation that the institution runs that school or faculty, creates a record.
+The note says what it was listed on and sends the reader to the KUCCPS portal
+for the code and the cut-off.
+
+**What did NOT change, and this is the whole of the boundary.** Every FIGURE on
+the record still obeys every rule in this file, unsoftened: no fee without a
+source, no invented duration, no employment rate, no grade quoted high and none
+quoted low, no figure repeated across unrelated institutions, and the absence
+phrases where a figure is missing. **Listing is a claim about existence.
+Figures are claims about quantity.** The rules were written for the second and
+were being applied to the first, which is how a catalogue built to be
+trustworthy ended up telling a Kenyan school-leaver that Egerton does not teach
+degrees.
+
+**The depth question now gets a guard, because every coverage question here that
+lacks one drifts.** `tests/university-coverage.test.js` ratchets the number of
+universities carrying fewer than five records, so the thin tail can fall and
+never rise - the stub cap survives underneath it for the single-record case.
+A count that can only improve is what stops the next pass optimising whichever
+number happens to be watched.
+
+## The first pass under the new priority
+
+Worked in priority order rather than by ratchet, in one pass: **KCA +8 degrees**
+(it had five certificates and diplomas and none of its degrees), **Egerton +13**,
+**Technical University of Kenya +8**, **Multimedia +8**, **JKUAT +13**,
+**Strathmore +5**. 1064 to **1119 courses**, and the degreeless-university count
+is zero.
+
+Three things the pass established beyond the records:
+
+- **TU-K confers Bachelor of Technology degrees, not BSc**, and the records use
+  the university's own award names - the TUM correction applied before it could
+  become an error rather than after.
+- **Strathmore's bar is B-, above the national C+, and it is recorded as
+  published.** The eligibility rule is never to quote a grade high and it has
+  never licensed quoting one low; softening B- to C+ to make the card appear for
+  more readers would send them at an application they cannot win.
+- **A typo put a 96-month Information Technology degree into the catalogue**,
+  and the read-back caught it in the same minute - `'48'-0+48` is 96, which is
+  what happens when a value is computed instead of written. It never reached a
+  commit. A sweep for degree durations outside 36 to 72 months now runs with
+  every read-back, and it is a cheap thing to keep doing.
+
+**The sector register needed three more words** - `dryland`/`range management`,
+`optic`/`laser`, and `biotechnolog` - which is the eleventh instance and no
+longer worth being surprised by. The bytes-per-course guard fired twice more and
+the ceiling was not raised either time; the repeated SCFM paragraph was cut
+instead, which is the correct response to *a note pasted across many* because
+that is precisely what it was.
+
+**MMUST +10, and the thin-tail ratchet moves 23 to 22.** Masinde Muliro runs
+over 400 programmes across eleven schools and this catalogue held two of them -
+a BSc Nursing and a diploma in statistics. The additions include the degrees
+from its **School of Disaster Management and Humanitarian Assistance**, which is
+the only school of its kind in the region and has few equivalents anywhere in
+this catalogue: disaster management with international diplomacy, emergency
+management and humanitarian assistance, and peace and conflict studies.
+
+**The sector register needed a fourth category word in one session** -
+`humanitarian`, `disaster management`, `emergency management`, `peace and
+conflict`, all added to public administration. One of the three new disaster
+degrees matched on `diplomacy` and the other two matched nothing, which is the
+near-miss shape this file keeps recording: a pattern that catches one member of
+a family reads as covering the family.
+
+**DeKUT +8, thin tail 22 to 21.** Dedan Kimathi University of Technology held
+two records. Its eight additions are led by **Mechatronic Engineering**, the
+programme it is best known for, and it is the clearest case yet of a university
+publishing its subject bars beneath the mean grade: a C+ mean with a C+ in each
+of Mathematics, Physics, Chemistry and English or Kiswahili. The mean grade is
+what the card filters on and the subject set goes in the note, exactly as the
+CUEA ruling already requires.
+
+**And a Lighthouse reading of 92 arrived mid-pass and was checked against the
+bytes rather than the diff**, as this file requires. The critical path measured
+**106.6KB gz** against the 106.1-106.5 recorded when the band sat at 93-94, and
+the 55 records added in that pass put **zero bytes** on the page Lighthouse
+audits - `data/courses.js` is off that path as a property and is now 137.5KB gz
+on its own. A 0.1KB delta cannot move a score that could not see an 11.24KB
+swing. The next reading came back at 93. Going to the bytes first cost two
+minutes and is the only thing that separates noise from a regression here.
+
+**MKU +11, and it reverses a ruling this file made about MKU itself.** Mount
+Kenya University is among the most-searched institutions in the catalogue and
+held four programmes. The eleven additions include **MBChB, Pharmacy, BSc
+Nursing and Oral Health** - and those are precisely the programmes an earlier
+section here decided to *omit*, on the reasoning that quoting the C+ national
+minimum against a competitive programme sends a learner at an application they
+cannot win.
+
+That reasoning was right about the risk and wrong about the remedy, and the
+University of Nairobi pass already established why: **omission is not the
+conservative choice when it removes the institution from view.** The fix is the
+Strathmore treatment - record the published bar, state the competition beside
+it. MKU publishes C+ for every bachelor's programme and says outright that
+health sciences, engineering and actuarial science carry higher cluster points
+and subject prerequisites, so the note says both and tells the reader to
+confirm. A reader told the bar is high keeps their agency; a reader shown
+nothing does not.
+
+**Two earlier rulings in this file are now superseded and it is worth saying so
+plainly**, because a future agent reading the MKU and KeMU paragraphs would
+otherwise apply them: the omission of competitive health programmes at MKU and
+at Kenya Methodist was correct under the old listing standard and is not correct
+under the widened one. KeMU's are still absent and are the obvious next fix.
+
+**The bytes-per-course guard fired a fourth time on a shared note across eleven
+records**, and the ceiling was again not raised. Thin tail 21 to 20.
+
+**KeMU +4, and the superseded ruling named one commit ago is now closed.**
+Kenya Methodist University's School of Medicine and Health Sciences was the
+other institution whose competitive programmes this file decided to omit.
+MBChB, Pharmacy, BSc Nursing and BSc Clinical Medicine and Community Health are
+now listed on the same terms as MKU's - published bar recorded, competition
+stated beside it.
+
+**The payload guard fired a fifth time and the fix was different, because the
+guard was describing a trend rather than a batch.** The catalogue's mean note
+had crept from about 950 to 989 characters across this session's passes, so
+trimming whichever batch tripped the budget was treating the symptom. Measured
+instead: **fifteen records carried repository-facing argument** - sentences
+explaining that an earlier ruling in this file was being reversed and why - at a
+mean of 1,487 characters.
+
+Those sentences were cut from the cards entirely. **A learner deciding where to
+apply does not need to know that this catalogue changed its mind**; they need
+the bar, the competition, the reported figures and the phone call. The
+reasoning is what CLAUDE.md is for, and it is already written here twice over.
+That is the rule this file states - *a provenance note is not the place to argue
+the provenance rules* - applied to the whole catalogue rather than to the newest
+insert.
+
+**And it is a nicer property than it looks: a card that argues with its own
+repository is a card whose author was writing for the wrong reader.** Check for
+that whenever the byte guard fires on a shared note rather than reaching for the
+ceiling.
+
+**And it produced a grade conflict in the low direction, which is the rarer
+one.** KeMU states C+ for all undergraduate programmes, and its own Bachelor of
+Pharmacy page gives a **C mean with a C plain in each cluster subject**. The C+
+is recorded and the conflict is on the card. That is the third time this file
+has had to say it: *the rule against quoting a grade high has never licensed
+quoting one low*, and a learner sent at a competitive pharmacy place on a C is
+harmed in the other direction just as surely.
+
+**Maseno +12, and its MBChB is the second record in this catalogue above the
+national minimum.** Maseno publishes **B+** for Bachelor of Medicine and
+Bachelor of Surgery, against the C+ that opens almost every other degree card
+here, and B+ is what is recorded. Under-claiming on eligibility means recording
+the published bar rather than the most generous one available: a C+ learner
+shown that card would be sent at an application the university itself says they
+cannot make. USIU-Africa's B- was the first instance; this is the second, and it
+is the same ruling.
+
+Its award names carry Maseno's own **"(with IT)"** convention, which the
+university appends across its undergraduate programmes - the TUM
+Bachelor-of-Engineering correction applied before it could become an error.
+Twelve records across a fourteen-school university, including **Aquatic
+Resources Conservation and Development**, which belongs to the Lake Victoria
+economy and has few equivalents anywhere in this catalogue.
+
+**And an aggregator's fee range is named on the card as NOT a price.** Maseno is
+public, so the SCFM means no per-programme price exists; an aggregator quotes
+Ksh 70,000-150,000 a year anyway. Reporting it silently would contradict the
+absence the same note explains, so it is named with what it is - neither
+published by the university nor attributable to a named course.
 
 ## The four biggest public universities, filled in
 
@@ -2424,6 +2666,424 @@ finding. **Baringo is the same shape and is sound** - `kmtc_baringo` is named
 Kabarnet Campus, and Chemolingot (opened 2 August 2024, 69 students) is a
 genuinely distinct second campus, so it may be added as one.
 
+**And Mombasa is the same error inverted: ONE record standing for TWO campuses.**
+Kapkatet was two records for one campus, caught by searching for the second and
+finding nothing. Mombasa was the opposite, and it hid for far longer because the
+record's own name contained both: `kmtc_mombasa` was called *"Port Reitz,
+Mombasa Campus"*, which reads as one campus with a district attached.
+
+It is two. **Port Reitz Campus** opened in 1985 beside Moi International
+Airport, the SGR terminal and Port Reitz Hospital, with its own admissions
+address (`portreitz@kmtc.ac.ke`). **Mombasa Campus** is older and elsewhere:
+founded 1948 at Lady Grigg maternity to train enrolled nurses and midwives,
+moved to Tononoka on Mombasa Island in 1980, next to Coast General Hospital,
+about 1,200 students. Different founding years, different sites, different
+programme lists, and KMTC's own channel posts them separately.
+
+**The tell was in the name, and a comma is not a county check.** Both campuses
+sit in Mombasa County, so every geographic guard passes - the same blind spot
+Kapkatet exposed. What is new is the direction: **a record whose name contains
+two place words is worth one search.** "Port Reitz, Mombasa" looks like
+"Kabarnet, Baringo" and is not; it is two institutions wearing one row.
+
+So the check now runs both ways. Before adding a campus, search for the one you
+think is listed and require a source calling it distinct - *absence is the
+finding*. And when a campus record's name carries a second place name, search
+that name **on its own** and require a source that merges them - *presence of a
+second distinct facility is also the finding*.
+
+**The split is deliberately uneven, and that is the honest yield.** Port Reitz
+gains Clinical Medicine and Surgery, Physiotherapy and Medical Laboratory
+Sciences - all three named by two independent listings, with the campus's own
+published physiotherapy gymnasium tying that one down. Mombasa Campus gains
+**one** record, because the two honest searches of it returned different lists
+and Clinical Medicine and Surgery is their whole intersection. Its note names
+the four programmes the other listing claims and says plainly that they are not
+recorded because a second search did not repeat them - the *report what was
+found* ruling applied to courses rather than to fees.
+
+**And the seeded-query rule caught me inside the hour it was written.** The
+first Mombasa Campus corroboration named the four courses in the query, and the
+summary came back "the search results confirm that all the courses you
+mentioned..." - which is the Pan Africa Christian trap exactly, one source asked
+twice. Re-run without the names, the campus reported a *different* list, and
+that disagreement is what reduced four candidate records to one. **A rule
+written in the morning is not a habit by the afternoon; the query you are about
+to send is the one to check.**
+
+**The sweep that finding implies was run and came back empty**, which is worth
+recording so nobody runs it again: no other institution in the register carries
+a comma in the campus half of its name. Mombasa was the only one of its shape.
+
+## Silence is not corroboration, and a partly seeded query yields partial evidence
+
+Three more campuses in the same batch - **Kisumu 0, Nakuru +6** - and both
+outcomes turned on how a second search behaved rather than on what the first
+one said.
+
+**Kisumu is the yield floor, cleanly.** Two searches confirm the campus in
+detail: Kondele, next to Jaramogi Oginga Odinga Teaching and Referral Hospital,
+two kilometres from town, operational 1953, 1,052 students, over 200 graduates a
+year. Neither names a single programme taught there - both fall back on the
+national framing of 126 courses across 7 faculties. A confirmed campus with no
+sourced course name yields no record, so Kisumu is recorded here as **attempted
+and unyielding** rather than left looking unworked.
+
+**Nakuru needed a distinction this file had not drawn.** Its first listing is
+strong - 1973, 52.6 acres shared with Nakuru County Teaching and Referral
+Hospital, 1,530 students across pre-service, upgrading and post-basic, and an
+explicit claim of **14 courses** with eight programme families named. The second
+search corroborated the campus and said **nothing at all about courses**,
+returning the national "more than 120" line instead.
+
+That is not agreement and it is not contradiction. **Silence is not
+corroboration** - a second source that does not mention the thing has not
+confirmed it - and treating it as either would be wrong in opposite directions.
+So a third search was run, and it is the one with the lesson in it: **it was
+partly seeded.** The query named pharmacy, oral health and imaging, so those
+three came back and cannot count, exactly as the Pan Africa Christian figure
+could not. But the same result *also* named four families the query did not
+mention - Clinical Medicine and Surgery, Medical Laboratory Sciences,
+Orthopaedic and Trauma Medicine, and Health Records and Information Technology -
+and those four are genuine second sightings.
+
+**A partly seeded query is not worthless; it is worthless for the part you
+seeded.** Read the result in two halves and keep only the half you did not ask
+for. Six records written, all from that half.
+
+What the notes say is not recorded matters as much:
+
+- **The long tail is template bleed.** One listing added Dental Technology,
+  Nursing, Public Health, Nutrition and Dietetics, Occupational Therapy and
+  Health Promotion; the other did not, and a list that long is the national
+  catalogue rather than a campus that states it runs fourteen courses.
+- **Pharmacy, Community Oral Health and Medical Imaging Sciences are left out on
+  the narrower ground** - they are real programmes at a campus of this size and
+  they appeared only in the search that named them. That is the honest reason,
+  and it is in the note so a reader rings the campus rather than reading their
+  absence as evidence.
+- **Physiotherapy is left out because the sources disagree**: one places a
+  physiotherapy department inside the referral hospital, the other omits it from
+  the course list. The Bungoma rule - a source that contradicts itself, or two
+  that contradict each other, attributes nothing.
+- **Higher diplomas are not recorded anywhere in this batch.** Clinical
+  Medicine, Medical Laboratory Sciences, Medical Imaging and Medical Education
+  all run at that level here, and all are post-basic qualifications for people
+  already in practice.
+
+Nakuru county goes to 45 courses. The campus itself goes 2 to 8, which is the
+second-largest single-campus gain of this whole KMTC effort after Nairobi.
+
+**Machakos is the batch's smallest yield and its clearest method.** A dated
+history again - opened 1959 as a training school for Enrolled Nurses under
+Machakos General Hospital, the award scrapped in 1978 for Kenya Enrolled
+Community Health Nursing, replaced in turn by the KRCHN diploma in 2000, about
+900 students beside Machakos County Teaching and Referral Hospital. Two
+independently phrased searches, and their intersection is **one** programme:
+Diploma in Medical Laboratory Sciences. Four others appear in one listing each
+and are named in the note rather than recorded.
+
+**And its second source tried to lower an entry grade.** One listing gives the
+diploma bar as a **C- mean grade**, against the C plain KMTC publishes and that
+several campus listings corroborate. Recording the C- would have been quoting a
+grade LOW, which this file has had to say twice now is not licensed by the rule
+against quoting one high: a learner sent at a diploma on a C- they cannot
+actually use is harmed in the other direction, and it is the same shape as the
+CUEA D+ floor that reaches certificates and not degrees. C plain is recorded and
+the conflict is in the note.
+
+**The batch in one line: Mombasa +4 and a register defect, Kisumu 0, Nakuru +6,
+Machakos +1.** Four campuses, eleven records, and the two that produced least
+are the two worth reading - one for what a dry campus looks like when it is
+genuinely dry, the other for a second source that disagreed in the exclusionary
+direction.
+
+**Thika +1 and Meru +3, and the register defect recurs in a second county.**
+
+Thika's history is dated the way Kisii's and Machakos's are - opened 1969 as
+Thika School of Community Nursing with Norwegian government support and thirty
+students, opened officially by Jomo Kenyatta on 16 November 1969, about 1,000
+students beside Thika Level 5 Hospital - and its two listings still intersect on
+only **one** unrecorded programme. **And its second listing repeats this
+project's own worst data error back at it**: a diploma entry bar given as
+"Mean Grade D+" with subject grades beneath. D+ is a cluster-SUBJECT
+requirement, and writing it into the mean-grade field is exactly what went wrong
+on 44 KMTC certificate records here. Seeing the same mistake in the wild is a
+reminder that the aggregators are where it came from.
+
+**Meru is the best-attributed campus of the batch.** Its listing dates each
+programme: School of Nursing 1979, School of Medical Engineering 1987, merged
+1993, nursing upgraded to KRCHN in 1999, **Clinical Medicine and Surgery from
+September 2006, Medical Laboratory Sciences from September 2008**. A second
+search names the same programmes and, usefully, **corroborates the C plain
+diploma bar independently** - which settles the Machakos conflict one paragraph
+up rather than leaving it as one source against another.
+
+**Its third record is a new shape of corroboration and worth naming.** The
+Certificate in Medical Engineering Technology rests on two sources describing
+the same thing *at different grain*: the campus history records a School of
+Medical Engineering established in 1987 to train technicians for hospital
+equipment, and the second listing names the award. **A school is not an award**,
+so neither alone would have done it - this file has refused a dozen records on
+exactly that ground. Together they attribute it, and the note says which source
+supplied which half.
+
+**And Mombasa's defect is not unique.** Meru County's searches surfaced KMTC
+campuses at **Maua** and **Miathene**, and the county government has announced
+one at **Imenti**; the register holds one KMTC Meru. They are recorded as named
+leads, not rows, because each needs its own background and programme search -
+but the pattern is now twice-seen, and the question to carry into every
+remaining campus is *how many KMTC campuses does this county actually have*,
+not *what does this campus teach*.
+
+## The largest provider in this catalogue had no denominator at all
+
+Asking that question once, at the national level rather than per county, found
+the biggest coverage gap on this page - and it had been invisible for exactly
+the reason this file keeps writing down.
+
+**KMTC's own site says 92 campuses across 46 of the 47 counties.** Its
+e-learning page still says **71**. A third source says 88 campuses plus 5
+satellites, which lands back near 93. **Njia holds 47.**
+
+Against 71 that is a third of the estate absent. Against 92 it is half. Either
+figure is a larger gap than every university gap in
+`tests/university-coverage.test.js` put together - and that file measured
+universities against CUE's denominator while **the provider this catalogue
+leans on hardest had no denominator at all.** Every coverage question with a
+guard is answered; every one without is drifting, and this is the most
+expensive instance of it yet, because KMTC sits in the C-minus to C-plus band
+in more counties than any university does.
+
+**The low figure is the one in the guard, deliberately.** 71 against 92 is a
+real disagreement between two pages of the same institution, and picking the
+high number would let this catalogue look worse than the evidence supports
+while picking neither would leave it unmeasured. A floor nobody can argue with
+is the honest instrument: `KMTC_CAMPUSES_CLAIMED_LOW = 71`, with the
+disagreement written into the comment so the next reader re-reads it rather
+than trusting it.
+
+Two guards, both watched to fail and restored:
+
+- **A ratchet plus a named-missing list.** Maua, Miathene and Imenti are in it
+  by name, because a gap inside an aggregate is a gap nobody looks at. It also
+  fails if the register ever *exceeds* the low denominator - which would mean
+  either a duplicate campus (Mombasa and Kapkatet both were) or a stale
+  denominator, and both are worth stopping for.
+- **A ban on the shape that hid Mombasa.** Not two campuses in one county -
+  Mombasa and Meru genuinely have those - but a campus *name* carrying a second
+  place name, which reads as one campus with a district attached. Restoring
+  "Port Reitz, Mombasa Campus" fails it immediately.
+
+**And the closing instruction matters more than the count.** Do not close this
+gap from KMTC's national campus list. A campus earns a row the way every other
+institution here does: its own background-and-programmes listing, and at least
+one course named by two independently phrased searches. Six campuses worked
+this session produced 15 records and one produced zero, which is what that
+standard costs - and it is the only reason the 47 rows already here mean
+anything.
+
+**The first name came off that list the same hour it went on.** KMTC **Maua**
+is listed: a satellite in Maua town, Igembe South, built with the Igembe South
+NG-CDF and inspected and approved by the KMTC national board, designed for 200
+students across four programmes. Two independently phrased searches name it,
+and they agree on exactly **one** programme - Certificate in Health Records and
+Information Technology - so that is the one row it gets. 47 campuses to 48, and
+`KNOWN_MISSING_KMTC` is down to Miathene and Imenti.
+
+**Two things it did not get, and both are the guards working.**
+
+- **Its other certificates are not recorded**, because the two searches name
+  *different* ones: Community Health Assistant in the first, Health Care
+  Assistant in the second. Those are different awards, so neither is
+  corroborated - and Community Health Assistant is in any case the row this
+  file already flags as appearing at 43 of 45 campuses, which is the shape of a
+  national list applied blanket.
+- **Its student population is not recorded, and the near-miss is the keeper.**
+  The first search returned **824 students for Maua** - which is *exactly* the
+  figure KMTC **Meru** publishes for itself, read three searches earlier in the
+  same session. One campus's number bleeding into another campus's query, the
+  same failure that nearly attributed Kiptaragon's courses to Kakrao. Maua was
+  approved for 200. **A figure that matches one you read a moment ago for a
+  different institution is not corroboration, it is contamination** - and the
+  tell is that it matched *too* well.
+
+**And the third campus settled it.** KMTC **Miathene** - Tigania West, built
+with the Tigania West NG-CDF, first students 13 March 2023 - came back with
+**824 students as well.** Three campuses in one county carrying one figure is
+not coincidence and is no longer a suspicion: a source is pasting a county-level
+number across every Meru KMTC query. Nothing about size is recorded for any of
+them. **Contamination announces itself by repetition; the second instance is
+where you should stop trusting the field, not the third.**
+
+Miathene is listed with **two** records, and the reason it earns both is worth
+the contrast with Maua: its two sources agree on its *whole* list rather than on
+one item of it - the Certificate in Orthopaedic and Trauma Medicine it opened
+with in March 2023, and the KRCHN diploma. **A short list two sources can repeat
+in full is what a genuinely small, genuinely new campus looks like**, and it is
+the opposite signal from a sixteen-family list that matches the national
+catalogue. 48 campuses to 49, and `KNOWN_MISSING_KMTC` is down to Imenti alone.
+
+Meru County now carries **three** KMTC campuses where the register held one this
+morning. That is the answer to the question this section opened with, and it
+suggests the remaining gap is concentrated rather than spread: counties with one
+listed campus and an NG-CDF that has built others.
+
+## Told to stop grinding KMTC, and the private register had the sharper defect
+
+The maintainer's correction, and it is this file's own warning quoted back:
+*a session left to choose its own work will grind the guarded metric.* Six KMTC
+campuses and a new ratchet in one stretch is exactly that, with the ratchet
+making it worse rather than better - a fresh metric is the most attractive thing
+in the repository to grind.
+
+**The private register had seven names sitting unworked on its own missing
+list**, and most of them are faith-based: Africa International University,
+Adventist University of Africa, KAG EAST, Presbyterian University of East
+Africa, Aga Khan University, The East African University, Islamic University of
+Kenya. Two are now listed - **AIU +3, KAG EAST +2**, private universities 25 to
+**27 of 32** - and the list is down to five.
+
+Two rulings inside them:
+
+- **AIU's second record is the Meru medical-engineering shape again.** One
+  search names development studies as an undergraduate programme AREA, the
+  other names the degree. A programme area is not an award; together they
+  attribute it, and the note says which source gave which half.
+- **KAG EAST's county is contested and is recorded with the conflict stated.**
+  Both sources place a precisely addressed campus at Buru Buru in Nairobi - next
+  to Mutindwa Market, Mumias South Road - and both also describe a Kitengela site
+  in Kajiado, one calling it the current main campus and the other a 58-acre
+  property being *developed* into one. Nairobi is recorded because it is the
+  campus both sources pin down; Kitengela is a lead for a separate row. That is
+  the Lukenya ruling without a charter to settle it, so the note carries the
+  disagreement rather than hiding it.
+
+### And the sector register was filing every theology degree under Law
+
+This is the find of the pass, and it was sitting in the data the whole time.
+
+`data/sectors.js` had `theolog` **inside the legal pattern** -
+`/law|legal|paralegal|theolog/i` - so **Bachelor of Theology at Kabarak and at
+Kenya Highlands both resolved to "Law and governance"**, the sector that carries
+a Council of Legal Education caution.
+
+That is *precisely* the error this file already records reverting: widening a
+pattern put Arabic with Islamic Studies into law, and it was caught because
+someone looked at a new course. **The theology case was identical, already
+shipped, and invisible** - because nothing re-checks the mapping of records that
+already have a sector. A guard aimed at courses with NO sector cannot see a
+course with the WRONG one.
+
+Fixed by narrowing `legal` to `/law|legal|paralegal/i` and widening the
+humanities sector - which exists precisely for this - to hold `theolog`,
+`biblical`, `intercultural studies`, `church educational`, `christian ministr`
+and `divinity`. Legal falls 14 records to 12, theology moves to Languages,
+humanities and religious studies, and **no course is left without a sector**,
+which is the check that proves the narrowing did not strand anything.
+
+The lesson to carry: **when a course matches no sector you find out immediately,
+and when it matches the wrong one you never find out at all.** Every instance
+recorded in this file until now was the first kind. Before widening any pattern,
+read what it already matches - `theolog` in a law pattern is the kind of thing
+that looks deliberate until you ask why.
+
+### And two invented enum values were caught by guards, not by review
+
+`fees_confidence: 'unverified'` and `fee_regime: 'private_university'` are both
+plausible English and neither exists: the catalogue's values are
+`illustrative`/`verified`, and `private_own_rate`. Five course records and two
+institutions carried them. That is the invented-cluster-id failure again -
+`thinker`, `organiser`, `builder`, `grower` - in two new fields, and it is the
+same lesson: **a value that reads right is the dangerous kind**, and the only
+thing that catches it is a guard asserting membership of a known set.
+
+### The private register, closed as far as it honestly closes: 29 of 32
+
+Four of the seven names came off the list by being **listed** - Africa
+International University (+3), KAG EAST (+2), the Presbyterian University of
+East Africa (+4) and the Islamic University of Kenya (+3). A fifth came off for
+a different reason, and that reason is the useful part.
+
+**Adventist University of Africa is postgraduate only.** Two schools, a
+Theological Seminary and a School of Postgraduate Studies, and every award in
+both is a master's or a doctorate. It can never produce a row in a catalogue
+read by people deciding what to do after KCSE - so leaving it on a *missing*
+list would overstate the gap permanently, and the aggregate would never close
+with nobody able to say why. It now sits in `OUT_OF_SCOPE_PRIVATE` **with its
+reason on the same line**, and a guard requires that reason to be there.
+
+**A missing list should only hold gaps that can be closed.** That is the
+correction this pass makes to the shape the public list already set: naming a
+gap is better than counting it, and naming a *permanent* one as though it were
+temporary is worse than either.
+
+**Two names remain and both have named blockers rather than "not done yet".**
+
+- **Aga Khan University** - its Kenyan work is medical and nursing and runs
+  heavily at postgraduate level; no reachable source names an undergraduate
+  award with an entry requirement.
+- **The East African University** - worked, and it yielded **one** corroborated
+  programme: Bachelor of Business Information Technology, named by two
+  independently phrased searches, with its three schools corroborated too. Its
+  other degrees rest on a single listing. **One record would make it the
+  single-course stub `MAX_STUBS` forbids**, so it stays a lead - the Alupe
+  ruling exactly, and the blocker is corroboration rather than effort.
+
+### The category nobody had looked for: mission-hospital training schools
+
+Pushed further on faith-based provision, the register was searched for the
+pattern rather than for a name - and **not one mission-hospital training school
+was listed**. Kenya has a well-known set of them, church-run, Nursing Council
+accredited, training at exactly the grade band this project exists for, and the
+catalogue held none.
+
+**AIC Kijabe College of Health Sciences is the first**, inside Kijabe Mission
+Hospital at Lari in Kiambu, run by the Africa Inland Church. One record, and it
+carries three things worth more than the count:
+
+- **Its entry bar is MORE OPEN than KMTC's, which is the whole point of listing
+  it.** The published requirement is a **C plain** mean grade with a C plain in
+  English or Kiswahili and in Biology, and a C- in Mathematics, Physics or
+  Chemistry. KMTC asks **C+** for the same award. A learner holding a C plain
+  who has been told nursing is closed to them has a route here, and until today
+  this catalogue could not show it to them. *A whole category of provision
+  missing is an eligibility-floor problem as much as a coverage one.*
+- **Its duration is sourced at three and a half years** - 42 months, published
+  by the college itself - and it is the **first record in the catalogue to carry
+  the longer figure from its own source.** That is the KRCHN question parked
+  with the maintainer, arriving from outside KMTC: 36 months is recorded across
+  the rest of the estate, this record says 42, and the discrepancy is now
+  visible in the data rather than only in a note.
+- **Its fee is reported and not written.** Ksh 56,000 per semester, payable in
+  instalments. No total, because the number of semesters in a three-and-a-half
+  year programme is published nowhere reachable and multiplying by a count I
+  picked myself would invent the part that matters. The per-semester figure is
+  in the note under the *what Njia found* heading, which is that ruling doing
+  exactly the job it was written for.
+
+**And its intake months are deliberately unsourced.** One search says March and
+October, the other January and September. Two sources disagreeing about a date
+is the one thing this catalogue treats as more perishable than a fee, so the
+card keeps its standing confirm-with-the-institution caveat.
+
+**The lesson is about how the gap was found.** Every previous register gap here
+was found by checking a *list* - CUE's, KMTC's, a county roll-up. This one was
+found by searching the register for a **pattern** (`kijabe|tenwek|chogoria|
+mission|catholic|methodist`) and finding it empty. **Ask what KIND of provider
+is absent, not only which named one**, because a category with no examples
+returns nothing from a list you never thought to consult. Tenwek, PCEA Chogoria,
+PCEA Kikuyu, Maua Methodist and the Mater are the obvious next ones and are
+recorded here as leads.
+
+**And TEAU produced a duration conflict worth recording.** One source says its
+degrees take **two and a half years**, another that most take a minimum of
+**four**. Nothing was written, because a duration is a fact about a course and
+this catalogue has already refused to guess one at Ebukanga and Kakrao. If TEAU
+is ever listed, that conflict has to be settled or the field left null - an
+accelerated trimester route and a four-year degree are different products, and
+a reader planning around the wrong one loses eighteen months.
+
 ## Migori, and the name collision that nearly wrote a course into the wrong county
 
 Eleven E-blind counties, from twelve. **Kakrao Technical and Vocational College**
@@ -2736,6 +3396,409 @@ range rather than a found one, it is the placeholder trap with a better
 vocabulary, and it will be harder to catch than the original because it reads
 like diligence.
 
+## The second mission-hospital school, and a college that publishes its own size
+
+Tenwek Hospital College of Health Sciences, in Bomet, has trained nurses inside
+Tenwek Mission Hospital since June 1987 under the Africa Gospel Church and World
+Gospel Mission. It is the second record in the category AIC Kijabe opened, and
+it was found the same way: by searching the *pattern* - a mission hospital that
+trains - rather than a name already on a register.
+
+**Its student population is the cheapest available test of its course list, and
+it passed.** The college publishes 130 to 150 students at any one time. Two
+independently phrased searches named the same two entry-level diplomas and
+nothing else, which is what a college that size should look like. This file
+already uses population against KMTC Iten - *a campus of 226 does not run
+eighteen programmes* - and here the check confirms a short list rather than
+refuting a long one, which is the other half of the same instrument.
+
+**Entry is C plain, below KMTC's C+ for the same awards**, with a C plain in
+English or Kiswahili, a C plain in Biology and a C- in one other science, plus
+an entrance examination in English and Mathematics and an interview. The
+Strathmore treatment applies: the published bar is recorded and the selectivity
+goes in the note, because a grade alone does not secure a place and a reader
+should know that before spending an application on it.
+
+**No fee was found at all, and that is stated as a found absence rather than as
+a refusal.** The reporting paragraph this file introduced exists to publish what
+research turned up; here research turned up nothing, so the note says so
+explicitly and names the college's own phone number as the route. Writing a
+plausible bracket there would be the placeholder trap wearing the vocabulary of
+diligence, which is the boundary that section already draws.
+
+**And the third school in the category split the duration question open.** Clive
+Irvine College of Health Sciences, inside PCEA Chogoria Hospital in
+Tharaka-Nithi, has trained nurses since 1951 - the oldest mission-hospital
+school here - and publishes its KRCHN at **three years**, which is the 36 months
+this catalogue already records across the estate. Kijabe and Tenwek publish
+three and a half. Three sources now say 36 and two say 42, for the same named
+award. **That is not a discrepancy to average or to resolve by majority**: each
+record carries what its own institution publishes about its own programme, and
+the split is stated on the cards rather than smoothed away. A national figure
+would be exactly the kind of institution fact nothing sourced supports.
+
+**Its entry bar is C plain and it survived the seeding test.** The first query
+that returned it had the words *C plain*, *biology* and *english* in it, and the
+summariser duly reported that the results "confirm" them - the Pan Africa
+Christian trap firing again, in the eligibility field this time rather than the
+fee field. A second query naming no grade at all returned the same C plain mean
+with a C- in one science, and that is what the record rests on. **A grade
+recovered from a seeded query is worth no more than a fee recovered from one.**
+
+**And its only published money figure is a meals charge.** Ksh 15,500 a semester
+for day-scholar meals is the sole number any reachable source carries, and
+writing it into the fee field would understate the course by an order of
+magnitude - the forbidden direction on money, arriving through a figure that is
+genuinely published and simply not the thing being asked about. It is reported
+in the note with what it actually buys, and the reader is told to ask for
+tuition separately.
+
+**A fourth school, and a month recorded alone because the sources split on the
+second one.** Methodist College of Health Sciences sits inside Maua Methodist
+Hospital in Igembe South, Meru - a 230-bed referral hospital serving about
+600,000 people, training there since 1942. Its KRCHN entry bar is C plain with a
+C plain in English and Kiswahili and a C- in one science, unseeded, and its
+duration is three years, which makes it the fourth source on the 36 side of the
+36-versus-42 split.
+
+Its nursing intakes run twice a year and every source agrees one of them is
+April. One says the other is October and two say September, so **only April is
+recorded.** That is the placement-clock rule applied at record level: a stale
+fee surprises a reader and a wrong month sends them to a door a year late, which
+is the exclusionary direction this project under-claims in.
+
+**And four named courses are left out on a field, not on a doubt.** The college's
+own listing names medical records and information technology, clinical
+counselling psychology, community health development and social work, and
+community health and HIV management as current, and medical laboratory sciences
+as planned. The planned one is excluded as planned ones always are. The other
+four are excluded because **no reachable source says whether each is a
+certificate or a diploma**, and level decides the entry bar, the duration and
+which grade page the card appears on. Naming the missing field is what makes
+this a closable lead rather than a dry county - the Alupe ruling, at a college.
+
+**A fifth school, and the first in this category listed on award-level facts
+alone.** PCEA Kikuyu Hospital School of Nursing trains inside a hospital founded
+in 1908, is NCK-accredited and TVETA-registered, and publishes **no mean grade
+and no programme length at all** - three searches, one of them naming no grade,
+returned what documents to attach and a Ksh 1,000 application fee and nothing
+else. What is published is the national requirement for the award: C plain with
+a C in English or Kiswahili, a C in Biology and a C- in one science, over three
+years.
+
+So the record rests on the **Ebukanga KNEC precedent** - a qualification-level
+fact about a named award is a legitimate source where the institution publishes
+none - and the note says so on the card in those terms, because a reader should
+know which half of what they are reading the school itself stands behind. The
+three other mission colleges here all publish C plain for the same award, which
+is corroboration of the award bar rather than of this school's.
+
+**Its only published figure is an application fee**, and that is the Chogoria
+meals charge in a new costume: a real number, genuinely published, and not the
+thing the fee field asks about. Ksh 1,000 to apply is not what it costs to
+train.
+
+**The sixth school closes the recorded leads, and it is the one that is NOT more
+open than KMTC.** Catherine McAuley Nursing School, inside The Mater
+Misericordiae Hospital in South B, Nairobi, run by the Sisters of Mercy since
+1972, publishes **C+ with a C+ in English, Biology and Chemistry** - the same
+bar KMTC asks - and admits a maximum of 20 trainees. Every other school in this
+category was listed partly because its bar is lower than KMTC's, and the note
+says outright that this one's is not. **A category is not a thesis**: if five
+records support a pattern and the sixth does not, the sixth is recorded as it
+is, not omitted for spoiling it.
+
+Its fee is the clearest case yet for the reporting paragraph: Ksh 60,000 to
+100,000 a semester is a 67 per cent spread with no published semester count
+behind it, so nothing is written - and a reader ringing the school now knows the
+order of magnitude and knows to ask whether that range is per programme or per
+year, which is the question the range itself raises.
+
+**All five mission-hospital leads recorded in this file are now worked**: Tenwek,
+Chogoria, Maua, PCEA Kikuyu and the Mater, alongside AIC Kijabe which opened the
+category. Six schools, eight records, **not one of them carrying a fee** - which
+is the honest summary of the category and the reason the note on every card
+names the phone call as the route.
+
+**And the payload guard caught this category, correctly.** The first version of
+these six notes ran 2,100 to 2,700 characters each against a catalogue mean of
+about 950, and `data/courses.js` crossed the bytes-per-course budget at 125.4
+against 125. That guard exists for exactly this - *adding courses is the project;
+each record getting fatter is not* - and the temptation was to raise the ceiling
+by a rounding error, which this file separately calls headroom for the next
+regression to hide in.
+
+The notes were cut instead, by roughly a third, and the cut improved them: what
+went was the discursive explanation of *why* a rule was applied, which belongs
+here rather than on a card a learner reads on a phone. What stayed was every
+fact - the bar, the basis it rests on, the reported figures, the excluded
+programmes and the missing fields. **A provenance note is not the place to
+argue the provenance rules**, and a byte budget is a reasonable thing to be
+reminded of that by.
+
+**One record carries a null duration on purpose.** The KRCHN is published at
+three and a half years and is recorded at 42 months - the second record in the
+catalogue to carry the longer figure from its own source, after Kijabe, and the
+estate-wide 36 months is still flagged rather than settled. The Diploma in
+Clinical Medicine and Surgery publishes a September intake and **no length**.
+This catalogue records 36 months for that award elsewhere because those
+institutions publish it; transferring the figure here would assert an
+institution fact nothing sourced supports, which is the Ebukanga *Fitting and
+Turning* ruling in the duration field rather than the fee field.
+
+## Fees are the most important thing after the course itself
+
+The maintainer's instruction, and it reorders the priority list written one
+section above: **fees come before depth.** With it came the number that makes
+the case - **14 of 1,027 courses carried a fee the institution itself publishes
+for that course**, plus 294 worked out by applying a published rate - and the
+instruction to *provide verifiable guidelines rather than no information at
+all.*
+
+**The 14 cannot move from here, and saying why is not an excuse.** `fee_observed`
+means someone read that total off the institution's own schedule for that
+course. This build cannot open a schedule: every host is egress-blocked and
+WebSearch returns a summary of a page, not the page. That is exactly why the
+Strathmore LLB total is priced and NOT observed. So the honest position is that
+the observed tier is capped by the environment, and the tiers that can move are
+the sourced ones - which went 421 records with a figure, and the KEWI diplomas
+are what moving one looks like.
+
+**KEWI is the shape to look for.** The Kenya Water Institute publishes a Diploma
+Fee Structure on its own domain: Year 1 Ksh 80,300, Years 2 and 3 about
+Ksh 70,600, **grand total Ksh 221,500**, corroborated by three independently
+phrased searches, the last naming no figure at all. The record here said the
+institute *publishes no fee structure that could be confirmed* - which had
+become false. **A note asserting an absence is a claim, and it goes stale like
+any other**; re-read the ones that say a source does not exist.
+
+**And the fee correction dragged a duration correction with it.** The record said
+24 months; KEWI publishes a three-year KNQF Level 6 diploma, and the fee
+structure is itself broken into Year 1, Year 2 and Year 3 - the length
+corroborated from a second and independent angle. Applying a three-year total to
+a two-year record would have been right in the fee field and wrong on the card.
+**When a published total arrives in years, check the years.**
+
+### What a fee-less card can say without inventing anything
+
+740 records carry no figure and the card said so and stopped. Read by someone
+deciding where to apply, "not shown" is indistinguishable from *there is nothing
+to know* - and for **459 public-university degrees that is plainly false**: the
+SCFM band shares are published, they are percentages of the course cost, and a
+reader who knows their band can work out their own number.
+
+`feeGuidance()` in `js/decide.js` now names the **published instrument that
+governs the price**, per fee regime:
+
+- **Public university** - the band shares, household nothing in Band 2 up to
+  about 40% in Band 5, and the point that follows from them: a cheaper
+  programme costs you less in shillings at the same band.
+- **Private** - you can take the HELB loan but NOT the government scholarship,
+  so the same band leaves far more with your household.
+- **Consolidated public TVET** - the Ksh 67,189 published annual fee, and the
+  capitation reading that says you are not asked for all of it.
+- **Everything else** - the three questions that turn a quoted rate into a
+  price: which award, what period, how many of them.
+
+**It is the tier-benchmark architecture applied to a METHOD rather than to a
+median** - shown at render time, never written. `total_fees_kes` stays null, the
+fee basis does not move, the five-way partition is untouched, and
+`tests/provenance.test.js` asserts all of that plus one more thing: the
+percentages are **read from `SCFM_HOUSEHOLD_SHARE` in `data/funding.js`**, which
+carries its own source line, rather than typed into the renderer. A guard bans a
+hardcoded band percentage in `js/decide.js` outright, because a number typed
+there cannot be traced to anything.
+
+**And the byte guard paid for the whole change.** It failed on the Maseno batch,
+and measuring rather than trimming found the real load: **the same SCFM
+explainer, 647 characters, repeated across 442 records - 286,000 characters of
+one national instrument stored 442 times.** With the card rendering that
+instrument from one sourced constant, the prose no longer had to be in the
+notes at all. Stripping it took the mean note from 992 to 956 characters and put
+the budget back inside its ceiling.
+
+**The strip was done per record and not by regex**, because two checks said a
+sweep was unsafe: 362 of the 442 used older wordings, and **80 carried the
+required absence phrase INSIDE the block that was about to be removed**. Every
+record was re-parsed afterwards and every one still declares which kind of
+absence it is. That is the read-back rule doing the job it exists for, on the
+largest single edit this catalogue has had.
+
+Verified at the reader's end rather than in the source: the Decide route drawn
+in a real browser shows **14 of its first 25 cards carrying guidance**, and the
+functional probe is 49/49.
+
+### And the guidance shipped a defect of exactly the kind it was fixing
+
+The first `feeGuidance()` keyed on `fee_regime` alone, so a **county vocational
+training centre** was told the consolidated public-TVET fee of Ksh 67,189 a year
+governs its artisan course. It does not: that rate is for a college a learner is
+PLACED into by KUCCPS, while a county VTC sets its own far lower county-funded
+charge. The card would have overstated the cost many times over **to the readers
+with the least room** - the exclusionary direction, arriving through the fee
+field this time.
+
+Caught by rendering a Maralal card rather than by the suite, which was green.
+
+**And narrowing the test surfaced an older bug underneath it.** The card's own
+inline predicate matched the word `vocational`, so **"Ebukanga Technical and
+Vocational College" and "Kakrao Technical and Vocational College" were being
+given village-polytechnic advice** - ring the centre, mind the NITA trade test -
+when between them they run 36 KUCCPS-listed programmes on the consolidated rate.
+Match the institution KIND, not a word that appears in both names. The predicate
+is now one shared `isVocationalCentre()` rather than two copies, because two
+copies of a test are two things free to disagree.
+
+**The break-test on it was inconclusive and is recorded as such.** Breaking
+either half alone changes nothing, because each half independently catches the
+case; only breaking both reproduces the original bug. That is worth knowing
+about the guard rather than claiming a clean red-green.
+
+### Four more, and the inverted absence phrase for the fourth time
+
+Kisii +10, Machakos +8, Riara +5, Taita Taveta +5, thin tail 19 to **15**.
+Taita Taveta is worth naming: it is **Kenya's mining university**, a declared
+Centre of Excellence with a School of Mines and Engineering, and its Mining
+Engineering and Mineral Processing degrees have no equivalent anywhere else in
+this catalogue.
+
+**And the Riara notes said "No figure for this programme could be verified".**
+That is the required phrase inverted by one word, reading exactly as though it
+meant the opposite, on five records - the same failure recorded here for
+Lukenya and for the ministry advert. It is the fourth instance. The read-back
+caught it, as it has every time, which is the argument for running it on every
+insert rather than on the ones that feel risky.
+
+**The sector register needed `mineral processing` and `metallurg`** - thirteenth
+instance, and the pattern is now so reliable that the right move is to check the
+guard output before the guard has to tell you.
+
+### The thin tail is closed: no university carries fewer than five records
+
+It was **28** when the audit that prompted this work was run, with three
+universities carrying no degree at all. It is **zero**. The ratchet in
+`tests/university-coverage.test.js` now holds at 0, underneath the single-course
+stub cap that already held there.
+
+**The last two closed the same way, and it is the ruling this file keeps
+re-learning.** Bomet was recorded as carrying two programmes because its own
+listing "is the last thing to be indexed"; Alupe sat as a named lead for
+several passes because a general query returned school names and no programme
+names. Both publish their programmes on their **school** sites - `sbe.buc.ac.ke`
+and `soe.buc.ac.ke`, `ss.auc.ac.ke` - so both closed in one search each.
+**Search the institution's own domain, and when the institution is large, its
+school's.** That is the fourth time, and the corollary holds every time: *a lead
+that names the missing field gets closed; a lead that says nothing found gets
+re-run from scratch.*
+
+Worth naming from the tail rather than the count: **Taita Taveta's mining
+degrees**, **PUEA's occupational therapy**, **Umma's Islamic banking and
+finance**, **AIU's translation and linguistics**, **Alupe's parasitology**, and
+the **D+ certificates at Scott Christian and KAG East** - a chartered university
+made reachable to a reader most degree provision is closed to. A thin tail is
+not a uniform thing; it was hiding the least duplicated provision in the
+catalogue.
+
+### A note that says "this institution publishes nothing" is a claim with a shelf life
+
+Two records this pass said exactly that and both had become false. **KEWI** does
+publish a Diploma Fee Structure - Ksh 221,500 over three years, now recorded.
+**The Railway Training Institute** publishes a term-based one: a Level 6 diploma
+at nine terms, a Level 5 certificate at six, corroborated by two independently
+phrased searches, with hostel at Ksh 19,500 a term.
+
+Neither institution changed. **The catalogue's account of them had gone stale
+and nothing re-reads an absence**, because a guard can check that a missing fee
+says WHICH KIND of absence it is and cannot check whether that is still true.
+Re-read the notes that assert a source does not exist; they are the only claims
+here with no expiry and no guard.
+
+**RTI is not priced even so, and the reason is instructive.** Its per-term
+figures come with the source giving the diploma Term 1 as Ksh 38,600 - the
+figure it separately gives for a HIGHER diploma - so it contradicts itself
+inside one paragraph, and a Term 1 charge usually carries one-off costs, so
+multiplying by nine would overstate the course. The structure is reported and
+no total is written.
+
+**And its duration was deleted rather than converted.** The record said 24
+months; RTI publishes a term COUNT, and turning nine terms into months needs
+the number of terms in its academic year, which is not published anywhere
+reachable. Three terms a year is the common pattern and "common pattern" is not
+a citation - it is exactly the reasoning that put twelve months on every artisan
+record. The field is null and the note says nine terms.
+
+### Morendat is priced, and a standing instruction stopped being stored 226 times
+
+**MIOG publishes an annual tuition of Ksh 71,700**, corroborated by two
+independently phrased searches along with the five programmes it placed on the
+KUCCPS portal and their entry bars - C- for the three-year diplomas, D plain for
+the two-year certificate. An annual institution-wide rate scales to a named
+award the way a per-institution RANGE never can, so those five are listed and
+priced: Ksh 215,100 for a diploma, Ksh 143,400 for the certificate.
+
+**The institute's own pipeline-technician awards are NOT priced from it**, and
+that restraint is the point: both sources attach the rate to the KUCCPS-placed
+programmes, the older records' entry bars do not match the published ones, and
+assuming they are the same product is how a figure ends up on the wrong award.
+The rate is reported on those cards with the question to ask.
+
+**And the byte guard found another standing instruction stored per record.**
+*Confirm the programme code and the current cluster cut-off on the KUCCPS
+portal* was written into **226 notes in six slightly different wordings** - which
+is how one instruction becomes six claims free to drift. It is a property of the
+placement system rather than of any course, so it now renders once on every
+university degree card, including the several hundred that never carried it.
+Mean note 967 to 946.
+
+That is the second time in two days that the byte guard has pointed at a
+**category error rather than at bloat**: a fact about the national system was
+being stored as if it were a fact about a course. Ask that question whenever it
+fires on a sentence that appears in more than a handful of notes.
+
+### The third and fourth copies of the same national facts
+
+Stripping the SCFM explainer from 442 notes earlier caught the wordings that
+existed then. Measured again, **two more variants had survived by phrasing** -
+one at 388 characters across 131 records, another KUCCPS confirmation sentence
+across 89 - because the sweep matched text rather than meaning. Both are now
+the single canonical sentence or rendered on the card.
+
+**Mean note 992 to 913 across the day, with no fact removed from any record.**
+Everything cut was a statement about the national system - how the SCFM works,
+where to check a cut-off - stored as though it were a fact about a course.
+
+The rule worth keeping: **when the byte guard fires, look for a sentence that
+appears in dozens of notes before looking for a note that is too long.** Four
+times out of five this week the answer was a category error rather than
+verbosity, and each fix improved the copy as well as the bytes.
+
+**Kenya School of Agriculture** was corrected in the same pass and is not a byte
+story: its diploma ran at 24 months here against the school's own published
+three years, and its craft certificate at 12 months against nothing at all -
+that field is now empty with the module count stated instead. Its campus list
+also disagrees with the school's own, which names Wambugu, Thika, Nakuru,
+Ainabkoi and Ugenya where this catalogue holds Wambugu, Ugenya, Ainabkoi and
+Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current
+list; the notes say so rather than the register quietly disagreeing with its
+source.
+
+### The accessibility sweep caught the fee guidance, and it is a repeat
+
+The two links the guidance added - *how the bands work* and the *KUCCPS portal* -
+sit mid-paragraph on a course card, and axe flagged **link-in-text-block four
+times** the moment they shipped. This file already records that exact failure
+from the landing page's sources paragraph, with the fix written down: **in
+running prose the underline IS the affordance, not decoration.**
+
+Two things worth keeping. The unit suite was green through it and the browser
+sweep was not - which is this file's oldest lesson arriving again. And the
+selector is written against `.course-card p a` rather than against the two
+paragraphs that happen to carry links today, because **the property belongs to
+prose containing a link, not to a component**: writing it narrowly is what
+guarantees the third instance.
+
+Sweep back to **72 states, 0 violations**; probe 49/49.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who
@@ -3010,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1027 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1279 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1027 notes contains a comma or a quote and the
+  optional: **every one** of the 1279 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -3384,3 +4447,629 @@ git push --force-with-lease
 ```
 
 Then re-run the full suite. A clean rebase is not evidence of clean code.
+
+## Re-reading an absence: what the stale-absence sweep is actually for
+
+558 records assert that a source does not exist. This file already names them as
+the only claims here with no expiry and no guard, and the sweep now has three
+passes behind it — KEWI and RTI, where the claim had simply *become false*;
+MIOG, which yielded a published rate; and EASA, which yielded neither and was
+still worth the two searches.
+
+**EASA is the useful shape, because nothing was written and the note improved
+anyway.** Thirteen records rest on one shared note. It said *"Published 2026
+figures give a diploma range of roughly Ksh 115,950 to 226,700"*. Two
+independently phrased searches, neither seeded with a figure, agree that there
+are **two** schedules and not one — KNEC diplomas over three terms at about
+115,950 to 158,450, and EASA's own diplomas over one or two years at about
+120,500 to 180,500, with IATA on a third schedule — and both date them to
+**2023/24**, not 2026.
+
+So the note was wrong twice about its own provenance while every figure in it was
+real. The quoted 115,950–226,700 span is the KNEC band's floor joined to the
+price of a *separately priced six-month Aircraft Maintenance Licence course* —
+two documents read as one range, which is how a band ends up spanning nearly two
+to one and looking like a schedule. And "2026" overstated a three-year-old
+reading, which is the perishability warning this file applies to dates
+everywhere else, arriving inside a note about fees.
+
+**A figure being genuinely published is not the same as the note describing
+where it came from.** The reporting paragraph exists to say what research turned
+up; it inherits the discipline of everything else here, so the *year* and the
+*document* are part of the claim, not decoration. Re-reading an absence is worth
+doing even when it stays an absence, because the reported band is a claim with
+the same shelf life as a fee.
+
+The rewritten note names the three schedules separately, says none of their
+durations matches the length on the card, and tells the reader to ask which
+schedule their programme sits on — a sharper phone call than a single invented
+span could produce. It also lost the paragraph arguing *why* a midpoint is not a
+fee, which belongs here and not on a card a learner reads on a phone; that cut
+paid for the added facts and the note came out shorter.
+
+**And the discursive cut was not the only thing the pass bought.** Don Bosco
+Karen's note told the reader to "ask admissions" and gave no way to; its centre
+publishes two numbers. CITC Mombasa's note inferred open artisan entry from the
+KCPE route, and the centre in fact **publishes the Konoin ladder verbatim** —
+C- for diplomas, D plain for certificates, other categories open — so the
+inference is now a published statement. **A note that says ring them should say
+what to ring**, and an entry claim resting on an inference should be upgraded
+the moment the institution states it outright.
+
+**The seventh course at CITC Mombasa was found by the fee search, not by a
+coverage one.** Its listing names Grade III-I Motor Vehicle Mechanics (NITA)
+alongside the KNEC Artisan in Motor Vehicle Mechanics, and this catalogue held
+only the second — while already carrying *both* variants for electrical, which
+is what shows the omission was an accident rather than a ruling. Course identity
+is (name, institution) and these are two named awards from two examining bodies,
+so it earns its own row. Corroborated by a second search naming no course.
+
+Its `duration_months` is null, and that is the Kakrao ruling rather than a gap:
+NITA publishes no single artisan duration, this catalogue's own Grade III-I
+records run 15 months at one institution and 24 at another, and without a
+duration the consolidated rate cannot be scaled — so the fee goes too. **Two
+institutions in this catalogue disagreeing about one award's length is the
+evidence that no national figure exists**, and it is sitting in the data rather
+than in a source.
+
+**The guard caught the record the sweep almost got right.** `artisan entry
+grades reflect what each institution publishes` failed on it: the new note
+carried the provenance of the award and the fee and dropped the sentence
+explaining *why* entry is open, which the six records beside it all carry. The
+record claimed the floor with no evidence for the floor — exactly what that
+guard was rewritten to assert after the variety-count proxy failed on data that
+had got better. Copying a record's neighbours is not the same as copying their
+reasoning.
+
+## The repo contradicts itself about five fees, and the sweep found it sideways
+
+Looking for a *fee* at the two county vocational training centres turned up
+neither a fee nor an absence, but a **disagreement inside this repository**.
+
+`isVocationalCentre()` exists because `feeGuidance()` told a Maralal card that
+the consolidated public-TVET rate of Ksh 67,189 governs its course. That ruling
+is written up above in these words: *the rate is for a college a learner is
+PLACED into by KUCCPS, while a county VTC sets its own far lower county-funded
+charge*, and the card would have *overstated the cost many times over to the
+readers with the least room*.
+
+**Five records at those same two centres carry 67,189 in `total_fees_kes`** —
+c281, c287 and c298 at Kitale, c289 and c300 at Maralal, all CDACC Level 5
+certificates, all `derived` from that rate because both institutions are set to
+`fee_regime: 'tvet_consolidated'` in the register.
+
+So the card is forbidden to *mention* a rate that the catalogue *displays as a
+number* for the same institution. Guidance is prose a reader weighs; a figure in
+the fee field is what they budget against, so if the ruling is right this is the
+worse half of the same defect — and it is the half nobody looked at, because the
+fix was written where the bug was noticed.
+
+**It is NOT being resolved here, and the reason is the part worth keeping.**
+The ruling and the register can both be defensible: a CDACC **Level 5**
+certificate is a craft qualification above the artisan tier, and a KUCCPS-placed
+Level 5 trainee plausibly does sit on the consolidated rate *even at a centre
+whose Grade III-I trades do not*. If that is so, these five records are right and
+`isVocationalCentre()` is too blunt an instrument — it keys on the institution
+where the distinction may belong to the programme. One search failed to settle
+it, and a fee touching five cards is not a thing to flip on an inference.
+
+Two things follow, and the first is the general one:
+
+- **A ruling applied at one site is not applied at the others.** The VTC
+  distinction was written into the renderer and never checked against the data,
+  so the sweep for it should have been the same commit. Whenever a predicate is
+  added that says *this rate does not apply here*, grep the catalogue for that
+  rate at those institutions before closing the change.
+- **The question to settle is narrow and it should be asked as such**: does the
+  consolidated rate follow the KUCCPS-placed PROGRAMME or the institution TYPE?
+  Everything else here follows from the answer. That is a closable lead in the
+  Alupe sense, not a dry search.
+
+**And one figure was refused inside the attempt.** A source gave the 67,189 as
+including a Ksh 30,000 government capitation and *"leaving a balance of
+Ksh 26,420"*. 67,189 minus 30,000 is 37,189. Two numbers in one sentence that do
+not reconcile is the Bungoma self-contradiction in arithmetic, so neither was
+written — and the capitation reading the guidance already gives is the safer
+form of the same fact.
+
+**Kitale's note gained a phone number and Maralal's gained nothing**, which is
+the honest split: the first publishes one, the second publishes only a post
+office box, and a PO box is not a route a school-leaver can use this week.
+Maralal's note was already the more complete of the two — licence number,
+registration date, the 20-trainee caps, and the NITA trade test being charged
+separately — and the search corroborated every part of it without adding one.
+**A re-read that confirms a good note is a result, not a wasted search.**
+
+## The check-in's own priority list was stale, and re-running it was the instruction
+
+The scheduled check-in fires with the standing priority order, and its first
+item named **21 universities carrying fewer than five records**. Re-run as that
+same instruction requires — *the audit is one script and should be re-run rather
+than assumed* — the answer is **zero**: 65 universities, none under five, none a
+single-course stub, `MAX_THIN` already ratcheted to 0.
+
+Priority 1 is closed and the trigger did not know. That is this file's drift
+rule arriving in a new place: **a prompt is a document and it goes stale like
+any other**, and the cheapest possible waste is a session re-deriving a list
+that was closed two passes ago. The trigger says re-run rather than assume for
+exactly this reason, so the instruction protected itself — but only because it
+was followed. Read the audit, not the list in the prompt.
+
+### Priority 2, measured rather than guessed
+
+*Programme families absent from the whole catalogue* is the second call, and the
+right instrument is a probe rather than intuition: 94 candidate family words
+against every course name found **43 with zero records** — among them
+radiography, prosthetics and orthotics, speech therapy, anaesthesia, baking and
+pastry, sign language, panel beating, spray painting, upholstery, tiling,
+glazing, roofing and driving instruction.
+
+Two readings of that list, and the second is the more useful:
+
+- **Radiography is a whole regulated health profession and the catalogue had no
+  route into it at all** — the same shape as the physiotherapy, pharmacy and
+  optometry gaps this file already records approvingly. **JKUAT's Bachelor of
+  Radiography** closes it: the university's own College of Health Sciences
+  listing, corroborated by a second search naming no grade, four years, C+ mean
+  with a B- in Physics and Biology beneath it. The award is *Bachelor of
+  Radiography* and not *BSc Radiography* — JKUAT's own pages carry the former
+  and an aggregator the latter, which is the TUM Bachelor-of-Engineering
+  correction applied before it became an error.
+- **The building-finishing trades are the bigger absence and they are artisan.**
+  Panel beating, spray painting, upholstery, tiling, glazing, roofing and
+  baking are NITA and KNEC trades taught widely, open at the bottom of the grade
+  range, and this catalogue holds none of them. That is a family gap sitting
+  exactly where the core reader stands, and it is recorded here as the next
+  pass rather than worked in this one.
+
+**And the sector register did not need a word, for once.** `radiograph` and
+`imaging` were added to the health pattern *ahead of the data* when the KMTC
+work made it obvious those courses were coming. The new record resolved to
+Health and care on the first try. Widening a pattern before the course arrives
+is cheaper than the eleventh failure, and this is the first time that bet paid.
+
+### The byte guard fired on the fifth category error, and it was the largest yet
+
+One record cannot move a mean across 1,258, so the guard tripping on this insert
+meant something was already at the ceiling. Measured rather than trimmed, as
+this file now requires:
+
+- **433 records** carried *"…so no fee is shown - see the funding note on this
+  card for what you would actually be asked for."* — 72.3KB of one sentence
+  pointing at a panel that `feeGuidance()` already renders live on the same
+  card. The pointer outlived the reason for it.
+- **131 records** carried *"What a household actually pays therefore depends on
+  assessed circumstances rather than on the programme"* — a third surviving
+  fragment of the SCFM explainer, after two earlier sweeps caught the wordings
+  that existed then.
+
+**The trap this file warns about was live in the big one.** That 433-record
+sentence *contains* the required absence phrase, so deleting it wholesale would
+have stripped `does not publish` from a third of the catalogue — precisely the
+failure recorded when 80 records carried the phrase inside a block about to be
+removed. Only the tail was cut and the phrase kept, verified by re-parsing all
+1,258 records and finding **zero** without an absence phrase.
+
+Mean note **914 to 877**, no fact removed from any record. That is the fifth
+time the byte guard has pointed at a national fact stored per course rather than
+at a verbose note, and the rule is now simply the default: **when it fires,
+measure the most-repeated sentences before reading any single note.**
+
+### The next absent category: NITA's own training centres
+
+The building-finishing and food trades measured as absent, and working them found
+something one level up. **Eight institutions in this register use NITA as an
+examining body — CITC Nairobi and Mombasa, YMCA, Don Bosco, Kitale VTC, Kilifi
+Saidia, Kisii National Polytechnic, Kakrao — and not one of NITA's OWN training
+centres is listed.** NITA Nairobi, NITA Athi River, NITA Mombasa, NITA Kisumu and
+the NITA Textile Training Institute are government centres training at exactly
+the artisan band this project exists for.
+
+That is the mission-hospital finding again, and by the same instrument: searching
+the register for a **kind** of provider rather than for a name. *A category with
+no examples returns nothing from a list you never thought to consult* — and here
+the near-miss is sharper, because the register is full of the word NITA while
+holding none of the institutions.
+
+**It is a lead and not a record, and the missing field is named.** Two
+independently phrased searches of nita.go.ke agree on NTTI — Commercial Street,
+Industrial Area, Nairobi — and on **Garment Making**. Everything else arrives as
+a *section* (Leather Technology, Upholstery) or a **value-chain area** (spinning,
+weaving, processing), and *a named department is not a named course* has refused
+a dozen records here already. What is missing is the **award name and its level**
+for each, and both sit in NITA's own course brochure, a PDF on its domain — the
+yield floor exactly as this file defines it, not a search nobody ran.
+
+Two figures that would have been written carelessly, and were not:
+
+- **Entry is open.** NITA's artisan requirement is *"a KCPE certificate or
+  equivalent"*, which is the Sigalagala either/or for the ninth time: a
+  certificate is an alternative to a mean grade, not an addition, so an E clears
+  it. That much is safe to carry into the records when they are written.
+- **The duration cannot be.** *"Up to five terms"* is a range whose
+  terms-per-year is published nowhere reachable — the Railway Training Institute
+  ruling in the same field, where a term COUNT was deleted rather than converted
+  into months on the common-pattern assumption that put twelve months on every
+  artisan record.
+
+Do not re-run the trade-name searches; they are done and their result is above.
+The closable step is the brochure, which is a phone call or an email to NITA.
+
+### The building-finishing trades did not close, and two leads are named
+
+Worked, and the result is the yield floor rather than records. Two institutions
+were confirmed and neither yielded one:
+
+- **Beacon Technical Training College** (Nairobi, TVETA-accredited, a KNEC *and*
+  NITA examination centre) publishes **Artisan in Painting and Decoration** on
+  its own domain — and that is a family this catalogue already holds. A second,
+  differently phrased search confirmed the college in detail and **named no
+  course list at all**. Its entry bar surfaced only as a generic artisan
+  requirement that contradicted itself across two sources — E in one, D plain in
+  the other — never as something the college states about itself.
+- **Nachu Technical and Vocational College** names an Artisan Certificate in
+  Plumbing Pipe Fitter, and plumbing is already eight records here.
+
+So both are **confirmed institutions whose one named course closes no gap**, with
+no institution-specific entry bar, no duration and no fee. One record each would
+add a row and answer nothing. The missing field for both is a **published course
+list on the college's own domain**, which is what makes these closable leads
+rather than dry searches.
+
+**The absent trades are absent for a structural reason, not a search reason.**
+Tiling, glazing, aluminium fabrication, roofing, panel beating, spray painting,
+upholstery, baking and pastry are overwhelmingly **NITA trade tests and county
+VTC courses**, and both of those publish course lists as PDFs or not at all —
+which is the same wall the NITA brochure sits behind one section up. The
+aggregators that carry artisan listings carry the KNEC-examined trades well and
+the NITA-examined ones barely.
+
+That is worth stating because it changes what would close this family: not more
+county searches, but **one document** — NITA's course brochure — which would
+close the trades, the awards and their levels together. Do not re-run the trade
+searches; three phrasings are now recorded as done.
+
+## Told to focus on the universities, and the ratchet was hiding the thin end
+
+The maintainer's correction, the second time in two days and the same one:
+*focus on the universities, you are too obsessed with TVETs and Es and Ds.* It
+is exactly right, and the mechanism is this file's own warning again — I had
+spent the pass on artisan trades, NITA brochures and county VTCs.
+
+**The thin-tail ratchet said the university side was closed and it was not.**
+`MAX_THIN` sits at 0, so no university carries fewer than five records and every
+guarded number reads green. Measured properly — sorted ascending, against the
+*median* rather than against the floor — the university median is 10 and the
+thin end is full of the names a school-leaver actually types: **Strathmore 8,
+Daystar 7, USIU-Africa 6, CUEA 6**, alongside Zetech, Amref, Tom Mboya and
+Murang'a at 5.
+
+That is the stub-cap lesson for the third time. A floor of five is not depth,
+and a guard that can only see the floor will report success while the
+most-searched private universities in the country answer with six rows. **Sort
+by count and read the top of the list; do not ask whether the ratchet passed.**
+
+**Strathmore held eight records and not one of them was actuarial science** —
+the programme it is best known for in Kenya and benchmarked to the UK Institute
+and Faculty of Actuaries. Its Bachelor of Business Science runs as three named
+specialisations, all three now listed: **Actuarial Science, Financial Economics
+and Financial Engineering**, corroborated across the university's own Institute
+of Mathematical Sciences pages, its undergraduate prospectus and a second search
+that named no grade.
+
+Entry is **B-**, recorded as published rather than softened to the C+ that opens
+most degree cards here. That bar is stated explicitly for the actuarial
+specialisation and is the university's general undergraduate minimum, with
+strong Mathematics and English on top and an entrance examination and interview
+for every candidate who clears it — so the note says the grade alone does not
+secure a place, which is the Strathmore treatment this file already prefers.
+
+**No fee, and the reason is the useful half.** Strathmore prices per programme
+rather than per institution, and the only total this catalogue has ever sourced
+to the shilling there is its LLB. The note says so and tells the reader to ask
+whether a quoted figure is per semester or for the whole course — the question
+the per-programme shape itself raises.
+
+**And the sector register held, which is worth recording because the near-miss
+was live.** *Financial Engineering* is precisely the shape that gets pulled into
+the engineering pattern the way `electric` once missed *electronics* and
+`physiolog` missed *physiotherap*. All three resolved to Business, finance and
+accountancy on the first try. Checking the mapping on insert is now cheap enough
+that there is no excuse for finding out later — and the one time it fails
+silently is when a course matches the WRONG sector, which no guard can see.
+
+Still thin and named, so the next pass starts here rather than re-measuring:
+**USIU-Africa (6), CUEA (6), Daystar (7)**, then Zetech, Amref, Great Lakes
+Kisumu, Murang'a, Tom Mboya, MUA and IUK at five.
+
+### USIU-Africa: a subject grade in the mean-grade field, for the second time
+
+USIU was next on the thin list at six records, and deepening it found a defect
+rather than only a gap. **This file recorded a ruling that USIU-Africa publishes
+B- for direct KCSE entry — "the first record here above the national minimum" —
+and that is a cluster-SUBJECT grade written into the mean-grade field.**
+
+Two independently phrased searches, both citing USIU's own admission and
+entrance-requirements pages, give the general undergraduate bar as an
+**aggregate KCSE mean of C+**, with cluster-subject minima on top — Mathematics
+and English at B- for several programmes — and B- as the *programme-specific
+aggregate for Bachelor of Pharmacy*, alongside C+ subject minima in Maths or
+Physics, English or Kiswahili, Chemistry and Biology.
+
+So B- was real and was the wrong field, which is precisely the 44-record KMTC
+certificate error — D+ in Biology recorded as the mean — arriving at a private
+university. **It runs in the exclusionary direction**: six USIU cards were
+hidden from C+ learners who meet the published bar, on a university most of them
+would want to see. All six are corrected to C+ with the subject requirement in
+the note, which is the CUEA ruling applied exactly.
+
+Worth naming as a habit rather than an incident: **the prior ruling was written
+confidently and was wrong, and nothing re-reads a recorded entry grade.** A
+guard can check that a grade is in the valid set; none can check that it came
+out of the right row of the source. Ask, of any bar above the national minimum,
+whether it is the aggregate or a cluster subject — that is now two instances and
+both were found by re-reading rather than by a test.
+
+**Five programmes added**: BSc Accounting, BSc Finance, BSc Hotel and Restaurant
+Management, BSc Software Engineering, and **Bachelor of Pharmacy** at its own
+published B- with the Pharmacy and Poisons Board competition stated beside it.
+USIU 6 to 11.
+
+**BSc Artificial Intelligence and Robotics is deliberately not recorded.** It is
+named once, flagged "New!", on the School of Science and Technology's own list,
+and the second search did not repeat it. A programme announced as new and named
+by one source is the current-versus-planned test this file already applies to
+KMTC campus lists; it is a lead, not a row.
+
+**And the absence phrase failed on a paraphrase for the fifth time.** The new
+notes said *"none could be verified"* — which is not the literal
+`could not be verified`, and reads as though it means the same thing. The
+read-back caught all five before the commit, as it has every time.
+
+**The byte guard then fired on the sixth category error.** Two sentences of
+standing instruction about how to read a reported fee band — *"None of these is
+recorded as this course's fee and Njia does not stand behind any single one of
+them…"* plus *"Treat it as a bracket to check against, ask which AWARD…"* — sat
+on **92 records each, about 35KB** of one reporting convention stored per
+course. Compressed to a single canonical sentence keeping every fact: mean note
+880 to 861. Six times running the guard has pointed at a national or conventional
+fact stored per course rather than at a verbose note.
+
+### CUEA, and philosophy had been filed under Health and care
+
+CUEA 6 to 10: **BSc Nursing, BSc Community Health and Development, BA Philosophy
+and BSc Library and Information Science**, each named on the university's own
+bachelors listing and corroborated at a second grain by its published faculty
+structure — theology, arts and social sciences, education, science, law and
+library and information science, with schools of business and of nursing. *A
+faculty is not an award*, so neither grain would have done it alone; together
+they attribute, which is the Meru medical-engineering shape.
+
+Entry is the published C+ aggregate, and the note repeats the ruling this file
+already made about CUEA: its separate **D+ floor reaches certificate and diploma
+entry, not a degree**, so it must not be read as the degree bar. Nursing carries
+the Nursing Council subject requirements and competition beside the C+, the
+Strathmore treatment.
+
+**And printing the sector on insert caught a defect that was already shipped.**
+`philosoph` sat inside the **Health and care** pattern, so *Bachelor of Arts in
+Philosophy* resolved to health — at CUEA and at Lukenya, where it had been
+sitting wrong since the day it was listed.
+
+That is the theology-in-Law error exactly, and this file records the cause:
+philosophy "matched no sector", so the vocabulary was widened — into whichever
+pattern was nearest rather than the one that fits. **The fix for a course with no
+sector is the right sector, not the nearest one**, and a word added to close a
+gap is a word that will silently misfile everything else matching it. Moved to
+Languages, humanities and religious studies alongside theology, with `ethic`
+added for the same family; no course is left without a sector, which is the
+check that proves the narrowing stranded nothing.
+
+The habit that found it is cheap and should stay: **print the resolved sector
+for every new record at read-back time.** A guard can see a course with NO
+sector; nothing sees a course with the WRONG one, and both instances so far were
+humanities words sitting in services patterns.
+
+## Daystar +9, and a teaching award had been filed by its subject
+
+Daystar University held seven records, all C+ degrees and all of them arts and
+social science, while its own academic-programmes listing names a School of
+Science, Engineering and Health, a School of Nursing and a music department.
+Nine records added on two independently phrased searches, the second naming no
+programme and no grade: economics, actuarial science, nursing, environmental
+health, biomedical science, physics, BA Music, BEd Music and BEd Mathematics.
+
+**Biomedical science had no record anywhere in the catalogue**, which makes it
+one of the 43 family gaps the priority-2 probe measured. **BA Music and BEd
+Music are the first degree-level music records here** - the only music provision
+listed was a single production diploma.
+
+**Its nursing bar is published beneath the mean grade and is recorded that
+way.** Daystar asks a C+ mean with a C+ in Mathematics or Physics, in
+Biological Sciences and in English, and two principal passes in Chemistry and
+Biology from A-level candidates. `min_grade` stays the C+ mean the card filters
+on and the subject set goes in the note - the CUEA and DeKUT ruling, and the
+opposite of the USIU defect corrected one pass ago, where a cluster-subject
+grade had been written into the mean-grade field.
+
+**Its fee is still not written and the reporting paragraph is why the pass is
+not a loss.** The Daystar refusal already recorded here - two readings of one
+2025/26 document giving Ksh 5,650/6,410 against Ksh 6,640/7,380 per credit hour
+across 129 credit hours - is now on the cards rather than only in this file, so
+a reader ringing admissions knows the order of magnitude and knows which
+disagreement to put to them.
+
+### The sector register was filing teaching degrees by their subject
+
+This is the find of the pass and it points inward, exactly as the theology case
+did. `sectorForCourse()` is first-match-wins over an ordered array, and
+`business` sits ahead of `education`. So **Bachelor of Education (Mathematics)
+resolved to "Business, finance and accountancy"** - because the business
+pattern holds `mathematic` - and **Bachelor of Education (Business Studies)**
+with it, while **Bachelor of Education (Guidance and Counselling)** and
+**Bachelor of Education (Arts) with Guidance and Counselling** resolved to
+"Health and care". Three of those four were already shipped.
+
+**Every previous sector defect in this file was a missing word or a missing
+category. This one is neither**: education's pattern matches all four names
+perfectly well, and never got the chance. *Order matters* is written into this
+file's own comment above `SECTORS` and was reasoned about only for the pairs
+someone thought of - maritime before transport, aviation before engineering.
+
+The fix is not to reorder the array, which would move things nobody measured.
+**A teaching award belongs to education whatever subject it names**, so
+`sectorForCourse()` now tests the award shape first - `bachelor|master|diploma|
+certificate of/in education`, or `education (` - and returns the education
+sector directly. Deliberately narrow: the eight *Bachelor of Science in
+Agricultural Education and Extension* records stay in Agriculture, which is
+where they belong, and they are the check that the rule is not swallowing the
+word rather than the award.
+
+**And the only reason it was found is that the read-back now prints the
+resolved sector for every new record.** That habit was added two passes ago
+after philosophy turned up under Health and care; it has now caught a defect in
+each of the three passes since. A course with no sector announces itself. A
+course with the wrong one never does, so print it.
+
+## The parked VTC question, settled: the rate follows the INSTITUTION, and two other sites were live
+
+This file parked a narrow question and said it was closable rather than dry:
+*does the consolidated Ksh 67,189 rate follow the KUCCPS-placed PROGRAMME or
+the institution TYPE?* Two independently phrased searches, neither naming a
+figure, settle it as the institution - and the reason is not about programmes
+at all, it is about **who has the power to set the fee**:
+
+- The Ministry's **May 2026 standardisation directive scopes itself** to
+  national polytechnics, technical training institutes, institutes of science
+  and technology and vocational colleges. That is the national estate.
+- **Vocational training is a DEVOLVED function** under Fourth Schedule Part 2
+  of the 2010 Constitution, and county governments develop the guidelines
+  determining the fees chargeable in their own VTCs. Village polytechnics were
+  transferred to the counties on promulgation.
+
+So a CDACC Level 5 certificate at a county VTC is not on the national rate no
+matter who placed the trainee, because the county sets that centre's charge.
+`isVocationalCentre()` was right, and the five records deriving Ksh 67,189 at
+Kitale and Maralal were wrong - over-quoting many times over, to the readers
+with the least room, which is the exclusionary direction arriving through the
+fee field. All five now carry a null fee, the absence phrase, and a paragraph
+naming the withdrawn figure and why.
+
+**A new `county_vtc` fee regime carries the ruling in the register**, because
+leaving the two centres on `tvet_consolidated` leaves in place the exact field
+that derived the wrong number - a future pass would re-derive it in good faith.
+
+### And the withdrawal armed a SECOND national figure, larger than the first
+
+This is the part worth the whole entry. `tierBenchmark()` keys on
+`ownership|level` and had no VTC exclusion, so the moment those five fees went
+null the same cards became eligible for the median of every sourced public
+certificate: **Ksh 160,200 - more than double the figure just withdrawn**,
+rendered beside the absence and labelled as typical. Measured, not feared: the
+126 sourced siblings are polytechnics on the national rate and KMTC on its own
+national schedule, and a county VTC is neither.
+
+**That is the third time a ruling written at one site has failed to reach the
+others**, and each time the fix went where the bug was noticed: the guidance
+renderer when a Maralal card was read, the catalogue when the sweep found the
+contradiction sideways, the benchmark only because the fix to the second one
+happened to arm it. The generalisation this file already states - *whenever a
+predicate is added that says this rate does not apply here, grep for that rate
+at those institutions* - was too narrow. **Grep for the rate, then enumerate
+every mechanism that can put a national figure on the card: the fee field, the
+guidance, and the benchmark.**
+
+So the guard asserts all three together on every VTC record rather than one
+each, and all three breaks were watched to fail and restored: the derived fee
+back on c281, `kitalevtc` back on `tvet_consolidated`, and the benchmark
+exclusion deleted.
+
+### The byte guard fired on the seventh category error
+
+**86 records carried 312 characters** of *"KMTC publishes one national fee
+structure across all campuses, so this figure does not depend on which campus
+you attend…"* - 26.2KB of one national schedule stored per course, the seventh
+consecutive time this guard has pointed at a category error rather than at a
+verbose note.
+
+Two things made the cut safe, and both are checks this file already mandates:
+**all 86 carry a fee**, so no absence phrase was inside the block being edited
+- the trap that nearly stripped `does not publish` from a third of the
+catalogue - and the `kmtc` entry in `DERIVATION_SIGNATURES` requires the literal
+*"KMTC publishes one national fee structure"*, so only the tail could be
+compressed. Every fact kept: both figures, the student category, the year and
+the source. Mean note back to 861.
+
+### And Vihiga no longer refutes the blanket certificate row
+
+The Certificate in Community Health Assistant appears at 43 of the 45 KMTC
+campuses here, and this file records the concern as a question two campuses had
+answered in opposite directions: **Marsabit confirms, Vihiga contradicts.** The
+Vihiga half has now dissolved.
+
+Re-asked with the background-and-programmes phrasing that works, the campus
+reports *"At present, KMTC Vihiga offers a single but highly relevant diploma
+course"* - and, two sentences later, *"Additionally, the Vihiga campus also
+offers a Certificate in Community Health Assistant programme."* Both claims,
+one summary. That is the Bungoma self-contradiction exactly, and the rule is
+symmetrical: **a source that contradicts itself attributes nothing, and it
+un-attributes nothing either.** The record stays.
+
+So the blanket row has one campus confirming it and none refuting it, which is
+weaker evidence of a defect than this file previously recorded. The per-campus
+check is still the only way to settle it, and the count of campuses that have
+actually answered is **one**, not two.
+
+**The wider lesson is about how a concern was carried forward.** "Vihiga
+contradicts" was written from a reading that happened to stop before the
+contradicting sentence, and it then sat here for several passes as one of the
+two legs the concern stood on. A worry in this file is a claim like any other
+and goes stale like any other - so when a recorded finding is about to justify
+deleting data, re-run the search that produced it before acting on it, not
+after.
+
+## The Lighthouse band reached 89, proved by a zero-byte control
+
+Three consecutive previews on one branch read **93, 92, 89** — and the last
+step is the useful one, because **the commit that scored 89 changed CLAUDE.md
+and nothing else.** `git diff --name-only` between the 92 and the 89, excluding
+that file, returns **empty**: the served page is byte-identical. A three-point
+drop on a page that did not change by a single byte.
+
+**And a second docs-only commit then landed on top and scored 90.** So the last
+three readings on this branch are **92, 89, 90** across a served page that is
+byte-identical at every step — `git diff --name-only` excluding CLAUDE.md
+returns empty for all three pairings. That is a **three-point spread with zero
+bytes changing**, measured rather than argued.
+
+This file already records a docs-only commit scoring a point ABOVE the reading
+before it, and calls that the cleanest demonstration available that the swing
+is the instrument. Two more controls have now arrived unprompted, and together
+they are stronger than any of the three alone: a single control shows the score
+can move without the payload, a *spread* shows how far. **The recorded 91–94
+band was too narrow.** It reaches at least 89.
+
+The practical consequence is the one worth carrying: **a preview comment
+reporting "down 4 from production" on this project is not, on its own, evidence
+of anything at all.** Two of the three commits that produced these numbers
+shipped nothing a reader could download.
+
+**The bytes were measured before the control arrived, not after**, which is the
+order that matters. Critical path **107.0 → 107.3KB gz** across the whole
+session — 0.3KB, all of it the `TEACHING_AWARD` pattern added to
+`data/sectors.js`. Both files this session changed most are off that path as
+properties, and that was checked rather than assumed: `data/courses.js` is not
+on it and in fact *shrank* 10.3KB when the KMTC sentence was compressed, and
+neither is `js/decide.js`, so the `tierBenchmark` exclusion and its comment put
+**zero bytes** on the page Lighthouse audits.
+
+So two independent lines of evidence agree, and neither needed the other: a
+0.3KB delta cannot move a score this file already establishes could not see an
+11.24KB swing, and the byte-identical control moved three points anyway.
+
+**Do not quote 89 as the new floor.** That is the mistake this file warns about
+everywhere else — the band is a perishable figure and writing a count down is
+how the next paragraph goes stale. What is durable is the method: when a score
+leaves whatever band you remember, measure the critical path first, then look
+for a docs-only commit on the same branch. The second one is free and settles
+it outright.

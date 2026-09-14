@@ -2307,6 +2307,20 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: #E8D8BA; text-decoration: underline; text-underline-offset: 2px;
 }
 .landing-footer-sources a:hover { color: #F5E9D4; }
+
+/* THE SAME DEFECT, THE SAME WEEK, ON A DIFFERENT SURFACE.
+ *
+ * The fee-guidance and KUCCPS-cut-off lines on a course card put links
+ * mid-paragraph - "how the bands work", "KUCCPS portal" - and axe flagged
+ * link-in-text-block four times the moment they shipped, exactly as the
+ * landing-page sources paragraph did. The rule this file already states is the
+ * fix: in running prose the underline IS the affordance, not decoration. The
+ * lesson is that it is a property of prose containing a link, not of any one
+ * component, so this selector is written against the card's text blocks rather
+ * than against the two paragraphs that happen to have links today. */
+.course-card p a, .course-card li a {
+  text-decoration: underline; text-underline-offset: 2px;
+}
 .landing-footer-bottom {
   display: flex; flex-direction: column; gap: 0.5rem;
   font-size: var(--fs-xs); color: #C9B693;

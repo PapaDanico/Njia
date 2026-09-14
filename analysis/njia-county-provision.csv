@@ -1,46 +1,46 @@
 county,institutions,courses,artisan,certificate,diploma,degree,lowest_entry,reachable_at_E,reachable_at_D,reachable_at_C_minus,fee_published_by_institution,fee_sourced_any,fee_absent
 Baringo,3,9,6,2,1,0,Open entry,6,6,8,0,9,0
-Bomet,3,10,2,2,4,2,Open entry,2,3,7,0,8,2
+Bomet,4,20,2,2,6,10,Open entry,2,3,7,0,8,12
 Bungoma,3,20,1,1,2,16,E,1,1,2,0,4,16
-Busia,3,9,2,1,2,4,Open entry,2,2,3,0,5,4
+Busia,3,13,2,1,2,8,Open entry,2,2,3,0,5,8
 Elgeyo-Marakwet,2,4,0,1,3,0,C-,0,0,1,0,4,0
 Embu,3,21,0,1,4,16,C-,0,0,1,0,5,16
 Garissa,3,22,2,4,5,11,E,2,4,7,0,11,11
-Homa Bay,4,14,2,1,7,4,Open entry,2,2,5,0,10,4
+Homa Bay,4,15,2,1,7,5,Open entry,2,2,5,0,10,5
 Isiolo,1,5,0,2,3,0,C-,0,0,2,0,5,0
-Kajiado,4,16,2,1,3,10,E,2,2,5,0,6,10
-Kakamega,5,19,3,4,11,1,E,3,6,15,1,10,9
-Kericho,3,8,1,1,3,3,E,1,1,2,0,5,3
-Kiambu,12,65,5,1,7,52,Open entry,5,5,10,0,6,59
+Kajiado,5,27,2,1,3,21,E,2,2,5,0,6,21
+Kakamega,5,29,3,4,11,11,E,3,6,15,1,10,19
+Kericho,3,15,1,1,3,10,E,1,1,2,0,5,10
+Kiambu,15,107,5,1,10,91,Open entry,5,5,10,0,7,100
 Kilifi,4,20,2,2,10,6,Open entry,2,2,6,0,9,11
 Kirinyaga,3,27,5,8,5,9,E,5,10,13,0,5,22
-Kisii,3,8,2,2,3,1,E,2,2,4,0,6,2
-Kisumu,7,32,9,6,8,9,E,9,12,21,0,18,14
+Kisii,3,18,2,2,3,11,E,2,2,4,0,6,12
+Kisumu,7,49,9,6,8,26,E,9,12,21,0,19,30
 Kitui,2,22,0,1,1,20,C-,0,0,1,0,2,20
 Kwale,2,6,1,3,2,0,Open entry,1,1,4,0,6,0
 Laikipia,3,22,0,7,3,12,D,0,5,8,0,3,19
 Lamu,1,5,0,3,2,0,C-,0,0,3,0,5,0
-Machakos,6,35,0,12,2,21,Open entry,5,11,13,5,20,15
+Machakos,6,58,0,13,4,41,Open entry,5,11,15,5,21,37
 Makueni,2,8,0,1,1,6,C-,0,0,1,0,2,6
 Mandera,2,9,2,4,3,0,E,2,5,8,0,9,0
 Marsabit,2,8,4,2,2,0,E,4,4,7,0,8,0
-Meru,4,29,3,5,4,17,Open entry,3,6,11,0,12,17
+Meru,7,40,3,8,8,21,Open entry,3,6,14,0,18,22
 Migori,3,25,2,3,14,6,E,2,4,18,0,2,23
-Mombasa,6,38,6,7,7,18,Open entry,6,11,19,1,14,24
+Mombasa,7,43,7,7,11,18,Open entry,7,12,20,1,18,25
 Murang'a,3,12,5,1,2,4,E,5,5,7,0,7,5
-Nairobi,34,209,25,37,60,86,Open entry,26,33,101,7,62,147
-Nakuru,7,39,2,13,10,14,Open entry,2,3,23,0,22,17
+Nairobi,37,272,25,38,62,146,Open entry,26,33,102,7,64,208
+Nakuru,7,63,2,16,18,27,Open entry,2,4,30,0,33,30
 Nandi,3,12,1,1,1,9,Open entry,1,1,2,0,3,9
 Narok,2,17,0,1,1,15,C-,0,0,1,0,2,15
 Nyamira,2,11,1,3,7,0,Open entry,1,1,4,0,11,0
 Nyandarua,3,6,1,1,4,0,E,1,1,2,0,6,0
-Nyeri,5,26,3,5,6,12,Open entry,3,7,13,0,12,14
-Samburu,2,15,7,5,3,0,E,7,12,15,0,8,7
+Nyeri,5,34,3,5,6,20,Open entry,3,7,13,0,12,22
+Samburu,2,15,7,5,3,0,E,7,12,15,0,6,9
 Siaya,4,19,4,3,4,8,E,4,5,8,0,9,10
-Taita-Taveta,3,10,5,1,2,2,E,5,5,7,0,7,3
+Taita-Taveta,3,15,5,1,2,7,E,5,5,7,0,7,8
 Tana River,1,3,0,2,1,0,C-,0,0,2,0,3,0
-Tharaka-Nithi,3,23,0,1,1,21,C-,0,0,1,0,2,21
-Trans Nzoia,2,12,7,4,1,0,Open entry,7,10,11,0,5,7
+Tharaka-Nithi,4,24,0,1,2,21,C-,0,0,1,0,2,22
+Trans Nzoia,2,12,7,4,1,0,Open entry,7,10,11,0,2,10
 Turkana,2,7,2,2,3,0,E,2,2,4,0,7,0
 Uasin Gishu,6,62,8,6,6,42,E,8,12,19,0,18,44
 Vihiga,3,14,2,1,1,10,Open entry,2,2,3,0,3,11

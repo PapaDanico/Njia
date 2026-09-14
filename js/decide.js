@@ -670,9 +670,96 @@ function tierMedians() {
   return TIER_MEDIANS;
 }
 
+/* A COUNTY VTC IS NOT A KUCCPS-PLACED TVET COLLEGE, AND THE DIFFERENCE IS AN
+ * ORDER OF MAGNITUDE.
+ *
+ * The consolidated public-TVET fee of Ksh 67,189 a year governs colleges a
+ * learner is PLACED into by KUCCPS. County vocational training centres set
+ * their own, far lower, county-funded charges. The first version of
+ * feeGuidance() keyed on fee_regime alone and told a Maralal VTC reader the
+ * consolidated rate governed their artisan course - overstating it many times
+ * over, to the readers with the least room, which is the exclusionary
+ * direction this project refuses.
+ *
+ * The card already had this test inline. It is one function now because two
+ * copies of a predicate are two things free to disagree, which this repository
+ * has already been bitten by in a pair of print guards. */
+function isVocationalCentre(institution) {
+  if (!institution || institution.type !== 'tvet') return false;
+  const text = `${institution.name} ${institution.accreditation || ''}`;
+  /* "Technical and Vocational College" contains the word vocational and is NOT
+     one of these: a TVC is a KUCCPS-listed college on the consolidated rate.
+     The loose test that preceded this one put county-VTC advice - ring them,
+     mind the NITA trade test - onto Ebukanga and Kakrao, which run 36
+     KUCCPS-listed programmes between them. Match the institution KIND, not a
+     word that appears in both names. */
+  if (/technical and vocational|\bTVC\b/i.test(text)) return false;
+  return /vocational training (centre|center)|village polytechnic|\bVTC\b/i.test(text);
+}
+
+/* A FEE-LESS CARD STILL OWES THE READER SOMETHING CHECKABLE.
+ *
+ * "Not shown" is the honest answer about this course's price and a poor answer
+ * to the question behind it, which is what a learner should budget. Where a
+ * PUBLISHED national instrument governs what they will be asked for, the card
+ * names it and gives its figures, so a reader can work out their own number
+ * instead of being told there is nothing to know.
+ *
+ * Nothing here is written into the catalogue: total_fees_kes stays null, the
+ * fee basis does not move, and the five-way partition is untouched. Every
+ * figure comes from a constant in data/funding.js carrying its own source,
+ * never restated here - a second copy is a second thing free to drift, which
+ * this project has had to stop three times. */
+function feeGuidance(course, institution) {
+  if (course.total_fees_kes != null) return '';
+  /* The card's own VTC branch already gives the right advice for these, and the
+     consolidated rate would be wrong for them by an order of magnitude. */
+  if (isVocationalCentre(institution)) return '';
+  const regime = institution && institution.fee_regime;
+  const scfm = typeof SCFM_HOUSEHOLD_SHARE !== 'undefined' ? SCFM_HOUSEHOLD_SHARE : null;
+
+  if (regime === 'public_university' && scfm) {
+    return `<p class="text-sm mb-2"><strong>What you would actually be asked for.</strong>
+      ${escapeHtml(scfm.reading)} <a href="/help/#scfm">How the bands work</a>.</p>`;
+  }
+  if (regime === 'private_own_rate' && scfm) {
+    return `<p class="text-sm mb-2"><strong>Before you compare this with a public university.</strong>
+      ${escapeHtml(scfm.privateExclusion)} Ask the admissions office for the published structure for
+      <em>this named award</em>, and whether the figure quoted is per semester, per trimester or per year.</p>`;
+  }
+  if (regime === 'tvet_consolidated' && typeof PUBLIC_TVET_CAPITATION !== 'undefined') {
+    const cap = PUBLIC_TVET_CAPITATION;
+    return `<p class="text-sm mb-2"><strong>The published rate that governs this course.</strong>
+      The government's consolidated public-TVET fee is
+      <strong class="num">${formatKes(cap.consolidatedAnnualFeeKes)}</strong> a year.
+      ${escapeHtml(cap.reading)}</p>`;
+  }
+  return `<p class="text-sm mb-2"><strong>What to ask for.</strong> This institution sets its own rate
+    and no national instrument governs it, so there is a figure and Njia could not read it. Ask for the
+    published fee structure for <em>this named award</em>, whether it is per semester, per trimester or
+    per year, and how many of those the course runs &mdash; a rate without a period is not a price.</p>`;
+}
+
 function tierBenchmark(course, institution) {
   if (!institution || course.total_fees_kes != null) return null;
   if (course.level === 'degree') return null;
+  /* A COUNTY VTC GETS NO BENCHMARK, FOR THE SAME REASON IT GETS NO GUIDANCE.
+   *
+   * feeGuidance() already refuses to tell a county vocational training centre
+   * that the consolidated Ksh 67,189 rate governs its course: vocational
+   * training is a devolved function, each county sets the fees chargeable in
+   * its own VTCs, and a county charge is far lower. That ruling was applied
+   * where the bug was noticed and NOT here - so when the five Kitale and
+   * Maralal records finally lost their wrongly derived 67,189, this function
+   * stood ready to hand the same cards the median of every sourced public
+   * certificate instead: Ksh 160,200, more than double the figure just
+   * withdrawn, labelled as typical.
+   *
+   * That is the third time a ruling written at one site has failed to reach
+   * the others. The siblings here are polytechnics on the national rate and
+   * KMTC on its own national schedule; a county VTC is neither, so the median
+   * is not its tier in any sense the reader would recognise. */
+  if (isVocationalCentre(institution)) return null;
   return tierMedians().get(`${institution.ownership}|${course.level}`) || null;
 }
 
@@ -1117,12 +1204,22 @@ function renderCourseCard(course, match) {
              call, a university needs an understanding of how its fees are now
              set, and everyone else needs to be told the figure is simply
              absent. */''}
-      ${inst && inst.type === 'tvet' && /vocational|village polytechnic|VTC/i.test(inst.name + ' ' + (inst.accreditation || '')) ? `
+      ${isVocationalCentre(inst) ? `
       <p class="text-muted text-sm mb-2"><strong>This centre does not publish its fees.</strong> County vocational training centres are usually the cheapest formal training available and often the only option without relocating — but you have to ring them to find out what it costs. Ask for the fee per term, what the county capitation covers, and whether tools or exam fees are separate. The Grade III trade test is charged by NITA on top of tuition.</p>`
       : inst && inst.fee_regime === 'public_university' ? `
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> Public universities do publish fees, but there is no longer a single per-programme price to quote: what you pay is set from your assessed household means, and the model is being changed again by Parliament. Ask the university what your intake is being billed and under which model — in writing.</p>`
       : `
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> This institution sets its own fees and none could be verified from a source Njia can reach. Ring or email the admissions office and ask for the full cost per year, what it includes, and what is charged separately — accommodation, exams and materials usually are.</p>`}
+      ${feeGuidance(course, inst)}
+      ${/* ONE STANDING INSTRUCTION, RENDERED ONCE RATHER THAN STORED 399 TIMES.
+             Every degree placed through KUCCPS needs the same sentence, and it
+             was being written into the notes - in six slightly different
+             wordings, which is how a standing instruction becomes six claims
+             free to drift. It is a property of the placement system, not of the
+             course, so it belongs here. The notes keep whatever is specific to
+             the institution. */''}
+      ${inst && inst.type === 'university' && course.level === 'degree' ? `
+      <p class="text-muted text-sm mb-2">Confirm the programme code and the current cluster cut-off on the <a href="https://students.kuccps.net">KUCCPS portal</a> for the cycle you are applying in &mdash; the cut-off moves each year with the competition.</p>` : ''}
       `}
       ${/* For the 29 courses priced off the government's consolidated public-TVET
             fee, the tuition figure above is the PUBLISHED fee, not the invoice.

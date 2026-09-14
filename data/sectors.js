@@ -134,7 +134,7 @@ const SECTORS = [
     id: 'mining',
     name: 'Mining, quarrying and extractives',
     broad: 'industry',
-    match: /mining|quarry|geolog|earth science|extract|drilling|petroleum/i,
+    match: /mining|quarry|geolog|earth science|extract|drilling|petroleum|mineral processing|metallurg/i,
     awardingBodies: ['TVET CDACC', 'State Department for Mining'],
     knbs: { series: 'Mining and quarrying', mapping: 'exact', growth: 14.9, prev: -7.8 },
     caution: 'The fastest-growing sector in the survey — and a rebound from a 7.8% contraction the year before, on a small base, driven largely by minerals for cement. Most quarrying work is informal and unwaged. Read this as movement, not as vacancies.'
@@ -161,7 +161,7 @@ const SECTORS = [
     id: 'admin',
     name: 'Administration, HR and public service',
     broad: 'services',
-    match: /human resource|office administration|public administration|international relations|diplomacy|secretar|records|librar|information science|archiv|project management|project planning|development policy|spatial planning|urban planning|regional planning|arts in planning|governance|events management|security|emotional intelligence|leadership|disaster management|disaster risk|resilience|political science|criminolog|penolog|security studies|librar|information science|archiv|cctv|alarm/i,
+    match: /human resource|office administration|public administration|international relations|diplomacy|humanitarian|disaster management|emergency management|peace and conflict|secretar|records|librar|information science|archiv|project management|project planning|development policy|spatial planning|urban planning|regional planning|arts in planning|governance|events management|security|emotional intelligence|leadership|disaster management|disaster risk|resilience|political science|criminolog|penolog|security studies|librar|information science|archiv|cctv|alarm/i,
     awardingBodies: ['TVET CDACC', 'IHRM'],
     knbs: { series: 'Public administration and defence', mapping: 'component', growth: 8.3 },
     caution: 'Growth in public administration is measured as government activity, and hiring into it is capped by the wage bill rather than by demand. Most administrative work is in the private sector, which this series does not cover.'
@@ -212,7 +212,7 @@ const SECTORS = [
     id: 'agriculture',
     name: 'Agriculture and agribusiness',
     broad: 'agriculture',
-    match: /agri|agro-?ecosystem|farm|horticultur|environmental science|environmental management|environmental studies|geograph|meteorolog|climate|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur/i,
+    match: /agri|agro-?ecosystem|agronom|farm|horticultur|dryland|range management|natural resource|environmental science|environmental management|environmental studies|geograph|meteorolog|climate|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur/i,
     awardingBodies: ['TVET CDACC', 'public universities'],
     knbs: { series: 'Agriculture, forestry and fishing', mapping: 'exact', growth: 3.1, share: 23.2 },
     caution: 'Nearly a quarter of the entire economy and the largest single employer in the country, growing slower than the economy as a whole. Most of that work is on smallholdings and is not waged employment — which is the argument for agribusiness and processing rather than against agriculture.'
@@ -230,7 +230,7 @@ const SECTORS = [
     id: 'health',
     name: 'Health and care',
     broad: 'services',
-    match: /nursing|clinical|health|medical|medicine|surgery|dental|dentist|orthopaed|orthoped|optometr|vision science|physiotherap|occupational therap|radiograph|imaging|anatomy|physiolog|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|anthropolog|sports science|social work|social science|development studies|community develop|child and youth|youth studies|philosoph/i,
+    match: /nursing|clinical|health|medical|medicine|surgery|dental|dentist|orthopaed|orthoped|optometr|vision science|physiotherap|occupational therap|radiograph|imaging|anatomy|physiolog|nutrition|pharm|laborator|biolog|biochem|hiv|counsell|psycholog|anthropolog|sports science|social work|social science|development studies|community develop|child and youth|youth studies/i,
     awardingBodies: ['KMTC', 'Nursing Council of Kenya', 'Clinical Officers Council', 'TVET CDACC'],
     knbs: { series: 'Human health and social work activities', mapping: 'unsourced' },
     caution: 'Njia lists more health courses than any other sector, because KMTC runs some forty campuses and every one is catalogued. That is the shape of Kenya\'s public training estate, not a measure of demand, and it must not be read as one.'
@@ -275,7 +275,7 @@ const SECTORS = [
     id: 'legal',
     name: 'Law and governance',
     broad: 'services',
-    match: /law|legal|paralegal|theolog/i,
+    match: /law|legal|paralegal/i,
     awardingBodies: ['Council of Legal Education', 'Kenya School of Law'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'Only the degree route is catalogued, and the Advocates Training Programme that follows it is a further mandatory year with its own fee. There is no sourced route into legal work below degree level.'
@@ -284,7 +284,7 @@ const SECTORS = [
     id: 'sciences',
     name: 'Physical sciences and research',
     broad: 'services',
-    match: /astronom|astrophys|\bphysics\b|physical science|pure science|research science/i,
+    match: /astronom|astrophys|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|biotechnolog|biochemist|parasitolog|microbiolog/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'Njia holds no employment or earnings data for research careers in Kenya, and there is no TVET tier beneath these programmes - the route is a degree and then postgraduate study or a research institute. Read the absence of a figure here as an absence of published data, not as an absence of work.'
@@ -293,7 +293,7 @@ const SECTORS = [
     id: 'humanities',
     name: 'Languages, humanities and religious studies',
     broad: 'services',
-    match: /arabic|islamic studies|religious studies|linguistic|literature|\bfrench\b|kiswahili|language and communication/i,
+    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|intercultural studies|church educational|christian ministr|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication|philosoph|ethic/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'These programmes most often lead into teaching, translation, media or further study, and Kenya publishes no graduate-outcome data for any of them. Where teaching is the intended destination, read the note on the education sector too - entry to the classroom runs through the TSC employment queue.'
@@ -312,9 +312,21 @@ const SECTORS = [
 /* Which sector a course belongs to. First match wins — see the ordering note on
  * SECTORS. Returns null rather than a catch-all "other": a course no sector
  * claims is a gap in the register, and a test says so. */
+/* A teaching award belongs to education whatever subject it names. SECTORS is
+ * first-match-wins over an ordered array, and `business` sits ahead of
+ * `education`, so a Bachelor of Education (Mathematics) resolved to "Business,
+ * finance and accountancy" and one in Guidance and Counselling to "Health and
+ * care" - shipped, invisible, and exactly the theology-in-law shape: a guard
+ * sees a course with NO sector and never one with the WRONG one. The award
+ * decides, not the subject in the brackets. */
+const TEACHING_AWARD = /\b(bachelor|master|diploma|certificate) (of|in) education\b|\beducation \(/i;
+
 function sectorForCourse(course) {
   if (!course) return null;
   const hay = `${course.name || ''} ${course.field || ''}`;
+  if (TEACHING_AWARD.test(course.name || '')) {
+    return SECTORS.find((s) => s.id === 'education') || null;
+  }
   return SECTORS.find((s) => s.match.test(hay)) || null;
 }
 

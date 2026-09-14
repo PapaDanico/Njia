@@ -2063,6 +2063,56 @@ test('unsourced intake months are not presented as fact', () => {
  * So this asserts the two properties that keep it honest: degrees never get one
  * (the SCFM means a student's cost is set by an assessed band, so a median is
  * wrong for almost everyone), and a thin base never does. */
+/* A COUNTY VTC IS EXEMPT FROM EVERY NATIONAL-RATE MECHANISM, NOT JUST ONE.
+ *
+ * feeGuidance() has refused to quote the consolidated Ksh 67,189 rate at a
+ * county vocational training centre since the Maralal card was rendered and
+ * read. The same reasoning was never applied to the two OTHER places a
+ * national figure can reach that card, and both were live:
+ *
+ *   - five records at Kitale and Maralal DERIVED Ksh 67,189 into
+ *     total_fees_kes, so the catalogue displayed as a number the rate the card
+ *     was forbidden to mention in prose;
+ *   - tierBenchmark() would have offered the median of every sourced public
+ *     certificate - Ksh 160,200, MORE THAN DOUBLE - the moment those fees were
+ *     withdrawn.
+ *
+ * Vocational training is a devolved function under Fourth Schedule Part 2 and
+ * each county sets the fees chargeable in its own VTCs, so no national rate
+ * governs these courses. This asserts all three sites together, because the
+ * defect each time was a ruling applied where the bug was noticed. */
+test('no national fee rate reaches a county vocational training centre', () => {
+  const src = ['data/institutions.js', 'data/courses.js', 'data/funding.js', 'js/decide.js']
+    .map((f) => fs.readFileSync(path.join(root, f), 'utf8')).join('\n');
+  const { feeGuidance, tierBenchmark, isVocationalCentre, COURSES, INSTITUTIONS } = vm.runInNewContext(
+    `${src};({ feeGuidance, tierBenchmark, isVocationalCentre, COURSES, INSTITUTIONS })`,
+    { escapeHtml: (x) => x, formatKes: (n) => `Ksh ${n}` },
+  );
+  const vtcs = INSTITUTIONS.filter(isVocationalCentre);
+  assert.ok(vtcs.length > 0, 'no county VTC in the register - this guard is inert');
+
+  const priced = COURSES
+    .filter((c) => vtcs.some((i) => i.id === c.institution_id) && c.total_fees_kes != null)
+    .map((c) => `${c.id} (${c.total_fees_kes})`);
+  assert.strictEqual(priced.join(', '), '',
+    'a county VTC course carries a fee. The county sets its own charge and publishes none '
+    + 'reachable from here; a figure here is almost certainly the national consolidated rate, '
+    + 'which over-quotes these readers many times over: ' + priced.join(', '));
+
+  for (const inst of vtcs) {
+    assert.notStrictEqual(inst.fee_regime, 'tvet_consolidated',
+      `${inst.id} is on fee_regime tvet_consolidated, which is what DERIVED the wrong figure. `
+      + 'A county VTC belongs on county_vtc.');
+    for (const course of COURSES.filter((c) => c.institution_id === inst.id)) {
+      assert.strictEqual(tierBenchmark(course, inst), null,
+        `${course.id} at ${inst.id} is offered a tier benchmark. Its siblings are polytechnics `
+        + 'on the national rate and KMTC on its own national schedule; a county VTC is neither.');
+      assert.strictEqual(feeGuidance(course, inst), '',
+        `${course.id} at ${inst.id} is shown national fee guidance.`);
+    }
+  }
+});
+
 test('the indicative tier benchmark is rendered, never written into the catalogue', () => {
   const decide = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
 
@@ -2183,4 +2233,89 @@ test('the funding explainer states that a private university gets the loan but n
   assert.match(helpPage, /Band 2/,
     'the SCFM bands have gone from the generated help page, so the sentence about '
     + 'losing the scholarship no longer says how much is being lost.');
+});
+
+/* A FEE-LESS CARD MUST STILL CARRY VERIFIABLE GUIDANCE, AND IT MUST STAY SHOWN
+ * RATHER THAN WRITTEN.
+ *
+ * 740 records carry no figure. Saying only "not shown" reads, to someone
+ * deciding where to apply, as "there is nothing to know" - and for 459 public
+ * university degrees that is false: the SCFM band shares are published, they
+ * are percentages of the course cost, and a reader who knows their band can
+ * work out their own number. The card now names the governing instrument in
+ * every case.
+ *
+ * The danger is the obvious one: a guideline is one edit away from becoming a
+ * figure. So this asserts the same property the tier benchmark has - the
+ * catalogue is untouched - and that the numbers are read from the sourced
+ * constants rather than restated in the renderer, which is how a second copy
+ * starts drifting. */
+test('every fee-less card names a published instrument, and none of it reaches the catalogue', () => {
+  const decideSrc = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+
+  assert.match(decideSrc, /function feeGuidance\(/,
+    'feeGuidance has gone from js/decide.js, so a fee-less card is back to telling a '
+    + 'reader only that Njia has no figure.');
+
+  /* Never written. The guidance may not assign a fee anywhere. */
+  const guidance = decideSrc.slice(decideSrc.indexOf('function feeGuidance('));
+  const body = guidance.slice(0, guidance.indexOf('\n}\n'));
+  assert.ok(!/total_fees_kes\s*=[^=]/.test(body),
+    'feeGuidance assigns to total_fees_kes. A shown guideline that gets written becomes a '
+    + 'per-course price nobody sourced - the placeholder trap with better manners.');
+
+  /* Read, not restated: the band percentages live in data/funding.js with their
+     own source line, and this file must not carry its own copy of them. */
+  assert.match(body, /SCFM_HOUSEHOLD_SHARE/,
+    'feeGuidance no longer reads the SCFM constant, so its figures are a second copy '
+    + 'free to drift from data/funding.js.');
+  assert.ok(!/\b70%|\b40%|\b30%/.test(body),
+    'feeGuidance hardcodes a band percentage. Those belong in SCFM_HOUSEHOLD_SHARE, which '
+    + 'carries the source line; a number typed here cannot be traced to one.');
+
+  /* Every regime in the register resolves to guidance, so a new fee_regime
+     cannot silently fall through to nothing. */
+  const fundingSrc = fs.readFileSync(path.join(root, 'data', 'funding.js'), 'utf8');
+  assert.match(fundingSrc, /SCFM_HOUSEHOLD_SHARE = \{/,
+    'SCFM_HOUSEHOLD_SHARE has gone from data/funding.js.');
+  assert.match(fundingSrc, /source:/,
+    'the SCFM share constant carries no source line, which is the one thing that makes it '
+    + 'a guideline rather than an assertion.');
+});
+
+/* THE CONSOLIDATED TVET RATE GOVERNS COLLEGES, NOT COUNTY CENTRES, AND THE
+ * DIFFERENCE IS AN ORDER OF MAGNITUDE.
+ *
+ * Ksh 67,189 a year is the published fee for a public TVET college a learner is
+ * PLACED into by KUCCPS. A county vocational training centre sets its own,
+ * far lower, county-funded charge. Telling a VTC reader the consolidated rate
+ * applies overstates their cost many times over, to the readers with the least
+ * room - the exclusionary direction this project refuses everywhere else.
+ *
+ * And the predicate has to match the KIND of institution rather than a word:
+ * "Technical and Vocational College" contains "vocational" and is not one of
+ * these. The loose version put county-VTC advice onto Ebukanga and Kakrao,
+ * which run 36 KUCCPS-listed programmes between them. */
+test('county vocational centres are told to ring, and colleges are told the published rate', () => {
+  const src = ['data/institutions.js', 'data/courses.js', 'data/funding.js', 'js/decide.js']
+    .map((f) => fs.readFileSync(path.join(root, f), 'utf8')).join('\n');
+  const { feeGuidance, isVocationalCentre, COURSES, INSTITUTIONS } = vm.runInNewContext(
+    `${src};({ feeGuidance, isVocationalCentre, COURSES, INSTITUTIONS })`,
+    { escapeHtml: (x) => x, formatKes: (n) => `Ksh ${n}` },
+  );
+  const inst = (id) => INSTITUTIONS.find((i) => i.id === id);
+
+  const centres = INSTITUTIONS.filter(isVocationalCentre).map((i) => i.name);
+  assert.ok(centres.length > 0, 'no institution matches as a county vocational centre at all.');
+  assert.ok(!centres.some((n) => /technical and vocational college/i.test(n)),
+    `a technical and vocational COLLEGE is being treated as a county centre: ${centres.join('; ')}. `
+    + 'A TVC is KUCCPS-listed and sits on the consolidated rate; matching the word "vocational" '
+    + 'rather than the institution kind is what put village-polytechnic advice on a college card.');
+
+  const wrong = COURSES
+    .filter((c) => c.total_fees_kes == null && isVocationalCentre(inst(c.institution_id)))
+    .filter((c) => /67,?189/.test(feeGuidance(c, inst(c.institution_id)) || ''));
+  assert.deepStrictEqual(wrong.map((c) => c.id).join('; '), '',
+    'a county vocational centre card claims the consolidated public-TVET fee governs it. '
+    + 'That rate is for KUCCPS-placed colleges and overstates a county centre many times over.');
 });

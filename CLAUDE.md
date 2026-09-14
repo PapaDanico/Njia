@@ -5027,3 +5027,38 @@ two legs the concern stood on. A worry in this file is a claim like any other
 and goes stale like any other - so when a recorded finding is about to justify
 deleting data, re-run the search that produced it before acting on it, not
 after.
+
+## The Lighthouse band reached 89, proved by a zero-byte control
+
+Three consecutive previews on one branch read **93, 92, 89** — and the last
+step is the useful one, because **the commit that scored 89 changed CLAUDE.md
+and nothing else.** `git diff --name-only` between the 92 and the 89, excluding
+that file, returns **empty**: the served page is byte-identical. A three-point
+drop on a page that did not change by a single byte.
+
+This file already records a docs-only commit scoring a point ABOVE the reading
+before it, and calls that the cleanest demonstration available that the swing
+is the instrument. This is the same control in the other direction and with a
+wider excursion, which makes it the stronger of the two: noise that can move a
+point up can move three points down, and **the recorded 91–94 band was too
+narrow.** It reaches at least 89.
+
+**The bytes were measured before the control arrived, not after**, which is the
+order that matters. Critical path **107.0 → 107.3KB gz** across the whole
+session — 0.3KB, all of it the `TEACHING_AWARD` pattern added to
+`data/sectors.js`. Both files this session changed most are off that path as
+properties, and that was checked rather than assumed: `data/courses.js` is not
+on it and in fact *shrank* 10.3KB when the KMTC sentence was compressed, and
+neither is `js/decide.js`, so the `tierBenchmark` exclusion and its comment put
+**zero bytes** on the page Lighthouse audits.
+
+So two independent lines of evidence agree, and neither needed the other: a
+0.3KB delta cannot move a score this file already establishes could not see an
+11.24KB swing, and the byte-identical control moved three points anyway.
+
+**Do not quote 89 as the new floor.** That is the mistake this file warns about
+everywhere else — the band is a perishable figure and writing a count down is
+how the next paragraph goes stale. What is durable is the method: when a score
+leaves whatever band you remember, measure the critical path first, then look
+for a docs-only commit on the same branch. The second one is free and settles
+it outright.

@@ -3751,6 +3751,33 @@ That is the second time in two days that the byte guard has pointed at a
 being stored as if it were a fact about a course. Ask that question whenever it
 fires on a sentence that appears in more than a handful of notes.
 
+### The third and fourth copies of the same national facts
+
+Stripping the SCFM explainer from 442 notes earlier caught the wordings that
+existed then. Measured again, **two more variants had survived by phrasing** -
+one at 388 characters across 131 records, another KUCCPS confirmation sentence
+across 89 - because the sweep matched text rather than meaning. Both are now
+the single canonical sentence or rendered on the card.
+
+**Mean note 992 to 913 across the day, with no fact removed from any record.**
+Everything cut was a statement about the national system - how the SCFM works,
+where to check a cut-off - stored as though it were a fact about a course.
+
+The rule worth keeping: **when the byte guard fires, look for a sentence that
+appears in dozens of notes before looking for a note that is too long.** Four
+times out of five this week the answer was a category error rather than
+verbosity, and each fix improved the copy as well as the bytes.
+
+**Kenya School of Agriculture** was corrected in the same pass and is not a byte
+story: its diploma ran at 24 months here against the school's own published
+three years, and its craft certificate at 12 months against nothing at all -
+that field is now empty with the module count stated instead. Its campus list
+also disagrees with the school's own, which names Wambugu, Thika, Nakuru,
+Ainabkoi and Ugenya where this catalogue holds Wambugu, Ugenya, Ainabkoi and
+Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current
+list; the notes say so rather than the register quietly disagreeing with its
+source.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who

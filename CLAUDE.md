@@ -4999,3 +4999,31 @@ catalogue - and the `kmtc` entry in `DERIVATION_SIGNATURES` requires the literal
 *"KMTC publishes one national fee structure"*, so only the tail could be
 compressed. Every fact kept: both figures, the student category, the year and
 the source. Mean note back to 861.
+
+### And Vihiga no longer refutes the blanket certificate row
+
+The Certificate in Community Health Assistant appears at 43 of the 45 KMTC
+campuses here, and this file records the concern as a question two campuses had
+answered in opposite directions: **Marsabit confirms, Vihiga contradicts.** The
+Vihiga half has now dissolved.
+
+Re-asked with the background-and-programmes phrasing that works, the campus
+reports *"At present, KMTC Vihiga offers a single but highly relevant diploma
+course"* - and, two sentences later, *"Additionally, the Vihiga campus also
+offers a Certificate in Community Health Assistant programme."* Both claims,
+one summary. That is the Bungoma self-contradiction exactly, and the rule is
+symmetrical: **a source that contradicts itself attributes nothing, and it
+un-attributes nothing either.** The record stays.
+
+So the blanket row has one campus confirming it and none refuting it, which is
+weaker evidence of a defect than this file previously recorded. The per-campus
+check is still the only way to settle it, and the count of campuses that have
+actually answered is **one**, not two.
+
+**The wider lesson is about how a concern was carried forward.** "Vihiga
+contradicts" was written from a reading that happened to stop before the
+contradicting sentence, and it then sat here for several passes as one of the
+two legs the concern stood on. A worry in this file is a claim like any other
+and goes stale like any other - so when a recorded finding is about to justify
+deleting data, re-run the search that produced it before acting on it, not
+after.

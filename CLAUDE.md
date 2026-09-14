@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1258 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1261 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1258 notes contains a comma or a quote and the
+  optional: **every one** of the 1261 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -4728,3 +4728,56 @@ That is worth stating because it changes what would close this family: not more
 county searches, but **one document** — NITA's course brochure — which would
 close the trades, the awards and their levels together. Do not re-run the trade
 searches; three phrasings are now recorded as done.
+
+## Told to focus on the universities, and the ratchet was hiding the thin end
+
+The maintainer's correction, the second time in two days and the same one:
+*focus on the universities, you are too obsessed with TVETs and Es and Ds.* It
+is exactly right, and the mechanism is this file's own warning again — I had
+spent the pass on artisan trades, NITA brochures and county VTCs.
+
+**The thin-tail ratchet said the university side was closed and it was not.**
+`MAX_THIN` sits at 0, so no university carries fewer than five records and every
+guarded number reads green. Measured properly — sorted ascending, against the
+*median* rather than against the floor — the university median is 10 and the
+thin end is full of the names a school-leaver actually types: **Strathmore 8,
+Daystar 7, USIU-Africa 6, CUEA 6**, alongside Zetech, Amref, Tom Mboya and
+Murang'a at 5.
+
+That is the stub-cap lesson for the third time. A floor of five is not depth,
+and a guard that can only see the floor will report success while the
+most-searched private universities in the country answer with six rows. **Sort
+by count and read the top of the list; do not ask whether the ratchet passed.**
+
+**Strathmore held eight records and not one of them was actuarial science** —
+the programme it is best known for in Kenya and benchmarked to the UK Institute
+and Faculty of Actuaries. Its Bachelor of Business Science runs as three named
+specialisations, all three now listed: **Actuarial Science, Financial Economics
+and Financial Engineering**, corroborated across the university's own Institute
+of Mathematical Sciences pages, its undergraduate prospectus and a second search
+that named no grade.
+
+Entry is **B-**, recorded as published rather than softened to the C+ that opens
+most degree cards here. That bar is stated explicitly for the actuarial
+specialisation and is the university's general undergraduate minimum, with
+strong Mathematics and English on top and an entrance examination and interview
+for every candidate who clears it — so the note says the grade alone does not
+secure a place, which is the Strathmore treatment this file already prefers.
+
+**No fee, and the reason is the useful half.** Strathmore prices per programme
+rather than per institution, and the only total this catalogue has ever sourced
+to the shilling there is its LLB. The note says so and tells the reader to ask
+whether a quoted figure is per semester or for the whole course — the question
+the per-programme shape itself raises.
+
+**And the sector register held, which is worth recording because the near-miss
+was live.** *Financial Engineering* is precisely the shape that gets pulled into
+the engineering pattern the way `electric` once missed *electronics* and
+`physiolog` missed *physiotherap*. All three resolved to Business, finance and
+accountancy on the first try. Checking the mapping on insert is now cheap enough
+that there is no excuse for finding out later — and the one time it fails
+silently is when a course matches the WRONG sector, which no guard can see.
+
+Still thin and named, so the next pass starts here rather than re-measuring:
+**USIU-Africa (6), CUEA (6), Daystar (7)**, then Zetech, Amref, Great Lakes
+Kisumu, Murang'a, Tom Mboya, MUA and IUK at five.

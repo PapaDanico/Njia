@@ -2072,6 +2072,42 @@ under the widened one. KeMU's are still absent and are the obvious next fix.
 **The bytes-per-course guard fired a fourth time on a shared note across eleven
 records**, and the ceiling was again not raised. Thin tail 21 to 20.
 
+**KeMU +4, and the superseded ruling named one commit ago is now closed.**
+Kenya Methodist University's School of Medicine and Health Sciences was the
+other institution whose competitive programmes this file decided to omit.
+MBChB, Pharmacy, BSc Nursing and BSc Clinical Medicine and Community Health are
+now listed on the same terms as MKU's - published bar recorded, competition
+stated beside it.
+
+**The payload guard fired a fifth time and the fix was different, because the
+guard was describing a trend rather than a batch.** The catalogue's mean note
+had crept from about 950 to 989 characters across this session's passes, so
+trimming whichever batch tripped the budget was treating the symptom. Measured
+instead: **fifteen records carried repository-facing argument** - sentences
+explaining that an earlier ruling in this file was being reversed and why - at a
+mean of 1,487 characters.
+
+Those sentences were cut from the cards entirely. **A learner deciding where to
+apply does not need to know that this catalogue changed its mind**; they need
+the bar, the competition, the reported figures and the phone call. The
+reasoning is what CLAUDE.md is for, and it is already written here twice over.
+That is the rule this file states - *a provenance note is not the place to argue
+the provenance rules* - applied to the whole catalogue rather than to the newest
+insert.
+
+**And it is a nicer property than it looks: a card that argues with its own
+repository is a card whose author was writing for the wrong reader.** Check for
+that whenever the byte guard fires on a shared note rather than reaching for the
+ceiling.
+
+**And it produced a grade conflict in the low direction, which is the rarer
+one.** KeMU states C+ for all undergraduate programmes, and its own Bachelor of
+Pharmacy page gives a **C mean with a C plain in each cluster subject**. The C+
+is recorded and the conflict is on the card. That is the third time this file
+has had to say it: *the rule against quoting a grade high has never licensed
+quoting one low*, and a learner sent at a competitive pharmacy place on a C is
+harmed in the other direction just as surely.
+
 ## The four biggest public universities, filled in
 
 Applying the widened standard immediately: **University of Nairobi 1 to 25,
@@ -3758,13 +3794,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1148 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1152 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1148 notes contains a comma or a quote and the
+  optional: **every one** of the 1152 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

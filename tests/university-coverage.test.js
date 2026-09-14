@@ -223,7 +223,7 @@ test('the thin tail of shallow universities only shrinks', () => {
   /* Ratchet. Lower it when you deepen one; never raise it. It was 28 when the
      audit that prompted this guard was run, with three universities carrying no
      degree at all. */
-  const MAX_THIN = 4;
+  const MAX_THIN = 2;
   assert.ok(thin.length <= MAX_THIN,
     `${thin.length} universities carry fewer than five courses, above the ceiling of ${MAX_THIN}: `
     + `${thin.join('; ')}. A university running several schools and listed with two programmes `

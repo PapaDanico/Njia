@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1234,
+  "course_count": 1239,
   "institution_count": 202,
   "county_count": 47,
   "column_notes": {
@@ -2018,6 +2018,22 @@
       "verification_note": "Africa Nazarene University is a CUE-chartered private university on Magadi Road, Ongata Rongai, Kajiado County. Programme named in the university's own published programmes listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade; confirm the exact requirement with admissions, because a private university sets its own bar and may ask for more. The university publishes a fee schedule, but its figure for this named programme could not be verified against any source reachable from this build, so none is shown rather than a guessed one. Ring admissions for the current schedule. WHAT NJIA FOUND, AND COULD NOT RECONCILE: one search returned Ksh 269,250 and the next Ksh 921,600-1,057,700, which is the gap between a year and a whole degree; the university’s own FAQ says the fee depends on the programme. None of these is recorded as this course’s fee and Njia does not stand behind any single one of them — but a reader ringing admissions is better off knowing the order of magnitude than being told nothing. Treat it as a bracket to check against, ask which AWARD the quote covers (a diploma and a degree of the same subject name can differ by about double), and ask what it excludes."
     },
     {
+      "course_id": "c1265",
+      "course_name": "Bachelor of Arts in Arabic Language and Islamic Studies",
+      "institution": "Islamic University of Kenya (IUK)",
+      "institution_id": "iuk",
+      "county": "Kajiado",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "creator",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Islamic University of Kenya is private and CUE-chartered, on the Nairobi-Namanga highway in Kajiado, running five schools - Sharia, Business Management, Education, Informatics and Technology, and Arabic Language and Islamic Studies. Listed on the university's own undergraduate programmes listing. Entry is the national C+ degree minimum; confirm with admissions before applying. THE UNIVERSITY PUBLISHES FEWER PROGRAMMES THAN IT HAS SCHOOLS, and that is recorded rather than filled in: its own listing names around five undergraduate awards across the five schools, so only what it names is here. If someone works this again, the missing thing is a per-school programme listing rather than another general search. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure attributable to a named programme was returned by any source reachable from this build, so the fee could not be verified and none is shown. Ring the admissions office."
+    },
+    {
       "course_id": "c1083",
       "course_name": "Bachelor of Business Management",
       "institution": "Islamic University of Kenya (IUK)",
@@ -2032,6 +2048,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "The Islamic University of Kenya is a private university chartered in November 2024, the newest institution in this catalogue by charter date. It was named on this catalogue’s own known-missing list of chartered private universities and is now listed. Programme named by two independently phrased searches; neither query contained the programme names. The county is recorded as KAJIADO and the sources needed reading rather than quoting. Both loosely say \"Nairobi\" - but the places they actually name are the Nairobi-Namanga Highway and Kisaju, and both are in Kajiado County, not in Nairobi. A city named as a landmark is not a county, and this catalogue already places Umma University in Kajiado on the same road. Entry is recorded at the C+ mean grade, the CUE and KUCCPS national degree bar. One source gives a minimum of D+, and recording that would have been the error: it is stated there as the floor for the university’s CERTIFICATE programmes, not its degrees. That is the CUEA case exactly - a general floor that reaches certificate and diploma entry and not a degree - and the eligibility rule forbids quoting a grade high without ever licensing quoting one low, because a D+ learner sent at a degree application is harmed in the other direction. One search names this degree and the other names business management among the university’s accredited undergraduate areas - a programme area is not an award, so neither alone would do. No fee is shown. Searching returned no figure of any kind for this university, so it could not be verified and nothing is written rather than a guess. Ring admissions for the current schedule and ask what it excludes. Not recorded: a Bachelor of Arts in Arabic Language appears in one listing only, as do artificial intelligence, cyber security, marketing and data analytics, which the other listing gives as accredited AREAS rather than as named awards. The university also runs diplomas in information technology, Arabic language, and Arabic language with Islamic studies, and certificate and postgraduate-diploma programmes; none carries a published entry requirement in any reachable source, so none is recorded."
+    },
+    {
+      "course_id": "c1264",
+      "course_name": "Bachelor of Education",
+      "institution": "Islamic University of Kenya (IUK)",
+      "institution_id": "iuk",
+      "county": "Kajiado",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Islamic University of Kenya is private and CUE-chartered, on the Nairobi-Namanga highway in Kajiado, running five schools - Sharia, Business Management, Education, Informatics and Technology, and Arabic Language and Islamic Studies. Listed on the university's own undergraduate programmes listing. Entry is the national C+ degree minimum; confirm with admissions before applying. THE UNIVERSITY PUBLISHES FEWER PROGRAMMES THAN IT HAS SCHOOLS, and that is recorded rather than filled in: its own listing names around five undergraduate awards across the five schools, so only what it names is here. If someone works this again, the missing thing is a per-school programme listing rather than another general search. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure attributable to a named programme was returned by any source reachable from this build, so the fee could not be verified and none is shown. Ring the admissions office."
     },
     {
       "course_id": "c1082",
@@ -10482,6 +10514,22 @@
       "verification_note": "Murang'a University of Technology is a public chartered university and had not been listed here at all. Programme named in its published course listing. This is a diploma. The university publishes its own ladder: C- and above for all diploma courses, D plain and above for certificates. It also runs craft courses. Only the programmes a reachable source names are listed, so ask what else is running at the lower tiers. The university does not publish a per-programme price for this course, so no fee is shown - see the funding note on this card for what you would actually be asked for."
     },
     {
+      "course_id": "c1261",
+      "course_name": "Bachelor of Arts in Communication, Translation and Linguistics",
+      "institution": "Africa International University (AIU)",
+      "institution_id": "aiu",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "creator",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Africa International University is private and CUE-chartered at Karen in Nairobi, a Christian university built around the Nairobi Evangelical Graduate School of Theology, and it runs four schools - NEGST, Business and Economics, Education Arts and Social Sciences, and Computing and Emerging Technologies - publishing ten undergraduate programmes between them. Listed on the university's own undergraduate programme listings. Entry is the national C+ degree minimum. A CREDIT-TRANSFER ROUTE IS PUBLISHED AND IS NOT A SEPARATE RECORD: AIU states that holders of a relevant diploma can complete several of these degrees in two years rather than four, which is worth asking about if you already hold one, but the award and its full length are what this card records. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure attributable to a named programme was returned by any source reachable from this build, so the fee could not be verified and none is shown. Ask admissions for the schedule for this named award and whether the credit-transfer route changes it."
+    },
+    {
       "course_id": "c1073",
       "course_name": "Bachelor of Arts in Development Studies",
       "institution": "Africa International University (AIU)",
@@ -10528,6 +10576,38 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Africa International University is a CUE-chartered private Christian university at Karen in Nairobi, rooted in an institution operating since 1983 and awarded its charter in March 2011. It was named on this catalogue’s own known-missing list of chartered private universities and is now listed. Programme named by two independently phrased searches; neither query contained the programme names. Both searches name this degree, and one places it in the university’s School of Business. Entry is recorded at the C+ mean grade the university itself publishes as its KCSE minimum, which matches the CUE and KUCCPS national degree bar. A private university sets its own bar and may ask more for a competitive programme, so confirm with admissions. No fee is shown. Searching returned no figure of any kind for this university - not a range, not a per-unit rate, nothing - so it could not be verified, and nothing is written rather than a guess. That is a different statement from the institutions in this catalogue where figures came back and disagreed; here there was nothing to disagree with. Ring admissions for the current schedule and ask what it excludes. Not recorded: a BSc in Entrepreneurship appears in one listing only, and the university’s postgraduate and theological programmes - including its graduate school of theology - are outside what this catalogue lists, which is what a school-leaver can enter after KCSE. Its single certificate, in Christian ministries, and its ten diploma programmes are not recorded because no reachable source names them individually with an entry requirement."
+    },
+    {
+      "course_id": "c1263",
+      "course_name": "Bachelor of Education",
+      "institution": "Africa International University (AIU)",
+      "institution_id": "aiu",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Africa International University is private and CUE-chartered at Karen in Nairobi, a Christian university built around the Nairobi Evangelical Graduate School of Theology, and it runs four schools - NEGST, Business and Economics, Education Arts and Social Sciences, and Computing and Emerging Technologies - publishing ten undergraduate programmes between them. Listed on the university's own undergraduate programme listings. Entry is the national C+ degree minimum. A CREDIT-TRANSFER ROUTE IS PUBLISHED AND IS NOT A SEPARATE RECORD: AIU states that holders of a relevant diploma can complete several of these degrees in two years rather than four, which is worth asking about if you already hold one, but the award and its full length are what this card records. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure attributable to a named programme was returned by any source reachable from this build, so the fee could not be verified and none is shown. Ask admissions for the schedule for this named award and whether the credit-transfer route changes it."
+    },
+    {
+      "course_id": "c1262",
+      "course_name": "Bachelor of Science in Computer Science",
+      "institution": "Africa International University (AIU)",
+      "institution_id": "aiu",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "tech",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Africa International University is private and CUE-chartered at Karen in Nairobi, a Christian university built around the Nairobi Evangelical Graduate School of Theology, and it runs four schools - NEGST, Business and Economics, Education Arts and Social Sciences, and Computing and Emerging Technologies - publishing ten undergraduate programmes between them. Listed on the university's own undergraduate programme listings. Entry is the national C+ degree minimum. A CREDIT-TRANSFER ROUTE IS PUBLISHED AND IS NOT A SEPARATE RECORD: AIU states that holders of a relevant diploma can complete several of these degrees in two years rather than four, which is worth asking about if you already hold one, but the award and its full length are what this card records. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure attributable to a named programme was returned by any source reachable from this build, so the fee could not be verified and none is shown. Ask admissions for the schedule for this named award and whether the credit-transfer route changes it."
     },
     {
       "course_id": "c428",

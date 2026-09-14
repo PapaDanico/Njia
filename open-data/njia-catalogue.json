@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1199,
+  "course_count": 1204,
   "institution_count": 202,
   "county_count": 47,
   "column_notes": {
@@ -5442,6 +5442,22 @@
       "verification_note": "Great Lakes University of Kisumu is a CUE-chartered private university in Kisumu focused on health sciences, and had not been listed here at all. Programme named in the university's published programme list. Published entry for bachelor's degrees is a KCSE mean grade of C+ overall - that is the university's own stated bar rather than the national minimum read onto it, though health programmes normally carry subject requirements in the sciences, so confirm those with admissions. GLUK also runs certificate programmes entering at a KCSE D plain and diplomas at C- or a recognised certificate, which reach considerably lower than this record does; the individual certificate and diploma courses were not named in any source reachable from this build, so they are not listed and it is worth asking the university directly. It reports 62 programmes in total. Fees are set by the university and no figure for this programme was reachable from this build, so the fee could not be verified and none is shown rather than a guessed one. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the BSc in Nursing was reported at Ksh 65,000 a trimester, then Ksh 67,000 a trimester, then Ksh 66,700 a semester; other named programmes came back at about Ksh 42,000 a term. The figures are close and the unit word is not. None of these is recorded as this course’s fee and Njia does not stand behind any single one of them — but a reader ringing admissions is better off knowing the order of magnitude than being told nothing. Treat it as a bracket to check against, ask which AWARD the quote covers (a diploma and a degree of the same subject name can differ by about double), and ask what it excludes."
     },
     {
+      "course_id": "c1227",
+      "course_name": "Bachelor of Science in Agribusiness Management",
+      "institution": "Great Lakes University of Kisumu",
+      "institution_id": "gluk",
+      "county": "Kisumu",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Great Lakes University of Kisumu is private and CUE-chartered, built around health and community practice, and it runs a TRIMESTER calendar - its own listing gives the degrees as 12 trimesters, which is what the 48 months here means. Listed on the university's own programme listing. Entry is the national C+ degree minimum; the clinical and nursing programmes carry cluster-subject requirements above it. UPGRADING ROUTES ARE NOT RECORDED: GLUK publishes 9-trimester upgrading versions of its nursing and clinical degrees for people already registered and practising, and this catalogue is read by people deciding what to do after KCSE. WHAT NJIA FOUND, AND COULD NOT RECONCILE: three searches gave BSc Nursing at Ksh 65,000 a trimester, then 67,000 a trimester, then 66,700 a SEMESTER - the figure and the unit word both moving, and a trimester total is not a semester total. The fee could not be verified, so none is shown. Ask the admissions office for the per-trimester figure and how many trimesters the award runs."
+    },
+    {
       "course_id": "c530",
       "course_name": "Bachelor of Science in Nursing",
       "institution": "Great Lakes University of Kisumu",
@@ -5456,6 +5472,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Great Lakes University of Kisumu is a CUE-chartered private university in Kisumu focused on health sciences, and had not been listed here at all. Programme named in the university's published programme list. Published entry for bachelor's degrees is a KCSE mean grade of C+ overall - that is the university's own stated bar rather than the national minimum read onto it, though health programmes normally carry subject requirements in the sciences, so confirm those with admissions. GLUK also runs certificate programmes entering at a KCSE D plain and diplomas at C- or a recognised certificate, which reach considerably lower than this record does; the individual certificate and diploma courses were not named in any source reachable from this build, so they are not listed and it is worth asking the university directly. It reports 62 programmes in total. Fees are set by the university and no figure for this programme was reachable from this build, so the fee could not be verified and none is shown rather than a guessed one. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the BSc in Nursing was reported at Ksh 65,000 a trimester, then Ksh 67,000 a trimester, then Ksh 66,700 a semester; other named programmes came back at about Ksh 42,000 a term. The figures are close and the unit word is not. None of these is recorded as this course’s fee and Njia does not stand behind any single one of them — but a reader ringing admissions is better off knowing the order of magnitude than being told nothing. Treat it as a bracket to check against, ask which AWARD the quote covers (a diploma and a degree of the same subject name can differ by about double), and ask what it excludes."
+    },
+    {
+      "course_id": "c1226",
+      "course_name": "Bachelor of Science in Physiotherapy and Rehabilitative Medicine",
+      "institution": "Great Lakes University of Kisumu",
+      "institution_id": "gluk",
+      "county": "Kisumu",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Great Lakes University of Kisumu is private and CUE-chartered, built around health and community practice, and it runs a TRIMESTER calendar - its own listing gives the degrees as 12 trimesters, which is what the 48 months here means. Listed on the university's own programme listing. Entry is the national C+ degree minimum; the clinical and nursing programmes carry cluster-subject requirements above it. UPGRADING ROUTES ARE NOT RECORDED: GLUK publishes 9-trimester upgrading versions of its nursing and clinical degrees for people already registered and practising, and this catalogue is read by people deciding what to do after KCSE. WHAT NJIA FOUND, AND COULD NOT RECONCILE: three searches gave BSc Nursing at Ksh 65,000 a trimester, then 67,000 a trimester, then 66,700 a SEMESTER - the figure and the unit word both moving, and a trimester total is not a semester total. The fee could not be verified, so none is shown. Ask the admissions office for the per-trimester figure and how many trimesters the award runs."
     },
     {
       "course_id": "c153",
@@ -6066,6 +6098,22 @@
       "verification_note": "Maseno University is public and CUE-chartered, near Kisumu, running fourteen schools that span medicine, law, pharmacy, nursing, planning and architecture, agriculture, computing and the sciences. Listed on the university's own bachelors programme listing and that school structure, named the same way by two independently phrased searches. THE AWARD NAMES CARRY MASENO'S OWN \"(with IT)\" CONVENTION, which the university appends across its undergraduate programmes; a reader searching the exact title is who that matters for. Entry is the national KUCCPS degree minimum of C+ except where this record says otherwise, and it is the door rather than the queue - confirm the programme code and the current cut-off on the KUCCPS student portal for your cycle. Durations are the published national programme lengths for each award. An aggregator quotes Ksh 70,000 to 150,000 a year across all Maseno programmes; that is neither published by the university nor attributable to a named course, and it sits outside the SCFM mechanism entirely, so it is named here only so nobody mistakes it for a price. The university does not publish a per-programme price for this course, so no fee is shown - see the funding note on this card for what you would actually be asked for."
     },
     {
+      "course_id": "c1228",
+      "course_name": "Bachelor of Medicine and Bachelor of Surgery (MBChB)",
+      "institution": "Uzima University",
+      "institution_id": "uzima",
+      "county": "Kisumu",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 72,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Uzima University is private and CUE-chartered in Kisumu, founded by the Catholic Church, and it is a health university: a School of Medicine and a School of Nursing, with teaching placements at Jaramogi Oginga Odinga Teaching and Referral Hospital and Kisumu County Referral Hospital. Listed on the university's own schools and undergraduate programme listings. Entry is the national C+ degree minimum, the door rather than the queue - the MBChB in particular is competitive and carries cluster-subject requirements well above it. UPGRADING ROUTES ARE NOT RECORDED: Uzima publishes upgrading versions of its clinical medicine and health systems degrees for people already in practice. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure of any kind was returned for Uzima by any source reachable from this build - not a range, not a per-semester rate. That is a found absence rather than a refused reading, and the fee could not be verified, so none is shown. Ring the admissions office."
+    },
+    {
       "course_id": "c427",
       "course_name": "Bachelor of Science in Clinical Medicine and Community Health",
       "institution": "Uzima University",
@@ -6080,6 +6128,38 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Uzima University was founded by the Archdiocese of Kisumu, is affiliated to the Catholic University of Eastern Africa, and its health programmes are accredited by the Commission for University Education and the Clinical Officers Council (cross-reported August 2026). It is a private university and sets its own fees; its fee schedule could not be verified from any source reachable here, so no figure is shown rather than a guessed one. Entry to clinical programmes carries subject requirements in the sciences on top of the mean grade — confirm both with the university."
+    },
+    {
+      "course_id": "c1230",
+      "course_name": "Bachelor of Science in Health Systems Management",
+      "institution": "Uzima University",
+      "institution_id": "uzima",
+      "county": "Kisumu",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Uzima University is private and CUE-chartered in Kisumu, founded by the Catholic Church, and it is a health university: a School of Medicine and a School of Nursing, with teaching placements at Jaramogi Oginga Odinga Teaching and Referral Hospital and Kisumu County Referral Hospital. Listed on the university's own schools and undergraduate programme listings. Entry is the national C+ degree minimum, the door rather than the queue - the MBChB in particular is competitive and carries cluster-subject requirements well above it. UPGRADING ROUTES ARE NOT RECORDED: Uzima publishes upgrading versions of its clinical medicine and health systems degrees for people already in practice. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure of any kind was returned for Uzima by any source reachable from this build - not a range, not a per-semester rate. That is a found absence rather than a refused reading, and the fee could not be verified, so none is shown. Ring the admissions office."
+    },
+    {
+      "course_id": "c1229",
+      "course_name": "Bachelor of Science in Microbiology",
+      "institution": "Uzima University",
+      "institution_id": "uzima",
+      "county": "Kisumu",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "numbers",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Uzima University is private and CUE-chartered in Kisumu, founded by the Catholic Church, and it is a health university: a School of Medicine and a School of Nursing, with teaching placements at Jaramogi Oginga Odinga Teaching and Referral Hospital and Kisumu County Referral Hospital. Listed on the university's own schools and undergraduate programme listings. Entry is the national C+ degree minimum, the door rather than the queue - the MBChB in particular is competitive and carries cluster-subject requirements well above it. UPGRADING ROUTES ARE NOT RECORDED: Uzima publishes upgrading versions of its clinical medicine and health systems degrees for people already in practice. WHAT NJIA FOUND, AND COULD NOT RECONCILE: no fee figure of any kind was returned for Uzima by any source reachable from this build - not a range, not a per-semester rate. That is a found absence rather than a refused reading, and the fee could not be verified, so none is shown. Ring the admissions office."
     },
     {
       "course_id": "c426",

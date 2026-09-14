@@ -2184,3 +2184,51 @@ test('the funding explainer states that a private university gets the loan but n
     'the SCFM bands have gone from the generated help page, so the sentence about '
     + 'losing the scholarship no longer says how much is being lost.');
 });
+
+/* A FEE-LESS CARD MUST STILL CARRY VERIFIABLE GUIDANCE, AND IT MUST STAY SHOWN
+ * RATHER THAN WRITTEN.
+ *
+ * 740 records carry no figure. Saying only "not shown" reads, to someone
+ * deciding where to apply, as "there is nothing to know" - and for 459 public
+ * university degrees that is false: the SCFM band shares are published, they
+ * are percentages of the course cost, and a reader who knows their band can
+ * work out their own number. The card now names the governing instrument in
+ * every case.
+ *
+ * The danger is the obvious one: a guideline is one edit away from becoming a
+ * figure. So this asserts the same property the tier benchmark has - the
+ * catalogue is untouched - and that the numbers are read from the sourced
+ * constants rather than restated in the renderer, which is how a second copy
+ * starts drifting. */
+test('every fee-less card names a published instrument, and none of it reaches the catalogue', () => {
+  const decideSrc = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+
+  assert.match(decideSrc, /function feeGuidance\(/,
+    'feeGuidance has gone from js/decide.js, so a fee-less card is back to telling a '
+    + 'reader only that Njia has no figure.');
+
+  /* Never written. The guidance may not assign a fee anywhere. */
+  const guidance = decideSrc.slice(decideSrc.indexOf('function feeGuidance('));
+  const body = guidance.slice(0, guidance.indexOf('\n}\n'));
+  assert.ok(!/total_fees_kes\s*=[^=]/.test(body),
+    'feeGuidance assigns to total_fees_kes. A shown guideline that gets written becomes a '
+    + 'per-course price nobody sourced - the placeholder trap with better manners.');
+
+  /* Read, not restated: the band percentages live in data/funding.js with their
+     own source line, and this file must not carry its own copy of them. */
+  assert.match(body, /SCFM_HOUSEHOLD_SHARE/,
+    'feeGuidance no longer reads the SCFM constant, so its figures are a second copy '
+    + 'free to drift from data/funding.js.');
+  assert.ok(!/\b70%|\b40%|\b30%/.test(body),
+    'feeGuidance hardcodes a band percentage. Those belong in SCFM_HOUSEHOLD_SHARE, which '
+    + 'carries the source line; a number typed here cannot be traced to one.');
+
+  /* Every regime in the register resolves to guidance, so a new fee_regime
+     cannot silently fall through to nothing. */
+  const fundingSrc = fs.readFileSync(path.join(root, 'data', 'funding.js'), 'utf8');
+  assert.match(fundingSrc, /SCFM_HOUSEHOLD_SHARE = \{/,
+    'SCFM_HOUSEHOLD_SHARE has gone from data/funding.js.');
+  assert.match(fundingSrc, /source:/,
+    'the SCFM share constant carries no source line, which is the one thing that makes it '
+    + 'a guideline rather than an assertion.');
+});

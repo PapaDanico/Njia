@@ -670,6 +670,46 @@ function tierMedians() {
   return TIER_MEDIANS;
 }
 
+/* A FEE-LESS CARD STILL OWES THE READER SOMETHING CHECKABLE.
+ *
+ * "Not shown" is the honest answer about this course's price and a poor answer
+ * to the question behind it, which is what a learner should budget. Where a
+ * PUBLISHED national instrument governs what they will be asked for, the card
+ * names it and gives its figures, so a reader can work out their own number
+ * instead of being told there is nothing to know.
+ *
+ * Nothing here is written into the catalogue: total_fees_kes stays null, the
+ * fee basis does not move, and the five-way partition is untouched. Every
+ * figure comes from a constant in data/funding.js carrying its own source,
+ * never restated here - a second copy is a second thing free to drift, which
+ * this project has had to stop three times. */
+function feeGuidance(course, institution) {
+  if (course.total_fees_kes != null) return '';
+  const regime = institution && institution.fee_regime;
+  const scfm = typeof SCFM_HOUSEHOLD_SHARE !== 'undefined' ? SCFM_HOUSEHOLD_SHARE : null;
+
+  if (regime === 'public_university' && scfm) {
+    return `<p class="text-sm mb-2"><strong>What you would actually be asked for.</strong>
+      ${escapeHtml(scfm.reading)} <a href="/help/#scfm">How the bands work</a>.</p>`;
+  }
+  if (regime === 'private_own_rate' && scfm) {
+    return `<p class="text-sm mb-2"><strong>Before you compare this with a public university.</strong>
+      ${escapeHtml(scfm.privateExclusion)} Ask the admissions office for the published structure for
+      <em>this named award</em>, and whether the figure quoted is per semester, per trimester or per year.</p>`;
+  }
+  if (regime === 'tvet_consolidated' && typeof PUBLIC_TVET_CAPITATION !== 'undefined') {
+    const cap = PUBLIC_TVET_CAPITATION;
+    return `<p class="text-sm mb-2"><strong>The published rate that governs this course.</strong>
+      The government's consolidated public-TVET fee is
+      <strong class="num">${formatKes(cap.consolidatedAnnualFeeKes)}</strong> a year.
+      ${escapeHtml(cap.reading)}</p>`;
+  }
+  return `<p class="text-sm mb-2"><strong>What to ask for.</strong> This institution sets its own rate
+    and no national instrument governs it, so there is a figure and Njia could not read it. Ask for the
+    published fee structure for <em>this named award</em>, whether it is per semester, per trimester or
+    per year, and how many of those the course runs &mdash; a rate without a period is not a price.</p>`;
+}
+
 function tierBenchmark(course, institution) {
   if (!institution || course.total_fees_kes != null) return null;
   if (course.level === 'degree') return null;
@@ -1123,6 +1163,7 @@ function renderCourseCard(course, match) {
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> Public universities do publish fees, but there is no longer a single per-programme price to quote: what you pay is set from your assessed household means, and the model is being changed again by Parliament. Ask the university what your intake is being billed and under which model — in writing.</p>`
       : `
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> This institution sets its own fees and none could be verified from a source Njia can reach. Ring or email the admissions office and ask for the full cost per year, what it includes, and what is charged separately — accommodation, exams and materials usually are.</p>`}
+      ${feeGuidance(course, inst)}
       `}
       ${/* For the 29 courses priced off the government's consolidated public-TVET
             fee, the tuition figure above is the PUBLISHED fee, not the invoice.

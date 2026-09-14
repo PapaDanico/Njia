@@ -3542,6 +3542,88 @@ institutions publish it; transferring the figure here would assert an
 institution fact nothing sourced supports, which is the Ebukanga *Fitting and
 Turning* ruling in the duration field rather than the fee field.
 
+## Fees are the most important thing after the course itself
+
+The maintainer's instruction, and it reorders the priority list written one
+section above: **fees come before depth.** With it came the number that makes
+the case - **14 of 1,027 courses carried a fee the institution itself publishes
+for that course**, plus 294 worked out by applying a published rate - and the
+instruction to *provide verifiable guidelines rather than no information at
+all.*
+
+**The 14 cannot move from here, and saying why is not an excuse.** `fee_observed`
+means someone read that total off the institution's own schedule for that
+course. This build cannot open a schedule: every host is egress-blocked and
+WebSearch returns a summary of a page, not the page. That is exactly why the
+Strathmore LLB total is priced and NOT observed. So the honest position is that
+the observed tier is capped by the environment, and the tiers that can move are
+the sourced ones - which went 421 records with a figure, and the KEWI diplomas
+are what moving one looks like.
+
+**KEWI is the shape to look for.** The Kenya Water Institute publishes a Diploma
+Fee Structure on its own domain: Year 1 Ksh 80,300, Years 2 and 3 about
+Ksh 70,600, **grand total Ksh 221,500**, corroborated by three independently
+phrased searches, the last naming no figure at all. The record here said the
+institute *publishes no fee structure that could be confirmed* - which had
+become false. **A note asserting an absence is a claim, and it goes stale like
+any other**; re-read the ones that say a source does not exist.
+
+**And the fee correction dragged a duration correction with it.** The record said
+24 months; KEWI publishes a three-year KNQF Level 6 diploma, and the fee
+structure is itself broken into Year 1, Year 2 and Year 3 - the length
+corroborated from a second and independent angle. Applying a three-year total to
+a two-year record would have been right in the fee field and wrong on the card.
+**When a published total arrives in years, check the years.**
+
+### What a fee-less card can say without inventing anything
+
+740 records carry no figure and the card said so and stopped. Read by someone
+deciding where to apply, "not shown" is indistinguishable from *there is nothing
+to know* - and for **459 public-university degrees that is plainly false**: the
+SCFM band shares are published, they are percentages of the course cost, and a
+reader who knows their band can work out their own number.
+
+`feeGuidance()` in `js/decide.js` now names the **published instrument that
+governs the price**, per fee regime:
+
+- **Public university** - the band shares, household nothing in Band 2 up to
+  about 40% in Band 5, and the point that follows from them: a cheaper
+  programme costs you less in shillings at the same band.
+- **Private** - you can take the HELB loan but NOT the government scholarship,
+  so the same band leaves far more with your household.
+- **Consolidated public TVET** - the Ksh 67,189 published annual fee, and the
+  capitation reading that says you are not asked for all of it.
+- **Everything else** - the three questions that turn a quoted rate into a
+  price: which award, what period, how many of them.
+
+**It is the tier-benchmark architecture applied to a METHOD rather than to a
+median** - shown at render time, never written. `total_fees_kes` stays null, the
+fee basis does not move, the five-way partition is untouched, and
+`tests/provenance.test.js` asserts all of that plus one more thing: the
+percentages are **read from `SCFM_HOUSEHOLD_SHARE` in `data/funding.js`**, which
+carries its own source line, rather than typed into the renderer. A guard bans a
+hardcoded band percentage in `js/decide.js` outright, because a number typed
+there cannot be traced to anything.
+
+**And the byte guard paid for the whole change.** It failed on the Maseno batch,
+and measuring rather than trimming found the real load: **the same SCFM
+explainer, 647 characters, repeated across 442 records - 286,000 characters of
+one national instrument stored 442 times.** With the card rendering that
+instrument from one sourced constant, the prose no longer had to be in the
+notes at all. Stripping it took the mean note from 992 to 956 characters and put
+the budget back inside its ceiling.
+
+**The strip was done per record and not by regex**, because two checks said a
+sweep was unsafe: 362 of the 442 used older wordings, and **80 carried the
+required absence phrase INSIDE the block that was about to be removed**. Every
+record was re-parsed afterwards and every one still declares which kind of
+absence it is. That is the read-back rule doing the job it exists for, on the
+largest single edit this catalogue has had.
+
+Verified at the reader's end rather than in the source: the Decide route drawn
+in a real browser shows **14 of its first 25 cards carrying guidance**, and the
+functional probe is 49/49.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who

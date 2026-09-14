@@ -4520,3 +4520,62 @@ record claimed the floor with no evidence for the floor — exactly what that
 guard was rewritten to assert after the variety-count proxy failed on data that
 had got better. Copying a record's neighbours is not the same as copying their
 reasoning.
+
+## The repo contradicts itself about five fees, and the sweep found it sideways
+
+Looking for a *fee* at the two county vocational training centres turned up
+neither a fee nor an absence, but a **disagreement inside this repository**.
+
+`isVocationalCentre()` exists because `feeGuidance()` told a Maralal card that
+the consolidated public-TVET rate of Ksh 67,189 governs its course. That ruling
+is written up above in these words: *the rate is for a college a learner is
+PLACED into by KUCCPS, while a county VTC sets its own far lower county-funded
+charge*, and the card would have *overstated the cost many times over to the
+readers with the least room*.
+
+**Five records at those same two centres carry 67,189 in `total_fees_kes`** —
+c281, c287 and c298 at Kitale, c289 and c300 at Maralal, all CDACC Level 5
+certificates, all `derived` from that rate because both institutions are set to
+`fee_regime: 'tvet_consolidated'` in the register.
+
+So the card is forbidden to *mention* a rate that the catalogue *displays as a
+number* for the same institution. Guidance is prose a reader weighs; a figure in
+the fee field is what they budget against, so if the ruling is right this is the
+worse half of the same defect — and it is the half nobody looked at, because the
+fix was written where the bug was noticed.
+
+**It is NOT being resolved here, and the reason is the part worth keeping.**
+The ruling and the register can both be defensible: a CDACC **Level 5**
+certificate is a craft qualification above the artisan tier, and a KUCCPS-placed
+Level 5 trainee plausibly does sit on the consolidated rate *even at a centre
+whose Grade III-I trades do not*. If that is so, these five records are right and
+`isVocationalCentre()` is too blunt an instrument — it keys on the institution
+where the distinction may belong to the programme. One search failed to settle
+it, and a fee touching five cards is not a thing to flip on an inference.
+
+Two things follow, and the first is the general one:
+
+- **A ruling applied at one site is not applied at the others.** The VTC
+  distinction was written into the renderer and never checked against the data,
+  so the sweep for it should have been the same commit. Whenever a predicate is
+  added that says *this rate does not apply here*, grep the catalogue for that
+  rate at those institutions before closing the change.
+- **The question to settle is narrow and it should be asked as such**: does the
+  consolidated rate follow the KUCCPS-placed PROGRAMME or the institution TYPE?
+  Everything else here follows from the answer. That is a closable lead in the
+  Alupe sense, not a dry search.
+
+**And one figure was refused inside the attempt.** A source gave the 67,189 as
+including a Ksh 30,000 government capitation and *"leaving a balance of
+Ksh 26,420"*. 67,189 minus 30,000 is 37,189. Two numbers in one sentence that do
+not reconcile is the Bungoma self-contradiction in arithmetic, so neither was
+written — and the capitation reading the guidance already gives is the safer
+form of the same fact.
+
+**Kitale's note gained a phone number and Maralal's gained nothing**, which is
+the honest split: the first publishes one, the second publishes only a post
+office box, and a PO box is not a route a school-leaver can use this week.
+Maralal's note was already the more complete of the two — licence number,
+registration date, the 20-trainee caps, and the NITA trade test being charged
+separately — and the search corroborated every part of it without adding one.
+**A re-read that confirms a good note is a result, not a wasted search.**

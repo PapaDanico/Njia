@@ -1374,8 +1374,12 @@ constant in a test.
 
 The remaining figures, measured in the same pass and left unguarded on purpose
 because they are findings about Kenya rather than about this catalogue:
-**2.1% of fees are published by the institution for that course** (14 of 680)
-and **51.2% carry no figure at all**; `employment_rate` and `median_salary_kes`
+**the institution's own published figure for that named course sits on 14
+records** - a count that has not moved since it was first measured, because
+earning it means reading a fee off a schedule this build cannot open - and
+about two thirds of the catalogue carries no figure at all. Re-measure both
+rather than quoting this line: the denominators move every pass, and the second
+figure moved by twenty points while this sentence sat still. `employment_rate` and `median_salary_kes`
 are null on **every single record**, which llms.txt already declares as a
 refusal rather than a gap. Agriculture remains **14.4 percentage points** below
 its share of GVA. Do not fill any of these by inference.
@@ -1446,8 +1450,8 @@ Asked for *data* gaps rather than eligibility ones, the right instrument is
 field completeness across every record, and it found three different things
 that look alike and are not.
 
-**Honest absence.** `employment_rate` and `median_salary_kes` are null on all
-680 records. Every one was invented, all were removed, and `llms.txt` declares
+**Honest absence.** `employment_rate` and `median_salary_kes` are null on every
+record in the catalogue. Every one was invented, all were removed, and `llms.txt` declares
 the refusal outright because Kenya publishes no per-course graduate outcomes.
 `paybackMonths()` therefore returns null for every course — and it stays,
 documented and unit-tested, because it is correct arithmetic waiting for
@@ -1460,7 +1464,7 @@ guard exists because a repeated **number** is indefensible; repeated prose about
 one national programme is not. Do not "fix" it.
 
 **And the real gap: `intake_months` is the only claim on a course card with no
-provenance at all.** All 680 records carry it, 364 the same
+provenance at all.** Every record carries it, most the same
 `["January","May","September"]`, twelve distinct patterns across the catalogue —
 and **not one record has an intake source or verification field**. That is the
 shape of a TVET intake cycle rather than a set of published calendars, which is
@@ -1473,7 +1477,7 @@ is prepared, but tell them a college runs a May intake when it only takes
 September and they arrive at a door that will not open, a year late. That is the
 eligibility direction, where this project under-claims.
 
-Sourcing 680 records is not available — the yield floor established across a
+Sourcing every record is not available — the yield floor established across a
 dozen counties is that institutional calendars sit in PDFs on egress-blocked
 hosts. So the fix is the one this file already prescribes when research fails:
 **stop stating it as fact.** The card now reads "Intakes (confirm with the
@@ -3777,6 +3781,23 @@ Ainabkoi and Ugenya where this catalogue holds Wambugu, Ugenya, Ainabkoi and
 Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current
 list; the notes say so rather than the register quietly disagreeing with its
 source.
+
+### The accessibility sweep caught the fee guidance, and it is a repeat
+
+The two links the guidance added - *how the bands work* and the *KUCCPS portal* -
+sit mid-paragraph on a course card, and axe flagged **link-in-text-block four
+times** the moment they shipped. This file already records that exact failure
+from the landing page's sources paragraph, with the fix written down: **in
+running prose the underline IS the affordance, not decoration.**
+
+Two things worth keeping. The unit suite was green through it and the browser
+sweep was not - which is this file's oldest lesson arriving again. And the
+selector is written against `.course-card p a` rather than against the two
+paragraphs that happen to carry links today, because **the property belongs to
+prose containing a link, not to a component**: writing it narrowly is what
+guarantees the third instance.
+
+Sweep back to **72 states, 0 violations**; probe 49/49.
 
 ## An indicative tier benchmark, shown but never written
 

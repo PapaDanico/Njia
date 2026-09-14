@@ -2108,6 +2108,28 @@ has had to say it: *the rule against quoting a grade high has never licensed
 quoting one low*, and a learner sent at a competitive pharmacy place on a C is
 harmed in the other direction just as surely.
 
+**Maseno +12, and its MBChB is the second record in this catalogue above the
+national minimum.** Maseno publishes **B+** for Bachelor of Medicine and
+Bachelor of Surgery, against the C+ that opens almost every other degree card
+here, and B+ is what is recorded. Under-claiming on eligibility means recording
+the published bar rather than the most generous one available: a C+ learner
+shown that card would be sent at an application the university itself says they
+cannot make. USIU-Africa's B- was the first instance; this is the second, and it
+is the same ruling.
+
+Its award names carry Maseno's own **"(with IT)"** convention, which the
+university appends across its undergraduate programmes - the TUM
+Bachelor-of-Engineering correction applied before it could become an error.
+Twelve records across a fourteen-school university, including **Aquatic
+Resources Conservation and Development**, which belongs to the Lake Victoria
+economy and has few equivalents anywhere in this catalogue.
+
+**And an aggregator's fee range is named on the card as NOT a price.** Maseno is
+public, so the SCFM means no per-programme price exists; an aggregator quotes
+Ksh 70,000-150,000 a year anyway. Reporting it silently would contradict the
+absence the same note explains, so it is named with what it is - neither
+published by the university nor attributable to a named course.
+
 ## The four biggest public universities, filled in
 
 Applying the widened standard immediately: **University of Nairobi 1 to 25,
@@ -3794,13 +3816,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1152 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1164 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1152 notes contains a comma or a quote and the
+  optional: **every one** of the 1164 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

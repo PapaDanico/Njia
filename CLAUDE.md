@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1257 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1258 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1257 notes contains a comma or a quote and the
+  optional: **every one** of the 1258 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -4579,3 +4579,78 @@ Maralal's note was already the more complete of the two — licence number,
 registration date, the 20-trainee caps, and the NITA trade test being charged
 separately — and the search corroborated every part of it without adding one.
 **A re-read that confirms a good note is a result, not a wasted search.**
+
+## The check-in's own priority list was stale, and re-running it was the instruction
+
+The scheduled check-in fires with the standing priority order, and its first
+item named **21 universities carrying fewer than five records**. Re-run as that
+same instruction requires — *the audit is one script and should be re-run rather
+than assumed* — the answer is **zero**: 65 universities, none under five, none a
+single-course stub, `MAX_THIN` already ratcheted to 0.
+
+Priority 1 is closed and the trigger did not know. That is this file's drift
+rule arriving in a new place: **a prompt is a document and it goes stale like
+any other**, and the cheapest possible waste is a session re-deriving a list
+that was closed two passes ago. The trigger says re-run rather than assume for
+exactly this reason, so the instruction protected itself — but only because it
+was followed. Read the audit, not the list in the prompt.
+
+### Priority 2, measured rather than guessed
+
+*Programme families absent from the whole catalogue* is the second call, and the
+right instrument is a probe rather than intuition: 94 candidate family words
+against every course name found **43 with zero records** — among them
+radiography, prosthetics and orthotics, speech therapy, anaesthesia, baking and
+pastry, sign language, panel beating, spray painting, upholstery, tiling,
+glazing, roofing and driving instruction.
+
+Two readings of that list, and the second is the more useful:
+
+- **Radiography is a whole regulated health profession and the catalogue had no
+  route into it at all** — the same shape as the physiotherapy, pharmacy and
+  optometry gaps this file already records approvingly. **JKUAT's Bachelor of
+  Radiography** closes it: the university's own College of Health Sciences
+  listing, corroborated by a second search naming no grade, four years, C+ mean
+  with a B- in Physics and Biology beneath it. The award is *Bachelor of
+  Radiography* and not *BSc Radiography* — JKUAT's own pages carry the former
+  and an aggregator the latter, which is the TUM Bachelor-of-Engineering
+  correction applied before it became an error.
+- **The building-finishing trades are the bigger absence and they are artisan.**
+  Panel beating, spray painting, upholstery, tiling, glazing, roofing and
+  baking are NITA and KNEC trades taught widely, open at the bottom of the grade
+  range, and this catalogue holds none of them. That is a family gap sitting
+  exactly where the core reader stands, and it is recorded here as the next
+  pass rather than worked in this one.
+
+**And the sector register did not need a word, for once.** `radiograph` and
+`imaging` were added to the health pattern *ahead of the data* when the KMTC
+work made it obvious those courses were coming. The new record resolved to
+Health and care on the first try. Widening a pattern before the course arrives
+is cheaper than the eleventh failure, and this is the first time that bet paid.
+
+### The byte guard fired on the fifth category error, and it was the largest yet
+
+One record cannot move a mean across 1,258, so the guard tripping on this insert
+meant something was already at the ceiling. Measured rather than trimmed, as
+this file now requires:
+
+- **433 records** carried *"…so no fee is shown - see the funding note on this
+  card for what you would actually be asked for."* — 72.3KB of one sentence
+  pointing at a panel that `feeGuidance()` already renders live on the same
+  card. The pointer outlived the reason for it.
+- **131 records** carried *"What a household actually pays therefore depends on
+  assessed circumstances rather than on the programme"* — a third surviving
+  fragment of the SCFM explainer, after two earlier sweeps caught the wordings
+  that existed then.
+
+**The trap this file warns about was live in the big one.** That 433-record
+sentence *contains* the required absence phrase, so deleting it wholesale would
+have stripped `does not publish` from a third of the catalogue — precisely the
+failure recorded when 80 records carried the phrase inside a block about to be
+removed. Only the tail was cut and the phrase kept, verified by re-parsing all
+1,258 records and finding **zero** without an absence phrase.
+
+Mean note **914 to 877**, no fact removed from any record. That is the fifth
+time the byte guard has pointed at a national fact stored per course rather than
+at a verbose note, and the rule is now simply the default: **when it fires,
+measure the most-repeated sentences before reading any single note.**

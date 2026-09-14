@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1270 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1279 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1270 notes contains a comma or a quote and the
+  optional: **every one** of the 1279 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -4869,3 +4869,64 @@ The habit that found it is cheap and should stay: **print the resolved sector
 for every new record at read-back time.** A guard can see a course with NO
 sector; nothing sees a course with the WRONG one, and both instances so far were
 humanities words sitting in services patterns.
+
+## Daystar +9, and a teaching award had been filed by its subject
+
+Daystar University held seven records, all C+ degrees and all of them arts and
+social science, while its own academic-programmes listing names a School of
+Science, Engineering and Health, a School of Nursing and a music department.
+Nine records added on two independently phrased searches, the second naming no
+programme and no grade: economics, actuarial science, nursing, environmental
+health, biomedical science, physics, BA Music, BEd Music and BEd Mathematics.
+
+**Biomedical science had no record anywhere in the catalogue**, which makes it
+one of the 43 family gaps the priority-2 probe measured. **BA Music and BEd
+Music are the first degree-level music records here** - the only music provision
+listed was a single production diploma.
+
+**Its nursing bar is published beneath the mean grade and is recorded that
+way.** Daystar asks a C+ mean with a C+ in Mathematics or Physics, in
+Biological Sciences and in English, and two principal passes in Chemistry and
+Biology from A-level candidates. `min_grade` stays the C+ mean the card filters
+on and the subject set goes in the note - the CUEA and DeKUT ruling, and the
+opposite of the USIU defect corrected one pass ago, where a cluster-subject
+grade had been written into the mean-grade field.
+
+**Its fee is still not written and the reporting paragraph is why the pass is
+not a loss.** The Daystar refusal already recorded here - two readings of one
+2025/26 document giving Ksh 5,650/6,410 against Ksh 6,640/7,380 per credit hour
+across 129 credit hours - is now on the cards rather than only in this file, so
+a reader ringing admissions knows the order of magnitude and knows which
+disagreement to put to them.
+
+### The sector register was filing teaching degrees by their subject
+
+This is the find of the pass and it points inward, exactly as the theology case
+did. `sectorForCourse()` is first-match-wins over an ordered array, and
+`business` sits ahead of `education`. So **Bachelor of Education (Mathematics)
+resolved to "Business, finance and accountancy"** - because the business
+pattern holds `mathematic` - and **Bachelor of Education (Business Studies)**
+with it, while **Bachelor of Education (Guidance and Counselling)** and
+**Bachelor of Education (Arts) with Guidance and Counselling** resolved to
+"Health and care". Three of those four were already shipped.
+
+**Every previous sector defect in this file was a missing word or a missing
+category. This one is neither**: education's pattern matches all four names
+perfectly well, and never got the chance. *Order matters* is written into this
+file's own comment above `SECTORS` and was reasoned about only for the pairs
+someone thought of - maritime before transport, aviation before engineering.
+
+The fix is not to reorder the array, which would move things nobody measured.
+**A teaching award belongs to education whatever subject it names**, so
+`sectorForCourse()` now tests the award shape first - `bachelor|master|diploma|
+certificate of/in education`, or `education (` - and returns the education
+sector directly. Deliberately narrow: the eight *Bachelor of Science in
+Agricultural Education and Extension* records stay in Agriculture, which is
+where they belong, and they are the check that the rule is not swallowing the
+word rather than the award.
+
+**And the only reason it was found is that the read-back now prints the
+resolved sector for every new record.** That habit was added two passes ago
+after philosophy turned up under Health and care; it has now caught a defect in
+each of the three passes since. A course with no sector announces itself. A
+course with the wrong one never does, so print it.

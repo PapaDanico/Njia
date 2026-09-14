@@ -312,9 +312,21 @@ const SECTORS = [
 /* Which sector a course belongs to. First match wins — see the ordering note on
  * SECTORS. Returns null rather than a catch-all "other": a course no sector
  * claims is a gap in the register, and a test says so. */
+/* A teaching award belongs to education whatever subject it names. SECTORS is
+ * first-match-wins over an ordered array, and `business` sits ahead of
+ * `education`, so a Bachelor of Education (Mathematics) resolved to "Business,
+ * finance and accountancy" and one in Guidance and Counselling to "Health and
+ * care" - shipped, invisible, and exactly the theology-in-law shape: a guard
+ * sees a course with NO sector and never one with the WRONG one. The award
+ * decides, not the subject in the brackets. */
+const TEACHING_AWARD = /\b(bachelor|master|diploma|certificate) (of|in) education\b|\beducation \(/i;
+
 function sectorForCourse(course) {
   if (!course) return null;
   const hay = `${course.name || ''} ${course.field || ''}`;
+  if (TEACHING_AWARD.test(course.name || '')) {
+    return SECTORS.find((s) => s.id === 'education') || null;
+  }
   return SECTORS.find((s) => s.match.test(hay)) || null;
 }
 

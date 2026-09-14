@@ -2045,6 +2045,33 @@ on its own. A 0.1KB delta cannot move a score that could not see an 11.24KB
 swing. The next reading came back at 93. Going to the bytes first cost two
 minutes and is the only thing that separates noise from a regression here.
 
+**MKU +11, and it reverses a ruling this file made about MKU itself.** Mount
+Kenya University is among the most-searched institutions in the catalogue and
+held four programmes. The eleven additions include **MBChB, Pharmacy, BSc
+Nursing and Oral Health** - and those are precisely the programmes an earlier
+section here decided to *omit*, on the reasoning that quoting the C+ national
+minimum against a competitive programme sends a learner at an application they
+cannot win.
+
+That reasoning was right about the risk and wrong about the remedy, and the
+University of Nairobi pass already established why: **omission is not the
+conservative choice when it removes the institution from view.** The fix is the
+Strathmore treatment - record the published bar, state the competition beside
+it. MKU publishes C+ for every bachelor's programme and says outright that
+health sciences, engineering and actuarial science carry higher cluster points
+and subject prerequisites, so the note says both and tells the reader to
+confirm. A reader told the bar is high keeps their agency; a reader shown
+nothing does not.
+
+**Two earlier rulings in this file are now superseded and it is worth saying so
+plainly**, because a future agent reading the MKU and KeMU paragraphs would
+otherwise apply them: the omission of competitive health programmes at MKU and
+at Kenya Methodist was correct under the old listing standard and is not correct
+under the widened one. KeMU's are still absent and are the obvious next fix.
+
+**The bytes-per-course guard fired a fourth time on a shared note across eleven
+records**, and the ceiling was again not raised. Thin tail 21 to 20.
+
 ## The four biggest public universities, filled in
 
 Applying the widened standard immediately: **University of Nairobi 1 to 25,
@@ -3731,13 +3758,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1137 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1148 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1137 notes contains a comma or a quote and the
+  optional: **every one** of the 1148 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

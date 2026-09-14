@@ -3650,6 +3650,25 @@ either half alone changes nothing, because each half independently catches the
 case; only breaking both reproduces the original bug. That is worth knowing
 about the guard rather than claiming a clean red-green.
 
+### Four more, and the inverted absence phrase for the fourth time
+
+Kisii +10, Machakos +8, Riara +5, Taita Taveta +5, thin tail 19 to **15**.
+Taita Taveta is worth naming: it is **Kenya's mining university**, a declared
+Centre of Excellence with a School of Mines and Engineering, and its Mining
+Engineering and Mineral Processing degrees have no equivalent anywhere else in
+this catalogue.
+
+**And the Riara notes said "No figure for this programme could be verified".**
+That is the required phrase inverted by one word, reading exactly as though it
+meant the opposite, on five records - the same failure recorded here for
+Lukenya and for the ministry advert. It is the fourth instance. The read-back
+caught it, as it has every time, which is the argument for running it on every
+insert rather than on the ones that feel risky.
+
+**The sector register needed `mineral processing` and `metallurg`** - thirteenth
+instance, and the pattern is now so reliable that the right move is to check the
+guard output before the guard has to tell you.
+
 ## An indicative tier benchmark, shown but never written
 
 For the records still without a fee, "nothing" is a poor answer to a learner who
@@ -3924,13 +3943,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1182 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1192 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1182 notes contains a comma or a quote and the
+  optional: **every one** of the 1192 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

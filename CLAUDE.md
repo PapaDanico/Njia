@@ -2028,6 +2028,23 @@ degrees matched on `diplomacy` and the other two matched nothing, which is the
 near-miss shape this file keeps recording: a pattern that catches one member of
 a family reads as covering the family.
 
+**DeKUT +8, thin tail 22 to 21.** Dedan Kimathi University of Technology held
+two records. Its eight additions are led by **Mechatronic Engineering**, the
+programme it is best known for, and it is the clearest case yet of a university
+publishing its subject bars beneath the mean grade: a C+ mean with a C+ in each
+of Mathematics, Physics, Chemistry and English or Kiswahili. The mean grade is
+what the card filters on and the subject set goes in the note, exactly as the
+CUEA ruling already requires.
+
+**And a Lighthouse reading of 92 arrived mid-pass and was checked against the
+bytes rather than the diff**, as this file requires. The critical path measured
+**106.6KB gz** against the 106.1-106.5 recorded when the band sat at 93-94, and
+the 55 records added in that pass put **zero bytes** on the page Lighthouse
+audits - `data/courses.js` is off that path as a property and is now 137.5KB gz
+on its own. A 0.1KB delta cannot move a score that could not see an 11.24KB
+swing. The next reading came back at 93. Going to the bytes first cost two
+minutes and is the only thing that separates noise from a regression here.
+
 ## The four biggest public universities, filled in
 
 Applying the widened standard immediately: **University of Nairobi 1 to 25,
@@ -3714,13 +3731,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1129 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1137 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1129 notes contains a comma or a quote and the
+  optional: **every one** of the 1137 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

@@ -5607,3 +5607,44 @@ right one.
 
 1,324 to 1,326 courses, 208 institutions. The sign language record renders on
 `/grades/d-plain/`, which is the point of it.
+
+### The agriculture search found no new institution and one wrong grade
+
+Agriculture is the largest structural gap — roughly 9% of the catalogue against
+about 23% of GVA — and this file already says it closes by listing the
+institutions that teach it. The fisheries institute was the target. **The search
+bled into KWSTI instead**, which sits in the same town, and that is the Rift
+Valley Polytechnic collision in a new pair: **two national institutes in
+Naivasha, one of them already listed.**
+
+**Nothing was added, and the duplicate check is why.** Every programme the
+results named — a Diploma in Fisheries and Aquatic Science, wildlife,
+environmental management, tourism — was already recorded at KWSTI from an
+earlier pass. *Check whether the institution already holds it before writing*,
+for the second time this session.
+
+**What the pass actually bought was a correction, and it is the better outcome.**
+`c1329`, the Certificate in Aquaculture, carried a **null `min_grade`**, which
+this catalogue renders as **open entry** — and its own note explained why: *"the
+institute publishes the C- diploma bar but no separate certificate bar reachable
+from this build, so none is recorded rather than one guessed downward."*
+
+That was careful when it was written and it had **become false**. The institute
+publishes **D plain** for its certificate tier, with a **D- plus three years of
+relevant work experience** as a published second route. So the record was
+quoting a grade LOW — the rarer direction, and the one this file has now had to
+name six times: *the rule against quoting a grade high has never licensed
+quoting one low.* An E-grade learner was being shown a card the institute would
+turn away.
+
+Corrected to D, with the second pathway in the note. **Verified at the reader's
+end rather than in the data**: the card has left `/grades/e/` and now appears on
+`/grades/d-plain/`.
+
+**This is the stale-absence sweep arriving sideways for the second time.** The
+first instance found KEWI and RTI publishing fee structures their records
+claimed did not exist. This one is the same shape in the **eligibility** field,
+which is worse, because a stale fee absence costs a phone call and a stale
+eligibility absence puts a learner in front of a closed door. Re-read the notes
+that assert a source does not exist — and note that "no bar reachable" is one of
+those assertions, not a neutral gap.

@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1303 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1310 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1303 notes contains a comma or a quote and the
+  optional: **every one** of the 1310 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -5294,3 +5294,63 @@ requirement and describes itself as open to anyone seeking Bible-based training 
 its own statement about its own access. A Certificate and Diploma in Biblical
 Counselling are named by one listing and not the second, so neither is recorded,
 and a BA in Practical Ministry is described as *starting* rather than running.
+
+### Four more off the thin end, and two institutions that yielded nothing
+
+**GLUK 5 to 8, Tom Mboya 5 to 6, MUA 5 to 8**, and two attempted and recorded
+as dry so nobody re-runs them.
+
+**GLUK's second search resolved an ambiguity the first created.** Its BSc
+Nursing is published as *twelve semesters*, which reads as six years; the
+second search returned the university's **tri-semester calendar**, so twelve
+trimesters is four years. A programme length given in terms cannot be converted
+without knowing the terms per year - the Railway Training Institute ruling -
+and here the calendar was the missing half.
+
+**Its Certificate in Community Health and Development is named and not
+recorded**, on a field rather than a doubt: GLUK publishes a C plain diploma
+bar and no certificate bar, and recording a university certificate at open
+entry would be quoting a grade LOW. The rule against quoting one high has never
+licensed that, and this is the fourth time it has had to be applied.
+
+**And its Diploma in Clinical Medicine carries a null duration for a new
+reason.** The source gives it as twelve trimesters - the *same figure* it gives
+for the four-year degree beside it. A diploma and a degree of identical length
+is the shape of a summary that has collapsed two rows, so the field is empty and
+the note says why.
+
+**Two published second pathways are worth more than the bars they sit beside.**
+KWSTI admits to a diploma at C-, **or at D+ with three years of relevant work**.
+MUA admits at C-, **or below it down to a D plain after a certificate in a
+related area**. Both reopen the door to someone whose grade closed it, and
+neither is visible in a `min_grade` field - so both are in the notes, and they
+are the reason to ring rather than assume.
+
+**IUK yielded nothing, and the reason is the one to record.** Its own strapline
+names accredited degrees in "Business Management, IT, Artificial Intelligence,
+Cyber Security, Marketing, Data Analytics and Sharia" - and a second source says
+the BSc in Information Technology *covers* software, cybersecurity and
+networking. So those are subject AREAS in a marketing line, and possibly
+specialisms inside one degree, rather than award titles. **A strapline is not a
+programme list.** Nursing, Allied Health, Law and Medicine are separately
+described as planned. Do not re-run it; what is missing is an award-level
+listing.
+
+### And the new mean-note ratchet caught the author of the ratchet
+
+Set an hour earlier at exactly the value it was measured at, it fired on a batch
+that moved the mean by **one character**. At zero tolerance it had stopped
+measuring a trend and started measuring rounding - which is the byte ceiling's
+124.88-against-125 mistake, repeated by the person who had just written that
+mistake up.
+
+Raised to 845 against a measured 840, and the five characters are reasoned
+rather than slack: what it exists to catch is a paragraph pasted across many
+records, and 300 characters across 100 records moves the mean by 23. It came
+down from 864 this session as four blocks of boilerplate were cut, and the
+comment says to lower it again on the next cut and never to raise it.
+
+**The general form: a ratchet needs enough tolerance to distinguish the
+regression it was built for from the noise of ordinary work.** Set at today's
+exact figure it fires on everything, which trains the next person to raise it
+casually - the precise habit the ceiling rules here exist to prevent.

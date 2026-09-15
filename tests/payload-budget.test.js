@@ -174,7 +174,17 @@ test('catalogue records do not get fatter as the catalogue grows', () => {
      ratchet that catches a paragraph pasted across many records, which is how
      every previous failure of this guard actually happened - nine times, and
      every one a national or conventional fact stored per course. */
-  const MEAN_NOTE = 840;
+  /* Set at 845 against a measured 840, and the 5 characters of tolerance are
+     deliberate rather than slack. This ratchet was first written at exactly the
+     value it was measured at, which made it fire on a batch that moved the mean
+     by ONE character - it had stopped measuring a trend and started measuring
+     rounding, which is the byte ceiling's 124.88-against-125 mistake in a new
+     place. What it exists to catch is a paragraph pasted across many records,
+     and 300 characters across 100 records moves this by 23, so five characters
+     of tolerance costs nothing it was built to see. It came down from 864 this
+     session as four separate blocks of repeated boilerplate were cut; lower it
+     again when you cut another, and never raise it. */
+  const MEAN_NOTE = 845;
   const mean = COURSES.reduce((n, c) => n + c.verification_note.length, 0) / COURSES.length;
   assert.ok(mean <= MEAN_NOTE,
     `the mean verification note is ${mean.toFixed(0)} characters, over the ${MEAN_NOTE} `

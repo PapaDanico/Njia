@@ -212,7 +212,7 @@ const SECTORS = [
     id: 'agriculture',
     name: 'Agriculture and agribusiness',
     broad: 'agriculture',
-    match: /agri|agro-?ecosystem|agronom|farm|horticultur|dryland|range management|natural resource|environmental science|environmental management|environmental studies|geograph|meteorolog|climate|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur/i,
+    match: /agri|agro-?ecosystem|agronom|farm|horticultur|dryland|range management|natural resource|environmental science|environmental management|environmental studies|geograph|meteorolog|climate|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur|aquacultur|fisher/i,
     awardingBodies: ['TVET CDACC', 'public universities'],
     knbs: { series: 'Agriculture, forestry and fishing', mapping: 'exact', growth: 3.1, share: 23.2 },
     caution: 'Nearly a quarter of the entire economy and the largest single employer in the country, growing slower than the economy as a whole. Most of that work is on smallholdings and is not waged employment — which is the argument for agribusiness and processing rather than against agriculture.'
@@ -293,7 +293,7 @@ const SECTORS = [
     id: 'humanities',
     name: 'Languages, humanities and religious studies',
     broad: 'services',
-    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|intercultural studies|church educational|christian ministr|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication|philosoph|ethic/i,
+    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|\bbible\b|intercultural studies|church educational|christian ministr|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication|philosoph|ethic/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'These programmes most often lead into teaching, translation, media or further study, and Kenya publishes no graduate-outcome data for any of them. Where teaching is the intended destination, read the note on the education sector too - entry to the classroom runs through the TSC employment queue.'

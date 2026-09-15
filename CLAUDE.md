@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1326 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1331 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1326 notes contains a comma or a quote and the
+  optional: **every one** of the 1331 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -5648,3 +5648,50 @@ which is worse, because a stale fee absence costs a phone call and a stale
 eligibility absence puts a learner in front of a closed door. Re-read the notes
 that assert a source does not exist — and note that "no bar reachable" is one of
 those assertions, not a neutral gap.
+
+### Surveying was six records and all six were degrees
+
+The specialised-institution sweep named the Kenya Institute of Surveying and
+Mapping as absent, and checking what the catalogue held before searching found
+the more useful thing: **six surveying and geospatial records, every one a
+degree.** Geomatics at TTU and DeKUT, geospatial engineering at UoN, quantity
+surveying, geospatial information at TU-K and Maseno. **A learner at D or C- had
+no visible way into the profession at all** — not a thin route, none.
+
+**KISM is the technician ladder, and it publishes the whole of it.** Training arm
+of the State Department for Lands and Physical Planning, set up in 1994 with the
+Survey of Kenya, at Ruaraka. Five records off its own course pages, with a second
+differently phrased search corroborating the institute and the award families
+without naming a grade: land surveying at **diploma (C-, three years)** and
+**certificate (D, two years)**, cartography, map reproduction and printing, and a
+printing technology certificate at D.
+
+**Each carries its own subject set, and they are not interchangeable.** Land
+surveying asks a C- in English, Mathematics and **Physics**; cartography asks a
+C- in Mathematics, English and **Geography**; map reproduction asks **Chemistry
+or Physical Science**. The mean grade is what the card filters on and the subject
+triple is the rest of the door, which is the CUEA ruling — and stating it matters
+more than usual here, because three diplomas at one institute look like one door
+from the outside.
+
+**Two published second routes are in the notes**: a KNEC craft certificate in a
+similar field admits to the map reproduction diploma, and a KCE division II
+equivalent to cartography.
+
+**The sector register failed for the sixteenth time, and this one was a family
+rather than a word.** All five matched nothing. `quantity survey` and
+`land econom` were already in Built environment and construction — **`land
+survey` was not**, which is the near-miss shape exactly: the pattern held the
+adjacent profession and missed the one next to it. `land survey`, `cartograph`
+and `photogrammetr` went to Built environment; `printing technology` and
+`map reproduction` to Engineering, manufacturing and trades, because printing is
+a production trade and dumping all five into the nearest single sector is the
+philosophy-into-Health-and-care mistake. Checked against the whole catalogue:
+exactly five records move, every one from no sector.
+
+**Photogrammetry and remote sensing are named and not recorded** — the second
+search gives them as award *families* and no reachable page gives an award title
+with its own entry bar.
+
+1,326 to 1,331 courses, 209 institutions. Verified at the reader's end: the
+certificate renders on `/grades/d-plain/` and the diplomas on `/grades/c-minus/`.

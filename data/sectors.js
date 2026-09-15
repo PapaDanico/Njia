@@ -152,7 +152,7 @@ const SECTORS = [
     id: 'built',
     name: 'Built environment and construction',
     broad: 'industry',
-    match: /building|construction|masonry|plumb|carpent|architect|quantity survey|real estate|land econom|civil|concrete|painting and decoration/i,
+    match: /building|construction|masonry|plumb|carpent|architect|quantity survey|land survey|cartograph|photogrammetr|real estate|land econom|civil|concrete|painting and decoration/i,
     awardingBodies: ['National Construction Authority', 'Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Construction', mapping: 'exact', growth: 6.8, prev: -0.7 },
     caution: 'A rebound from a contraction, not a run of growth. Certified trades earn day rates rather than salaries, so the money is real but the month is not guaranteed.'
@@ -221,7 +221,7 @@ const SECTORS = [
     id: 'engineering',
     name: 'Engineering, manufacturing and trades',
     broad: 'industry',
-    match: /engineering|\bengine\b|mechanic|electric|electronic|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|chemist|chemistry|processing technology|plant technician/i,
+    match: /engineering|\bengine\b|mechanic|electric|electronic|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|chemist|chemistry|processing technology|printing technology|map reproduction|plant technician/i,
     awardingBodies: ['Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Manufacturing', mapping: 'unsourced' },
     caution: 'Manufacturing is the largest formal employer in the country at 366,600 workers, and its share of the economy has been drifting down for over a decade. Njia did not source its 2025 growth figure, so none is shown.'

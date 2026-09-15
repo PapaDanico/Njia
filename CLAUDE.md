@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1324 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1326 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1324 notes contains a comma or a quote and the
+  optional: **every one** of the 1326 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -5555,3 +5555,55 @@ consecutive time the guard has pointed at a category error.
 
 1,320 to 1,324 courses. Four layers clean, and the records render on
 `counties/nairobi/`.
+
+### KISE, a family gap closed at D, and a guard that asked the right question
+
+Specialised institutions were 19 against the handover's 40+. Measured against a
+list of Kenya's national institutes rather than guessed, **seven are absent** —
+the Kenya School of Government, the National Youth Service, KISE, the Kenya
+Institute of Surveying and Mapping, and the meteorological, fisheries and mining
+institutes.
+
+**KISE is the one worth taking first**, and not because of the count. It is the
+national institute for special needs education, a semi-autonomous agency under
+the Ministry of Education since 1986, and it publishes a **Certificate in Kenyan
+Sign Language at a KCSE mean grade of D, over three months**. Sign language was
+one of the 43 programme families the priority-2 probe measured as having **zero
+records anywhere in this catalogue** — a whole recognised route into interpreting
+and communication-support work, absent.
+
+**Its general floor is C- and that is not what is recorded.** KISE states a C-
+minimum for certificate courses and then publishes **D** for sign language and
+for Braille Proficiency specifically. The per-programme figure wins, which is the
+CUEA ruling: a learner at D must not be turned away on an institute-wide floor
+the institute itself overrides for the course they want.
+
+**Its diplomas are deliberately absent.** They require a P1 teaching certificate
+and two years of classroom experience — in-service upgrading routes, which this
+catalogue does not record because it is read by people deciding what to do after
+KCSE. The Garissa and Siaya ruling, at an institute rather than a campus.
+
+**And a guard nobody had met asked the question the records were dodging.**
+`a short course does not pretend to be a KNQF qualification` failed both
+records, and it was right: a three-month institute proficiency certificate and a
+KNEC-examined certificate are different objects, and **no reachable source says
+which of the two this is.** The temptation was to fold them into `certificate`
+and make the failure go away, which would have asserted framework status on no
+evidence. Instead both notes now say outright that Njia records them as short
+courses because nothing places them on the framework, and tell the reader to ask
+KISE before planning a ladder on one. **A guard that fails on an honest omission
+is asking for the omission to be stated, not for the record to be reclassified.**
+
+**Braille carries a null duration beside a three-month sibling**, which is the
+Ebukanga *Fitting and Turning* ruling once more: two named awards at one
+institute are not one product, and borrowing the length from the course next to
+it would invent the field.
+
+**The sector register failed for the fifteenth time** — `sign language` and
+`braille` matched nothing, while *Inclusive Education* resolved fine off the word
+`education`. Words added to the education pattern and checked against the whole
+catalogue before committing: exactly two records move, both from no sector to the
+right one.
+
+1,324 to 1,326 courses, 208 institutions. The sign language record renders on
+`/grades/d-plain/`, which is the point of it.

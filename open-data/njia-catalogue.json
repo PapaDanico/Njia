@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1324,
-  "institution_count": 207,
+  "course_count": 1326,
+  "institution_count": 208,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -13056,6 +13056,38 @@
       "tuition_kes": 100784,
       "fee_basis": "derived",
       "verification_note": "Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026, as announced by government and reported by Eastleigh Voice/sector coverage, August 2026), scaled to course duration. Institutes bill per term/year and per-course amounts can differ - confirm with the registrar."
+    },
+    {
+      "course_id": "c1352",
+      "course_name": "Certificate in Braille Proficiency",
+      "institution": "Kenya Institute of Special Education (KISE)",
+      "institution_id": "kise",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "short_course",
+      "cluster": "people",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named by both searches as one of the institute’s proficiency courses, alongside Kenyan Sign Language, at a published minimum KCSE mean grade of D rather than the general C- floor KISE states for certificate courses. NO LENGTH IS PUBLISHED, so the duration is empty rather than borrowed from the three-month sign language course beside it — two awards at one institute are not one product. RECORDED AS A SHORT COURSE, NOT A KNQF CERTIFICATE: no source places it on the framework. KISE does not publish a fee for it that Njia could reach. ALSO NAMED AND NOT RECORDED: a Certificate in Inclusive Education at D, named by one search only; and the institute’s Diplomas in Special Needs Education, which are IN-SERVICE routes needing a P1 certificate and two years teaching, so they are closed to a school-leaver."
+    },
+    {
+      "course_id": "c1351",
+      "course_name": "Certificate in Kenyan Sign Language",
+      "institution": "Kenya Institute of Special Education (KISE)",
+      "institution_id": "kise",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "short_course",
+      "cluster": "people",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": 3,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "KISE is a semi-autonomous agency under the Ministry of Education, established 1986 at Kasarani, Nairobi. Two independently phrased searches agree on the award, a THREE-MONTH length and a minimum KCSE mean grade of D. KISE states a general C- floor for its certificate courses and publishes D for this one specifically, so the lower published figure is recorded per programme and a learner at D is not turned away on the institute-wide floor. RECORDED AS A SHORT COURSE, NOT A KNQF CERTIFICATE: no source places this award on the qualifications framework, so Njia does not imply it ladders like a KNEC certificate. Ask KISE whether it carries a KNQF level before planning a ladder on it. KISE publishes no fee for it that Njia could reach; ring +254 724 269505."
     },
     {
       "course_id": "c002",

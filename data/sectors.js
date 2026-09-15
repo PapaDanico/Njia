@@ -239,7 +239,7 @@ const SECTORS = [
     id: 'education',
     name: 'Education and teacher training',
     broad: 'services',
-    match: /teacher education|education|teaching/i,
+    match: /teacher education|education|teaching|sign language|braille|special needs/i,
     awardingBodies: ['KNEC', 'TSC (registration)'],
     knbs: { series: 'Education', mapping: 'unsourced' },
     caution: 'Education employs 251,100 people formally, second only to manufacturing — and roughly 369,000 trained teachers are already TSC-registered and waiting for a post. The bottleneck is funded posts, not qualified people.'

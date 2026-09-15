@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1320 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1324 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1320 notes contains a comma or a quote and the
+  optional: **every one** of the 1324 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -5498,4 +5498,60 @@ kept, and the ceiling not touched.
 
 1,319 to 1,320 courses, 207 institutions. Verified at the reader's end rather
 than in the data: the record renders on `/grades/d-plus/` and on
+`counties/nairobi/`.
+
+### Professional courses, and an absence phrase that was never really there
+
+The handover's professional section was 16 against 25, and ACCA and Certified
+Secretaries were the named absences. Four records close most of it: **ACCA and
+CPA at Strathmore**, and **Certified Secretaries at the Kenya School of Law and
+at KCA**.
+
+**The two Strathmore bars differ by one subject grade, and both are published.**
+ACCA takes a C+ mean with a **C** in English and Mathematics; CPA takes a C+
+mean with a **C+** in both. They sit side by side on the same institution's
+pages, so the note on each says not to read one bar off the other — the CUEA
+two-floors ruling, arriving at one institution rather than across two.
+
+**The second pathways are worth more than the bars.** ACCA admits on two A-level
+principal passes, an ABE certificate, CPA Part 1, the Accounting Technician
+Course, a degree, or its own Foundation in Accounting certificate — six routes
+in for someone whose KCSE mean fell short. CS admits on an existing KASNEB
+technician, diploma or professional certificate. None of that is visible in a
+`min_grade` field, which is exactly why it is in the notes.
+
+**The KSL record carries SOURCED intake months**, which almost nothing here can
+say: the School runs January, May and September intakes deliberately aligned to
+KASNEB's April, August and December sittings. That does not lift the card-level
+caveat, which stays until records carry an intake provenance field.
+
+**And the read-back found a defect that had been passing the guard.** All four
+notes satisfied the absence check on the words *"does not publish a fixed
+programme length"* — a **duration** sentence — while none of them declared which
+kind of **fee** absence it was. The guard was green on the wrong sentence, and
+it only surfaced because compressing the shared KASNEB paragraph removed that
+phrase and four defects appeared at once.
+
+That is a new shape of the absence failure and the sharpest yet. The six
+recorded instances were all *phrasing* — the literal inverted, or paraphrased.
+This one was the phrase appearing correctly, in the right record, **about the
+wrong field**. A guard that looks for four strings anywhere in a note cannot
+tell which claim they qualify. Tails rewritten to carry `publishes no fee`
+explicitly.
+
+**And the sweep for it over-flagged, which is the other half of the lesson.**
+A regex for `could be verified` without `could not be verified` returned eleven
+records — every one **correct**: *"publishes no per-course figure that could be
+verified"* means no verifiable figure exists, which is exactly right. That is
+this file's own warning about a guard aimed at a word rather than at a claim,
+and the correct response was to leave good text alone.
+
+**The byte guard fired, and for once the repeated text really was the cause.**
+A 370-character KASNEB paragraph on four records — registration separate from
+enrolment, fees paid to the board, no fixed programme length — is a fact about
+the **examining body**, not about any course. Compressed; mean note back under
+the ratchet at 844.95 with every fact kept and the ceiling untouched. Tenth
+consecutive time the guard has pointed at a category error.
+
+1,320 to 1,324 courses. Four layers clean, and the records render on
 `counties/nairobi/`.

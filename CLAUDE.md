@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1293 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1296 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1293 notes contains a comma or a quote and the
+  optional: **every one** of the 1296 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -5201,3 +5201,96 @@ signature intact on all 156 records that need it.
 actually costing anything before cutting it.** Count the DISTINCT sentences, not
 the repeated ones. A sentence on 433 records is nearly free; six copies of a
 unique paragraph are not.
+
+### And the byte guard was itself the mistake it was written to avoid
+
+It fired four times in one pass, and the fourth time the honest answer was not
+to trim anything. **Measured by simulation rather than argued**, from 1,296
+records at 125.2 gzipped bytes per course:
+
+| what is added | result |
+|---|---|
+| +200 records **duplicating** existing ones | **119.9** - growth is free |
+| +200 records carrying **novel prose** | **154.5** - growth is expensive |
+
+So the figure does not measure how fat a record is. **It measures how NOVEL its
+text is**, because gzip charges almost nothing for repetition. Another KMTC
+campus row is nearly free; a genuinely new institution - new name, new county,
+vocabulary the file has never seen - is not. That penalises exactly the coverage
+this project values, and it fired on a pass whose **mean note FELL from 861 to
+837** while four separate blocks of repeated boilerplate were cut out of it.
+
+That is the artisan entry-grade guard's mistake one level up: *a proxy guard
+fails on data that got better.* And the fix is the one that case already taught -
+**assert the property, not the proxy.** The two things the guard exists to stop
+are named in its own failure message, and both can be checked directly:
+
+- **No field added to every record.** A new column costs 1,296 copies of its name
+  before it carries any information. Asserted at 18 fields.
+- **The mean note may fall and must never rise.** This is the ratchet that
+  catches a paragraph pasted across many, which is how every previous failure
+  actually happened - **nine times, and every one a national or conventional
+  fact stored per course.**
+
+The gzip figure survives as a **backstop** at 130 with the headroom the
+simulation justifies, and its failure message now says to check the two
+properties first: if both hold, the cause is novel text rather than bloat, and
+the honest response is to write that down rather than shave facts off good
+records.
+
+Both new properties were broken and watched to fail - a field spliced onto every
+record, and a paragraph pasted into every note - then restored.
+
+**The general lesson is about how the earlier fixes felt.** Cutting the repeated
+sentences was satisfying and looked like progress every time; four of those cuts
+this session moved the number by almost nothing, and one moved it the WRONG WAY
+(125.0 to 125.44). A guard whose number responds to effort in the wrong direction
+is not measuring what its name claims. **When a fix that should obviously work
+does not, re-derive what the metric is actually counting before applying it a
+fifth time.**
+
+### The third handover, and its index was smaller than the catalogue
+
+A third handover arrived, offering ten sections and roughly 737 programmes. Its
+index was measured against the live catalogue before a line of it was acted on,
+which is what this file already requires of a handover's gap analysis - and
+**Njia already exceeds it in seven of the ten sections**, several by two to four
+times:
+
+| section | it claims | Njia holds |
+|---|---|---|
+| Public university degrees | 260 | **452** |
+| Private university degrees | 150+ | **246** |
+| TVET diplomas | 100 | **210** |
+| TVET certificates and artisan | 80 | **300** |
+| KMTC diplomas | 30 | **94** |
+| KMTC certificates | 15 | **62** |
+| Teacher training | 2 | **6** |
+| Professional (KASNEB, ACCA) | 25 | 16 |
+| **Theological and Bible colleges** | 35 | **10** |
+| Specialised institutions | 40+ | 18 |
+
+Three sections are worth mining and the rest are already answered. Two parts are
+refusable before the document is even read: the private-degree section offers
+**fee ranges**, and twenty-two private universities have already been attempted
+and refused because a per-category range cannot attach to a named course; and
+the public-degree section offers **cut-off points**, which are per-cycle and
+belong in a note as context, never in `min_grade`.
+
+**The theological gap is a category gap, and the register proved it.** Searched
+for the provider KIND rather than for a name - the instrument that found the
+mission-hospital schools - and **not one standalone theological college is
+listed.** All ten faith-training courses sit at universities. **Manna Bible
+Institute and School of Missions** opens the category: Ongata Rongai, teaching
+since 1986, TVETA-registered as a technical and vocational college, with
+certificate, diploma and advanced diploma awards in Bible and Theology named by
+two independently phrased searches.
+
+**It carries a null duration, a null fee and open entry, and each is sourced as
+an absence rather than guessed.** No programme length is published anywhere
+reachable, so the field is empty rather than carrying the twelve months a
+certificate usually runs. Entry is open because the institute publishes no KCSE
+requirement and describes itself as open to anyone seeking Bible-based training -
+its own statement about its own access. A Certificate and Diploma in Biblical
+Counselling are named by one listing and not the second, so neither is recorded,
+and a BA in Practical Ministry is described as *starting* rather than running.

@@ -136,17 +136,61 @@ test('catalogue records do not get fatter as the catalogue grows', () => {
   /* Adding courses is the project. Capping the catalogue's total size would
      fail on data that got better, which is the mistake the artisan entry-grade
      guard made when it counted distinct values. So the budget is per record:
-     research costs nothing here, and a field duplicated onto 664 records does. */
-  const PER_COURSE = 125;
+     research costs nothing here, and a field duplicated onto 664 records does.
+
+     AND THE GZIP FIGURE ALONE TURNED OUT TO BE THAT SAME MISTAKE, ONE LEVEL UP.
+     Measured by simulation rather than argued, from 1,296 records at 125.2:
+
+       +200 records duplicating existing ones  ->  119.9  (growth is free)
+       +200 records carrying novel prose       ->  154.5  (growth is expensive)
+
+     So this number does not measure how fat a record is. It measures how NOVEL
+     its text is, because gzip charges almost nothing for repetition. A new KMTC
+     campus row is nearly free; a genuinely new institution - new name, new
+     county, vocabulary the file has never seen - is not. That penalises exactly
+     the coverage this project values, and it fired on a pass whose mean note
+     FELL from 861 to 837 characters while four separate blocks of repeated
+     boilerplate were cut out of it.
+
+     The fix is the one the artisan guard already taught: assert the property,
+     not the proxy. The two things this guard exists to stop are named in its own
+     failure message - a field added to every record, and a note pasted across
+     many - and both can be checked directly. The byte figure stays as a backstop
+     with the headroom that simulation justifies. */
   const ctx = vm.createContext({});
   for (const f of CATALOGUE) vm.runInContext(fs.readFileSync(path.join(ROOT, f), 'utf8'), ctx);
   const { COURSES } = vm.runInContext('({ COURSES })', ctx);
+
+  /* PROPERTY 1: no field added to every record. The shape is fixed; a new
+     column costs 1,296 copies of its name before it carries any information. */
+  const FIELDS = 18;
+  const widest = COURSES.reduce((w, c) => Math.max(w, Object.keys(c).length), 0);
+  assert.ok(widest <= FIELDS,
+    `a course record now carries ${widest} fields, over the ${FIELDS} this catalogue `
+    + 'is shaped to. A field added to every record is the thing this guard exists to '
+    + 'stop: it costs one copy of its name per course before it carries any information.');
+
+  /* PROPERTY 2: the mean note may fall and must never rise. This is the
+     ratchet that catches a paragraph pasted across many records, which is how
+     every previous failure of this guard actually happened - nine times, and
+     every one a national or conventional fact stored per course. */
+  const MEAN_NOTE = 840;
+  const mean = COURSES.reduce((n, c) => n + c.verification_note.length, 0) / COURSES.length;
+  assert.ok(mean <= MEAN_NOTE,
+    `the mean verification note is ${mean.toFixed(0)} characters, over the ${MEAN_NOTE} `
+    + 'ratchet. Before trimming the newest batch, measure the most-REPEATED sentences: '
+    + 'nine times out of nine the cause was a national fact stored per course rather '
+    + 'than one verbose note. Lower this constant when you cut one; never raise it.');
+
+  /* BACKSTOP: unbounded growth in bytes per record, with headroom sized by the
+     simulation above rather than by whatever the figure happens to be today. */
+  const PER_COURSE = 130;
   const bytes = gz('data/courses.js');
   const per = bytes / COURSES.length;
   assert.ok(per <= PER_COURSE,
     `data/courses.js is ${per.toFixed(1)} gzipped bytes per course across ${COURSES.length} `
-    + `records (${kb(bytes)} total), over the ${PER_COURSE}-byte budget. This guard does not `
-    + 'care how many courses there are — it fails when each one gets heavier, which is a '
-    + 'field added to every record or a note pasted across many. Check what the last change '
-    + 'added to every course before raising it.');
+    + `records (${kb(bytes)} total), over the ${PER_COURSE}-byte backstop. Check the two `
+    + 'properties above first - if both hold, this is novel text rather than bloat, and '
+    + 'the honest response is to say so in CLAUDE.md rather than to shave facts off good '
+    + 'records.');
 });

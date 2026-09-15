@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1319 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1320 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1319 notes contains a comma or a quote and the
+  optional: **every one** of the 1320 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -5435,3 +5435,67 @@ stamps and mismatched names are the top rejection reasons*, not weak need and
 not weak grades, and that is a fact a reader can act on this week.
 
 15 to 23 funding records, 51 FAQ pairs. Four layers clean.
+
+## The theological gap, worked: Carlile, and a D+ that is a route rather than a dead end
+
+The handover's index put theological and Bible colleges at 35 against this
+catalogue's 10, the largest shortfall in the table, and it is a **category gap**
+rather than a count: every one of those ten sits at a university, and standalone
+colleges were absent until Manna Bible went in. Carlile and Kenya Baptist were
+the two named blockers.
+
+**Carlile College closed and Kenya Baptist did not, and the difference is the
+usual one.** Carlile's own certificate page publishes a **D+ mean grade** for
+its Certificate in Christian Mission, and the college states outright that the
+award doubles as a **bridging route for applicants who fall short of its diploma
+entry** — so a D+ here is a route on rather than a terminal qualification, which
+is exactly the rung this catalogue is thinnest at and the opposite of the
+KMTC/E-grade ground the last several passes kept returning to. Corroborated by a
+second, differently phrased search naming neither the grade nor the award: Church
+Army Africa, teaching since 1958, School of Mission established that year,
+affiliated to St Paul's University and ACTEA.
+
+**Its diplomas are named and not recorded, on a field rather than a doubt.** A
+Diploma in Urban Mission (its Centre for Urban Mission opened in 2003), two
+chaplaincy diplomas, a Higher Diploma in Theology validated by the University of
+Exeter and recognised by UNISA, and a CDACC certificate in Christian Ministry
+all plainly run. **None publishes an entry grade**, and the only thing the
+college says is that its diploma bar sits *above* D+. Recording them at a null
+`min_grade` would render as open entry — quoting a grade LOW, which this file
+has now had to refuse five times. The note names all five and gives the
+admissions number, which is the GLUK ruling exactly.
+
+**Kenya Baptist Theological College is a lead with its blocker named.** Founded
+1982 by the Baptist Convention of Kenya at Limuru, reachable, and every source
+names **levels** rather than awards — "diploma courses, certificate courses,
+advanced diploma" — with one aggregator listing it among colleges offering a
+Certificate in Bible and Theology. *A named level is not a named course*, and
+one aggregator's list membership is not corroboration. The missing thing is an
+award-level listing on `kbtc.ac.ke`; do not re-run the general search.
+
+### The sector register failed on a word for the fourteenth time, and the read-back caught it twice over
+
+`christian ministr` does not match **Christian Mission**. Same near-miss shape as
+`physiolog` against `physiotherap` and `electric` against `electronics`, and it
+reached the read-back rather than a guard because *a course with no sector
+announces itself only at insert time*. `christian mission`, `urban mission` and
+`chaplainc` added — and **checked against the whole catalogue before committing:
+exactly one record moves, from no sector to the right one.** That check is cheap
+and is what separates widening a pattern from the philosophy-into-Health-and-care
+mistake.
+
+**And the standalone test that said it resolved was wrong about why.** Run
+against a hand-written `{name, field}` object, the sector came back correct — off
+the `field` text, which the real record does not carry. **A probe that feeds a
+guard a field the data does not have is testing the probe.** The parsed read-back
+disagreed a minute later and was right.
+
+**The mean-note ratchet then fired at 845.1 against 845**, one day after being
+raised to 845 with five characters of reasoned tolerance. It was doing its job:
+the note carried a discursive clause and a business-school aside that were
+repository-facing rather than reader-facing. Trimmed to 844.94 with every fact
+kept, and the ceiling not touched.
+
+1,319 to 1,320 courses, 207 institutions. Verified at the reader's end rather
+than in the data: the record renders on `/grades/d-plus/` and on
+`counties/nairobi/`.

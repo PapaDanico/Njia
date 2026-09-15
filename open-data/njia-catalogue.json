@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1319,
-  "institution_count": 206,
+  "course_count": 1320,
+  "institution_count": 207,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -11536,6 +11536,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Amref International University is a CUE-chartered private university run by Amref Health Africa, with a School of Medical Sciences and a School of Public Health. Entry is a KCSE mean grade of C plain or equivalent. The university does not publish a per-programme fee schedule in any source available here — fees are set by the university and vary by citizenship — so no figure is shown rather than a guessed one — confirm with the admissions office. WHAT NJIA FOUND, AND COULD NOT RECONCILE: one search gave Ksh 111,700-115,200 a semester and a four-year total of about Ksh 1,363,100; the next gave Ksh 155,700-160,700 a semester and a total \"over Ksh 1.8 million\". Those differ by roughly 40%, and non-East-African students are reported to pay 20% more. None of these is this course’s fee - treat it as a bracket to check, and ask which AWARD the quote covers and what it excludes."
+    },
+    {
+      "course_id": "c1346",
+      "course_name": "Certificate in Christian Mission",
+      "institution": "Carlile College (Church Army Africa)",
+      "institution_id": "carlile",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "certificate",
+      "cluster": "people",
+      "min_grade": "D+",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Carlile College is the education ministry of Church Army Africa, an Anglican society of mission, teaching in Nairobi since 1958 and affiliated to St Paul’s University and to ACTEA. THE D+ MEAN GRADE IS THE COLLEGE’S OWN PUBLISHED FIGURE for this award, read off its certificate page, and the college states outright that the certificate doubles as a bridging course for applicants who fall short of its diploma entry — so a D+ here is a route on rather than a dead end. A second, differently phrased search corroborated the college, its founding and its School of Mission, established 1958 to train evangelists for placement within the Anglican Church in Africa. No programme length is published in any source reachable from this build, so the duration is empty rather than guessed, and the college does not publish a fee for this course. ALSO NAMED AND NOT RECORDED, ON A MISSING FIELD RATHER THAN A DOUBT: a Diploma in Urban Mission (its Centre for Urban Mission opened in 2003), diplomas in chaplaincy and school chaplaincy, a Higher Diploma in Theology validated by the University of Exeter and recognised by UNISA, and a CDACC certificate in Christian Ministry. All run; none publishes an entry grade. Ring admissions on +254 722 423 397 and ask which bar applies to the diploma you want."
     },
     {
       "course_id": "c1090",

@@ -284,7 +284,7 @@ const SECTORS = [
     id: 'sciences',
     name: 'Physical sciences and research',
     broad: 'services',
-    match: /astronom|astrophys|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|biotechnolog|biochemist|parasitolog|microbiolog/i,
+    match: /astronom|astrophys|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|science \(general\)|general science|biotechnolog|biochemist|parasitolog|microbiolog/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'Njia holds no employment or earnings data for research careers in Kenya, and there is no TVET tier beneath these programmes - the route is a degree and then postgraduate study or a research institute. Read the absence of a figure here as an absence of published data, not as an absence of work.'
@@ -319,6 +319,22 @@ const SECTORS = [
  * care" - shipped, invisible, and exactly the theology-in-law shape: a guard
  * sees a course with NO sector and never one with the WRONG one. The award
  * decides, not the subject in the brackets. */
+/* A JOURNALISM AWARD IS CREATIVE EVEN WHEN IT NAMES A TECHNOLOGY.
+ *
+ * Same shape as TEACHING_AWARD below, found the same way - by printing the
+ * resolved sector on insert. `ict` sits ahead of `creative` and its pattern
+ * holds a bare `digital`, so "Bachelor of Arts in Journalism, Media and
+ * Digital Communication" resolved to "ICT and digital" while the other
+ * thirteen journalism-family records resolved to Creative correctly. The
+ * differentiator was one word in the award name, not anything about the
+ * course.
+ *
+ * Deliberately narrow, and checked against the catalogue before it was
+ * written: it moves exactly one record, and the three "media technology"
+ * names that are genuinely about production tooling already resolve to
+ * Creative and do not match it. */
+const JOURNALISM_AWARD = /\b(journalis|mass communication|media studies|broadcast)/i;
+
 const TEACHING_AWARD = /\b(bachelor|master|diploma|certificate) (of|in) education\b|\beducation \(/i;
 
 function sectorForCourse(course) {
@@ -326,6 +342,9 @@ function sectorForCourse(course) {
   const hay = `${course.name || ''} ${course.field || ''}`;
   if (TEACHING_AWARD.test(course.name || '')) {
     return SECTORS.find((s) => s.id === 'education') || null;
+  }
+  if (JOURNALISM_AWARD.test(course.name || '')) {
+    return SECTORS.find((s) => s.id === 'creative') || null;
   }
   return SECTORS.find((s) => s.match.test(hay)) || null;
 }

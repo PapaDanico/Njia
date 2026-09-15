@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1279 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1293 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1279 notes contains a comma or a quote and the
+  optional: **every one** of the 1293 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -5073,3 +5073,131 @@ how the next paragraph goes stale. What is durable is the method: when a score
 leaves whatever band you remember, measure the critical path first, then look
 for a docs-only commit on the same branch. The second one is free and settles
 it outright.
+
+## Working the gaps systematically: Zetech, Amref, Murang'a, and a scholarship in the barbell gap
+
+Told to fill the gaps systematically and to stop fixating on KMTC and on E and D
+grades. Re-measured rather than assumed, and the queue is the university thin
+end: **65 universities, median 10 records, 16 sitting at seven or fewer.**
+
+**Zetech 5 to 16.** Its own academic listing across five schools - Health
+Sciences, the School of Laws, Education Arts and Social Sciences, Business and
+Economics, and ICT Media and Engineering - with a second search naming no
+programme returning the bars: C+ general, C+ in BOTH teaching subjects for
+Education, and additional Mathematics, Biology and Chemistry minima for Nursing.
+Eleven records including its LLB, its Nursing degree and Data Science.
+
+**Murang'a +2 rather than +3, and the duplicate guard is why.** Two searches
+intersected on Bachelor of Education (Science), Bachelor of Science (General)
+and Bachelor of Education (Arts) - and the third was already listed as c685.
+*Check whether the institution already holds it before writing*, which this file
+has said since the Kisumu artisan attempt.
+
+What makes the two records attributable is worth naming: the second search
+returned each programme's **KUCCPS cluster cut-off AT MURANG'A specifically**
+(22.4 for BEd Science, 14.8 for BSc General) rather than a national figure. A
+cut-off attached to a named university is institution-specific evidence in the
+way a national programme map is not.
+
+### Amref: a grade recorded LOW, and the rarer direction again
+
+Amref's first search returned only the four programmes already listed plus a
+brochure PDF on an egress-blocked host. **The second, differently phrased search
+is where everything came from** - the department, the entry route, and a defect.
+
+Its own BSc Nursing page publishes a **C+ KCSE aggregate** with cluster minima at
+C+ in English or Kiswahili, Mathematics or Physics, Chemistry and Biology.
+**c365 carried C plain, from an aggregator.** That is the USIU defect inverted:
+a C-plain learner shown that card is sent at an application the university's own
+page says they cannot make. Corrected to C+ with the subject set in the note and
+the previous figure named.
+
+**c366 was deliberately left at C plain.** It is a DIPLOMA, a different award,
+and nothing contradicted it - the same distinction as the CUEA D+ floor that
+reaches certificates and diplomas but not degrees. Correcting the degree does
+not license sweeping the institution.
+
+**One record added and one withheld, on a field rather than a doubt.** BSc
+Midwifery and Reproductive Health is the fresh/direct entry route and is
+recorded; the in-service upgrading version of the same award is not, because
+this catalogue is read by people deciding what to do after KCSE. A pre-service
+KRCHN diploma also runs there and is a **named lead**: no reachable source gives
+either its length or its entry bar, and this catalogue records 36 months for that
+award elsewhere only because those institutions publish it.
+
+### The C- rung of the funding ladder was empty, and a scholarship fills it
+
+The maintainer pointed at Amref's scholarships page. It cannot be fetched -
+WebFetch is banned here and every host is egress-blocked - but WebSearch reached
+it, and the find sits exactly in the hole this file's funding sweep identified:
+provision is heavy before KCSE and above C+, and **thin precisely where Njia's
+core reader stands.**
+
+**The Wolfson Education Fund grants partial tuition for the Diploma in Community
+Health at AMIU at a C- mean grade**, with C- in English or Kiswahili and C- in
+one of Mathematics, Biology, Chemistry, Agriculture or Home Science, needs-tested
+and open to marginalised communities in Kenya, **South Sudan and Somalia** rather
+than to one county. Corroborated by a second search naming no grade. Sorted by
+the lowest grade each reaches, the scholarship ladder now runs D, D, **C-**, B+,
+A- - and that C- rung did not exist before.
+
+**Two figures are deliberately absent from it.** The award is described as
+PARTIAL tuition with no published amount or percentage, so `max_amount_kes` is
+null. And **no deadline is recorded**: the reachable call for applications is
+dated August 2023, and a stale open window is an instruction to go somewhere
+that will not take you - the one direction this project refuses to err in.
+
+### A journalism degree filed under ICT, and the third instance of the class
+
+`ict` sits ahead of `creative` and its pattern holds a bare `digital`, so
+**Bachelor of Arts in Journalism, Media and Digital Communication resolved to
+"ICT and digital"** while the other thirteen journalism-family records resolved
+to Creative correctly. The differentiator was one word in the award name.
+
+Fixed with a `JOURNALISM_AWARD` precedence beside `TEACHING_AWARD`, and
+**checked against the catalogue before it was written**: it moves exactly one
+record, and the three "media technology" names that are genuinely about
+production tooling already resolve to Creative and do not match it. Break
+watched to fail.
+
+That is the third wrong-sector defect and the third caught by the same habit -
+printing the resolved sector on insert. `science (general)` was a fourth find in
+the same pass and the easier kind: the Physical sciences and research sector
+existed and simply lacked the word.
+
+**And the absence phrase inverted for the SIXTH time.** Eleven Zetech notes said
+"no total ... could be verified" where the required literal is
+`could not be verified`. Six instances, every one caught by the read-back and
+none by a human reading the sentence, which is the entire argument for asserting
+on parsed data rather than proofreading.
+
+### The byte guard, and why cutting repeated text barely helped
+
+The guard fired and the usual fix **made it worse** - 125.0 to 125.44 - which is
+the most useful thing this pass found. Trimming a sentence repeated across 433
+records saved 8.7KB of source and almost nothing gzipped, **because gzip already
+charges nearly zero for repetition.** What costs gzipped bytes is UNIQUE prose.
+
+Measured properly: `main` was at **124.88 against a 125 budget** - essentially no
+headroom - and the fourteen new records cost **165 gz bytes each**. The guard was
+right and the diagnosis in this file needed refining, not the ceiling.
+
+So the cuts that worked were the ones with genuinely distinct text behind them,
+and they turned up a **ninth category error plus a leftover**:
+
+- **70 records still carried the long KMTC national-fee sentence in three
+  phrasings** that an earlier exact-string sweep missed - the *variants survived
+  by phrasing* lesson, again, one day after it was last written down.
+- **66 records carried the "KMTC runs more than 126 programmes" caveat** in seven
+  phrasings. The attribution claim is record-specific and stays; the national
+  explanation behind it does not belong on every course.
+- **Six records carried KMTC Nakuru's campus history** - founding year, acreage,
+  street - which is an institution fact stored on course cards.
+
+Mean note 864 to 837, no fact removed from any record, and the `kmtc` derivation
+signature intact on all 156 records that need it.
+
+**The rule to carry: when the byte guard fires, ask whether the repeated text is
+actually costing anything before cutting it.** Count the DISTINCT sentences, not
+the repeated ones. A sentence on 433 records is nearly free; six copies of a
+unique paragraph are not.

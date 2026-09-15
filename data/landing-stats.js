@@ -10,39 +10,39 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 1279,
-  "distinctProgrammes": 666,
+  "courses": 1293,
+  "distinctProgrammes": 671,
   "institutions": 202,
   "counties": 47,
   "published": 14,
   "derived": 315,
-  "withNote": 1279,
-  "feeAbsent": 855,
-  "feeAbsentStated": 855,
+  "withNote": 1293,
+  "feeAbsent": 869,
+  "feeAbsentStated": 869,
   "sectorRoutes": {
     "aviation": 21,
     "maritime": 7,
     "mining": 8,
-    "hospitality": 50,
+    "hospitality": 51,
     "built": 52,
     "admin": 94,
-    "finance": 170,
-    "ict": 117,
+    "finance": 172,
+    "ict": 119,
     "supplychain": 23,
     "transport": 3,
     "agriculture": 113,
     "engineering": 116,
-    "health": 309,
-    "education": 85,
-    "creative": 43,
+    "health": 312,
+    "education": 88,
+    "creative": 44,
     "energy": 8,
     "water": 4,
-    "legal": 15,
-    "sciences": 9,
+    "legal": 16,
+    "sciences": 10,
     "humanities": 13,
     "personal": 19
   },
-  "fundingSources": 14,
+  "fundingSources": 15,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -87,6 +87,10 @@ const LANDING_STATS = {
     {
       "name": "M-PESA Foundation — University of Embu TVET Scholarship",
       "application_deadline": "By cohort — the first cohort closed 7 October 2024; watch embuni.ac.ke and Safaricom shops for the current call"
+    },
+    {
+      "name": "Wolfson Education Fund — AMIU Community Health Scholarship",
+      "application_deadline": "Call-based rather than annual — confirm the current window with AMIU admissions before applying"
     }
   ]
 };

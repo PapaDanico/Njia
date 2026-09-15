@@ -212,7 +212,7 @@ const SECTORS = [
     id: 'agriculture',
     name: 'Agriculture and agribusiness',
     broad: 'agriculture',
-    match: /agri|agro-?ecosystem|agronom|farm|horticultur|dryland|range management|natural resource|environmental science|environmental management|environmental studies|geograph|meteorolog|climate|conservation|wildlife|forestr|silvicultur|agroforestr|wood science|timber|bamboo|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur|aquacultur|fisher/i,
+    match: /agri|agro-?ecosystem|agronom|farm|horticultur|dryland|range management|natural resource|environmental science|environmental management|environmental studies|geograph|climate|conservation|wildlife|forestr|silvicultur|agroforestr|wood science|timber|bamboo|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur|aquacultur|fisher/i,
     awardingBodies: ['TVET CDACC', 'public universities'],
     knbs: { series: 'Agriculture, forestry and fishing', mapping: 'exact', growth: 3.1, share: 23.2 },
     caution: 'Nearly a quarter of the entire economy and the largest single employer in the country, growing slower than the economy as a whole. Most of that work is on smallholdings and is not waged employment — which is the argument for agribusiness and processing rather than against agriculture.'
@@ -284,7 +284,7 @@ const SECTORS = [
     id: 'sciences',
     name: 'Physical sciences and research',
     broad: 'services',
-    match: /astronom|astrophys|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|science \(general\)|general science|biotechnolog|biochemist|parasitolog|microbiolog/i,
+    match: /astronom|astrophys|meteorolog|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|science \(general\)|general science|biotechnolog|biochemist|parasitolog|microbiolog/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'Njia holds no employment or earnings data for research careers in Kenya, and there is no TVET tier beneath these programmes - the route is a degree and then postgraduate study or a research institute. Read the absence of a figure here as an absence of published data, not as an absence of work.'

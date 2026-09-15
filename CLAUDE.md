@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1331 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1332 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1331 notes contains a comma or a quote and the
+  optional: **every one** of the 1332 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -5695,3 +5695,47 @@ with its own entry bar.
 
 1,326 to 1,331 courses, 209 institutions. Verified at the reader's end: the
 certificate renders on `/grades/d-plain/` and the diplomas on `/grades/c-minus/`.
+
+### IMTR, and meteorology had been filed as agribusiness since the day it was listed
+
+The meteorological institute was one of the six named absent, and it yielded a
+record — but the record is the smaller half of what the pass found.
+
+**IMTR is the Kenya Meteorological Department's training branch at Dagoretti
+Corner and a World Meteorological Organization Regional Training Centre for
+English-speaking Africa.** Its **Basic Meteorological Technicians Course** runs
+three months, is published on the institute's own pages and repeated by a second
+differently phrased search, and is **the only route into weather observation this
+catalogue holds below degree level.**
+
+**Entry is open because the institute asks for a certificate rather than a
+grade** — an O-Level certificate, which is an alternative to a mean grade and not
+a bar set above one. That is the Dairy Training Institute and Sigalagala shape
+for the tenth time. The note says to ask what it expects in practice, because a
+published floor and a competitive intake are different things. The advanced
+technicians course and the forecasting courses above it are named and not
+recorded: both are progression routes from this one and neither publishes a KCSE
+bar of its own.
+
+**And printing the sector caught a defect that had been shipped for months.**
+`meteorolog` and `climate` sit inside the **agriculture** pattern, so the new
+record resolved to *Agriculture and agribusiness* — and so, it turned out, did
+**the University of Nairobi's BSc Meteorology**, which has been filed as
+agribusiness since it was listed. UoN teaches it in its Department of Earth and
+Climate Science; it is a physical science, not a farming programme.
+
+That is the theology-in-Law and philosophy-in-Health failure for the **third**
+time, and the rule holds exactly as this file states it: **a course with no
+sector announces itself at insert time; a course with the WRONG one never
+does.** Nothing re-checks a mapping once a record has any sector at all, so the
+only reason this surfaced is the read-back habit of printing the resolved sector
+for every new record.
+
+`meteorolog` moved to Physical sciences and research. **`climate` deliberately
+stayed in agriculture** — it matches no record today, and climate-smart
+agriculture is where that word genuinely belongs, so moving it would be widening
+on no evidence. Checked against the whole catalogue: exactly two records move,
+both to the sector that fits.
+
+1,331 to 1,332 courses, 210 institutions. The record renders on `/grades/e/`,
+which is what an open entry bar is supposed to mean.

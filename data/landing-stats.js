@@ -42,7 +42,7 @@ const LANDING_STATS = {
     "humanities": 18,
     "personal": 19
   },
-  "fundingSources": 15,
+  "fundingSources": 23,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -91,6 +91,30 @@ const LANDING_STATS = {
     {
       "name": "Wolfson Education Fund — AMIU Community Health Scholarship",
       "application_deadline": "Call-based rather than annual — confirm the current window with AMIU admissions before applying"
+    },
+    {
+      "name": "DAFI Scholarship (UNHCR) — Windle International Kenya",
+      "application_deadline": "Annual call, opening around April or May — confirm the current window with Windle International Kenya"
+    },
+    {
+      "name": "Rattansi Educational Trust — Institutional Bursary",
+      "application_deadline": "Set by each institution, not by the Trust — ask your dean of students for the current window"
+    },
+    {
+      "name": "Government Scholarship (HEF portal — Universities Fund / SD-TVET)",
+      "application_deadline": "First-time applications open around July after placement results and close early September; subsequent years via the HELB App or *642#"
+    },
+    {
+      "name": "Equity Leaders Program (Equity Group Foundation)",
+      "application_deadline": "Selection follows the release of KCSE results; the 2026 cohort was announced in February 2026"
+    },
+    {
+      "name": "KCB Foundation Scholarships (with KISE for learners with disabilities)",
+      "application_deadline": "Announced annually — watch the Foundation’s scholarships page and national press after KCPE results"
+    },
+    {
+      "name": "NCPWD Education Assistance (National Council for Persons with Disabilities)",
+      "application_deadline": "Applications are received through NCPWD offices — confirm the current cycle with your county NCPWD office"
     }
   ]
 };

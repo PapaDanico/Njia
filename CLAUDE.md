@@ -5354,3 +5354,84 @@ comment says to lower it again on the next cut and never to raise it.
 regression it was built for from the noise of ordinary work.** Set at today's
 exact figure it fires on everything, which trains the next person to raise it
 casually - the precise habit the ceiling rules here exist to prevent.
+
+## The funding guide, and the barbell this catalogue was sitting on one end of
+
+A maintainer-written funding guide arrived — fourteen sections covering
+government, corporate, NGO, faith-based, refugee and overseas sources. It was
+triaged as a source, and the first instinct was the wrong one: two entries were
+taken and the rest left on the floor, which drew the standing correction this
+file has now recorded four times — **any useful information beats none.**
+
+The instinct was wrong for a reason worth naming rather than apologising for.
+Every rule in this file about refusing a figure is about **figures**, and it was
+again being applied to **existence**. A funder either runs a programme or does
+not; that is a listing claim, and the widened standard already covers it. What
+needed the discipline was the amounts, and only the amounts.
+
+**Eight records added, and not one carries a dishonest number.** Every
+`max_amount_kes` is null, because the guide's figures for award size are its own
+typical-range estimates and none could be corroborated — the Rattansi
+per-semester band in particular circulates widely and is attributable to no
+institution. **No record carries a specific closing date**, for the reason the
+Application Clock incident already established: a window that has passed is
+worse than no window, and every one of these moves annually.
+
+**Four are corroborated and four say plainly that they are not.** Equity Leaders
+Program (733 scholars, Ksh 50,000 a month, six months, three selection routes),
+KCB Foundation with KISE (451 disability scholarships, 240 a year post-KCPE with
+40 reserved), NCPWD education assistance and the HEF government scholarship are
+independently sourced. Ashinaga and Chevening are marked `illustrative` with the
+note saying outright that they rest on the guide and were not corroborated here
+— which is the reporting paragraph applied to provenance rather than to a fee.
+
+### Recording the LEVEL is what stops a record doing harm
+
+This file already rules that a Chevening entry *impresses and does not help the
+reader this app exists for*. Applied here, that is not a reason to omit — it is
+a reason the level goes in the **first sentence of the description**, where a
+reader meets it:
+
+- **Chevening** opens with *not for school-leavers* and says it needs a degree
+  and 2,800 hours of work experience. A postgraduate award listed without that
+  costs a Form Four leaver the week they spend on it.
+- **KCB Foundation** opens with *mostly a secondary-school scholarship*, because
+  a reader who already holds a KCSE grade cannot enter the main programme, and
+  it points them at NCPWD instead — which is the route that actually reaches
+  them.
+- **The HEF record exists at all** because the most important application in
+  Kenya had no row here. HELB and the TVET stream were listed; the scholarship
+  component that is 30–70% of a public-university course cost was not, and
+  *funding is not automatic with placement* is the sentence that omission was
+  failing to say.
+
+### The DAFI grade, and two sources that cannot both be scoped the same way
+
+DAFI is the refugee tertiary route and it reaches **TVET** — accredited
+programmes of two years or more — which almost nothing else at this level does.
+Two searches disagreed on its bar: the Kenya call gives **C plain for male
+applicants and C- for female applicants**, a second source gives **C+** and
+attaches it to university study.
+
+Those can both be true, and the temptation was to say so as though it were
+established. **C- is recorded — the least exclusionary figure any source states
+— and both readings are in the note with their scopes.** A grade quoted high
+removes the card from the reader with the fewest options; and the sex-split bar
+is itself the finding, because it is the programme deliberately closing a gender
+gap and a single `min_grade` field cannot express it.
+
+### And two national facts were stored nowhere at all
+
+The guide's scam section and its document checklist are properties of the
+**system**, not of any funder, so they went to `/help/` rather than into
+twenty-three notes — the category-error fix this file has now applied nine
+times, arriving before the byte guard could fire rather than after.
+
+Njia had **no scam warning anywhere**. That is the omission with the sharpest
+edge in this whole pass: *no genuine scholarship in Kenya charges an application
+fee*, and the people being asked for one are families at the moment they have
+least. It is now on a crawlable URL, alongside the checklist — because *missing
+stamps and mismatched names are the top rejection reasons*, not weak need and
+not weak grades, and that is a fact a reader can act on this week.
+
+15 to 23 funding records, 51 FAQ pairs. Four layers clean.

@@ -152,7 +152,7 @@ const SECTORS = [
     id: 'built',
     name: 'Built environment and construction',
     broad: 'industry',
-    match: /building|construction|masonry|plumb|carpent|architect|quantity survey|real estate|land econom|civil|concrete|painting and decoration/i,
+    match: /building|construction|masonry|plumb|carpent|architect|quantity survey|land survey|cartograph|photogrammetr|real estate|land econom|civil|concrete|painting and decoration/i,
     awardingBodies: ['National Construction Authority', 'Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Construction', mapping: 'exact', growth: 6.8, prev: -0.7 },
     caution: 'A rebound from a contraction, not a run of growth. Certified trades earn day rates rather than salaries, so the money is real but the month is not guaranteed.'
@@ -212,7 +212,7 @@ const SECTORS = [
     id: 'agriculture',
     name: 'Agriculture and agribusiness',
     broad: 'agriculture',
-    match: /agri|agro-?ecosystem|agronom|farm|horticultur|dryland|range management|natural resource|environmental science|environmental management|environmental studies|geograph|meteorolog|climate|conservation|wildlife|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur/i,
+    match: /agri|agro-?ecosystem|agronom|farm|horticultur|dryland|range management|natural resource|environmental science|environmental management|environmental studies|geograph|climate|conservation|wildlife|forestr|silvicultur|agroforestr|wood science|timber|bamboo|animal|veterinar|food techn|food science|crop protection|fisher|livestock|range management|pastoral|dairy|meat|abattoir|apicultur|aquacultur|fisher/i,
     awardingBodies: ['TVET CDACC', 'public universities'],
     knbs: { series: 'Agriculture, forestry and fishing', mapping: 'exact', growth: 3.1, share: 23.2 },
     caution: 'Nearly a quarter of the entire economy and the largest single employer in the country, growing slower than the economy as a whole. Most of that work is on smallholdings and is not waged employment — which is the argument for agribusiness and processing rather than against agriculture.'
@@ -221,7 +221,7 @@ const SECTORS = [
     id: 'engineering',
     name: 'Engineering, manufacturing and trades',
     broad: 'industry',
-    match: /engineering|\bengine\b|mechanic|electric|electronic|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|chemist|chemistry|processing technology|plant technician/i,
+    match: /engineering|\bengine\b|mechanic|electric|electronic|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|chemist|chemistry|processing technology|printing technology|map reproduction|plant technician/i,
     awardingBodies: ['Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Manufacturing', mapping: 'unsourced' },
     caution: 'Manufacturing is the largest formal employer in the country at 366,600 workers, and its share of the economy has been drifting down for over a decade. Njia did not source its 2025 growth figure, so none is shown.'
@@ -239,7 +239,7 @@ const SECTORS = [
     id: 'education',
     name: 'Education and teacher training',
     broad: 'services',
-    match: /teacher education|education|teaching/i,
+    match: /teacher education|education|teaching|sign language|braille|special needs/i,
     awardingBodies: ['KNEC', 'TSC (registration)'],
     knbs: { series: 'Education', mapping: 'unsourced' },
     caution: 'Education employs 251,100 people formally, second only to manufacturing — and roughly 369,000 trained teachers are already TSC-registered and waiting for a post. The bottleneck is funded posts, not qualified people.'
@@ -284,7 +284,7 @@ const SECTORS = [
     id: 'sciences',
     name: 'Physical sciences and research',
     broad: 'services',
-    match: /astronom|astrophys|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|biotechnolog|biochemist|parasitolog|microbiolog/i,
+    match: /astronom|astrophys|meteorolog|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|science \(general\)|general science|biotechnolog|biochemist|parasitolog|microbiolog/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'Njia holds no employment or earnings data for research careers in Kenya, and there is no TVET tier beneath these programmes - the route is a degree and then postgraduate study or a research institute. Read the absence of a figure here as an absence of published data, not as an absence of work.'
@@ -293,7 +293,7 @@ const SECTORS = [
     id: 'humanities',
     name: 'Languages, humanities and religious studies',
     broad: 'services',
-    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|intercultural studies|church educational|christian ministr|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication|philosoph|ethic/i,
+    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|\bbible\b|intercultural studies|church educational|christian ministr|christian mission|urban mission|chaplainc|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication|philosoph|ethic/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'These programmes most often lead into teaching, translation, media or further study, and Kenya publishes no graduate-outcome data for any of them. Where teaching is the intended destination, read the note on the education sector too - entry to the classroom runs through the TSC employment queue.'
@@ -319,6 +319,22 @@ const SECTORS = [
  * care" - shipped, invisible, and exactly the theology-in-law shape: a guard
  * sees a course with NO sector and never one with the WRONG one. The award
  * decides, not the subject in the brackets. */
+/* A JOURNALISM AWARD IS CREATIVE EVEN WHEN IT NAMES A TECHNOLOGY.
+ *
+ * Same shape as TEACHING_AWARD below, found the same way - by printing the
+ * resolved sector on insert. `ict` sits ahead of `creative` and its pattern
+ * holds a bare `digital`, so "Bachelor of Arts in Journalism, Media and
+ * Digital Communication" resolved to "ICT and digital" while the other
+ * thirteen journalism-family records resolved to Creative correctly. The
+ * differentiator was one word in the award name, not anything about the
+ * course.
+ *
+ * Deliberately narrow, and checked against the catalogue before it was
+ * written: it moves exactly one record, and the three "media technology"
+ * names that are genuinely about production tooling already resolve to
+ * Creative and do not match it. */
+const JOURNALISM_AWARD = /\b(journalis|mass communication|media studies|broadcast)/i;
+
 const TEACHING_AWARD = /\b(bachelor|master|diploma|certificate) (of|in) education\b|\beducation \(/i;
 
 function sectorForCourse(course) {
@@ -326,6 +342,9 @@ function sectorForCourse(course) {
   const hay = `${course.name || ''} ${course.field || ''}`;
   if (TEACHING_AWARD.test(course.name || '')) {
     return SECTORS.find((s) => s.id === 'education') || null;
+  }
+  if (JOURNALISM_AWARD.test(course.name || '')) {
+    return SECTORS.find((s) => s.id === 'creative') || null;
   }
   return SECTORS.find((s) => s.match.test(hay)) || null;
 }

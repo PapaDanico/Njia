@@ -10,39 +10,39 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 1279,
-  "distinctProgrammes": 666,
-  "institutions": 202,
+  "courses": 1334,
+  "distinctProgrammes": 703,
+  "institutions": 210,
   "counties": 47,
   "published": 14,
   "derived": 315,
-  "withNote": 1279,
-  "feeAbsent": 855,
-  "feeAbsentStated": 855,
+  "withNote": 1334,
+  "feeAbsent": 910,
+  "feeAbsentStated": 910,
   "sectorRoutes": {
     "aviation": 21,
     "maritime": 7,
     "mining": 8,
-    "hospitality": 50,
-    "built": 52,
-    "admin": 94,
-    "finance": 170,
-    "ict": 117,
-    "supplychain": 23,
+    "hospitality": 52,
+    "built": 57,
+    "admin": 97,
+    "finance": 178,
+    "ict": 119,
+    "supplychain": 24,
     "transport": 3,
-    "agriculture": 113,
-    "engineering": 116,
-    "health": 309,
-    "education": 85,
-    "creative": 43,
+    "agriculture": 122,
+    "engineering": 118,
+    "health": 315,
+    "education": 91,
+    "creative": 44,
     "energy": 8,
     "water": 4,
-    "legal": 15,
-    "sciences": 9,
-    "humanities": 13,
+    "legal": 16,
+    "sciences": 12,
+    "humanities": 19,
     "personal": 19
   },
-  "fundingSources": 14,
+  "fundingSources": 23,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -87,6 +87,34 @@ const LANDING_STATS = {
     {
       "name": "M-PESA Foundation — University of Embu TVET Scholarship",
       "application_deadline": "By cohort — the first cohort closed 7 October 2024; watch embuni.ac.ke and Safaricom shops for the current call"
+    },
+    {
+      "name": "Wolfson Education Fund — AMIU Community Health Scholarship",
+      "application_deadline": "Call-based rather than annual — confirm the current window with AMIU admissions before applying"
+    },
+    {
+      "name": "DAFI Scholarship (UNHCR) — Windle International Kenya",
+      "application_deadline": "Annual call, opening around April or May — confirm the current window with Windle International Kenya"
+    },
+    {
+      "name": "Rattansi Educational Trust — Institutional Bursary",
+      "application_deadline": "Set by each institution, not by the Trust — ask your dean of students for the current window"
+    },
+    {
+      "name": "Government Scholarship (HEF portal — Universities Fund / SD-TVET)",
+      "application_deadline": "First-time applications open around July after placement results and close early September; subsequent years via the HELB App or *642#"
+    },
+    {
+      "name": "Equity Leaders Program (Equity Group Foundation)",
+      "application_deadline": "Selection follows the release of KCSE results; the 2026 cohort was announced in February 2026"
+    },
+    {
+      "name": "KCB Foundation Scholarships (with KISE for learners with disabilities)",
+      "application_deadline": "Announced annually — watch the Foundation’s scholarships page and national press after KCPE results"
+    },
+    {
+      "name": "NCPWD Education Assistance (National Council for Persons with Disabilities)",
+      "application_deadline": "Applications are received through NCPWD offices — confirm the current cycle with your county NCPWD office"
     }
   ]
 };

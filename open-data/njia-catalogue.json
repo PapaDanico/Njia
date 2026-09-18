@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1337,
-  "institution_count": 211,
+  "course_count": 1339,
+  "institution_count": 212,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -3842,6 +3842,38 @@
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
     },
     {
+      "course_id": "c1365",
+      "course_name": "Craft Certificate in General Agriculture",
+      "institution": "Kenya School of Agriculture — Songa Mbele (Thika) Campus",
+      "institution_id": "ksa_thika",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. Its Songa Mbele campus in Thika is named on the school’s own campus list and confirmed by a second, differently phrased search. Entry is a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown. A Nakuru campus appears on one campus list only and is not listed here until a second source names it."
+    },
+    {
+      "course_id": "c1364",
+      "course_name": "Diploma in General Agriculture",
+      "institution": "Kenya School of Agriculture — Songa Mbele (Thika) Campus",
+      "institution_id": "ksa_thika",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. Its Songa Mbele campus in Thika is named on the school’s own campus list and confirmed by a second, differently phrased search. Entry is a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown. A Nakuru campus appears on one campus list only and is not listed here until a second source names it."
+    },
+    {
       "course_id": "c822",
       "course_name": "Bachelor of Arts in Communication and Media Technology",
       "institution": "Kenyatta University",
@@ -6499,7 +6531,7 @@
     },
     {
       "course_id": "c417",
-      "course_name": "Certificate in Agriculture",
+      "course_name": "Craft Certificate in General Agriculture",
       "institution": "Kenya School of Agriculture — Pap Konam Campus",
       "institution_id": "ksa_papkonam",
       "county": "Kisumu",
@@ -6511,11 +6543,11 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a D plain for craft certificates, C- for diplomas. DURATION REMOVED RATHER THAN GUESSED: this said 12 months, which nothing supports. The school gives its programmes as three years overall, this catalogue records the craft certificate as TWO MODULES, and no reachable source says how long a module runs. Two modules at a year each is a reading, not a citation. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown - confirm the campus, the length and the fee together."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Certificate in Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title. Pap Konam is NOT on the school’s current campus list, which names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya — confirm this campus is running before applying."
     },
     {
       "course_id": "c416",
-      "course_name": "Diploma in Sustainable Agriculture",
+      "course_name": "Diploma in General Agriculture",
       "institution": "Kenya School of Agriculture — Pap Konam Campus",
       "institution_id": "ksa_papkonam",
       "county": "Kisumu",
@@ -6527,7 +6559,7 @@
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a KCSE C- for diplomas, D plain for craft certificates. DURATION CORRECTED: this said 24 months; the school own site gives its programmes as THREE YEARS, agreeing with the three modules already recorded for the diploma. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current list, so confirm the campus. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown rather than a guessed one."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Diploma in Sustainable Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title. Pap Konam is NOT on the school’s current campus list, which names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya — confirm this campus is running before applying."
     },
     {
       "course_id": "c346",
@@ -18211,7 +18243,7 @@
     },
     {
       "course_id": "c413",
-      "course_name": "Certificate in Agriculture",
+      "course_name": "Craft Certificate in General Agriculture",
       "institution": "Kenya School of Agriculture — Wambugu Campus",
       "institution_id": "ksa_wambugu",
       "county": "Nyeri",
@@ -18223,11 +18255,11 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a D plain for craft certificates, C- for diplomas. DURATION REMOVED RATHER THAN GUESSED: this said 12 months, which nothing supports. The school gives its programmes as three years overall, this catalogue records the craft certificate as TWO MODULES, and no reachable source says how long a module runs. Two modules at a year each is a reading, not a citation. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown - confirm the campus, the length and the fee together."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Certificate in Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title. The main campus, on Wambugu farm."
     },
     {
       "course_id": "c412",
-      "course_name": "Diploma in Sustainable Agriculture",
+      "course_name": "Diploma in General Agriculture",
       "institution": "Kenya School of Agriculture — Wambugu Campus",
       "institution_id": "ksa_wambugu",
       "county": "Nyeri",
@@ -18239,7 +18271,7 @@
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a KCSE C- for diplomas, D plain for craft certificates. DURATION CORRECTED: this said 24 months; the school own site gives its programmes as THREE YEARS, agreeing with the three modules already recorded for the diploma. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current list, so confirm the campus. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown rather than a guessed one."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Diploma in Sustainable Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title. The main campus, on Wambugu farm."
     },
     {
       "course_id": "c245",
@@ -18851,7 +18883,7 @@
     },
     {
       "course_id": "c415",
-      "course_name": "Certificate in Agriculture",
+      "course_name": "Craft Certificate in General Agriculture",
       "institution": "Kenya School of Agriculture — Ugenya Campus",
       "institution_id": "ksa_ugenya",
       "county": "Siaya",
@@ -18863,23 +18895,23 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a D plain for craft certificates, C- for diplomas. DURATION REMOVED RATHER THAN GUESSED: this said 12 months, which nothing supports. The school gives its programmes as three years overall, this catalogue records the craft certificate as TWO MODULES, and no reachable source says how long a module runs. Two modules at a year each is a reading, not a citation. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown - confirm the campus, the length and the fee together."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Certificate in Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title."
     },
     {
       "course_id": "c414",
-      "course_name": "Diploma in Agricultural Extension",
+      "course_name": "Diploma in General Agriculture",
       "institution": "Kenya School of Agriculture — Ugenya Campus",
       "institution_id": "ksa_ugenya",
       "county": "Siaya",
       "ownership": "public",
       "level": "diploma",
-      "cluster": "people",
+      "cluster": "maker",
       "min_grade": "C-",
       "open_entry": "no",
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a KCSE C- for diplomas, D plain for craft certificates. DURATION CORRECTED: this said 24 months; the school own site gives its programmes as THREE YEARS, agreeing with the three modules already recorded for the diploma. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current list, so confirm the campus. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown rather than a guessed one."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Diploma in Agricultural Extension\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title."
     },
     {
       "course_id": "c482",
@@ -20227,7 +20259,7 @@
     },
     {
       "course_id": "c419",
-      "course_name": "Certificate in Agriculture",
+      "course_name": "Craft Certificate in General Agriculture",
       "institution": "Kenya School of Agriculture — Ainabkoi Campus",
       "institution_id": "ksa_ainabkoi",
       "county": "Uasin Gishu",
@@ -20239,11 +20271,11 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a D plain for craft certificates, C- for diplomas. DURATION REMOVED RATHER THAN GUESSED: this said 12 months, which nothing supports. The school gives its programmes as three years overall, this catalogue records the craft certificate as TWO MODULES, and no reachable source says how long a module runs. Two modules at a year each is a reading, not a citation. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown - confirm the campus, the length and the fee together."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Certificate in Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title."
     },
     {
       "course_id": "c418",
-      "course_name": "Diploma in Sustainable Agriculture",
+      "course_name": "Diploma in General Agriculture",
       "institution": "Kenya School of Agriculture — Ainabkoi Campus",
       "institution_id": "ksa_ainabkoi",
       "county": "Uasin Gishu",
@@ -20255,7 +20287,7 @@
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a KCSE C- for diplomas, D plain for craft certificates. DURATION CORRECTED: this said 24 months; the school own site gives its programmes as THREE YEARS, agreeing with the three modules already recorded for the diploma. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current list, so confirm the campus. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown rather than a guessed one."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Diploma in Sustainable Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title."
     },
     {
       "course_id": "c843",

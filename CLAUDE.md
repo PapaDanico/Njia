@@ -1420,6 +1420,53 @@ fee", which is not one of the four literal phrases the absence guard requires.
 Both were found by asserting the properties on the parsed data, which is the
 whole reason that rule exists.
 
+## Agriculture, measured again: the count was the least useful number
+
+Asked to fix the agriculture gap, the headline was 122 of 1,334 records against
+roughly a quarter of GVA. The **shape** turned out to matter more: **68 of those
+122 were degrees at C+**, with 25 at D or below, and 22 counties in the register
+held no agriculture record at all. In the sector that employs most Kenyans this
+catalogue was top-heavy — which a percentage cannot show you.
+
+**Agricultural Training Centres are absent as a category.** Found by searching
+the register for a KIND of provider rather than a name, the way the
+mission-hospital schools were. They are county-run, one per county, and they
+train at exactly the band that is thin here. Worth working; mostly short farmer
+courses, so check whether a given ATC award is an entry route from KCSE before
+recording it.
+
+**Three counties closed, and two of the three were missing institutions.**
+Kitale National Polytechnic — in Kenya's main grain-growing county, absent
+entirely — and Bunyala TVC in Busia. The third, Kisii, is the rarer case: the
+polytechnic was already listed and the whole course FAMILY was missing. Worth
+checking wherever a polytechnic sits in a county that reads as blind for
+something.
+
+Two rulings from the pass:
+
+- **A duration can come from the award when the campus does not publish one.**
+  Kisii publishes no length for its KNEC Diploma in General Agriculture; the
+  same award is published at three years by Kitale, Bunyala and KSA. Three
+  institutions agreeing is a fact about the award, and the note says so because
+  the fee is scaled from it. This is not the artisan case, where two
+  institutions here disagree about one award's length — that disagreement is
+  the evidence that no national figure exists.
+- **The KSA award names were not the school's own.** Eight records carried
+  titles the school does not confer. Renamed to its published awards with the
+  previous title kept on each card. Course identity is (name, institution), so
+  a reader searching the exact programme title is who that convention is for.
+
+**And agribusiness had been filed under Business** — in a sector literally named
+"Agriculture and agribusiness". `business` sits ahead of `agriculture` in the
+first-match-wins array. Seven degrees, shipped and invisible. Third instance of
+the wrong-sector shape, third caught by printing the resolved sector on insert;
+`tractor` was a fourth find in the same pass, and that one announced itself
+because it matched nothing.
+
+**Stated plainly because it would otherwise flatter the work: the reclassification
+moved agriculture by 8 records without adding any provision.** A metric moved by
+re-filing is not a gap closed, and the two should be reported separately.
+
 ## The floor is not the catalogue, and only the floor was measured
 
 Asked why the work kept fixating on E-grade counties, the honest answer is that

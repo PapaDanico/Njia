@@ -782,6 +782,25 @@ function renderNjiaNumbersCard() {
   const countyCount = LANDING_STATS.counties;
   const publishedCount = LANDING_STATS.published;
   const derivedCount = LANDING_STATS.derived;
+  /* LEAD WITH THE REPRESENTATIVE FIGURE, NOT THE NARROWEST ONE.
+   *
+   * This tile used to read "14/1279" in the largest type on the page, with the
+   * 315 derived fees buried in prose after an em-dash. Every number in it was
+   * true and the card still misinformed: a reader sees 14 of 1,279 and concludes
+   * the catalogue holds fourteen fees, when in fact a third of it carries a fee
+   * traceable to something published.
+   *
+   * That is this project's own "not published reads as nothing to know" failure,
+   * arriving on the landing page instead of a course card. The fix is the same
+   * one the fee-guidance work already applied: report what is actually known,
+   * and keep the strict tier named rather than leading with it.
+   *
+   * `published` is still shown, because it is the honest ceiling on what this
+   * build can earn - fee_observed means someone read a total off the
+   * institution's own schedule, and every host is egress-blocked, so it is
+   * capped by the environment rather than by effort. It is a sub-clause now,
+   * not the headline. */
+  const sourcedFeeCount = publishedCount + derivedCount;
   /* Courses, not courses + funding sources. The old denominator added the 12
    * funding records to a numerator counted over course fees, so the ratio
    * compared two different populations — and the same mixed denominator on the
@@ -829,8 +848,8 @@ function renderNjiaNumbersCard() {
           <span class="landing-numbers-label">records that state where their fee figure came from &mdash; or that there isn't one, and which kind of absence it is (${LANDING_STATS.feeAbsentStated}/${LANDING_STATS.feeAbsent}). That is the completeness Njia can promise: not every number filled in, but every number accounted for.</span>
         </div>
         <div class="landing-numbers-item">
-          <span class="landing-numbers-figure">${publishedCount}/${totalRecords}</span>
-          <span class="landing-numbers-label">courses whose fee the institution itself publishes for that course, read off its own schedule — plus ${derivedCount} worked out by applying a published rate. Decide names all five provenance groups and what each one is worth.</span>
+          <span class="landing-numbers-figure">${sourcedFeeCount}/${totalRecords}</span>
+          <span class="landing-numbers-label">courses carrying a fee traceable to a published source &mdash; ${publishedCount} read off the institution’s own schedule for that exact course, ${derivedCount} worked out by applying a rate the institution publishes. Decide names all five provenance groups and what each one is worth.</span>
         </div>
       </div>
       <p class="landing-numbers-note">Computed from the dataset this app actually ships — not marketing copy. See Methodology for what "verified" means. <a href="./counties/">Browse courses by county →</a></p>

@@ -4073,13 +4073,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1332 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1334 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1332 notes contains a comma or a quote and the
+  optional: **every one** of the 1334 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here
@@ -5739,3 +5739,82 @@ both to the sector that fits.
 
 1,331 to 1,332 courses, 210 institutions. The record renders on `/grades/e/`,
 which is what an open entry bar is supposed to mean.
+
+## The two worst statistics on the platform, and both were presentation
+
+The maintainer sent a screenshot of the landing card with two figures circled:
+**"14 funding sources tracked"** and **"14/1279"**. One was stale and one was a
+framing defect, and the second is the one worth writing down.
+
+**The stale one fixes itself.** Production was running four commits behind, so
+it showed 14 funding sources against 23 and 1,279 courses against 1,332. Nothing
+to do but merge.
+
+**The other was true and still misinformed.** `14/1279` sat in the largest type
+on the page, with the **315 derived fees buried in prose after an em-dash**. A
+reader sees fourteen of one thousand two hundred and seventy-nine and concludes
+the catalogue holds fourteen fees. It holds **329 traceable to something
+published — a quarter of it.**
+
+That is this file's own ruling arriving on the landing page instead of a course
+card: *refusing to write a figure is not a licence to discard what you found*,
+and **"not published" reads as "there is nothing to know."** The card was making
+Njia's strongest claim — that its numbers can be checked — look like its weakest.
+
+The fix is the one the fee-guidance work already established: **lead with the
+representative figure and keep the strict tier named inside it.** The tile now
+reads `329/1332`, with the 14 observed and the 315 derived both spelled out in
+the label. Nothing is hidden and nothing is inflated — the same three numbers,
+led by the one that describes the dataset.
+
+**`published` stays visible on purpose**, because it is the honest ceiling on
+what this build can earn rather than a score: `fee_observed` means someone read
+a total off the institution's own schedule, and every host is egress-blocked.
+It is capped by the environment, and a reader deserves to know which of the two
+kinds of "sourced" they are looking at.
+
+**The general rule: a provenance tier is not a progress bar.** When a number is
+both true and unrepresentative, ask what a reader concludes from it in the
+largest type on the page — not whether you could defend it if challenged.
+
+## A maintainer-supplied poster is a primary source, and it closed a real gap
+
+An RTI September 2026 intake advertisement arrived as an image: KNEC-examined
+programmes, a deadline of **Friday 25 September 2026**, and a phone number.
+
+**The Railway Training Institute held three records here, all railway and
+transport, and not one civil or building programme** — while its own advert
+lists a civil engineering diploma, a building technology diploma, a higher
+diploma and a certificate. RTI was already on the stale-absence worklist as one
+of seventeen state bodies; the poster is what that sweep is for, arriving from
+the maintainer rather than from a search.
+
+**Two records added, and what was refused matters as much:**
+
+- **The modular structure is one award, not three.** Modules I, II and III are
+  progression within the same diploma, so *Diploma in Civil Engineering Module
+  1/2/3* is one record. Course identity is (name, institution).
+- **The Higher Diploma is not recorded** — post-diploma progression, not an
+  entry route from school. The Garissa and Siaya ruling.
+- **The Certificate in Building Technology is not recorded**, and this is the
+  fourth time: it plainly runs, and **no reachable source publishes its KCSE
+  mean grade**. A null `min_grade` renders as open entry, which would quote a
+  grade low. Named in the note with the blocker.
+- **Duration stays null.** RTI publishes three terms per module and the number
+  of terms in its academic year is published nowhere — the ruling this file
+  already made about RTI's nine-term diploma, holding on new records.
+- **The fee claim re-tested and is still true.** Two searches, no fee reachable,
+  only a Ksh 1,000 application fee. *A re-read that confirms a good note is a
+  result.*
+
+**And the clock gained its only live window.** Every row in
+`PLACEMENT_CALENDAR` had closed except the continuous TVET one; the RTI intake
+closes 25 September and is the sharpest live deadline the app can show. It is an
+**institution's own intake rather than a KUCCPS window**, which is a shape the
+calendar did not previously carry, and the note says so because it is applied
+for directly. Following the Utalii precedent, **only the closing date is relied
+on** — the opening date is the cycle shape rather than a published day, and the
+source field says that outright.
+
+1,332 to 1,334 courses. Four layers clean; the diplomas render on
+`/grades/c-minus/` and `counties/nairobi/`.

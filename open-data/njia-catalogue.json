@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1332,
+  "course_count": 1334,
   "institution_count": 210,
   "county_count": 47,
   "column_notes": {
@@ -14144,6 +14144,38 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "The Railway Training Institute is a public TVET institution under the Ministry of Transport, with campuses at South B in Nairobi and a marine school at Kisumu. CORRECTING AN EARLIER NOTE HERE, which said RTI publishes no fee schedule: it publishes a TERM-BASED one. Two independently phrased searches corroborate the term counts - a CBET Level 6 diploma runs NINE TERMS full-time at a KCSE C- (engineering also asking passes in Mathematics, Physics and English), a Level 5 certificate SIX TERMS at a D plain - and the hostel at Ksh 19,500 a term with meals, or Ksh 5,000 a term for day-scholar lunch. WHAT NJIA FOUND, AND COULD NOT RECONCILE: per-term figures of about Ksh 36,600 for diploma Module 1 and Ksh 36,100 or 32,100 for Modules 2 and 3, certificates about Ksh 33,600 and 33,100 - but the same source also gives the diploma Term 1 as Ksh 38,600, the figure it separately gives for a HIGHER diploma. A source contradicting itself inside one paragraph attributes nothing, and a Term 1 figure usually carries one-off charges, so multiplying by nine would overstate it. The fee could not be verified, so no total is written. THE DURATION IS GONE RATHER THAN REPLACED BY A GUESS: this record said 24 months, which no source supports. RTI publishes a term COUNT, and converting nine terms to months needs the terms in its academic year, which is not published anywhere reachable. Ask the institute how many terms it runs a year and what the whole programme costs."
+    },
+    {
+      "course_id": "c1360",
+      "course_name": "Diploma in Building Technology",
+      "institution": "Railway Training Institute (RTI)",
+      "institution_id": "rti",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "ALSO NAMED ON THE SAME ADVERTISEMENT AND NOT RECORDED: a Higher Diploma in Civil Engineering Construction with Building and Civil Engineering, Building Economics and Structures options — that is a post-diploma progression award rather than an entry route from school — and a Certificate in Building Technology, which runs but whose KCSE mean grade is not published in any source reachable from this build, so recording it at open entry would quote a grade low. The award, the C- diploma bar and the January, March and September intakes are published by the institute itself, and the programme list is corroborated by its own September 2026 intake advertisement. IT IS EXAMINED BY KNEC AND RUNS IN THREE MODULES (I, II and III): Module I is the entry point from KCSE and the later modules are progression within the same award, so this is one record rather than three. NO LENGTH IS RECORDED: RTI publishes a term count (three terms per module) and the number of terms in its academic year is not published anywhere reachable, so it is not converted. RTI publishes no fee for this course that Njia could reach; a non-refundable application fee of Ksh 1,000 is charged. Ring +254 740 859 121."
+    },
+    {
+      "course_id": "c1359",
+      "course_name": "Diploma in Civil Engineering",
+      "institution": "Railway Training Institute (RTI)",
+      "institution_id": "rti",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Civil engineering had no record at this institute before now, which is the gap worth naming: RTI is the Kenya Railways training arm and this catalogue held only its railway and transport awards. The award, the C- diploma bar and the January, March and September intakes are published by the institute itself, and the programme list is corroborated by its own September 2026 intake advertisement. IT IS EXAMINED BY KNEC AND RUNS IN THREE MODULES (I, II and III): Module I is the entry point from KCSE and the later modules are progression within the same award, so this is one record rather than three. NO LENGTH IS RECORDED: RTI publishes a term count (three terms per module) and the number of terms in its academic year is not published anywhere reachable, so it is not converted. RTI publishes no fee for this course that Njia could reach; a non-refundable application fee of Ksh 1,000 is charged. Ring +254 740 859 121."
     },
     {
       "course_id": "c347",

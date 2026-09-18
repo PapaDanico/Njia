@@ -1467,6 +1467,43 @@ because it matched nothing.
 moved agriculture by 8 records without adding any provision.** A metric moved by
 re-filing is not a gap closed, and the two should be reported separately.
 
+### The ATC question is settled: the category can yield records
+
+The open worry above was that ATCs run short farmer courses and so might never
+produce a row in a catalogue read by school-leavers. **Nakuru ATC is certified
+as an A-TVET institution** — Agricultural Technical and Vocational Education and
+Training — so at least some ATCs are accredited to award framework
+qualifications, and the KNEC agriculture certificate tier admits at **D plain**.
+The category is workable. What it still needs is an ATC **in a county that reads
+as blind**, with award titles rather than a department name; Nakuru already has
+agriculture four times over, so it closes nothing.
+
+### Three more attempts, and all three failed differently
+
+Worth recording because each names a different blocker, and "search Homa Bay"
+otherwise sends the next person over ground already covered:
+
+- **Michuki National Polytechnic (Murang'a) — a clean negative.** Its five
+  departments are ICT, Electrical, Mechanical, Applied Science and Institutional
+  Management. There is no agriculture department to find. That is a fact about
+  the institution, not a yield floor, and Murang'a will not close this way.
+- **Mawego National Polytechnic (Homa Bay) — the yield floor exactly.** Two
+  differently phrased searches confirm an *Agriculture and Environmental Studies*
+  department, an aquaculture centre of excellence, and the entry tiers (C- for
+  diplomas, D+ craft, E artisan) — and **name no agriculture award at all**. A
+  named department is not a named course, so no record. Homa Bay stays blind.
+- **Jeremiah Nyagah National Polytechnic (Embu) — a contradiction.** Absent from
+  this register entirely and a genuine gap (1984 as Rwika Technical Institute,
+  TVETA accredited, 50+ courses). Its own site names five departments with no
+  agriculture among them, while its programme portal lists a *Diploma in
+  Agriculture (Module I)*. That attributes nothing. **Listing the institution on
+  its other departments is legitimate and separate work.**
+
+**Two of the three are institution facts rather than search failures**, which is
+the distinction worth carrying: a polytechnic with no agriculture department is
+answered, and re-running it wastes a pass. Only Mawego is worth another look,
+and only with a source that names an award.
+
 ## The floor is not the catalogue, and only the floor was measured
 
 Asked why the work kept fixating on E-grade counties, the honest answer is that

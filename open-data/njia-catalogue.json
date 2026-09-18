@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1343,
+  "course_count": 1344,
   "institution_count": 213,
   "county_count": 47,
   "column_notes": {
@@ -6240,6 +6240,22 @@
       "tuition_kes": 67189,
       "fee_basis": "derived",
       "verification_note": "Programme named in Kisii National Polytechnic's published course list, which the polytechnic gives as 74 programmes across artisan, certificate, diploma and higher diploma. The polytechnic publishes its artisan (Level 4) entry as a KCPE certificate or a KCSE mean grade of D- or E, so E is recorded from the institution's own statement rather than inferred. Intakes are stated as January, May and September. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
+    },
+    {
+      "course_id": "c1370",
+      "course_name": "Diploma in General Agriculture",
+      "institution": "Kisii National Polytechnic",
+      "institution_id": "kisii_poly",
+      "county": "Kisii",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 201567,
+      "fee_basis": "derived",
+      "verification_note": "Kisii National Polytechnic lists General Agriculture among its diploma departments on its own site, and a second, differently phrased search names the award as a KNEC diploma capped at 30 trainees. The polytechnic publishes its entry tiers as a KCSE C- for diplomas, D plain for craft certificates and D- and below for artisan courses, with January, May and September intakes. DURATION: the polytechnic does not publish one for this programme; 36 months is the length the same KNEC award carries where it IS published — at Kitale National Polytechnic, Bunyala TVC and the Kenya School of Agriculture, which agree on three years — so the figure is the award’s rather than this campus’s, and the fee below is scaled from it. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar. Its diploma list also names Food Science Technology, Applied Biology and Environmental Science Studies, which are not recorded here because only one source names them."
     },
     {
       "course_id": "c1200",

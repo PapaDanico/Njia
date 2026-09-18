@@ -335,6 +335,25 @@ const SECTORS = [
  * Creative and do not match it. */
 const JOURNALISM_AWARD = /\b(journalis|mass communication|media studies|broadcast)/i;
 
+/* AGRIBUSINESS IS AGRICULTURE, AND THE SECTOR'S OWN NAME SAYS SO.
+ *
+ * Third instance of the wrong-sector shape, found the same way - by printing
+ * the resolved sector on insert. `business` sits ahead of `agriculture`, so
+ * seven "BSc Agribusiness Management" records and a "Diploma in Agribusiness
+ * Management and Marketing" resolved to "Business, finance and accountancy",
+ * while the sector they belong to is literally called "Agriculture and
+ * agribusiness". Shipped and invisible, because nothing re-checks a record
+ * that already has A sector.
+ *
+ * `entrepreneurial agricultur` is here for the same reason: the business
+ * pattern holds a bare `entrepreneur`.
+ *
+ * Narrow on purpose, and checked against the catalogue before writing: it
+ * moves eight records. The four Agricultural Economics degrees are LEFT in
+ * business deliberately - that is a genuinely dual field, and moving it would
+ * be a judgement with no source behind it. */
+const AGRIBUSINESS_AWARD = /\bagribusiness\b|\bentrepreneurial agricultur/i;
+
 const TEACHING_AWARD = /\b(bachelor|master|diploma|certificate) (of|in) education\b|\beducation \(/i;
 
 function sectorForCourse(course) {
@@ -345,6 +364,9 @@ function sectorForCourse(course) {
   }
   if (JOURNALISM_AWARD.test(course.name || '')) {
     return SECTORS.find((s) => s.id === 'creative') || null;
+  }
+  if (AGRIBUSINESS_AWARD.test(course.name || '')) {
+    return SECTORS.find((s) => s.id === 'agriculture') || null;
   }
   return SECTORS.find((s) => s.match.test(hay)) || null;
 }

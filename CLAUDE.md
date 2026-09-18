@@ -1,6 +1,89 @@
 # Working notes for Njia
 
-Standing instructions for anyone — human or agent — working on this repository.
+Notes for anyone — human or agent — working on this repository. **They are
+working notes, not a rulebook.** Most of what follows is a record of mistakes
+already made here and what was learned from them, kept because the same traps
+recur. Read it as experience to draw on, not as a compliance checklist.
+
+## How to use this file
+
+**Four things are genuinely non-negotiable**, because breaking them harms a
+reader who has no way to check:
+
+1. **Never invent a figure.** A fee, a grade, a duration, a deadline or an
+   employment rate is either sourced or absent. That is the whole of Njia's
+   claim, and nothing below softens it.
+2. **Never quote an entry grade higher than published** — it deletes the card
+   for the reader with the fewest options — and never lower, which sends them
+   at a door that will not open.
+3. **Never route around the network block.** No archive mirrors, no proxies, no
+   cache services. WebSearch is the only external channel; WebFetch is off.
+4. **Report honestly.** If something failed, was skipped, or could not be
+   verified, say so plainly.
+
+**Everything else here is guidance, and judgement outranks it.** In particular:
+
+- **Listing a course is a claim about EXISTENCE; a figure is a claim about
+  QUANTITY.** The strict rules are for the second. A programme that plainly
+  runs should be listed, with the basis stated and the unknown fields left
+  empty.
+- **Useful information beats none.** Withholding a record, an institution, or a
+  figure that was found but could not be reconciled is itself a claim, and
+  usually the wrong one. Report what the research turned up and why it is not
+  recorded.
+- **A guard that fights good work is a guard to fix.** These exist to catch
+  regressions, not to referee ordinary work. If one fires on rounding, on a
+  code comment, or on data that simply got better, widen it or rewrite it and
+  record why — that has been the right answer every time it has come up. Do not
+  contort the data or delete useful prose to satisfy a number.
+- **Ceilings and ratchets measure a delta, not a target.** Raise one
+  deliberately when the growth is something you would defend to a reader; lower
+  it when you win back room. "Never raise it" was too strong, and the ceilings
+  it applied to have since been given real headroom.
+- **Do not grind a metric because it is the one being measured.** Before a pass,
+  ask what a reader actually typed into a search box this week.
+
+If a rule below and the reader's interests point in different directions, the
+reader wins — and then come back and fix the rule.
+
+## The file itself got too rigid, and it cost quality
+
+The maintainer's correction, and it is the second time: *this file shouldn't be
+too rigid.* It was made once before about listing standards — a catalogue that
+told a Kenyan school-leaver Egerton does not teach degrees — and it is broader
+than that.
+
+**What triggered it is a clean example.** Adding an agribusiness sector fix
+meant writing a code comment explaining why the pattern exists. That comment
+put ~1.3KB on the critical path, and the ceiling was set at 109KB with **no
+headroom at all** — so the guard failed with `109.0KB over the 109.0KB budget`,
+a rounding difference. The response was to **delete the comment**: worse code,
+to satisfy a number that was measuring noise. The guard was dictating the work
+instead of protecting it.
+
+That mistake is recorded twice already in this file — the mean-note ratchet set
+at its own measured value, and the 124.88-against-125 ceiling — and it was made
+a third time by the person who wrote both up. Recognising a trap in prose is not
+the same as noticing it while working.
+
+So the ceiling has real headroom (109 → 115KB), the mean-note ratchet has a band
+rather than five characters (845 → 900), and **"never raise it" is withdrawn.**
+Raise one deliberately, for growth you would defend to a reader; never to hide a
+regression you have not diagnosed.
+
+**The wider problem is the document, not the constants.** This file is around
+58,000 words and is the first thing anyone here reads. Written as accumulated
+commandments, it invites literal compliance over judgement — and an agent
+optimising for compliance will produce exactly the outcomes the maintainer has
+now objected to three times: records withheld on a technicality, research
+discarded because a figure could not be written, and effort spent on whichever
+metric happens to be instrumented.
+
+The preamble at the top is the fix: four rules that genuinely protect a reader,
+and everything else explicitly demoted to experience. **Nothing was deleted** —
+the incidents below are still the cheapest way to avoid repeating them. What
+changed is their standing. When a note here and the reader's interests disagree,
+the reader wins, and the note gets amended.
 
 ## Research: use WebSearch, never WebFetch
 
@@ -4073,13 +4156,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1334 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes all 1337 courses as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1334 notes contains a comma or a quote and the
+  optional: **every one** of the 1337 notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

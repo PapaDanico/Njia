@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1344,
+  "course_count": 1346,
   "institution_count": 213,
   "county_count": 47,
   "column_notes": {
@@ -17968,6 +17968,38 @@
       "tuition_kes": 67189,
       "fee_basis": "derived",
       "verification_note": "Programme named in Nyandarua National Polytechnic's published course list. The polytechnic publishes its artisan (Level 4) entry as a KCPE or KCSE mean grade of D- and E, so an E clears the published bar and E is recorded - the same reading applied at Kisumu, Eldoret, Kisii, Michuki and Bureti, where a KCPE certificate is an alternative to the KCSE grade rather than an addition to it. As a national polytechnic it is legally empowered to train and award artisan, craft, diploma and higher diploma qualifications, and it runs more artisan programmes than the one listed here; only what a reachable source actually names is recorded. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026), which the Ministry of Education has directed all public TVET institutions to charge; government capitation of up to Ksh 30,000 a year reduces what a placed student actually pays, so treat this as the gross figure and confirm with the registrar."
+    },
+    {
+      "course_id": "c1371",
+      "course_name": "Certificate in General Agriculture",
+      "institution": "Nyandarua National Polytechnic",
+      "institution_id": "nyandarua_poly",
+      "county": "Nyandarua",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": 134378,
+      "fee_basis": "derived",
+      "verification_note": "Named on the polytechnic’s own Agriculture and Environmental Studies department page, which publishes this grade and duration. A second, differently phrased search confirms the institution — a national polytechnic of about 10,000 trainees, 7km from Nyahururu, training on CBET across artisan, craft, diploma and higher diploma levels — without naming courses. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar. The same department is named elsewhere as running Agriculture Extension at CBET Level 4 and a Diploma in Agricultural Engineering; neither is recorded here because only one source names each. Ring the polytechnic if either is what you want."
+    },
+    {
+      "course_id": "c1372",
+      "course_name": "Diploma in Food Science and Processing",
+      "institution": "Nyandarua National Polytechnic",
+      "institution_id": "nyandarua_poly",
+      "county": "Nyandarua",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 201567,
+      "fee_basis": "derived",
+      "verification_note": "Named on the polytechnic’s own Agriculture and Environmental Studies department page, which publishes this grade and duration. A second, differently phrased search confirms the institution — a national polytechnic of about 10,000 trainees, 7km from Nyahururu, training on CBET across artisan, craft, diploma and higher diploma levels — without naming courses. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar."
     },
     {
       "course_id": "c048",

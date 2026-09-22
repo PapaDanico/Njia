@@ -1247,7 +1247,7 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Eleven remain — lower the constant when you close more. It was 23; Kakamega and
+one inside an aggregate that still looks fine. Ten remain — lower the constant when you close more. It was 23; Kakamega and
 Siaya were closed by re-reading an either/or in a published entry requirement
 rather than by finding new provision, and Bomet from the funding side.
 
@@ -4143,8 +4143,8 @@ guarding the claim.
 `tests/provision-analysis.test.js`. It exists because the most decision-changing
 number this project holds lived only as a constant in a test file.
 
-The finding it carries: **11 counties list nothing an E-grade leaver can enter,
-and all 11 list no artisan course at all.** It was 23 and 21 when this page
+The finding it carries: **10 counties list nothing an E-grade leaver can enter,
+and all 10 list no artisan course at all.** It was 23 and 21 when this page
 shipped; the page is generated, so it is correct by construction and this
 paragraph is the copy that goes stale. The blindness is one missing
 tier, not a high bar — which is why the fix is an institution rather than a
@@ -5985,3 +5985,61 @@ source field says that outright.
 
 1,332 to 1,334 courses. Four layers clean; the diplomas render on
 `/grades/c-minus/` and `counties/nairobi/`.
+
+## Jeremiah Nyagah closed Embu, and the contradiction that blocked it was only about agriculture
+
+This file recorded JNNP as *a contradiction* — its own site naming five
+departments with no agriculture among them while its programme portal listed a
+Diploma in Agriculture — and closed with the note that **listing the institution
+on its other departments is legitimate and separate work.** That is what this
+pass did, and the framing is worth keeping: the contradiction was about ONE
+department, and it had been allowed to block the whole institution.
+
+Six records off its published department list — food and beverage, electrical
+engineering (instrumentation), motor vehicle mechanics, and two CDACC
+competency awards — with its entry tiers corroborated three times over: **C- for
+diplomas, D or D+ for craft, D- and below for artisan.** Every agriculture award
+is still absent and the note says why, which is the honest split rather than
+the all-or-nothing one.
+
+**And it closed Embu at E, which no agriculture search could have.** The two
+CDACC awards are open entry because the polytechnic publishes its artisan bar as
+D- and below, so an E clears it. E-blind counties 11 to 10; the ratchet moved
+with it and was broken to 9 and watched to name the ten. Embu had been worked
+twice before — Manyatta TVC named "Diploma, Craft and Artisan courses" and no
+artisan award — and the gap was the institution, for the fourteenth time.
+
+**Duration and fee are null on all six**, which is the finding rather than a
+shortfall: JNNP publishes no programme length anywhere reachable, and without a
+duration the consolidated Ksh 67,189 rate cannot be scaled. The Ebukanga ruling.
+
+### The backstop was left at 0.04 of headroom, and it fired on the good case
+
+`PER_COURSE` was set at 130 when the figure measured **129.96**. That is the
+124.88-against-125 mistake at a new constant, written by the same hand that had
+just widened the ceiling and the mean-note ratchet for exactly this reason — the
+third time this file records it and the second in a week.
+
+It fired on six records for a national polytechnic that had never been listed,
+and **both properties it exists to protect held**: field count stable at 18, and
+the mean note did not move by a single character (845.00 either side). So the
+cause was what the guard's own comment says it cannot distinguish — **novel
+text: a new institution, a new county, vocabulary the file has never seen**,
+which the simulation in that comment establishes is the expensive kind and is
+precisely the coverage this project values.
+
+Raised to 140, deliberately, which is the response the failure message itself
+prescribes. **A backstop at four hundredths of headroom is not measuring a
+trend, and the guidance that says raise one for growth you would defend to a
+reader is what this is for.**
+
+### And a pre-existing convention was reported rather than quietly changed
+
+`instrument*` files **five** records under *ICT and digital* rather than
+Engineering — four already shipped, plus this pass's Craft Certificate in
+Electrical Engineering (Instrumentation), which follows them. Instrumentation
+and control is genuinely a borderline family, nothing sourced says the existing
+filing is wrong, and re-litigating it would move four shipped records on my own
+judgement. **Flagged to the maintainer rather than swept**, because the
+wrong-sector class is the one no guard can see and a silent bulk re-file is the
+worst possible way to touch it.

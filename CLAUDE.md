@@ -1,6 +1,89 @@
 # Working notes for Njia
 
-Standing instructions for anyone — human or agent — working on this repository.
+Notes for anyone — human or agent — working on this repository. **They are
+working notes, not a rulebook.** Most of what follows is a record of mistakes
+already made here and what was learned from them, kept because the same traps
+recur. Read it as experience to draw on, not as a compliance checklist.
+
+## How to use this file
+
+**Four things are genuinely non-negotiable**, because breaking them harms a
+reader who has no way to check:
+
+1. **Never invent a figure.** A fee, a grade, a duration, a deadline or an
+   employment rate is either sourced or absent. That is the whole of Njia's
+   claim, and nothing below softens it.
+2. **Never quote an entry grade higher than published** — it deletes the card
+   for the reader with the fewest options — and never lower, which sends them
+   at a door that will not open.
+3. **Never route around the network block.** No archive mirrors, no proxies, no
+   cache services. WebSearch is the only external channel; WebFetch is off.
+4. **Report honestly.** If something failed, was skipped, or could not be
+   verified, say so plainly.
+
+**Everything else here is guidance, and judgement outranks it.** In particular:
+
+- **Listing a course is a claim about EXISTENCE; a figure is a claim about
+  QUANTITY.** The strict rules are for the second. A programme that plainly
+  runs should be listed, with the basis stated and the unknown fields left
+  empty.
+- **Useful information beats none.** Withholding a record, an institution, or a
+  figure that was found but could not be reconciled is itself a claim, and
+  usually the wrong one. Report what the research turned up and why it is not
+  recorded.
+- **A guard that fights good work is a guard to fix.** These exist to catch
+  regressions, not to referee ordinary work. If one fires on rounding, on a
+  code comment, or on data that simply got better, widen it or rewrite it and
+  record why — that has been the right answer every time it has come up. Do not
+  contort the data or delete useful prose to satisfy a number.
+- **Ceilings and ratchets measure a delta, not a target.** Raise one
+  deliberately when the growth is something you would defend to a reader; lower
+  it when you win back room. "Never raise it" was too strong, and the ceilings
+  it applied to have since been given real headroom.
+- **Do not grind a metric because it is the one being measured.** Before a pass,
+  ask what a reader actually typed into a search box this week.
+
+If a rule below and the reader's interests point in different directions, the
+reader wins — and then come back and fix the rule.
+
+## The file itself got too rigid, and it cost quality
+
+The maintainer's correction, and it is the second time: *this file shouldn't be
+too rigid.* It was made once before about listing standards — a catalogue that
+told a Kenyan school-leaver Egerton does not teach degrees — and it is broader
+than that.
+
+**What triggered it is a clean example.** Adding an agribusiness sector fix
+meant writing a code comment explaining why the pattern exists. That comment
+put ~1.3KB on the critical path, and the ceiling was set at 109KB with **no
+headroom at all** — so the guard failed with `109.0KB over the 109.0KB budget`,
+a rounding difference. The response was to **delete the comment**: worse code,
+to satisfy a number that was measuring noise. The guard was dictating the work
+instead of protecting it.
+
+That mistake is recorded twice already in this file — the mean-note ratchet set
+at its own measured value, and the 124.88-against-125 ceiling — and it was made
+a third time by the person who wrote both up. Recognising a trap in prose is not
+the same as noticing it while working.
+
+So the ceiling has real headroom (109 → 115KB), the mean-note ratchet has a band
+rather than five characters (845 → 900), and **"never raise it" is withdrawn.**
+Raise one deliberately, for growth you would defend to a reader; never to hide a
+regression you have not diagnosed.
+
+**The wider problem is the document, not the constants.** This file is around
+58,000 words and is the first thing anyone here reads. Written as accumulated
+commandments, it invites literal compliance over judgement — and an agent
+optimising for compliance will produce exactly the outcomes the maintainer has
+now objected to three times: records withheld on a technicality, research
+discarded because a figure could not be written, and effort spent on whichever
+metric happens to be instrumented.
+
+The preamble at the top is the fix: four rules that genuinely protect a reader,
+and everything else explicitly demoted to experience. **Nothing was deleted** —
+the incidents below are still the cheapest way to avoid repeating them. What
+changed is their standing. When a note here and the reader's interests disagree,
+the reader wins, and the note gets amended.
 
 ## Research: use WebSearch, never WebFetch
 
@@ -1336,6 +1419,90 @@ the same shape: ten null-fee notes said the institute "publishes no per-course
 fee", which is not one of the four literal phrases the absence guard requires.
 Both were found by asserting the properties on the parsed data, which is the
 whole reason that rule exists.
+
+## Agriculture, measured again: the count was the least useful number
+
+Asked to fix the agriculture gap, the headline was 122 of 1,334 records against
+roughly a quarter of GVA. The **shape** turned out to matter more: **68 of those
+122 were degrees at C+**, with 25 at D or below, and 22 counties in the register
+held no agriculture record at all. In the sector that employs most Kenyans this
+catalogue was top-heavy — which a percentage cannot show you.
+
+**Agricultural Training Centres are absent as a category.** Found by searching
+the register for a KIND of provider rather than a name, the way the
+mission-hospital schools were. They are county-run, one per county, and they
+train at exactly the band that is thin here. Worth working; mostly short farmer
+courses, so check whether a given ATC award is an entry route from KCSE before
+recording it.
+
+**Three counties closed, and two of the three were missing institutions.**
+Kitale National Polytechnic — in Kenya's main grain-growing county, absent
+entirely — and Bunyala TVC in Busia. The third, Kisii, is the rarer case: the
+polytechnic was already listed and the whole course FAMILY was missing. Worth
+checking wherever a polytechnic sits in a county that reads as blind for
+something.
+
+Two rulings from the pass:
+
+- **A duration can come from the award when the campus does not publish one.**
+  Kisii publishes no length for its KNEC Diploma in General Agriculture; the
+  same award is published at three years by Kitale, Bunyala and KSA. Three
+  institutions agreeing is a fact about the award, and the note says so because
+  the fee is scaled from it. This is not the artisan case, where two
+  institutions here disagree about one award's length — that disagreement is
+  the evidence that no national figure exists.
+- **The KSA award names were not the school's own.** Eight records carried
+  titles the school does not confer. Renamed to its published awards with the
+  previous title kept on each card. Course identity is (name, institution), so
+  a reader searching the exact programme title is who that convention is for.
+
+**And agribusiness had been filed under Business** — in a sector literally named
+"Agriculture and agribusiness". `business` sits ahead of `agriculture` in the
+first-match-wins array. Seven degrees, shipped and invisible. Third instance of
+the wrong-sector shape, third caught by printing the resolved sector on insert;
+`tractor` was a fourth find in the same pass, and that one announced itself
+because it matched nothing.
+
+**Stated plainly because it would otherwise flatter the work: the reclassification
+moved agriculture by 8 records without adding any provision.** A metric moved by
+re-filing is not a gap closed, and the two should be reported separately.
+
+### The ATC question is settled: the category can yield records
+
+The open worry above was that ATCs run short farmer courses and so might never
+produce a row in a catalogue read by school-leavers. **Nakuru ATC is certified
+as an A-TVET institution** — Agricultural Technical and Vocational Education and
+Training — so at least some ATCs are accredited to award framework
+qualifications, and the KNEC agriculture certificate tier admits at **D plain**.
+The category is workable. What it still needs is an ATC **in a county that reads
+as blind**, with award titles rather than a department name; Nakuru already has
+agriculture four times over, so it closes nothing.
+
+### Three more attempts, and all three failed differently
+
+Worth recording because each names a different blocker, and "search Homa Bay"
+otherwise sends the next person over ground already covered:
+
+- **Michuki National Polytechnic (Murang'a) — a clean negative.** Its five
+  departments are ICT, Electrical, Mechanical, Applied Science and Institutional
+  Management. There is no agriculture department to find. That is a fact about
+  the institution, not a yield floor, and Murang'a will not close this way.
+- **Mawego National Polytechnic (Homa Bay) — the yield floor exactly.** Two
+  differently phrased searches confirm an *Agriculture and Environmental Studies*
+  department, an aquaculture centre of excellence, and the entry tiers (C- for
+  diplomas, D+ craft, E artisan) — and **name no agriculture award at all**. A
+  named department is not a named course, so no record. Homa Bay stays blind.
+- **Jeremiah Nyagah National Polytechnic (Embu) — a contradiction.** Absent from
+  this register entirely and a genuine gap (1984 as Rwika Technical Institute,
+  TVETA accredited, 50+ courses). Its own site names five departments with no
+  agriculture among them, while its programme portal lists a *Diploma in
+  Agriculture (Module I)*. That attributes nothing. **Listing the institution on
+  its other departments is legitimate and separate work.**
+
+**Two of the three are institution facts rather than search failures**, which is
+the distinction worth carrying: a polytechnic with no agriculture department is
+answered, and re-running it wastes a pass. Only Mawego is worth another look,
+and only with a source that names an award.
 
 ## The floor is not the catalogue, and only the floor was measured
 
@@ -4073,13 +4240,13 @@ of what was already there. Both are worth remembering as a pattern: before
 building a feature, check whether the catalogue already answers the question and
 simply has no surface for it.
 
-- **`/open-data/`** publishes all 1334 courses as CSV and JSON. The column that
+- **`/open-data/`** publishes every course in the catalogue as CSV and JSON. The column that
   justifies it is `fee_basis` — anyone can list Kenyan courses and fees; almost
   nobody says which of their numbers they can stand behind. It is **computed by
   reading `feeBasis()` out of `js/decide.js`** at build time, not reimplemented,
   because an export that classified fees by its own copy of the rule could
   disagree with the app while both looked right alone. RFC 4180 quoting is not
-  optional: **every one** of the 1334 notes contains a comma or a quote and the
+  optional: **every one** of the notes contains a comma or a quote and the
   longest is 1,420 characters. (It was 444 when the exporter was written; the
   last 19 gained notes when the uncited-fee tier was closed. Re-measure rather
   than quoting a figure from earlier in the same session — this note is here

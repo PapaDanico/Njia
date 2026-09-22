@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1334,
-  "institution_count": 210,
+  "course_count": 1346,
+  "institution_count": 213,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -960,6 +960,70 @@
       "tuition_kes": 67189,
       "fee_basis": "derived",
       "verification_note": "Programme named in Bumbe Technical Training Institute's published course list, examined by KNEC. The institute publishes its entry bars as C- and above for diploma and D plain and above for certificate, \"while other course categories are open\" - artisan being the remaining category, so no KCSE mean grade is recorded. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
+    },
+    {
+      "course_id": "c1368",
+      "course_name": "Certificate in General Agriculture",
+      "institution": "Bunyala Technical and Vocational College",
+      "institution_id": "bunyala_tvc",
+      "county": "Busia",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": 134378,
+      "fee_basis": "derived",
+      "verification_note": "Bunyala Technical and Vocational College is a public TVC at Port Victoria in Busia, TVETA registration TVETA/PUBLIC/TVC/0024/2017, established October 2017 and operating from January 2018. Its own agriculture department page names this programme and gives it as KNEC-examined; the college publishes its entry tiers as a KCSE C- for diplomas, D for certificates, and a KCPE certificate for artisan courses. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar."
+    },
+    {
+      "course_id": "c1367",
+      "course_name": "Diploma in Agricultural Engineering",
+      "institution": "Bunyala Technical and Vocational College",
+      "institution_id": "bunyala_tvc",
+      "county": "Busia",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 201567,
+      "fee_basis": "derived",
+      "verification_note": "Bunyala Technical and Vocational College is a public TVC at Port Victoria in Busia, TVETA registration TVETA/PUBLIC/TVC/0024/2017, established October 2017 and operating from January 2018. Its own agriculture department page names this programme and gives it as KNEC-examined; the college publishes its entry tiers as a KCSE C- for diplomas, D for certificates, and a KCPE certificate for artisan courses. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar."
+    },
+    {
+      "course_id": "c1366",
+      "course_name": "Diploma in General Agriculture",
+      "institution": "Bunyala Technical and Vocational College",
+      "institution_id": "bunyala_tvc",
+      "county": "Busia",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 201567,
+      "fee_basis": "derived",
+      "verification_note": "Bunyala Technical and Vocational College is a public TVC at Port Victoria in Busia, TVETA registration TVETA/PUBLIC/TVC/0024/2017, established October 2017 and operating from January 2018. Its own agriculture department page names this programme and gives it as KNEC-examined; the college publishes its entry tiers as a KCSE C- for diplomas, D for certificates, and a KCPE certificate for artisan courses. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar."
+    },
+    {
+      "course_id": "c1369",
+      "course_name": "Tractor Operator Course",
+      "institution": "Bunyala Technical and Vocational College",
+      "institution_id": "bunyala_tvc",
+      "county": "Busia",
+      "ownership": "public",
+      "level": "short_course",
+      "cluster": "maker",
+      "min_grade": "",
+      "open_entry": "yes",
+      "duration_months": 3,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Bunyala Technical and Vocational College is a public TVC at Port Victoria in Busia, TVETA registration TVETA/PUBLIC/TVC/0024/2017, established October 2017 and operating from January 2018. Its own agriculture department page names this programme and gives it as KNEC-examined; the college publishes its entry tiers as a KCSE C- for diplomas, D for certificates, and a KCPE certificate for artisan courses. This one is INTERNALLY ASSESSED rather than KNEC-examined, so Njia records it as a short course and not a KNQF qualification: nothing reachable places it on the framework, and it should not be assumed to carry credit towards a certificate — ask the college before planning a progression on it. No entry requirement is published for it; it is shown as open because the college admits to its artisan tier on a KCPE certificate, which is an alternative to a mean grade rather than a bar above one, but confirm that with the college. The college does not publish a fee for this course, and the consolidated public-TVET rate covers KUCCPS-placed programmes rather than a short internal one, so no figure is derived for it. The department also runs a fish cage farming short course with sponsor backing, which is not recorded here because it is not described as a standing programme."
     },
     {
       "course_id": "c127",
@@ -3842,6 +3906,38 @@
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
     },
     {
+      "course_id": "c1365",
+      "course_name": "Craft Certificate in General Agriculture",
+      "institution": "Kenya School of Agriculture — Songa Mbele (Thika) Campus",
+      "institution_id": "ksa_thika",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. Its Songa Mbele campus in Thika is named on the school’s own campus list and confirmed by a second, differently phrased search. Entry is a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown. A Nakuru campus appears on one campus list only and is not listed here until a second source names it."
+    },
+    {
+      "course_id": "c1364",
+      "course_name": "Diploma in General Agriculture",
+      "institution": "Kenya School of Agriculture — Songa Mbele (Thika) Campus",
+      "institution_id": "ksa_thika",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. Its Songa Mbele campus in Thika is named on the school’s own campus list and confirmed by a second, differently phrased search. Entry is a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown. A Nakuru campus appears on one campus list only and is not listed here until a second source names it."
+    },
+    {
       "course_id": "c822",
       "course_name": "Bachelor of Arts in Communication and Media Technology",
       "institution": "Kenyatta University",
@@ -6146,6 +6242,22 @@
       "verification_note": "Programme named in Kisii National Polytechnic's published course list, which the polytechnic gives as 74 programmes across artisan, certificate, diploma and higher diploma. The polytechnic publishes its artisan (Level 4) entry as a KCPE certificate or a KCSE mean grade of D- or E, so E is recorded from the institution's own statement rather than inferred. Intakes are stated as January, May and September. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026). Artisan fees vary more than diploma fees and published per-institution figures conflict, so treat this as an order of magnitude and confirm with the registrar."
     },
     {
+      "course_id": "c1370",
+      "course_name": "Diploma in General Agriculture",
+      "institution": "Kisii National Polytechnic",
+      "institution_id": "kisii_poly",
+      "county": "Kisii",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 201567,
+      "fee_basis": "derived",
+      "verification_note": "Kisii National Polytechnic lists General Agriculture among its diploma departments on its own site, and a second, differently phrased search names the award as a KNEC diploma capped at 30 trainees. The polytechnic publishes its entry tiers as a KCSE C- for diplomas, D plain for craft certificates and D- and below for artisan courses, with January, May and September intakes. DURATION: the polytechnic does not publish one for this programme; 36 months is the length the same KNEC award carries where it IS published — at Kitale National Polytechnic, Bunyala TVC and the Kenya School of Agriculture, which agree on three years — so the figure is the award’s rather than this campus’s, and the fee below is scaled from it. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar. Its diploma list also names Food Science Technology, Applied Biology and Environmental Science Studies, which are not recorded here because only one source names them."
+    },
+    {
       "course_id": "c1200",
       "course_name": "Bachelor of Commerce",
       "institution": "Kisii University",
@@ -6499,7 +6611,7 @@
     },
     {
       "course_id": "c417",
-      "course_name": "Certificate in Agriculture",
+      "course_name": "Craft Certificate in General Agriculture",
       "institution": "Kenya School of Agriculture — Pap Konam Campus",
       "institution_id": "ksa_papkonam",
       "county": "Kisumu",
@@ -6511,11 +6623,11 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a D plain for craft certificates, C- for diplomas. DURATION REMOVED RATHER THAN GUESSED: this said 12 months, which nothing supports. The school gives its programmes as three years overall, this catalogue records the craft certificate as TWO MODULES, and no reachable source says how long a module runs. Two modules at a year each is a reading, not a citation. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown - confirm the campus, the length and the fee together."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Certificate in Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title. Pap Konam is NOT on the school’s current campus list, which names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya — confirm this campus is running before applying."
     },
     {
       "course_id": "c416",
-      "course_name": "Diploma in Sustainable Agriculture",
+      "course_name": "Diploma in General Agriculture",
       "institution": "Kenya School of Agriculture — Pap Konam Campus",
       "institution_id": "ksa_papkonam",
       "county": "Kisumu",
@@ -6527,7 +6639,7 @@
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a KCSE C- for diplomas, D plain for craft certificates. DURATION CORRECTED: this said 24 months; the school own site gives its programmes as THREE YEARS, agreeing with the three modules already recorded for the diploma. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current list, so confirm the campus. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown rather than a guessed one."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Diploma in Sustainable Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title. Pap Konam is NOT on the school’s current campus list, which names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya — confirm this campus is running before applying."
     },
     {
       "course_id": "c346",
@@ -17858,6 +17970,38 @@
       "verification_note": "Programme named in Nyandarua National Polytechnic's published course list. The polytechnic publishes its artisan (Level 4) entry as a KCPE or KCSE mean grade of D- and E, so an E clears the published bar and E is recorded - the same reading applied at Kisumu, Eldoret, Kisii, Michuki and Bureti, where a KCPE certificate is an alternative to the KCSE grade rather than an addition to it. As a national polytechnic it is legally empowered to train and award artisan, craft, diploma and higher diploma qualifications, and it runs more artisan programmes than the one listed here; only what a reachable source actually names is recorded. Fee derived from the government's consolidated annual public-TVET fee of Ksh 67,189 (effective May 2026), which the Ministry of Education has directed all public TVET institutions to charge; government capitation of up to Ksh 30,000 a year reduces what a placed student actually pays, so treat this as the gross figure and confirm with the registrar."
     },
     {
+      "course_id": "c1371",
+      "course_name": "Certificate in General Agriculture",
+      "institution": "Nyandarua National Polytechnic",
+      "institution_id": "nyandarua_poly",
+      "county": "Nyandarua",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": 134378,
+      "fee_basis": "derived",
+      "verification_note": "Named on the polytechnic’s own Agriculture and Environmental Studies department page, which publishes this grade and duration. A second, differently phrased search confirms the institution — a national polytechnic of about 10,000 trainees, 7km from Nyahururu, training on CBET across artisan, craft, diploma and higher diploma levels — without naming courses. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar. The same department is named elsewhere as running Agriculture Extension at CBET Level 4 and a Diploma in Agricultural Engineering; neither is recorded here because only one source names each. Ring the polytechnic if either is what you want."
+    },
+    {
+      "course_id": "c1372",
+      "course_name": "Diploma in Food Science and Processing",
+      "institution": "Nyandarua National Polytechnic",
+      "institution_id": "nyandarua_poly",
+      "county": "Nyandarua",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 201567,
+      "fee_basis": "derived",
+      "verification_note": "Named on the polytechnic’s own Agriculture and Environmental Studies department page, which publishes this grade and duration. A second, differently phrased search confirms the institution — a national polytechnic of about 10,000 trainees, 7km from Nyahururu, training on CBET across artisan, craft, diploma and higher diploma levels — without naming courses. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar."
+    },
+    {
       "course_id": "c048",
       "course_name": "Bachelor of Business Information Technology",
       "institution": "Dedan Kimathi University of Technology (DeKUT)",
@@ -18211,7 +18355,7 @@
     },
     {
       "course_id": "c413",
-      "course_name": "Certificate in Agriculture",
+      "course_name": "Craft Certificate in General Agriculture",
       "institution": "Kenya School of Agriculture — Wambugu Campus",
       "institution_id": "ksa_wambugu",
       "county": "Nyeri",
@@ -18223,11 +18367,11 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a D plain for craft certificates, C- for diplomas. DURATION REMOVED RATHER THAN GUESSED: this said 12 months, which nothing supports. The school gives its programmes as three years overall, this catalogue records the craft certificate as TWO MODULES, and no reachable source says how long a module runs. Two modules at a year each is a reading, not a citation. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown - confirm the campus, the length and the fee together."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Certificate in Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title. The main campus, on Wambugu farm."
     },
     {
       "course_id": "c412",
-      "course_name": "Diploma in Sustainable Agriculture",
+      "course_name": "Diploma in General Agriculture",
       "institution": "Kenya School of Agriculture — Wambugu Campus",
       "institution_id": "ksa_wambugu",
       "county": "Nyeri",
@@ -18239,7 +18383,7 @@
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a KCSE C- for diplomas, D plain for craft certificates. DURATION CORRECTED: this said 24 months; the school own site gives its programmes as THREE YEARS, agreeing with the three modules already recorded for the diploma. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current list, so confirm the campus. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown rather than a guessed one."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Diploma in Sustainable Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title. The main campus, on Wambugu farm."
     },
     {
       "course_id": "c245",
@@ -18851,7 +18995,7 @@
     },
     {
       "course_id": "c415",
-      "course_name": "Certificate in Agriculture",
+      "course_name": "Craft Certificate in General Agriculture",
       "institution": "Kenya School of Agriculture — Ugenya Campus",
       "institution_id": "ksa_ugenya",
       "county": "Siaya",
@@ -18863,23 +19007,23 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a D plain for craft certificates, C- for diplomas. DURATION REMOVED RATHER THAN GUESSED: this said 12 months, which nothing supports. The school gives its programmes as three years overall, this catalogue records the craft certificate as TWO MODULES, and no reachable source says how long a module runs. Two modules at a year each is a reading, not a citation. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown - confirm the campus, the length and the fee together."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Certificate in Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title."
     },
     {
       "course_id": "c414",
-      "course_name": "Diploma in Agricultural Extension",
+      "course_name": "Diploma in General Agriculture",
       "institution": "Kenya School of Agriculture — Ugenya Campus",
       "institution_id": "ksa_ugenya",
       "county": "Siaya",
       "ownership": "public",
       "level": "diploma",
-      "cluster": "people",
+      "cluster": "maker",
       "min_grade": "C-",
       "open_entry": "no",
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a KCSE C- for diplomas, D plain for craft certificates. DURATION CORRECTED: this said 24 months; the school own site gives its programmes as THREE YEARS, agreeing with the three modules already recorded for the diploma. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current list, so confirm the campus. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown rather than a guessed one."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Diploma in Agricultural Extension\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title."
     },
     {
       "course_id": "c482",
@@ -19650,6 +19794,54 @@
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Totals here are that schedule multiplied out by course length. Tuition only — accommodation, meals and skills-lab charges are extra and vary by campus. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
     },
     {
+      "course_id": "c1362",
+      "course_name": "Craft Certificate in General Agriculture",
+      "institution": "Kitale National Polytechnic",
+      "institution_id": "kitale_poly",
+      "county": "Trans Nzoia",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "D+",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": 134378,
+      "fee_basis": "derived",
+      "verification_note": "The polytechnic was established in 1980 with Swedish International Development Agency support and constituted by Legal Notice 95 of 2016; TVETA registration TVETA/PUBLIC/NP/0001/2017. Its agriculture department publishes this ladder itself: diplomas at a KCSE C- over three years, craft certificates at D+ over two, and artisan courses at D- and below over one year, with January, May and September intakes. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar."
+    },
+    {
+      "course_id": "c1363",
+      "course_name": "Diploma in Entrepreneurial Agriculture",
+      "institution": "Kitale National Polytechnic",
+      "institution_id": "kitale_poly",
+      "county": "Trans Nzoia",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 201567,
+      "fee_basis": "derived",
+      "verification_note": "The polytechnic was established in 1980 with Swedish International Development Agency support and constituted by Legal Notice 95 of 2016; TVETA registration TVETA/PUBLIC/NP/0001/2017. Its agriculture department publishes this ladder itself: diplomas at a KCSE C- over three years, craft certificates at D+ over two, and artisan courses at D- and below over one year, with January, May and September intakes. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar. The department describes this as a new programme, so confirm the current intake is running before applying."
+    },
+    {
+      "course_id": "c1361",
+      "course_name": "Diploma in General Agriculture",
+      "institution": "Kitale National Polytechnic",
+      "institution_id": "kitale_poly",
+      "county": "Trans Nzoia",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 201567,
+      "fee_basis": "derived",
+      "verification_note": "The polytechnic was established in 1980 with Swedish International Development Agency support and constituted by Legal Notice 95 of 2016; TVETA registration TVETA/PUBLIC/NP/0001/2017. Its agriculture department publishes this ladder itself: diplomas at a KCSE C- over three years, craft certificates at D+ over two, and artisan courses at D- and below over one year, with January, May and September intakes. Fee derived from the government’s consolidated annual public-TVET fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026), scaled to course duration. Institutes bill per term and per-course amounts can differ — confirm with the registrar. The department also runs an artisan tier in agriculture at that published D- and below bar, so an E clears it, but no reachable source names the artisan award itself — ring the polytechnic for the title before applying to it."
+    },
+    {
       "course_id": "c298",
       "course_name": "Certificate in Information Communication Technology (CDACC Level 5)",
       "institution": "Kitale Vocational Training Centre",
@@ -20179,7 +20371,7 @@
     },
     {
       "course_id": "c419",
-      "course_name": "Certificate in Agriculture",
+      "course_name": "Craft Certificate in General Agriculture",
       "institution": "Kenya School of Agriculture — Ainabkoi Campus",
       "institution_id": "ksa_ainabkoi",
       "county": "Uasin Gishu",
@@ -20191,11 +20383,11 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a D plain for craft certificates, C- for diplomas. DURATION REMOVED RATHER THAN GUESSED: this said 12 months, which nothing supports. The school gives its programmes as three years overall, this catalogue records the craft certificate as TWO MODULES, and no reachable source says how long a module runs. Two modules at a year each is a reading, not a citation. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown - confirm the campus, the length and the fee together."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Certificate in Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title."
     },
     {
       "course_id": "c418",
-      "course_name": "Diploma in Sustainable Agriculture",
+      "course_name": "Diploma in General Agriculture",
       "institution": "Kenya School of Agriculture — Ainabkoi Campus",
       "institution_id": "ksa_ainabkoi",
       "county": "Uasin Gishu",
@@ -20207,7 +20399,7 @@
       "duration_months": 36,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined, main campus at Wambugu farm in Nyeri. Entry is a KCSE C- for diplomas, D plain for craft certificates. DURATION CORRECTED: this said 24 months; the school own site gives its programmes as THREE YEARS, agreeing with the three modules already recorded for the diploma. CAMPUS LIST DISAGREES WITH THE SCHOOL OWN: KSA names Wambugu, Songa Mbele in Thika, Nakuru, Ainabkoi and Ugenya; this catalogue holds Wambugu, Ugenya, Ainabkoi and Pap Konam. Thika and Nakuru are absent here and Pap Konam is not on the current list, so confirm the campus. The school does not publish a per-programme fee schedule in any source reachable here, so no figure is shown rather than a guessed one."
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. It publishes a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown rather than a guessed one. AWARD NAME CORRECTED: this record read \"Diploma in Sustainable Agriculture\". The school's own programme list names its awards as Diploma in General Agriculture and Craft Certificate in General Agriculture, corroborated by two independently phrased searches, and neither names the previous title."
     },
     {
       "course_id": "c843",

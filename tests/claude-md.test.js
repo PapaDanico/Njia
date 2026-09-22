@@ -46,40 +46,24 @@ const { COURSES, INSTITUTIONS } = vm.runInContext('({ COURSES, INSTITUTIONS })',
 /* Each entry is a sentence CLAUDE.md asserts about the present, with the value
  * it should carry. The template must match exactly once — a claim that appears
  * twice is itself a drift risk, because someone will update one copy. */
-const LIVE_CLAIMS = [
-  {
-    what: 'the catalogue size, where /open-data/ is described',
-    template: (n) => `publishes all ${n} courses as CSV and JSON`,
-    actual: () => COURSES.length,
-  },
-  {
-    what: 'the catalogue size, where RFC 4180 quoting is justified',
-    template: (n) => `**every one** of the ${n} notes contains a comma or a quote`,
-    actual: () => COURSES.length,
-  },
-];
+const LIVE_CLAIMS = [];
 
-for (const claim of LIVE_CLAIMS) {
-  test(`CLAUDE.md states ${claim.what} correctly`, () => {
-    const n = claim.actual();
-    const expected = claim.template(n);
-    if (DOC.includes(expected)) {
-      assert.equal(DOC.split(expected).length - 1, 1,
-        `CLAUDE.md asserts "${expected}" more than once. Two copies of a live `
-        + 'figure is two things to update and one that will be forgotten.');
-      return;
-    }
-    /* Report what the document actually says, so the failure is a one-line fix
-     * rather than a search. */
-    const SLOT = '\u0000';
-    const pattern = new RegExp(
-      claim.template(SLOT).replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(SLOT, '(\\d[\\d,]*)'));
-    const found = DOC.match(pattern);
-    assert.fail(
-      `CLAUDE.md is stale on ${claim.what}. It says ${found ? found[1] : '(sentence not found at all)'}; `
-      + `the repository has ${n}. Expected the sentence: "${expected}".`);
-  });
-}
+/* The catalogue size USED to be pinned here, in two sentences, and every insert
+ * then had to hand-edit both or the build went red. That is the institution
+ * register's mistake repeated: a figure that moves every pass, stated as a
+ * present-tense claim. The file's own rule covers it - "where a number will
+ * keep moving, stop stating it" - so the sentences now describe the property
+ * and this guard defends the ABSENCE of a pinned value, exactly as the
+ * register one below does. */
+test('CLAUDE.md does not pin a catalogue size that moves every pass', () => {
+  const offenders = [
+    /publishes all ([\d,]+) courses as CSV/,
+    /\*\*every one\*\* of the ([\d,]+) notes/,
+  ].map((re) => DOC.match(re)).filter(Boolean);
+  assert.equal(offenders.length, 0,
+    `CLAUDE.md pins the catalogue at ${offenders.map((o) => o[1]).join(' and ')}; it is now `
+    + `${COURSES.length} and will move again. Describe the property rather than the count.`);
+});
 
 test('CLAUDE.md agrees with the ratchet on how many counties are blind to an E', () => {
   /* The constant in sector-coverage.test.js is what actually fails a build, so

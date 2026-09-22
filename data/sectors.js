@@ -184,8 +184,16 @@ const SECTORS = [
     name: 'ICT and digital',
     broad: 'services',
     /* `comput`, not `computer`: the catalogue holds a "Mathematics and
-     * Computing" degree that matched nothing. */
-    match: /information\s+(?:and\s+)?communication|information technology|comput|software|cyber|data sci|data analy|ict|telecom|information systems|networking|digital|instrumentation|control technician/i,
+     * Computing" degree that matched nothing.
+     *
+     * `instrumentation` and `control technician` used to live here and now sit
+     * in the engineering pattern below. ICT precedes engineering, so while they
+     * were here they won on order and filed five records - an artisan
+     * electrical-installation award, a pipeline control technician, two degrees
+     * and a craft certificate - under ICT, even where the award name says
+     * Engineering outright. Instrumentation and control is an engineering
+     * family; the ordering was doing the deciding. */
+    match: /information\s+(?:and\s+)?communication|information technology|comput|software|cyber|data sci|data analy|ict|telecom|information systems|networking|digital/i,
     awardingBodies: ['TVET CDACC', 'KNEC', 'ICT Authority'],
     knbs: { series: 'Information and communication', mapping: 'exact', growth: 4.8 },
     caution: 'Close to the whole-economy rate, despite being the sector most often described as booming. The online and platform work actually absorbing young Kenyans sits largely outside this measure — and outside any formal qualification Njia can point at.'
@@ -221,7 +229,7 @@ const SECTORS = [
     id: 'engineering',
     name: 'Engineering, manufacturing and trades',
     broad: 'industry',
-    match: /engineering|\bengine\b|mechanic|electric|electronic|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|chemist|chemistry|processing technology|printing technology|map reproduction|plant technician/i,
+    match: /engineering|\bengine\b|mechanic|electric|electronic|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|chemist|chemistry|processing technology|printing technology|map reproduction|plant technician|instrumentation|control technician/i,
     awardingBodies: ['Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Manufacturing', mapping: 'unsourced' },
     caution: 'Manufacturing is the largest formal employer in the country at 366,600 workers, and its share of the economy has been drifting down for over a decade. Njia did not source its 2025 growth figure, so none is shown.'

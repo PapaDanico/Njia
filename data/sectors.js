@@ -143,7 +143,7 @@ const SECTORS = [
     id: 'hospitality',
     name: 'Hospitality and tourism',
     broad: 'services',
-    match: /hospitality|hotel|culinary|food and beverage|food production|front office|housekeep|tour|travel/i,
+    match: /hospitality|hotel|culinary|food and beverage|food production|front office|housekeep|accommodation|baking|pastry|bakery|confection|tour|travel/i,
     awardingBodies: ['Kenya Utalii College', 'TVET CDACC', 'Tourism Regulatory Authority'],
     knbs: { series: 'Accommodation and food service activities', mapping: 'exact', growth: 15.6 },
     caution: 'The strongest growth of any sector reported, but hospitality is seasonal and heavily casualised, and a good year for arrivals is not the same as a permanent contract.'

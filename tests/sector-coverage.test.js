@@ -884,3 +884,26 @@ test('no fee figure is repeated across unrelated institutions', () => {
     'these look like a placeholder pasted rather than a fee observed. Remove the figure and say so, '
     + 'or cite it: ' + suspects.join(' | '));
 });
+
+/* INSTRUMENTATION AND CONTROL IS ENGINEERING, AND ONLY ORDERING EVER SAID OTHERWISE.
+ *
+ * `instrumentation` and `control technician` sat in the ICT pattern, and `ict`
+ * precedes `engineering` in the first-match-wins array, so five records filed
+ * under ICT - including "Bachelor of Science in Instrumentation and Control
+ * ENGINEERING" and "Craft Certificate in Electrical ENGINEERING
+ * (Instrumentation)", whose own award names say engineering outright.
+ *
+ * This is the class CLAUDE.md names as the one no guard can see: a course with
+ * NO sector announces itself at insert time, a course with the WRONG one never
+ * does. The maintainer settled it; this pins the settlement so it cannot drift
+ * back silently the next time someone widens the ICT pattern. */
+test('an instrumentation or control award is engineering, not ICT', () => {
+  const wrong = COURSES
+    .filter((c) => /instrumentation|control technician/i.test(c.name))
+    .filter((c) => (sectorForCourse(c) || {}).id !== 'engineering')
+    .map((c) => `${c.id} ${c.name} -> ${(sectorForCourse(c) || {}).name || 'NO SECTOR'}`);
+  assert.equal(wrong.join(' | '), '',
+    'instrumentation and control awards belong to Engineering, manufacturing and trades. '
+    + 'These resolved elsewhere, which usually means a word was added to a pattern that '
+    + 'precedes engineering: ' + wrong.join(' | '));
+});

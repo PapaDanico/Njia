@@ -133,8 +133,14 @@ const SECTORS = [
   {
     id: 'mining',
     name: 'Mining, quarrying and extractives',
+    /* `pipeline instrumentation` is deliberately narrow rather than a bare
+     * `pipeline`. MIOG runs five pipeline awards and a bare token would pull
+     * all five in - four of which already sit in Energy, oil, gas and
+     * geothermal, where they belong. Only this one was asked for, so only this
+     * one moves. Mining precedes ict and engineering in this array, so the
+     * token wins on order without a precedence function. */
     broad: 'industry',
-    match: /mining|quarry|geolog|earth science|extract|drilling|petroleum|mineral processing|metallurg/i,
+    match: /mining|quarry|geolog|earth science|extract|drilling|petroleum|mineral processing|metallurg|pipeline instrumentation/i,
     awardingBodies: ['TVET CDACC', 'State Department for Mining'],
     knbs: { series: 'Mining and quarrying', mapping: 'exact', growth: 14.9, prev: -7.8 },
     caution: 'The fastest-growing sector in the survey — and a rebound from a 7.8% contraction the year before, on a small base, driven largely by minerals for cement. Most quarrying work is informal and unwaged. Read this as movement, not as vacancies.'

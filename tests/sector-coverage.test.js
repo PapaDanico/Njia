@@ -896,14 +896,36 @@ test('no fee figure is repeated across unrelated institutions', () => {
  * This is the class CLAUDE.md names as the one no guard can see: a course with
  * NO sector announces itself at insert time, a course with the WRONG one never
  * does. The maintainer settled it; this pins the settlement so it cannot drift
- * back silently the next time someone widens the ICT pattern. */
+ * back silently the next time someone widens the ICT pattern.
+ *
+ * ONE RECORD IS EXTRACTIVES BY A SEPARATE RULING, AND IT IS NAMED RATHER THAN
+ * EXCUSED. c336 is MIOG's Certificate in Pipeline Instrumentation and Control
+ * Technician - an oil-and-gas pipeline award at an oil-and-gas institute - and
+ * the maintainer placed it in Mining, quarrying and extractives. Widening this
+ * guard to "engineering OR mining" would have let any instrumentation record
+ * drift into mining unnoticed, which is the same blindness it was written to
+ * close. So the exception is pinned to the one id it applies to: a second
+ * INSTRUMENTATION record moved to mining fails this, and should - watched to
+ * fail on c1111.
+ *
+ * WHAT IT DOES NOT SEE, stated because the first draft of this comment claimed
+ * more than the code does. The filter is course NAMES containing
+ * `instrumentation` or `control technician`, so widening the mining pattern to
+ * a bare `pipeline` slips past it entirely: MIOG's four other pipeline awards
+ * carry neither word, and they would move sector with nothing complaining.
+ * That break was run and did not fail. The narrow token in data/sectors.js is
+ * what holds that line, not this test. */
+const INSTRUMENTATION_EXCEPTIONS = { c336: 'mining' };
+
 test('an instrumentation or control award is engineering, not ICT', () => {
   const wrong = COURSES
     .filter((c) => /instrumentation|control technician/i.test(c.name))
-    .filter((c) => (sectorForCourse(c) || {}).id !== 'engineering')
-    .map((c) => `${c.id} ${c.name} -> ${(sectorForCourse(c) || {}).name || 'NO SECTOR'}`);
+    .filter((c) => (sectorForCourse(c) || {}).id !== (INSTRUMENTATION_EXCEPTIONS[c.id] || 'engineering'))
+    .map((c) => `${c.id} ${c.name} -> ${(sectorForCourse(c) || {}).name || 'NO SECTOR'} `
+      + `(expected ${INSTRUMENTATION_EXCEPTIONS[c.id] || 'engineering'})`);
   assert.equal(wrong.join(' | '), '',
-    'instrumentation and control awards belong to Engineering, manufacturing and trades. '
-    + 'These resolved elsewhere, which usually means a word was added to a pattern that '
-    + 'precedes engineering: ' + wrong.join(' | '));
+    'instrumentation and control awards belong to Engineering, manufacturing and trades, '
+    + 'except the ids named in INSTRUMENTATION_EXCEPTIONS above. These resolved elsewhere, '
+    + 'which usually means a word was added to a pattern that precedes the expected one: '
+    + wrong.join(' | '));
 });

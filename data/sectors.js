@@ -368,11 +368,37 @@ const JOURNALISM_AWARD = /\b(journalis|mass communication|media studies|broadcas
  * be a judgement with no source behind it. */
 const AGRIBUSINESS_AWARD = /\bagribusiness\b|\bentrepreneurial agricultur/i;
 
+/* A PIPELINE AWARD IS OIL AND GAS, WHATEVER ELSE ITS NAME CONTAINS.
+ *
+ * The energy pattern already held `pipeline`, so MIOG's operations,
+ * maintenance and fire-and-safety awards resolved correctly. Its Certificate
+ * in Pipeline Laboratory Technologist did not: `health` precedes `energy` in
+ * the array and grabbed it on `laborator`, so a petroleum-product testing
+ * award was filed under Health and care. Ordering was doing the deciding,
+ * which is the same shape as the teaching and journalism cases below.
+ *
+ * `laborator` is NOT removed from health - fifteen medical laboratory records
+ * depend on it and they are correct. The precedence lifts the pipeline case
+ * out instead, which is the fix the register keeps arriving at: the answer to
+ * a course in the wrong sector is the right sector, never a narrower word in
+ * the wrong one.
+ *
+ * THE EXCLUSION IS A SEPARATE, DELIBERATE RULING. A precedence runs before
+ * the array, so without it this would also capture c336 - the Certificate in
+ * Pipeline Instrumentation and Control Technician - which the maintainer
+ * placed in Mining, quarrying and extractives. That record keeps its home,
+ * and tests/sector-coverage.test.js fails if it stops doing so. */
+const PIPELINE_AWARD = /\bpipeline\b/i;
+const PIPELINE_EXTRACTIVES = /instrumentation|control technician/i;
+
 const TEACHING_AWARD = /\b(bachelor|master|diploma|certificate) (of|in) education\b|\beducation \(/i;
 
 function sectorForCourse(course) {
   if (!course) return null;
   const hay = `${course.name || ''} ${course.field || ''}`;
+  if (PIPELINE_AWARD.test(course.name || '') && !PIPELINE_EXTRACTIVES.test(course.name || '')) {
+    return SECTORS.find((s) => s.id === 'energy') || null;
+  }
   if (TEACHING_AWARD.test(course.name || '')) {
     return SECTORS.find((s) => s.id === 'education') || null;
   }

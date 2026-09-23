@@ -22,7 +22,7 @@ const LANDING_STATS = {
   "sectorRoutes": {
     "aviation": 21,
     "maritime": 7,
-    "mining": 8,
+    "mining": 9,
     "hospitality": 56,
     "built": 57,
     "admin": 97,
@@ -31,7 +31,7 @@ const LANDING_STATS = {
     "supplychain": 24,
     "transport": 3,
     "agriculture": 141,
-    "engineering": 124,
+    "engineering": 123,
     "health": 315,
     "education": 91,
     "creative": 44,

@@ -929,3 +929,38 @@ test('an instrumentation or control award is engineering, not ICT', () => {
     + 'which usually means a word was added to a pattern that precedes the expected one: '
     + wrong.join(' | '));
 });
+
+/* A PIPELINE AWARD IS ENERGY, EXCEPT THE ONE RULED INTO EXTRACTIVES.
+ *
+ * c338, Certificate in Pipeline Laboratory Technologist, resolved to Health
+ * and care because `health` precedes `energy` in the array and matched it on
+ * `laborator` - a petroleum-product testing award filed as healthcare. The fix
+ * was a precedence in data/sectors.js rather than narrowing `laborator`, and
+ * this guards BOTH halves of that trade: the pipeline family lands where it
+ * belongs, AND the fifteen medical laboratory records that legitimately need
+ * `laborator` are still in health. Narrowing the health pattern would have
+ * passed the first assertion and broken the second. */
+test('a pipeline award is energy, and medical laboratory records stay health', () => {
+  const PIPELINE_EXPECTED = { c336: 'mining' };
+  const wrong = COURSES
+    .filter((c) => /\bpipeline\b/i.test(c.name))
+    .filter((c) => (sectorForCourse(c) || {}).id !== (PIPELINE_EXPECTED[c.id] || 'energy'))
+    .map((c) => `${c.id} ${c.name} -> ${(sectorForCourse(c) || {}).name || 'NO SECTOR'} `
+      + `(expected ${PIPELINE_EXPECTED[c.id] || 'energy'})`);
+  assert.equal(wrong.join(' | '), '',
+    'pipeline awards belong to Energy, oil, gas and geothermal, except the ids named in '
+    + 'PIPELINE_EXPECTED above: ' + wrong.join(' | '));
+
+  /* The other half. A fix that stripped `laborator` from health would satisfy
+     the assertion above and quietly refile every medical laboratory course. */
+  const medical = COURSES.filter((c) => /laborator/i.test(c.name) && !/\bpipeline\b/i.test(c.name));
+  const strayed = medical
+    .filter((c) => (sectorForCourse(c) || {}).id !== 'health')
+    .map((c) => `${c.id} ${c.name} -> ${(sectorForCourse(c) || {}).name || 'NO SECTOR'}`);
+  assert.ok(medical.length >= 15,
+    `only ${medical.length} medical laboratory records found; this guard assumes the health `
+    + 'pattern still carries them, so check what happened to `laborator`.');
+  assert.equal(strayed.join(' | '), '',
+    'these medical laboratory records left Health and care, which is what narrowing the '
+    + 'health pattern instead of adding a precedence would do: ' + strayed.join(' | '));
+});

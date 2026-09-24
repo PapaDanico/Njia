@@ -4498,7 +4498,7 @@ node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (302 at the last count)
+node --test tests/*.test.js       # zero-dependency unit suite; re-measure, do not quote
 node tests/functional-probe.mjs   # drives the real app, port 8080
 node tests/a11y-sweep.mjs         # 72 axe states, port 8106
 ```
@@ -6115,11 +6115,13 @@ reader weighing TVET against a degree would want.
 
 ### The funding ladder, measured
 
-23 records, **9 with an amount and 14 without**. Sorted by the lowest grade
-each reaches: D+, D, D, C-, C-, B+, A-, A-, A- - and the rest carry no grade
-because they are need-tested rather than merit-tested. The barbell this file
-diagnosed is still the shape: heavy before KCSE and above C+, thin in the
-middle.
+Measured at the time: 23 records, nine with an amount, and a ladder running
+D+, D, D, C-, C-, B+, A-, A-, A-. **Both figures have since moved and neither is
+quoted here any more** - the counts are in `data/funding.js` and the perishable
+half of this paragraph is exactly what this file warns about. What was durable
+is the shape: the barbell, heavy before KCSE and above C+, thin in the middle.
+Later passes closed the bottom three rungs; see the state-corporation and
+NYS sections below.
 
 **No record carries a closing date, deliberately**, because every one of these
 windows moves annually and a stale open window is the one error this project
@@ -6161,12 +6163,15 @@ it than a course card**, because a fee is what a learner checks and an award is
 what they *budget on*. A learner planning around a 150,000 sponsorship no source
 states is the placeholder trap doing its full damage.
 
-All three amounts are now null. **Six funding records carry an amount and every
-one of them is verified**, which is a clean invariant and is now guarded:
+All three amounts are now null. **Every funding record carrying an amount is
+verified**, which is a clean invariant and is guarded by
 `no funding record shows an amount it cannot source`. It asserts the property
 rather than the three ids, so an illustrative record may still exist - Ashinaga
 and Chevening do - it simply may not carry a number. Broken on f012 and watched
-to fail, naming the record and its confidence flag.
+to fail, naming the record and its confidence flag. **The count is deliberately
+not stated here**: it fell again when the guard was later found to check the
+flag rather than the claim, and a pinned number is how this paragraph goes
+stale.
 
 **And the county bursary was upgraded rather than just emptied**, which is the
 *report what you found* ruling applied to funding. Counties publish the POOL,
@@ -6413,3 +6418,47 @@ CBK-IMS admits any KCSE-entry student post-dissolution, which only the institute
 can answer — `info@ksms.or.ke`, +254 20 8646000, Noordin Road off Thika Road.
 That is a phone call, not a query. Do not re-run the course, entry-requirement
 or rename searches; all four are done and recorded here.
+
+## CI now fails with a name, and the name reads like a real failure
+
+The Actions section above is still accurate about the cause and is now
+incomplete about the **symptom**, which matters because the symptom is what the
+next agent meets first.
+
+The workflow no longer sits invisible. It posts a check run called
+**`Unit suite and artefact freshness`**, and it goes **red on every commit**,
+on pull requests and on `main` alike. A PR therefore opens with a failing check
+whose name says the unit suite failed — while the unit suite passes locally.
+Nothing about the underlying condition has changed: the job is still never
+placed on a runner.
+
+**Three cheap discriminators, all readable without a log:**
+
+- **It dies in 3 to 6 seconds.** `created_at`, `run_started_at` and `updated_at`
+  are within a few seconds of each other. A run that genuinely executed this
+  suite takes longer than that.
+- **The check output is empty** — `title`, `summary` and `text` are all `""`,
+  and `get_job_logs` returns **404**. Nothing ever wrote a log, because nothing
+  ever ran. A real test failure leaves a log.
+- **`main` fails identically.** That is the base-branch test this file already
+  prescribes, and it settles the question outright.
+
+**And I got this wrong out loud before checking**, which is the reason it is
+written down. Asked about the PR's status I read `get_status`, saw a blocked
+Vercel account and a pending Netlify preview, and reported that the Vercel
+failure was the only red check. **`get_status` does not return check runs.** The
+CI check was red the whole time and I had not looked at it. Use
+`pull_request_read` with `get_status` *and* the check-run list, or read the
+workflow runs directly — a commit status and a check run are different objects,
+and this repository's most confusing failure lives only in the second.
+
+**`Vercel — "Account is blocked."`** is the other standing red and is unrelated
+to this project: Njia deploys on Netlify, the status comes from an unconnected
+Vercel account, and it is red on every commit in the repository. Do not spend a
+pass on it.
+
+**What actually gates a merge here is the Netlify deploy preview**, exactly as
+the Actions section already concluded. When both reds above are the only reds
+and the preview is ready, the PR is green in every sense this repository can
+currently observe — and the standing-down comment naming both, once per PR, is
+what the drive-to-green rules require rather than silence.

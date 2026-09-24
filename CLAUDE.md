@@ -6206,3 +6206,32 @@ pay rather than a source of funding.
 That is this file's own rule doing its job - *record the level a source
 actually reaches, not its prestige*. A record here would have looked
 generous and reached nobody who reads Njia.
+
+### The level-disclosure rule holds across the funding table, and a guard for it would be the word trap
+
+*Record the level a source actually reaches, not its prestige* was checked
+across every funding record rather than assumed, and one record needed the fix:
+**Elimu (f010) buried its level mid-description**. It is selected on **KJSEA**
+rather than KCSE - a senior-school scholarship - so a reader already holding a
+KCSE grade could have spent an application on it. It now opens *NOT FOR
+SCHOOL-LEAVERS* and points at HELB, the HEF portal and the county bursary
+instead, with the sourced detail beside it: achievement Levels 5 to 8, learners
+with special needs qualifying regardless of level, applications at
+`scholarship.jkf.co.ke` and a toll-free line. The Jomo Kenyatta Foundation
+turned out to be the administrator of Elimu rather than a separate funder, so
+no record was added for it.
+
+**Every other record was already correct, and the check that said otherwise was
+mine.** A regex for `SECONDARY|SENIOR-SCHOOL|NOT FOR SCHOOL-LEAVERS|
+postgraduate` in the first sentence flagged f019 and f021 as failures. Both are
+right: the Equity Leaders Program opens *"For top KCSE performers only"* and
+NCPWD says it *"reaches beyond secondary school into college and university"* -
+they state their level in the first sentence without using any of those words.
+
+So **no guard was added**, deliberately. The property is real and worth holding,
+but it is a claim about meaning rather than vocabulary, and this file already
+records what happens to a guard aimed at a word: the analytics ban fired on
+*"no analytics scripts"*, which was true. A test that fails on correct text
+trains the next person to weaken it. This one stays a rule in prose, checked by
+reading, and the reading has just been done: **8 of 8 disclose their reach in
+the first sentence.**

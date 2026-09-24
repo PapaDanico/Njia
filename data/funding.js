@@ -182,7 +182,7 @@ const FUNDING_SOURCES = [
   },
   {
     id: 'f010', name: 'Elimu Scholarship Programme (Ministry of Education / JKF)', type: 'scholarship',
-    description: 'Government scholarship administered by the Jomo Kenyatta Foundation for needy and vulnerable learners, awarded across all 47 counties. The current cycle targets learners joining senior school; it matters to career planning as full multi-year support that frees household funds for tertiary study.',
+    description: 'NOT FOR SCHOOL-LEAVERS - this is a SENIOR-SCHOOL scholarship, selected on KJSEA results rather than KCSE, so if you already hold a KCSE grade this is not your route and HELB, the HEF portal or your county bursary are. Government scholarship administered by the Jomo Kenyatta Foundation for needy and vulnerable learners across all 47 counties: applicants sit KJSEA in a public junior school and need an achievement level of Meeting to Exceeding Expectation (Levels 5 to 8), and learners with special needs and disabilities qualify regardless of achievement level. Applications run through scholarship.jkf.co.ke, with a JKF toll-free line on 0800 724 695. It still matters to career planning: full multi-year support through secondary frees household money for the tertiary fees this catalogue prices.',
     coverage: 'Full support for the school cycle: fees, transport, school kit, stipend', max_amount_kes: null,
     eligibility: 'Needy and vulnerable learners; county-based selection across all 47 counties',
     min_grade: null, application_deadline: 'Announced per cycle on education.go.ke — the 2026 call opened December 2025',

@@ -6140,3 +6140,69 @@ with no window open it names the last date Njia holds and points at
 kuccps.net, telling the reader not to read silence as "nothing is open". From
 26 September it will show the continuous TVET row alone, which is a real open
 window rather than a gap to paper over.
+
+### The placeholder trap was in the funding table the whole time
+
+Working priority 1's second part - *funding and scholarship records* - found the
+catalogue's oldest defect living somewhere nobody had looked. `data/courses.js`
+has been held to *a figure is either sourced or absent* since Ksh 420,000 was
+found pasted across twelve degrees. **`data/funding.js` never was**, and three
+records carried a plausible award with nothing behind it:
+
+| | claimed | actually published |
+|---|---|---|
+| County Government Bursary | Ksh 20,000 | nothing - it varies by county, ward and applicant pool |
+| Institutional Work-Study | Ksh 40,000 | nothing - depends on institution, role and hours |
+| Faith-Based / Community Sponsorship | Ksh 150,000 | nothing - **the record's own description calls it informally arranged** |
+
+All three were flagged `illustrative`, which this file already establishes is a
+label and not a provenance. **The funding table is arguably the worse place for
+it than a course card**, because a fee is what a learner checks and an award is
+what they *budget on*. A learner planning around a 150,000 sponsorship no source
+states is the placeholder trap doing its full damage.
+
+All three amounts are now null. **Six funding records carry an amount and every
+one of them is verified**, which is a clean invariant and is now guarded:
+`no funding record shows an amount it cannot source`. It asserts the property
+rather than the three ids, so an illustrative record may still exist - Ashinaga
+and Chevening do - it simply may not carry a number. Broken on f012 and watched
+to fail, naming the record and its confidence flag.
+
+**And the county bursary was upgraded rather than just emptied**, which is the
+*report what you found* ruling applied to funding. Counties publish the POOL,
+not the award, and the pools are large and sourced: Nairobi budgeted **Ksh 595
+million** for 2025/26, disbursed **Ksh 297.5 million** in ward bursaries at
+**Ksh 3.5 million to each of its 85 wards**, issued **43,978 cheques**, and runs
+a further **Ksh 262.9 million** County Executive Scholarship Programme reaching
+tertiary study; Nakuru budgeted **Ksh 447 million** and released **Ksh 284.4
+million to more than 57,000 learners**. Those figures are quoted as pools, in
+the description, where they cannot be mistaken for an award - and **Njia does
+not divide one by the other**, because a quotient I computed is not a published
+award, which is the same rule as *a sum you computed yourself is not a second
+source*.
+
+That record now carries a `verification_note` and is `verified`, which puts it
+in the Application Clock's funding rows - 18 of 23 to 19. It earns that place:
+it is need-tested with **no grade bar at all**, which makes it one of the very
+few sources that still reaches the learner whose KCSE mean closed every merit
+scholarship, and it matters most in exactly the weeks when no placement window
+is open.
+
+**The existing guard caught the upgrade**, which is worth recording as the
+system working: flipping `data_confidence` to `verified` without adding a
+`verification_note` failed `a funding record claiming verification cites a
+source` immediately. The flag is not free.
+
+**And one funding lead was checked and rejected, which is worth recording so
+nobody re-runs it.** The NITA industrial training levy looks like it belongs in
+this table - it funds artisan and trade-test training, which is exactly the tier
+Njia's core reader enters. It does not. The levy is paid by **employers** at
+Ksh 50 per employee per month and reimburses **employers** for training their
+own staff, with written NITA approval required before the training starts and
+retrospective claims refused outright. A school-leaver cannot apply to it.
+NITA's training centres do take self-sponsored trainees, but that is a fee to
+pay rather than a source of funding.
+
+That is this file's own rule doing its job - *record the level a source
+actually reaches, not its prestige*. A record here would have looked
+generous and reached nobody who reads Njia.

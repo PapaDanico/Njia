@@ -124,14 +124,23 @@ const FUNDING_SOURCES = [
   },
   {
     id: 'f006', name: 'County Government Bursary Fund', type: 'bursary',
-    description: 'Devolved bursary fund administered by each county government for residents in tertiary institutions.',
-    coverage: 'Partial tuition', max_amount_kes: 20000,
-    eligibility: 'County resident, financial need, enrolled in a recognised institution',
+    description: 'Devolved bursary fund run by each county for its own residents in tertiary institutions, need-tested with no grade bar - one of the few sources that still reaches a learner whose KCSE mean closed the merit scholarships. It is allocated ward by ward, so the office that decides is local to you. The scale is real: Nairobi budgeted Ksh 595 million for 2025/26, disbursed Ksh 297.5 million in ward bursaries at Ksh 3.5 million to each of its 85 wards and issued 43,978 cheques, with a further Ksh 262.9 million under a County Executive Scholarship Programme that covers tertiary study; Nakuru budgeted Ksh 447 million and released Ksh 284.4 million to more than 57,000 learners. Apply every financial year - an award does not roll over.',
+    coverage: 'Partial tuition',
+    /* NO PER-STUDENT AMOUNT IS PUBLISHED, and the 20,000 that sat here was
+     * illustrative - a plausible figure with nothing behind it, which is the
+     * placeholder trap arriving in the funding table rather than the catalogue.
+     * What counties publish is the POOL, not the award: what a given learner
+     * receives varies by county, by ward and by how many apply that year. The
+     * sourced pool figures are in the description so a reader can size it for
+     * themselves; Njia does not divide one by the other and call it an award. */
+    max_amount_kes: null,
+    eligibility: 'County resident, financial need, enrolled in a recognised institution. No minimum grade - need-tested, not merit-tested',
     min_grade: null, application_deadline: 'Varies by county, typically per financial year',
     website: null, application_url: null,
     requirements: ['County bursary application form (ward or county office)', 'Fee structure from the institution', 'Admission or continuing-student letter', 'Chief or local administrator letter confirming you live in that ward/county', 'Student national ID or birth certificate', 'Parent/guardian national ID', 'Latest performance report or transcript', 'Form taken back to the school/college to be confirmed and stamped', 'If orphaned or living with disability: death certificate, or a letter from a community leader'],
     interest_rate: null, repayment_period: null,
-    data_confidence: 'illustrative'
+    verification_note: 'Mechanism and scale corroborated across two counties and several independent outlets, September 2026: Nairobi County reported a Ksh 595 million bursary allocation for 2025/26, Ksh 297.5 million disbursed in ward bursaries at Ksh 3.5 million across 85 wards, 43,978 cheques issued, and a separate Ksh 262.9 million County Executive Scholarship Programme reaching tertiary students; Nakuru County reported a Ksh 447 million allocation with Ksh 284.4 million released to more than 57,000 learners. No county publishes a per-student award, so none is recorded - the pool figures are quoted as pools and Njia does not divide one by the other.',
+    data_confidence: 'verified'
   },
   {
     id: 'f007', name: 'Youth Enterprise Development Fund (YEDF)', type: 'loan',
@@ -160,7 +169,10 @@ const FUNDING_SOURCES = [
   {
     id: 'f009', name: 'Institutional Work-Study Programme', type: 'work_study',
     description: 'On-campus employment (library, admin, labs) offered by many universities and TVETs to offset fees while studying.',
-    coverage: 'Partial fee offset via monthly wage', max_amount_kes: 40000,
+    coverage: 'Partial fee offset via monthly wage', /* What a work-study place pays depends on the institution, the role and
+     * the hours, and no institution here publishes a rate. 40,000 was a
+     * plausible figure with nothing behind it. */
+    max_amount_kes: null,
     eligibility: 'Enrolled student in good standing at a participating institution',
     min_grade: null, application_deadline: 'Start of each semester',
     website: null, application_url: null,
@@ -195,7 +207,10 @@ const FUNDING_SOURCES = [
   {
     id: 'f012', name: 'Faith-Based / Community Sponsorship', type: 'sponsorship',
     description: 'Church, mosque, or community-organisation sponsorship of a promising student, common but informally arranged across Kenya.',
-    coverage: 'Varies — partial to full tuition', max_amount_kes: 150000,
+    coverage: 'Varies — partial to full tuition', /* This record describes an informal arrangement in its own description, so
+     * there is by definition no published award to quote. 150,000 was a
+     * plausible figure with nothing behind it. */
+    max_amount_kes: null,
     eligibility: 'Active community/congregation member, demonstrated need and character references',
     min_grade: null, application_deadline: 'Informal — approach community leadership directly',
     website: null, application_url: null,

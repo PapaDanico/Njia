@@ -65,6 +65,10 @@ const LANDING_STATS = {
       "application_deadline": "A short window in early January, and it is easy to miss — for the 2025/26 cycle forms were issued from 8 December and received only between 5 and 9 January. Watch ngcdf.go.ke and your constituency office from early December"
     },
     {
+      "name": "County Government Bursary Fund",
+      "application_deadline": "Varies by county, typically per financial year"
+    },
+    {
       "name": "Youth Enterprise Development Fund (YEDF)",
       "application_deadline": "Rolling"
     },

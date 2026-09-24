@@ -2319,3 +2319,29 @@ test('county vocational centres are told to ring, and colleges are told the publ
     'a county vocational centre card claims the consolidated public-TVET fee governs it. '
     + 'That rate is for KUCCPS-placed colleges and overstates a county centre many times over.');
 });
+
+/* A FUNDING AMOUNT IS SOURCED OR ABSENT - THE CORE RULE, IN THE FUNDING TABLE.
+ *
+ * The catalogue has been held to "a figure is either sourced or absent" since
+ * the placeholder trap was found in it. data/funding.js was not, and three
+ * records carried a plausible award with nothing behind it: the County Bursary
+ * at 20,000, Institutional Work-Study at 40,000 and Faith-Based Sponsorship at
+ * 150,000 - all flagged `illustrative`, which is a label rather than a
+ * provenance. A learner planning around a 150,000 sponsorship that no source
+ * states is the same harm as a course card quoting an invented fee, and the
+ * funding table is arguably worse because that is the number they budget on.
+ *
+ * All three are now null, the sourced POOL figures live in the description
+ * where they cannot be mistaken for an award, and this asserts the property
+ * rather than the three ids: an amount may be shown only on a record whose
+ * provenance is verified. A new illustrative record may exist - Ashinaga and
+ * Chevening do - it simply may not carry a number. */
+test('no funding record shows an amount it cannot source', () => {
+  const unsourced = FUNDING_SOURCES
+    .filter((f) => f.max_amount_kes != null && f.data_confidence !== 'verified')
+    .map((f) => `${f.id} ${f.name} — Ksh ${f.max_amount_kes} on a '${f.data_confidence}' record`);
+  assert.equal(unsourced.join(' | '), '',
+    'these funding records display an award figure while declaring they are not verified. '
+    + 'Either source the figure and mark the record verified, or null the amount and put what '
+    + 'research found in the description: ' + unsourced.join(' | '));
+});

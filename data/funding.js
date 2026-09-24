@@ -335,6 +335,28 @@ const FUNDING_SOURCES = [
     data_confidence: 'verified',
     verification_note: 'The scheme, the three target counties, the unemployed-youth focus and the KfW, EIB and EU-AITF financing behind it are published by KeNHA in its calls for applications, September 2026. The 18-to-35 age range, the KCPE minimum qualification, the read-and-write requirement and the coverage of tuition, training materials and a monthly allowance come from a second source summarising the same call and are corroborated by press reporting describing it as a scholarship with a monthly stipend for KCPE certificate holders. No amount is recorded because none is published, and no closing date is recorded because this is a periodic call rather than a fixed annual window: read the current advert on the KeNHA scholarships page before applying.'
   },
+  {
+    id: 'f027',
+    name: 'KPC Foundation — INUKA and INUKA Plus (learners with disabilities)',
+    type: 'scholarship',
+    description: 'YOU CANNOT APPLY DIRECTLY TO THE TERTIARY AWARD, and that is the first thing to know: INUKA Plus extends support to students who were already INUKA secondary-school scholars and performed well, not to the public. What is open is the INUKA secondary programme itself, which takes one girl and one boy living with a disability from each of the 47 counties every year — so if you are still in or entering senior school this is a route worth working, and if you have already left school the NCPWD record in this list is the one for you. It is recorded here because the tertiary stream reaches TVET, college and university alike, which very little disability funding in Kenya does, and because it shows a school-leaver with a disability what a full funded pathway looks like from the start.',
+    coverage: 'Tuition, accommodation, meals and assistive devices for the course duration, plus uniforms at secondary level, a needs-based stipend and annual mentorship on life skills and career planning',
+    max_amount_kes: null,
+    eligibility: 'INUKA Plus: top-performing students continuing from the INUKA secondary programme into a TVET institution, college or university — not an open application. INUKA secondary: one girl and one boy living with a disability from each of the 47 counties each year.',
+    min_grade: null,
+    application_deadline: 'The secondary intake is announced annually — the 2026 call was for learners entering Grade 10. Watch the KPC Foundation pages.',
+    website: 'https://www.kpc.co.ke/corporate-social-investment/',
+    application_url: 'https://www.kpc.co.ke/corporate-social-investment/',
+    requirements: [
+      'Documentation of disability — NCPWD registration is the card most Kenyan schemes ask for',
+      'For INUKA Plus: existing INUKA scholarship beneficiary with strong secondary results',
+      'For the secondary intake: county of residence and KJSEA or equivalent results'
+    ],
+    interest_rate: null,
+    repayment_period: null,
+    data_confidence: 'verified',
+    verification_note: 'The INUKA Plus launch, its restriction to top-performing continuing INUKA beneficiaries, its reach into TVET institutions, colleges and universities, and its coverage of tuition, accommodation, meals, assistive devices and mentorship are published by Kenya Pipeline Company and corroborated by Techish Kenya, Capital FM, KBC and Business Now across December 2024 to April 2026. The INUKA secondary intake of one girl and one boy living with a disability per county is reported in the same coverage, as is a KPC Foundation agreement with NCPWD in October 2025. THE KSH 41 MILLION A YEAR, AND THE KSH 160 MILLION OVER FOUR YEARS, ARE THE PROGRAMME POOL AND NOT AN AWARD: Njia does not divide a pool by a beneficiary count to produce a figure, so no amount is recorded. LISTED WITH ITS CLOSED ENTRY IN THE FIRST LINE rather than omitted, because a record reading as an open tertiary scholarship would cost a school-leaver an application they cannot make.'
+  },
 ];
 
 /* THE STICKER PRICE IS NOT WHAT A PUBLIC-TVET STUDENT PAYS.

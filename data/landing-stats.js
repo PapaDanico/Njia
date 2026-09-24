@@ -42,7 +42,7 @@ const LANDING_STATS = {
     "humanities": 19,
     "personal": 19
   },
-  "fundingSources": 26,
+  "fundingSources": 27,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -131,6 +131,10 @@ const LANDING_STATS = {
     {
       "name": "KeNHA TVET Scholarships — Mombasa–Mariakani highway communities",
       "application_deadline": "Issued as a periodic call for applications rather than on a fixed annual date — calls were published in 2022, 2023 and 2025, so watch the scholarships page"
+    },
+    {
+      "name": "KPC Foundation — INUKA and INUKA Plus (learners with disabilities)",
+      "application_deadline": "The secondary intake is announced annually — the 2026 call was for learners entering Grade 10. Watch the KPC Foundation pages."
     }
   ]
 };

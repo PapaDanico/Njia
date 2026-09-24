@@ -6326,3 +6326,35 @@ None would be returned by a query containing the word *scholarship*. When the
 scholarship searches come back thin, ask **who else pays for training** — the
 state, an infrastructure lender, an employer — which is the funder-not-county
 lesson from the ministry advert, one level up.
+
+### The category the KeNHA find implied: state corporations fund TVET
+
+KeNHA was found sideways, in a search aimed at something else. Asked as a
+**category** — which kind of body funds technical training in Kenya — the answer
+is state corporations with CSR foundations, and the register held none of them.
+
+**KPC Foundation (f027)** is the first, and the discipline it needed is the
+level-disclosure rule rather than a figure rule. **INUKA Plus is not an open
+application**: it extends support to students who were already INUKA
+secondary-school scholars and performed well. What is open is the INUKA
+secondary intake — one girl and one boy living with a disability from each of
+the 47 counties each year. So the record leads with the closed entry, points a
+school-leaver at NCPWD instead, and is listed rather than omitted because the
+tertiary stream reaches TVET, college and university alike, which very little
+disability funding in Kenya does. That is the KCB Foundation treatment exactly.
+
+**Its Ksh 41 million a year is a pool, not an award**, and it is quoted as one
+in the description where it cannot be mistaken for a figure a learner would
+budget on. Njia does not divide a pool by a beneficiary count — the county
+bursary ruling, which is now precedent rather than a one-off.
+
+**KenGen Foundation was checked in the same pass and not written.** Its
+scholarships reach secondary and university students from communities near its
+power stations, and the search returned **no TVET stream and no published
+eligibility or application route**. A confirmed funder with no reachable entry
+route is the yield floor in the funding table, exactly as a confirmed
+institution with no named course is in the catalogue.
+
+**The remaining seam is named**: Kenya Ports Authority, KETRACO and the other
+state corporations with community foundations. Search the corporation, not the
+word *scholarship*.

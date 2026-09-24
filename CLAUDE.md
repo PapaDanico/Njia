@@ -6358,3 +6358,58 @@ institution with no named course is in the catalogue.
 **The remaining seam is named**: Kenya Ports Authority, KETRACO and the other
 state corporations with community foundations. Search the corporation, not the
 word *scholarship*.
+
+## CBK-IMS: the course list went stale because the company was dissolved
+
+The Central Bank of Kenya Institute of Monetary Studies, formerly the Kenya
+School of Monetary Studies, is **absent from this register and stays absent**,
+and the reason is a failure mode this file has not recorded before.
+
+Every aggregator reachable from here lists KSMS diplomas — Banking and Financial
+Services, Finance, Islamic Financial Services, Organizational Development,
+Microfinance, Business Information Technology — with an entry bar of a **C plain
+with a C in Mathematics and English**, which is squarely this catalogue's band.
+Six ready-made records, an institution readers would recognise, and a grade tier
+the register is thin at. It looks like an easy pass.
+
+**It is not, because KSMS no longer exists.** It was a separate company jointly
+owned by the Central Bank and the National Treasury; in **April 2024 that
+company was dissolved** — the Registrar of Companies gazetted the notice, as The
+Standard reported — and its capacity-building work was taken over by the Central
+Bank directly as CBK-IMS. The institution's **own current publication**, the
+CBK-IMS Training Calendar 2025/2026 on centralbank.go.ke, names only short
+professional courses for central banks and the wider financial sector: monetary
+policy, bank supervision, cash management and payment systems, anti-money
+laundering, data analytics. **No diploma, no KCSE entry, no intake.**
+
+So the aggregators are describing a dissolved company's prospectus, and the
+institution's own site describes what actually runs now. Writing those six
+diplomas would have sent a school-leaver to apply somewhere that no longer
+admits them — the exclusionary direction, which is the one this project refuses.
+
+**The class is new and worth naming.** This file already has the
+*current-versus-planned* test, written for KMTC campus lists that advertise a
+programme they intend to mount. This is that test **inverted**: current versus
+**discontinued**. A planned course announces itself with the word *planned*; a
+discontinued one announces itself with nothing at all, because an aggregator
+page simply never gets updated. The tell here was that the institution's own
+domain and the aggregators disagreed about what it *is*, not merely about what
+it teaches.
+
+**And the same source that supplied the diploma list got the ownership plainly
+wrong**, which is the cheapest available check on it: it calls KSMS *"a private
+Vocational Training center"* when it was a state-owned company of the Central
+Bank and the National Treasury. A source wrong about what an institution **is**
+does not get believed about what it **teaches**.
+
+**The general rule: before recording a course list for an institution that has
+been renamed, find out what the rename WAS.** A rebrand is cosmetic and changes
+nothing; a dissolution and transfer of functions can end the entry-level
+provision entirely, and both look identical in a search result that just shows
+the new name beside the old one.
+
+**It is a lead with a named blocker**, not a dry search. The blocker is whether
+CBK-IMS admits any KCSE-entry student post-dissolution, which only the institute
+can answer — `info@ksms.or.ke`, +254 20 8646000, Noordin Road off Thika Road.
+That is a phone call, not a query. Do not re-run the course, entry-requirement
+or rename searches; all four are done and recorded here.

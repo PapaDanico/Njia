@@ -2084,20 +2084,35 @@ and KCA are the names a Kenyan school-leaver types first**, and a catalogue that
 answers them with two rows is failing at its most-asked question while
 optimising its best-instrumented one.
 
-**The priority order, to be followed unless the maintainer says otherwise:**
+**The priority order, to be followed unless the maintainer says otherwise.**
+Reordered 24 September 2026 on the maintainer's instruction - *fees are
+critical, cost is the most important information we all seek* - and with the
+standing complaint attached to it: **stop fixating on E and D grades.** The
+county floor metrics were already demoted once and drifted back to the top,
+because they are the only coverage questions with ratchets. They are now last,
+and a pass that opens with them is a pass that has gone wrong.
 
-1. **Depth at the institutions readers name.** Any university or large college
-   carrying fewer than five records is a gap worth more than a marginal county
-   record. The audit that produced this section is one script and should be
-   re-run rather than assumed - `type === 'university'`, count the records, sort
-   ascending, start at the top.
-2. **Programme families absent from the whole catalogue**, not absent from one
-   county - the way medicine, physiotherapy, pharmacy and renewable energy each
+1. **COST. What a learner will actually pay, and who will help pay it.** This
+   is the first call on every pass. It has three parts and they are not
+   interchangeable:
+   - **A sourced fee on a record that has none.** See the refusal register
+     below before spending a search: the private side is closed to this build.
+   - **Funding and scholarship records**, which reach readers no fee ever
+     will. A scholarship at the right grade band is worth more to a reader
+     than a tuition figure, because it changes whether the figure matters.
+   - **Making a fee-less card useful anyway** - `feeGuidance()`, the tier
+     benchmark, the reported band. *Not published* reads as *there is nothing
+     to know*, and that is almost never true.
+2. **Depth at the institutions readers name.** Any university or large college
+   carrying fewer than five records. Re-run the audit rather than assuming it -
+   it is one script, and the last two sessions found it already closed.
+3. **Programme families absent from the whole catalogue**, not absent from one
+   county - the way medicine, physiotherapy, radiography and sign language each
    arrived here by being noticed as missing outright.
-3. **Fees and figures for records that already exist**, which is where the
-   catalogue's distinctive claim lives.
-4. **The county floor metrics**, which are real and are now the *fourth* call on
-   attention rather than the first.
+4. **The county floor metrics.** Real, ratcheted, and LAST. An E-grade closure
+   in a fourteenth county is a smaller gain than one sourced scholarship, and
+   the D-blind and E-blind sets are very nearly the same counties, so the work
+   double-counts itself. Do not open a pass here.
 
 **And the general rule about guards, one level up from the one this file already
 states.** A ratchet makes a number improve. It does not make it the right number
@@ -6043,3 +6058,85 @@ filing is wrong, and re-litigating it would move four shipped records on my own
 judgement. **Flagged to the maintainer rather than swept**, because the
 wrong-sector class is the one no guard can see and a silent bulk re-file is the
 worst possible way to touch it.
+
+## Cost is the priority, and the private fee gap is closed to this build: 23 for 23
+
+The maintainer's instruction, and it reorders the list above: *fees are
+critical and important, cost is the most important information we all seek* -
+alongside the standing complaint, *avoid fixation on Es, Ds and irrelevant
+content*. The priority list now opens with cost and ends with the county
+floors. What follows is what a measured pass against that instruction actually
+found, because the honest answer changes what the next session should do.
+
+**Measured on `c54ed1f`, not recalled:**
+
+| | |
+|---|---|
+| Courses with any fee figure | **433 of 1,352 - 32.0%** |
+| of which read off the institution's own schedule | 14 |
+| **Private records priced** | **22 of 334 - 6.6%** |
+| Public records priced | 411 of 1,018 |
+| Funding records | 23, only 9 carrying an amount |
+
+**The private side is where the gap is, and it is not closable by searching.**
+47 private institutions carry 292 records between them with **not one priced
+course**, and the largest are exactly the names a reader types: KCA (17),
+Daystar (16), Zetech (16), MKU (15), USIU (11), CUEA (10).
+
+This file already recorded twenty-two private universities attempted and
+refused, with the conclusion that *the schedules are reachable and the readings
+are not*. **PUEA is the twenty-third**, and it was worth running because it was
+added to the register after that list closed, so it was genuinely unworked. It
+went the same way: fees stated to depend on the programme, a trimester
+calendar, and **no figure returned at all**. Its own phone number and address
+are published, which is the actionable part for a reader and is what the note
+should carry.
+
+Twenty-three for twenty-three is no longer a run of bad luck. **Do not spend a
+pass hunting private tuition from this environment.** The productive responses
+to "fees are critical" are the other two parts of priority 1: funding records,
+and making a fee-less card carry the method, the band and the phone number.
+
+### The re-read that confirmed, which is a result
+
+`Ksh 67,189` underpins **411 derived records** - by far the largest single
+figure on this platform - and this file separately warns that a note asserting
+a figure is a claim with a shelf life. Re-read: the Ministry's standardisation
+is **effective May 2026, Ksh 67,189 a year across all public institutions, and
+inclusive of assessment charges**, corroborated across four independent
+outlets. The figure is live and the records are sound.
+
+Two things came with it that are NOT in the catalogue and are national facts
+rather than course facts, so they belong on `/help/` if anywhere: the rate is
+**inclusive of assessment**, and the reform followed public TVET charges
+**nearly doubling in a year**, which had made some technical colleges costlier
+than public universities and was driving enrolment down. That is context a
+reader weighing TVET against a degree would want.
+
+### The funding ladder, measured
+
+23 records, **9 with an amount and 14 without**. Sorted by the lowest grade
+each reaches: D+, D, D, C-, C-, B+, A-, A-, A- - and the rest carry no grade
+because they are need-tested rather than merit-tested. The barbell this file
+diagnosed is still the shape: heavy before KCSE and above C+, thin in the
+middle.
+
+**No record carries a closing date, deliberately**, because every one of these
+windows moves annually and a stale open window is the one error this project
+refuses. That has a cost worth naming: the Application Clock has almost
+nothing to show. On 24 September 2026 it held **two open rows of ten** - the
+Railway Training Institute intake closing the next day, and the continuous
+TVET row running to 31 December.
+
+**And the first-time HEF window could not be added, which is the rule working.**
+Two outlets in one result set gave the 2026/27 first-time deadline as
+**21 September** and as **8 September**. They contradict, so they attribute
+nothing - and both are past in any case. No January 2027 KUCCPS window is
+announced yet. Recording either date would have put a fabricated deadline in
+the panel that once announced a KMTC window four weeks after KUCCPS closed it.
+
+**The clock's empty state was checked rather than assumed** and it is correct:
+with no window open it names the last date Njia holds and points at
+kuccps.net, telling the reader not to read silence as "nothing is open". From
+26 September it will show the continuous TVET row alone, which is a real open
+window rather than a gap to paper over.

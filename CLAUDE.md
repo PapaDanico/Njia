@@ -6192,3 +6192,17 @@ is open.
 system working: flipping `data_confidence` to `verified` without adding a
 `verification_note` failed `a funding record claiming verification cites a
 source` immediately. The flag is not free.
+
+**And one funding lead was checked and rejected, which is worth recording so
+nobody re-runs it.** The NITA industrial training levy looks like it belongs in
+this table - it funds artisan and trade-test training, which is exactly the tier
+Njia's core reader enters. It does not. The levy is paid by **employers** at
+Ksh 50 per employee per month and reimburses **employers** for training their
+own staff, with written NITA approval required before the training starts and
+retrospective claims refused outright. A school-leaver cannot apply to it.
+NITA's training centres do take self-sponsored trainees, but that is a fee to
+pay rather than a source of funding.
+
+That is this file's own rule doing its job - *record the level a source
+actually reaches, not its prestige*. A record here would have looked
+generous and reached nobody who reads Njia.

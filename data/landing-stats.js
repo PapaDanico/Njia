@@ -42,7 +42,7 @@ const LANDING_STATS = {
     "humanities": 19,
     "personal": 19
   },
-  "fundingSources": 23,
+  "fundingSources": 26,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -119,6 +119,18 @@ const LANDING_STATS = {
     {
       "name": "NCPWD Education Assistance (National Council for Persons with Disabilities)",
       "application_deadline": "Applications are received through NCPWD offices — confirm the current cycle with your county NCPWD office"
+    },
+    {
+      "name": "National Youth Service (NYS) — free technical and vocational training",
+      "application_deadline": "Recruitment runs annually and is announced through NYS channels and local media — confirm the current window before travelling to a recruitment centre"
+    },
+    {
+      "name": "Generation Kenya — fully sponsored short training with job placement",
+      "application_deadline": "Cohorts run through the year — check the current intake on the Generation Kenya site"
+    },
+    {
+      "name": "KeNHA TVET Scholarships — Mombasa–Mariakani highway communities",
+      "application_deadline": "Issued as a periodic call for applications rather than on a fixed annual date — calls were published in 2022, 2023 and 2025, so watch the scholarships page"
     }
   ]
 };

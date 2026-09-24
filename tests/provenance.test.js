@@ -2345,3 +2345,24 @@ test('no funding record shows an amount it cannot source', () => {
     + 'Either source the figure and mark the record verified, or null the amount and put what '
     + 'research found in the description: ' + unsourced.join(' | '));
 });
+
+/* The guard above checks the flag and not the claim, so it was green on f003 for
+   months: a 'verified' record carrying Ksh 1,500,000 whose OWN note called that
+   figure 'an indicative full-cost estimate, not a published award value'. The
+   verified flag was true of the programme structure and false of the number.
+   This asserts the pairing instead — a record may not show an amount while its
+   own provenance disclaims it. Aimed at the disclaimer, not at the word
+   'estimate', because a note is free to say a figure is NOT an estimate. */
+const AMOUNT_DISCLAIMED = /\b(?:indicative|illustrative)\b[^.]{0,60}\b(?:estimate|figure|amount|value)\b|not a published (?:award|amount|figure)|rather than a published (?:award|amount|figure)/i;
+
+test('a funding record showing an amount does not disclaim it in its own note', () => {
+  const contradictory = FUNDING_SOURCES
+    .filter((f) => f.max_amount_kes != null)
+    .filter((f) => AMOUNT_DISCLAIMED.test(f.verification_note || ''))
+    .map((f) => `${f.id} ${f.name} — shows Ksh ${f.max_amount_kes} while its note calls that figure unpublished`);
+  assert.equal(contradictory.join(' | '), '',
+    'these funding records display an award figure that their own verification note says is '
+    + 'not published. A caveat in the note does not reach the reader, who budgets on the number. '
+    + 'Null the amount and report what research found in the description instead: '
+    + contradictory.join(' | '));
+});

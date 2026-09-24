@@ -6235,3 +6235,94 @@ records what happens to a guard aimed at a word: the analytics ban fired on
 trains the next person to weaken it. This one stays a rule in prose, checked by
 reading, and the reading has just been done: **8 of 8 disclose their reach in
 the first sentence.**
+
+## The placeholder trap survived inside the tier the guard could not see
+
+Last session's sweep found three invented award amounts in `data/funding.js` and
+added `no funding record shows an amount it cannot source`. That guard filters
+on `data_confidence !== 'verified'` — **it checks the flag, not the claim** — and
+it was green on two records the whole time:
+
+- **f003, Mastercard Foundation Scholars Program**: `max_amount_kes: 1500000` on
+  a `verified` record whose own note read *"The Ksh 1.5M figure is an indicative
+  full-cost estimate, not a published award value."*
+- **f004, Zawadi Africa Education Fund**: `max_amount_kes: 500000` with *"No
+  fixed award value is published; the amount shown is an indicative full-support
+  estimate."*
+
+The flag was true of the **programme structure** and false of the **number**, and
+a record carries one flag for both. That is *a caveat in the note does not reach
+the reader* — this file's oldest fee ruling — arriving in the funding table,
+where it is worse, because a fee is what a learner checks and an award is what
+they **budget on**.
+
+`a funding record showing an amount does not disclaim it in its own note`
+asserts the **pairing** instead. It is aimed at the disclaimer rather than at the
+word *estimate*, because a note must stay free to say a figure is not one — the
+analytics-ban lesson. Written against f003, it found f004 on its first run, and
+the break was watched to fail naming the record.
+
+**Four amounts remain and every one is published**: HELB Ksh 60,000, NG-CDF
+Ksh 30,000, YEDF Ksh 500,000 and the TVET capitation Ksh 67,189.
+
+**And f003's grade was the same defect in the eligibility field.** `min_grade`
+was **B+** with the note saying *"indicative of the competitive bar, not a
+published cut-off"* — an invented grade quoted high, which removes the card from
+the reader with the fewest options. It now carries **C+**, USIU-Africa's own
+published aggregate minimum, because admission to the partner university is the
+thing you must first win, with the competition stated beside it. The Strathmore
+treatment; and the rule against quoting a grade low is why the bar is the
+university's published one rather than nothing at all.
+
+## Three funding records at the bottom of the grade range
+
+The barbell this file diagnosed — heavy before KCSE and above C+, thin where
+Njia's reader stands — closed three rungs in one pass, and none of the three was
+found by searching for a scholarship:
+
+- **NYS (f024)** reaches **D plain**. Enlist at 18 to 24, serve six months of
+  paramilitary national service on a stipend with accommodation, meals and
+  uniforms, then train free at one of 17 NYS technical and vocational
+  institutions, at artisan through diploma level. Two independently phrased
+  searches, the second naming no grade, both state the training carries no fee.
+  Its artisan list also names **panel beating and spray painting**, two of the
+  43 programme families this catalogue measured as holding zero records.
+- **KeNHA (f026)** is the lowest bar in the whole table: the published minimum
+  qualification is a **KCPE certificate**, not a KCSE mean grade. Tuition,
+  training materials and a monthly allowance for unemployed youth beside the
+  Mombasa–Mariakani highway, from KfW, EIB and EU-AITF financing. Geographically
+  narrow — Kwale, Mombasa and Kilifi only — and within those three it reaches
+  further down than anything else here.
+- **Generation Kenya (f025)** asks for **no grade at all**, only that you are 18.
+  Short employer-linked programmes, donor-funded, 84% placement across 350+
+  employer partners. Its **Ksh 3,000 commitment fee is recorded** because it is a
+  real cost the learner meets on arrival — and the note says explicitly that a
+  provider's commitment fee is a different thing from the application fee the
+  scam warning on `/help/` refuses, so the two do not read as contradicting each
+  other.
+
+**No record carries a closing date**, for the reason the Application Clock
+incident settled: every one of these windows moves, and a stale open window is
+the one error this project refuses. KeNHA is a *periodic call* rather than an
+annual one — 2022, 2023 and 2025 — and the record says so rather than inventing
+a cycle.
+
+### Two refusals from the same pass, recorded so nobody re-runs them
+
+- **The Uwezo Fund is not education funding.** Interest-free constituency
+  lending of Ksh 50,000–100,000 to **registered youth and women's groups** with a
+  table-banking structure, for enterprises. A school-leaver cannot apply to it
+  for training. Same ruling as the NITA levy: *record the level a source actually
+  reaches, not its prestige.*
+- **Mastercard Foundation Young Africa Works – TVET is institutional
+  strengthening**, not a learner-facing award. Two searches, the second asking
+  directly how a student applies, returned the 18-to-35 range and the partner
+  structure and **no application route for an individual**. It is a lead; the
+  missing thing is a learner application channel, not a search nobody ran.
+
+**The general shape of the pass: the three that landed were a government
+service, a road-project compensation scheme and an employer-funded bootcamp.**
+None would be returned by a query containing the word *scholarship*. When the
+scholarship searches come back thin, ask **who else pays for training** — the
+state, an infrastructure lender, an employer — which is the funder-not-county
+lesson from the ministry advert, one level up.

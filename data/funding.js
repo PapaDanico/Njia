@@ -317,7 +317,7 @@ const FUNDING_SOURCES = [
     id: 'f026',
     name: 'KeNHA TVET Scholarships — Mombasa–Mariakani highway communities',
     type: 'scholarship',
-    description: 'The lowest entry bar of any award in this list: the published minimum qualification is a KCPE certificate, not a KCSE mean grade, so a learner whose KCSE closed every other door here can still apply. The Kenya National Highways Authority funds technical and vocational training for unemployed young people living in the communities beside the Mombasa–Mariakani (A8/A109) highway project, from financing provided by the German development bank KfW, the European Investment Bank and the EU–Africa Infrastructure Trust Fund. It is reported as covering tuition, training materials and a monthly allowance. Geographically narrow — Kwale, Mombasa and Kilifi counties only — but within those three it reaches further down the grade range than anything else Njia holds.',
+    description: 'The lowest entry bar of any award in this list: the published minimum qualification is a KCPE certificate, not a KCSE mean grade, so a learner whose KCSE closed every other door here can still apply. The Kenya National Highways Authority funds technical and vocational training for unemployed young people living in the communities beside the Mombasa–Mariakani (A8/A109) highway project, from financing provided by the German development bank KfW, the European Investment Bank and the EU–Africa Infrastructure Trust Fund. It is reported as covering tuition, training materials and a monthly allowance. The courses named in the call are six-month trades — electrical installation, plumbing, masonry, carpentry, motor vehicle mechanics, welding and fabrication, hairdressing, beauty therapy, and refrigeration and air conditioning — and the call is open to people who left school without finishing. Selection is run with the national government and county education officers. Geographically narrow — Kwale, Mombasa and Kilifi counties only — but within those three it reaches further down the grade range than anything else Njia holds.',
     coverage: 'Reported as full sponsorship covering tuition, training materials and a monthly allowance at a TVET institution',
     max_amount_kes: null,
     eligibility: 'Unemployed young person aged 18 to 35 living in a community abutting the Mombasa–Mariakani highway project, in Kwale, Mombasa or Kilifi County; minimum qualification a KCPE certificate; able to read and write. No KCSE mean grade is published as a requirement.',
@@ -333,7 +333,7 @@ const FUNDING_SOURCES = [
     interest_rate: null,
     repayment_period: null,
     data_confidence: 'verified',
-    verification_note: 'The scheme, the three target counties, the unemployed-youth focus and the KfW, EIB and EU-AITF financing behind it are published by KeNHA in its calls for applications, September 2026. The 18-to-35 age range, the KCPE minimum qualification, the read-and-write requirement and the coverage of tuition, training materials and a monthly allowance come from a second source summarising the same call and are corroborated by press reporting describing it as a scholarship with a monthly stipend for KCPE certificate holders. No amount is recorded because none is published, and no closing date is recorded because this is a periodic call rather than a fixed annual window: read the current advert on the KeNHA scholarships page before applying.'
+    verification_note: 'The scheme, the three target counties, the unemployed-youth focus and the KfW, EIB and EU-AITF financing behind it are published by KeNHA in its calls for applications, September 2026. The 18-to-35 age range, the KCPE minimum qualification, the read-and-write requirement and the coverage of tuition, training materials and a monthly allowance come from a second source summarising the same call and are corroborated by press reporting describing it as a scholarship with a monthly stipend for KCPE certificate holders. The nine named six-month courses, the eligibility of school leavers who did not finish and have no diploma-level training, and selection through national government and county education officers are from a third search of the 2025 call, September 2026. No amount is recorded because none is published, and no closing date is recorded because this is a periodic call rather than a fixed annual window: read the current advert on the KeNHA scholarships page before applying.'
   },
   {
     id: 'f027',
@@ -356,6 +356,28 @@ const FUNDING_SOURCES = [
     repayment_period: null,
     data_confidence: 'verified',
     verification_note: 'The INUKA Plus launch, its restriction to top-performing continuing INUKA beneficiaries, its reach into TVET institutions, colleges and universities, and its coverage of tuition, accommodation, meals, assistive devices and mentorship are published by Kenya Pipeline Company and corroborated by Techish Kenya, Capital FM, KBC and Business Now across December 2024 to April 2026. The INUKA secondary intake of one girl and one boy living with a disability per county is reported in the same coverage, as is a KPC Foundation agreement with NCPWD in October 2025. THE KSH 41 MILLION A YEAR, AND THE KSH 160 MILLION OVER FOUR YEARS, ARE THE PROGRAMME POOL AND NOT AN AWARD: Njia does not divide a pool by a beneficiary count to produce a figure, so no amount is recorded. LISTED WITH ITS CLOSED ENTRY IN THE FIRST LINE rather than omitted, because a record reading as an open tertiary scholarship would cost a school-leaver an application they cannot make.'
+  },
+  {
+    id: 'f028',
+    name: 'M-PESA Foundation and University of Embu TVET Scholarships',
+    type: 'scholarship',
+    description: 'Asks for no KCSE mean grade at all: a KCSE or KCPE certificate qualifies, and so can prior learning from work in the formal or informal sector. The scholarships cover all programme fees and pay a monthly stipend for accommodation and upkeep, for craft certificates, diplomas and other qualifications at the University of Embu TVET Institute. Courses named in the call are cosmetology, building and construction, mobile and electronic repairs, repair of two- and three-wheeled vehicles, electrical installation and maintenance, advanced welding, culinary arts and information technology. The programme was launched in September 2024 for 1,300 young people; the call that opened it was for a first cohort, so ask whether a later cohort is open before planning on it.',
+    coverage: 'All programme fees, plus a monthly stipend for accommodation and upkeep',
+    max_amount_kes: null,
+    eligibility: 'Aged 15 to 30. A KCSE or KCPE certificate, or recognised prior learning from the formal or informal sector. No KCSE mean grade is published as a requirement.',
+    min_grade: null,
+    application_deadline: 'Cohort-based. The first cohort closed on 7 October 2024; no later cohort date is published in any source reachable from this build, so confirm with the University of Embu TVET Institute.',
+    website: 'https://uoemtvet.embuni.ac.ke/',
+    application_url: 'https://embuni.ac.ke/call-for-1st-cohort-university-of-embu-tvet-scholarships/',
+    requirements: [
+      'KCSE or KCPE certificate, or evidence of prior learning',
+      'Aged 15 to 30',
+      'Application form, available online from the University of Embu or at Safaricom shops in the target counties'
+    ],
+    interest_rate: null,
+    repayment_period: null,
+    data_confidence: 'verified',
+    verification_note: 'The partnership, the 1,300 places, the 15-to-30 age range, entry on a KCSE or KCPE certificate or on prior learning, full fees plus a monthly accommodation and upkeep stipend, the named courses and the application routes are published by the University of Embu on its own domain and in the M-PESA Foundation and Safaricom press releases of 9 September 2024. Sources describe the beneficiaries as drawn from all 47 counties while also saying paper forms were distributed through Safaricom shops in 10 target counties; both are recorded because they are not the same claim, and a reader outside those ten should apply online. No amount is recorded because none is published. No open date is recorded: the only published window closed in October 2024.'
   },
 ];
 

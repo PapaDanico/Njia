@@ -6462,3 +6462,41 @@ the Actions section already concluded. When both reds above are the only reds
 and the preview is ready, the PR is green in every sense this repository can
 currently observe — and the standing-down comment naming both, once per PR, is
 what the drive-to-green rules require rather than silence.
+
+### M-PESA Foundation × University of Embu, and four dry leads recorded
+
+**f028** is the strongest funder added at the bottom of the range so far. It
+asks for **no grade**: a KCSE *or* KCPE certificate, or recognised prior learning
+from formal or informal work. It pays **all programme fees and a monthly
+stipend** for craft certificates and diplomas at the University of Embu TVET
+Institute, for 1,300 youth aged 15 to 30. It rests on the university's own domain
+and on the Foundation's and Safaricom's press releases of 9 September 2024.
+
+**Its window is honest rather than current.** The call was for a *first cohort*
+and closed on 7 October 2024; nothing reachable publishes a second. So no date is
+recorded and the description tells the reader to ask whether a later cohort is
+open. That is the placement-clock rule at record level: a closed window shown as
+open sends someone to a portal that will not take them.
+
+**And its sources disagree about reach in a way worth keeping.** One says
+beneficiaries come from all 47 counties; another says paper forms went out
+through Safaricom shops in 10 target counties. Those are not the same claim —
+eligibility and distribution — so both are on the card, with the practical
+consequence spelled out: outside the ten, apply online.
+
+**Dry, and not to be re-run:**
+
+- **Kenya Ports Authority** — no learner-facing TVET scholarship in any result;
+  searches for it return KeNHA's port-access-road scheme instead.
+- **KETRACO** — training only for its own staff through development partners;
+  nothing for transmission-line communities.
+- **County TVET scholarships (Makueni, Machakos, Kiambu)** — counties urging TVET
+  enrolment, no named county scholarship with published terms.
+- **SHOFCO TVET Scholarships** — real, but gated on completing SHOFCO's own
+  five-day entrepreneurship course first and aimed at informal-sector
+  enterprises, with no published coverage. A lead with a prerequisite, not a
+  record; the missing field is what the award actually pays.
+
+**The pattern holds from the last pass**: the funder that landed is a corporate
+foundation paired with a named institution, found by searching the *institution*
+that hosts the training rather than the word *scholarship*.

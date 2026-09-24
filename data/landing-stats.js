@@ -42,7 +42,7 @@ const LANDING_STATS = {
     "humanities": 19,
     "personal": 19
   },
-  "fundingSources": 27,
+  "fundingSources": 28,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -135,6 +135,10 @@ const LANDING_STATS = {
     {
       "name": "KPC Foundation — INUKA and INUKA Plus (learners with disabilities)",
       "application_deadline": "The secondary intake is announced annually — the 2026 call was for learners entering Grade 10. Watch the KPC Foundation pages."
+    },
+    {
+      "name": "M-PESA Foundation and University of Embu TVET Scholarships",
+      "application_deadline": "Cohort-based. The first cohort closed on 7 October 2024; no later cohort date is published in any source reachable from this build, so confirm with the University of Embu TVET Institute."
     }
   ]
 };

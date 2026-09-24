@@ -4498,7 +4498,7 @@ node tools/build-structured-data.mjs # JSON-LD + llms.txt; run LAST, it INJECTS 
 Then four layers, all of which must be clean:
 
 ```
-node --test tests/*.test.js       # zero-dependency unit suite (302 at the last count)
+node --test tests/*.test.js       # zero-dependency unit suite; re-measure, do not quote
 node tests/functional-probe.mjs   # drives the real app, port 8080
 node tests/a11y-sweep.mjs         # 72 axe states, port 8106
 ```
@@ -6115,11 +6115,13 @@ reader weighing TVET against a degree would want.
 
 ### The funding ladder, measured
 
-23 records, **9 with an amount and 14 without**. Sorted by the lowest grade
-each reaches: D+, D, D, C-, C-, B+, A-, A-, A- - and the rest carry no grade
-because they are need-tested rather than merit-tested. The barbell this file
-diagnosed is still the shape: heavy before KCSE and above C+, thin in the
-middle.
+Measured at the time: 23 records, nine with an amount, and a ladder running
+D+, D, D, C-, C-, B+, A-, A-, A-. **Both figures have since moved and neither is
+quoted here any more** - the counts are in `data/funding.js` and the perishable
+half of this paragraph is exactly what this file warns about. What was durable
+is the shape: the barbell, heavy before KCSE and above C+, thin in the middle.
+Later passes closed the bottom three rungs; see the state-corporation and
+NYS sections below.
 
 **No record carries a closing date, deliberately**, because every one of these
 windows moves annually and a stale open window is the one error this project
@@ -6161,12 +6163,15 @@ it than a course card**, because a fee is what a learner checks and an award is
 what they *budget on*. A learner planning around a 150,000 sponsorship no source
 states is the placeholder trap doing its full damage.
 
-All three amounts are now null. **Six funding records carry an amount and every
-one of them is verified**, which is a clean invariant and is now guarded:
+All three amounts are now null. **Every funding record carrying an amount is
+verified**, which is a clean invariant and is guarded by
 `no funding record shows an amount it cannot source`. It asserts the property
 rather than the three ids, so an illustrative record may still exist - Ashinaga
 and Chevening do - it simply may not carry a number. Broken on f012 and watched
-to fail, naming the record and its confidence flag.
+to fail, naming the record and its confidence flag. **The count is deliberately
+not stated here**: it fell again when the guard was later found to check the
+flag rather than the claim, and a pinned number is how this paragraph goes
+stale.
 
 **And the county bursary was upgraded rather than just emptied**, which is the
 *report what you found* ruling applied to funding. Counties publish the POOL,
@@ -6235,3 +6240,225 @@ records what happens to a guard aimed at a word: the analytics ban fired on
 trains the next person to weaken it. This one stays a rule in prose, checked by
 reading, and the reading has just been done: **8 of 8 disclose their reach in
 the first sentence.**
+
+## The placeholder trap survived inside the tier the guard could not see
+
+Last session's sweep found three invented award amounts in `data/funding.js` and
+added `no funding record shows an amount it cannot source`. That guard filters
+on `data_confidence !== 'verified'` — **it checks the flag, not the claim** — and
+it was green on two records the whole time:
+
+- **f003, Mastercard Foundation Scholars Program**: `max_amount_kes: 1500000` on
+  a `verified` record whose own note read *"The Ksh 1.5M figure is an indicative
+  full-cost estimate, not a published award value."*
+- **f004, Zawadi Africa Education Fund**: `max_amount_kes: 500000` with *"No
+  fixed award value is published; the amount shown is an indicative full-support
+  estimate."*
+
+The flag was true of the **programme structure** and false of the **number**, and
+a record carries one flag for both. That is *a caveat in the note does not reach
+the reader* — this file's oldest fee ruling — arriving in the funding table,
+where it is worse, because a fee is what a learner checks and an award is what
+they **budget on**.
+
+`a funding record showing an amount does not disclaim it in its own note`
+asserts the **pairing** instead. It is aimed at the disclaimer rather than at the
+word *estimate*, because a note must stay free to say a figure is not one — the
+analytics-ban lesson. Written against f003, it found f004 on its first run, and
+the break was watched to fail naming the record.
+
+**Four amounts remain and every one is published**: HELB Ksh 60,000, NG-CDF
+Ksh 30,000, YEDF Ksh 500,000 and the TVET capitation Ksh 67,189.
+
+**And f003's grade was the same defect in the eligibility field.** `min_grade`
+was **B+** with the note saying *"indicative of the competitive bar, not a
+published cut-off"* — an invented grade quoted high, which removes the card from
+the reader with the fewest options. It now carries **C+**, USIU-Africa's own
+published aggregate minimum, because admission to the partner university is the
+thing you must first win, with the competition stated beside it. The Strathmore
+treatment; and the rule against quoting a grade low is why the bar is the
+university's published one rather than nothing at all.
+
+## Three funding records at the bottom of the grade range
+
+The barbell this file diagnosed — heavy before KCSE and above C+, thin where
+Njia's reader stands — closed three rungs in one pass, and none of the three was
+found by searching for a scholarship:
+
+- **NYS (f024)** reaches **D plain**. Enlist at 18 to 24, serve six months of
+  paramilitary national service on a stipend with accommodation, meals and
+  uniforms, then train free at one of 17 NYS technical and vocational
+  institutions, at artisan through diploma level. Two independently phrased
+  searches, the second naming no grade, both state the training carries no fee.
+  Its artisan list also names **panel beating and spray painting**, two of the
+  43 programme families this catalogue measured as holding zero records.
+- **KeNHA (f026)** is the lowest bar in the whole table: the published minimum
+  qualification is a **KCPE certificate**, not a KCSE mean grade. Tuition,
+  training materials and a monthly allowance for unemployed youth beside the
+  Mombasa–Mariakani highway, from KfW, EIB and EU-AITF financing. Geographically
+  narrow — Kwale, Mombasa and Kilifi only — and within those three it reaches
+  further down than anything else here.
+- **Generation Kenya (f025)** asks for **no grade at all**, only that you are 18.
+  Short employer-linked programmes, donor-funded, 84% placement across 350+
+  employer partners. Its **Ksh 3,000 commitment fee is recorded** because it is a
+  real cost the learner meets on arrival — and the note says explicitly that a
+  provider's commitment fee is a different thing from the application fee the
+  scam warning on `/help/` refuses, so the two do not read as contradicting each
+  other.
+
+**No record carries a closing date**, for the reason the Application Clock
+incident settled: every one of these windows moves, and a stale open window is
+the one error this project refuses. KeNHA is a *periodic call* rather than an
+annual one — 2022, 2023 and 2025 — and the record says so rather than inventing
+a cycle.
+
+### Two refusals from the same pass, recorded so nobody re-runs them
+
+- **The Uwezo Fund is not education funding.** Interest-free constituency
+  lending of Ksh 50,000–100,000 to **registered youth and women's groups** with a
+  table-banking structure, for enterprises. A school-leaver cannot apply to it
+  for training. Same ruling as the NITA levy: *record the level a source actually
+  reaches, not its prestige.*
+- **Mastercard Foundation Young Africa Works – TVET is institutional
+  strengthening**, not a learner-facing award. Two searches, the second asking
+  directly how a student applies, returned the 18-to-35 range and the partner
+  structure and **no application route for an individual**. It is a lead; the
+  missing thing is a learner application channel, not a search nobody ran.
+
+**The general shape of the pass: the three that landed were a government
+service, a road-project compensation scheme and an employer-funded bootcamp.**
+None would be returned by a query containing the word *scholarship*. When the
+scholarship searches come back thin, ask **who else pays for training** — the
+state, an infrastructure lender, an employer — which is the funder-not-county
+lesson from the ministry advert, one level up.
+
+### The category the KeNHA find implied: state corporations fund TVET
+
+KeNHA was found sideways, in a search aimed at something else. Asked as a
+**category** — which kind of body funds technical training in Kenya — the answer
+is state corporations with CSR foundations, and the register held none of them.
+
+**KPC Foundation (f027)** is the first, and the discipline it needed is the
+level-disclosure rule rather than a figure rule. **INUKA Plus is not an open
+application**: it extends support to students who were already INUKA
+secondary-school scholars and performed well. What is open is the INUKA
+secondary intake — one girl and one boy living with a disability from each of
+the 47 counties each year. So the record leads with the closed entry, points a
+school-leaver at NCPWD instead, and is listed rather than omitted because the
+tertiary stream reaches TVET, college and university alike, which very little
+disability funding in Kenya does. That is the KCB Foundation treatment exactly.
+
+**Its Ksh 41 million a year is a pool, not an award**, and it is quoted as one
+in the description where it cannot be mistaken for a figure a learner would
+budget on. Njia does not divide a pool by a beneficiary count — the county
+bursary ruling, which is now precedent rather than a one-off.
+
+**KenGen Foundation was checked in the same pass and not written.** Its
+scholarships reach secondary and university students from communities near its
+power stations, and the search returned **no TVET stream and no published
+eligibility or application route**. A confirmed funder with no reachable entry
+route is the yield floor in the funding table, exactly as a confirmed
+institution with no named course is in the catalogue.
+
+**The remaining seam is named**: Kenya Ports Authority, KETRACO and the other
+state corporations with community foundations. Search the corporation, not the
+word *scholarship*.
+
+## CBK-IMS: the course list went stale because the company was dissolved
+
+The Central Bank of Kenya Institute of Monetary Studies, formerly the Kenya
+School of Monetary Studies, is **absent from this register and stays absent**,
+and the reason is a failure mode this file has not recorded before.
+
+Every aggregator reachable from here lists KSMS diplomas — Banking and Financial
+Services, Finance, Islamic Financial Services, Organizational Development,
+Microfinance, Business Information Technology — with an entry bar of a **C plain
+with a C in Mathematics and English**, which is squarely this catalogue's band.
+Six ready-made records, an institution readers would recognise, and a grade tier
+the register is thin at. It looks like an easy pass.
+
+**It is not, because KSMS no longer exists.** It was a separate company jointly
+owned by the Central Bank and the National Treasury; in **April 2024 that
+company was dissolved** — the Registrar of Companies gazetted the notice, as The
+Standard reported — and its capacity-building work was taken over by the Central
+Bank directly as CBK-IMS. The institution's **own current publication**, the
+CBK-IMS Training Calendar 2025/2026 on centralbank.go.ke, names only short
+professional courses for central banks and the wider financial sector: monetary
+policy, bank supervision, cash management and payment systems, anti-money
+laundering, data analytics. **No diploma, no KCSE entry, no intake.**
+
+So the aggregators are describing a dissolved company's prospectus, and the
+institution's own site describes what actually runs now. Writing those six
+diplomas would have sent a school-leaver to apply somewhere that no longer
+admits them — the exclusionary direction, which is the one this project refuses.
+
+**The class is new and worth naming.** This file already has the
+*current-versus-planned* test, written for KMTC campus lists that advertise a
+programme they intend to mount. This is that test **inverted**: current versus
+**discontinued**. A planned course announces itself with the word *planned*; a
+discontinued one announces itself with nothing at all, because an aggregator
+page simply never gets updated. The tell here was that the institution's own
+domain and the aggregators disagreed about what it *is*, not merely about what
+it teaches.
+
+**And the same source that supplied the diploma list got the ownership plainly
+wrong**, which is the cheapest available check on it: it calls KSMS *"a private
+Vocational Training center"* when it was a state-owned company of the Central
+Bank and the National Treasury. A source wrong about what an institution **is**
+does not get believed about what it **teaches**.
+
+**The general rule: before recording a course list for an institution that has
+been renamed, find out what the rename WAS.** A rebrand is cosmetic and changes
+nothing; a dissolution and transfer of functions can end the entry-level
+provision entirely, and both look identical in a search result that just shows
+the new name beside the old one.
+
+**It is a lead with a named blocker**, not a dry search. The blocker is whether
+CBK-IMS admits any KCSE-entry student post-dissolution, which only the institute
+can answer — `info@ksms.or.ke`, +254 20 8646000, Noordin Road off Thika Road.
+That is a phone call, not a query. Do not re-run the course, entry-requirement
+or rename searches; all four are done and recorded here.
+
+## CI now fails with a name, and the name reads like a real failure
+
+The Actions section above is still accurate about the cause and is now
+incomplete about the **symptom**, which matters because the symptom is what the
+next agent meets first.
+
+The workflow no longer sits invisible. It posts a check run called
+**`Unit suite and artefact freshness`**, and it goes **red on every commit**,
+on pull requests and on `main` alike. A PR therefore opens with a failing check
+whose name says the unit suite failed — while the unit suite passes locally.
+Nothing about the underlying condition has changed: the job is still never
+placed on a runner.
+
+**Three cheap discriminators, all readable without a log:**
+
+- **It dies in 3 to 6 seconds.** `created_at`, `run_started_at` and `updated_at`
+  are within a few seconds of each other. A run that genuinely executed this
+  suite takes longer than that.
+- **The check output is empty** — `title`, `summary` and `text` are all `""`,
+  and `get_job_logs` returns **404**. Nothing ever wrote a log, because nothing
+  ever ran. A real test failure leaves a log.
+- **`main` fails identically.** That is the base-branch test this file already
+  prescribes, and it settles the question outright.
+
+**And I got this wrong out loud before checking**, which is the reason it is
+written down. Asked about the PR's status I read `get_status`, saw a blocked
+Vercel account and a pending Netlify preview, and reported that the Vercel
+failure was the only red check. **`get_status` does not return check runs.** The
+CI check was red the whole time and I had not looked at it. Use
+`pull_request_read` with `get_status` *and* the check-run list, or read the
+workflow runs directly — a commit status and a check run are different objects,
+and this repository's most confusing failure lives only in the second.
+
+**`Vercel — "Account is blocked."`** is the other standing red and is unrelated
+to this project: Njia deploys on Netlify, the status comes from an unconnected
+Vercel account, and it is red on every commit in the repository. Do not spend a
+pass on it.
+
+**What actually gates a merge here is the Netlify deploy preview**, exactly as
+the Actions section already concluded. When both reds above are the only reds
+and the preview is ready, the PR is green in every sense this repository can
+currently observe — and the standing-down comment naming both, once per PR, is
+what the drive-to-green rules require rather than silence.

@@ -957,7 +957,7 @@ const NO_MX_DOMAIN = 'njiacareerpathways.work';
 const CONTACT_FALLBACK = 'https://github.com/PapaDanico/Njia/issues/new';
 /* THE 48 ANSWERS THAT HAD NO URL.
  *
- * `HELP_FAQ` is six groups and forty-eight question-and-answer pairs, roughly
+ * `HELP_FAQ` is six groups of question-and-answer pairs (48 when this was written), roughly
  * 4,600 words — the largest single body of prose this project has written, and
  * the closest thing it holds to what a learner actually types into a search
  * box: "can I do nursing with a D+", "does my data leave my phone", "is the

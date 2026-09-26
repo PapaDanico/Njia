@@ -1233,6 +1233,15 @@ function renderCourseCard(course, match) {
       ${typeof PUBLIC_TVET_CAPITATION !== 'undefined' && /consolidated annual public-TVET fee/.test(course.verification_note || '') ? `
         <p class="text-sm mb-2"><strong>You are not asked for all of that.</strong> ${escapeHtml(PUBLIC_TVET_CAPITATION.reading)}</p>
       ` : ''}
+      ${/* KMTC sits under the Ministry of Health, not Education, and for the
+            2026 cycle the colleges run by other ministries are HELB-LOAN-ONLY:
+            no government scholarship, which is the large share of the split.
+            A reader comparing a KMTC diploma with the same award at a Ministry
+            of Education TVET cannot see that anywhere else on the card. Sourced
+            on the funding record f011. */''}
+      ${inst && /^kmtc/.test(inst.id) ? `
+        <p class="text-sm mb-2"><strong>Funding here is the HELB loan only.</strong> For 2026, KMTC is among the public colleges run by ministries other than Education, which are eligible for the HELB loan but not the government scholarship. Apply through the HEF portal all the same, and line up a county bursary or NG-CDF alongside it.</p>
+      ` : ''}
       ${/* WHAT A PUBLIC UNIVERSITY "FEE" EVEN MEANS NOW.
            *
            * 18 records at public universities carry a figure with no citation,

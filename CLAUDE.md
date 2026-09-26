@@ -6500,3 +6500,45 @@ consequence spelled out: outside the ten, apply online.
 **The pattern holds from the last pass**: the funder that landed is a corporate
 foundation paired with a named institution, found by searching the *institution*
 that hosts the training rather than the word *scholarship*.
+
+### 2Jiajiri, and the funding fact that was missing from every KMTC card
+
+**f029, KCB Foundation 2Jiajiri**, is the second corporate-plus-TVET funder
+at the bottom of the range. It sponsors vocational courses at accredited TVETs
+for **out-of-school youth aged 18 to 35 with no grade bar**, plus a startup
+toolkit and access to single-digit KCB loans. It has two streams: Skiller, for
+people with no prior training, and Apprentice, for people with skills but no
+certificate. It is a **different programme** from KCB's secondary scholarship
+(f020), and the description says so, because two records under one funder name
+read as a duplicate. **Co-op Bank Foundation was checked and is dry for this
+reader**: it funds Form 1 entrants on KCPE results, and a parent must be a
+co-operative member.
+
+**The bigger find was not a new funder. It was a fact about the ones already
+listed.** A HELB figure surfaced unsourced from a blog. A second, unseeded
+search corroborated it across four outlets, and it carried the part that
+matters: for 2026 the **272 Ministry of Education TVET colleges** are eligible
+for the government scholarship *and* the HELB loan, but the **153 public
+colleges run by other ministries — KMTC among them — are HELB-loan-only**. A
+TVET HELB loan is reported at up to about Ksh 40,000 a year, of which
+Ksh 26,400 is paid to the institution as tuition.
+
+That is the private-university exclusion the third handover supplied, arriving
+at a **public** college. Njia lists **KMTC as its largest single provider**, and
+no KMTC card said it. The fact now lives in three places, deliberately:
+
+- **f011**, the TVET funding record, with the sources in its note;
+- **the funding FAQ on `/help/`**, crawlable, alongside the private-university
+  version of the same exclusion;
+- **every KMTC course card**, via `feeGuidance()` keyed on the institution id.
+  It is **stated in words, not as a percentage**, because a guard bans
+  hardcoded band shares in `js/decide.js` and the claim needs none.
+
+**Before adding a card-level line, ask how many cards it reaches.** This one
+reaches every KMTC record from a single sentence in the renderer. That is the
+category-error fix run in reverse: a national fact belongs on the card through
+the renderer, not pasted into hundreds of notes.
+
+**The 2026/27 first-time HEF window closed on 8 September.** That settles the
+21-versus-8-September contradiction recorded above in favour of the 8th. It
+also means no date goes on the Application Clock, because the window is past.

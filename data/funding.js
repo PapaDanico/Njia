@@ -194,7 +194,7 @@ const FUNDING_SOURCES = [
   },
   {
     id: 'f011', name: 'TVET Government Funding (Capitation + HEF)', type: 'bursary',
-    description: 'Public TVET training is government-subsidised: institutions receive per-student capitation, students apply for HEF scholarship/loan support, and from May 2026 public TVETs charge a single consolidated annual fee set by government. Plan for a real risk of not being funded: in 2025/26 TVET loan applications rose 8.3% to 339,726 while the number of students actually funded fell 46% to 157,376, and disbursements nearly halved to Ksh 5.8 billion from Ksh 10.7 billion. HELB attributed this to delays processing first-time applicants. Roughly two in five TVET applicants were funded. Apply early, and line up a county bursary or NG-CDF fallback rather than relying on HEF alone.',
+    description: 'Public TVET training is government-subsidised: institutions receive per-student capitation, students apply for HEF scholarship/loan support, and from May 2026 public TVETs charge a single consolidated annual fee set by government. Plan for a real risk of not being funded: in 2025/26 TVET loan applications rose 8.3% to 339,726 while the number of students actually funded fell 46% to 157,376, and disbursements nearly halved to Ksh 5.8 billion from Ksh 10.7 billion. HELB attributed this to delays processing first-time applicants. Roughly two in five TVET applicants were funded. Apply early, and line up a county bursary or NG-CDF fallback rather than relying on HEF alone. WHERE YOU TRAIN DECIDES WHAT YOU CAN GET: for 2026 the 272 public TVET colleges under the Ministry of Education are eligible for both the government scholarship and the HELB loan, but the 153 public colleges run by other ministries - KMTC among them - are eligible for the HELB loan ONLY, with no government scholarship. A TVET student\'s HELB loan is reported at up to about Ksh 40,000 a year, of which Ksh 26,400 goes to the institution as tuition and the rest is upkeep. The 2026/27 first-time window ran from 10 July to 8 September 2026 on the HEF portal, so the next opportunity is the following cycle.',
     coverage: 'Subsidised public-TVET tuition; consolidated annual fee of Ksh 67,189 (incl. assessment) from May 2026', max_amount_kes: 67189,
     eligibility: 'Enrolled in a public TVETA-registered institution; HEF support is means-tested via the HEF portal',
     min_grade: null, application_deadline: 'Capitation is institutional; apply for HEF support with each intake',
@@ -202,7 +202,7 @@ const FUNDING_SOURCES = [
     requirements: ['Admission to a registered public TVET institution', 'HEF application for scholarship/loan support'],
     interest_rate: null, repayment_period: null,
     data_confidence: 'verified',
-    verification_note: 'Consolidated public-TVET annual fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026) as announced by government and reported by Eastleigh Voice and sector coverage, August 2026; 2025/26 TVET capitation disbursements confirmed via Ministry of Education reporting. The funding-shortfall figures (applications 339,726, up 8.3%; students funded 157,376, down 46% from 291,252; disbursements Ksh 5.8bn from Ksh 10.7bn; HELB citing delays processing first-time applicants) come from HELB reporting cross-reported by Kenyan Wall Street and sector coverage, August 2026. Per-course billing may vary — confirm with the institution\'s registrar.'
+    verification_note: 'Consolidated public-TVET annual fee of Ksh 67,189 (inclusive of assessment fees, effective May 2026) as announced by government and reported by Eastleigh Voice and sector coverage, August 2026; 2025/26 TVET capitation disbursements confirmed via Ministry of Education reporting. The funding-shortfall figures (applications 339,726, up 8.3%; students funded 157,376, down 46% from 291,252; disbursements Ksh 5.8bn from Ksh 10.7bn; HELB citing delays processing first-time applicants) come from HELB reporting cross-reported by Kenyan Wall Street and sector coverage, August 2026. The 2026 eligibility split (272 Ministry of Education TVET colleges eligible for scholarship and loan; 153 colleges under other ministries, including KMTC, eligible for the HELB loan only), the up-to-Ksh-40,000 TVET loan with Ksh 26,400 paid to the institution as tuition, and the 10 July to 8 September 2026 first-time window are reported by Education News, Capital FM, People Daily and Kenyans.co.ke from the KUCCPS and HELB eligibility lists, September 2026. Per-course billing may vary — confirm with the institution\'s registrar.'
   },
   {
     id: 'f012', name: 'Faith-Based / Community Sponsorship', type: 'sponsorship',
@@ -378,6 +378,28 @@ const FUNDING_SOURCES = [
     repayment_period: null,
     data_confidence: 'verified',
     verification_note: 'The partnership, the 1,300 places, the 15-to-30 age range, entry on a KCSE or KCPE certificate or on prior learning, full fees plus a monthly accommodation and upkeep stipend, the named courses and the application routes are published by the University of Embu on its own domain and in the M-PESA Foundation and Safaricom press releases of 9 September 2024. Sources describe the beneficiaries as drawn from all 47 counties while also saying paper forms were distributed through Safaricom shops in 10 target counties; both are recorded because they are not the same claim, and a reader outside those ten should apply online. No amount is recorded because none is published. No open date is recorded: the only published window closed in October 2024.'
+  },
+  {
+    id: 'f029',
+    name: 'KCB Foundation 2Jiajiri — sponsored vocational training for out-of-school youth',
+    type: 'sponsorship',
+    description: 'Built for young people who are out of school, and it asks for no KCSE grade. 2Jiajiri sponsors vocational training at accredited TVET institutions, then adds business mentorship and coaching, a startup toolkit for qualified graduates, and access to single-digit-interest loans through KCB Bank. It runs two streams: a Skiller category for people with no prior vocational training or work experience, taking them from basic to advanced level, and an Apprentice category for people who already have practical skills but no formal training or certificate. Courses named include hairdressing and beauty therapy, plumbing, motor vehicle mechanics, tailoring and dressmaking, electrical installation, masonry, welding, and food and beverage. This is a different programme from the KCB Foundation secondary scholarship listed separately; that one is for learners entering Form 1.',
+    coverage: 'Sponsored vocational training at an accredited TVET institution, plus mentorship, a startup toolkit for qualified graduates and access to single-digit-interest KCB loans',
+    max_amount_kes: null,
+    eligibility: 'Out-of-school young women and men aged 18 to 35. Two streams: Skiller (no prior vocational training or work experience) and Apprentice (existing practical skills without formal certification). No KCSE mean grade is published as a requirement.',
+    min_grade: null,
+    application_deadline: 'Calls are issued in cohorts, often through county partnerships — watch the KCB Foundation 2Jiajiri page and county announcements',
+    website: 'https://foundation.kcbgroup.com/programs/2jiajiri/',
+    application_url: 'https://foundation.kcbgroup.com/programs/2jiajiri/',
+    requirements: [
+      'Aged 18 to 35 and out of school',
+      'National identity card',
+      'For the Apprentice stream, evidence of existing practical skills'
+    ],
+    interest_rate: null,
+    repayment_period: null,
+    data_confidence: 'verified',
+    verification_note: 'The programme, its 2016 launch, the 18-to-35 out-of-school eligibility, the Skiller and Apprentice streams, sponsored training at accredited TVETs, business development services, startup toolkits and access to single-digit-interest KCB loans are published by KCB Foundation on its own domain and described in the same terms by the Mastercard Foundation, which co-funds it under Young Africa Works, and by Capital FM and Education News reporting on county cohorts, September 2026. KCB reports 22,959 youth trained and 5,594 businesses incubated since launch. No amount is recorded because none is published; the value is the sponsorship of the course rather than an award of a stated size. No date is recorded because intakes are cohort-based and often county-specific.'
   },
 ];
 

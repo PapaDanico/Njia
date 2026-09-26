@@ -42,7 +42,7 @@ const LANDING_STATS = {
     "humanities": 19,
     "personal": 19
   },
-  "fundingSources": 28,
+  "fundingSources": 29,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -139,6 +139,10 @@ const LANDING_STATS = {
     {
       "name": "M-PESA Foundation and University of Embu TVET Scholarships",
       "application_deadline": "Cohort-based. The first cohort closed on 7 October 2024; no later cohort date is published in any source reachable from this build, so confirm with the University of Embu TVET Institute."
+    },
+    {
+      "name": "KCB Foundation 2Jiajiri — sponsored vocational training for out-of-school youth",
+      "application_deadline": "Calls are issued in cohorts, often through county partnerships — watch the KCB Foundation 2Jiajiri page and county announcements"
     }
   ]
 };

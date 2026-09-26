@@ -2366,3 +2366,21 @@ test('a funding record showing an amount does not disclaim it in its own note', 
     + 'Null the amount and report what research found in the description instead: '
     + contradictory.join(' | '));
 });
+
+/* A typo and punctuation sweep found 39 notes speaking to the reader in the
+   catalogue's own field names - "so min_grade is null", "fee_observed is NOT
+   set" - and four carrying ", ," where a fragment had been cut out. A learner
+   reading a course card should never meet a code identifier, so the property is
+   asserted on every string a reader can see, not on the phrasings found. */
+test('reader-facing text carries no internal field names or empty list slots', () => {
+  const FIELDS = /\b(fee_observed|min_grade|total_fees_kes|duration_months|fee_basis|data_confidence|verification_note|intake_months|max_amount_kes|fee_regime|institution_id|employment_rate|median_salary_kes)\b/;
+  const bad = [];
+  for (const r of [...COURSES, ...INSTITUTIONS, ...FUNDING_SOURCES]) {
+    for (const [f, v] of Object.entries(r)) {
+      if (typeof v !== 'string') continue;
+      if (FIELDS.test(v)) bad.push(`${r.id}.${f} names a field: ${v.match(FIELDS)[0]}`);
+      if (/, ,|,,/.test(v)) bad.push(`${r.id}.${f} has an empty comma slot`);
+    }
+  }
+  assert.equal(bad.join(' | '), '', 'rewrite these in the reader\'s words: ' + bad.join(' | '));
+});

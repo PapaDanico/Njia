@@ -6542,3 +6542,60 @@ the renderer, not pasted into hundreds of notes.
 **The 2026/27 first-time HEF window closed on 8 September.** That settles the
 21-versus-8-September contradiction recorded above in favour of the 8th. It
 also means no date goes on the Application Clock, because the window is past.
+
+## A typo sweep: the mechanical scan is mostly noise, and the real finds were code leaking into prose
+
+Asked to check the platform for typos and punctuation, **especially the PDF and
+the data outputs**, the whole reader-facing surface was swept in one script:
+the pitch deck (text extracted with PyMuPDF, because `pypdf` cannot import in
+this environment), the CSV and JSON exports, every data file, the help
+content, `llms.txt` and all the generated pages.
+
+**Most of what the scanner flagged was the scanner.** Recording why, so the
+next sweep does not re-derive it:
+
+- **Stripping tags with a space** turned `<strong>Isiolo</strong>,` into
+  "Isiolo ," — 70 false "space before punctuation" hits. Inline tags have to be
+  removed with nothing, and block tags replaced with a newline.
+- **Removing URLs ate their brackets.** `(kmtc.ac.ke, August 2026)` became
+  "2025/26  August 2026)", which looked exactly like a mangled note and was
+  nearly reported as one. The raw export was correct. **Check the raw file
+  before believing a text-processing result**, because the processing is the
+  likeliest thing to be wrong.
+- **Removing inline tags glued stacked tiles**: "On-device" and "your answers
+  never leave the phone" are two block-rendered spans, read as "deviceyour".
+- **181 "unknown" words were right**: British spelling (programme, centre,
+  organisation, labour, which is correct for a Kenyan audience), institution
+  acronyms, record ids, and regex fragments from `data/sectors.js` such as
+  `metallurg` and `bpipeline` that no reader ever sees.
+
+**What was real, and every item is fixed:**
+
+- **39 notes addressed the reader in the catalogue's field names**: "so
+  min_grade is null" (35), "min_grade records the…" (4) and "fee_observed is
+  NOT set". A learner reading a course card should never meet a code
+  identifier. Rewritten as "so Njia records it as open entry" and "The grade
+  shown is…", and guarded: `reader-facing text carries no internal field names
+  or empty list slots` asserts it on **every string field of every record**,
+  and was broken on c197 and watched to fail.
+- **Four records read "Nairobi and Mombasa, , running"**, a fragment cut out
+  and its commas left behind. Guarded by the same test.
+- **c711 read "off the university own current fee structure"**, missing its
+  possessive. A sweep for other lost possessives and for contractions without
+  apostrophes came back clean, so it was a single casualty rather than the
+  apostrophe-ban insert script's pattern.
+- **`llms.txt` told answer engines the help page held 48 answers when it holds
+  51.** The count was typed into the template in
+  `tools/build-structured-data.mjs`. It is now read from `HELP_FAQ` the same
+  way `build-static-pages.mjs` reads it, so it cannot drift again.
+
+**The pitch deck is not edited, and it is the stalest document on the site.**
+It is a binary PDF with no source in the repository, addressed to funders, and
+redacting and re-typesetting slides without the original is the wrong risk to
+take on someone else's pitch. It contains one spelling inconsistency
+("anonymized" on one slide, "Anonymised" on another) and **headline figures a
+year behind the data**: 463 training places, 142 institutions and 12 funding
+sources, against 1,352, 214 and 29 today, and "275+ programmes with verified
+fees". Those are a snapshot and were accurate when written, but a funder
+reading the deck beside the live site will see the disagreement. It needs
+regenerating from its source by whoever holds it.

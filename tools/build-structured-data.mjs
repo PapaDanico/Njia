@@ -45,6 +45,7 @@
  * RUN:  node tools/build-structured-data.mjs
  */
 import fs from 'node:fs';
+import vm from 'node:vm';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
@@ -227,6 +228,15 @@ if (MAIL_LIVE && !CONTACT_EMAIL) {
 }
 
 const fundingCount = FUNDING_SOURCES.length;
+/* The FAQ count was typed as "48" into the llms.txt template and went stale when
+   the FAQ grew to 51 - an answer engine was told the page held fewer answers
+   than it does. Read from js/help.js the way build-static-pages.mjs does, so
+   the number cannot drift again. */
+const faqCount = (() => {
+  const ctx = vm.createContext({ window: {}, document: {} });
+  vm.runInContext(fs.readFileSync(path.join(root, 'js', 'help.js'), 'utf8'), ctx);
+  return vm.runInContext('HELP_FAQ', ctx).reduce((n, g) => n + g.items.length, 0);
+})();
 const tvetReach = FUNDING_SOURCES.filter((f) => f.min_grade == null || ['D', 'D-', 'E'].includes(f.min_grade)).length;
 
 const llms = `# Njia — data-driven career pathways for Kenyan youth
@@ -273,7 +283,7 @@ available in the county" — the difference is the whole point.
 - [Home](${SITE}/): the guidance app — questionnaire, course matcher, funding, planning tools.
 - [Courses by county](${SITE}/counties/): a page per county with its real course table, entry grades and fees.
 - [Courses by grade](${SITE}/grades/): what is open at C plain and below, down to E.
-- [Questions and answers](${SITE}/help/): 48 plain answers on grades, fees, funding and applications — the same text the app shows, at its own URL.
+- [Questions and answers](${SITE}/help/): ${faqCount} plain answers on grades, fees, funding and applications — the same text the app shows, at its own URL.
 - [Open data](${SITE}/open-data/): the whole catalogue as CSV and JSON, including the fee-provenance column.
 - [County provision analysis](${SITE}/analysis/): which counties are closed to a low-grade learner, and why.
 - [Partnership proposal](${SITE}/docs/): the August 2026 proposal, for funders and partners rather than learners.

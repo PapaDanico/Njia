@@ -6599,3 +6599,31 @@ sources, against 1,352, 214 and 29 today, and "275+ programmes with verified
 fees". Those are a snapshot and were accurate when written, but a funder
 reading the deck beside the live site will see the disagreement. It needs
 regenerating from its source by whoever holds it.
+
+## Two open items from the thin-university pass, recorded so nobody re-runs them
+
+**Tom Mboya +2** (Horticulture with IT, Agribusiness Management with IT), both
+named on the university's own school pages by two independently phrased
+searches. Agronomy, Agricultural Economics and Agricultural Education and
+Extension (all "with IT") were named by one search and repeated only by a
+query that named them, so they stay a named lead: one more unseeded sighting
+closes each.
+
+**Murang'a University of Technology is at the yield floor.** Three searches
+name its schools and departments (Computing and IT, Pure and Applied Sciences,
+Business and Economics, Hospitality and Tourism) and not one award title beyond
+what is already listed. What is missing is an award-level listing - the
+university's own `Undergraduate-Programmes-1.pdf` on mut.ac.ke, which this
+build cannot open. Do not re-run the general or per-school queries.
+
+**Maths and statistics sit in Business, finance and accountancy, and that is
+flagged rather than swept.** `mathematic` and `statistic` are in the business
+pattern, so 21 records - Bachelor of Science in Mathematics, Statistics,
+Mathematics and Computer Science, and the rest - resolve there, while
+Bachelor of Education (Mathematics) goes to education through the teaching-award
+rule. It is defensible, because the sectors are KNBS employment sectors and
+most Kenyan maths and statistics graduates are employed in finance, insurance
+and data work; it is also arguable, because a pure-mathematics degree is closer
+to Physical sciences and research. Nothing sourced says the current filing is
+wrong, and moving 21 shipped records on judgement is the instrumentation case
+again. It is the maintainer's call.

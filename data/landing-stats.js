@@ -17,8 +17,8 @@ const LANDING_STATS = {
   "published": 14,
   "derived": 325,
   "withNote": 1360,
-  "feeAbsent": 935,
-  "feeAbsentStated": 935,
+  "feeAbsent": 936,
+  "feeAbsentStated": 936,
   "sectorRoutes": {
     "aviation": 21,
     "maritime": 7,

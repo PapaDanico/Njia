@@ -6626,4 +6626,10 @@ most Kenyan maths and statistics graduates are employed in finance, insurance
 and data work; it is also arguable, because a pure-mathematics degree is closer
 to Physical sciences and research. Nothing sourced says the current filing is
 wrong, and moving 21 shipped records on judgement is the instrumentation case
-again. It is the maintainer's call.
+again. It was put to the maintainer, who delegated it.
+
+**Decided 27 September 2026: they stay.** The sectors are KNBS employment
+sectors, so where graduates are employed is the test, and finance, insurance
+and data work is where maths and statistics graduates in Kenya mostly go. Do
+not reopen this without a source that says otherwise; a pure-mathematics degree
+that reads as science is a matter of taste, not evidence.

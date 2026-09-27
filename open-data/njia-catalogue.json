@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1352,
+  "course_count": 1354,
   "institution_count": 214,
   "county_count": 47,
   "column_notes": {
@@ -2160,6 +2160,38 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Tom Mboya University is in Homa Bay and was elevated from a constituent college of Maseno University to a full chartered university in 2022. Only programmes named on its own listing are recorded here. It publishes a general minimum of an aggregate C+ at KCSE with a C plain in Mathematics, or two principal passes at A-level, or a recognised diploma in a related area, which admits with exemptions. Individual programmes ask for more: the Bachelor of Science in Mathematical Sciences requires a B- in Mathematics. Subject requirements are stated here rather than in the mean-grade field, because a learner who clears the mean grade still has to read what else is asked. This is a competitive programme: the published mean grade is the bar for being CONSIDERED, and places are awarded on KUCCPS cluster points, which run well above the minimum in most years. Treat C+ as the floor for applying rather than as a likely offer, and check the previous year's cut-off for this programme on the KUCCPS portal before choosing it. The university does not publish a per-programme price for this course. /help/ sets out the five bands."
+    },
+    {
+      "course_id": "c1380",
+      "course_name": "Bachelor of Science (Agribusiness Management with IT)",
+      "institution": "Tom Mboya University",
+      "institution_id": "tom_mboya_university",
+      "county": "Homa Bay",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "business",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Tom Mboya University is a public university in Homa Bay, and its programmes are placed through KUCCPS. This programme is named on the university's own School of Agriculture and School of Computing and Informatics pages on tmu.ac.ke, by two independently phrased searches. The award carries the university's own \"with IT\" convention. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade; the university also publishes subject grades on top of it, a C+ in Biology or Biological Sciences, a B- in Agriculture, and a C in Mathematics or a B in Business Studies or Commerce. The mean grade is what this card filters on; a learner who clears it still needs the subject grades. Being public, the university does not publish a per-programme price for this course. ALSO NAMED AND NOT RECORDED: Agronomy, Agricultural Economics and Agricultural Education and Extension, each with IT, named by one search and not repeated by a second."
+    },
+    {
+      "course_id": "c1379",
+      "course_name": "Bachelor of Science (Horticulture with IT)",
+      "institution": "Tom Mboya University",
+      "institution_id": "tom_mboya_university",
+      "county": "Homa Bay",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Tom Mboya University is a public university in Homa Bay, and its programmes are placed through KUCCPS. This programme is named on the university's own School of Agriculture and School of Computing and Informatics pages on tmu.ac.ke, by two independently phrased searches. The award carries the university's own \"with IT\" convention. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade; the university also publishes subject grades on top of it, a C+ in Biology or Biological Sciences, a B- in Agriculture, a C in Chemistry or Physical Sciences and a C- in Mathematics or Physics. The mean grade is what this card filters on; a learner who clears it still needs the subject grades. Being public, the university does not publish a per-programme price for this course. ALSO NAMED AND NOT RECORDED: Agronomy, Agricultural Economics and Agricultural Education and Extension, each with IT, named by one search and not repeated by a second."
     },
     {
       "course_id": "c933",

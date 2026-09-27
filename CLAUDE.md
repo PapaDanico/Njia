@@ -6633,3 +6633,14 @@ sectors, so where graduates are employed is the test, and finance, insurance
 and data work is where maths and statistics graduates in Kenya mostly go. Do
 not reopen this without a source that says otherwise; a pure-mathematics degree
 that reads as science is a matter of taste, not evidence.
+
+**Two more thin-end attempts, both one sighting short.** Tom Mboya: a KUCCPS
+cut-off roll-up names **Actuarial Science with IT** (26.784) and **Basic
+Science with IT** (26.616) at TMU, once each; a cut-off attached to a named
+university is institution evidence, but a second unseeded sighting is still
+missing. KWUST: two searches name **BSc Actuarial Mathematics, Pure
+Mathematics and Statistics** - and both are quoting the same Wikipedia
+sentence ("mathematics (actuarial, pure, statistics)"), so that is **one source
+seen twice, not two**. The seeded-query rule has a sibling: two results that
+share a sentence share a source. What would close KWUST is its own
+`kwust.ac.ke` course page naming the awards.

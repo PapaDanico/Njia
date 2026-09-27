@@ -388,7 +388,7 @@ const FUNDING_SOURCES = [
     max_amount_kes: null,
     eligibility: 'Out-of-school young women and men aged 18 to 35. Two streams: Skiller (no prior vocational training or work experience) and Apprentice (existing practical skills without formal certification). No KCSE mean grade is published as a requirement.',
     min_grade: null,
-    application_deadline: 'Calls are issued in cohorts, often through county partnerships — watch the KCB Foundation 2Jiajiri page and county announcements',
+    application_deadline: 'Calls are issued in cohorts through partnerships with individual constituency NG-CDF offices and counties, and the constituencies change from one cohort to the next. Ask your constituency NG-CDF office whether a 2Jiajiri cohort is open, and watch the KCB Foundation page. Shortlisted applicants are interviewed at the training institution.',
     website: 'https://foundation.kcbgroup.com/programs/2jiajiri/',
     application_url: 'https://foundation.kcbgroup.com/programs/2jiajiri/',
     requirements: [
@@ -399,7 +399,7 @@ const FUNDING_SOURCES = [
     interest_rate: null,
     repayment_period: null,
     data_confidence: 'verified',
-    verification_note: 'The programme, its 2016 launch, the 18-to-35 out-of-school eligibility, the Skiller and Apprentice streams, sponsored training at accredited TVETs, business development services, startup toolkits and access to single-digit-interest KCB loans are published by KCB Foundation on its own domain and described in the same terms by the Mastercard Foundation, which co-funds it under Young Africa Works, and by Capital FM and Education News reporting on county cohorts, September 2026. KCB reports 22,959 youth trained and 5,594 businesses incubated since launch. No amount is recorded because none is published; the value is the sponsorship of the course rather than an award of a stated size. No date is recorded because intakes are cohort-based and often county-specific.'
+    verification_note: 'The programme, its 2016 launch, the 18-to-35 out-of-school eligibility, the Skiller and Apprentice streams, sponsored training at accredited TVETs, business development services, startup toolkits and access to single-digit-interest KCB loans are published by KCB Foundation on its own domain and described in the same terms by the Mastercard Foundation, which co-funds it under Young Africa Works, and by Capital FM and Education News reporting on county cohorts, September 2026. KCB reports 22,959 youth trained and 5,594 businesses incubated since launch. No amount is recorded because none is published; the value is the sponsorship of the course rather than an award of a stated size. No date is recorded because intakes are cohort-based and often county-specific. The constituency route is corroborated across several 2025 and 2026 cohorts (Education News, HapaKenya, TechAfrica News and KCB Group), which name different NG-CDF partner constituencies each time, 14 in one 2026 call alone, with interviews held at the designated training institutions; no single constituency list is recorded because each one is specific to its cohort.'
   },
 ];
 

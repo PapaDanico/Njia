@@ -142,7 +142,7 @@ const LANDING_STATS = {
     },
     {
       "name": "KCB Foundation 2Jiajiri — sponsored vocational training for out-of-school youth",
-      "application_deadline": "Calls are issued in cohorts, often through county partnerships — watch the KCB Foundation 2Jiajiri page and county announcements"
+      "application_deadline": "Calls are issued in cohorts through partnerships with individual constituency NG-CDF offices and counties, and the constituencies change from one cohort to the next. Ask your constituency NG-CDF office whether a 2Jiajiri cohort is open, and watch the KCB Foundation page. Shortlisted applicants are interviewed at the training institution."
     }
   ]
 };

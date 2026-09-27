@@ -16845,9 +16845,9 @@
       "min_grade": "C+",
       "open_entry": "no",
       "duration_months": 48,
-      "tuition_kes": 766800,
-      "fee_basis": "illustrative",
-      "verification_note": "Fee derived from Kabarak University's published fee structure, whose Ksh 65,000 rate is the one it publishes for business-school programmes and is the rate this record applies; the university prices some schools higher (science, engineering and technology Ksh 70,000; nursing Ksh 100,000), so confirm the rate for this programme: Ksh 65,000 per semester, plus mandatory administrative charges published as a range of Ksh 29,350-30,850 per semester (kabarak.ac.ke fee structure 2025/26, cross-reported by Business Radar and student-portal coverage, 2026). The university runs TWO semesters an academic year, September and January, fifteen weeks each, per its published academic calendar - so this course's 8 semesters give Ksh 766,800. A FLAT INSTITUTIONAL RATE IS ATTRIBUTABLE TO A NAMED COURSE in a way a per-institution range is not: this is the same kind of derivation KMTC's national schedule supports, not a midpoint of a band. The administrative range is taken at its UPPER bound, because over-quoting a fee leaves a reader prepared while under-quoting sends them short. Tuition and mandatory charges only - accommodation, meals, attachment and graduation are extra, and self-sponsored rates can differ from KUCCPS-placed ones. Confirm with the finance office before paying."
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Kabarak University's own fee structures on kabarak.ac.ke price programmes by school, not at one flat rate. Its 2026/27 schedule for KUCCPS-placed students gives the Bachelor of Laws at Ksh 125,000 tuition a semester, with administrative charges of Ksh 27,800-38,350 a semester and a Ksh 12,000 industrial attachment fee, for Ksh 1,000,000 in tuition and Ksh 254,450 in administrative charges over four years; a second reading of the same site gives Ksh 125,000 tuition plus Ksh 36,850 administration a semester, and an archived page gives Ksh 100,000 a semester for self-sponsored students at the main campus. The figure this card previously showed, Ksh 766,800, applied the university's Ksh 65,000 business-school rate to this programme and understated it by a wide margin, so it has been withdrawn; a total for your sponsorship route could not be verified, so none is shown. Ask admissions which schedule applies to you."
     },
     {
       "course_id": "c650",
@@ -17005,9 +17005,9 @@
       "min_grade": "C+",
       "open_entry": "no",
       "duration_months": 48,
-      "tuition_kes": 766800,
-      "fee_basis": "illustrative",
-      "verification_note": "Fee derived from Kabarak University's published fee structure, whose Ksh 65,000 rate is the one it publishes for business-school programmes and is the rate this record applies; the university prices some schools higher (science, engineering and technology Ksh 70,000; nursing Ksh 100,000), so confirm the rate for this programme: Ksh 65,000 per semester, plus mandatory administrative charges published as a range of Ksh 29,350-30,850 per semester (kabarak.ac.ke fee structure 2025/26, cross-reported by Business Radar and student-portal coverage, 2026). The university runs TWO semesters an academic year, September and January, fifteen weeks each, per its published academic calendar - so this course's 8 semesters give Ksh 766,800. A FLAT INSTITUTIONAL RATE IS ATTRIBUTABLE TO A NAMED COURSE in a way a per-institution range is not: this is the same kind of derivation KMTC's national schedule supports, not a midpoint of a band. The administrative range is taken at its UPPER bound, because over-quoting a fee leaves a reader prepared while under-quoting sends them short. Tuition and mandatory charges only - accommodation, meals, attachment and graduation are extra, and self-sponsored rates can differ from KUCCPS-placed ones. Confirm with the finance office before paying."
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Kabarak University's own fee structures on kabarak.ac.ke price programmes by school, not at one flat rate. Its 2026/27 schedule gives the Bachelor of Theology at Ksh 50,000 tuition a semester, with administrative charges of Ksh 29,050, Ksh 79,050 a semester in all. The figure this card previously showed, Ksh 766,800, applied the university's higher Ksh 65,000 business-school rate to this programme and overstated it, so it has been withdrawn; a four-year total could not be verified from one reading of the schedule, so none is shown. Ask admissions for the full semester-by-semester structure."
     },
     {
       "course_id": "c645",
@@ -17021,9 +17021,9 @@
       "min_grade": "C-",
       "open_entry": "no",
       "duration_months": 24,
-      "tuition_kes": 383400,
-      "fee_basis": "illustrative",
-      "verification_note": "Fee derived from Kabarak University's published fee structure, whose Ksh 65,000 rate is the one it publishes for business-school programmes and is the rate this record applies; the university prices some schools higher (science, engineering and technology Ksh 70,000; nursing Ksh 100,000), so confirm the rate for this programme: Ksh 65,000 per semester, plus mandatory administrative charges published as a range of Ksh 29,350-30,850 per semester (kabarak.ac.ke fee structure 2025/26, cross-reported by Business Radar and student-portal coverage, 2026). The university runs TWO semesters an academic year, September and January, fifteen weeks each, per its published academic calendar - so this course's 4 semesters give Ksh 383,400. A FLAT INSTITUTIONAL RATE IS ATTRIBUTABLE TO A NAMED COURSE in a way a per-institution range is not: this is the same kind of derivation KMTC's national schedule supports, not a midpoint of a band. The administrative range is taken at its UPPER bound, because over-quoting a fee leaves a reader prepared while under-quoting sends them short. Tuition and mandatory charges only - accommodation, meals, attachment and graduation are extra, and self-sponsored rates can differ from KUCCPS-placed ones. Confirm with the finance office before paying."
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Kabarak University's own fee structures on kabarak.ac.ke price programmes by school, not at one flat rate, and none of the fee structures reachable from here lists a Diploma in Law; the law school's published schedules are for the Bachelor of Laws, at Ksh 125,000 tuition a semester. The figure this card previously showed, Ksh 383,400, applied the university's Ksh 65,000 business-school rate over four semesters and could not be verified against any Kabarak schedule, so it has been withdrawn. Confirm with the School of Law that this diploma is currently offered, and at what fee, before applying."
     },
     {
       "course_id": "c340",

@@ -162,6 +162,12 @@ const SHELL_CSS = `
   th, td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
   thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
   tbody th { font-weight: 600; }
+  /* A data table, not a list of paragraphs: one ruled header in the brand's
+     ochre (a fill colour, so decorative only), aligned figures, and a row
+     tint under the pointer so the eye can hold a line across six columns. */
+  thead th { border-bottom: 2px solid var(--accent, #C8860A); color: var(--text-secondary); }
+  td.tok, th.tok { font-variant-numeric: tabular-nums; }
+  @media (hover: hover) { tbody tr:hover { background: rgba(200, 134, 10, .08); } }
   /* Level, entry grade, tuition and duration are short fixed tokens — "Artisan",
      "D-", "Ksh 134,378", "24 mo". Left to wrap they each cost a second line and
      doubled the height of every row in the table; there is no case where

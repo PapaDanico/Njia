@@ -2384,6 +2384,9 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
     margin: 0 auto;
     padding-inline: clamp(1.25rem, 3vw, 3rem);
   }
+  /* The tight bands are full-bleed, so they take the gutter without the cap.
+     At 20px the evidence figures sat 23px left of the headline above them. */
+  .landing-block-tight { padding-inline: clamp(1.25rem, 3vw, 3rem); }
   /* The hero stops being a centred mobile column stretched across a wide
      viewport (all the width, none of it used) and becomes a genuine
      two-up layout: headline/CTA left, the numbers card as a sidecar
@@ -2407,7 +2410,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   /* 1480px, matching the hero and the content blocks above. The 1200px cap
      here was a third rule for the same page — on a 1440 screen the footer
      visibly inset from the band above it for no reason a reader could see. */
-  .landing-stats-grid, .landing-footer-grid, .landing-footer-legal, .landing-guarantee-box {
+  .landing-stats-grid { max-width: calc(1480px - 2 * clamp(1.25rem, 3vw, 3rem)); margin-inline: auto; }
+  .landing-footer-grid, .landing-footer-legal, .landing-guarantee-box {
     max-width: 1480px;
     margin-left: auto;
     margin-right: auto;

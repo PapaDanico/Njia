@@ -106,8 +106,14 @@ test('institutions on a corporation fee regime never claim a verified fee they c
 test('KMTC records use the KMTC schedule, not some other institution\'s', () => {
   /* 82,200 in Year 1 and 78,000 thereafter. Any KMTC total should be reachable
    * from that schedule for some whole number of years. c028 was not. */
+  /* The same schedule adds a one-off Year 1 skills-lab fee for two diplomas -
+   * Ksh 2,750 for Clinical Medicine and Ksh 1,500 for Community Health Nursing
+   * (KMTC fees structure 2025/26). Those are published programme charges, not
+   * another institution's rate, so they are reachable too. */
   const reachable = new Set();
-  for (let years = 1; years <= 5; years += 1) reachable.add(82200 + 78000 * (years - 1));
+  for (let years = 1; years <= 5; years += 1) {
+    for (const lab of [0, 1500, 2750]) reachable.add(82200 + 78000 * (years - 1) + lab);
+  }
   for (const course of COURSES) {
     const inst = byId[course.institution_id];
     if (!inst || inst.fee_regime !== 'kmtc' || course.total_fees_kes == null) continue;

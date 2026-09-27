@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1354,
+  "course_count": 1358,
   "institution_count": 214,
   "county_count": 47,
   "column_notes": {
@@ -2176,6 +2176,54 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Tom Mboya University is a public university in Homa Bay, and its programmes are placed through KUCCPS. This programme is named on the university's own School of Agriculture and School of Computing and Informatics pages on tmu.ac.ke, by two independently phrased searches. The award carries the university's own \"with IT\" convention. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade; the university also publishes subject grades on top of it, a C+ in Biology or Biological Sciences, a B- in Agriculture, and a C in Mathematics or a B in Business Studies or Commerce. The mean grade is what this card filters on; a learner who clears it still needs the subject grades. Being public, the university does not publish a per-programme price for this course. ALSO NAMED AND NOT RECORDED: Agronomy, Agricultural Economics and Agricultural Education and Extension, each with IT, named by one search and not repeated by a second."
+    },
+    {
+      "course_id": "c1382",
+      "course_name": "Bachelor of Science (Agricultural Economics with IT)",
+      "institution": "Tom Mboya University",
+      "institution_id": "tom_mboya_university",
+      "county": "Homa Bay",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "numbers",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Tom Mboya University is a public university in Homa Bay, and its programmes are placed through KUCCPS. This programme is named on the university's own interdisciplinary programmes page on tmu.ac.ke. The award carries the university's own \"with IT\" convention. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade; the university also publishes a C+ in Biology or Biological Sciences, a B- in Agriculture, a C in Mathematics, or a B in Business Studies or Commerce. The mean grade is what this card filters on. Being public, the university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1383",
+      "course_name": "Bachelor of Science (Agricultural Education and Extension with IT)",
+      "institution": "Tom Mboya University",
+      "institution_id": "tom_mboya_university",
+      "county": "Homa Bay",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Tom Mboya University is a public university in Homa Bay, and its programmes are placed through KUCCPS. This programme is named on the university's own interdisciplinary programmes page on tmu.ac.ke. The award carries the university's own \"with IT\" convention. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade; the published subject requirement reachable from here is a C+ in Biology or Biological Sciences, or a B- in Biology or Agriculture. The mean grade is what this card filters on. Being public, the university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1381",
+      "course_name": "Bachelor of Science (Agronomy with IT)",
+      "institution": "Tom Mboya University",
+      "institution_id": "tom_mboya_university",
+      "county": "Homa Bay",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Tom Mboya University is a public university in Homa Bay, and its programmes are placed through KUCCPS. This programme is named on the university's own interdisciplinary programmes page on tmu.ac.ke. The award carries the university's own \"with IT\" convention. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade; the university also publishes a C+ in Biology or Biological Sciences, a B- in Agriculture, a C in Chemistry or Physical Sciences and a C- in Mathematics or Physics. The mean grade is what this card filters on. Being public, the university does not publish a per-programme price for this course."
     },
     {
       "course_id": "c1379",
@@ -5279,7 +5327,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BIT, BBIT, BSE, BCS, BMDC and BAJ group: tuition Ksh 66,000 a semester plus administrative charges, with published semester totals such as Ksh 76,400 (Year 2 Semester 1) and Ksh 74,900 (Year 2 Semester 2). Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
     },
     {
       "course_id": "c1309",
@@ -5295,7 +5343,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BAF, BBAM, BPSM, BCOM, BES, BIRD and BPSY group: tuition Ksh 100,000 a semester, with Year 1 at Ksh 125,000 (Semester 1, including a Ksh 25,000 administrative charge) and Ksh 119,000 (Semester 2). One reading of the schedule, so confirm it. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
     },
     {
       "course_id": "c520",
@@ -5327,7 +5375,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BAF, BBAM, BPSM, BCOM, BES, BIRD and BPSY group: tuition Ksh 100,000 a semester, with Year 1 at Ksh 125,000 (Semester 1, including a Ksh 25,000 administrative charge) and Ksh 119,000 (Semester 2). One reading of the schedule, so confirm it. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
     },
     {
       "course_id": "c1313",
@@ -5343,7 +5391,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the published C+ mean grade, and Zetech publishes the subject bar beneath it: a C+ in each of the TWO subjects you intend to teach. The mean grade is what this card filters on; a learner who clears it still needs the teaching-subject grades. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the published C+ mean grade, and Zetech publishes the subject bar beneath it: a C+ in each of the TWO subjects you intend to teach. The mean grade is what this card filters on; a learner who clears it still needs the teaching-subject grades. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech's Bachelor of Education schedule charges tuition of Ksh 66,500 a semester, with published semester totals of Ksh 80,400 to 83,900 across Years 1 to 3 including administrative charges. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
     },
     {
       "course_id": "c1314",
@@ -5359,7 +5407,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the published C+ mean grade, with the subject bar beneath it: a C+ in each of the two teaching subjects, a C plain in Mathematics and English, and at least a C in a science subject for the Physical Education combination. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the published C+ mean grade, with the subject bar beneath it: a C+ in each of the two teaching subjects, a C plain in Mathematics and English, and at least a C in a science subject for the Physical Education combination. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech's Bachelor of Education schedule charges tuition of Ksh 66,500 a semester, with published semester totals of Ksh 80,400 to 83,900 across Years 1 to 3 including administrative charges. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
     },
     {
       "course_id": "c522",
@@ -5391,7 +5439,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the C+ mean grade, and the Council of Legal Education additionally requires a B plain in English or Kiswahili for an LLB anywhere in Kenya. The grade shown is the mean grade the card filters on; the CLE subject bar is the one that decides admission, and the degree is only the academic stage - practice needs the Advocates Training Programme and admission to the roll. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the C+ mean grade, and the Council of Legal Education additionally requires a B plain in English or Kiswahili for an LLB anywhere in Kenya. The grade shown is the mean grade the card filters on; the CLE subject bar is the one that decides admission, and the degree is only the academic stage - practice needs the Advocates Training Programme and admission to the roll. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech publishes 2026 fee structures by programme group on zetech.ac.ke, with tuition from Ksh 60,000 to Ksh 100,000 a semester depending on the group, but none reachable from here names this programme. Ask admissions which group it sits in and for the full eight-semester structure."
     },
     {
       "course_id": "c521",
@@ -5423,7 +5471,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BAF, BBAM, BPSM, BCOM, BES, BIRD and BPSY group: tuition Ksh 100,000 a semester, with Year 1 at Ksh 125,000 (Semester 1, including a Ksh 25,000 administrative charge) and Ksh 119,000 (Semester 2). One reading of the schedule, so confirm it. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
     },
     {
       "course_id": "c1306",
@@ -5439,7 +5487,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BIT, BBIT, BSE, BCS, BMDC and BAJ group: tuition Ksh 66,000 a semester plus administrative charges, with published semester totals such as Ksh 76,400 (Year 2 Semester 1) and Ksh 74,900 (Year 2 Semester 2). Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
     },
     {
       "course_id": "c1307",
@@ -5455,7 +5503,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech publishes 2026 fee structures by programme group on zetech.ac.ke, with tuition from Ksh 60,000 to Ksh 100,000 a semester depending on the group, but none reachable from here names this programme. Ask admissions which group it sits in and for the full eight-semester structure."
     },
     {
       "course_id": "c1310",
@@ -5471,7 +5519,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech's hospitality schedule charges tuition of Ksh 60,000 a semester, with Year 1 at Ksh 74,400 (Semester 1) and Ksh 68,900 (Semester 2) including administrative charges. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
     },
     {
       "course_id": "c066",
@@ -5503,7 +5551,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the published C+ mean grade. Nursing carries additional published subject requirements in Mathematics, Biology and Chemistry, and registration is with the Nursing Council of Kenya - ask admissions for the current subject minima before applying, because the mean grade alone does not secure a place. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the published table covers only five of the eight semesters a four-year degree needs - tuition flat at Ksh 66,000 a semester, admin Ksh 8,900 to 14,400 - so any total from it would under-quote. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the published C+ mean grade. Nursing carries additional published subject requirements in Mathematics, Biology and Chemistry, and registration is with the Nursing Council of Kenya - ask admissions for the current subject minima before applying, because the mean grade alone does not secure a place. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech publishes 2026 fee structures by programme group on zetech.ac.ke, with tuition from Ksh 60,000 to Ksh 100,000 a semester depending on the group, but none reachable from here names this programme. Ask admissions which group it sits in and for the full eight-semester structure."
     },
     {
       "course_id": "c523",
@@ -13952,6 +14000,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Kiriri Women's University of Science and Technology is a CUE-chartered private university in Nairobi, founded in 2002 and the only women-only university in Kenya - so this programme is open to women applicants only. Programme named in the university's own published academic programmes listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade. The university also publishes a subject requirement of a C plain in Mathematics and in English, so the mean grade alone is not enough. The university publishes a fee schedule, but its figure for this named programme could not be verified against any source reachable from this build, so none is shown rather than a guessed one. Ring admissions for the current schedule."
+    },
+    {
+      "course_id": "c1384",
+      "course_name": "Bachelor of Science (Mathematics)",
+      "institution": "Kiriri Women's University of Science and Technology (KWUST)",
+      "institution_id": "kwust",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "numbers",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Kiriri Women's University of Science and Technology is a CUE-chartered private, women-only university in Nairobi. This award and its four specialisations - Pure Mathematics, Statistics, Actuarial Mathematics and Applied Mathematics - are named on the university's own programme page on kwust.ac.ke, which also publishes the entry bar: a C+ mean grade with a C+ in English or Kiswahili. The actuarial track reports exemptions from the first set of professional papers by graduation. The university publishes no fee for this programme in any source reachable from here, so none is shown; ask admissions for the per-semester figure and the number of semesters."
     },
     {
       "course_id": "c718",

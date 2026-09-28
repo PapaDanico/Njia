@@ -6644,3 +6644,21 @@ sentence ("mathematics (actuarial, pure, statistics)"), so that is **one source
 seen twice, not two**. The seeded-query rule has a sibling: two results that
 share a sentence share a source. What would close KWUST is its own
 `kwust.ac.ke` course page naming the awards.
+
+## The public TVC register is the largest institution gap left
+
+A maintainer-supplied Kenya Times list (September 2026) puts public TVET at
+about **277 Ministry of Education TVCs** plus 35 university TVET institutes.
+Njia held **38** on the consolidated rate, and ten institutions the article
+names at random were all absent. That is the largest remaining register gap,
+and it sits at the craft and diploma band where most readers stand.
+
+Worked the same way as every other register gap: a college earns a row when
+its own domain names the award and a second listing repeats it. **Eldama
+Ravine TVC** (Baringo, two agriculture awards on its own pages) and **Bungoma
+North TVC** (five awards on its academics page) are in. **Emining TTI** is a
+lead: its two sources list the same trades at DIFFERENT levels - welding as a
+diploma in one and craft or artisan in the other - so the level, which decides
+the entry bar and the grade page, is unconfirmed. Kibabii TTI, Cardinal Otunga
+and Sirisia returned departments and no award list. Work down the article's
+county lists; search each college's own domain first.

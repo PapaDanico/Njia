@@ -61,14 +61,15 @@
   --mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', 'JetBrains Mono', Consolas, monospace;
 
   --shadow-sm: 0 1px 2px rgba(61, 28, 2, 0.06);
-  --shadow-md: 0 6px 18px rgba(61, 28, 2, 0.10);
-  --shadow-lg: 0 16px 40px rgba(61, 28, 2, 0.18);
+  --shadow-md: 0 2px 8px rgba(61, 28, 2, 0.08);
+  --shadow-lg: 0 12px 32px rgba(61, 28, 2, 0.16);
   /* Flatter than shadow-lg on purpose — the family sites keep even their
    * most prominent standalone cards nearly flush with the page (a 1-4px
    * blur, not a floating 40px one); shadow-lg stays reserved for actual
    * overlays (modals, dropdowns) where "lifted above the page" is the
    * point. */
-  --shadow-card: 0 1px 2px rgba(61, 28, 2, 0.05), 0 4px 14px rgba(61, 28, 2, 0.07);
+  /* Cards separate by a hairline border, not by floating. */
+  --shadow-card: 0 1px 0 rgba(61, 28, 2, 0.04);
 
   /* Opened up one step across the board. 8/12/16 corners on a 20px-padded
    * box read as a 2010 admin panel; the softer geometry is most of what
@@ -78,11 +79,13 @@
      defect was six declarations that bypassed them with 6px, 8px, 12px and
      1.25rem — small enough to be invisible and just numerous enough to make
      the scale a suggestion instead of a rule. */
-  --radius-xs: 8px;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 18px;
-  --radius-xl: 22px;
+  /* Editorial restraint: near-square corners. Consulting-grade layouts read
+   * as documents, not apps; large radii read as consumer UI. */
+  --radius-xs: 3px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
 
   --header-h: 60px;
   --nav-h: 64px;
@@ -256,7 +259,7 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 14px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 1px 0 rgba(0, 0, 0, 0.30);
 
   --success-soft: rgba(143, 191, 106, 0.16);
   --success-ink: #A8D186;
@@ -909,7 +912,7 @@ main {
 }
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+  background: var(--primary);
   border-radius: 999px;
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1456,14 +1459,12 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .econ-figures {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 1.75rem 2.25rem;
   margin-bottom: 1.75rem;
 }
 .econ-figure {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.1rem 1.15rem;
+  border-top: 2px solid var(--text-primary);
+  padding: 0.9rem 0 0.25rem;
 }
 .econ-figure-num {
   display: block;
@@ -1907,7 +1908,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 /* Sections need joints, not chasms. clamp(3rem, 7vw, 6.5rem) gave a 1440px
  * screen 104px of empty cream above and below every band, which read as the
  * page having run out of things to say. Enough to separate, not to strand. */
-.landing-block { padding: clamp(2.25rem, 4.2vw, 3.75rem) 1.25rem; }
+.landing-block { padding: clamp(1.75rem, 3vw, 2.75rem) 1.25rem; }
 .landing-block-tight { padding: clamp(1.5rem, 2.6vw, 2.25rem) 1.25rem; }
 
 .landing-hero {
@@ -1915,10 +1916,9 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   text-align: left;
   /* Kanda hero anatomy in Njia's palette: deep navy ground with warm
    * terracotta/gold radials, cream type, gold accent word. */
-  background:
-    radial-gradient(120% 120% at 88% 0%, rgba(200, 134, 10, 0.20), transparent 55%),
-    radial-gradient(110% 110% at 0% 100%, rgba(139, 37, 0, 0.30), transparent 60%),
-    var(--landing-dark);
+  /* Flat ground. The two glowing radials read as a product launch; a single
+   * deep tone reads as a publication. */
+  background: var(--landing-dark);
   color: #F5E9D4;
 }
 .landing-hero .landing-hero-logo { mix-blend-mode: normal; border-radius: var(--radius-sm); }
@@ -2114,16 +2114,14 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 }
 .landing-stat-label { font-size: var(--fs-sm); color: #DDCCAE; }
 
-.landing-evidence-grid { display: grid; gap: 1rem; }
+.landing-evidence-grid { display: grid; gap: 1.75rem 2.25rem; }
+/* Exhibits, not cards: a rule on top and open space, the way a published
+ * report sets figures in columns (Ratiba's specimen grid, carried over). These
+ * are not clickable, so they do not lift on hover - a lift promises an action. */
 .landing-evidence-card {
-  background: var(--landing-card);
-  border: 1px solid var(--landing-border);
-  border-radius: var(--radius-lg);
-  padding: 1.25rem;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border-top: 2px solid var(--landing-ink);
+  padding: 0.9rem 0 0.25rem;
 }
-.landing-evidence-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 .landing-evidence-num {
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
@@ -2414,7 +2412,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
     margin-left: auto;
     margin-right: auto;
   }
-  .landing-evidence-grid { grid-template-columns: repeat(2, 1fr); }
+  .landing-evidence-grid { grid-template-columns: repeat(4, 1fr); }
   .landing-process-list { display: grid; grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -2494,8 +2492,8 @@ details.prov-block[open] > .prov-lede { margin-bottom: .6rem; }
 }
 .report-card::before {
   content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 6px;
-  background: linear-gradient(90deg, #1ca0d0, #ed8b2d, #6fae48);
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--primary);
 }
 .report-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -3196,7 +3194,7 @@ p, li { text-wrap: pretty; }
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
-    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.25), 0 4px 14px rgba(0, 0, 0, 0.25);
+    --shadow-card: 0 1px 0 rgba(0, 0, 0, 0.30);
 
     --success-soft: rgba(143, 191, 106, 0.16);
     --success-ink: #A8D186;

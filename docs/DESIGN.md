@@ -69,3 +69,24 @@ incidents; this file records intent.
 2. Audit small-link touch targets against 48px on the generated pages.
 3. Write this file's principles into the sibling products' own CLAUDE.md, so
    the portfolio converges rather than each product rediscovering them.
+
+## The hybrid, as built (October 2026)
+
+What Njia took from each sibling, and where it shows:
+
+- **From Ratiba's type specimen: the report grid.** A narrow label column on
+  the left (eyebrow plus a headline that states the finding), content on the
+  right, and figures set as exhibits: a 2px rule on top, open space, the source
+  set in small italics underneath. No boxes around facts.
+- **From Ratiba and Mwangaza: two-colour discipline.** One deep ink, one warm
+  accent, flat grounds. The landing hero's two glowing radial gradients were
+  removed for that reason.
+- **From UsalamaSMS: measured pairs.** Fill tokens and text tokens are separate,
+  and new pairings are checked for contrast before they ship.
+- **Njia's own:** the terracotta and cream palette, the serif display face, the
+  beaded rule, the 12px type floor, and nothing loaded from third parties.
+
+Corners came down to 3–10px and card shadows to a hairline. Large radii and
+floating shadows read as a consumer app; a published report reads as edges and
+rules. Non-clickable exhibits no longer lift on hover, because a lift promises
+an action.

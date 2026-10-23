@@ -133,6 +133,14 @@
    * buttons, the back link, the scroll affordances. What gets kept is every
    * figure and the provenance paragraph, because a brief whose numbers cannot
    * be checked is the thing this project exists not to publish. */
+  /* Link lists - the 47 counties, the grade pages' jump list, the help
+   * contents - measured 16-20px tall on a 390px phone, so a thumb aimed at
+   * Bomet lands on Baringo. Touch screens only: on a mouse the dense list is
+   * the point, and on paper it is hidden. 44px is Apple's HIG floor and
+   * clears WCAG 2.5.8 with room. */
+  @media (pointer: coarse) {
+    ul.counties a, .jump a, .toc a { display: inline-block; min-height: 44px; padding-block: .6rem; box-sizing: border-box; }
+  }
   @media print {
     @page { margin: 14mm 12mm; }
     body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }

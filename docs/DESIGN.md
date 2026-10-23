@@ -32,7 +32,7 @@ incidents; this file records intent.
 | **Lining, tabular figures** wherever numbers are compared | Ratiba (`lining-nums`, `.tnum`) | Yes: county tables and figures use `tabular-nums`, landing figures use mono |
 | **A type floor**, so no size is picked component by component | Njia (`--fs-xs` = 12px, guarded) | Ahead of the portfolio: two siblings define a 10px `--fs-3xs` |
 | **No third-party requests at runtime** | Njia (system fonts, `connect-src 'self'`) | Ahead of the portfolio: most siblings load Google Fonts |
-| **48px touch targets** | JiraniOne (stated, not measured) | Partly: buttons and form controls are 48px; small links may not be |
+| **48px touch targets** | JiraniOne (stated, not measured) | Measured: buttons and controls 48px, link lists 44px on touch |
 
 ## The principles
 
@@ -67,7 +67,10 @@ incidents; this file records intent.
    this benchmark and is stricter than UsalamaSMS's script. The first draft of
    this file said otherwise because nobody had looked; check the repo before
    writing a gap down.
-2. Audit small-link touch targets against 48px on the generated pages.
+2. ~~Touch targets~~ - audited October 2026 at 390px with touch emulation.
+   axe's 24px rule passed everywhere; the stricter measure found the county
+   list (47 links), the grade-page jump list (42) and the help contents at
+   16-20px. On touch screens they are now 44px; mouse and print are unchanged.
 3. Write this file's principles into the sibling products' own CLAUDE.md, so
    the portfolio converges rather than each product rediscovering them.
 

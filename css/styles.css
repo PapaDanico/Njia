@@ -2047,6 +2047,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * 0.95rem, smaller than the body text it introduces. */
 .landing-h2-sub { font-size: clamp(1rem, 1.35vw, 1.15rem); line-height: 1.6; }
 .landing-h2-sub { color: var(--landing-ink-muted); font-size: var(--fs-lg); margin-bottom: 1.5rem; max-width: 50ch; }
+.econ-latest { font-size: var(--fs-md); }
+.econ-latest .econ-src { font-size: var(--fs-xs); font-style: italic; }
 
 .landing-cta-row { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem; }
 .btn-gold {
@@ -2890,7 +2892,10 @@ p, li { text-wrap: pretty; }
      a tall content child sized row 1 to its own full height, so the heading
      and lede rendered underneath the very grid they introduce. One wrapper
      makes the rail a single cell and the bug impossible. */
-  .landing-block > .landing-block-head { grid-column: 1; position: sticky; top: calc(var(--header-h) + 1rem); }
+  /* grid-row spans every content row, so a lede taller than the first
+     content block does not stretch row 1 and open a gap above row 2. Empty
+     implicit rows collapse to nothing. */
+  .landing-block > .landing-block-head { grid-column: 1; grid-row: 1 / span 12; position: sticky; top: calc(var(--header-h) + 1rem); }
   .landing-block > .landing-block-head .landing-h2 { max-width: none; }
   .landing-block > .landing-block-head .landing-h2-sub { margin-bottom: 0; }
   .landing-block > :not(.landing-block-head) { grid-column: 2; }

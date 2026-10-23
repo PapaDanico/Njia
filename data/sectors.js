@@ -79,7 +79,29 @@ const ECONOMY = {
     { label: 'Manufacturing', workers: 366600 },
     { label: 'Education', workers: 251100 }
   ],
-  source: 'KNBS Economic Survey 2026 (figures for calendar year 2025), cross-reported August 2026.'
+  source: 'KNBS Economic Survey 2026 (figures for calendar year 2025), cross-reported August 2026.',
+  /* Newer than the Survey, and dated so it can be seen going stale. Quarterly
+   * GDP is not comparable to the annual figure above: it is one quarter against
+   * the same quarter a year earlier. Q2 2026 was not yet published when this
+   * was read (23 October 2026). Corroborated across People Daily, Kenyans.co.ke
+   * and Cytonn's Q1 note, which agree on every figure. */
+  latestQuarter: {
+    period: 'Q1 2026', gdpGrowth: 5.3, sameQuarterLastYear: 4.9,
+    leaders: [
+      { label: 'accommodation and food service', growth: 14.7 },
+      { label: 'mining and quarrying', growth: 9.1 },
+      { label: 'construction', growth: 6.6 }
+    ],
+    agriculture: 4.9,
+    source: 'KNBS Quarterly GDP, Q1 2026 (released 10 July 2026), cross-reported by People Daily, Kenyans.co.ke and Cytonn.'
+  },
+  /* A fee read in 2025 is not a 2026 price. Two outlets agree on the headline
+   * and the food figure; transport is reported as 15.7% and 15.6%, and the
+   * higher is kept because over-stating a cost leaves a reader prepared. */
+  inflation: {
+    month: 'August 2026', rate: 6.6, prevRate: 6.5, food: 9.0, transport: 15.7,
+    source: 'KNBS CPI, August 2026, as reported by The Standard (31 August 2026) and TechEconomy.'
+  }
 };
 
 /* The formal remainder of the year's new jobs, to the nearest hundred. */

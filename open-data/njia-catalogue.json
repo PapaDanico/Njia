@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1367,
+  "course_count": 1370,
   "institution_count": 216,
   "county_count": 47,
   "column_notes": {
@@ -3058,6 +3058,22 @@
       "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office."
     },
     {
+      "course_id": "c1396",
+      "course_name": "Certificate in Environmental Health Sciences",
+      "institution": "Kenya Medical Training College (KMTC) — Kakamega Campus",
+      "institution_id": "kmtc_kakamega",
+      "county": "Kakamega",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "carer",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": 160200,
+      "fee_basis": "illustrative",
+      "verification_note": "KMTC Kakamega Campus sits beside Kakamega County Referral Hospital, where its students do their clinical placements. Its campus history dates this programme: Environmental Health Sciences has been taught here since 1979. Named on this campus's own list and repeated by a second, independent listing, not inferred from KMTC's national one. KMTC publishes a minimum KCSE mean grade of C- (the cluster-subject grades are needed on top) for its certificate programmes, with cluster subjects in English or Kiswahili, Biology or Biological Sciences, and Mathematics, Chemistry or Physics. KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. Tuition only - accommodation and meals are extra. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
       "course_id": "c028",
       "course_name": "Diploma in Clinical Medicine and Surgery",
       "institution": "Kenya Medical Training College (KMTC) — Kakamega Campus",
@@ -3072,6 +3088,38 @@
       "tuition_kes": 240950,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation and meals are extra, and some programmes add a published Year 1 skills-lab fee. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. The same schedule adds a one-off Year 1 skills-lab fee of Ksh 2,750 for this programme, included in the total. Entry was recorded here as a C+ mean grade and that was wrong in the exclusionary direction. The Clinical Officers Council bar, standard at every accredited college teaching this diploma and carried by the fourteen other KMTC records of the same award in this catalogue, is a mean grade of C plain, with a C plain in Biology and in English or Kiswahili and a C- in Chemistry and in Mathematics or Physics. A grade quoted high removes the card from the reader who needed it."
+    },
+    {
+      "course_id": "c1395",
+      "course_name": "Diploma in Environmental Health Sciences",
+      "institution": "Kenya Medical Training College (KMTC) — Kakamega Campus",
+      "institution_id": "kmtc_kakamega",
+      "county": "Kakamega",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "illustrative",
+      "verification_note": "KMTC Kakamega Campus sits beside Kakamega County Referral Hospital, where its students do their clinical placements. Its campus history dates this programme: Environmental Health Sciences has been taught here since 1979. Named on this campus's own list and repeated by a second, independent listing, not inferred from KMTC's national one. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster subjects in English or Kiswahili, Biology or Biological Sciences, and Mathematics, Chemistry or Physics. KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. Tuition only - accommodation and meals are extra. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
+    },
+    {
+      "course_id": "c1394",
+      "course_name": "Diploma in Medical Laboratory Sciences",
+      "institution": "Kenya Medical Training College (KMTC) — Kakamega Campus",
+      "institution_id": "kmtc_kakamega",
+      "county": "Kakamega",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "illustrative",
+      "verification_note": "KMTC Kakamega Campus sits beside Kakamega County Referral Hospital, where its students do their clinical placements. Its campus history dates this programme: Medical Laboratory Technology was introduced in 1981, the forerunner of Medical Laboratory Sciences. Named on this campus's own list and repeated by a second, independent listing, not inferred from KMTC's national one. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster subjects in English or Kiswahili, Biology or Biological Sciences, and Mathematics, Chemistry or Physics. KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. Tuition only - accommodation and meals are extra. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying."
     },
     {
       "course_id": "c1155",

@@ -1948,7 +1948,10 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .landing-clock-title {
   font-size: var(--fs-xs); font-weight: 700;
   text-transform: uppercase; letter-spacing: 1.5px;
-  color: var(--accent);
+  /* --accent is a fill and measures 4.23:1 on the clock panel at 12px; this
+     lighter gold of the same hue is the text version, at 5.46:1. The hero is
+     dark in both schemes, so it is not a theme token. */
+  color: #E09A3C;
   margin-bottom: 0.5rem;
 }
 .landing-clock-row {

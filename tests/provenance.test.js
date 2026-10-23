@@ -2384,3 +2384,13 @@ test('reader-facing text carries no internal field names or empty list slots', (
   }
   assert.equal(bad.join(' | '), '', 'rewrite these in the reader\'s words: ' + bad.join(' | '));
 });
+
+/* An institution's website is its own domain or null. Eight records once
+ * pointed at the regulator or the employer instead (tveta.go.ke, tsc.go.ke),
+ * which would send a reader asking about Aberdare TTC to the Teachers Service
+ * Commission's homepage. null is the honest value where no own site is known. */
+test('no institution website is a regulator, employer or placement body', () => {
+  const NOT_OWN = /\/\/(www\.)?(tveta|tsc|kuccps|cue|knec|helb|education|knqa)\.(go|ac|or)\.ke|kuccps\.net/i;
+  const bad = INSTITUTIONS.filter((i) => i.website && NOT_OWN.test(i.website)).map((i) => `${i.id} -> ${i.website}`);
+  assert.deepEqual(bad.join(', '), '');
+});

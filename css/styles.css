@@ -32,8 +32,6 @@
   --accent: #C8860A;         /* Ochre Gold — fills, never small text on cream */
   --accent-ink: #7A5206;     /* the readable gold, for tinted-panel text */
   --danger: #A32014;
-  --purple: #8b5cf6;
-  --pink: #ec4899;
 
   /* Surfaces — warm paper, not grey. Cards sit white on paper; insets
    * (meta grids, inputs, chips) sit oat on white. */
@@ -1740,7 +1738,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .mentor-card { display: flex; gap: 0.85rem; align-items: center; }
 .mentor-avatar {
   width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
-  background: linear-gradient(135deg, var(--purple), var(--pink));
+  background: linear-gradient(135deg, var(--primary), var(--accent-ink));
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; color: #fff;
 }

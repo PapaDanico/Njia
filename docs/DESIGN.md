@@ -27,7 +27,7 @@ incidents; this file records intent.
 | Practice | Where | Njia today |
 |---|---|---|
 | Separate tokens for colour as **fill** and colour as **type**, each pairing measured against every ground it sits on | UsalamaSMS `docs/04-BRAND.md` | Partly: `--accent` and `--accent-ink` follow this; not done everywhere |
-| A script that **fails the build** when a brand pairing drops below contrast | UsalamaSMS `scripts/check-brand.mjs` | Yes: `tests/contrast.test.js`, both schemes |
+| A script that **fails the build** when a brand pairing drops below contrast | UsalamaSMS `scripts/check-brand.mjs` | Yes, already: `tests/contrast.test.js` checks every ink token on every text surface in both schemes, and every dimmed `opacity` rule |
 | **One temperature**: no cool greys or cool accents in a warm system | Ratiba `brand-tokens.md` | Fixed in this pass: a stray purple-to-pink avatar gradient was the one cool hue |
 | **Lining, tabular figures** wherever numbers are compared | Ratiba (`lining-nums`, `.tnum`) | Yes: county tables and figures use `tabular-nums`, landing figures use mono |
 | **A type floor**, so no size is picked component by component | Njia (`--fs-xs` = 12px, guarded) | Ahead of the portfolio: two siblings define a 10px `--fs-3xs` |
@@ -63,9 +63,10 @@ incidents; this file records intent.
 
 ## Next steps, in order
 
-1. ~~Contrast gate~~ - done: `tests/contrast.test.js` measures eight text
-   tokens on three grounds in light and dark, plus white on the primary fill.
-   Broken by lowering `--text-muted` and watched to fail at 2.46:1.
+1. ~~Contrast gate~~ - it already existed: `tests/contrast.test.js` predates
+   this benchmark and is stricter than UsalamaSMS's script. The first draft of
+   this file said otherwise because nobody had looked; check the repo before
+   writing a gap down.
 2. Audit small-link touch targets against 48px on the generated pages.
 3. Write this file's principles into the sibling products' own CLAUDE.md, so
    the portfolio converges rather than each product rediscovering them.

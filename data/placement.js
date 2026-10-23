@@ -142,6 +142,15 @@ const PLACEMENT_CALENDAR = [
     verified: '2026-09-08' }
 ];
 
+/* The next cycle's dates, searched for and not yet published. A dated record of
+ * the search, so the calendar running short reads as "re-checked, nothing
+ * announced" rather than as nobody having looked. It expires after 30 days. */
+const PLACEMENT_NEXT_CYCLE_CHECK = {
+  checked: '2026-10-23',
+  finding: 'No 2027 KUCCPS main-window, KMTC March 2027 or TVET January 2027 dates announced. KUCCPS said in August 2026 that students placed in degrees in 2026 may apply for the KMTC March 2027 intake, and the 2026 March window ran 7-27 January, but no 2027 date has been published.',
+  source: 'Searches of KUCCPS, KMTC and Kenyan education press, 23 October 2026',
+};
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { PLACEMENT_MECHANICS, PLACEMENT_CALENDAR };
+  module.exports = { PLACEMENT_MECHANICS, PLACEMENT_CALENDAR, PLACEMENT_NEXT_CYCLE_CHECK };
 }

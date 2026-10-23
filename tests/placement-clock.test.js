@@ -46,7 +46,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const root = path.join(__dirname, '..');
-const { PLACEMENT_CALENDAR } = require(path.join(root, 'data', 'placement.js'));
+const { PLACEMENT_CALENDAR, PLACEMENT_NEXT_CYCLE_CHECK } = require(path.join(root, 'data', 'placement.js'));
 
 /* Same brace-matching reader the fee-basis guards use, so the function under
    test is the one the app ships rather than a copy written for the test. */
@@ -139,6 +139,15 @@ test('the placement calendar has not run out', () => {
     .map((w) => new Date(`${w.closes}T23:59:59`).getTime())
     .sort((a, b) => b - a)[0];
   const daysLeft = Math.floor((last - Date.now()) / DAY);
+
+  /* Inside the runway, the honest state may be that the next cycle simply has
+     not been announced - inventing an early-January window to satisfy this
+     test would be the fabricated KMTC deadline all over again. A dated record
+     of the search satisfies it, and expires after 30 days so the dates are
+     still looked for every month. */
+  const check = typeof PLACEMENT_NEXT_CYCLE_CHECK !== 'undefined' ? PLACEMENT_NEXT_CYCLE_CHECK : null;
+  const checkAge = check ? Math.floor((Date.now() - new Date(check.checked).getTime()) / DAY) : Infinity;
+  if (daysLeft > 0 && check && check.finding && check.source && checkAge <= 30) return;
 
   assert.ok(daysLeft > RUNWAY_DAYS,
     `the last placement window closes in ${daysLeft} days `

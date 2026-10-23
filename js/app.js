@@ -1133,16 +1133,6 @@ function renderHomePage() {
         </section>`;
       })() : ''}
 
-      <section class="landing-dark landing-block-tight">
-        <div class="landing-stats-grid">
-          ${LANDING_EVIDENCE.map((s) => `
-            <div>
-              <div class="landing-stat-num">${s.num}</div>
-              <div class="landing-stat-label">${escapeHtml(s.label)}</div>
-            </div>
-          `).join('')}
-        </div>
-      </section>
 
       <section class="landing-block" id="landing-evidence">
         <div class="landing-block-head">

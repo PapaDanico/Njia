@@ -27,7 +27,7 @@ incidents; this file records intent.
 | Practice | Where | Njia today |
 |---|---|---|
 | Separate tokens for colour as **fill** and colour as **type**, each pairing measured against every ground it sits on | UsalamaSMS `docs/04-BRAND.md` | Partly: `--accent` and `--accent-ink` follow this; not done everywhere |
-| A script that **fails the build** when a brand pairing drops below contrast | UsalamaSMS `scripts/check-brand.mjs` | No equivalent yet |
+| A script that **fails the build** when a brand pairing drops below contrast | UsalamaSMS `scripts/check-brand.mjs` | Yes, already: `tests/contrast.test.js` checks every ink token on every text surface in both schemes, and every dimmed `opacity` rule |
 | **One temperature**: no cool greys or cool accents in a warm system | Ratiba `brand-tokens.md` | Fixed in this pass: a stray purple-to-pink avatar gradient was the one cool hue |
 | **Lining, tabular figures** wherever numbers are compared | Ratiba (`lining-nums`, `.tnum`) | Yes: county tables and figures use `tabular-nums`, landing figures use mono |
 | **A type floor**, so no size is picked component by component | Njia (`--fs-xs` = 12px, guarded) | Ahead of the portfolio: two siblings define a 10px `--fs-3xs` |
@@ -58,14 +58,15 @@ incidents; this file records intent.
    that forbids third-party connections. Fewer bytes and the privacy promise
    both depend on it.
 8. **Every rule has a gate.** A principle with no test drifts; see CLAUDE.md on
-   guarded and unguarded questions. The type floor and the security headers
-   have gates. Contrast pairs do not yet.
+   guarded and unguarded questions. The type floor, the security headers and
+   the contrast pairs have gates.
 
 ## Next steps, in order
 
-1. Port UsalamaSMS's brand gate as `tests/contrast.test.js`: list every text
-   and ground token pair used, compute WCAG contrast, fail under 4.5:1 (3:1 for
-   large display type).
+1. ~~Contrast gate~~ - it already existed: `tests/contrast.test.js` predates
+   this benchmark and is stricter than UsalamaSMS's script. The first draft of
+   this file said otherwise because nobody had looked; check the repo before
+   writing a gap down.
 2. Audit small-link touch targets against 48px on the generated pages.
 3. Write this file's principles into the sibling products' own CLAUDE.md, so
    the portfolio converges rather than each product rediscovering them.

@@ -6662,3 +6662,12 @@ diploma in one and craft or artisan in the other - so the level, which decides
 the entry bar and the grade page, is unconfirmed. Kibabii TTI, Cardinal Otunga
 and Sirisia returned departments and no award list. Work down the article's
 county lists; search each college's own domain first.
+
+**Two more from the list, both one source deep.** Sirisia TVC (Bungoma,
+`TVETA/PUBLIC/TVC/0033/2021`) and Kibabii TTI return only pages from a single
+aggregator, educationnewshub.co.ke, and its several pages on each college list
+different programmes. Several pages on one site are one source, not
+corroboration. Neither college's own domain surfaces in search. Both stay leads,
+and what is missing is a programme listing on the college's own site. Kibabii
+also collides with Kibabii VTC (NITA trade tests) and Kibabii TTC (teacher
+training) in every result set.

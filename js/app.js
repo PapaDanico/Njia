@@ -941,6 +941,7 @@ function renderEconomySection() {
           <span class="landing-eyebrow">THE ECONOMY YOU'RE CHOOSING INTO</span>
           <h2 class="landing-h2">A course is a position in an economy. <span class="hl-gold">Here is the economy.</span></h2>
           <p class="landing-h2-sub">Kenya grew ${ECONOMY.gdpGrowth}% in ${ECONOMY.year}, down from ${ECONOMY.prevGdpGrowth}% the year before. Sector growth is measured against that — and set beside how many training routes Njia actually lists, because the second number is about us, not about the country.</p>
+          <p class="landing-h2-sub econ-latest"><strong>Since then:</strong> ${ECONOMY.latestQuarter.period} growth <strong class="num">${ECONOMY.latestQuarter.gdpGrowth}%</strong>, led by ${ECONOMY.latestQuarter.leaders[0].label} (${ECONOMY.latestQuarter.leaders[0].growth}%). Inflation <strong class="num">${ECONOMY.inflation.rate}%</strong> to ${ECONOMY.inflation.month} (food ${ECONOMY.inflation.food}%, transport ${ECONOMY.inflation.transport}%): last year's fees buy less. <span class="econ-src">KNBS quarterly GDP and CPI, cross-reported.</span></p>
         </div>
 
         <div class="econ-figures">

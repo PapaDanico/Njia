@@ -6671,3 +6671,40 @@ corroboration. Neither college's own domain surfaces in search. Both stay leads,
 and what is missing is a programme listing on the college's own site. Kibabii
 also collides with Kibabii VTC (NITA trade tests) and Kibabii TTC (teacher
 training) in every result set.
+
+## KNBS, read again in October 2026
+
+The economy section quoted only the Economic Survey 2026, which reports calendar
+2025. Two newer KNBS releases are now beside it, dated and sourced in
+`ECONOMY.latestQuarter` and `ECONOMY.inflation` in `data/sectors.js`:
+
+- **Q1 2026 GDP, 5.3%** against 4.9% a year earlier. Accommodation and food
+  service led at 14.7%, then mining at 9.1% and construction at 6.6%.
+  Agriculture grew 4.9%. Three outlets agree on every figure. Q2 2026 was not
+  yet published on 23 October.
+- **August 2026 inflation, 6.6%**, with food at 9.0% and transport at 15.7%.
+  One outlet gives 15.6% for transport; the higher figure is kept, because
+  over-stating a cost leaves a reader prepared. No September release surfaced.
+
+**A quarterly rate is not the annual one.** The sector table still reads 2025
+against 4.6%, because a Q1 figure set against an annual baseline would compare
+unlike things. The note says it is one quarter against the same quarter.
+
+**Refused: TVET enrolment.** The 2026/27 Budget Statement gives 825,484
+trainees in 2025. A Kenya Times report gives 1,201,320 as of May 2026, against
+about 350,000 in 2022, while the Budget Statement gives 562,499 for 2022. Two
+different 2022 baselines mean the two are counting different things. Neither
+is written.
+
+**A lead, not yet a figure: the KNBS TVET census.** It ran from 20 May to
+about 28 June 2026 in all 47 counties, KNBS's first census of TVET
+institutions, covering institutions, enrolment, staff and infrastructure. When
+it publishes, it is the denominator the public-TVC register has never had,
+the counterpart of CUE's for universities. Search for its results by name.
+
+**KNBS, re-read 23 October 2026.** Q1 2026 GDP 5.3% and August 2026 inflation
+6.6% are in `ECONOMY` (`data/sectors.js`), each with its sources; Q2 GDP was not
+yet out. TVET enrolment was refused: the Budget Statement (825,484 in 2025) and
+Kenya Times (1,201,320 in May 2026) start from different 2022 baselines. The
+KNBS TVET census (May–June 2026) will be the public-TVC denominator once
+published.

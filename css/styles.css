@@ -2444,7 +2444,9 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * NOT publish, and why.
  */
 .prov-block { width: 100%; }
-.prov-lede { margin: 0 0 .6rem; }
+.prov-lede { margin: 0; cursor: pointer; }
+details.prov-block[open] > .prov-lede { margin-bottom: .6rem; }
+.prov-more { text-decoration: underline; white-space: nowrap; }
 .prov-table { width: 100%; border-collapse: collapse; margin: 0 0 .6rem; }
 .prov-table th, .prov-table td { text-align: left; vertical-align: baseline;
   padding: .3rem .5rem .3rem 0; border-bottom: 1px solid var(--border); }

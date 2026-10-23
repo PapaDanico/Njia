@@ -318,9 +318,15 @@ function renderDecidePage() {
                above the words "Not published". The three states are now named
                separately, because a learner about to commit two hundred
                thousand shillings should be told which one they are reading. -->
-          <div class="prov-block">
-            <p class="prov-lede"><strong>Where each fee comes from — all ${totalCount} of them.</strong>
-              Every course in the catalogue falls into exactly one of these five, and a test fails
+          <!-- Collapsed by default: this used to fill the whole first screen of
+               Decide, so a learner who came for courses saw a methodology table
+               and no course. The summary still states the claim that matters;
+               the breakdown is one tap away and stays in the DOM. -->
+          <details class="prov-block">
+            <summary class="prov-lede"><strong>Where each fee comes from — all ${totalCount} of them.</strong>
+              ${publishedCount + derivedCount} carry a published or worked-out fee; ${unpublishedCount} have none
+              published. <span class="prov-more">See the breakdown</span></summary>
+            <p class="text-sm mt-1 mb-1">Every course in the catalogue falls into exactly one of these five, and a test fails
               the build if they ever stop adding up.</p>
             <table class="prov-table">
               <caption class="visually-hidden">How the fee on each of the ${totalCount} courses was arrived at</caption>
@@ -347,7 +353,7 @@ function renderDecidePage() {
               ${FUNDING_SOURCES.length} funding sources have had their terms checked against a named
               public source. Confirm the fee with the institution before you decide — always, but
               especially on the three middle rows.</p>
-          </div>
+          </details>
         </div>
         <div class="data-disclaimer data-disclaimer-open">
           <!-- Placed here rather than in the evidence layer on purpose: this is

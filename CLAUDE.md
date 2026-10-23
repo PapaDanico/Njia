@@ -6708,3 +6708,22 @@ yet out. TVET enrolment was refused: the Budget Statement (825,484 in 2025) and
 Kenya Times (1,201,320 in May 2026) start from different 2022 baselines. The
 KNBS TVET census (May–June 2026) will be the public-TVC denominator once
 published.
+
+**KMTC thin campuses, worked 23 October: seven campuses, eighteen records.**
+Nyeri +5, Eldoret +3, Kitui +3, Kilifi +2, Murang'a +2, Narok +2, Chuka +1.
+Each record is the overlap between a background-and-programmes listing and a
+second search that blocked `educationnewshub.co.ke`. That site publishes many
+pages per campus, and they count as one source. Narok rests on KUCCPS's own
+placement listings, and Chuka on KMTC's own site.
+- **The national-price guard caught a real omission.** Clinical Medicine
+  carries KMTC's published Ksh 2,750 Year 1 skills-lab fee (238,200 +
+  2,750 = 240,950), and the first insert left it out. Copy the fee from an
+  existing record of the same award, never from the schedule alone.
+- **Left out on purpose:** the Higher Diploma in Anaesthesia at Eldoret
+  (post-basic); Chuka's orthopaedic certificate (the two sources name
+  different awards); Murang'a's Diploma in Pharmacy (current in one source,
+  planned in another).
+- **Leads with the blocker named:** Kitale (Clinical Medicine and Nursing
+  diplomas) and Bomet (Clinical Medicine, and a Medical Engineering
+  certificate) each rest on one aggregator. One unseeded second listing
+  closes each.

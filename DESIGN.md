@@ -72,6 +72,19 @@ display sizes are fluid (`--text-*-fluid` via `clamp()`), because a fixed
 phone headline shown on a desktop is most of why a page reads as a
 utility.
 
+## Premium layer
+
+A finishing layer at the end of `css/styles.css` (before the dark-scheme
+block) gives the editorial system an international-publication finish
+without adding a face or a byte to the critical path: a lit hero (two soft
+light sources over a vertical settle, not a flat slab), one hairline
+language on dark grounds, lifted cards (shadow rather than outline), tracked
+buttons with a quiet gradient, gold-rule eyebrows, and more air between
+landing sections on wide screens. All values are tokens declared at the top of
+the layer (`--glow-*`, `--lift-card*`, `--hairline-on-dark`, `--ease-premium`).
+Copy stays English-only. Opacity on text is banned by the contrast guard, so
+the hero mark is sized down rather than dimmed.
+
 ## Light and dark
 
 Both schemes are first-class. The dark scheme is "warm ink" — the same

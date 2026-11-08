@@ -3167,6 +3167,83 @@ p, li { text-wrap: pretty; }
  * other two parts (.landing-hero-logo, .landing-footer .logo-mark) are
  * unconditional already, and mirroring those would have been a no-op at best.
  */
+/* ---------- Premium layer ----------
+ * An international-publication finish over the existing editorial system:
+ * depth where there was a flat slab, a single hairline language, calmer
+ * rhythm and a stronger display voice. Everything here references tokens
+ * and sits after the base rules, because a later rule is what wins.
+ * English-only copy; no new faces, so the critical path does not grow. */
+:root {
+  --ease-premium: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --glow-gold: rgba(200, 134, 10, 0.20);
+  --glow-terracotta: rgba(139, 37, 0, 0.32);
+  --hairline-on-dark: rgba(245, 233, 212, 0.14);
+  --lift-card: 0 1px 0 rgba(61, 28, 2, 0.04), 0 14px 32px -18px rgba(61, 28, 2, 0.28);
+  --lift-card-hover: 0 1px 0 rgba(61, 28, 2, 0.05), 0 22px 40px -18px rgba(61, 28, 2, 0.34);
+  --landing-dark-deep: #2A1200;
+}
+
+/* Hero: depth, not a slab. Two soft light sources and a vertical settle. */
+.landing-hero {
+  background:
+    radial-gradient(52rem 26rem at 82% -8%, var(--glow-gold), transparent 62%),
+    radial-gradient(40rem 30rem at -8% 108%, var(--glow-terracotta), transparent 60%),
+    linear-gradient(180deg, var(--landing-dark) 0%, var(--landing-dark-deep) 100%);
+  border-bottom: 1px solid var(--hairline-on-dark);
+}
+.landing-h1 { text-wrap: balance; letter-spacing: -0.025em; line-height: 1.08; }
+.landing-h2, .page-header h1, .page h1 { text-wrap: balance; }
+.landing-hero .landing-sub { max-width: 54ch; }
+
+/* The mark already sits in the header; repeated large above the headline it
+ * competes with the one thing the eye should land on. */
+.landing-hero .landing-hero-logo { width: 28px; height: auto; }
+
+/* One hairline language for chips and panels on dark grounds. */
+.landing-hero .status-pill { border-color: var(--hairline-on-dark); letter-spacing: 0.01em; }
+.landing-clock-card {
+  border-color: var(--hairline-on-dark);
+  background: linear-gradient(180deg, rgba(245, 233, 212, 0.09), rgba(245, 233, 212, 0.03));
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(245, 233, 212, 0.10);
+}
+
+/* Eyebrows: a short gold rule is the only ornament they need. */
+.landing-eyebrow::before,
+.landing-hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 1.5rem; height: 2px;
+  margin-right: 0.65rem;
+  vertical-align: middle;
+  background: var(--accent);
+}
+
+/* Surfaces: lifted by shadow rather than boxed by outline. */
+.card, .course-card {
+  box-shadow: var(--lift-card);
+  transition: box-shadow 0.25s var(--ease-premium), transform 0.25s var(--ease-premium), border-color 0.25s var(--ease-premium);
+}
+@media (hover: hover) {
+  .course-card:hover { box-shadow: var(--lift-card-hover); transform: translateY(-2px); border-color: var(--border-light); }
+}
+
+/* Buttons: a quiet gradient and tracked label read as finished hardware. */
+.btn { letter-spacing: 0.01em; }
+.btn-primary {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(0, 0, 0, 0.06));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), inset 0 -1px 0 rgba(0, 0, 0, 0.22), 0 8px 18px -10px var(--primary);
+}
+
+/* Header: a single hairline and a firmer veil. */
+.app-header { box-shadow: 0 1px 0 rgba(61, 28, 2, 0.04); }
+
+/* Rhythm: more air between landing sections on wide screens. */
+@media (min-width: 64rem) {
+  .landing-block { padding-top: clamp(3rem, 4.5vw, 4.5rem); padding-bottom: clamp(3rem, 4.5vw, 4.5rem); }
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     /* The brand sheet's dark variant grounds everything on Earth Brown, so

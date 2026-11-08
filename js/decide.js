@@ -1180,7 +1180,7 @@ function renderCourseCard(course, match) {
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
-      <p class="text-muted text-sm mb-1">Intakes (confirm with the institution): ${course.intake_months.map(escapeHtml).join(', ')}</p>
+      <p class="text-muted text-sm mb-1">${course.intake_months.length ? `Intakes (confirm with the institution): ${course.intake_months.map(escapeHtml).join(', ')}` : 'Intakes: not published, so ask the institution'}</p>
       ${(() => {
         const rate = tierBenchmark(course, inst);
         if (!rate) return '';

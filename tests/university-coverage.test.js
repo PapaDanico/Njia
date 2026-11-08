@@ -216,8 +216,16 @@ test('listed universities are not left as single-course stubs', () => {
  * guard is aimed at. */
 test('the thin tail of shallow universities only shrinks', () => {
   const count = (id) => COURSES.filter((c) => c.institution_id === id).length;
+  /* NAMED EXEMPTIONS, each with its reason. A university whose own site lists
+     fewer than five undergraduate awards cannot honestly carry five records, and
+     padding it would be the placeholder trap. ILU (Nairobi) lists exactly three
+     bachelor's degrees on its academics page; its certificates and diplomas
+     publish no entry bar reachable from here, and recording them with none would
+     read as open entry, which quotes a grade low. Remove the exemption when an
+     entry bar is found for them. */
+  const THIN_EXEMPT = new Set(['ilu']);
   const thin = INSTITUTIONS
-    .filter((i) => i.type === 'university' && count(i.id) < 5)
+    .filter((i) => i.type === 'university' && !THIN_EXEMPT.has(i.id) && count(i.id) < 5)
     .map((i) => `${i.name} (${count(i.id)})`);
 
   /* Ratchet. Lower it when you deepen one; never raise it. It was 28 when the

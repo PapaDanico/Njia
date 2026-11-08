@@ -10,15 +10,15 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 1391,
-  "distinctProgrammes": 721,
+  "courses": 1392,
+  "distinctProgrammes": 722,
   "institutions": 217,
   "counties": 47,
   "published": 14,
   "derived": 327,
-  "withNote": 1391,
-  "feeAbsent": 944,
-  "feeAbsentStated": 944,
+  "withNote": 1392,
+  "feeAbsent": 945,
+  "feeAbsentStated": 945,
   "sectorRoutes": {
     "aviation": 21,
     "maritime": 7,
@@ -32,7 +32,7 @@ const LANDING_STATS = {
     "transport": 3,
     "agriculture": 149,
     "engineering": 126,
-    "health": 333,
+    "health": 334,
     "education": 91,
     "creative": 44,
     "energy": 9,
@@ -130,7 +130,7 @@ const LANDING_STATS = {
     },
     {
       "name": "KeNHA TVET Scholarships — Mombasa–Mariakani highway communities",
-      "application_deadline": "Issued as a periodic call for applications rather than on a fixed annual date — calls were published in 2022, 2023 and 2025, so watch the scholarships page"
+      "application_deadline": "Issued as a periodic call for applications rather than on a fixed annual date — calls were published in 2022, 2023, 2025 and 2026 (the 2026 call closed on 23 July 2026), so watch the scholarships page"
     },
     {
       "name": "KPC Foundation — INUKA and INUKA Plus (learners with disabilities)",
@@ -138,7 +138,7 @@ const LANDING_STATS = {
     },
     {
       "name": "M-PESA Foundation and University of Embu TVET Scholarships",
-      "application_deadline": "Cohort-based. The first cohort closed on 7 October 2024; no later cohort date is published in any source reachable from this build, so confirm with the University of Embu TVET Institute."
+      "application_deadline": "Cohort-based. The first cohort closed on 7 October 2024 and a second-cohort call closed on 12 June 2026 (programmes starting July 2026). No third-cohort date is published in any source reachable from this build, so confirm with the University of Embu TVET Institute."
     },
     {
       "name": "KCB Foundation 2Jiajiri — sponsored vocational training for out-of-school youth",

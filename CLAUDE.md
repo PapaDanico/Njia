@@ -6727,3 +6727,24 @@ placement listings, and Chuka on KMTC's own site.
   diplomas) and Bomet (Clinical Medicine, and a Medical Engineering
   certificate) each rest on one aggregator. One unseeded second listing
   closes each.
+
+**ILU and a stale-funding re-read, 8 November 2026.** International Leadership
+University (Nairobi) is listed with the three bachelor's degrees its own site
+(`kenya.ilu.edu`; `ilu.ac.ke` did not surface in search) names. Its diplomas and
+certificates (Theology, Children's Ministry) exist but publish no reachable entry
+bar, so they are a lead: recording them would read as open entry. Its charter
+(reported 5 November 2026) rests on one outlet, so the record says interim
+authority and flags the report. `THIN_EXEMPT` in `tests/university-coverage.test.js`
+names ILU with its reason; remove it when ILU reaches five records.
+- **Two funding records had gone stale, which is the stale-absence rule again.**
+  The Embu M-PESA record said no second cohort existed; the university's own May
+  2026 call shows one that closed 12 June 2026. The KeNHA record listed calls
+  through 2025; a 2026 call closed 23 July 2026. Neither is an open window.
+- **KMTC Nairobi, Speech and Language Therapy** is listed on KUCCPS's own
+  programme listing. Mean grade C is agreed; subject grades differ between sources
+  and the note says so. Length is published nowhere reachable, so duration and fee
+  are empty. Leads, each with its blocker: Dental Technology at Nairobi (KMTC says
+  "selected campuses"; one listing places it at Nairobi), Mortuary Science
+  (C- and two years against an older three), Audiology and Hearing Care
+  Technology (24 months at Nairobi, no bar found). The Equity Group Foundation TVET
+  "Phase V" form is a PDF title with no second source, so it is not a record.

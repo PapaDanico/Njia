@@ -322,7 +322,7 @@ const FUNDING_SOURCES = [
     max_amount_kes: null,
     eligibility: 'Unemployed young person aged 18 to 35 living in a community abutting the Mombasa–Mariakani highway project, in Kwale, Mombasa or Kilifi County; minimum qualification a KCPE certificate; able to read and write. No KCSE mean grade is published as a requirement.',
     min_grade: null,
-    application_deadline: 'Issued as a periodic call for applications rather than on a fixed annual date — calls were published in 2022, 2023 and 2025, so watch the scholarships page',
+    application_deadline: 'Issued as a periodic call for applications rather than on a fixed annual date — calls were published in 2022, 2023, 2025 and 2026 (the 2026 call closed on 23 July 2026), so watch the scholarships page',
     website: 'https://kenha.co.ke/document-category/scholarships/',
     application_url: 'https://kenha.co.ke/document-category/scholarships/',
     requirements: [
@@ -361,12 +361,12 @@ const FUNDING_SOURCES = [
     id: 'f028',
     name: 'M-PESA Foundation and University of Embu TVET Scholarships',
     type: 'scholarship',
-    description: 'Asks for no KCSE mean grade at all: a KCSE or KCPE certificate qualifies, and so can prior learning from work in the formal or informal sector. The scholarships cover all programme fees and pay a monthly stipend for accommodation and upkeep, for craft certificates, diplomas and other qualifications at the University of Embu TVET Institute. Courses named in the call are cosmetology, building and construction, mobile and electronic repairs, repair of two- and three-wheeled vehicles, electrical installation and maintenance, advanced welding, culinary arts and information technology. The programme was launched in September 2024 for 1,300 young people; the call that opened it was for a first cohort, so ask whether a later cohort is open before planning on it.',
+    description: 'Asks for no KCSE mean grade at all: a KCSE or KCPE certificate qualifies, and so can prior learning from work in the formal or informal sector. The scholarships cover all programme fees and pay a monthly stipend for accommodation and upkeep, for craft certificates, diplomas and other qualifications at the University of Embu TVET Institute. Courses named in the call are cosmetology, building and construction, mobile and electronic repairs, repair of two- and three-wheeled vehicles, electrical installation and maintenance, advanced welding, culinary arts and information technology. The programme was launched in September 2024 for 1,300 young people; the call that opened it was for a first cohort, a second-cohort call followed in May 2026 and closed on 12 June 2026, so cohorts do recur; ask the University of Embu TVET Institute when the next one opens before planning on it.',
     coverage: 'All programme fees, plus a monthly stipend for accommodation and upkeep',
     max_amount_kes: null,
     eligibility: 'Aged 15 to 30. A KCSE or KCPE certificate, or recognised prior learning from the formal or informal sector. No KCSE mean grade is published as a requirement.',
     min_grade: null,
-    application_deadline: 'Cohort-based. The first cohort closed on 7 October 2024; no later cohort date is published in any source reachable from this build, so confirm with the University of Embu TVET Institute.',
+    application_deadline: 'Cohort-based. The first cohort closed on 7 October 2024 and a second-cohort call closed on 12 June 2026 (programmes starting July 2026). No third-cohort date is published in any source reachable from this build, so confirm with the University of Embu TVET Institute.',
     website: 'https://uoemtvet.embuni.ac.ke/',
     application_url: 'https://embuni.ac.ke/call-for-1st-cohort-university-of-embu-tvet-scholarships/',
     requirements: [
@@ -377,7 +377,7 @@ const FUNDING_SOURCES = [
     interest_rate: null,
     repayment_period: null,
     data_confidence: 'verified',
-    verification_note: 'The partnership, the 1,300 places, the 15-to-30 age range, entry on a KCSE or KCPE certificate or on prior learning, full fees plus a monthly accommodation and upkeep stipend, the named courses and the application routes are published by the University of Embu on its own domain and in the M-PESA Foundation and Safaricom press releases of 9 September 2024. Sources describe the beneficiaries as drawn from all 47 counties while also saying paper forms were distributed through Safaricom shops in 10 target counties; both are recorded because they are not the same claim, and a reader outside those ten should apply online. No amount is recorded because none is published. No open date is recorded: the only published window closed in October 2024.'
+    verification_note: 'The partnership, the 1,300 places, the 15-to-30 age range, entry on a KCSE or KCPE certificate or on prior learning, full fees plus a monthly accommodation and upkeep stipend, the named courses and the application routes are published by the University of Embu on its own domain and in the M-PESA Foundation and Safaricom press releases of 9 September 2024. Sources describe the beneficiaries as drawn from all 47 counties while also saying paper forms were distributed through Safaricom shops in 10 target counties; both are recorded because they are not the same claim, and a reader outside those ten should apply online. No amount is recorded because none is published. No open date is recorded: the two published windows closed in October 2024 and on 12 June 2026, the second per the May 2026 call published by the University of Embu and application form.'
   },
   {
     id: 'f029',

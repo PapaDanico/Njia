@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1391,
+  "course_count": 1392,
   "institution_count": 217,
   "county_count": 47,
   "column_notes": {
@@ -13920,6 +13920,22 @@
       "tuition_kes": 238200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation and meals are extra, and some programmes add a published Year 1 skills-lab fee. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Named on this campus's own list, not inferred from KMTC's national one. This record rests on the Nairobi campus itself: it is KMTC headquarters, operational since 1927 on 20 acres opposite Kenyatta National Hospital, and holds more than 8,000 students — the largest campus in the college. Two independent searches name this programme at Nairobi, one as a named award and one as the professional group the campus trains, and only programmes appearing in both were recorded. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster-subject requirements on top; confirm the current subject grades with the campus."
+    },
+    {
+      "course_id": "c1418",
+      "course_name": "Diploma in Speech and Language Therapy",
+      "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
+      "institution_id": "kmtc",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "KUCCPS lists the Diploma in Speech and Language Therapy at the KMTC Nairobi Campus under its own programme code, and a KMTC pre-service intake document and a second listing both name it. The mean grade is C plain in every source; the subject grades differ between them (C- in one, C in another, for English or Kiswahili and Biology), so confirm the subject grades on the KUCCPS portal. KMTC does not publish a programme length for this award in any source reachable from here, and without a length the national KMTC schedule cannot be scaled to a total, so no fee is shown and the fee could not be verified. One listing shows Ksh 82,200 for a Nairobi entry without saying whether it is a year or a total; ask admissions which. Intake months are not published for this programme either. Njia lists only awards a learner can enter after KCSE; any higher diploma in this field is a post-basic route and is not recorded."
     },
     {
       "course_id": "c367",

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "scope": "R8 pilot — claims remain unverified pending direct regulator review",
+  "claims": [
+    {
+      "institution_id": "ilu",
+      "campus_id": null,
+      "course_id": null,
+      "claim_type": "institution_legal_status",
+      "claim_scope": "Kenya institution status as of November 2026",
+      "status": "unverified",
+      "observed_claim": null,
+      "source": null,
+      "reviewer_note": "Catalogue describes historical interim authority and a reported charter. Current regulator confirmation not yet obtained. Do not display as verified."
+    }
+  ]
+}

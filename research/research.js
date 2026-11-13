@@ -41,10 +41,15 @@
   if(totals.linked_offerings>totals.catalogue_offerings||!fees.by_basis)return false;
   for(const key of feeClasses)if(!nonnegative(fees.by_basis[key]))return false;
   if(Object.values(fees.by_basis).reduce((sum,v)=>sum+v,0)>totals.catalogue_offerings)return false;
-  if(typeof d.by_county!=='object'||Array.isArray(d.by_county))return false;
-  for(const entry of Object.values(d.by_county)){
+  if(!d.by_county||typeof d.by_county!=='object'||Array.isArray(d.by_county))return false;
+  let countyOfferings=0,representedCounties=0;
+  for(const [county,entry] of Object.entries(d.by_county)){
    if(!entry||!nonnegative(entry.offerings)||!nonnegative(entry.institutions)||entry.institutions>entry.offerings)return false;
+   countyOfferings+=entry.offerings;
+   if(county!=='Unspecified'&&entry.offerings>0)representedCounties++;
   }
+  if(countyOfferings!==totals.linked_offerings||representedCounties!==totals.counties_with_offerings)return false;
+  if(Object.values(fees.by_basis).reduce((sum,v)=>sum+v,0)>totals.linked_offerings)return false;
   return true;
  }
  async function load(){

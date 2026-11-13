@@ -288,6 +288,7 @@ available in the county" — the difference is the whole point.
 - [County provision analysis](${SITE}/analysis/): which counties are closed to a low-grade learner, and why.
 - [Education and career pathways](${SITE}/pathways/): the KCSE and CBE routes, what is reported about senior school pathways and university placement from 2029, and the qualification ladder in the catalogue.
 - [Careers by direction](${SITE}/careers/): the roles the most courses lead to in each of seven directions, with levels and how many are open to an E.
+- [Official sources](${SITE}/research/sources/): the primary Kenyan bodies Njia points to for placement, accreditation and funding, and the limits of what each establishes.
 - [Counsellor kit](${SITE}/counsellors/): a 50-minute class session plan for career teachers, a learner worksheet, and the questions to ask an institution before applying.
 - [Methodology](${SITE}/methodology/): where a fee, entry grade or date comes from, the five fee groups with counts, how the questionnaire counts, and what no figure claims.
 - [Catalogue evidence](${SITE}/research/): which figures are published, derived or unavailable, and how counties are represented.

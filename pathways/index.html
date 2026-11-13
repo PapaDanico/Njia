@@ -182,6 +182,14 @@
   .ladder th, .ladder td { text-align: left; padding: .55rem .75rem .55rem 0; border-bottom: 1px solid var(--border); }
   .ladder td.num, .ladder th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .src { font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
+  .exhibit { margin: var(--space-6, 1.5rem) 0; border-top: 2px solid var(--primary); padding-top: .6rem; }
+  .exhibit-label { margin: 0; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary-dark); }
+  .exhibit-title { margin: .15rem 0 .1rem; font-family: var(--serif); font-size: var(--text-lg-fluid, 1.25rem); line-height: 1.25; font-weight: 700; color: var(--text-primary); max-width: var(--prose-max); }
+  .exhibit-unit { margin: 0 0 .4rem; font-size: var(--fs-sm, .8125rem); color: var(--text-secondary); }
+  .exhibit caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .exhibit-src { margin: .3rem 0 0; font-size: var(--fs-xs); color: var(--text-muted); max-width: none; }
+  .page-foot { margin: var(--space-10, 2.5rem) 0 var(--space-4); border-top: 1px solid var(--border); padding-top: .75rem; font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
+  .page-foot p { margin: 0 0 .35rem; }
   .line { border-bottom: 1px solid var(--text-muted); height: 2.1rem; margin: 0; }
   .handout h3 { margin: var(--space-4) 0 .15rem; }
   @media print { .cta { display: none; } section { break-inside: avoid; } .handout { break-before: page; } }
@@ -229,6 +237,10 @@
 <section>
 <h2 id="ladder">The ladder in Njia's catalogue</h2>
 <p>Qualifications in Kenya sit on a ladder. The Kenya National Qualifications Framework has ten levels, from basic education at Level 1 to the doctorate at Level 10, aligned to the East African Community framework and regulated by the Kenya National Qualifications Authority under the KNQF Act (<a href="https://www.knqa.go.ke/?p=549">KNQA</a>). Technical and vocational colleges are described as awarding qualifications at roughly Levels 3 to 6. Njia does not publish a level-by-level table because the descriptor table could not be read from here; the KNQA classification standard has it.</p>
+<figure class="exhibit" style="margin-inline:0">
+<p class="exhibit-label">Exhibit 1</p>
+<p class="exhibit-title">1,392 places across 5 levels, 154 of them open to an E</p>
+<p class="exhibit-unit">Places to apply (one course at one institution), by level of qualification</p>
 <div class="wrap" tabindex="0" role="region" aria-label="Qualification ladder in Njia's catalogue">
 <table class="ladder">
 <caption>Places to apply in Njia's catalogue, by level of qualification</caption>
@@ -277,6 +289,8 @@
 </tbody>
 </table>
 </div>
+<p class="exhibit-src">Source: Njia catalogue, 13 November 2026.</p>
+</figure>
 <p class="src">A place is one course at one institution. Counted from Njia's catalogue on 13 November 2026. A low count describes what Njia has listed, not what exists, and a fee figure may be published by the institution or derived from a published rate; <a href="/open-data/">the open data</a> says which for every course.</p>
 </section>
 
@@ -287,6 +301,10 @@
 <p>For help choosing between routes, the <a href="/diagnostic/">diagnostic page</a> explains what Njia's questionnaire can and cannot tell you, the <a href="/careers/">careers page</a> lists the roles courses lead to, and the <a href="/help/">questions and answers</a> cover grades, fees and funding.</p>
 </section>
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
+<footer class="page-foot">
+<p>Figures are counted from the Njia catalogue on 13 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
+<p><a href="/methodology/">Methodology</a> &middot; <a href="/research/sources/">Official sources</a> &middot; <a href="/open-data/">Open data</a> &middot; <a href="/privacy/">Privacy</a></p>
+</footer>
 </main>
 </body>
 </html>

@@ -40,6 +40,10 @@ test('research page figures are recomputed from the catalogue', async () => {
     const row = new RegExp(`>${basis[0].toUpperCase() + basis.slice(1)}</th><td class="num">${n(count)}<`);
     assert.match(html, row, `fee group ${basis} should read ${n(count)}`);
   }
+  assert.ok(text.includes(`${n(R.quality_flags.unavailable_fee)} of ${n(R.totals.linked_offerings)} listings show no fee figure; ${n(R.fees.by_basis.published + R.fees.by_basis.derived)} are published or derived`), 'the fee exhibit title does not match the data');
+  const top = Object.entries(R.by_county).sort((a, b) => b[1].offerings - a[1].offerings || a[0].localeCompare(b[0]))[0];
+  const thin = Object.values(R.by_county).filter((v) => v.offerings < 10).length;
+  assert.ok(text.includes(`${top[0]} holds ${n(top[1].offerings)} of ${n(R.totals.linked_offerings)} listings; ${thin} counties list fewer than 10`), 'the county exhibit title does not match the data');
   const rows = (html.match(/<tbody>[\s\S]*?<\/tbody>/g) || []).pop();
   assert.equal((rows.match(/<tr>/g) || []).length, Object.keys(R.by_county).length, 'one county row per represented county');
 });

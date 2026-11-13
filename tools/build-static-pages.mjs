@@ -1306,7 +1306,7 @@ fs.writeFileSync(path.join(DOCS_OUT, 'index.html'), docsIndexPage(
  * reported, and where sources disagree the page says so instead of picking. The
  * placement criteria for the first CBE cohort are not final, and the page says
  * that rather than guessing at them. */
-const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers'), methodology: path.join(root, 'methodology'), research: path.join(root, 'research'), counsellors: path.join(root, 'counsellors') };
+const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers'), methodology: path.join(root, 'methodology'), research: path.join(root, 'research'), counsellors: path.join(root, 'counsellors'), 'research/sources': path.join(root, 'research', 'sources') };
 
 const DIAG_CLUSTERS = (() => {
   const ctx = vm.createContext({});
@@ -1357,6 +1357,14 @@ function guidancePage({ dir, title, description, h1, detail, body }) {
   .ladder th, .ladder td { text-align: left; padding: .55rem .75rem .55rem 0; border-bottom: 1px solid var(--border); }
   .ladder td.num, .ladder th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .src { font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
+  .exhibit { margin: var(--space-6, 1.5rem) 0; border-top: 2px solid var(--primary); padding-top: .6rem; }
+  .exhibit-label { margin: 0; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary-dark); }
+  .exhibit-title { margin: .15rem 0 .1rem; font-family: var(--serif); font-size: var(--text-lg-fluid, 1.25rem); line-height: 1.25; font-weight: 700; color: var(--text-primary); max-width: var(--prose-max); }
+  .exhibit-unit { margin: 0 0 .4rem; font-size: var(--fs-sm, .8125rem); color: var(--text-secondary); }
+  .exhibit caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .exhibit-src { margin: .3rem 0 0; font-size: var(--fs-xs); color: var(--text-muted); max-width: none; }
+  .page-foot { margin: var(--space-10, 2.5rem) 0 var(--space-4); border-top: 1px solid var(--border); padding-top: .75rem; font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
+  .page-foot p { margin: 0 0 .35rem; }
   .line { border-bottom: 1px solid var(--text-muted); height: 2.1rem; margin: 0; }
   .handout h3 { margin: var(--space-4) 0 .15rem; }
   @media print { .cta { display: none; } section { break-inside: avoid; } .handout { break-before: page; } }
@@ -1369,10 +1377,27 @@ ${briefHead(h1, detail)}
 <h1>${esc(h1)}</h1>
 ${body}
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
+<footer class="page-foot">
+<p>Figures are counted from the Njia catalogue on ${esc(BUILD_DATE_LABEL)} and describe what Njia has listed, not everything that exists in Kenya.</p>
+<p><a href="/methodology/">Methodology</a> &middot; <a href="/research/sources/">Official sources</a> &middot; <a href="/open-data/">Open data</a> &middot; <a href="/privacy/">Privacy</a></p>
+</footer>
 </main>
 </body>
 </html>
 `;
+}
+
+/* An exhibit states a finding, then shows the evidence for it: label, an action
+ * title (computed from the data by the caller, never typed), the unit, the
+ * figure, and where it comes from. */
+function exhibit({ n, title, unit, source, inner }) {
+  return `<figure class="exhibit" style="margin-inline:0">
+<p class="exhibit-label">Exhibit ${n}</p>
+<p class="exhibit-title">${esc(title)}</p>
+<p class="exhibit-unit">${esc(unit)}</p>
+${inner}
+<p class="exhibit-src">Source: ${esc(source)}</p>
+</figure>`;
 }
 
 function pathwaysPage() {
@@ -1410,7 +1435,11 @@ function pathwaysPage() {
 <section>
 <h2 id="ladder">The ladder in Njia's catalogue</h2>
 <p>Qualifications in Kenya sit on a ladder. The Kenya National Qualifications Framework has ten levels, from basic education at Level 1 to the doctorate at Level 10, aligned to the East African Community framework and regulated by the Kenya National Qualifications Authority under the KNQF Act (<a href="https://www.knqa.go.ke/?p=549">KNQA</a>). Technical and vocational colleges are described as awarding qualifications at roughly Levels 3 to 6. Njia does not publish a level-by-level table because the descriptor table could not be read from here; the KNQA classification standard has it.</p>
-<div class="wrap" tabindex="0" role="region" aria-label="Qualification ladder in Njia's catalogue">
+${exhibit({ n: 1,
+  title: `${LADDER.reduce((a, r) => a + r.places, 0).toLocaleString('en-KE')} places across ${LADDER.filter((r) => r.places > 0).length} levels, ${LADDER.reduce((a, r) => a + r.openToE, 0).toLocaleString('en-KE')} of them open to an E`,
+  unit: 'Places to apply (one course at one institution), by level of qualification',
+  source: `Njia catalogue, ${BUILD_DATE_LABEL}.`,
+  inner: `<div class="wrap" tabindex="0" role="region" aria-label="Qualification ladder in Njia's catalogue">
 <table class="ladder">
 <caption>Places to apply in Njia's catalogue, by level of qualification</caption>
 <thead><tr><th scope="col">Level</th><th scope="col" class="num">Places</th><th scope="col" class="num">Institutions</th><th scope="col" class="num">Counties</th><th scope="col" class="num">Open to an E</th><th scope="col" class="num">With a fee figure</th></tr></thead>
@@ -1418,7 +1447,7 @@ function pathwaysPage() {
 ${rowsHtml}
 </tbody>
 </table>
-</div>
+</div>` })}
 <p class="src">A place is one course at one institution. Counted from Njia's catalogue on ${esc(BUILD_DATE_LABEL)}. A low count describes what Njia has listed, not what exists, and a fee figure may be published by the institution or derived from a published rate; <a href="/open-data/">the open data</a> says which for every course.</p>
 </section>
 
@@ -1762,7 +1791,11 @@ ${tile('Distinct programme names', R.totals.distinct_programme_names)}
 <section>
 <h2 id="fees">Fee provenance</h2>
 <p>Every listing falls into exactly one group. A missing fee does not mean free tuition.</p>
-<div class="wrap" tabindex="0" role="region" aria-label="Fee groups">
+${exhibit({ n: 1,
+  title: `${n(R.quality_flags.unavailable_fee)} of ${n(R.totals.linked_offerings)} listings show no fee figure; ${n(R.fees.by_basis.published + R.fees.by_basis.derived)} are published or derived`,
+  unit: 'Course listings, by where the fee figure comes from',
+  source: `Njia catalogue, ${BUILD_DATE_LABEL}. Group assigned by the app's own fee classifier.`,
+  inner: `<div class="wrap" tabindex="0" role="region" aria-label="Fee groups">
 <table class="ladder">
 <caption>Course listings by where the fee figure comes from</caption>
 <thead><tr><th scope="col">Group</th><th scope="col" class="num">Listings</th><th scope="col">What it means</th></tr></thead>
@@ -1770,7 +1803,7 @@ ${tile('Distinct programme names', R.totals.distinct_programme_names)}
 ${Object.keys(BASIS).map((k) => `<tr><th scope="row">${esc(k[0].toUpperCase() + k.slice(1))}</th><td class="num">${n(R.fees.by_basis[k])}</td><td>${esc(BASIS[k])}</td></tr>`).join('\n')}
 </tbody>
 </table>
-</div>
+</div>` })}
 <p>Where each group comes from is set out on the <a href="/methodology/">methodology page</a>.</p>
 </section>
 
@@ -1781,7 +1814,11 @@ ${Object.keys(BASIS).map((k) => `<tr><th scope="row">${esc(k[0].toUpperCase() + 
 
 <section>
 <h2 id="level">By level and ownership</h2>
-<div class="wrap" tabindex="0" role="region" aria-label="Listings by level">
+${(() => { const top = Object.entries(R.by_level).sort((a, b) => b[1] - a[1])[0]; return exhibit({ n: 2,
+  title: `${LEVELS[top[0]] || top[0]} is the largest level, with ${n(top[1])} of ${n(R.totals.linked_offerings)} listings`,
+  unit: 'Course listings, by level of qualification and by ownership',
+  source: `Njia catalogue, ${BUILD_DATE_LABEL}.`,
+  inner: `<div class="wrap" tabindex="0" role="region" aria-label="Listings by level">
 <table class="ladder">
 <caption>Course listings by level</caption>
 <thead><tr><th scope="col">Level</th><th scope="col" class="num">Listings</th></tr></thead>
@@ -1798,13 +1835,17 @@ ${Object.entries(R.by_level).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><t
 ${Object.entries(R.by_ownership).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><th scope="row">${esc(k[0].toUpperCase() + k.slice(1))}</th><td class="num">${n(v)}</td></tr>`).join('\n')}
 </tbody>
 </table>
-</div>
+</div>` }); })()}
 </section>
 
 <section>
 <h2 id="counties">County representation</h2>
 <p>Listings and institutions in each county within the catalogue. A low number describes what Njia has listed, not what the county offers; see the <a href="/analysis/">county analysis</a> for where provision is thin.</p>
-<div class="wrap" tabindex="0" role="region" aria-label="County coverage in Njia's catalogue">
+${exhibit({ n: 3,
+  title: `${counties[0][0]} holds ${n(counties[0][1].offerings)} of ${n(R.totals.linked_offerings)} listings; ${counties.filter(([, v]) => v.offerings < 10).length} counties list fewer than 10`,
+  unit: 'Course listings, institutions and counts of fee and entry evidence, by county',
+  source: `Njia catalogue, ${BUILD_DATE_LABEL}. A low count describes what Njia has listed, not what the county offers.`,
+  inner: `<div class="wrap" tabindex="0" role="region" aria-label="County coverage in Njia's catalogue">
 <table class="ladder">
 <caption>County coverage in Njia's catalogue</caption>
 <thead><tr><th scope="col">County</th><th scope="col" class="num">Listings</th><th scope="col" class="num">Institutions</th><th scope="col" class="num">Fee read from schedule</th><th scope="col" class="num">Open entry</th></tr></thead>
@@ -1812,7 +1853,7 @@ ${Object.entries(R.by_ownership).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<t
 ${counties.map(([k, v]) => `<tr><th scope="row">${esc(k)}</th><td class="num">${n(v.offerings)}</td><td class="num">${n(v.institutions)}</td><td class="num">${n(v.fee_published)}</td><td class="num">${n(v.open_entry)}</td></tr>`).join('\n')}
 </tbody>
 </table>
-</div>
+</div>` })}
 </section>
 
 <section>
@@ -1932,7 +1973,35 @@ ${gradeRows}
   });
 }
 
-for (const [dir, render] of [['counsellors', counsellorsPage], ['research', researchPage], ['methodology', methodologyPage], ['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
+/* ---- /research/sources/ ----------------------------------------------------
+ * The official-source register, generated from research/sources.json so the
+ * page and the register cannot disagree, with the shared shell (print header,
+ * dark scheme). The register's own wording is kept. */
+function sourcesPage() {
+  const reg = JSON.parse(fs.readFileSync(path.join(root, 'research', 'sources.json'), 'utf8'));
+  const items = reg.sources.map((x) => `
+<section>
+<h2 id="${esc(x.key)}">${esc(x.title)}</h2>
+<p class="src">${esc(x.publisher)} &middot; reviewed ${esc(x.accessed)}</p>
+<p>${esc(x.claim)}</p>
+<p><strong>How Njia should use this:</strong> ${esc(x.action)}</p>
+<p><a href="${esc(x.url)}" rel="noopener noreferrer">Read the official source</a></p>
+</section>`).join('\n');
+  const body = `
+<p class="lede">Kenyan education guidance changes by placement cycle. This register records the official sources and the precise limits of what Njia can infer. It is not a live admissions service, an accreditation certificate or an endorsement.</p>
+<p class="src">Research reviewed ${esc(reg.reviewed_on)}. The date on each entry is when it was written into the register. Njia has not confirmed from its build that every link is still live; if one fails, search the publisher by name. Confirm current programme details on the official websites before you act.</p>
+${items}`;
+  return guidancePage({
+    dir: 'research/sources',
+    title: 'Official sources: the Kenyan bodies Njia points to for placement, accreditation and funding',
+    description: 'The primary Kenyan education sources Njia relies on for placement, accreditation and funding guidance, with the limits of what each one establishes.',
+    h1: 'Official sources and how Njia uses them',
+    detail: 'Primary-source register &middot; for learners, funders and journalists',
+    body
+  });
+}
+
+for (const [dir, render] of [['research/sources', sourcesPage], ['counsellors', counsellorsPage], ['research', researchPage], ['methodology', methodologyPage], ['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
   fs.mkdirSync(GUIDANCE_OUT[dir], { recursive: true });
   fs.writeFileSync(path.join(GUIDANCE_OUT[dir], 'index.html'), render());
 }
@@ -1965,6 +2034,7 @@ const urls = [
   { loc: `${SITE}/careers/`, priority: '0.8', changefreq: 'monthly' },
   { loc: `${SITE}/methodology/`, priority: '0.7', changefreq: 'monthly' },
   { loc: `${SITE}/counsellors/`, priority: '0.7', changefreq: 'monthly' },
+  { loc: `${SITE}/research/sources/`, priority: '0.5', changefreq: 'monthly' },
   { loc: `${SITE}/research/`, priority: '0.6', changefreq: 'monthly' },
   { loc: `${SITE}/diagnostic/`, priority: '0.7', changefreq: 'monthly' },
   { loc: `${SITE}/privacy/`, priority: '0.5', changefreq: 'yearly' },

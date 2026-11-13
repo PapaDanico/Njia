@@ -35,17 +35,17 @@
 
   /* Surfaces — warm paper, not grey. Cards sit white on paper; insets
    * (meta grids, inputs, chips) sit oat on white. */
-  --bg: #F5E9D4;             /* Warm Cream — the page */
-  --bg-elevated: #FDF6E9;    /* cards lift by getting lighter, not whiter */
-  --bg-card: #EFDFC2;        /* insets sit deeper into the cream */
-  --bg-input: #E7D3B0;
+  --bg: #FAF9F5;             /* Paper white — the page; brand cream is kept for bands and insets */
+  --bg-elevated: #FFFFFF;    /* cards sit white on paper */
+  --bg-card: #F4EEE2;        /* insets sit a half-step deeper than the page */
+  --bg-input: #F1E9D9;
 
   --text-primary: #3D1C02;   /* Earth Brown */
   --text-secondary: #5C3410;
   --text-muted: #6E4A22;
 
-  --border: #DCC7A4;
-  --border-light: #C9AE85;
+  --border: #E4DCCB;
+  --border-light: #CFC3AB;
 
   /* Ink fill for selected chips/tabs — dark neutral, so terracotta stays
    * reserved for primary actions and "current location" signals. */
@@ -213,7 +213,7 @@
   /* Neutral veils */
   --ink-veil: rgba(61, 28, 2, 0.08);
   --scrim: rgba(61, 28, 2, 0.45);
-  --header-veil: rgba(245, 233, 212, 0.93);
+  --header-veil: rgba(250, 249, 245, 0.94);
 
   color-scheme: light;
 }
@@ -1371,15 +1371,16 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * share one KMTC note — rendering it open on each card meant reading the same
  * paragraph down the whole grid. Collapsed, the provenance is still attached
  * to the card (so it survives comparison and saved views) without repeating. */
-.fee-provenance { margin-bottom: 0.6rem; font-size: var(--fs-sm); }
-.fee-provenance summary {
+.fee-provenance, .fee-help { margin-bottom: 0.6rem; font-size: var(--fs-sm); }
+.fee-provenance summary, .fee-help summary {
   cursor: pointer;
   color: var(--text-muted);
   font-style: italic;
   padding: 0.2rem 0;
 }
-.fee-provenance summary:hover { text-decoration: underline; }
+.fee-provenance summary:hover, .fee-help summary:hover { text-decoration: underline; }
 .fee-provenance p { margin-top: 0.35rem; font-style: italic; }
+.fee-help p { margin-top: 0.35rem; }
 .decide-caveat { margin-bottom: 0.75rem; }
 
 .match-why { margin-bottom: 0.9rem; font-size: var(--fs-sm); }
@@ -3239,9 +3240,82 @@ p, li { text-wrap: pretty; }
 /* Header: a single hairline and a firmer veil. */
 .app-header { box-shadow: 0 1px 0 rgba(61, 28, 2, 0.04); }
 
-/* Rhythm: more air between landing sections on wide screens. */
+
+/* ---------- Editorial layer (light scheme) ----------
+ * The institutional register: a white canvas, a large serif voice, one accent
+ * used sparingly, hairlines instead of boxes, and air. Njia's own palette and
+ * marks throughout; nothing here imitates any institution's identity.
+ *
+ * Scoped to :root[data-theme="light"] on purpose. The app always stamps the
+ * attribute before first paint, and the hero is dark in the dark scheme, so the
+ * dark scheme and the generated pages (which carry no attribute) are untouched
+ * by every rule in this layer. */
+:root[data-theme="light"] .landing-hero {
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--bg) 100%);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+  padding-block: clamp(1.25rem, 2.5vw, 2.25rem) clamp(1.5rem, 2.5vw, 2.5rem);
+}
+:root[data-theme="light"] .landing-hero .landing-hero-logo { display: none; }
+:root[data-theme="light"] .landing-hero .landing-hero-eyebrow { color: var(--accent-ink); }
+:root[data-theme="light"] .landing-hero .landing-h1 {
+  color: var(--text-primary);
+  font-size: clamp(2.6rem, 5.4vw, 4.6rem);
+  line-height: 1.03;
+  letter-spacing: -0.03em;
+}
+:root[data-theme="light"] .landing-hero .landing-h1 .hl-gold { color: var(--primary); }
+:root[data-theme="light"] .landing-hero .landing-sub { color: var(--text-secondary); font-size: 1.125rem; line-height: 1.65; }
+:root[data-theme="light"] .landing-hero .landing-proverb { color: var(--text-secondary); border-left-color: var(--accent); }
+:root[data-theme="light"] .landing-hero .status-pill {
+  background: #FFFFFF; border-color: var(--border); color: var(--text-secondary);
+}
+:root[data-theme="light"] .landing-hero .landing-trust-item { color: var(--text-muted); }
+:root[data-theme="light"] .landing-hero .btn-outline-dark { color: var(--ink); border-color: var(--ink); }
+:root[data-theme="light"] .landing-hero .btn-outline-dark:hover { background: rgba(61, 28, 2, 0.06); }
+
+:root[data-theme="light"] .landing-clock-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--primary);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  box-shadow: 0 24px 48px -32px rgba(61, 28, 2, 0.35);
+  color: var(--text-primary);
+}
+:root[data-theme="light"] .landing-clock-title { color: var(--accent-ink); }
+:root[data-theme="light"] .landing-clock-row { border-bottom-color: var(--border); }
+:root[data-theme="light"] .landing-clock-when { color: var(--text-muted); }
+:root[data-theme="light"] .landing-clock-note,
+:root[data-theme="light"] .landing-clock-note strong { color: var(--text-secondary); border-top-color: var(--border); }
+:root[data-theme="light"] .landing-clock-btn { color: var(--ink); border-color: var(--ink); }
+:root[data-theme="light"] .landing-clock-btn:hover { background: rgba(61, 28, 2, 0.06); }
+
+/* Masthead: the wordmark carries the page, the tagline whispers. */
 @media (min-width: 64rem) {
-  .landing-block { padding-top: clamp(3rem, 4.5vw, 4.5rem); padding-bottom: clamp(3rem, 4.5vw, 4.5rem); }
+  .app-header .logo-word { font-size: 1.7rem; letter-spacing: -0.015em; line-height: 1; }
+  .app-header .logo-mark { width: 22px; height: 33px; }
+}
+:root[data-theme="light"] .landing-hero .landing-h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); text-wrap: balance; }
+
+/* SPACE. Measured, not eyeballed: the hero's right column sat empty beneath the
+ * clock card and its top was pushed 60px below the headline; the rail column was
+ * a quarter of the page for a heading and a sentence. Both are tightened, and
+ * the rail is already sticky so its column is not blank while scrolling. */
+@media (min-width: 64rem) {
+  .landing-hero-aside { margin-top: 0.25rem; }
+  .landing-block { grid-template-columns: minmax(13.5rem, 20%) 1fr; column-gap: clamp(1.5rem, 2.5vw, 2.5rem); }
+}
+
+/* The folk-pattern strip under the header becomes a single accent rule, the way
+ * an institutional masthead carries one. The full pattern stays in the footer,
+ * where the brand sheet uses it as a sign-off. */
+.app-header + .brand-rule {
+  height: 3px; background-image: none; background-color: var(--primary);
+}
+
+/* Display voice and rhythm on wide screens. */
+@media (min-width: 64rem) {
+  .landing-h2 { font-size: clamp(1.9rem, 3vw, 2.75rem); line-height: 1.1; letter-spacing: -0.02em; }
 }
 
 @media (prefers-color-scheme: dark) {

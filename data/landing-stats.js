@@ -42,7 +42,7 @@ const LANDING_STATS = {
     "humanities": 21,
     "personal": 19
   },
-  "fundingSources": 29,
+  "fundingSources": 30,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -143,6 +143,10 @@ const LANDING_STATS = {
     {
       "name": "KCB Foundation 2Jiajiri — sponsored vocational training for out-of-school youth",
       "application_deadline": "Calls are issued in cohorts through partnerships with individual constituency NG-CDF offices and counties, and the constituencies change from one cohort to the next. Ask your constituency NG-CDF office whether a 2Jiajiri cohort is open, and watch the KCB Foundation page. Shortlisted applicants are interviewed at the training institution."
+    },
+    {
+      "name": "NYOTA - government youth grants, training and work experience (dial *254#)",
+      "application_deadline": "Run in rounds rather than on an annual date: an October 2025 round closed on 12 October and a second phase of payments was launched in July 2026. Dial *254# or check youth.go.ke to see whether a round is open before planning on it."
     }
   ]
 };

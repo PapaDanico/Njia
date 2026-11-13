@@ -654,7 +654,7 @@ function replayFadeIn(el) {
  * data-theme is stamped pre-paint by the inline script in index.html;
  * this manager keeps the toggle button, meta theme-color and system-
  * preference changes in sync with it. */
-const THEME_COLORS = { light: '#faf9f5', dark: '#16130f' };
+const THEME_COLORS = { light: '#FAF9F5', dark: '#16130f' };
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;

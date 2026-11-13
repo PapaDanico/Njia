@@ -6778,3 +6778,20 @@ measures and what it is not). Decisions taken, so nobody reopens them:
 - **KNQF level mapping not published.** Ten levels is sourced (KNQA); which
   qualification sits at which level could not be read from here, so the page
   says so. Do not fill it from aggregators.
+
+**NYOTA (the *254# youth programme), 13 November 2026.** Recorded as `f030`:
+National Youth Opportunities Towards Advancement, a five-year Government of
+Kenya project financed by the World Bank, for unemployed or low-income youth 18
+to 29 (35 with a disability) with Form Four education or below, applied for free
+by dialling `*254#`. **It asks for no KCSE grade, which makes it one of the few
+records reaching the learner whose grade closed every merit route.** The Ksh
+50,000 business grant is recorded because several outlets and the World Bank
+agree; the target number (800,000 or 820,000), the age limit (one outlet says 35
+for everyone), a monthly stipend (one outlet only), the instalment structure and
+the exact round dates are **not** recorded. No open date, so it does not enter the
+Application Clock. **The Hustler Fund is not a funding record**: it is a general
+loan product, like the Uwezo Fund, and reaches no one for training; the report
+that its defaulters may be excluded from NYOTA is one secondary source, so it
+sits in the description as a report. Leads: the World Bank appraisal document
+(project P179414) for the real component and stipend design; whether the
+recognition-of-prior-learning strand has a published route through NITA.

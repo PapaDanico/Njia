@@ -1,2 +1,49 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#FAF9F5"><title>Catalogue Evidence | Njia</title><meta name="description" content="Transparent statistics and data quality measures for the Njia Kenyan education catalogue."><link rel="stylesheet" href="../css/styles.css"><link rel="stylesheet" href="../css/academic-editorial.css"><style>main{max-width:1100px;margin:auto;padding:clamp(1rem,4vw,3rem)}.research-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1rem;margin:2rem 0}.research-stat{padding:1.4rem;border-top:2px solid var(--primary);background:var(--bg-elevated)}.research-stat strong{display:block;font:700 clamp(2rem,4vw,3.3rem)/1.1 var(--serif,Georgia,serif)}.research-stat span{display:block;margin-top:.5rem}.research-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}.research-table th,.research-table td{text-align:left;padding:.75rem;border-bottom:1px solid var(--border)}.research-table th:last-child,.research-table td:last-child{text-align:right}.research-table-wrap{overflow-x:auto}small{line-height:1.5}a{color:var(--primary-dark)}</style></head><body class="njia-academic"><main><header class="njia-academic__masthead"><a href="../">← Njia Career Pathways</a><span class="njia-academic__kicker">Research &amp; transparency</span></header><p class="njia-academic__kicker">Catalogue intelligence / Kenya</p><h1 class="njia-academic__heading">What our catalogue actually covers.</h1><p class="njia-academic__lead">An evidence-first view of Njia's listed education opportunities. These statistics describe our catalogue, <strong>not every institution or course in Kenya.</strong></p><div id="research-status" role="status" aria-live="polite">Loading catalogue indicators…</div><section id="research-results" hidden><div id="research-grid" class="research-grid" aria-label="Catalogue headline indicators"></div><section class="njia-academic__section"><h2 class="njia-academic__section-title">Fee evidence</h2><p>Published means Njia records an institution-observed fee. Derived means a calculation from a referenced rate. Illustrative and unsourced figures must not be treated as quotations. Missing fees do not mean free tuition.</p><div id="fee-grid" class="research-grid"></div></section><section class="njia-academic__section"><h2 class="njia-academic__section-title">County representation</h2><p>Number of offerings and institutions represented in each county within the Njia catalogue. Not a national count of institutions.</p><div class="research-table-wrap"><table class="research-table"><thead><tr><th scope="col">County</th><th scope="col">Offerings</th><th scope="col">Institutions</th></tr></thead><tbody id="county-rows"></tbody></table></div></section><section class="njia-academic__section"><h2 class="njia-academic__section-title">Method and limitations</h2><p>All totals use linked course offerings as the denominator unless specified. A programme name may appear at several institutions. Null entry grade means open entry in Njia's catalogue semantics, not guaranteed admission. No graduate employment, admission success or salary outcomes are inferred.</p><p><a href="./sources/">Review official Kenyan education sources and verification rules</a></p><p><a href="../open-data/">Explore the underlying open data</a> · <a href="../">Return to career guidance</a></p></section></section></main><script src="./research.js" defer></script></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FAF9F5">
+<meta name="description" content="Transparent Kenyan education catalogue statistics, fee evidence, county representation and research sources from Njia.">
+<link rel="canonical" href="https://njiacareerpathways.work/research/">
+<title>Education Evidence &amp; Research | Njia Career Pathways</title>
+<link rel="icon" href="../icons/logo-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/academic-editorial.css">
+<link rel="stylesheet" href="./research.css">
+</head>
+<body class="njia-academic">
+<a class="research-skip" href="#research-main">Skip to research</a>
+<header class="research-topbar">
+  <div class="research-container research-topbar__inner">
+    <a class="research-brand" href="../" aria-label="Njia Career Pathways home"><span class="research-brand__mark" aria-hidden="true">N.</span><span>Njia <small>Career Pathways</small></span></a>
+    <nav class="research-nav" aria-label="Research navigation"><a href="../">Explore Njia</a><a href="./sources/">Official sources</a><a href="../open-data/">Open data</a></nav>
+  </div>
+</header>
+<main id="research-main">
+  <section class="research-hero">
+    <div class="research-container">
+      <div class="research-hero__meta"><span class="research-eyebrow">Research brief / 01</span><span>Kenyan education intelligence</span></div>
+      <div class="research-hero__layout">
+        <div><p class="research-kicker">Evidence before assumptions.</p><h1 class="njia-academic__heading">Know the landscape.<br><em>Choose your direction.</em></h1>
+          <p class="njia-academic__lead">A transparent view of the opportunities listed in Njia, the strength of the supporting fee evidence, and where our coverage still needs work.</p>
+          <div class="research-hero__actions"><a class="njia-academic__action" href="../">Explore career pathways <span aria-hidden="true">↗</span></a><a class="research-text-link" href="./sources/">Our official sources →</a></div>
+        </div>
+        <aside class="research-hero__aside" aria-label="Research principles"><span class="research-aside__number">01 / EVIDENCE STANDARD</span><h2>Clarity is a public service.</h2><p>We distinguish what an institution publishes, what Njia derives, and what remains unknown. No invented salary or employment outcomes.</p><p class="research-aside__foot">Kenya-focused. Independently researched.</p></aside>
+      </div>
+    </div>
+  </section>
+  <div class="research-container">
+    <div class="research-scope" role="note"><span aria-hidden="true">ⓘ</span><p><strong>Scope matters.</strong> These statistics describe the Njia catalogue, <strong>not every institution or course in Kenya.</strong> They are not a national census or a guarantee of admission.</p></div>
+    <div id="research-status" class="research-status" role="status" aria-live="polite">Loading catalogue indicators…</div>
+    <div id="research-results" hidden>
+      <section class="research-section" aria-labelledby="overview-title"><div class="research-section__header"><div><p class="research-eyebrow">01 / Catalogue coverage</p><h2 id="overview-title" class="njia-academic__section-title">The numbers, with context.</h2></div><p>Course offerings are institution-specific listings. They are not unique qualifications.</p></div><div id="research-grid" class="research-grid" aria-label="Catalogue headline indicators"></div></section>
+      <section class="research-section" aria-labelledby="fees-title"><div class="research-section__header"><div><p class="research-eyebrow">02 / Fee provenance</p><h2 id="fees-title" class="njia-academic__section-title">What can we actually verify?</h2></div><p>Published means institution-observed. Derived means calculated from a referenced rate. Illustrative and unsourced figures are not quotations. Missing fees do not mean free tuition.</p></div><div id="fee-grid" class="research-grid research-grid--fees"></div><div class="research-explainer"><strong>Before you apply</strong><p>Always confirm the current fee schedule, course availability and intake directly with the institution. Placement and financing are separate processes.</p><a href="./sources/">Check primary-source guidance →</a></div></section>
+      <section class="research-section" aria-labelledby="county-title"><div class="research-section__header"><div><p class="research-eyebrow">03 / Geographic representation</p><h2 id="county-title" class="njia-academic__section-title">A county-by-county view.</h2></div><p>Number of offerings and institutions represented in each county within the Njia catalogue. Not a national count of institutions.</p></div><div class="research-table-wrap"><table class="research-table"><caption class="research-visually-hidden">County coverage in Njia's catalogue</caption><thead><tr><th scope="col">County</th><th scope="col">Offerings</th><th scope="col">Institutions</th></tr></thead><tbody id="county-rows"></tbody></table></div></section>
+      <section class="research-section research-method" aria-labelledby="method-title"><div><p class="research-eyebrow">04 / Methodology</p><h2 id="method-title" class="njia-academic__section-title">Read the fine print.<br>It matters.</h2></div><div><p>All totals use linked course offerings as the denominator unless specified. A programme name may appear at several institutions. Null entry grade means open entry in Njia's catalogue semantics, not guaranteed admission.</p><p>No graduate employment, admission success or salary outcomes are inferred.</p><div class="research-method__links"><a href="./sources/">Review official Kenyan education sources and verification rules ↗</a><a href="../open-data/">Explore the underlying open data ↗</a><a href="../">Return to career guidance ↗</a></div></div></section>
+    </div>
+  </div>
+</main>
+<footer class="research-footer"><div class="research-container"><strong>Njia.</strong><span>Better decisions begin with better evidence.</span><a href="../">Back to Njia ↑</a></div></footer>
+<script src="./research.js" defer></script>
+</body></html>

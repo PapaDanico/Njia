@@ -57,6 +57,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { summariseCatalogue } from './catalogue-indicators.mjs';
+import { siteHeader, siteFooter, SITE_SHELL_CSS } from './site-shell.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(path.join(root, '/'));
@@ -150,7 +151,7 @@ const OG_IMAGE = (() => {
  * apply, the rail and the main column are ordinary blocks in source order, and
  * the page reads top to bottom exactly as it did.
  */
-const SHELL_CSS = `
+const SHELL_CSS = `${SITE_SHELL_CSS}
   /* Deliberately minimal and self-contained. These pages reuse the app's
      stylesheet for colour and type, but none of its layout JavaScript, so
      they render identically with scripting switched off. */
@@ -537,10 +538,10 @@ function coursePage(county, rows) {
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body class="split">
+${siteHeader()}
 ${briefHead(`${county} County provision brief`, `${prov.courses} courses \u00b7 ${prov.openToE} open to an E`)}
 
 <aside class="rail">
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses in ${esc(county)} County</h1>
 
@@ -572,7 +573,7 @@ ${clusters.map((c) => esc(CLUSTER_LABEL[c] || c)).join(', ')}.</p>
      while the reader is looking at the answer. -->
 </aside>
 
-<main class="main">
+<main class="main" id="main">
 <div class="wrap" tabindex="0" role="region" aria-label="Course table for ${esc(county)} County">
 <table>
   <caption>Every course Njia lists in ${esc(county)} County, lowest entry requirement first.</caption>
@@ -609,12 +610,7 @@ change; confirm with the institution before you decide anything.</p>
 publish that data and an invented figure is worse than a missing one.</p>
 </main>
 
-<footer>
-  <p><a href="/counties/">All 47 counties</a> &middot;
-     <a href="/analysis/">How this county compares</a> &middot;
-     <a href="/">Njia home</a> &middot;
-     Free, no signup, works offline.</p>
-</footer>
+${siteFooter(BUILD_DATE_LABEL)}
 </body>
 </html>
 `;
@@ -652,8 +648,8 @@ function indexPage(counties) {
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body>
-<main>
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+${siteHeader()}
+<main id="main">
 <h1>Courses by county</h1>
 <p>${total} courses at ${new Set(COURSES.map((c) => c.institution_id)).size} institutions across all
 ${counties.length} counties, with the entry grade and fee on every one.</p>
@@ -662,6 +658,7 @@ ${counties.length} counties, with the entry grade and fee on every one.</p>
 ${counties.map((c) => `  <li><a href="/counties/${slug(c)}/">${esc(c)}</a></li>`).join('\n')}
 </ul>
 </main>
+${siteFooter(BUILD_DATE_LABEL)}
 </body>
 </html>
 `;
@@ -797,10 +794,10 @@ function gradePage(grade, rows) {
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body class="split">
+${siteHeader()}
 ${briefHead(`What ${GRADE_ARTICLE(grade)} ${phrase} can study`, `${rows.length} courses \u00b7 ${counties.length} counties \u00b7 for career teachers and students`)}
 
 <aside class="rail">
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
 
 <h1>Courses you can do with ${GRADE_ARTICLE(grade)} ${esc(phrase)}</h1>
 
@@ -819,7 +816,7 @@ single annual window, so a closed university deadline is not the end of the cycl
 <ul class="jump">${jump}</ul>
 </aside>
 
-<main class="main">
+<main class="main" id="main">
 ${groups}
 
 <h2>About these figures</h2>
@@ -828,10 +825,7 @@ conflict — where they do, Njia shows the lower bar and tells you to confirm, b
 told to check keeps their options and a reader shown nothing does not. Fees are tuition only.
 Confirm both with the institution before you decide.</p>
 
-<footer>
-  <p><a href="/grades/">All grades</a> &middot; <a href="/counties/">Browse by county</a> &middot;
-     <a href="/">Njia home</a></p>
-</footer>
+${siteFooter(BUILD_DATE_LABEL)}
 </body>
 </html>
 `;
@@ -857,8 +851,8 @@ function gradeIndexPage(grades) {
 </style>
 </head>
 <body>
-<main>
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+${siteHeader()}
+<main id="main">
 <h1>What can I study with my KCSE grade?</h1>
 <p><strong>TVET placement takes any grade, A to E</strong>, from anyone who sat KCSE from 2000
 onward, and intake runs continuously. Pick your grade to see every course Njia lists that
@@ -870,6 +864,7 @@ ${grades.map(([g, n]) => `  <li><a href="/grades/${GRADE_SLUG[g]}/">${esc(GRADE_
 them — <a href="/#decide">use Decide</a> to filter by county, budget and interest instead.</p>
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 </main>
+${siteFooter(BUILD_DATE_LABEL)}
 </body>
 </html>
 `;
@@ -1072,9 +1067,9 @@ ${g.items.map(([q, a]) => `<div class="faq">
 </style>
 </head>
 <body>
+${siteHeader()}
 ${briefHead('Questions and answers', `${total} answers &middot; for career teachers and county officers`)}
-<main>
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<main id="main">
 <h1>How Njia works, and answers to ${total} questions</h1>
 <p>${total} plain answers, written for school leavers and the people advising them.
 Nothing here needs an account and nothing you read is tracked. If your question is
@@ -1088,6 +1083,7 @@ ${body}
 ${glossaryBlock}
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 </main>
+${siteFooter(BUILD_DATE_LABEL)}
 </body>
 </html>
 `;
@@ -1120,8 +1116,8 @@ function docsIndexPage(courseCount, institutionCount, countyCount) {
 </style>
 </head>
 <body>
-<main>
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+${siteHeader()}
+<main id="main">
 ${briefHead('Partnership proposal', 'For funders, partners and county education offices')}
 <h1>A Partnership Proposal for Kenya's Education-to-Employment Transition</h1>
 <p>Njia is a free, open career-pathway platform for Kenyan school leavers. It lists
@@ -1253,6 +1249,7 @@ these are for you instead:</p>
 school leaver with an E can enter, and why the gap is one missing tier.</li>
 </ul>
 </main>
+${siteFooter(BUILD_DATE_LABEL)}
 </body>
 </html>
 `;
@@ -1363,25 +1360,20 @@ function guidancePage({ dir, title, description, h1, detail, body }) {
   .exhibit-unit { margin: 0 0 .4rem; font-size: var(--fs-sm, .8125rem); color: var(--text-secondary); }
   .exhibit caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .exhibit-src { margin: .3rem 0 0; font-size: var(--fs-xs); color: var(--text-muted); max-width: none; }
-  .page-foot { margin: var(--space-10, 2.5rem) 0 var(--space-4); border-top: 1px solid var(--border); padding-top: .75rem; font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
-  .page-foot p { margin: 0 0 .35rem; }
   .line { border-bottom: 1px solid var(--text-muted); height: 2.1rem; margin: 0; }
   .handout h3 { margin: var(--space-4) 0 .15rem; }
   @media print { .cta { display: none; } section { break-inside: avoid; } .handout { break-before: page; } }
 </style>
 </head>
 <body>
+${siteHeader()}
 ${briefHead(h1, detail)}
-<main>
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<main id="main">
 <h1>${esc(h1)}</h1>
 ${body}
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
-<footer class="page-foot">
-<p>Figures are counted from the Njia catalogue on ${esc(BUILD_DATE_LABEL)} and describe what Njia has listed, not everything that exists in Kenya.</p>
-<p><a href="/methodology/">Methodology</a> &middot; <a href="/research/sources/">Official sources</a> &middot; <a href="/open-data/">Open data</a> &middot; <a href="/privacy/">Privacy</a></p>
-</footer>
 </main>
+${siteFooter(BUILD_DATE_LABEL)}
 </body>
 </html>
 `;

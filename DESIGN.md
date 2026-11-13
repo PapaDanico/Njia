@@ -253,3 +253,34 @@ reset in `styles.css` restores it with `!important` — without that,
 Bump `CACHE_VERSION` in `sw.js` on every deploy that changes cached
 files, or installed clients keep the old design until they clear site
 data. Manifest colors must match the `styles.css` surfaces.
+
+## Site shell: one header, one footer, one list of links
+
+Every generated page (counties, grades, help, research, methodology, counsellors, open
+data and the rest) opens with the same header and closes with the same footer, both
+written once in `tools/site-shell.mjs` and imported by the three generators that write
+pages. The app's own header menu and footer (`index.html`, `js/app.js`) carry the same
+destinations, and `tests/site-shell.test.js` fails if the app falls behind the shared list
+or a generated page loses its header, footer, skip link or `main` target.
+
+- **Header.** A 3px terracotta rule under the masthead (the same rule the app draws), a
+  serif wordmark, six uppercase tracked links with a hairline underline on hover and focus,
+  an Evidence menu, and one filled button. Below 64rem the links collapse into a
+  `<details>` menu, so there is no script. The Evidence menu opens on hover and on keyboard
+  focus. No page has a descriptor line in the header; the wordmark is enough, and the
+  descriptor wrapped into six lines once the nav grew.
+- **Footer.** Four columns (Explore, Evidence, Counsellors, Trust) and one sentence of
+  scope: Njia is independent, answers stay on the device, and figures describe what Njia
+  has listed. On the generated pages it is a full-bleed ink band made from a contained
+  element (`box-shadow` plus `clip-path`), which is why nothing scrolls sideways. On the
+  app it is the existing dark landing footer with the same four columns.
+- **Print.** The header and footer are hidden on paper; the dated brief head prints
+  instead, as before.
+- **Why the app footer lost its comments.** The footer template in `js/app.js` carried
+  about 4.5KB of rationale in comments, on the critical path of every first visit. It
+  is here instead: the About paragraph and the brand blurb said the same thing, so one
+  survived; the seven-link row repeated the columns, so it went; sources and the legal line
+  share one region with one rule; "a footer that lists a destination twice is not twice as
+  navigable".
+- **Adding a page.** Put its link in `tools/site-shell.mjs`, and in the app footer and
+  `index.html` menu if it belongs in navigation; the test says which one is missing.

@@ -280,6 +280,29 @@
             <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('track')"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span><span><strong>Track</strong><small>Quarterly OKRs and an application tracker</small></span></button>
           </div>
         </div>
+                <div class="landing-nav-dropdown">
+          <button type="button" class="landing-nav-link landing-nav-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(this)">
+            Explore <span class="caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="landing-nav-dropdown-menu" role="menu">
+            <a href="./grades/" role="menuitem"><span><strong>Courses by grade</strong><small>Every course open at your KCSE mean grade</small></span></a>
+            <a href="./counties/" role="menuitem"><span><strong>Courses by county</strong><small>What is listed near home</small></span></a>
+            <a href="./careers/" role="menuitem"><span><strong>Careers by direction</strong><small>The roles courses lead to</small></span></a>
+            <a href="./pathways/" role="menuitem"><span><strong>Education pathways</strong><small>KCSE and CBE routes, level by level</small></span></a>
+          </div>
+        </div>
+        <div class="landing-nav-dropdown">
+          <button type="button" class="landing-nav-link landing-nav-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(this)">
+            Evidence <span class="caret" aria-hidden="true">▾</span>
+          </button>
+          <div class="landing-nav-dropdown-menu" role="menu">
+            <a href="./research/" role="menuitem"><span><strong>Catalogue evidence</strong><small>What is listed, and how well it is sourced</small></span></a>
+            <a href="./methodology/" role="menuitem"><span><strong>Methodology</strong><small>Where each fee, grade and date comes from</small></span></a>
+            <a href="./research/sources/" role="menuitem"><span><strong>Official sources</strong><small>The Kenyan bodies Njia points to</small></span></a>
+            <a href="./open-data/" role="menuitem"><span><strong>Open data</strong><small>Every course as CSV or JSON</small></span></a>
+            <a href="./analysis/" role="menuitem"><span><strong>County analysis</strong><small>Where provision is thin</small></span></a>
+          </div>
+        </div>
         <div class="landing-nav-dropdown">
           <button type="button" class="landing-nav-link landing-nav-dropdown-btn" aria-haspopup="true" aria-expanded="false" onclick="toggleNavDropdown(this)">
             Learn <span class="caret" aria-hidden="true">▾</span>
@@ -287,8 +310,8 @@
           <div class="landing-nav-dropdown-menu" role="menu">
             <button type="button" role="menuitem" onclick="closeNavDropdowns();goHomeAndScroll('landing-evidence')"><span><strong>Why Njia</strong><small>The evidence base behind the method</small></span></button>
             <button type="button" role="menuitem" onclick="closeNavDropdowns();goHomeAndScroll('landing-process')"><span><strong>The Method</strong><small>Two tracks, five tools</small></span></button>
-            <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('help')"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg></span><span><strong>Help &amp; FAQ</strong><small>Tutorials, straight answers and a glossary</small></span></button>
-            <button type="button" role="menuitem" onclick="closeNavDropdowns();openMethodologyModal()"><span><strong>Methodology &amp; sources</strong><small>How every figure is arrived at</small></span></button>
+            <button type="button" role="menuitem" onclick="closeNavDropdowns();navigateTo('help')"><span><strong>Help and glossary</strong><small>Tutorials and plain answers</small></span></button>
+            <a href="./counsellors/" role="menuitem"><span><strong>Counsellor kit</strong><small>A class session and two handouts</small></span></a>
           </div>
         </div>
         <a href="#" class="landing-nav-link" onclick="goToSavedCourses();return false">Saved</a>
@@ -313,6 +336,17 @@
       <a href="#" onclick="navigateAndCloseMenu('decide');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span> Decide</a>
       <a href="#" onclick="navigateAndCloseMenu('connect');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span> Connect</a>
       <a href="#" onclick="navigateAndCloseMenu('track');return false"><span class="menu-icon" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#i-trend"/></svg></span> Track</a>
+      <p class="mobile-menu-label">Explore</p>
+      <a href="./grades/">Courses by grade</a>
+      <a href="./counties/">Courses by county</a>
+      <a href="./careers/">Careers by direction</a>
+      <a href="./pathways/">Education pathways</a>
+      <p class="mobile-menu-label">Evidence</p>
+      <a href="./research/">Catalogue evidence</a>
+      <a href="./methodology/">Methodology</a>
+      <a href="./research/sources/">Official sources</a>
+      <a href="./open-data/">Open data</a>
+      <a href="./counsellors/">Counsellor kit</a>
       <a href="#" onclick="closeMobileMenu();openFaqModal();return false">FAQ</a>
       <button type="button" class="btn btn-primary mt-2" id="mobile-menu-cta-btn" onclick="navigateAndCloseMenu('discover')">Start Discovery →</button>
     </nav>

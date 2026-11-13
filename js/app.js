@@ -1259,94 +1259,45 @@ function renderHomePage() {
       <div class="brand-rule" aria-hidden="true"></div>
       <footer class="landing-footer">
         <div class="landing-footer-grid">
-          ${/* The About paragraph used to sit in its own full-width region below
-               the column grid, in a 62ch measure with the other 60% of the row
-               empty, directly under a brand blurb that said the same thing in
-               shorter words. Two paragraphs of duplication cost roughly 200px
-               of footer.
-
-               It now IS the brand column. The height is free — the Learn column
-               beside it runs six links deep and sets the row height regardless —
-               and the duplicate blurb is gone rather than reworded. */''}
-          ${/* SECOND CUT, AND THE PARAGRAPH WAS ALWAYS A DUPLICATE.
-               The footer carried an 85-word About paragraph — seven lines on
-               desktop and eleven on a phone — saying in shorter words what the
-               About modal two clicks away already says at length, with the
-               research basis and the funding position attached. Two copies of
-               the same text, and the worse one was the one taking the space.
-               A line that says what Njia is and is not, and a link to the copy
-               that goes further. */''}
           <div class="landing-footer-brand">
             <div class="flex items-center gap-1"><svg class="logo-mark" viewBox="0 0 64 96" width="19" height="28" aria-hidden="true"><use href="#i-njia"/></svg><strong style="color:#F5E9D4">Njia</strong></div>
-            <p>Free career-pathway guidance for Kenyan youth. Independent — unaffiliated with KUCCPS, HELB or any institution — and everything computes on your device. <button type="button" class="footer-inline-link" onclick="openAboutModal()">Read more about Njia</button></p>
+            <p>Free career-pathway guidance for Kenyan youth. Independent: unaffiliated with KUCCPS, HELB or any institution, and everything computes on your device. <button type="button" class="footer-inline-link" onclick="openAboutModal()">Read more about Njia</button></p>
           </div>
           <div class="landing-footer-col">
-            <p class="footer-col-label">Modules</p>
-            ${LANDING_PROCESS.map((p) => `<button type="button" onclick="navigateTo('${p.page}')">${p.title}</button>`).join('')}
+            <p class="footer-col-label">Explore</p>
+            <button type="button" onclick="navigateTo('discover')">Start Discovery</button>
+            <a href="./grades/">Courses by grade</a>
+            <a href="./counties/">Courses by county</a>
+            <a href="./careers/">Careers by direction</a>
+            <a href="./pathways/">Education pathways</a>
           </div>
           <div class="landing-footer-col">
-            <p class="footer-col-label">Learn</p>
-            <button type="button" onclick="navigateTo('help')">Help, tutorials &amp; glossary</button>
-            <button type="button" onclick="openFaqModal()">Quick FAQ</button>
-            <button type="button" onclick="openMethodologyModal()">Methodology &amp; data sources</button>
-            ${/* "About Njia" stood here and now lives in the brand paragraph
-                 above, so listing it again made this the only six-deep column
-                 — and a grid row is as tall as its tallest column, so one
-                 duplicate link was costing 48px of footer on every screen.
-                 The three columns are 5, 5 and 4 now rather than 5, 6 and 4. */''}
-            <a href="https://tveta.go.ke" target="_blank" rel="noopener noreferrer">TVETA registry ↗</a>
-            <a href="https://helb.co.ke" target="_blank" rel="noopener noreferrer">HELB ↗</a>
+            <p class="footer-col-label">Evidence</p>
+            <a href="./research/">Catalogue evidence</a>
+            <a href="./methodology/">Methodology</a>
+            <a href="./research/sources/">Official sources</a>
+            <a href="./open-data/">Open data</a>
+            <a href="./analysis/">County analysis</a>
           </div>
-          ${/* Company and Legal were two columns of two links each, sitting
-               beside a column of six. Four short columns of wildly uneven depth
-               left the right half of the grid empty below the second row while
-               the row itself was set by the tallest. Merged into one column of
-               four, the grid is three link columns of 5, 6 and 4 — and the
-               brand column gets the width the empty space was holding. */''}
           <div class="landing-footer-col">
-            <p class="footer-col-label">Company &amp; legal</p>
-            ${/* Self-hosted rather than linked out. It is the maintainer's own
-                 deck, properly Njia-branded, and hosting it here means it works
-                 offline, needs no third-party account to open, and cannot expire
-                 — a generated deck's export URL lasts about a week, which is not
-                 long enough for a document a partner is meant to keep. Dated in
-                 the filename so a newer one is an obvious replacement rather
-                 than a silent overwrite. */''}
-            <a href="./docs/njia-pitch-deck-aug-2026.pdf" download>Partnership proposal (PDF)</a>
-            <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
-            <button type="button" onclick="openFeedbackModal()">Give Feedback</button>
-            <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>
-            <a href="./privacy/">Privacy statement</a>
+            <p class="footer-col-label">Counsellors</p>
+            <a href="./counsellors/">Counsellor kit</a>
+            <a href="./help/">Questions and answers</a>
+            <a href="./diagnostic/">About the questionnaire</a>
+            <a href="./docs/">Partnership proposal</a>
+          </div>
+          <div class="landing-footer-col">
+            <p class="footer-col-label">Trust</p>
+            <a href="./privacy/">Privacy</a>
             <a href="./accessibility/">Accessibility</a>
+            <button type="button" onclick="openPrivacyModal()">Your data on this device</button>
             <button type="button" onclick="openTermsModal()">Terms of Use</button>
+            <button type="button" onclick="openFeedbackModal()">Give feedback</button>
+            <button type="button" onclick="openPartnersModal()">Products &amp; partners</button>
           </div>
         </div>
-        <!-- A "Learn the ground" tile grid stood here: Help & tutorials, Glossary,
-             Method & sources, Application clock. Three of the four went exactly
-             where the Learn column above already goes, so the footer offered the
-             same destinations twice — once as links, once as tiles with a
-             sentence each. Tiles that read as content but navigate as a menu are
-             the most expensive way to repeat yourself. The fourth, the funding
-             tab, is not orphaned by this: the hero's Application Clock opens it
-             directly, above the fold. -->
-
-        <!-- The seven-link row that stood here — About, Privacy, Terms,
-             Methodology, Partners, Help, FAQ — repeated the column grid above
-             it item for item, in shorter words. A footer that lists the same
-             destination twice is not twice as navigable; it just takes longer
-             to read past. The columns are the canonical navigation. -->
-        ${/* Sources and the legal line were two stacked full-width regions,
-             each with its own top rule and 1.25rem of padding, and each using
-             about a third of the width it was given. One region, two columns,
-             one rule. */''}
         <div class="landing-footer-legal">
-          ${/* Trimmed from 74 words to 38. The two claims that have to survive
-               are the source list, which is what makes the figures checkable,
-               and the refusal to print employment rates, which is the single
-               most load-bearing thing Njia says about itself. Everything else
-               here restated what the Decide page already explains beside the
-               badges it is describing. */''}
-          <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong> — Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. Decide names all five fee-provenance groups; see Methodology for the rest. ${/* Placed in the sources line rather than added to the Learn column above. Both are destinations for a reader who wants to CHECK the figures rather than use them, and this is the sentence that reader is already reading; a fourth footer column would have cost height on every screen to serve them somewhere less obvious. */''}Check it yourself: <a href="./open-data/">download the whole catalogue</a> or read the <a href="./analysis/">county provision analysis</a>.</p>
+          <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong>: Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. The <a href="./methodology/">methodology page</a> names all five fee groups.</p>
           <div class="landing-footer-bottom">
             <span>© 2026 Njia · A free, open pathway for Kenyan youth.</span>
           </div>

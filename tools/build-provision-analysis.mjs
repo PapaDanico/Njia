@@ -64,6 +64,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { siteHeader, siteFooter, SITE_SHELL_CSS } from './site-shell.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(path.join(root, '/'));
@@ -316,7 +317,7 @@ const page = `<!doctype html>
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
 <link rel="icon" href="/icons/icon-192x192.png">
 <link rel="stylesheet" href="/css/styles.css">
-<style>
+<style>${SITE_SHELL_CSS}
   body { max-width: min(90rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
   /* The app stylesheet zeroes paragraph margins and strips list markers because
      in the app every block sits inside a component that owns its spacing. A
@@ -382,11 +383,12 @@ const page = `<!doctype html>
     a { text-decoration: none; color: inherit; }
     .limit { border-left-width: 3px; }
   }
+  @media screen { .brief-head { display: none; } }
 </style>
 </head>
 <body>
-<main>
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+${siteHeader()}
+<main id="main">
 
 <div class="brief-head">
   <div class="brief-mark">${BRAND_MARK}</div>
@@ -588,13 +590,8 @@ ${counties.map(countyRow).join('\n')}
 "not listed in Njia's catalogue" rather than "not available in the county" —
 the difference is the whole point of the box at the top.</p>
 
-<footer>
-  <p><a href="/counties/">Browse by county</a> &middot;
-     <a href="/grades/">Browse by grade</a> &middot;
-     <a href="/open-data/">Open data</a> &middot;
-     <a href="/">Njia home</a></p>
-</footer>
 </main>
+${siteFooter(BUILD_DATE_LABEL)}
 </body>
 </html>
 `;

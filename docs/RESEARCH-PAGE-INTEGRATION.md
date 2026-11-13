@@ -1,15 +1,9 @@
-# Research intelligence: integration checklist
+# Research page: buildless fallback implemented
 
-The main home page now links to `/research/`. Its interface is intentionally fail-closed until `research/catalogue-indicators.json` is generated and committed.
+The research page now works with Njia's **already-committed** `/open-data/njia-catalogue.json` export when the optional compact `/research/catalogue-indicators.json` has not been generated. This removes the missing-artifact blocker without changing Netlify's no-op production build.
 
-**To complete the data artifact in a working repository clone:**
-```sh
-node tools/catalogue-indicators.mjs --out research/catalogue-indicators.json
-node --test tests/*.test.js
-```
+The export already includes institution ID, county, qualification level, fee provenance, grade and duration. The browser derives catalogue-only counts from those classified records; it does **not** invent Kenyan national totals or run a duplicate fee classifier. The export is fetched only when a reader visits the research page and the compact artifact is absent.
 
-Do not hand-edit the JSON. It must be generated from the canonical course and institution modules and the application's fee classifier. The existing Netlify production build command remains a no-op. A stale/missing research artifact is a release blocker, not an invitation to infer statistics from older numbers.
+The preferred compact artifact remains a performance enhancement for a later fully validated release. The fallback's count checks fail closed if the export's course or institution metadata disagrees with its rows. Regression test: `node --test tests/research-fallback.test.js`.
 
-The CI artifact freshness job should include `node tools/catalogue-indicators.mjs --out research/catalogue-indicators.json` before `git diff --exit-code` once the initial JSON is committed.
-
-The new page does not assert national totals or graduate outcomes. Netlify setup and deploy previews are managed separately by the site owner.
+Netlify issues remain with the site owner; no production merge has occurred.

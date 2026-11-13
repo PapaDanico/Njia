@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "scope": "Curated primary-source research leads for human-reviewed Njia content updates; not imported programme records",
+  "reviewed_on": "2026-11-13",
+  "sources": [
+    {
+      "key": "kuccps-placement",
+      "title": "KUCCPS placement eligibility and selection",
+      "publisher": "Kenya Universities and Colleges Central Placement Service",
+      "url": "https://kuccps.net/placem",
+      "accessed": "2026-11-13",
+      "claim": "KUCCPS lists baseline placement grades: degree C+ and above; diploma C/C-; certificate D+/D; artisan D-/E. Actual programme-specific requirements, priorities and capacities also govern selection.",
+      "applies_to": [
+        "eligibility",
+        "placement"
+      ],
+      "action": "Show these as general entry guidance, not guaranteed eligibility for a named course."
+    },
+    {
+      "key": "kuccps-2026",
+      "title": "2026 placement opening announcement",
+      "publisher": "KUCCPS",
+      "url": "https://ftp.kuccps.net/index.php/kuccps-opens-application-window-2026-placement-universities-and-colleges",
+      "accessed": "2026-11-13",
+      "claim": "The 2026 main placement application window ran 7 April to 6 May 2026; TVET placement is continuous and the 2026 application accepted previous KCSE cohorts subject to stated restrictions.",
+      "applies_to": [
+        "placement",
+        "intakes"
+      ],
+      "action": "Archive the dates as historical; never show them as a currently open application window."
+    },
+    {
+      "key": "kuccps-2026-cutoffs",
+      "title": "2026/2027 degree programme cutoff downloads",
+      "publisher": "KUCCPS Student Portal",
+      "url": "https://students.kuccps.ac.ke/downloads/",
+      "accessed": "2026-11-13",
+      "claim": "KUCCPS publishes a 2026/2027 degree-programme cutoff download dated 8 April 2026.",
+      "applies_to": [
+        "cutoffs",
+        "eligibility"
+      ],
+      "action": "Treat programme cutoffs as cycle-specific and separate from minimum admission grades; verify individual rows before importing."
+    },
+    {
+      "key": "tveta-accreditation",
+      "title": "Accredited TVET institutions and programme verification",
+      "publisher": "State Department for TVET",
+      "url": "https://www.tvet.go.ke/frequently-asked-questionsfaqs",
+      "accessed": "2026-11-13",
+      "claim": "Before selecting a TVET provider, verify registered-and-licensed status, licence expiry and approval to offer the specific programme using the TVETA register.",
+      "applies_to": [
+        "accreditation",
+        "institutions"
+      ],
+      "action": "Require institution and programme-level evidence; never infer approval from a college name alone."
+    },
+    {
+      "key": "kuccps-portal",
+      "title": "KUCCPS student portal",
+      "publisher": "KUCCPS",
+      "url": "https://students.kuccps.net/",
+      "accessed": "2026-11-13",
+      "claim": "The KUCCPS student portal lists available learning institutions and programmes and distinguishes public university scholarships from private-university loan eligibility.",
+      "applies_to": [
+        "placement",
+        "funding"
+      ],
+      "action": "Use as the final live check for programme availability, deadlines and placement details."
+    },
+    {
+      "key": "hef-funding",
+      "title": "Student-centred higher education funding",
+      "publisher": "Universities Fund",
+      "url": "https://www.universitiesfund.go.ke/new-higher-education-funding-model/",
+      "accessed": "2026-11-13",
+      "claim": "Placement and financing are separate processes. Public university scholarships depend on eligibility and assessed need; students must apply for funding.",
+      "applies_to": [
+        "funding"
+      ],
+      "action": "Never treat a KUCCPS placement as an automatic scholarship or promise an award."
+    },
+    {
+      "key": "hef-portal",
+      "title": "Higher Education Financing portal",
+      "publisher": "Higher Education Financing",
+      "url": "https://www.hef.co.ke/",
+      "accessed": "2026-11-13",
+      "claim": "Funding applications require an admission letter; the portal provides current guidance for university and TVET funding.",
+      "applies_to": [
+        "funding",
+        "applications"
+      ],
+      "action": "Send applicants to the official portal for current windows and document requirements; do not hardcode the portal countdown."
+    }
+  ]
+}

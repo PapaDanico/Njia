@@ -30,7 +30,8 @@ function renderDiscoverIntro(el) {
       <div class="icon-disc" aria-hidden="true" style="margin-bottom:0.75rem">${icon('compass')}</div>
       <p class="page-eyebrow">Module 01 · Discover</p>
       <h1>Discover</h1>
-      <p>A 20-minute adaptive diagnostic across the Four Elements of career clarity — <strong>Identity, Community, Necessity, Horizon</strong> — the same model executive coaches use to help leaders find real direction, now built for you.</p>
+      <p>A 20-minute diagnostic across four Elements of career clarity — <strong>Identity, Community, Necessity, Horizon</strong> — that turns your answers into a shortlist of directions to explore, matched against real Kenyan courses, fees and funding.</p>
+      <p class="text-secondary text-sm">It is an exploration aid designed by Njia, not a validated psychological test, and it does not predict success or rank you. <a href="./diagnostic/">What it measures, and what it does not</a>.</p>
     </div>
     <div class="card">
       <h2 class="mb-1">What to expect</h2>
@@ -848,6 +849,7 @@ function renderShareableReportHTML() {
           <span class="report-date">${dateStr}</span>
         </div>
       </div>
+      <p class="report-legend">An exploration aid, not a validated psychological test. It points to directions worth investigating; it does not predict success, rank you or limit what you may choose.</p>
 
       <div class="report-primary" style="border-color:${primaryC.color}">
         <span class="report-primary-label" style="color:${primaryC.color}">Primary Match</span>

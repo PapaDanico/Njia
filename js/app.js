@@ -654,7 +654,7 @@ function replayFadeIn(el) {
  * data-theme is stamped pre-paint by the inline script in index.html;
  * this manager keeps the toggle button, meta theme-color and system-
  * preference changes in sync with it. */
-const THEME_COLORS = { light: '#faf9f5', dark: '#16130f' };
+const THEME_COLORS = { light: '#FAF9F5', dark: '#16130f' };
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
@@ -1103,7 +1103,7 @@ function renderHomePage() {
           <span class="status-pill mb-2"><span class="dot" aria-hidden="true"></span>Research-backed method · Real Kenyan data · Always free</span>
           <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
           <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
-          <p class="landing-proverb"><em>"Penye nia, pana njia"</em> — where there's a will, there's a way. It's why we're called Njia.</p>
+          <p class="landing-proverb">Whatever your grade or your budget, there is a route. This is where you find the first step.</p>
           <div class="landing-cta-row">
             <button type="button" class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
             <button type="button" class="btn btn-outline-dark" onclick="scrollToLanding('landing-process')">See how it works</button>
@@ -1335,7 +1335,7 @@ function renderHomePage() {
                badges it is describing. */''}
           <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong> — Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. Decide names all five fee-provenance groups; see Methodology for the rest. ${/* Placed in the sources line rather than added to the Learn column above. Both are destinations for a reader who wants to CHECK the figures rather than use them, and this is the sentence that reader is already reading; a fourth footer column would have cost height on every screen to serve them somewhere less obvious. */''}Check it yourself: <a href="./open-data/">download the whole catalogue</a> or read the <a href="./analysis/">county provision analysis</a>.</p>
           <div class="landing-footer-bottom">
-            <span><em>Penye nia, pana njia.</em> © 2026 Njia · A free, open pathway for Kenyan youth.</span>
+            <span>© 2026 Njia · A free, open pathway for Kenyan youth.</span>
           </div>
         </div>
       </footer>

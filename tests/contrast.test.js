@@ -185,8 +185,13 @@ test('the compositing model reproduces the bug it exists to catch', () => {
    * come from getComputedStyle in Chromium, not from the model below —
    * pinning what the model itself computes would make this test circular
    * and it would agree with anything. */
-  const secondary = channels(LIGHT['--text-secondary']);
-  const card = channels(LIGHT['--bg-card']);
+  /* LITERAL colours, deliberately not read from the tokens. This test checks
+   * that the arithmetic agrees with a browser, which is a property of the
+   * arithmetic and not of the palette: reading the live tokens meant a palette
+   * change (the light ground moving to paper white) failed a test about the
+   * compositing maths. The pair below is the one that was measured. */
+  const secondary = channels('#5C3410');
+  const card = channels('#EFDFC2');
   assert.ok(Math.abs(contrast(secondary, card) - 8.19) < 0.05,
     'the undimmed ratio no longer matches the 8.19:1 measured in the browser');
   const dimmed = contrast(composite(secondary, card, 0.75), card);

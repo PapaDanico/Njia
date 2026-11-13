@@ -716,6 +716,19 @@ function isVocationalCentre(institution) {
  * figure comes from a constant in data/funding.js carrying its own source,
  * never restated here - a second copy is a second thing free to drift, which
  * this project has had to stop three times. */
+/* The fee guidance is a national-system explainer (the SCFM bands, the HELB-only
+ * rule at KMTC, the questions that turn a quoted rate into a price): the same
+ * paragraph on every card of its kind, and on a course with no fee it ran to a
+ * quarter of the card. The absence statement and anything specific to this
+ * course stay visible; this is offered on demand under its own headline, so
+ * the card is shorter without the fact being any further away than one tap. */
+function collapseFeeGuidance(html) {
+  if (!html) return '';
+  const m = html.match(/^\s*<p class="text-sm mb-2"><strong>([^<]+)<\/strong>([\s\S]*)$/);
+  if (!m) return html;
+  return `<details class="fee-help"><summary>${m[1].replace(/\.\s*$/, '')}</summary><p class="text-sm mb-2">${m[2]}</details>`;
+}
+
 function feeGuidance(course, institution) {
   if (course.total_fees_kes != null) return '';
   /* The card's own VTC branch already gives the right advice for these, and the
@@ -1216,7 +1229,7 @@ function renderCourseCard(course, match) {
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> Public universities do publish fees, but there is no longer a single per-programme price to quote: what you pay is set from your assessed household means, and the model is being changed again by Parliament. Ask the university what your intake is being billed and under which model — in writing.</p>`
       : `
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> This institution sets its own fees and none could be verified from a source Njia can reach. Ring or email the admissions office and ask for the full cost per year, what it includes, and what is charged separately — accommodation, exams and materials usually are.</p>`}
-      ${feeGuidance(course, inst)}
+      ${collapseFeeGuidance(feeGuidance(course, inst))}
       ${/* ONE STANDING INSTRUCTION, RENDERED ONCE RATHER THAN STORED 399 TIMES.
              Every degree placed through KUCCPS needs the same sentence, and it
              was being written into the notes - in six slightly different

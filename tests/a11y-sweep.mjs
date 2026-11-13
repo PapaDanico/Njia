@@ -72,6 +72,8 @@ const GENERATED = [
      (h1 → h2 per group → h3 per question) is the whole navigation structure for
      that reader, and heading-order is exactly what axe checks. */
   '/help/',
+  '/pathways/',
+  '/diagnostic/',
   '/open-data/',
   /* The analysis page is the only generated page with a 47-row, 12-column data
      table inside a horizontally scrolling region, which is its own set of ways

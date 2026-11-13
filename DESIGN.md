@@ -85,6 +85,44 @@ the layer (`--glow-*`, `--lift-card*`, `--hairline-on-dark`, `--ease-premium`).
 Copy stays English-only. Opacity on text is banned by the contrast guard, so
 the hero mark is sized down rather than dimmed.
 
+## Editorial layer (light scheme)
+
+The institutional register, in Njia's own palette: a **paper-white canvas**
+(`--bg #FAF9F5`, the landing's ground, now the whole app's) with white cards and
+the brand cream kept for bands and insets; a **light, editorial hero** (large
+serif headline, one terracotta accent phrase, the Application Clock as a white
+card under a terracotta rule); a **single 3px terracotta rule** under the header
+in place of the folk-pattern strip, with the full pattern kept in the footer; a
+larger serif wordmark; hairlines instead of boxes. The dark scheme is unchanged,
+and so is its dark hero. Nothing imitates any institution's identity: no borrowed
+typeface, colour or asset.
+
+Rules for extending it: every light-only rule is scoped to
+`:root[data-theme="light"]` (the app always stamps the attribute, so the dark
+scheme and the attribute-less generated pages are untouched); the manifest and
+`meta theme-color` and `THEME_COLORS` carry the same ground value, because an
+installed PWA otherwise flashes the old colour. Photography is deliberately
+absent: this project holds no licensed imagery and will not generate or
+borrow any, so an art-direction brief is the next step rather than a placeholder.
+
+## Space is measured, not judged
+
+The first editorial pass added air and the maintainer's reading was *too many
+blank spaces*. So the second pass was measured in document height at 1440, 1920
+and 390px against a baseline: landing 6,171 to 5,850px at 1440 (-5%) and 6,242 to
+5,851 at 1920 (-6%); county page 20,185 to 18,529 (-8%); Decide 11,880 to 10,080
+(-15%) at 1440 and 30,284 to 27,261 (-10%) at 390. What moved it: section padding
+back to its base clamp, a hero that stops pushing its sidecar 60px below the
+headline, a narrower landing rail (which is sticky, so its column is not blank
+while scrolling), tighter table cells, and the fee-guidance paragraph on a
+course card collapsed under its own headline. **The card was tall because of
+prose, not padding**: two paragraphs were about 425px of a 1,274px card, so
+cutting padding would have bought almost nothing. The collapsed block is the
+national-system explainer (same on every card of its kind); the absence
+statement and anything specific to the course stay visible. Mobile landing is
+content-bound (the sector table alone is about 2,700px) and was left alone
+rather than hidden.
+
 ## Light and dark
 
 Both schemes are first-class. The dark scheme is "warm ink" — the same

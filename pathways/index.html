@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Education and career pathways in Kenya: KCSE, CBE, TVET and university | Njia</title>
+<meta name="description" content="How the KCSE and CBE routes fit together, what is reported about senior school pathways and university placement from 2029, and the qualification ladder in Njia's catalogue.">
+<link rel="canonical" href="https://njiacareerpathways.work/pathways/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
+<meta property="og:title" content="Education and career pathways in Kenya: KCSE, CBE, TVET and university">
+<meta property="og:description" content="How the KCSE and CBE routes fit together, what is reported about senior school pathways and university placement from 2029, and the qualification ladder in Njia's catalogue.">
+<meta property="og:image" content="https://njiacareerpathways.work/icons/og-image.jpg?v=https://njiacareerpathways.work/icons/og-image.jpg?v=94c5b4cef8">
+<meta property="og:url" content="https://njiacareerpathways.work/pathways/">
+<link rel="stylesheet" href="/css/styles.css">
+<style>
+  /* Deliberately minimal and self-contained. These pages reuse the app's
+     stylesheet for colour and type, but none of its layout JavaScript, so
+     they render identically with scripting switched off. */
+  body { max-width: min(96rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  .rail > :first-child { margin-top: 0; }
+  .main > :first-child { margin-top: 0; }
+  h1 { margin-top: .35rem; }
+  .lede { font-size: 1.05rem; }
+  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; }
+  th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
+  thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
+  tbody th { font-weight: 600; }
+  /* A data table, not a list of paragraphs: one ruled header in the brand's
+     ochre (a fill colour, so decorative only), aligned figures, and a row
+     tint under the pointer so the eye can hold a line across six columns. */
+  thead th { border-bottom: 2px solid var(--accent, #C8860A); color: var(--text-secondary); }
+  td.tok, th.tok { font-variant-numeric: tabular-nums; }
+  @media (hover: hover) { tbody tr:hover { background: rgba(200, 134, 10, .08); } }
+  /* Level, entry grade, tuition and duration are short fixed tokens — "Artisan",
+     "D-", "Ksh 134,378", "24 mo". Left to wrap they each cost a second line and
+     doubled the height of every row in the table; there is no case where
+     breaking "Ksh 134,378" across two lines helps anyone read it. The course and
+     institution columns are the ones that genuinely need to wrap, and still do.
+
+     Gated, because on a phone it is the wrong trade and measuring said so. At
+     390px the county table went from 647px to 738px wide with nowrap on and the
+     page got no shorter — 13,580px to 13,560px. The rows were never the
+     constraint there, the 390px viewport was, so all nowrap bought was 91px
+     more sideways scrolling inside .wrap. From 48rem up the table fits the
+     screen outright and the second line is pure waste. */
+  @media (min-width: 48rem) { .tok { white-space: nowrap; } }
+  .open { font-weight: 700; }
+  .muted { opacity: .7; }
+  /* tabindex="0" is not decoration. A table wider than the viewport scrolls
+     sideways inside this box, and a scroll container that cannot take focus
+     cannot be scrolled by keyboard — so at 390px a keyboard-only reader could
+     not reach the Tuition or Duration columns at all. axe rates it serious and
+     found 76 instances across the generated pages, 21 of them on the D-plain
+     grade page alone. The role and label come with it because a focus stop
+     with no accessible name announces as nothing. Set in the markup rather
+     than here: CSS cannot make an element focusable. */
+  .wrap { overflow-x: auto; }
+  .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
+  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
+         background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
+  .back { display: inline-block; margin-bottom: .75rem; }
+  footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
+  /* column-width rather than a column COUNT: a fixed count set at one breakpoint
+     is wrong at every other width, and these lists run from 1 item to 47. */
+  ul.cols { columns: 15rem; column-gap: 2rem; }
+  ul.cols li { break-inside: avoid; }
+
+  /* OPT-IN, AND NOT AT 1024px.
+   *
+   * Both halves of that were learned by measuring rather than reasoned out.
+   *
+   * Opt-in, because the grid targets body and the two index pages are a
+   * heading and a list of links with no rail to put anything in. Applied to
+   * them, their children would have auto-placed into two columns and the
+   * layout would simply have been wrong — so the split is a class the two
+   * table-bearing templates ask for, not something every page inherits.
+   *
+   * And not at 1024px, because the first version of this cut in there and made
+   * the page WORSE: a 20rem rail plus the gap left the Nairobi table 621px,
+   * narrower than the 957px it had before, so it began scrolling sideways and
+   * every row wrapped harder. The document went from 9,099px to 12,074px — a
+   * layout added to reclaim wasted space had spent 3,000px of extra scrolling
+   * to do it. The rail only pays once what is left over still fits the table,
+   * which for a six-column table is about 950px, so the cut is at 85rem. Below
+   * that the page is a single full-width column, which at 1280px is already a
+   * 1,200px table against the old 957px.
+   */
+  @media (min-width: 85rem) {
+    body.split { display: grid; grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+                 column-gap: clamp(2rem, 3vw, 3rem); align-items: start; }
+    /* min-width: 0 or the table's intrinsic width blows the column out and
+       takes the rail's space back, which is the bug this layout exists to fix. */
+    .split .main { min-width: 0; }
+    .split .rail { position: sticky; top: 1.5rem;
+            /* Nairobi lists 29 institutions, which is a rail taller than the
+               viewport — pinned without this, its foot is simply unreachable. */
+            max-height: calc(100vh - 3rem); overflow-y: auto; }
+    .split .rail ul.cols { columns: auto; }
+    /* The footer is a body-level landmark now (contentinfo), which makes it a
+       third grid child — without this it would drop into the rail's column
+       under the sticky box instead of closing the page across it. */
+    .split > footer { grid-column: 1 / -1; }
+  }
+
+  /* The eligibility floor, as a figure block rather than a sentence. */
+  .prov { margin: 1.1rem 0; padding: .85rem 0; border-top: 1px solid var(--ink-veil, rgba(61,28,2,.12));
+          border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); font-size: .88rem; }
+  .prov > div { display: flex; justify-content: space-between; gap: 1rem; padding: .22rem 0; }
+  .prov dt { color: inherit; opacity: .8; }
+  .prov dd { margin: 0; font-family: var(--mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
+             font-weight: 700; white-space: nowrap; }
+
+  /* The printed brief's masthead. Absent from the screen page, which already
+     has a heading and a back link and does not need a second identity. */
+  .brief-head { display: none; }
+
+  /* ---------- PRINT: a county page is a deliverable ----------------------
+   *
+   * Ctrl-P on a county page produces a branded provision brief — the mark, the
+   * county, the eligibility floor, who runs what, and every course with its
+   * fee and entry grade. It goes to a career teacher, a bursary committee or a
+   * county education officer, which is the audience Njia has no other way of
+   * reaching.
+   *
+   * No library and no server: the data is already in the page, so this is a
+   * stylesheet, not a feature. That also means it works offline and from a
+   * saved page, which matters for the offices that need it most.
+   *
+   * What gets dropped is anything that cannot be acted on from paper — the
+   * buttons, the back link, the scroll affordances. What gets kept is every
+   * figure and the provenance paragraph, because a brief whose numbers cannot
+   * be checked is the thing this project exists not to publish. */
+  /* Link lists - the 47 counties, the grade pages' jump list, the help
+   * contents - measured 16-20px tall on a 390px phone, so a thumb aimed at
+   * Bomet lands on Baringo. Touch screens only: on a mouse the dense list is
+   * the point, and on paper it is hidden. 44px is Apple's HIG floor and
+   * clears WCAG 2.5.8 with room. */
+  @media (pointer: coarse) {
+    ul.counties a, .jump a, .toc a { display: inline-block; min-height: 44px; padding-block: .6rem; box-sizing: border-box; }
+  }
+  @media print {
+    @page { margin: 14mm 12mm; }
+    body, body.split { display: block !important; max-width: none; padding: 0; font-size: 10pt; }
+    .rail, .main { position: static !important; max-height: none !important; overflow: visible !important; }
+    /* .jump-head goes with .jump. Hiding the list but keeping its heading
+       left "Jump to a county" printed above nothing at all — anchors do not
+       work on paper, so both halves have to go. */
+    .cta, .back, .jump, .jump-head { display: none !important; }
+    /* The scroll box must not clip on paper — there is no scrolling on paper,
+       so an overflow container silently truncates the right-hand columns. */
+    .wrap { overflow: visible !important; }
+    table { font-size: 8.5pt; }
+    thead { display: table-header-group; }
+    tr { break-inside: avoid; }
+    h2 { break-after: avoid; margin-top: 1.2em; }
+    .brief-head {
+      display: flex; align-items: center; gap: 10px;
+      border-bottom: 2px solid var(--primary, #8B2500);
+      padding-bottom: 6px; margin-bottom: 10px;
+    }
+    .brief-mark { width: 26px; flex: none; }
+    .brief-mark svg { display: block; width: 100%; height: auto; }
+    .brief-word { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 15pt; line-height: 1; }
+    .brief-tag { font-size: 6.5pt; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+    .brief-meta { margin-left: auto; text-align: right; font-size: 7.5pt; line-height: 1.35; }
+    .prov { break-inside: avoid; }
+    .prov > div { padding: .12rem 0; }
+  }
+
+  body { max-width: 60rem; }
+  section { margin: 0 0 var(--space-10, 2.5rem); }
+  section h2 { margin: 0 0 var(--space-3, .75rem); }
+  section p { margin: 0 0 var(--space-4, 1rem); }
+  section p, section li { max-width: var(--prose-max); }
+  section ul { list-style: disc; padding-left: 1.25rem; margin: 0 0 var(--space-4, 1rem); }
+  section li { margin: 0 0 var(--space-3, .75rem); line-height: 1.6; }
+  .lede { margin: var(--space-3, .75rem) 0 var(--space-8, 2rem); max-width: var(--prose-max); }
+  .note { border-left: 3px solid var(--accent); padding: .1rem 0 .1rem 1rem; color: var(--text-secondary); }
+  .ladder { width: 100%; border-collapse: collapse; margin: var(--space-4) 0; }
+  .ladder th, .ladder td { text-align: left; padding: .55rem .75rem .55rem 0; border-bottom: 1px solid var(--border); }
+  .ladder td.num, .ladder th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .src { font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
+  @media print { .cta { display: none; } section { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<div class="brief-head">
+  <div class="brief-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia"> <style> /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile. * * Nothing supplies --mark-edge outside the app, so the outline falls back * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16, * 32, 48 and 64px, the leaf edge disappeared into the ground completely. * The mark still read, because the terracotta field and the cream road * carry it, but the drawing lost its silhouette. * * This rule is inert inside the app: there the #i-njia sprite symbol in * index.html is a separate copy that takes --mark-edge from the page, and * it does not carry this stylesheet. The drift guard in * tests/provenance.test.js compares path geometry rather than styling, so * the two stay legitimately different in presentation and identical in * shape. */ @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg></div>
+  <div>
+    <div class="brief-word">Njia</div>
+    <div class="brief-tag">Data-driven career pathways for Kenyan youth</div>
+  </div>
+  <div class="brief-meta">
+    <strong>Education and career pathways in Kenya</strong><br>
+    KCSE, CBE, TVET and university &middot; for learners and career teachers<br>
+    13 November 2026 &middot; njiacareerpathways.work
+  </div>
+</div>
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<h1>Education and career pathways in Kenya</h1>
+
+<p class="lede">Two school routes are running side by side in Kenya at the moment, and they lead to the same places: artisan and craft training, diplomas, degrees and work. This page sets out how they fit together, and what Njia can and cannot tell you about each. It needs no account and tracks nothing.</p>
+
+<section>
+<h2 id="kcse">The route most readers are on: KCSE</h2>
+<p>After KCSE, most places in universities and colleges are applied for through KUCCPS, the national placement service, using your mean grade and, for many courses, subject grades beside it. Njia's catalogue is built on this route. Every course card carries its entry grade, and the <a href="/grades/">grade pages</a> show what is open from C plain down to E. A learner with an E can still enter artisan training and some certificates, and the <a href="/counties/">county pages</a> show where.</p>
+</section>
+
+<section>
+<h2 id="cbe">The new route: junior school, senior school pathways and CBE</h2>
+<p>These points are as reported by the news outlets named under each. The official sources are the Ministry of Education, KICD (curriculum designs) and KUCCPS, and anything that matters for your decision should be checked there.</p>
+<ul>
+<li><strong>Junior school ends at Grade 9</strong> with the Kenya Junior School Education Assessment (KJSEA). The first cohort sat it in 2025 and the Ministry said admission to senior school would begin on 12 January 2026. <span class="src">Reported by <a href="https://educationnews.co.ke/2025-kjsea-results-officially-released-as-placement-kicks-off/">Education News</a>.</span></li>
+<li><strong>Senior school has three pathways</strong> in most descriptions: STEM, Social Sciences, and Arts and Sports Science. Some outlets still describe a fourth, Languages; reports on the rationalised design say Languages was folded into Social Sciences. <span class="src">Reported by <a href="https://thekenyatimes.com/latest-kenya-times-news/cbc-pathways-grade-10/">The Kenya Times</a>.</span></li>
+<li><strong>Not every school offers every pathway or subject.</strong> Schools are described as triple-pathway or double-pathway, and subjects such as computer science and advanced laboratory sciences depend on a school's resources. <span class="src">Reported by <a href="https://thekenyatimes.com/education/cbc-categories-senior/">The Kenya Times</a>.</span></li>
+<li><strong>Placement into senior school</strong>, as the Ministry described it, took account of learner choice, KJSEA performance, psychometric test results, regional equity and school capacity. Reports differ on how the parts were weighted, so Njia does not quote weights. <span class="src">Reported by <a href="https://www.kenyans.co.ke/news/119226-ministry-education-releases-grade-10-placement-kjsea-candidates-2025">Kenyans.co.ke</a>.</span></li>
+<li><strong>Universities.</strong> KUCCPS has said it will place the first CBE learners from 2029 using a pathway model, with competency descriptors (Exceeding, Meeting, Approaching and Below Expectation) in place of the KCSE mean grade. The criteria are not final, and KUCCPS has said placement will follow requirements set by universities, colleges and regulators. <span class="src">Reported by <a href="https://radiogeneration.co.ke/education-and-career/91163/kuccps-to-place-first-cbe-learners-in-universities-using-pathway-model-from-2029">Radio Generation</a> and <a href="https://citizen.digital/article/kuccps-unveils-new-university-admission-system-under-cbe-n383208">Citizen Digital</a>.</span></li>
+<li><strong>TVET.</strong> We found no published detail on how CBE learners will be placed into technical and vocational colleges.</li>
+</ul>
+<p class="note">Our reading, not a rule: a pathway sets the subjects you study, not the career you end up in, so keep your options broad until the placement criteria for your cohort are published. When you want to aim at a particular programme, look up its subject requirements now, because those are the part most likely to be written down in advance. Njia cannot yet tell a CBE learner which courses they will qualify for, and says so rather than guessing.</p>
+</section>
+
+<section>
+<h2 id="ladder">The ladder in Njia's catalogue</h2>
+<p>Qualifications in Kenya sit on a ladder. The Kenya National Qualifications Framework has ten levels, from basic education at Level 1 to the doctorate at Level 10, aligned to the East African Community framework and regulated by the Kenya National Qualifications Authority under the KNQF Act (<a href="https://www.knqa.go.ke/?p=549">KNQA</a>). Technical and vocational colleges are described as awarding qualifications at roughly Levels 3 to 6. Njia does not publish a level-by-level table because the descriptor table could not be read from here; the KNQA classification standard has it.</p>
+<div class="wrap" tabindex="0" role="region" aria-label="Qualification ladder in Njia's catalogue">
+<table class="ladder">
+<caption>Places to apply in Njia's catalogue, by level of qualification</caption>
+<thead><tr><th scope="col">Level</th><th scope="col" class="num">Places</th><th scope="col" class="num">Institutions</th><th scope="col" class="num">Counties</th><th scope="col" class="num">Open to an E</th><th scope="col" class="num">With a fee figure</th></tr></thead>
+<tbody>
+<tr>
+  <th scope="row">Artisan</th>
+  <td class="num">141</td>
+  <td class="num">40</td>
+  <td class="num">36</td>
+  <td class="num">141</td>
+  <td class="num">87</td>
+</tr>
+<tr>
+  <th scope="row">Certificate</th>
+  <td class="num">217</td>
+  <td class="num">119</td>
+  <td class="num">47</td>
+  <td class="num">7</td>
+  <td class="num">138</td>
+</tr>
+<tr>
+  <th scope="row">Diploma</th>
+  <td class="num">318</td>
+  <td class="num">136</td>
+  <td class="num">47</td>
+  <td class="num">3</td>
+  <td class="num">202</td>
+</tr>
+<tr>
+  <th scope="row">Degree</th>
+  <td class="num">711</td>
+  <td class="num">66</td>
+  <td class="num">32</td>
+  <td class="num">0</td>
+  <td class="num">19</td>
+</tr>
+<tr>
+  <th scope="row">Short course</th>
+  <td class="num">5</td>
+  <td class="num">4</td>
+  <td class="num">2</td>
+  <td class="num">3</td>
+  <td class="num">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="src">A place is one course at one institution. Counted from Njia's catalogue on 13 November 2026. A low count describes what Njia has listed, not what exists, and a fee figure may be published by the institution or derived from a published rate; <a href="/open-data/">the open data</a> says which for every course.</p>
+</section>
+
+<section>
+<h2 id="moving-up">Moving up the ladder</h2>
+<p>Most ladders are climbed one rung at a time, and a lower grade does not close the route. Some institutions publish a second way in beside the grade. Njia's course notes record, for example, a bridging certificate at Carlile College for applicants who do not meet the entry grade for its diploma, and a route into a diploma at the Kenya Wildlife Service Training Institute for applicants with a D+ and three years of relevant work. These are published by individual institutions, so confirm them with the institution: there is no single national rule that Njia can quote.</p>
+<p>Not every route starts in a classroom. The NYOTA youth project says it aims to certify existing artisan skills through recognition of prior learning, alongside business grants and on-the-job experience for unemployed young people aged 18 to 29 (<a href="https://www.worldbank.org/en/results/2025/04/15/the-youth-dividend-investing-in-kenya-s-next-generation">World Bank</a>). Njia lists it under funding, with its limits and how to apply.</p>
+<p>For help choosing between routes, the <a href="/diagnostic/">diagnostic page</a> explains what Njia's questionnaire can and cannot tell you, and the <a href="/help/">questions and answers</a> cover grades, fees and funding.</p>
+</section>
+<p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
+</main>
+</body>
+</html>

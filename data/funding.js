@@ -401,6 +401,29 @@ const FUNDING_SOURCES = [
     data_confidence: 'verified',
     verification_note: 'The programme, its 2016 launch, the 18-to-35 out-of-school eligibility, the Skiller and Apprentice streams, sponsored training at accredited TVETs, business development services, startup toolkits and access to single-digit-interest KCB loans are published by KCB Foundation on its own domain and described in the same terms by the Mastercard Foundation, which co-funds it under Young Africa Works, and by Capital FM and Education News reporting on county cohorts, September 2026. KCB reports 22,959 youth trained and 5,594 businesses incubated since launch. No amount is recorded because none is published; the value is the sponsorship of the course rather than an award of a stated size. No date is recorded because intakes are cohort-based and often county-specific. The constituency route is corroborated across several 2025 and 2026 cohorts (Education News, HapaKenya, TechAfrica News and KCB Group), which name different NG-CDF partner constituencies each time, 14 in one 2026 call alone, with interviews held at the designated training institutions; no single constituency list is recorded because each one is specific to its cohort.'
   },
+  {
+    id: 'f030',
+    name: 'NYOTA - government youth grants, training and work experience (dial *254#)',
+    type: 'sponsorship',
+    description: 'Built for unemployed, underemployed and low-income young people aged 18 to 29 (up to 35 for persons with disabilities) whose education stops at Form Four or below, so no KCSE grade is needed and holding a diploma or degree may rule you out of some grants. NYOTA, the National Youth Opportunities Towards Advancement project, is a five-year Government of Kenya project financed by the World Bank. Reported support has three strands: a business track (a short business training, then a start-up grant of up to Ksh 50,000), on-the-job experience placements, and skills support that the project says includes certifying existing artisan skills through recognition of prior learning. You apply free of charge by dialling *254# and choosing the NYOTA option, and nobody may charge you to register. Rounds open and close, so there is no fixed annual date: an October 2025 round closed on 12 October and a second phase of payments was launched in July 2026. Some reports say people who defaulted on Hustler Fund loans may be excluded, so confirm before relying on a place.',
+    coverage: 'A start-up grant of up to Ksh 50,000 on the business track after short business training, plus on-the-job experience placements and skills support, free to apply for',
+    max_amount_kes: 50000,
+    eligibility: 'Kenyan citizen aged 18 to 29 (up to 35 for persons with disabilities), unemployed, underemployed or in low-income work, with education at Form Four or below; a national ID and a SIM card registered in your name. No KCSE mean grade is published as a requirement.',
+    min_grade: null,
+    application_deadline: 'Run in rounds rather than on an annual date: an October 2025 round closed on 12 October and a second phase of payments was launched in July 2026. Dial *254# or check youth.go.ke to see whether a round is open before planning on it.',
+    website: 'https://youth.go.ke/',
+    application_url: 'https://youth.go.ke/',
+    requirements: [
+      'Kenyan citizen aged 18 to 29, or up to 35 with a disability',
+      'Education at Form Four or below',
+      'National identity card and a SIM card registered in your name',
+      'Dial *254# and choose the NYOTA option. It is free: never pay to register'
+    ],
+    interest_rate: null,
+    repayment_period: null,
+    data_confidence: 'verified',
+    verification_note: 'The programme, its World Bank financing and five-year span, the age and Form Four limits, the identity and SIM requirements, the Ksh 50,000 business grant and the *254# application route are reported consistently by the World Bank project page and by The Star, Business Today, Nairobi Leo and Pulse. Sources disagree on the target number of youth (800,000 or 820,000) and one outlet gives 18 to 35 for all youth, so neither is recorded as a figure; 18 to 29 is the majority reading. The October 2025 closing date and the July 2026 second phase are each from one outlet, so no open date is recorded. The Hustler Fund exclusion is from one secondary source and is flagged as a report. No stipend is recorded: one outlet mentions one and no other source repeats it.'
+  },
 ];
 
 /* THE STICKER PRICE IS NOT WHAT A PUBLIC-TVET STUDENT PAYS.

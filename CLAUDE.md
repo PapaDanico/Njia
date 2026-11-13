@@ -6748,3 +6748,50 @@ names ILU with its reason; remove it when ILU reaches five records.
   (C- and two years against an older three), Audiology and Hearing Care
   Technology (24 months at Nairobi, no bar found). The Equity Group Foundation TVET
   "Phase V" form is a PDF title with no second source, so it is not a record.
+
+**Pathways and assessment research, 13 November 2026.** Two generated pages now
+carry what the research established: `/pathways/` (KCSE and CBE routes, with the
+ladder counted from the catalogue) and `/diagnostic/` (what the questionnaire
+measures and what it is not). Decisions taken, so nobody reopens them:
+- **No accounts, no fonts, no embedded third-party instrument.** The diagnostic
+  stays an exploration aid. The O*NET Interest Profiler is **not** public domain:
+  unmodified copying is CC BY-ND 4.0 and any change needs the developer licence,
+  so Njia links to it and does not copy or adapt it. Holland-type models have
+  mixed cross-cultural structural evidence (Rounds and Tracey) and thin African
+  evidence; no Kenyan validation study was found. That absence is stated, not
+  filled.
+- **An unsourced endorsement was removed.** The Discover intro said the model was
+  "the same model executive coaches use". Nothing sourced it and the scoring
+  comment disclaims validation. `tests/pathways.test.js` bans the claim on every
+  shipped surface and requires "not a validated psychological test" on each
+  surface that describes the diagnostic. The hero proverb is now plain English.
+- **CBE facts are reported, not official.** Three pathways (STEM, Social
+  Sciences, Arts and Sports Science), pioneer cohort in senior school from
+  January 2026, KUCCPS placing the first CBE learners from 2029 by a pathway
+  model. Sources disagree on a fourth pathway (Languages) and on placement
+  weights, so the page quotes none. No source gave how CBE learners enter TVET.
+- **A lead that could invalidate data: the C+ degree floor.** People Daily
+  reports KUCCPS planning to remove C+ as the minimum university entry grade
+  from 2026-27; The Standard reports it staying at C+ for KCSE candidates in
+  2025 to 2027. Those conflict, and most degree records here carry C+. Nothing
+  was changed. Re-read KUCCPS's own guidance before the next placement cycle.
+- **KNQF level mapping not published.** Ten levels is sourced (KNQA); which
+  qualification sits at which level could not be read from here, so the page
+  says so. Do not fill it from aggregators.
+
+**NYOTA (the *254# youth programme), 13 November 2026.** Recorded as `f030`:
+National Youth Opportunities Towards Advancement, a five-year Government of
+Kenya project financed by the World Bank, for unemployed or low-income youth 18
+to 29 (35 with a disability) with Form Four education or below, applied for free
+by dialling `*254#`. **It asks for no KCSE grade, which makes it one of the few
+records reaching the learner whose grade closed every merit route.** The Ksh
+50,000 business grant is recorded because several outlets and the World Bank
+agree; the target number (800,000 or 820,000), the age limit (one outlet says 35
+for everyone), a monthly stipend (one outlet only), the instalment structure and
+the exact round dates are **not** recorded. No open date, so it does not enter the
+Application Clock. **The Hustler Fund is not a funding record**: it is a general
+loan product, like the Uwezo Fund, and reaches no one for training; the report
+that its defaulters may be excluded from NYOTA is one secondary source, so it
+sits in the description as a report. Leads: the World Bank appraisal document
+(project P179414) for the real component and stipend design; whether the
+recognition-of-prior-learning strand has a published route through NITA.

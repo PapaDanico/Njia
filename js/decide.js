@@ -1700,6 +1700,13 @@ function renderFundingCard(f, userGrade) {
         ${isVerified ? '<span class="verified-badge" title="Cross-checked against a public source">✓ Verified</span>' : ''}
       </div>
       <h2>${escapeHtml(f.name)}</h2>
+      <div class="njia-funding-evidence" role="note">
+        <div class="njia-funding-evidence__head"><strong>Funding evidence</strong><span class="${isVerified ? 'njia-funding-evidence__sourced' : 'njia-funding-evidence__estimate'}">${isVerified ? 'Source reviewed' : 'Details require verification'}</span></div>
+        <p>${isVerified ? 'This programme has a source record, but awards, deadlines and eligibility can change each cycle.' : 'Programme amounts and eligibility may be illustrative. Do not use this estimate as an award or approval.'}</p>
+        <p><strong>Eligibility:</strong> ${!eligible ? 'Below the listed minimum grade' : gradeUnconfirmed ? 'Your grade has not been confirmed' : 'Preliminary grade screen only'} · <strong>Award:</strong> Not guaranteed</p>
+        <a href="./research/sources/">Understand official funding checks ↗</a>
+      </div>
+
       <p class="text-secondary text-sm mb-2">${escapeHtml(f.description)}</p>
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(f.verification_note)}</p>` : ''}
       <div class="meta-grid">

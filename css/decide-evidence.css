@@ -15,3 +15,12 @@
 .njia-compare-note strong{display:block;color:var(--text-primary);margin-bottom:.4rem}
 .njia-compare-note p{margin:.2rem 0 .7rem;color:var(--text-secondary);font-size:.9rem}
 .njia-compare-note a{color:var(--primary-dark);font-weight:700}
+
+.njia-funding-evidence{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--secondary);padding:1rem;margin:.8rem 0 1.2rem}
+.njia-funding-evidence__head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap}
+.njia-funding-evidence__head strong{font-size:.77rem;letter-spacing:.08em;text-transform:uppercase}
+.njia-funding-evidence__head span{font-size:.74rem;padding:.2rem .5rem;background:var(--bg-elevated);border:1px solid var(--border)}
+.njia-funding-evidence__sourced{color:var(--secondary)}
+.njia-funding-evidence__estimate{color:var(--primary-dark)}
+.njia-funding-evidence p{font-size:.83rem;line-height:1.55;margin:.6rem 0;color:var(--text-secondary)}
+.njia-funding-evidence a{font-size:.82rem;font-weight:700;color:var(--primary-dark)}

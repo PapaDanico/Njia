@@ -1677,7 +1677,9 @@ function renderFundingCard(f, userGrade) {
         ${isVerified ? '<span class="verified-badge" title="Cross-checked against a public source">✓ Verified</span>' : ''}
       </div>
       <h2>${escapeHtml(f.name)}</h2>
+      ${fundingIsExpired(f, new Date().toISOString().slice(0, 10)) ? `<p class="text-sm mb-2"><strong>This call closed on ${escapeHtml(f.valid_until)}.</strong> Check whether a new round is open before planning on it.</p>` : ''}
       <p class="text-secondary text-sm mb-2">${escapeHtml(f.description)}</p>
+      ${f.checked_at ? `<p class="text-muted text-sm mb-2">Details last checked ${escapeHtml(f.checked_at)}.</p>` : ''}
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(f.verification_note)}</p>` : ''}
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Coverage</div><div class="meta-value">${escapeHtml(f.coverage)}</div></div>

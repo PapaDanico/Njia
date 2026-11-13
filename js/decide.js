@@ -1144,11 +1144,11 @@ function renderCourseCard(course, match) {
   const saved = AppState.savedCourses.includes(course.id);
   // Null when the institution publishes no fee — every derived cost line
   // below is suppressed rather than rendered as "Ksh 0/month".
-  const feePublished = course.total_fees_kes != null;
-  const monthlyEstimate = (feePublished && course.duration_months != null)
-    ? Math.round(course.total_fees_kes / course.duration_months) : null;
-
   const basis = feeBasis(course);
+  const feePublished = Number.isFinite(course.total_fees_kes) && course.total_fees_kes >= 0;
+  const durationKnown = Number.isFinite(course.duration_months) && course.duration_months > 0;
+  const monthlyEstimate = (feePublished && durationKnown)
+    ? Math.round(course.total_fees_kes / course.duration_months) : null;
 
   // Online courses don't require relocating or renting near an institution,
   // so an accommodation estimate would overstate the real cost for them.
@@ -1158,7 +1158,7 @@ function renderCourseCard(course, match) {
      cost of attendance. Null rather than NaN: the block simply does not render. */
   const totalCostOfAttendance = !feePublished ? null
     : requiresRelocation
-      ? (course.duration_months == null ? null : course.total_fees_kes + accomRate * course.duration_months)
+      ? (!durationKnown ? null : course.total_fees_kes + accomRate * course.duration_months)
       : course.total_fees_kes;
 
   return `
@@ -1215,7 +1215,7 @@ function renderCourseCard(course, match) {
           price. Ask the institution for its own figure.</p>`;
       })()}
       ${feePublished ? `
-      ${monthlyEstimate != null ? `<p class="text-muted text-sm mb-2">Tuition averaged over the listed duration: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}. This is an arithmetic average, not an instalment plan.${inst?.has_workstudy ? ' Work-study may be available at this institution.' : ''}</p>` : '<p class="text-muted text-sm mb-2">A monthly tuition average cannot be calculated because the course duration is not recorded. Request the official payment schedule.</p>'}
+      ${monthlyEstimate != null ? `<p class="text-muted text-sm mb-2">Tuition estimate averaged over the listed duration: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}. This is an arithmetic average, not an instalment plan; verify the fee basis above.${inst?.has_workstudy ? ' Work-study may be available at this institution.' : ''}</p>` : '<p class="text-muted text-sm mb-2">A monthly tuition average cannot be calculated because the course duration is not recorded. Request the official payment schedule.</p>'}
       <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${totalCostOfAttendance == null
         ? 'Not calculated — the duration or required cost inputs are unavailable. Confirm tuition, accommodation and living costs with the institution.'
         : requiresRelocation

@@ -33,19 +33,35 @@
   if(exported.course_count!==rows.length||exported.institution_count!==institutions.size)throw Error('Catalogue export metadata mismatch');
   return {schema_version:1,scope:'Njia catalogue only — not a national census',totals:{catalogue_offerings:rows.length,linked_offerings:rows.length,listed_institutions:institutions.size,institutions_with_offerings:institutions.size,counties_with_offerings:Object.keys(counties).filter(x=>x!=='Unspecified').length,distinct_programme_names:names.size},fees:{by_basis:byBasis,published_share_pct:pct(byBasis.published,rows.length),unavailable_share_pct:pct(flags.unavailable_fee,rows.length)},entry_grade:grade,quality_flags:flags,by_county:counties,by_level:byLevel,by_ownership:byOwnership};
  }
+ function validIndicators(d){
+  if(!d||d.schema_version!==1||!d.totals||!d.fees||!d.by_county)return false;
+  const totals=d.totals,fees=d.fees;
+  const nonnegative=v=>Number.isSafeInteger(v)&&v>=0;
+  if(!nonnegative(totals.catalogue_offerings)||!nonnegative(totals.linked_offerings)||!nonnegative(totals.institutions_with_offerings)||!nonnegative(totals.counties_with_offerings)||!nonnegative(totals.distinct_programme_names))return false;
+  if(totals.linked_offerings>totals.catalogue_offerings||!fees.by_basis)return false;
+  for(const key of feeClasses)if(!nonnegative(fees.by_basis[key]))return false;
+  if(Object.values(fees.by_basis).reduce((sum,v)=>sum+v,0)>totals.catalogue_offerings)return false;
+  if(typeof d.by_county!=='object'||Array.isArray(d.by_county))return false;
+  for(const entry of Object.values(d.by_county)){
+   if(!entry||!nonnegative(entry.offerings)||!nonnegative(entry.institutions)||entry.institutions>entry.offerings)return false;
+  }
+  return true;
+ }
  async function load(){
   try{
    let d,source;
    try{
     const r=await fetch('./catalogue-indicators.json',{cache:'no-cache'});
     if(!r.ok)throw Error('Compact report missing');
-    d=await r.json();source='precomputed catalogue indicators';
+    d=await r.json();
+    if(!validIndicators(d))throw Error('Compact report invalid');
+    source='precomputed catalogue indicators';
    }catch(_){
     const r=await fetch('../open-data/njia-catalogue.json',{cache:'no-cache'});
     if(!r.ok)throw Error('Open-data export unavailable');
     d=fromExport(await r.json());source='published Njia open-data export';
    }
-   if(d.schema_version!==1||!d.totals||!d.fees||!d.by_county)throw Error('Invalid research indicators');
+   if(!validIndicators(d))throw Error('Invalid research indicators');
    const grid=document.getElementById('research-grid');
    card(grid,'Listed course offerings',d.totals.catalogue_offerings);
    card(grid,'Offerings linked to an institution',d.totals.linked_offerings);

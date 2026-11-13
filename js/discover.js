@@ -170,6 +170,24 @@ function toggleVoiceInput() {
   voiceRecognition.start();
 }
 
+/* ---------- Why this result ----------
+ * Pure: which answers counted most toward a direction. Positive weighted
+ * points only; free text carries scores {} so it can never appear; ties break
+ * on the answer text so the order does not depend on object key order. */
+function whyThisResult(answers, clusterId, limit) {
+  const max = limit > 0 ? limit : 3;
+  const rows = [];
+  Object.values(answers || {}).forEach((ans) => {
+    if (!ans || !ans.scores || typeof ans.text !== 'string') return;
+    const pts = ans.scores[clusterId];
+    if (!(pts > 0)) return;
+    const weight = ans.weight > 0 ? ans.weight : 1;
+    rows.push({ text: ans.text, points: pts * weight });
+  });
+  rows.sort((a, b) => (b.points - a.points) || (a.text < b.text ? -1 : a.text > b.text ? 1 : 0));
+  return rows.slice(0, max);
+}
+
 /* ---------- Scoring ----------
  * computeClusterScores is deliberately pure (answers in, results out — no
  * AppState, no DOM) so `node --test tests/*.test.js` can exercise it directly. */
@@ -864,6 +882,13 @@ function renderShareableReportHTML() {
           : primaryC.paths.slice(0, 4)
         ).map((label) => `<span class="report-path-tag">${escapeHtml(label)}</span>`).join('')}</div>
       </div>
+
+      ${(() => {
+        const why = whyThisResult(AppState.questionnaire.answers, primary, 3);
+        return why.length
+          ? `<div class="report-why"><h3>The answers that counted most here</h3><ul>${why.map((w) => `<li>${escapeHtml(w.text)}</li>`).join('')}</ul><p class="report-why-note">Your free-text answers are printed as you wrote them and are never scored.</p></div>`
+          : '';
+      })()}
 
       ${isTie
         ? `<p class="report-secondary-line"><strong>This was a draw.</strong> ${tiedTop.map((id) => escapeHtml(CLUSTERS[id].name)).join(' and ')} scored identically, so treat them as equally matched — the questionnaire cannot separate them, and the one printed above is not the winner.</p>`

@@ -2537,6 +2537,10 @@ details.prov-block[open] > .prov-lede { margin-bottom: .6rem; }
 .report-path-tag { font-size: var(--fs-xs); background: #f2efe7; color: #52504a; padding: 0.2rem 0.65rem; border-radius: 999px; }
 
 .report-secondary-line { font-size: var(--fs-md); color: #52504a; margin-bottom: 1.1rem; }
+.report-why { margin: 0 0 1.1rem; font-size: var(--fs-md); color: #3a3833; }
+.report-why h3 { font-size: var(--fs-md); margin: 0 0 .3rem; }
+.report-why ul { margin: 0 0 .3rem 1.1rem; padding: 0; }
+.report-why-note { font-size: var(--fs-sm); color: #52504a; margin: 0; }
 
 .report-columns { display: grid; grid-template-columns: 1fr; gap: 1.2rem; margin-bottom: 1.1rem; }
 @media (min-width: 480px) { .report-columns { grid-template-columns: 1fr 1fr; } }

@@ -33,10 +33,10 @@ payload ceilings hold, and the generators have been re-run in order.
 | 3 | `/careers/` | none | Computed from `CATALOGUE_ROLES`; one page, not one per role; recomputed by a test | **Shipped** |
 | 4 | Why-this-result panel in the report | none | Pure function, unit-tested, prints on the report; never scores free text | **Shipped** |
 | 5 | Plan-from-course in Track | 1 | Check what the application checklist already does before building | **Already existed**; not rebuilt |
+| 6 | `/methodology/` | 1, 2 | Every figure read from the generated stats; each stated limit asserted by a test; in served link, sitemap, `llms.txt`, axe sweep | **Shipped** |
 | 7 | Rebuild `/research/` as a generated page | 6 | Figures from `summariseCatalogue()` with the app's `feeBasis()`; no script; print header and dark scheme; recomputed by a test; in the axe sweep | **Shipped** |
 | 8 | Counsellor kit `/counsellors/` | 6 | 50-minute session plan and two printable handouts; grade table recomputed; handouts break onto their own sheets; in served link, sitemap, `llms.txt`, axe sweep | **Shipped** |
 | 9 | Design pass: exhibits, shared sources footer, generated `/research/sources/` | 7, 8 | Exhibit titles computed from the data and asserted; footer on every generated guidance page; sources page generated from the register; axe clean | **Shipped** |
-| 6 | `/methodology/` | 1, 2 | Every figure read from the generated stats; each stated limit asserted by a test; in served link, sitemap, `llms.txt`, axe sweep | **Shipped** |
 
 ## Deliberately not in this plan
 
@@ -130,3 +130,20 @@ Unit suite 375 pass, 0 fail (7 mtime guards skip under CI); probe 49/49; axe 108
 violations; `CACHE_VERSION` njia-v300. Checked on screen at 1440 and 390 (dark) and in print
 emulation. Not done: photography (needs an art-direction brief), the board-style report PDF,
 a space measurement of the generated pages, and checking the register's URLs.
+
+### 13 November 2026, whole-site audit and review of PR #166
+
+Audit of `main` at `992d9e4`: unit suite 375 pass, 0 fail (7 mtime guards skip under CI); every
+`js/`, `data/` and `sw.js` file parses (`node --check`); the five generators re-run in order
+produce no diff; 69 generated pages carry 850 internal links with none broken, every sitemap URL
+exists on disk, every page is in the sitemap, and every canonical matches its path. The plan table
+rows were out of order (7, 8, 9, 6) and are fixed.
+
+PR #166 (ChatGPT, R8 institution metadata and an R9 to R13 charter) was reviewed against the
+handover checklist. Its description said "documentation only" while the diff added a tool, a test
+and a data file; the description was corrected. Two defects were fixed on the branch: the
+`checked_at` pattern was `/^\\d{4}.../` (a literal backslash), which rejected every valid date and
+would have blocked any genuinely verified claim, now covered by a test that fails on the old
+pattern; and the unverified overlay sat in `data/`, where the service-worker guard treats it as a
+shipped file, so it moved to `docs/research/`. The research documents invent no figure and state
+0 of 10 pilot institutions verified. Nothing was verified against a regulator from this build.

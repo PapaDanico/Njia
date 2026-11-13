@@ -9,7 +9,7 @@ test('research page uses escaped DOM text and clearly states catalogue scope',()
  const html=fs.readFileSync(path.join(root,'research','index.html'),'utf8');
  const js=fs.readFileSync(path.join(root,'research','research.js'),'utf8');
  assert.match(html,/not every institution or course in Kenya/);
- assert.match(js,/node\.textContent=text/);
+ assert.match(js,/node\.textContent=String\(value\)/);
  assert.doesNotMatch(js,/innerHTML\s*=/);
 });
 test('research page indicators are generated rather than hardcoded',()=>{

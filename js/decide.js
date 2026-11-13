@@ -1221,7 +1221,7 @@ function renderCourseCard(course, match) {
         : requiresRelocation
           ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
           : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
-      }</p> : `
+      }</p>` : `
       ${/* THE COPY THAT WAS WRITTEN FOR ONE AUDIENCE AND SHOWN TO EVERY OTHER.
              This branch used to be unconditional county-VTC advice — cheapest
              option, ring the registrar, mind the NITA trade test — because when
@@ -1709,7 +1709,9 @@ function renderFundingCard(f, userGrade) {
         <a href="./research/sources/">Understand official funding checks ↗</a>
       </div>
 
+      ${fundingIsExpired(f, new Date().toISOString().slice(0, 10)) ? `<p class="text-sm mb-2"><strong>This call closed on ${escapeHtml(f.valid_until)}.</strong> Check whether a new round is open before planning on it.</p>` : ''}
       <p class="text-secondary text-sm mb-2">${escapeHtml(f.description)}</p>
+      ${f.checked_at ? `<p class="text-muted text-sm mb-2">Details last checked ${escapeHtml(f.checked_at)}.</p>` : ''}
       ${isVerified ? `<p class="text-muted text-sm mb-2" style="font-style:italic">${escapeHtml(f.verification_note)}</p>` : ''}
       <div class="meta-grid">
         <div class="meta-item"><div class="meta-label">Coverage</div><div class="meta-value">${escapeHtml(f.coverage)}</div></div>

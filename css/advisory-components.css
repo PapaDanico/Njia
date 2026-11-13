@@ -20,4 +20,4 @@
 .njia-status--derived{color:var(--accent-ink,#7A5206)}
 .njia-status--unavailable{color:var(--text-secondary,#5C3410)}
 @media(max-width:640px){.njia-brief{padding:1.25rem}.njia-brief__title{max-width:100%}.njia-evidence-grid{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){.njia-brief *{scroll-behavior:auto;animation:none!important;transition:none!important}}
+@media(prefers-reduced-motion:reduce){.njia-brief *{scroll-behavior:auto;animation:none!important;transition:none!important;}}

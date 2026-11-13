@@ -119,7 +119,7 @@ test('the clock\'s funding rows match a live recount', () => {
   const { LANDING_STATS } = require(statsPath);
   const live = FUNDING_SOURCES
     .filter((f) => f.data_confidence === 'verified' && f.application_deadline)
-    .map((f) => ({ name: f.name, application_deadline: f.application_deadline }));
+    .map((f) => ({ name: f.name, application_deadline: f.application_deadline, ...(f.valid_until ? { valid_until: f.valid_until } : {}) }));
   assert.deepEqual(JSON.parse(JSON.stringify(LANDING_STATS.fundingDeadlines)), live,
     'the Application Clock\'s funding rows have drifted from data/funding.js. '
     + 'Run node tools/build-landing-stats.mjs. These are deadlines shown in the landing '

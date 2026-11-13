@@ -287,7 +287,11 @@ available in the county" — the difference is the whole point.
 - [Open data](${SITE}/open-data/): the whole catalogue as CSV and JSON, including the fee-provenance column.
 - [County provision analysis](${SITE}/analysis/): which counties are closed to a low-grade learner, and why.
 - [Education and career pathways](${SITE}/pathways/): the KCSE and CBE routes, what is reported about senior school pathways and university placement from 2029, and the qualification ladder in the catalogue.
+- [Careers by direction](${SITE}/careers/): the roles the most courses lead to in each of seven directions, with levels and how many are open to an E.
+- [Catalogue evidence](${SITE}/research/): which figures are published, derived or unavailable, and how counties are represented.
 - [About the diagnostic](${SITE}/diagnostic/): what the questionnaire measures, how it counts, and why it is an exploration aid and not a validated test.
+- [Privacy](${SITE}/privacy/): what stays on the device, the one form that can send data, and the one step count Njia keeps.
+- [Accessibility](${SITE}/accessibility/): the WCAG 2.2 AA target, what has been tested, and what has not.
 - [Partnership proposal](${SITE}/docs/): the August 2026 proposal, for funders and partners rather than learners.
 
 ## Contact

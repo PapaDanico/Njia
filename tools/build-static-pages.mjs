@@ -1305,7 +1305,7 @@ fs.writeFileSync(path.join(DOCS_OUT, 'index.html'), docsIndexPage(
  * reported, and where sources disagree the page says so instead of picking. The
  * placement criteria for the first CBE cohort are not final, and the page says
  * that rather than guessing at them. */
-const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic') };
+const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers') };
 
 const DIAG_CLUSTERS = (() => {
   const ctx = vm.createContext({});
@@ -1423,7 +1423,7 @@ ${rowsHtml}
 <h2 id="moving-up">Moving up the ladder</h2>
 <p>Most ladders are climbed one rung at a time, and a lower grade does not close the route. Some institutions publish a second way in beside the grade. Njia's course notes record, for example, a bridging certificate at Carlile College for applicants who do not meet the entry grade for its diploma, and a route into a diploma at the Kenya Wildlife Service Training Institute for applicants with a D+ and three years of relevant work. These are published by individual institutions, so confirm them with the institution: there is no single national rule that Njia can quote.</p>
 <p>Not every route starts in a classroom. The NYOTA youth project says it aims to certify existing artisan skills through recognition of prior learning, alongside business grants and on-the-job experience for unemployed young people aged 18 to 29 (<a href="https://www.worldbank.org/en/results/2025/04/15/the-youth-dividend-investing-in-kenya-s-next-generation">World Bank</a>). Njia lists it under funding, with its limits and how to apply.</p>
-<p>For help choosing between routes, the <a href="/diagnostic/">diagnostic page</a> explains what Njia's questionnaire can and cannot tell you, and the <a href="/help/">questions and answers</a> cover grades, fees and funding.</p>
+<p>For help choosing between routes, the <a href="/diagnostic/">diagnostic page</a> explains what Njia's questionnaire can and cannot tell you, the <a href="/careers/">careers page</a> lists the roles courses lead to, and the <a href="/help/">questions and answers</a> cover grades, fees and funding.</p>
 </section>`;
   return guidancePage({
     dir: 'pathways',
@@ -1482,7 +1482,167 @@ function diagnosticPage() {
   });
 }
 
-for (const [dir, render] of [['pathways', pathwaysPage], ['diagnostic', diagnosticPage]]) {
+/* ---- /privacy/ and /accessibility/ ---------------------------------------
+ * Trust pages. Each says only what the app does and what has actually been
+ * tested, and says plainly where something has NOT been done. The privacy page
+ * mirrors the in-app modal (index.html, openPrivacyModal) claim for claim, so
+ * the two cannot disagree; tests/trust-pages.test.js holds the properties. */
+function privacyPage() {
+  const body = `
+<p class="lede">Njia is built so that your answers never leave your phone. This page says exactly what that means, what is the one exception, and the single thing Njia does count. It needs no account because there is no account.</p>
+
+<section>
+<h2 id="on-your-device">What stays on your device</h2>
+<p>Everything you enter in Njia (questionnaire answers, plans, saved courses and objectives) is kept in your browser's local storage on this device. None of it is sent to a server or shared with anyone. There are no accounts and nothing to sign in to.</p>
+<p>Njia does not use cookies, trackers or third-party analytics: nothing from outside the app is loaded or told anything about you.</p>
+</section>
+
+<section>
+<h2 id="exception">The one thing you type that can leave</h2>
+<p>If you choose to submit the optional Feedback or Partner Inquiry form, whatever you type into that form is sent to us. It is the only data that leaves your device, and only if you submit it. Please leave out personal details you would not want read by a stranger.</p>
+</section>
+
+<section>
+<h2 id="counting">The one thing Njia does count</h2>
+<p>When someone finishes the questionnaire, saves a course, starts an application or downloads a report, Njia asks its own server for a small file named after that step. All that gets recorded is that the step happened once more than yesterday. Nothing about you goes with it: no name, no device or session number, no answers, not even which course. Two steps from you look exactly like one step from two different people, so there is no trail back to anybody. It is the same kind of record any website keeps of a page being opened.</p>
+<p>It exists because, without knowing how many young people reach the end, Njia cannot be funded or taken up by a school. If your browser sends Do Not Track or Global Privacy Control, Njia counts nothing. Offline, it counts nothing either. Like any website, Njia's host also keeps ordinary request counts for the pages it serves.</p>
+</section>
+
+<section>
+<h2 id="your-control">What you can do</h2>
+<ul>
+<li><strong>Back up and move.</strong> The privacy panel in the app exports a backup file, or copies the backup as text if your browser blocks downloads (the WhatsApp, Facebook and Instagram browsers often do). Nothing syncs automatically between devices.</li>
+<li><strong>Wipe it.</strong> On a shared or borrowed phone, use Clear My Data before handing it back. It removes everything Njia stored on that device. It cannot recall a Feedback or Partner Inquiry you already sent.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="limits">What this page does not claim</h2>
+<p>Njia has not had a legal review under Kenya's Data Protection Act 2019. Because it holds no personal data on a server, little of the Act should apply, but that is our reading and not legal advice. If that changes, for example by adding accounts, this page changes first.</p>
+</section>`;
+  return guidancePage({
+    dir: 'privacy',
+    title: 'Privacy: what Njia keeps, what it counts, and what never leaves your phone',
+    description: 'Njia keeps your answers on your device. What stays, the one form that can send data, the one step count it keeps, and how to back up or wipe your data.',
+    h1: 'Privacy: what Njia keeps and what it counts',
+    detail: 'Your data and this site &middot; for learners, parents and partners',
+    body
+  });
+}
+
+function accessibilityPage() {
+  const body = `
+<p class="lede">Njia is for readers on cheap phones, in bright light, on weak connections, many of them over forty. This page says what has been done to make it usable, what has been tested, and what has not.</p>
+
+<section>
+<h2 id="target">What Njia aims for</h2>
+<p>The target is WCAG 2.2 at level AA. Njia does not claim to conform: automated tools find only part of the problems, and the claim would need a full manual audit that has not been recorded.</p>
+</section>
+
+<section>
+<h2 id="done">What has been done</h2>
+<ul>
+<li><strong>Text size and contrast.</strong> Body text never falls below 12px, and text colours are held to the AA contrast ratio in both the light and dark schemes by automated checks.</li>
+<li><strong>Keyboard.</strong> Interactive elements can be reached and used with a keyboard, and tables that scroll sideways can themselves be focused so their hidden columns are reachable.</li>
+<li><strong>Structure.</strong> Pages use real headings in order, labelled regions and descriptive link text, and the app moves focus to the page heading when you change section.</li>
+<li><strong>Motion and themes.</strong> Animation respects the reduced-motion setting, and light and dark schemes both follow your device.</li>
+<li><strong>Print.</strong> Reports and the county and grade pages print as dated sheets.</li>
+<li><strong>Weak connections.</strong> The app works offline once loaded, and the course catalogue is not on the path every first visit has to download.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="tested">What has been tested</h2>
+<p>An automated accessibility sweep (axe-core) runs over the app's routes and a sample of the generated pages, in the light and dark schemes, at phone and desktop widths, and it has been clean on each recent release. A scripted browser check drives the main flows, including a failing network, and measures what a reader would actually receive for items such as progress bars.</p>
+</section>
+
+<section>
+<h2 id="not-tested">What has not been tested</h2>
+<ul>
+<li>No manual audit with screen readers (TalkBack, VoiceOver, NVDA) has been recorded.</li>
+<li>No testing with people who use assistive technology has been recorded.</li>
+<li>Reading level has not been tested with learners.</li>
+</ul>
+<p class="note">If something does not work for you, tell us: open an issue at <a href="https://github.com/PapaDanico/Njia/issues">github.com/PapaDanico/Njia/issues</a> and say which page and which device. Njia does not advertise an email address, because the project domain has no mail server configured and anything sent there would bounce silently.</p>
+</section>`;
+  return guidancePage({
+    dir: 'accessibility',
+    title: 'Accessibility: what Njia has done, what has been tested, and what has not',
+    description: 'Njia\'s accessibility position: the WCAG 2.2 AA target, what has been built and automatically tested, and what has not been manually tested.',
+    h1: 'Accessibility: what has been done and what has not',
+    detail: 'Accessibility statement &middot; for readers and partners',
+    body
+  });
+}
+
+/* ---- /careers/ -------------------------------------------------------------
+ * ONE page, not one per role. A page per job title would be several hundred
+ * thin documents differing by a list of courses, which is the doorway pattern the
+ * grade pages were capped to avoid. This is the cross-cutting view instead: for
+ * each of the seven directions, the roles the most courses lead to, with the
+ * levels those courses sit at and how many are open to a learner with an E.
+ *
+ * A "role" is a job title recorded against a course in the catalogue. It is not
+ * an employment claim: Njia holds no employment rate or salary per course,
+ * because Kenya does not publish either, and this page says so. */
+const CAREER_DIRECTIONS = (() => {
+  const ctx = vm.createContext({});
+  vm.runInContext(fs.readFileSync(path.join(root, 'data', 'questions.js'), 'utf8'), ctx);
+  return vm.runInContext('Object.fromEntries(Object.entries(CLUSTERS).map(([k, v]) => [k, v.name]))', ctx);
+})();
+const CAREER_ROLES_PER_DIRECTION = 12;
+
+const careerRows = (clusterId) => {
+  const byRole = new Map();
+  for (const c of COURSES) {
+    if (c.cluster !== clusterId || !instById.has(c.institution_id)) continue;
+    for (const role of c.career_paths || []) {
+      const r = byRole.get(role) || { role, courses: 0, levels: new Set(), openToE: 0 };
+      r.courses += 1;
+      r.levels.add(c.level);
+      if (c.min_grade == null || c.min_grade === 'E') r.openToE += 1;
+      byRole.set(role, r);
+    }
+  }
+  const LEVEL_ORDER = ['artisan', 'short_course', 'certificate', 'diploma', 'degree'];
+  return [...byRole.values()]
+    .sort((a, b) => b.courses - a.courses || (a.role.toLowerCase() < b.role.toLowerCase() ? -1 : 1))
+    .slice(0, CAREER_ROLES_PER_DIRECTION)
+    .map((r) => ({ ...r, levels: LEVEL_ORDER.filter((l) => r.levels.has(l)).map((l) => LEVEL_LABEL[l]) }));
+};
+
+function careersPage() {
+  const sections = Object.entries(CAREER_DIRECTIONS).map(([id, name]) => {
+    const rows = careerRows(id);
+    return `
+<section>
+<h2 id="${slug(name)}">${esc(name)}</h2>
+<div class="wrap" tabindex="0" role="region" aria-label="Roles for ${esc(name)}">
+<table class="ladder">
+<caption>Roles that the most ${esc(name)} courses lead to</caption>
+<thead><tr><th scope="col">Role</th><th scope="col" class="num">Courses</th><th scope="col">Levels</th><th scope="col" class="num">Open to an E</th></tr></thead>
+<tbody>
+${rows.map((r) => `<tr><th scope="row">${esc(r.role)}</th><td class="num">${r.courses.toLocaleString('en-KE')}</td><td>${esc(r.levels.join(', '))}</td><td class="num">${r.openToE.toLocaleString('en-KE')}</td></tr>`).join('\n')}
+</tbody>
+</table>
+</div>
+</section>`;
+  }).join('\n');
+  const body = `
+<p class="lede">A role here is a job title recorded against a course in Njia's catalogue. For each of the seven directions the questionnaire can point to, this page lists the roles that the most courses lead to, the levels those courses sit at, and how many are open to a learner with an E. It is a map of routes, not a forecast: Njia holds no employment rates or salaries per course, because Kenya does not publish them.</p>
+<p class="src">Counted from the catalogue on ${esc(BUILD_DATE_LABEL)}. The ${CAREER_ROLES_PER_DIRECTION} most common roles are shown for each direction. A count describes what Njia has listed, not what exists. See <a href="/diagnostic/">what the questionnaire can and cannot tell you</a> and <a href="/pathways/">the pathways page</a> for how the levels fit together.</p>
+${sections}`;
+  return guidancePage({
+    dir: 'careers',
+    title: 'Careers by direction: the roles Kenyan courses lead to, and what level they start at',
+    description: 'For each of seven career directions, the roles the most courses in Njia\'s catalogue lead to, the levels they start at, and how many are open to a learner with an E.',
+    h1: 'Careers by direction: roles, levels and how to start',
+    detail: 'Roles by direction &middot; for learners and career teachers',
+    body
+  });
+}
+
+for (const [dir, render] of [['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
   fs.mkdirSync(GUIDANCE_OUT[dir], { recursive: true });
   fs.writeFileSync(path.join(GUIDANCE_OUT[dir], 'index.html'), render());
 }
@@ -1512,7 +1672,11 @@ const urls = [
      document a search engine could not see. */
   { loc: `${SITE}/help/`, priority: '0.9', changefreq: 'monthly' },
   { loc: `${SITE}/pathways/`, priority: '0.8', changefreq: 'monthly' },
+  { loc: `${SITE}/careers/`, priority: '0.8', changefreq: 'monthly' },
+  { loc: `${SITE}/research/`, priority: '0.6', changefreq: 'monthly' },
   { loc: `${SITE}/diagnostic/`, priority: '0.7', changefreq: 'monthly' },
+  { loc: `${SITE}/privacy/`, priority: '0.5', changefreq: 'yearly' },
+  { loc: `${SITE}/accessibility/`, priority: '0.4', changefreq: 'yearly' },
   { loc: `${SITE}/docs/`, priority: '0.5', changefreq: 'yearly' },
   ...gradePages.map(([g]) => ({ loc: `${SITE}/grades/${GRADE_SLUG[g]}/`, priority: '0.8', changefreq: 'monthly' })),
   ...counties.map((c) => ({ loc: `${SITE}/counties/${slug(c)}/`, priority: '0.7', changefreq: 'monthly' }))

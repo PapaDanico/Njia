@@ -1046,6 +1046,16 @@ function lastPlacementClose() {
   return PLACEMENT_CALENDAR.map((w) => w.closes).sort().pop();
 }
 
+/* A funding record may carry `valid_until`, the last day its stated call is known
+ * to be open. After it the record is a closed call, and a closed call must never
+ * be announced as live: the clock drops it and the funding card says it closed.
+ * ISO dates compare correctly as strings, which is why this is not a Date
+ * comparison and cannot be thrown by a timezone. A record with no valid_until is
+ * never expired by this rule; it simply has no stated end. */
+function fundingIsExpired(record, todayIso) {
+  return !!(record && record.valid_until && record.valid_until < todayIso);
+}
+
 function renderApplicationClock() {
   const open = openPlacementWindows().slice(0, 3);
   /* Precomputed in data/landing-stats.js rather than filtered from
@@ -1054,7 +1064,8 @@ function renderApplicationClock() {
      deadline — now lives in the generator and is recomputed by
      tests/landing-stats.test.js, so a record losing its verification still
      drops out of this panel rather than being announced on a stale artefact. */
-  const rows = LANDING_STATS.fundingDeadlines.slice(0, open.length ? 1 : 4);
+  const today = new Date().toISOString().slice(0, 10);
+  const rows = LANDING_STATS.fundingDeadlines.filter((f) => !fundingIsExpired(f, today)).slice(0, open.length ? 1 : 4);
   return `
     <div class="landing-clock-card">
       <p class="landing-clock-title">The Application Clock</p>
@@ -1305,6 +1316,8 @@ function renderHomePage() {
             <button type="button" onclick="openPartnersModal()">Products &amp; Partners</button>
             <button type="button" onclick="openFeedbackModal()">Give Feedback</button>
             <button type="button" onclick="openPrivacyModal()">Privacy &amp; your data</button>
+            <a href="./privacy/">Privacy statement</a>
+            <a href="./accessibility/">Accessibility</a>
             <button type="button" onclick="openTermsModal()">Terms of Use</button>
           </div>
         </div>

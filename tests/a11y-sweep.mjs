@@ -74,6 +74,9 @@ const GENERATED = [
   '/help/',
   '/pathways/',
   '/diagnostic/',
+  '/privacy/',
+  '/careers/',
+  '/accessibility/',
   '/open-data/',
   /* The analysis page is the only generated page with a 47-row, 12-column data
      table inside a horizontally scrolling region, which is its own set of ways

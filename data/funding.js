@@ -315,6 +315,7 @@ const FUNDING_SOURCES = [
   },
   {
     id: 'f026',
+    checked_at: '2026-11-08',
     name: 'KeNHA TVET Scholarships — Mombasa–Mariakani highway communities',
     type: 'scholarship',
     description: 'The lowest entry bar of any award in this list: the published minimum qualification is a KCPE certificate, not a KCSE mean grade, so a learner whose KCSE closed every other door here can still apply. The Kenya National Highways Authority funds technical and vocational training for unemployed young people living in the communities beside the Mombasa–Mariakani (A8/A109) highway project, from financing provided by the German development bank KfW, the European Investment Bank and the EU–Africa Infrastructure Trust Fund. It is reported as covering tuition, training materials and a monthly allowance. The courses named in the call are six-month trades — electrical installation, plumbing, masonry, carpentry, motor vehicle mechanics, welding and fabrication, hairdressing, beauty therapy, and refrigeration and air conditioning — and the call is open to people who left school without finishing. Selection is run with the national government and county education officers. Geographically narrow — Kwale, Mombasa and Kilifi counties only — but within those three it reaches further down the grade range than anything else Njia holds.',
@@ -359,6 +360,7 @@ const FUNDING_SOURCES = [
   },
   {
     id: 'f028',
+    checked_at: '2026-11-08',
     name: 'M-PESA Foundation and University of Embu TVET Scholarships',
     type: 'scholarship',
     description: 'Asks for no KCSE mean grade at all: a KCSE or KCPE certificate qualifies, and so can prior learning from work in the formal or informal sector. The scholarships cover all programme fees and pay a monthly stipend for accommodation and upkeep, for craft certificates, diplomas and other qualifications at the University of Embu TVET Institute. Courses named in the call are cosmetology, building and construction, mobile and electronic repairs, repair of two- and three-wheeled vehicles, electrical installation and maintenance, advanced welding, culinary arts and information technology. The programme was launched in September 2024 for 1,300 young people; the call that opened it was for a first cohort, a second-cohort call followed in May 2026 and closed on 12 June 2026, so cohorts do recur; ask the University of Embu TVET Institute when the next one opens before planning on it.',
@@ -403,6 +405,7 @@ const FUNDING_SOURCES = [
   },
   {
     id: 'f030',
+    checked_at: '2026-11-13',
     name: 'NYOTA - government youth grants, training and work experience (dial *254#)',
     type: 'sponsorship',
     description: 'Built for unemployed, underemployed and low-income young people aged 18 to 29 (up to 35 for persons with disabilities) whose education stops at Form Four or below, so no KCSE grade is needed and holding a diploma or degree may rule you out of some grants. NYOTA, the National Youth Opportunities Towards Advancement project, is a five-year Government of Kenya project financed by the World Bank. Reported support has three strands: a business track (a short business training, then a start-up grant of up to Ksh 50,000), on-the-job experience placements, and skills support that the project says includes certifying existing artisan skills through recognition of prior learning. You apply free of charge by dialling *254# and choosing the NYOTA option, and nobody may charge you to register. Rounds open and close, so there is no fixed annual date: an October 2025 round closed on 12 October and a second phase of payments was launched in July 2026. Some reports say people who defaulted on Hustler Fund loans may be excluded, so confirm before relying on a place.',

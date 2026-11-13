@@ -46,7 +46,11 @@ available in the county" — the difference is the whole point.
 - [Open data](https://njiacareerpathways.work/open-data/): the whole catalogue as CSV and JSON, including the fee-provenance column.
 - [County provision analysis](https://njiacareerpathways.work/analysis/): which counties are closed to a low-grade learner, and why.
 - [Education and career pathways](https://njiacareerpathways.work/pathways/): the KCSE and CBE routes, what is reported about senior school pathways and university placement from 2029, and the qualification ladder in the catalogue.
+- [Careers by direction](https://njiacareerpathways.work/careers/): the roles the most courses lead to in each of seven directions, with levels and how many are open to an E.
+- [Catalogue evidence](https://njiacareerpathways.work/research/): which figures are published, derived or unavailable, and how counties are represented.
 - [About the diagnostic](https://njiacareerpathways.work/diagnostic/): what the questionnaire measures, how it counts, and why it is an exploration aid and not a validated test.
+- [Privacy](https://njiacareerpathways.work/privacy/): what stays on the device, the one form that can send data, and the one step count Njia keeps.
+- [Accessibility](https://njiacareerpathways.work/accessibility/): the WCAG 2.2 AA target, what has been tested, and what has not.
 - [Partnership proposal](https://njiacareerpathways.work/docs/): the August 2026 proposal, for funders and partners rather than learners.
 
 ## Contact

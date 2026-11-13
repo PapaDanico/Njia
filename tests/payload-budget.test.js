@@ -134,7 +134,11 @@ test('the critical path stays inside its byte budget', () => {
      deliberately when the growth is something you would defend to a reader -
      and never to make room for a regression you have not diagnosed. What this
      defends is the delta and the property above it, not a number. */
-  const CEILING = 115 * 1024;
+  /* Raised 115 -> 116KB deliberately: css/decide-evidence.css (PR #159) styles the
+     evidence block on every course and funding card, so it is linked from index.html
+     and counts as critical path (+0.3KB). It is growth with a reader-facing purpose,
+     not a regression; measured 115.3KB before the raise. */
+  const CEILING = 116 * 1024;
   const files = criticalPath();
   const sizes = files.map((f) => [f, gz(f)]).sort((a, b) => b[1] - a[1]);
   const total = sizes.reduce((n, [, s]) => n + s, 0);

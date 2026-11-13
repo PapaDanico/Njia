@@ -1182,7 +1182,7 @@ function renderCourseCard(course, match) {
       <div class="njia-course-evidence" aria-label="Course decision evidence">
         <div class="njia-course-evidence__heading"><span>Decision evidence</span><a href="./research/sources/" title="How Njia checks placement, accreditation and funding">How to verify ↗</a></div>
         <dl class="njia-course-evidence__grid">
-          <div><dt>Grade check</dt><dd class="${!match.eligible ? 'njia-course-evidence__warning' : ''}">${!match.eligible ? 'Below listed minimum' : match.gradeUnconfirmed ? 'Your grade not confirmed' : 'Meets listed minimum*'}</dd></div>
+          <div><dt>Grade check</dt><dd class="${!match.eligible ? 'njia-course-evidence__warning' : ''}">${!course.min_grade ? 'No minimum listed — confirm' : !match.eligible ? 'Below listed minimum' : match.gradeUnconfirmed ? 'Your grade not confirmed' : 'Meets listed minimum*'}</dd></div>
           <div><dt>Fee evidence</dt><dd>${({published:'Institution-observed',derived:'Calculated from sourced rate',illustrative:'Illustrative only',unpublished:'Not published',unsourced:'Not independently sourced'})[basis] || 'Review required'}</dd></div>
           <div><dt>Placement</dt><dd>Current intake unverified</dd></div>
           <div><dt>Accreditation</dt><dd>Check programme approval</dd></div>

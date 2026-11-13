@@ -1294,6 +1294,198 @@ fs.writeFileSync(path.join(DOCS_OUT, 'index.html'), docsIndexPage(
   counties.length
 ));
 
+/* ---- /pathways/ and /diagnostic/ ----------------------------------------
+ * Two pages that answer questions a learner types into a search box and that
+ * the app could only answer client-side: "what happens after Grade 9 under
+ * CBE", and "is a career test any good". Both are generated, so a figure on
+ * them is computed from the catalogue rather than typed, and both go through
+ * the one SURFACES list (served link, sitemap, llms.txt).
+ *
+ * Every claim about Kenyan schooling here is attributed to where it was
+ * reported, and where sources disagree the page says so instead of picking. The
+ * placement criteria for the first CBE cohort are not final, and the page says
+ * that rather than guessing at them. */
+const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic') };
+
+const DIAG_CLUSTERS = (() => {
+  const ctx = vm.createContext({});
+  vm.runInContext(fs.readFileSync(path.join(root, 'data', 'questions.js'), 'utf8'), ctx);
+  return vm.runInContext('Object.values(CLUSTERS).map((c) => c.name)', ctx);
+})();
+
+const LADDER = ['artisan', 'certificate', 'diploma', 'degree', 'short_course'].map((level) => {
+  const rows = COURSES.filter((c) => c.level === level && instById.has(c.institution_id));
+  return {
+    level,
+    places: rows.length,
+    institutions: new Set(rows.map((c) => c.institution_id)).size,
+    counties: new Set(rows.map((c) => instById.get(c.institution_id).county)).size,
+    openToE: rows.filter((c) => c.min_grade == null || c.min_grade === 'E').length,
+    withFee: rows.filter((c) => c.total_fees_kes != null).length
+  };
+});
+
+function guidancePage({ dir, title, description, h1, detail, body }) {
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)} | Njia</title>
+<meta name="description" content="${esc(description)}">
+<link rel="canonical" href="${SITE}/${dir}/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
+<link rel="icon" href="/icons/icon-192x192.png">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(description)}">
+<meta property="og:image" content="${SITE}/icons/og-image.jpg?v=${OG_IMAGE}">
+<meta property="og:url" content="${SITE}/${dir}/">
+<link rel="stylesheet" href="/css/styles.css">
+<style>${SHELL_CSS}
+  body { max-width: 60rem; }
+  section { margin: 0 0 var(--space-10, 2.5rem); }
+  section h2 { margin: 0 0 var(--space-3, .75rem); }
+  section p { margin: 0 0 var(--space-4, 1rem); }
+  section p, section li { max-width: var(--prose-max); }
+  section ul { list-style: disc; padding-left: 1.25rem; margin: 0 0 var(--space-4, 1rem); }
+  section li { margin: 0 0 var(--space-3, .75rem); line-height: 1.6; }
+  .lede { margin: var(--space-3, .75rem) 0 var(--space-8, 2rem); max-width: var(--prose-max); }
+  .note { border-left: 3px solid var(--accent); padding: .1rem 0 .1rem 1rem; color: var(--text-secondary); }
+  .ladder { width: 100%; border-collapse: collapse; margin: var(--space-4) 0; }
+  .ladder th, .ladder td { text-align: left; padding: .55rem .75rem .55rem 0; border-bottom: 1px solid var(--border); }
+  .ladder td.num, .ladder th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .src { font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
+  @media print { .cta { display: none; } section { break-inside: avoid; } }
+</style>
+</head>
+<body>
+${briefHead(h1, detail)}
+<main>
+<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<h1>${esc(h1)}</h1>
+${body}
+<p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
+</main>
+</body>
+</html>
+`;
+}
+
+function pathwaysPage() {
+  const L = Object.fromEntries(LADDER.map((r) => [r.level, r]));
+  const rowsHtml = LADDER.filter((r) => r.places > 0).map((r) => `<tr>
+  <th scope="row">${esc(LEVEL_LABEL[r.level])}</th>
+  <td class="num">${r.places.toLocaleString('en-KE')}</td>
+  <td class="num">${r.institutions.toLocaleString('en-KE')}</td>
+  <td class="num">${r.counties}</td>
+  <td class="num">${r.openToE.toLocaleString('en-KE')}</td>
+  <td class="num">${r.withFee.toLocaleString('en-KE')}</td>
+</tr>`).join('\n');
+  const body = `
+<p class="lede">Two school routes are running side by side in Kenya at the moment, and they lead to the same places: artisan and craft training, diplomas, degrees and work. This page sets out how they fit together, and what Njia can and cannot tell you about each. It needs no account and tracks nothing.</p>
+
+<section>
+<h2 id="kcse">The route most readers are on: KCSE</h2>
+<p>After KCSE, most places in universities and colleges are applied for through KUCCPS, the national placement service, using your mean grade and, for many courses, subject grades beside it. Njia's catalogue is built on this route. Every course card carries its entry grade, and the <a href="/grades/">grade pages</a> show what is open from C plain down to E. A learner with an E can still enter artisan training and some certificates, and the <a href="/counties/">county pages</a> show where.</p>
+</section>
+
+<section>
+<h2 id="cbe">The new route: junior school, senior school pathways and CBE</h2>
+<p>These points are as reported by the news outlets named under each. The official sources are the Ministry of Education, KICD (curriculum designs) and KUCCPS, and anything that matters for your decision should be checked there.</p>
+<ul>
+<li><strong>Junior school ends at Grade 9</strong> with the Kenya Junior School Education Assessment (KJSEA). The first cohort sat it in 2025 and the Ministry said admission to senior school would begin on 12 January 2026. <span class="src">Reported by <a href="https://educationnews.co.ke/2025-kjsea-results-officially-released-as-placement-kicks-off/">Education News</a>.</span></li>
+<li><strong>Senior school has three pathways</strong> in most descriptions: STEM, Social Sciences, and Arts and Sports Science. Some outlets still describe a fourth, Languages; reports on the rationalised design say Languages was folded into Social Sciences. <span class="src">Reported by <a href="https://thekenyatimes.com/latest-kenya-times-news/cbc-pathways-grade-10/">The Kenya Times</a>.</span></li>
+<li><strong>Not every school offers every pathway or subject.</strong> Schools are described as triple-pathway or double-pathway, and subjects such as computer science and advanced laboratory sciences depend on a school's resources. <span class="src">Reported by <a href="https://thekenyatimes.com/education/cbc-categories-senior/">The Kenya Times</a>.</span></li>
+<li><strong>Placement into senior school</strong>, as the Ministry described it, took account of learner choice, KJSEA performance, psychometric test results, regional equity and school capacity. Reports differ on how the parts were weighted, so Njia does not quote weights. <span class="src">Reported by <a href="https://www.kenyans.co.ke/news/119226-ministry-education-releases-grade-10-placement-kjsea-candidates-2025">Kenyans.co.ke</a>.</span></li>
+<li><strong>Universities.</strong> KUCCPS has said it will place the first CBE learners from 2029 using a pathway model, with competency descriptors (Exceeding, Meeting, Approaching and Below Expectation) in place of the KCSE mean grade. The criteria are not final, and KUCCPS has said placement will follow requirements set by universities, colleges and regulators. <span class="src">Reported by <a href="https://radiogeneration.co.ke/education-and-career/91163/kuccps-to-place-first-cbe-learners-in-universities-using-pathway-model-from-2029">Radio Generation</a> and <a href="https://citizen.digital/article/kuccps-unveils-new-university-admission-system-under-cbe-n383208">Citizen Digital</a>.</span></li>
+<li><strong>TVET.</strong> We found no published detail on how CBE learners will be placed into technical and vocational colleges.</li>
+</ul>
+<p class="note">Our reading, not a rule: a pathway sets the subjects you study, not the career you end up in, so keep your options broad until the placement criteria for your cohort are published. When you want to aim at a particular programme, look up its subject requirements now, because those are the part most likely to be written down in advance. Njia cannot yet tell a CBE learner which courses they will qualify for, and says so rather than guessing.</p>
+</section>
+
+<section>
+<h2 id="ladder">The ladder in Njia's catalogue</h2>
+<p>Qualifications in Kenya sit on a ladder. The Kenya National Qualifications Framework has ten levels, from basic education at Level 1 to the doctorate at Level 10, aligned to the East African Community framework and regulated by the Kenya National Qualifications Authority under the KNQF Act (<a href="https://www.knqa.go.ke/?p=549">KNQA</a>). Technical and vocational colleges are described as awarding qualifications at roughly Levels 3 to 6. Njia does not publish a level-by-level table because the descriptor table could not be read from here; the KNQA classification standard has it.</p>
+<div class="wrap" tabindex="0" role="region" aria-label="Qualification ladder in Njia's catalogue">
+<table class="ladder">
+<caption>Places to apply in Njia's catalogue, by level of qualification</caption>
+<thead><tr><th scope="col">Level</th><th scope="col" class="num">Places</th><th scope="col" class="num">Institutions</th><th scope="col" class="num">Counties</th><th scope="col" class="num">Open to an E</th><th scope="col" class="num">With a fee figure</th></tr></thead>
+<tbody>
+${rowsHtml}
+</tbody>
+</table>
+</div>
+<p class="src">A place is one course at one institution. Counted from Njia's catalogue on ${esc(BUILD_DATE_LABEL)}. A low count describes what Njia has listed, not what exists, and a fee figure may be published by the institution or derived from a published rate; <a href="/open-data/">the open data</a> says which for every course.</p>
+</section>
+
+<section>
+<h2 id="moving-up">Moving up the ladder</h2>
+<p>Most ladders are climbed one rung at a time, and a lower grade does not close the route. Some institutions publish a second way in beside the grade. Njia's course notes record, for example, a bridging certificate at Carlile College for applicants who do not meet the entry grade for its diploma, and a route into a diploma at the Kenya Wildlife Service Training Institute for applicants with a D+ and three years of relevant work. These are published by individual institutions, so confirm them with the institution: there is no single national rule that Njia can quote.</p>
+<p>For help choosing between routes, the <a href="/diagnostic/">diagnostic page</a> explains what Njia's questionnaire can and cannot tell you, and the <a href="/help/">questions and answers</a> cover grades, fees and funding.</p>
+</section>`;
+  return guidancePage({
+    dir: 'pathways',
+    title: 'Education and career pathways in Kenya: KCSE, CBE, TVET and university',
+    description: 'How the KCSE and CBE routes fit together, what is reported about senior school pathways and university placement from 2029, and the qualification ladder in Njia\'s catalogue.',
+    h1: 'Education and career pathways in Kenya',
+    detail: 'KCSE, CBE, TVET and university &middot; for learners and career teachers',
+    body
+  });
+}
+
+function diagnosticPage() {
+  const body = `
+<p class="lede">Njia's questionnaire turns your answers into a shortlist of directions worth exploring, matched against real Kenyan courses, fees and funding. This page says plainly what it measures, how it counts, and what it is not, so you can decide how much weight to give it.</p>
+
+<section>
+<h2 id="what-it-is">What it is</h2>
+<ul>
+<li>A 20-minute questionnaire across four Elements: <strong>Identity</strong> (what you are drawn to), <strong>Community</strong> (who you want to work with), <strong>Necessity</strong> (your real constraints: grade, budget, timeline, obligations) and <strong>Horizon</strong> (where you want to end up).</li>
+<li>Seven directions it can point to: ${DIAG_CLUSTERS.map(esc).join(', ')}.</li>
+<li>Counting is fixed arithmetic. Each answer adds points to one or more directions, some questions count double, and the same answers always give the same result. There is no hidden model.</li>
+<li>When two directions tie, the report says so instead of choosing one. The gap between first and second is shown as a margin, and the Element scores are clarity scores, not marks out of 100.</li>
+<li>Your two written answers are printed back unchanged and are never scored.</li>
+<li>Everything stays on your device. Nothing you answer is sent anywhere.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="what-it-is-not">What it is not</h2>
+<ul>
+<li><strong>It is not a validated psychological test.</strong> It was designed by Njia and has no published reliability or validity figures.</li>
+<li>It does not predict success or job satisfaction, it does not rank you against other people, and it has no pass mark or cut-off.</li>
+<li>It does not decide anything. You can explore any direction whatever the result says, and a result that surprises you is as useful as one that confirms what you thought.</li>
+</ul>
+<p class="note">Use it the way you would use a good conversation: a prompt to look at options you had not considered, ideally talked through with a teacher, counsellor or someone who works in the field.</p>
+</section>
+
+<section>
+<h2 id="evidence">Why Njia does not claim more</h2>
+<p>Many career tools rest on Holland's six interest types (realistic, investigative, artistic, social, enterprising and conventional). The model is widely used, but the evidence that its structure holds across cultures is mixed: a structural meta-analysis by Rounds and Tracey found that the cross-cultural equivalence of Holland's circular ordering was not supported (<a href="https://experts.illinois.edu/en/publications/cross-cultural-structural-equivalence-of-riasec-models-and-measur/">Illinois Experts</a>), and work in South Africa describes limited evidence for diverse groups (<a href="https://jvrpsychometrics.co.za/blog/are-vocational-interests-valid-in-south-africa">JVR Psychometrics</a>). A continent-wide analysis of the model across 28 African countries exists (Morgan and de Bruin, 2018), and an African interest inventory has been studied with Ghanaian university students. We found no study validating a Holland-type inventory on Kenyan school-leavers. Absence of evidence is not evidence either way, which is why Njia presents its result as a prompt for exploration and not as a verdict.</p>
+</section>
+
+<section>
+<h2 id="second-opinion">A free second opinion</h2>
+<p>The U.S. Department of Labor publishes the <a href="https://www.onetcenter.org/tools.html">O*NET Interest Profiler</a> free of charge. It is a well-documented interest inventory, but it describes U.S. occupations, and it is intended for career exploration, planning and counselling rather than for hiring decisions. Treat its matches as ideas to look up in Kenya, not as Kenyan job titles.</p>
+<p>Njia does not copy or adapt it. O*NET's licence allows copying the tool without modification (credit required), while modifying it requires a separate developer licence, so the honest options were to link to the original or to build something of our own. We chose to link, and to say what our own questionnaire is.</p>
+<p class="src">Licence terms from <a href="https://www.onetcenter.org/license_tools.html">O*NET Career Exploration Tools Content License</a>.</p>
+</section>`;
+  return guidancePage({
+    dir: 'diagnostic',
+    title: 'About the Njia career diagnostic: what it measures and what it does not',
+    description: 'What Njia\'s 20-minute career questionnaire measures, how it counts, why it is an exploration aid and not a validated test, and a free alternative to try.',
+    h1: 'About the Njia diagnostic: what it measures and what it does not',
+    detail: 'How the questionnaire works &middot; for learners and career teachers',
+    body
+  });
+}
+
+for (const [dir, render] of [['pathways', pathwaysPage], ['diagnostic', diagnosticPage]]) {
+  fs.mkdirSync(GUIDANCE_OUT[dir], { recursive: true });
+  fs.writeFileSync(path.join(GUIDANCE_OUT[dir], 'index.html'), render());
+}
+
 /* The sitemap is generated with them rather than maintained by hand, because a
  * hand-maintained list of 48 URLs is a list that goes stale. */
 const today = BUILD_DATE;
@@ -1318,6 +1510,8 @@ const urls = [
      the one document written for people who arrive by search was the one
      document a search engine could not see. */
   { loc: `${SITE}/help/`, priority: '0.9', changefreq: 'monthly' },
+  { loc: `${SITE}/pathways/`, priority: '0.8', changefreq: 'monthly' },
+  { loc: `${SITE}/diagnostic/`, priority: '0.7', changefreq: 'monthly' },
   { loc: `${SITE}/docs/`, priority: '0.5', changefreq: 'yearly' },
   ...gradePages.map(([g]) => ({ loc: `${SITE}/grades/${GRADE_SLUG[g]}/`, priority: '0.8', changefreq: 'monthly' })),
   ...counties.map((c) => ({ loc: `${SITE}/counties/${slug(c)}/`, priority: '0.7', changefreq: 'monthly' }))

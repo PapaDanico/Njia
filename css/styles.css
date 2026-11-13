@@ -2319,7 +2319,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * lesson is that it is a property of prose containing a link, not of any one
  * component, so this selector is written against the card's text blocks rather
  * than against the two paragraphs that happen to have links today. */
-.course-card p a, .course-card li a {
+.course-card p a, .course-card li a, .hero p a, .card p a {
   text-decoration: underline; text-underline-offset: 2px;
 }
 .landing-footer-bottom {

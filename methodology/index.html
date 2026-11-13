@@ -182,7 +182,9 @@
   .ladder th, .ladder td { text-align: left; padding: .55rem .75rem .55rem 0; border-bottom: 1px solid var(--border); }
   .ladder td.num, .ladder th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .src { font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
-  @media print { .cta { display: none; } section { break-inside: avoid; } }
+  .line { border-bottom: 1px solid var(--text-muted); height: 2.1rem; margin: 0; }
+  .handout h3 { margin: var(--space-4) 0 .15rem; }
+  @media print { .cta { display: none; } section { break-inside: avoid; } .handout { break-before: page; } }
 </style>
 </head>
 <body>

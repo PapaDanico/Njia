@@ -21,3 +21,16 @@ test('R8 overlay contains no falsely verified claims and refers to real institut
  assert.equal(d.schema_version,1);assert.deepEqual(validateInstitutionEvidence(d.claims,INSTITUTIONS,COURSES),[]);
  assert.ok(d.claims.every(x=>x.status!=='verified'));
 });
+
+test('R8 rejects cross-institution programme approvals and duplicate claim keys',async()=>{
+ const {validateInstitutionEvidence}=await import('../tools/audit-institution-metadata.mjs');
+ const institutions=[{id:'a'},{id:'b'}],courses=[{id:'c',institution_id:'b'}];
+ const claim={institution_id:'a',course_id:'c',claim_type:'programme_approval',claim_scope:'specific programme',status:'unverified'};
+ assert.match(validateInstitutionEvidence([claim],institutions,courses).join(' '),/different institution/);
+ assert.match(validateInstitutionEvidence([claim,claim],institutions,courses).join(' '),/duplicate claim key/);
+});
+test('R8 rejects invalid checked_at for purported verified evidence',async()=>{
+ const {validateInstitutionEvidence}=await import('../tools/audit-institution-metadata.mjs');
+ const claim={institution_id:'a',claim_type:'legal_status',claim_scope:'institution',status:'verified',observed_claim:'Current',source:{issuer:'Regulator',title:'Register',url:'https://example.org/register',checked_at:'yesterday'}};
+ assert.match(validateInstitutionEvidence([claim],[{id:'a'}]).join(' '),/YYYY-MM-DD/);
+});

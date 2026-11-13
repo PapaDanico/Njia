@@ -24,7 +24,7 @@ export function inventoryInstitutions(institutions,courses=[]){
  return {schema_version:1,scope:'Njia institution listings, not a regulator register',counts:{institution_records:institutions.length,linked_institution_records:new Set(courses.map(c=>c.institution_id).filter(id=>ids.has(id))).size,course_records:courses.length,counties:Object.keys(byCounty).filter(x=>x!=='Unspecified').length,websites_listed:websiteCount},by_type:tally(institutions,'type'),by_ownership:tally(institutions,'ownership'),by_county:byCounty,issues,notes:['Accreditation text and listed websites have not been verified by this inventory.','A campus-name candidate is not proof of a distinct registered campus.','Boolean facility flags and programme approvals require claim-level source evidence.']};
 }
 export function validateInstitutionEvidence(records,institutions,courses=[]){
- const ids=new Set(institutions.map(i=>i.id)),courseIds=new Set(courses.map(c=>c.id)),seen=new Set(),errors=[];
+ const ids=new Set(institutions.map(i=>i.id)),courseById=new Map(courses.map(c=>[c.id,c])),seen=new Set(),errors=[];
  const allowed=new Set(['unverified','verified','conflicting','unreachable']);
  if(!Array.isArray(records))return ['Evidence overlay must be an array'];
  for(const [index,r] of records.entries()){
@@ -32,11 +32,17 @@ export function validateInstitutionEvidence(records,institutions,courses=[]){
   if(!r.claim_type||!r.claim_scope||!allowed.has(r.status))errors.push(`row ${index}: missing claim type, scope or valid status`);
   const key=[r.institution_id,r.campus_id||'',r.course_id||'',r.claim_type,r.claim_scope].join('|');
   if(seen.has(key))errors.push(`row ${index}: duplicate claim key`);seen.add(key);
-  if(r.course_id!=null&&!courseIds.has(r.course_id))errors.push(`row ${index}: unknown course_id`);
+  if(r.course_id!=null){
+   const course=courseById.get(r.course_id);
+   if(!course)errors.push(`row ${index}: unknown course_id`);
+   else if(course.institution_id!==r.institution_id)errors.push(`row ${index}: course belongs to a different institution`);
+  }
+  if(r.campus_id!=null&&(typeof r.campus_id!=='string'||!r.campus_id.trim()))errors.push(`row ${index}: invalid campus_id`);
   if(r.status==='verified'){
    if(!r.source||!r.source.issuer||!r.source.title||!r.source.url||!r.source.checked_at)errors.push(`row ${index}: verified claim lacks source provenance`);
    else {try{if(new URL(r.source.url).protocol!=='https:')throw Error('not https')}catch{errors.push(`row ${index}: invalid verified source URL`)}}
    if(!r.observed_claim)errors.push(`row ${index}: verified claim lacks observed claim`);
+   if(r.source?.checked_at&&!/^\\d{4}-\\d{2}-\\d{2}$/.test(r.source.checked_at))errors.push(`row ${index}: checked_at must be YYYY-MM-DD`);
   }
  }
  return errors;

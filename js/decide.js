@@ -1215,11 +1215,13 @@ function renderCourseCard(course, match) {
           price. Ask the institution for its own figure.</p>`;
       })()}
       ${feePublished ? `
-      <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
-      <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation
-        ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
-        : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
-      }</p>` : `
+      ${monthlyEstimate != null ? `<p class="text-muted text-sm mb-2">Tuition averaged over the listed duration: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}. This is an arithmetic average, not an instalment plan.${inst?.has_workstudy ? ' Work-study may be available at this institution.' : ''}</p>` : '<p class="text-muted text-sm mb-2">A monthly tuition average cannot be calculated because the course duration is not recorded. Request the official payment schedule.</p>'}
+      <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${totalCostOfAttendance == null
+        ? 'Not calculated — the duration or required cost inputs are unavailable. Confirm tuition, accommodation and living costs with the institution.'
+        : requiresRelocation
+          ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
+          : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
+      }</p> : `
       ${/* THE COPY THAT WAS WRITTEN FOR ONE AUDIENCE AND SHOWN TO EVERY OTHER.
              This branch used to be unconditional county-VTC advice — cheapest
              option, ring the registrar, mind the NITA trade test — because when

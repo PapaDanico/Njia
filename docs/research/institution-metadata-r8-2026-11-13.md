@@ -16,7 +16,7 @@ The catalogue's previously reported **217 institution records** are listings in 
 
 ## Proposed normalized metadata — research schema, not a migration instruction
 
-Keep existing IDs stable. Propose a separate, reviewable `data/institution-evidence.json` keyed by `institution_id`, rather than adding speculative properties to every production record. Suggested fields:
+Keep existing IDs stable. Propose a separate, reviewable `docs/research/institution-evidence.json` keyed by `institution_id`, rather than adding speculative properties to every production record. Suggested fields:
 
 | Entity / grain | Fields | Required evidence |
 |---|---|---|

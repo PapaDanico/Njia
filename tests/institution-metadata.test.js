@@ -17,7 +17,7 @@ test('R8 evidence cannot be verified without source and exact claim',async()=>{
 test('R8 overlay contains no falsely verified claims and refers to real institutions',async()=>{
  const {validateInstitutionEvidence}=await import('../tools/audit-institution-metadata.mjs');
  const {INSTITUTIONS}=require('../data/institutions.js'),{COURSES}=require('../data/courses.js');
- const d=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../data/institution-evidence.json'),'utf8'));
+ const d=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../docs/research/institution-evidence.json'),'utf8'));
  assert.equal(d.schema_version,1);assert.deepEqual(validateInstitutionEvidence(d.claims,INSTITUTIONS,COURSES),[]);
  assert.ok(d.claims.every(x=>x.status!=='verified'));
 });
@@ -33,4 +33,11 @@ test('R8 rejects invalid checked_at for purported verified evidence',async()=>{
  const {validateInstitutionEvidence}=await import('../tools/audit-institution-metadata.mjs');
  const claim={institution_id:'a',claim_type:'legal_status',claim_scope:'institution',status:'verified',observed_claim:'Current',source:{issuer:'Regulator',title:'Register',url:'https://example.org/register',checked_at:'yesterday'}};
  assert.match(validateInstitutionEvidence([claim],[{id:'a'}]).join(' '),/YYYY-MM-DD/);
+});
+
+test('R8 accepts a fully sourced verified claim with a valid date, and rejects a malformed one',async()=>{
+ const {validateInstitutionEvidence}=await import('../tools/audit-institution-metadata.mjs');
+ const claim=(d)=>({institution_id:'a',claim_type:'legal_status',claim_scope:'institution',status:'verified',observed_claim:'Current',source:{issuer:'Regulator',title:'Register',url:'https://example.org/register',checked_at:d}});
+ assert.deepEqual(validateInstitutionEvidence([claim('2026-11-13')],[{id:'a'}]),[],'a valid YYYY-MM-DD date must pass');
+ assert.match(validateInstitutionEvidence([claim('13/11/2026')],[{id:'a'}]).join(' '),/YYYY-MM-DD/);
 });

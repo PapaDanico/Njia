@@ -42,7 +42,7 @@ export function validateInstitutionEvidence(records,institutions,courses=[]){
    if(!r.source||!r.source.issuer||!r.source.title||!r.source.url||!r.source.checked_at)errors.push(`row ${index}: verified claim lacks source provenance`);
    else {try{if(new URL(r.source.url).protocol!=='https:')throw Error('not https')}catch{errors.push(`row ${index}: invalid verified source URL`)}}
    if(!r.observed_claim)errors.push(`row ${index}: verified claim lacks observed claim`);
-   if(r.source?.checked_at&&!/^\\d{4}-\\d{2}-\\d{2}$/.test(r.source.checked_at))errors.push(`row ${index}: checked_at must be YYYY-MM-DD`);
+   if(r.source?.checked_at&&!/^\d{4}-\d{2}-\d{2}$/.test(r.source.checked_at))errors.push(`row ${index}: checked_at must be YYYY-MM-DD`);
   }
  }
  return errors;

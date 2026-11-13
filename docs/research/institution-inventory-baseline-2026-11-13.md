@@ -22,7 +22,7 @@ This is a **repository-derived inventory**, not a current CUE/TVETA accreditatio
 ## Reviewable implementation
 
 - `tools/audit-institution-metadata.mjs` generates counts, duplicate IDs/names, orphan course references, non-institutional website flags, ambiguous accreditation text and campus-name review candidates.
-- `data/institution-evidence.json` is an **optional, non-runtime** pilot overlay with an explicit unverified ILU legal-status claim. It is not imported by the site or used to alter course recommendations.
+- `docs/research/institution-evidence.json` is an **optional, non-runtime** pilot overlay with an explicit unverified ILU legal-status claim. It is not imported by the site or used to alter course recommendations.
 - `tests/institution-metadata.test.js` checks inventory detection and refuses to classify a claim as verified without provenance.
 
 ## Unfinished evidence research (not disguised as completed)

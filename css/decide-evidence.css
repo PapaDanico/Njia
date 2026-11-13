@@ -10,3 +10,8 @@
 .course-card .njia-course-evidence__grid .njia-course-evidence__warning{color:var(--danger)}
 .course-card .njia-course-evidence__foot{margin:.8rem 0 0;font-size:.76rem;line-height:1.55;color:var(--text-secondary)}
 @media(max-width:380px){.course-card .njia-course-evidence__grid{grid-template-columns:1fr}}
+
+.njia-compare-note{border-left:4px solid var(--primary);background:var(--bg-card);padding:1rem 1.2rem;margin:0 0 1.2rem;line-height:1.55}
+.njia-compare-note strong{display:block;color:var(--text-primary);margin-bottom:.4rem}
+.njia-compare-note p{margin:.2rem 0 .7rem;color:var(--text-secondary);font-size:.9rem}
+.njia-compare-note a{color:var(--primary-dark);font-weight:700}

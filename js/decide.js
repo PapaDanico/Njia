@@ -1517,7 +1517,14 @@ function openCourseComparison() {
     { label: 'Institution', get: (c) => institutionById(c.institution_id)?.name || 'Unknown institution', wrap: true },
     { label: 'Level', get: (c) => LEVEL_LABELS[c.level] || c.level },
     { label: 'Duration', get: (c) => durationLabel(c), num: true, raw: (c) => c.duration_months, better: 'min' },
-    { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not shown' : formatKes(c.total_fees_kes)), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
+    { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not shown' : formatKes(c.total_fees_kes)), num: true, raw: (c) => (['published', 'derived'].includes(feeBasis(c)) ? c.total_fees_kes : null), better: 'min' },
+    { label: 'Fee evidence', get: (c) => ({
+      published: 'Institution-observed', derived: 'Calculated from sourced rate',
+      illustrative: 'Illustrative only', unpublished: 'Not published',
+      unsourced: 'Not independently sourced'
+    })[feeBasis(c)] || 'Review required' },
+    { label: 'Placement', get: () => 'Current intake not verified' },
+    { label: 'Programme approval', get: () => 'Confirm with regulator' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
     /* There were two more rows here: "Employment Rate (est.)" and "Median
      * Salary (est.)". They were shown without best-value shading, on the
@@ -1547,6 +1554,11 @@ function openCourseComparison() {
   const truncated = AppState.savedCourses.length > courses.length;
   openModal(`
     <h2 class="mb-2">Compare Saved Courses</h2>
+    <div class="njia-compare-note" role="note">
+      <strong>Compare evidence, not just prices.</strong>
+      <p>Only institution-observed or sourced-derived tuition can receive a lowest-cost highlight. Illustrative or unsourced fees remain visible but cannot win a price comparison. Placement, programme approval and funding must be confirmed separately.</p>
+      <a href="./research/sources/">Official verification guidance ↗</a>
+    </div>
     <p class="text-secondary text-sm mb-2">${truncated ? `Showing your first ${courses.length} saved courses — comparisons cap at 4 to stay readable.` : 'Side-by-side comparison of your saved courses.'}</p>
     <p class="comparison-hint">↔ Swipe or scroll sideways to see every course · shaded cells mark the best value in each measurable row</p>
     <div class="comparison-scroll">

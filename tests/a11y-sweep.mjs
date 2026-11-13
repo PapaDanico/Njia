@@ -76,6 +76,7 @@ const GENERATED = [
   '/diagnostic/',
   '/privacy/',
   '/careers/',
+  '/methodology/',
   '/accessibility/',
   '/open-data/',
   /* The analysis page is the only generated page with a 47-row, 12-column data

@@ -1305,7 +1305,7 @@ fs.writeFileSync(path.join(DOCS_OUT, 'index.html'), docsIndexPage(
  * reported, and where sources disagree the page says so instead of picking. The
  * placement criteria for the first CBE cohort are not final, and the page says
  * that rather than guessing at them. */
-const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers') };
+const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers'), methodology: path.join(root, 'methodology') };
 
 const DIAG_CLUSTERS = (() => {
   const ctx = vm.createContext({});
@@ -1642,7 +1642,77 @@ ${sections}`;
   });
 }
 
-for (const [dir, render] of [['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
+
+/* ---- /methodology/ ---------------------------------------------------------
+ * How the figures are made and what they are not. Every number on it is read
+ * from LANDING_STATS (itself recomputed by a test), never typed. */
+const STATS = (() => {
+  const ctx = vm.createContext({});
+  vm.runInContext(fs.readFileSync(path.join(root, 'data', 'landing-stats.js'), 'utf8'), ctx);
+  return vm.runInContext('LANDING_STATS', ctx);
+})();
+
+function methodologyPage() {
+  const n = (v) => Number(v).toLocaleString('en-KE');
+  const body = `
+<p class="lede">Njia's claim is that its figures can be checked. This page says how they are made, which kind of figure you are looking at, and what none of them can tell you.</p>
+
+<section>
+<h2 id="counted">What is counted</h2>
+<p>The catalogue holds <strong>${n(STATS.courses)} course listings</strong> at <strong>${n(STATS.institutions)} institutions</strong> across <strong>${STATS.counties} counties</strong>, covering ${n(STATS.distinctProgrammes)} distinct programme names. A listing is one programme at one institution, so a programme taught at several places counts once per place. These are the courses Njia has listed, not a census of everything taught in Kenya.</p>
+</section>
+
+<section>
+<h2 id="fees">Where a fee comes from</h2>
+<p>A fee is either sourced or absent. Njia never fills a gap with a plausible number. Each listing falls into exactly one of five groups:</p>
+<ul>
+<li><strong>Published</strong> (${n(STATS.published)} listings): the total was read off the institution's own schedule for that course.</li>
+<li><strong>Derived</strong> (${n(STATS.derived)} listings): worked out by applying a published rate, such as the national public TVET fee, to the course length.</li>
+<li><strong>Illustrative, unpublished and unsourced</strong>: ${n(STATS.courses - STATS.published - STATS.derived)} listings carry no figure Njia can stand behind. Of these, ${n(STATS.feeAbsent)} show no fee at all, and each says whether the institution publishes none or Njia could not verify one.</li>
+</ul>
+<p>An absent fee does not mean free. Public universities have no per-programme price under the Student-Centred Funding Model, so Njia shows the published band shares instead. Where a fee page quotes a range, a range is not a fee and is reported, not recorded.</p>
+</section>
+
+<section>
+<h2 id="grades">Entry grades</h2>
+<p>A grade is the lowest mean grade the institution publishes for that programme. Njia never records one higher than published, because that hides the course from the people with the fewest options, and never lower, because that sends someone at a door that will not open. Where sources disagree the card says so. A blank grade means open entry. Subject requirements and competition for places sit in each course's note. Confirm the programme code and current cut-off with KUCCPS for the cycle you apply in.</p>
+</section>
+
+<section>
+<h2 id="dates">Dates</h2>
+<p>Application windows and funding calls carry a source and the date they were last checked. A window that has closed is removed from the clock, and a funding call past its end date says so on its card. Intake months on a course card are not individually sourced, which is why the card tells you to confirm them with the institution.</p>
+</section>
+
+<section>
+<h2 id="diagnostic">The questionnaire</h2>
+<p>The Four Elements questionnaire counts your answers, with some questions counting double, and ranks seven clusters of courses by the total. It is an exploration aid and not a validated psychological test. Free-text answers are shown back to you as you wrote them and are never scored. The report lists the answers that counted most for your top result, so you can see why it came out that way. More on <a href="/diagnostic/">what it can and cannot tell you</a>.</p>
+</section>
+
+<section>
+<h2 id="not-claimed">What no figure here claims</h2>
+<ul>
+<li><strong>No employment or salary outcomes.</strong> Kenya publishes no per-course graduate outcomes, so none are shown. A sector table from the Kenya National Bureau of Statistics describes the economy, not a course.</li>
+<li><strong>Vacancy adverts are not employment.</strong> A count of advertised jobs says what employers asked for, not how many people were hired.</li>
+<li><strong>No admission guarantee.</strong> A grade that meets a listed minimum is a screen, not a placement offer.</li>
+<li><strong>No person-level tracking.</strong> The only usage count is how often each step happens, with nothing attached to a person. See <a href="/privacy/">privacy</a>.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="check">Check it yourself</h2>
+<p>Every course, with the group each fee falls into, is in the <a href="/open-data/">open data download</a>. The <a href="/research/">evidence page</a> breaks the same figures down by county and level, and the <a href="/analysis/">county analysis</a> shows where provision is thin.</p>
+</section>`;
+  return guidancePage({
+    dir: 'methodology',
+    title: 'Methodology: how Njia\'s figures are made, and what they are not',
+    description: 'Where a Njia fee, entry grade or date comes from, the five fee groups with counts, how the questionnaire counts, and what no figure on the site claims.',
+    h1: 'Methodology: how the figures are made',
+    detail: 'Sources, groups and limits &middot; for learners, funders and journalists',
+    body
+  });
+}
+
+for (const [dir, render] of [['methodology', methodologyPage], ['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
   fs.mkdirSync(GUIDANCE_OUT[dir], { recursive: true });
   fs.writeFileSync(path.join(GUIDANCE_OUT[dir], 'index.html'), render());
 }
@@ -1673,6 +1743,7 @@ const urls = [
   { loc: `${SITE}/help/`, priority: '0.9', changefreq: 'monthly' },
   { loc: `${SITE}/pathways/`, priority: '0.8', changefreq: 'monthly' },
   { loc: `${SITE}/careers/`, priority: '0.8', changefreq: 'monthly' },
+  { loc: `${SITE}/methodology/`, priority: '0.7', changefreq: 'monthly' },
   { loc: `${SITE}/research/`, priority: '0.6', changefreq: 'monthly' },
   { loc: `${SITE}/diagnostic/`, priority: '0.7', changefreq: 'monthly' },
   { loc: `${SITE}/privacy/`, priority: '0.5', changefreq: 'yearly' },

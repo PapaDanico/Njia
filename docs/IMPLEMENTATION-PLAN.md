@@ -33,6 +33,7 @@ payload ceilings hold, and the generators have been re-run in order.
 | 3 | `/careers/` | none | Computed from `CATALOGUE_ROLES`; one page, not one per role; recomputed by a test | **Shipped** |
 | 4 | Why-this-result panel in the report | none | Pure function, unit-tested, prints on the report; never scores free text | **Shipped** |
 | 5 | Plan-from-course in Track | 1 | Check what the application checklist already does before building | **Already existed**; not rebuilt |
+| 6 | `/methodology/` | 1, 2 | Every figure read from the generated stats; each stated limit asserted by a test; in served link, sitemap, `llms.txt`, axe sweep | **Shipped** |
 
 ## Deliberately not in this plan
 
@@ -67,3 +68,21 @@ Not done: CV, cover-letter and interview tools, counsellor kit, `/methodology/`,
 photography, KNQF table, and the unresolved C+ degree-floor lead.
 Not observed from here: the production deploy of #157, and a visual check of the new
 report panel in print (the sweep covers it for contrast and structure only).
+
+### 13 November 2026, slice 6 and the review of PR #159
+
+PR #159 (written with another AI tool) was merged after repair: it carried a syntax
+error in `js/decide.js` and a literal `\n` in `index.html`, both fixed first. Its
+`/research/` page is JS-only (no figures without script), has no print header or dark
+scheme, and requests a `catalogue-indicators.json` that does not exist before falling
+back to the open-data export. It was left as merged; rebuilding it as a generated page
+is the next candidate. The KUCCPS source URL in `research/sources.json` was corrected to
+`https://kuccps.net/Placem`. Not verified from here: the other six source URLs and their
+"accessed" dates.
+
+Slice 6: `/methodology/`, with figures read from `LANDING_STATS`. Unit suite 377 pass, 0 fail;
+probe 49/49; axe 96 states, 0 violations; `CACHE_VERSION` njia-v297. Not checked:
+the page on screen in print (the printable-sheet guard covers header and date only).
+
+Lead: a January 2026 Capital FM report says some KUCCPS medical programmes accept C or
+below; this bears on the C+ degree floor and is recorded, not acted on.

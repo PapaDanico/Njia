@@ -34,6 +34,7 @@ payload ceilings hold, and the generators have been re-run in order.
 | 4 | Why-this-result panel in the report | none | Pure function, unit-tested, prints on the report; never scores free text | **Shipped** |
 | 5 | Plan-from-course in Track | 1 | Check what the application checklist already does before building | **Already existed**; not rebuilt |
 | 7 | Rebuild `/research/` as a generated page | 6 | Figures from `summariseCatalogue()` with the app's `feeBasis()`; no script; print header and dark scheme; recomputed by a test; in the axe sweep | **Shipped** |
+| 8 | Counsellor kit `/counsellors/` | 6 | 50-minute session plan and two printable handouts; grade table recomputed; handouts break onto their own sheets; in served link, sitemap, `llms.txt`, axe sweep | **Shipped** |
 | 6 | `/methodology/` | 1, 2 | Every figure read from the generated stats; each stated limit asserted by a test; in served link, sitemap, `llms.txt`, axe sweep | **Shipped** |
 
 ## Deliberately not in this plan
@@ -100,3 +101,13 @@ joined the axe sweep: 104 states, 0 violations. Unit suite 369 pass, 0 fail (7 m
 skip under CI); probe 49/49; `CACHE_VERSION` njia-v298. Checked on screen at 1440 and 390 in
 both schemes and in print emulation. Not rebuilt: `/research/sources/`, still a hand-written
 page with its own inline style and no print header; its URLs and "accessed" dates are unverified.
+
+### 13 November 2026, slice 8: counsellor kit
+
+`/counsellors/` replaces the declined counsellor portal: a 50-minute session plan, a grade-page
+table, cautions for the facilitator, and two handouts (a learner worksheet and the questions to
+ask an institution) that each print on their own sheet (4 A4 pages in all). It uses only pages
+and facts the site already carries; the timings are labelled as a suggestion. Unit suite 372
+pass, 0 fail (7 mtime guards skip under CI); probe 49/49; axe 108 states, 0 violations;
+`CACHE_VERSION` njia-v299. Checked on screen at 1440 and in print emulation. Not checked: the
+page at 390 on screen by eye (measured: no horizontal overflow), or used with a real class.

@@ -77,6 +77,7 @@ const GENERATED = [
   '/privacy/',
   '/careers/',
   '/methodology/',
+  '/counsellors/',
   '/research/',
   '/research/sources/',
   '/accessibility/',

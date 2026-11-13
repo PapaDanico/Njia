@@ -1306,7 +1306,7 @@ fs.writeFileSync(path.join(DOCS_OUT, 'index.html'), docsIndexPage(
  * reported, and where sources disagree the page says so instead of picking. The
  * placement criteria for the first CBE cohort are not final, and the page says
  * that rather than guessing at them. */
-const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers'), methodology: path.join(root, 'methodology'), research: path.join(root, 'research') };
+const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers'), methodology: path.join(root, 'methodology'), research: path.join(root, 'research'), counsellors: path.join(root, 'counsellors') };
 
 const DIAG_CLUSTERS = (() => {
   const ctx = vm.createContext({});
@@ -1357,7 +1357,9 @@ function guidancePage({ dir, title, description, h1, detail, body }) {
   .ladder th, .ladder td { text-align: left; padding: .55rem .75rem .55rem 0; border-bottom: 1px solid var(--border); }
   .ladder td.num, .ladder th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .src { font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
-  @media print { .cta { display: none; } section { break-inside: avoid; } }
+  .line { border-bottom: 1px solid var(--text-muted); height: 2.1rem; margin: 0; }
+  .handout h3 { margin: var(--space-4) 0 .15rem; }
+  @media print { .cta { display: none; } section { break-inside: avoid; } .handout { break-before: page; } }
 </style>
 </head>
 <body>
@@ -1832,7 +1834,105 @@ ${counties.map(([k, v]) => `<tr><th scope="row">${esc(k)}</th><td class="num">${
   });
 }
 
-for (const [dir, render] of [['research', researchPage], ['methodology', methodologyPage], ['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
+/* ---- /counsellors/ ---------------------------------------------------------
+ * A printable kit for a career teacher or counsellor: a session plan and two
+ * handouts, built only on pages and facts the site already carries. Counts are
+ * read from the same data as the grade and county pages. The timings are a
+ * suggested plan, not a claim about Kenya. */
+function counsellorsPage() {
+  const n = (v) => Number(v).toLocaleString('en-KE');
+  const gradeRows = gradePages.map(([g, count]) => `<tr><th scope="row"><a href="/grades/${GRADE_SLUG[g]}/">${esc(GRADE_PHRASE[g])}</a></th><td class="num">${n(count)}</td></tr>`).join('\n');
+  const body = `
+<p class="lede">A 50-minute class session for Form Four learners and school-leavers, with two pages to print and hand out. It uses what Njia already publishes: the questionnaire, the grade pages, the county pages and the fee and funding guidance. Nothing here needs an account, and learners' answers stay on their own phones.</p>
+<p class="src">The timings are a suggestion, not a standard. Counts are read from the catalogue on ${esc(BUILD_DATE_LABEL)}. Njia lists ${n(STATS.courses)} courses at ${n(STATS.institutions)} institutions in ${STATS.counties} counties; it does not list everything taught in Kenya, so a missing course is not proof that it does not exist.</p>
+
+<section>
+<h2 id="before">Before the session</h2>
+<ul>
+<li>Learners need a phone with a browser, or a printed grade page from the table below. Njia works offline once opened.</li>
+<li>Print the two handouts at the foot of this page: one worksheet and one list of questions per learner.</li>
+<li>Tell learners the questionnaire is an exploration aid and <a href="/diagnostic/">not a validated test</a>. It suggests directions to look into, it does not choose for them.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="plan">Session plan</h2>
+<div class="wrap" tabindex="0" role="region" aria-label="Session plan">
+<table class="ladder">
+<caption>A 50-minute session in six steps</caption>
+<thead><tr><th scope="col">Minutes</th><th scope="col">Step</th><th scope="col">Use</th></tr></thead>
+<tbody>
+<tr><th scope="row">10</th><td>Learners answer the questionnaire on their phones and read the top direction and the answers that counted most.</td><td><a href="/">Njia</a>, Discover</td></tr>
+<tr><th scope="row">10</th><td>Each learner finds the page for their KCSE mean grade and notes three courses that interest them, with the level of each.</td><td><a href="/grades/">Courses by grade</a></td></tr>
+<tr><th scope="row">10</th><td>Each learner finds their county, then one place near home, and notes the entry grade and the fee or why none is shown.</td><td><a href="/counties/">Courses by county</a></td></tr>
+<tr><th scope="row">10</th><td>Talk through the fee groups and the funding routes. Placement and funding are separate applications, and a placement is not an automatic scholarship.</td><td><a href="/methodology/">Methodology</a>, <a href="/help/">Questions and answers</a></td></tr>
+<tr><th scope="row">5</th><td>Scams and documents: no genuine scholarship asks for an application fee, and a missing stamp or a name that does not match is a common reason applications fail.</td><td><a href="/help/">Questions and answers</a></td></tr>
+<tr><th scope="row">5</th><td>Each learner writes one next step on the worksheet and who they will ask.</td><td>Handout A</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2 id="grades">Which grade page to open</h2>
+<p>These grades have their own page, listing the courses open at that mean grade or below the entry bar. A learner whose grade is not listed here is above every bar on those pages and can use the grade filter in the app.</p>
+<div class="wrap" tabindex="0" role="region" aria-label="Grade pages">
+<table class="ladder">
+<caption>Courses listed as open at each grade</caption>
+<thead><tr><th scope="col">KCSE mean grade</th><th scope="col" class="num">Courses</th></tr></thead>
+<tbody>
+${gradeRows}
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2 id="cautions">Cautions for the facilitator</h2>
+<ul>
+<li><strong>No promises.</strong> A listed minimum grade is a first screen, not a placement offer. Programme requirements, subject grades and cut-offs change each cycle; confirm them with KUCCPS or the institution.</li>
+<li><strong>A fee not shown is not a free course.</strong> Where Njia shows no fee, the card says whether the institution publishes none or Njia could not verify one.</li>
+<li><strong>No outcomes data.</strong> Njia holds no employment rates or salaries per course, because Kenya publishes none. Do not present a job title as a promise.</li>
+<li><strong>Keep answers private.</strong> Ask learners not to compare questionnaire answers aloud unless they choose to. Njia stores nothing about them off their own phone; see <a href="/privacy/">privacy</a>.</li>
+</ul>
+</section>
+
+<section class="handout">
+<h2 id="handout-a">Handout A: my worksheet</h2>
+<p>Name (optional): </p><p class="line"></p>
+<h3>My KCSE mean grade</h3><p class="line"></p>
+<h3>The direction the questionnaire pointed to</h3><p class="line"></p>
+<h3>Three courses I want to look into (course, institution, level)</h3><p class="line"></p><p class="line"></p><p class="line"></p>
+<h3>What each one asks for (entry grade and subjects)</h3><p class="line"></p><p class="line"></p>
+<h3>What it costs, and who I could ask for help paying</h3><p class="line"></p><p class="line"></p>
+<h3>My one next step, and who I will ask</h3><p class="line"></p><p class="line"></p>
+<p class="src">Njia is a guide, not a placement service. Confirm everything on this sheet with KUCCPS or the institution before you apply.</p>
+</section>
+
+<section class="handout">
+<h2 id="handout-b">Handout B: questions to ask an institution</h2>
+<ol>
+<li>Which exact award is this, and who examines it: the institution, KNEC, NITA, CDACC or a university?</li>
+<li>Is the institution registered, and is this programme approved? Check the TVETA register for TVET colleges and the Commission for University Education for universities.</li>
+<li>What is the total cost for the whole course, and is the figure you quote per term, per semester or per year? How many of those are there?</li>
+<li>What is the entry mean grade, and which subject grades are required on top of it?</li>
+<li>In which months does the next intake start, and when does applying close?</li>
+<li>What else will I pay besides tuition: accommodation, meals, exams, attachment, uniform or tools?</li>
+<li>Do you offer work-study or help with funding, and what do I need to apply for it?</li>
+</ol>
+<p class="src">Write the answers down and keep the name of the person who gave them. Ring more than one place before you decide.</p>
+</section>`;
+  return guidancePage({
+    dir: 'counsellors',
+    title: 'Counsellor kit: a 50-minute career session and two handouts for Kenyan school-leavers',
+    description: 'A printable kit for career teachers: a 50-minute session plan using Njia, a learner worksheet, and the questions to ask an institution before applying.',
+    h1: 'Counsellor kit: a class session and two handouts',
+    detail: 'Print-ready &middot; for career teachers and counsellors',
+    body
+  });
+}
+
+for (const [dir, render] of [['counsellors', counsellorsPage], ['research', researchPage], ['methodology', methodologyPage], ['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
   fs.mkdirSync(GUIDANCE_OUT[dir], { recursive: true });
   fs.writeFileSync(path.join(GUIDANCE_OUT[dir], 'index.html'), render());
 }
@@ -1864,6 +1964,7 @@ const urls = [
   { loc: `${SITE}/pathways/`, priority: '0.8', changefreq: 'monthly' },
   { loc: `${SITE}/careers/`, priority: '0.8', changefreq: 'monthly' },
   { loc: `${SITE}/methodology/`, priority: '0.7', changefreq: 'monthly' },
+  { loc: `${SITE}/counsellors/`, priority: '0.7', changefreq: 'monthly' },
   { loc: `${SITE}/research/`, priority: '0.6', changefreq: 'monthly' },
   { loc: `${SITE}/diagnostic/`, priority: '0.7', changefreq: 'monthly' },
   { loc: `${SITE}/privacy/`, priority: '0.5', changefreq: 'yearly' },

@@ -8,8 +8,3 @@ test('missing programme entry grade is not presented as confirmed eligibility',(
  assert.match(expression,/!match\.eligible/);
  assert.match(expression,/match\.gradeUnconfirmed/);
 });
-test('research dashboard validates compact metrics before displaying them',()=>{
- const js=fs.readFileSync(path.join(__dirname,'../research/research.js'),'utf8');
- assert.match(js,/if\(!validIndicators\(d\)\)throw Error\('Compact report invalid'\)/);
- assert.match(js,/if\(!validIndicators\(d\)\)throw Error\('Invalid research indicators'\)/);
-});

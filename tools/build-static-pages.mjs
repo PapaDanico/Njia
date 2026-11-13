@@ -56,6 +56,7 @@ import vm from 'node:vm';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { summariseCatalogue } from './catalogue-indicators.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(path.join(root, '/'));
@@ -1305,7 +1306,7 @@ fs.writeFileSync(path.join(DOCS_OUT, 'index.html'), docsIndexPage(
  * reported, and where sources disagree the page says so instead of picking. The
  * placement criteria for the first CBE cohort are not final, and the page says
  * that rather than guessing at them. */
-const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers'), methodology: path.join(root, 'methodology') };
+const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers'), methodology: path.join(root, 'methodology'), research: path.join(root, 'research') };
 
 const DIAG_CLUSTERS = (() => {
   const ctx = vm.createContext({});
@@ -1712,7 +1713,126 @@ function methodologyPage() {
   });
 }
 
-for (const [dir, render] of [['methodology', methodologyPage], ['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
+/* ---- /research/ ------------------------------------------------------------
+ * Catalogue evidence, generated rather than drawn by script: a reader without
+ * JavaScript, and a crawler, get the figures. They come from summariseCatalogue()
+ * (tools/catalogue-indicators.mjs) with the app's own feeBasis(), read out of
+ * js/decide.js, so this page cannot classify a fee differently from the card. */
+const RESEARCH = (() => {
+  const src = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  const at = src.indexOf('function feeBasis(');
+  let depth = 0, end = -1;
+  for (let i = src.indexOf('{', at); i < src.length; i++) {
+    if (src[i] === '{') depth++;
+    else if (src[i] === '}' && !--depth) { end = i + 1; break; }
+  }
+  const feeBasis = vm.runInNewContext(src.slice(at, end) + ';feeBasis');
+  return summariseCatalogue(COURSES, INSTITUTIONS, { feeBasis });
+})();
+
+function researchPage() {
+  const R = RESEARCH;
+  const n = (v) => Number(v).toLocaleString('en-KE');
+  const BASIS = {
+    published: 'Read off the institution\'s own schedule for that course.',
+    derived: 'Worked out by applying a published rate to the course length.',
+    illustrative: 'An indicative figure, not a quotation.',
+    unpublished: 'No figure recorded: the institution publishes none, or Njia could not verify one, and each card says which.',
+    unsourced: 'A figure with no source note; the catalogue holds none.'
+  };
+  const LEVELS = { artisan: 'Artisan', certificate: 'Certificate', diploma: 'Diploma', degree: 'Degree', short_course: 'Short course', Unspecified: 'Unspecified' };
+  const tile = (label, v) => `<div class="stat"><div class="value num">${n(v)}</div><div class="label">${esc(label)}</div></div>`;
+  const counties = Object.entries(R.by_county).sort((a, b) => b[1].offerings - a[1].offerings || a[0].localeCompare(b[0]));
+  const body = `
+<p class="lede">A transparent view of what Njia has listed, how strong the fee evidence behind it is, and where coverage is thin. These statistics describe the Njia catalogue, <strong>not every institution or course in Kenya</strong>. They are not a national census or a guarantee of admission.</p>
+<p class="src">Counted from the catalogue on ${esc(BUILD_DATE_LABEL)}. A course listing is one programme at one institution, so identical names at different institutions are separate listings. The same counts, row by row, are in the <a href="/open-data/">open data download</a>.</p>
+
+<section>
+<h2 id="coverage">Catalogue coverage</h2>
+<div class="stats-row" style="grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))">
+${tile('Course listings', R.totals.catalogue_offerings)}
+${tile('Institutions with listings', R.totals.institutions_with_offerings)}
+${tile('Counties represented', R.totals.counties_with_offerings)}
+${tile('Distinct programme names', R.totals.distinct_programme_names)}
+</div>
+</section>
+
+<section>
+<h2 id="fees">Fee provenance</h2>
+<p>Every listing falls into exactly one group. A missing fee does not mean free tuition.</p>
+<div class="wrap" tabindex="0" role="region" aria-label="Fee groups">
+<table class="ladder">
+<caption>Course listings by where the fee figure comes from</caption>
+<thead><tr><th scope="col">Group</th><th scope="col" class="num">Listings</th><th scope="col">What it means</th></tr></thead>
+<tbody>
+${Object.keys(BASIS).map((k) => `<tr><th scope="row">${esc(k[0].toUpperCase() + k.slice(1))}</th><td class="num">${n(R.fees.by_basis[k])}</td><td>${esc(BASIS[k])}</td></tr>`).join('\n')}
+</tbody>
+</table>
+</div>
+<p>Where each group comes from is set out on the <a href="/methodology/">methodology page</a>.</p>
+</section>
+
+<section>
+<h2 id="entry">Entry grades</h2>
+<p>${n(R.entry_grade.specified)} listings publish a minimum mean grade. ${n(R.entry_grade.open_entry)} carry none, which Njia treats as open entry, not as guaranteed admission. A blank means the institution states no bar that Njia could attribute.</p>
+</section>
+
+<section>
+<h2 id="level">By level and ownership</h2>
+<div class="wrap" tabindex="0" role="region" aria-label="Listings by level">
+<table class="ladder">
+<caption>Course listings by level</caption>
+<thead><tr><th scope="col">Level</th><th scope="col" class="num">Listings</th></tr></thead>
+<tbody>
+${Object.entries(R.by_level).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><th scope="row">${esc(LEVELS[k] || k)}</th><td class="num">${n(v)}</td></tr>`).join('\n')}
+</tbody>
+</table>
+</div>
+<div class="wrap" tabindex="0" role="region" aria-label="Listings by ownership">
+<table class="ladder">
+<caption>Course listings by ownership</caption>
+<thead><tr><th scope="col">Ownership</th><th scope="col" class="num">Listings</th></tr></thead>
+<tbody>
+${Object.entries(R.by_ownership).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><th scope="row">${esc(k[0].toUpperCase() + k.slice(1))}</th><td class="num">${n(v)}</td></tr>`).join('\n')}
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2 id="counties">County representation</h2>
+<p>Listings and institutions in each county within the catalogue. A low number describes what Njia has listed, not what the county offers; see the <a href="/analysis/">county analysis</a> for where provision is thin.</p>
+<div class="wrap" tabindex="0" role="region" aria-label="County coverage in Njia's catalogue">
+<table class="ladder">
+<caption>County coverage in Njia's catalogue</caption>
+<thead><tr><th scope="col">County</th><th scope="col" class="num">Listings</th><th scope="col" class="num">Institutions</th><th scope="col" class="num">Fee read from schedule</th><th scope="col" class="num">Open entry</th></tr></thead>
+<tbody>
+${counties.map(([k, v]) => `<tr><th scope="row">${esc(k)}</th><td class="num">${n(v.offerings)}</td><td class="num">${n(v.institutions)}</td><td class="num">${n(v.fee_published)}</td><td class="num">${n(v.open_entry)}</td></tr>`).join('\n')}
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2 id="limits">Read the fine print</h2>
+<p>All totals use course listings linked to a known institution as the denominator. No graduate employment, admission success or salary outcome is inferred, because Kenya publishes none per course.</p>
+<ul>
+<li><a href="/research/sources/">Review official Kenyan education sources and verification rules</a></li>
+<li><a href="/methodology/">Methodology: how the figures are made</a></li>
+<li><a href="/open-data/">Explore the underlying open data</a></li>
+</ul>
+</section>`;
+  return guidancePage({
+    dir: 'research',
+    title: 'Catalogue evidence: fee provenance, entry grades and county coverage',
+    description: 'What Njia has listed, which fee figures are published, derived or unavailable, and how counties are represented. Describes the catalogue, not every institution in Kenya.',
+    h1: 'Catalogue evidence: what is listed and how well it is sourced',
+    detail: 'Counts and provenance &middot; for learners, funders and journalists',
+    body
+  });
+}
+
+for (const [dir, render] of [['research', researchPage], ['methodology', methodologyPage], ['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
   fs.mkdirSync(GUIDANCE_OUT[dir], { recursive: true });
   fs.writeFileSync(path.join(GUIDANCE_OUT[dir], 'index.html'), render());
 }

@@ -1164,7 +1164,7 @@ function renderCourseCard(course, match) {
   return `
     <div class="card course-card">
       <div class="flex items-center gap-1" style="flex-wrap:wrap">
-        <span class="match-badge"><span class="num">${match.score}%</span> Match${!match.eligible ? ' · Grade below requirement' : match.gradeUnconfirmed ? ' · Set your grade to confirm' : ''}</span>
+        <span class="match-badge"><span class="num">${match.score}%</span> Match${!course.min_grade ? ' · Entry grade unlisted' : match.gradeUnconfirmed ? ' · Set your grade to confirm' : !match.eligible ? ' · Grade below requirement' : ''}</span>
         ${(() => {
           const feas = feasibilitySignal(course, AppState.decideFilters.budgetMax);
           if (!feas) return '';
@@ -1182,7 +1182,7 @@ function renderCourseCard(course, match) {
       <div class="njia-course-evidence" aria-label="Course decision evidence">
         <div class="njia-course-evidence__heading"><span>Decision evidence</span><a href="./research/sources/" title="How Njia checks placement, accreditation and funding">How to verify ↗</a></div>
         <dl class="njia-course-evidence__grid">
-          <div><dt>Grade check</dt><dd class="${!match.eligible ? 'njia-course-evidence__warning' : ''}">${!course.min_grade ? 'No minimum listed — confirm' : !match.eligible ? 'Below listed minimum' : match.gradeUnconfirmed ? 'Your grade not confirmed' : 'Meets listed minimum*'}</dd></div>
+          <div><dt>Grade check</dt><dd class="${!course.min_grade || match.gradeUnconfirmed || !match.eligible ? 'njia-course-evidence__warning' : ''}">${!course.min_grade ? 'No minimum listed — confirm' : match.gradeUnconfirmed ? 'Your grade not confirmed' : !match.eligible ? 'Below listed minimum' : 'Meets listed minimum*'}</dd></div>
           <div><dt>Fee evidence</dt><dd>${({published:'Institution-observed',derived:'Calculated from sourced rate',illustrative:'Illustrative only',unpublished:'Not published',unsourced:'Not independently sourced'})[basis] || 'Review required'}</dd></div>
           <div><dt>Placement</dt><dd>Current intake unverified</dd></div>
           <div><dt>Accreditation</dt><dd>Check programme approval</dd></div>
@@ -1200,7 +1200,7 @@ function renderCourseCard(course, match) {
         <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(LEVEL_LABELS[course.level] || course.level)}</div></div>
         <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${durationLabel(course)}</div></div>
         <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value${feePublished ? ' num' : ''}">${feePublished ? formatKes(course.total_fees_kes) : 'Not shown'}</div></div>
-        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
+        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'Not listed — confirm')}</div></div>
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>

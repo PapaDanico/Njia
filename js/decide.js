@@ -1179,6 +1179,17 @@ function renderCourseCard(course, match) {
         ${FEE_BASIS_BADGE[basis] || ''}
       </div>
       <h2>${escapeHtml(course.name)}</h2>
+      <div class="njia-course-evidence" aria-label="Course decision evidence">
+        <div class="njia-course-evidence__heading"><span>Decision evidence</span><a href="./research/sources/" title="How Njia checks placement, accreditation and funding">How to verify ↗</a></div>
+        <dl class="njia-course-evidence__grid">
+          <div><dt>Grade check</dt><dd class="${!match.eligible ? 'njia-course-evidence__warning' : ''}">${!match.eligible ? 'Below listed minimum' : match.gradeUnconfirmed ? 'Your grade not confirmed' : 'Meets listed minimum*'}</dd></div>
+          <div><dt>Fee evidence</dt><dd>${({published:'Institution-observed',derived:'Calculated from sourced rate',illustrative:'Illustrative only',unpublished:'Not published',unsourced:'Not independently sourced'})[basis] || 'Review required'}</dd></div>
+          <div><dt>Placement</dt><dd>Current intake unverified</dd></div>
+          <div><dt>Accreditation</dt><dd>Check programme approval</dd></div>
+        </dl>
+        <p class="njia-course-evidence__foot">*Listed grade is a preliminary screen, not a placement offer. Confirm programme requirements, current cutoffs and availability with KUCCPS or the institution. Funding requires a separate application.</p>
+      </div>
+
       <div class="institution-name">${escapeHtml(inst ? inst.name : 'Unknown institution')} · ${escapeHtml(inst ? inst.location : '')}</div>
       <div class="course-tagline">
         ${inst ? `<span class="mini-tag mini-${inst.ownership}">${inst.ownership === 'public' ? 'Public' : 'Private'}</span>` : ''}

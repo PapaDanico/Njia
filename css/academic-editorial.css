@@ -1,0 +1,19 @@
+/* Njia academic-editorial vocabulary — original, opt-in, no third-party assets.
+   Uses existing Njia tokens; not an institutional imitation. */
+.njia-academic{--academic-rule:var(--border,#E4DCCB);--academic-ink:var(--text-primary,#3D1C02);--academic-accent:var(--primary,#8B2500);color:var(--academic-ink);background:var(--bg,#FAF9F5)}
+.njia-academic__masthead{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;padding-block:1.1rem;border-bottom:2px solid var(--academic-ink)}
+.njia-academic__kicker{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary-dark,#6E1D00)}
+.njia-academic__heading{font-family:var(--serif,Georgia,serif);font-size:clamp(2.4rem,5.5vw,5.5rem);line-height:1.04;letter-spacing:-.04em;max-width:16ch;text-wrap:balance;margin:.65em 0 .4em}
+.njia-academic__lead{font-size:clamp(1.1rem,1.6vw,1.35rem);line-height:1.55;max-width:65ch;color:var(--text-secondary,#5C3410)}
+.njia-academic__section{border-top:1px solid var(--academic-rule);padding-block:clamp(1.5rem,3vw,3rem)}
+.njia-academic__section-title{font-family:var(--serif,Georgia,serif);font-size:clamp(1.5rem,2.5vw,2.3rem);line-height:1.15;letter-spacing:-.025em;margin:0 0 1rem}
+.njia-academic__split{display:grid;grid-template-columns:minmax(0,2fr) minmax(240px,1fr);gap:clamp(1.5rem,4vw,4rem);align-items:start}
+.njia-academic__rail{border-top:3px solid var(--academic-accent);padding-top:1rem}
+.njia-academic__source{font-size:.875rem;line-height:1.55;color:var(--text-muted,#6E4A22);overflow-wrap:anywhere}
+.njia-academic__figure{font-family:var(--mono,monospace);font-variant-numeric:tabular-nums;font-size:clamp(1.4rem,3vw,2.6rem);font-weight:700}
+.njia-academic__callout{padding:1.2rem 1.4rem;border-left:4px solid var(--academic-accent);background:var(--bg-card,#F4EEE2);line-height:1.6}
+.njia-academic__action{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:.7rem 1.1rem;background:var(--primary,#8B2500);color:#fff;text-decoration:none;font-weight:700;border-radius:var(--radius-xs,3px)}
+.njia-academic__action:hover{background:var(--primary-dark,#6E1D00)}
+.njia-academic__action:focus-visible,.njia-academic a:focus-visible,.njia-academic button:focus-visible{outline:3px solid var(--academic-ink);outline-offset:3px}
+@media(max-width:760px){.njia-academic__split{grid-template-columns:minmax(0,1fr)}.njia-academic__heading{max-width:none}.njia-academic__masthead{align-items:flex-start}}
+@media(prefers-reduced-motion:reduce){.njia-academic{scroll-behavior:auto}}

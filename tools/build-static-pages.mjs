@@ -1673,6 +1673,7 @@ const urls = [
   { loc: `${SITE}/help/`, priority: '0.9', changefreq: 'monthly' },
   { loc: `${SITE}/pathways/`, priority: '0.8', changefreq: 'monthly' },
   { loc: `${SITE}/careers/`, priority: '0.8', changefreq: 'monthly' },
+  { loc: `${SITE}/research/`, priority: '0.6', changefreq: 'monthly' },
   { loc: `${SITE}/diagnostic/`, priority: '0.7', changefreq: 'monthly' },
   { loc: `${SITE}/privacy/`, priority: '0.5', changefreq: 'yearly' },
   { loc: `${SITE}/accessibility/`, priority: '0.4', changefreq: 'yearly' },

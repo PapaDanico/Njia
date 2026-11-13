@@ -1144,11 +1144,11 @@ function renderCourseCard(course, match) {
   const saved = AppState.savedCourses.includes(course.id);
   // Null when the institution publishes no fee — every derived cost line
   // below is suppressed rather than rendered as "Ksh 0/month".
-  const feePublished = course.total_fees_kes != null;
-  const monthlyEstimate = (feePublished && course.duration_months != null)
-    ? Math.round(course.total_fees_kes / course.duration_months) : null;
-
   const basis = feeBasis(course);
+  const feePublished = Number.isFinite(course.total_fees_kes) && course.total_fees_kes >= 0;
+  const durationKnown = Number.isFinite(course.duration_months) && course.duration_months > 0;
+  const monthlyEstimate = (feePublished && durationKnown)
+    ? Math.round(course.total_fees_kes / course.duration_months) : null;
 
   // Online courses don't require relocating or renting near an institution,
   // so an accommodation estimate would overstate the real cost for them.
@@ -1158,13 +1158,13 @@ function renderCourseCard(course, match) {
      cost of attendance. Null rather than NaN: the block simply does not render. */
   const totalCostOfAttendance = !feePublished ? null
     : requiresRelocation
-      ? (course.duration_months == null ? null : course.total_fees_kes + accomRate * course.duration_months)
+      ? (!durationKnown ? null : course.total_fees_kes + accomRate * course.duration_months)
       : course.total_fees_kes;
 
   return `
     <div class="card course-card">
       <div class="flex items-center gap-1" style="flex-wrap:wrap">
-        <span class="match-badge"><span class="num">${match.score}%</span> Match${!match.eligible ? ' · Grade below requirement' : match.gradeUnconfirmed ? ' · Set your grade to confirm' : ''}</span>
+        <span class="match-badge"><span class="num">${match.score}%</span> Match${!course.min_grade ? ' · Entry grade unlisted' : match.gradeUnconfirmed ? ' · Set your grade to confirm' : !match.eligible ? ' · Grade below requirement' : ''}</span>
         ${(() => {
           const feas = feasibilitySignal(course, AppState.decideFilters.budgetMax);
           if (!feas) return '';
@@ -1179,6 +1179,17 @@ function renderCourseCard(course, match) {
         ${FEE_BASIS_BADGE[basis] || ''}
       </div>
       <h2>${escapeHtml(course.name)}</h2>
+      <div class="njia-course-evidence" aria-label="Course decision evidence">
+        <div class="njia-course-evidence__heading"><span>Decision evidence</span><a href="./research/sources/" title="How Njia checks placement, accreditation and funding">How to verify ↗</a></div>
+        <dl class="njia-course-evidence__grid">
+          <div><dt>Grade check</dt><dd class="${!course.min_grade || match.gradeUnconfirmed || !match.eligible ? 'njia-course-evidence__warning' : ''}">${!course.min_grade ? 'No minimum listed — confirm' : match.gradeUnconfirmed ? 'Your grade not confirmed' : !match.eligible ? 'Below listed minimum' : 'Meets listed minimum*'}</dd></div>
+          <div><dt>Fee evidence</dt><dd>${({published:'Institution-observed',derived:'Calculated from sourced rate',illustrative:'Illustrative only',unpublished:'Not published',unsourced:'Not independently sourced'})[basis] || 'Review required'}</dd></div>
+          <div><dt>Placement</dt><dd>Current intake unverified</dd></div>
+          <div><dt>Accreditation</dt><dd>Check programme approval</dd></div>
+        </dl>
+        <p class="njia-course-evidence__foot">*Listed grade is a preliminary screen, not a placement offer. Confirm programme requirements, current cutoffs and availability with KUCCPS or the institution. Funding requires a separate application.</p>
+      </div>
+
       <div class="institution-name">${escapeHtml(inst ? inst.name : 'Unknown institution')} · ${escapeHtml(inst ? inst.location : '')}</div>
       <div class="course-tagline">
         ${inst ? `<span class="mini-tag mini-${inst.ownership}">${inst.ownership === 'public' ? 'Public' : 'Private'}</span>` : ''}
@@ -1189,7 +1200,7 @@ function renderCourseCard(course, match) {
         <div class="meta-item"><div class="meta-label">Level</div><div class="meta-value">${escapeHtml(LEVEL_LABELS[course.level] || course.level)}</div></div>
         <div class="meta-item"><div class="meta-label">Duration</div><div class="meta-value num">${durationLabel(course)}</div></div>
         <div class="meta-item"><div class="meta-label">Tuition</div><div class="meta-value${feePublished ? ' num' : ''}">${feePublished ? formatKes(course.total_fees_kes) : 'Not shown'}</div></div>
-        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'None')}</div></div>
+        <div class="meta-item"><div class="meta-label">Min Grade</div><div class="meta-value num">${escapeHtml(course.min_grade || 'Not listed — confirm')}</div></div>
       </div>
       <p class="text-secondary text-sm mb-1">${escapeHtml(course.description)}</p>
       <div class="career-tags">${course.career_paths.map((p) => `<span class="tag">${escapeHtml(p)}</span>`).join('')}</div>
@@ -1204,10 +1215,12 @@ function renderCourseCard(course, match) {
           price. Ask the institution for its own figure.</p>`;
       })()}
       ${feePublished ? `
-      <p class="text-muted text-sm mb-2">Feasibility: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}${inst?.has_workstudy ? ' · work-study available at this institution' : ''}.</p>
-      <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${requiresRelocation
-        ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
-        : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
+      ${monthlyEstimate != null ? `<p class="text-muted text-sm mb-2">Tuition estimate averaged over the listed duration: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}. This is an arithmetic average, not an instalment plan; verify the fee basis above.${inst?.has_workstudy ? ' Work-study may be available at this institution.' : ''}</p>` : '<p class="text-muted text-sm mb-2">A monthly tuition average cannot be calculated because the course duration is not recorded. Request the official payment schedule.</p>'}
+      <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${totalCostOfAttendance == null
+        ? 'Not calculated — the duration or required cost inputs are unavailable. Confirm tuition, accommodation and living costs with the institution.'
+        : requiresRelocation
+          ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
+          : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
       }</p>` : `
       ${/* THE COPY THAT WAS WRITTEN FOR ONE AUDIENCE AND SHOWN TO EVERY OTHER.
              This branch used to be unconditional county-VTC advice — cheapest
@@ -1506,7 +1519,14 @@ function openCourseComparison() {
     { label: 'Institution', get: (c) => institutionById(c.institution_id)?.name || 'Unknown institution', wrap: true },
     { label: 'Level', get: (c) => LEVEL_LABELS[c.level] || c.level },
     { label: 'Duration', get: (c) => durationLabel(c), num: true, raw: (c) => c.duration_months, better: 'min' },
-    { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not shown' : formatKes(c.total_fees_kes)), num: true, raw: (c) => c.total_fees_kes, better: 'min' },
+    { label: 'Tuition', get: (c) => (c.total_fees_kes == null ? 'Not shown' : formatKes(c.total_fees_kes)), num: true, raw: (c) => (['published', 'derived'].includes(feeBasis(c)) ? c.total_fees_kes : null), better: 'min' },
+    { label: 'Fee evidence', get: (c) => ({
+      published: 'Institution-observed', derived: 'Calculated from sourced rate',
+      illustrative: 'Illustrative only', unpublished: 'Not published',
+      unsourced: 'Not independently sourced'
+    })[feeBasis(c)] || 'Review required' },
+    { label: 'Placement', get: () => 'Current intake not verified' },
+    { label: 'Programme approval', get: () => 'Confirm with regulator' },
     { label: 'Min Grade', get: (c) => c.min_grade || 'None', num: true },
     /* There were two more rows here: "Employment Rate (est.)" and "Median
      * Salary (est.)". They were shown without best-value shading, on the
@@ -1536,6 +1556,11 @@ function openCourseComparison() {
   const truncated = AppState.savedCourses.length > courses.length;
   openModal(`
     <h2 class="mb-2">Compare Saved Courses</h2>
+    <div class="njia-compare-note" role="note">
+      <strong>Compare evidence, not just prices.</strong>
+      <p>Only institution-observed or sourced-derived tuition can receive a lowest-cost highlight. Illustrative or unsourced fees remain visible but cannot win a price comparison. Placement, programme approval and funding must be confirmed separately.</p>
+      <a href="./research/sources/">Official verification guidance ↗</a>
+    </div>
     <p class="text-secondary text-sm mb-2">${truncated ? `Showing your first ${courses.length} saved courses — comparisons cap at 4 to stay readable.` : 'Side-by-side comparison of your saved courses.'}</p>
     <p class="comparison-hint">↔ Swipe or scroll sideways to see every course · shaded cells mark the best value in each measurable row</p>
     <div class="comparison-scroll">
@@ -1677,6 +1702,13 @@ function renderFundingCard(f, userGrade) {
         ${isVerified ? '<span class="verified-badge" title="Cross-checked against a public source">✓ Verified</span>' : ''}
       </div>
       <h2>${escapeHtml(f.name)}</h2>
+      <div class="njia-funding-evidence" role="note">
+        <div class="njia-funding-evidence__head"><strong>Funding evidence</strong><span class="${isVerified ? 'njia-funding-evidence__sourced' : 'njia-funding-evidence__estimate'}">${isVerified ? 'Source reviewed' : 'Details require verification'}</span></div>
+        <p>${isVerified ? 'This programme has a source record, but awards, deadlines and eligibility can change each cycle.' : 'Programme amounts and eligibility may be illustrative. Do not use this estimate as an award or approval.'}</p>
+        <p><strong>Eligibility:</strong> ${!eligible ? 'Below the listed minimum grade' : gradeUnconfirmed ? 'Your grade has not been confirmed' : 'Preliminary grade screen only'} · <strong>Award:</strong> Not guaranteed</p>
+        <a href="./research/sources/">Understand official funding checks ↗</a>
+      </div>
+
       ${fundingIsExpired(f, new Date().toISOString().slice(0, 10)) ? `<p class="text-sm mb-2"><strong>This call closed on ${escapeHtml(f.valid_until)}.</strong> Check whether a new round is open before planning on it.</p>` : ''}
       <p class="text-secondary text-sm mb-2">${escapeHtml(f.description)}</p>
       ${f.checked_at ? `<p class="text-muted text-sm mb-2">Details last checked ${escapeHtml(f.checked_at)}.</p>` : ''}

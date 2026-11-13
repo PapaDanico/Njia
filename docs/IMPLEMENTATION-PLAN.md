@@ -147,3 +147,12 @@ would have blocked any genuinely verified claim, now covered by a test that fail
 pattern; and the unverified overlay sat in `data/`, where the service-worker guard treats it as a
 shipped file, so it moved to `docs/research/`. The research documents invent no figure and state
 0 of 10 pilot institutions verified. Nothing was verified against a regulator from this build.
+
+### 13 November 2026, slice 10: site shell (header, menu, footer)
+
+The generated pages had no site navigation, only a back link, and the app's menu and footer
+did not link the pages built this week. Now one module (`tools/site-shell.mjs`) writes the
+header and footer for every generated page, and the app's header menu gains Explore and
+Evidence dropdowns while its footer carries the same four columns. Headers print nothing;
+the dated brief head still prints. `tests/site-shell.test.js` guards presence, repeated ids
+and app-versus-shell link drift. Design record: `DESIGN.md`, "Site shell".

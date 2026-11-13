@@ -11,10 +11,10 @@ const root = path.join(__dirname, '..');
 const read = (p) => fs.readFileSync(path.join(root, p, 'index.html'), 'utf8');
 const PAGES = ['accessibility', 'careers', 'counsellors', 'diagnostic', 'methodology', 'pathways', 'privacy', 'research', 'research/sources'];
 
-test('every generated guidance page carries the sources footer', () => {
+test('every generated guidance page carries the site footer with the scope sentence', () => {
   for (const p of PAGES) {
     const html = read(p);
-    assert.match(html, /<footer class="page-foot">[\s\S]*href="\/methodology\/"[\s\S]*href="\/research\/sources\/"[\s\S]*href="\/open-data\/"[\s\S]*<\/footer>/, `${p} has no sources footer`);
+    assert.match(html, /<footer class="site-footer">[\s\S]*href="\/methodology\/"[\s\S]*href="\/research\/sources\/"[\s\S]*href="\/open-data\/"[\s\S]*<\/footer>/, `${p} has no site footer`);
     assert.match(html, /describe what Njia has listed, not everything that exists in Kenya/, `${p} footer lacks the scope sentence`);
   }
 });

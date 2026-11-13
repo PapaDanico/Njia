@@ -45,6 +45,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { siteHeader, siteFooter, SITE_SHELL_CSS } from './site-shell.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(path.join(root, '/'));
@@ -185,7 +186,7 @@ const page = `<!doctype html>
 <link rel="icon" type="image/svg+xml" href="/icons/logo-mark.svg">
 <link rel="icon" href="/icons/icon-192x192.png">
 <link rel="stylesheet" href="/css/styles.css">
-<style>
+<style>${SITE_SHELL_CSS}
   body { max-width: 62rem; margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
   table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .94rem; }
   th, td { text-align: left; padding: .5rem .5rem .5rem 0; border-bottom: 1px solid var(--border); vertical-align: top; }
@@ -217,11 +218,12 @@ const page = `<!doctype html>
     .brief-head { flex-wrap: wrap; }
     .brief-meta { margin-left: 0; text-align: left; width: 100%; }
   }
+  @media screen { .brief-head { display: none; } }
 </style>
 </head>
 <body>
-<main>
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+${siteHeader()}
+<main id="main">
 
 <div class="brief-head">
   <div class="brief-mark">${BRAND_MARK}</div>
@@ -285,13 +287,8 @@ formal licence has not been chosen yet; if you need specific terms, ask.</p>
 <p>Found something wrong? That is the point of publishing it. Use the feedback
 link in the app and say which <code>course_id</code>.</p>
 
-<footer>
-  <p><a href="/analysis/">County provision analysis</a> &middot;
-     <a href="/counties/">Browse by county</a> &middot;
-     <a href="/grades/">Browse by grade</a> &middot;
-     <a href="/">Njia home</a></p>
-</footer>
 </main>
+${siteFooter(BUILD_DATE_LABEL)}
 </body>
 </html>
 `;

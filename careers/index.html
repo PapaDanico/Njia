@@ -15,6 +15,48 @@
 <meta property="og:url" content="https://njiacareerpathways.work/careers/">
 <link rel="stylesheet" href="/css/styles.css">
 <style>
+  /* ---------- Site header and footer (tools/site-shell.mjs) ---------- */
+  .skip-link { position: absolute; left: -999px; top: 0; background: var(--primary, #8B2500); color: var(--bg, #FAF9F5); padding: .6rem 1rem; z-index: 10; }
+  .skip-link:focus { left: .5rem; top: .5rem; }
+  .site-header { margin: -1.5rem 0 1.75rem; border-bottom: 3px solid var(--primary, #8B2500); }
+  .site-header-inner { display: flex; align-items: center; gap: 1.25rem; padding: .7rem 0; position: relative; }
+  .site-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }
+  .site-mark { width: 19px; height: 28px; display: block; flex: none; }
+  .site-word { font-family: var(--serif, Georgia, serif); font-weight: 700; font-size: 1.6rem; line-height: 1; letter-spacing: -.01em; }
+  .site-nav { display: none; }
+  .site-cta { display: none; }
+  .site-menu { margin-left: auto; }
+  .site-menu summary { list-style: none; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; padding: 0 .9rem; border: 1px solid var(--border, #E4DCCB); border-radius: .4rem; font-size: var(--fs-sm, .8125rem); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .site-menu summary::-webkit-details-marker { display: none; }
+  .site-menu[open] summary { background: var(--primary, #8B2500); color: var(--bg, #FAF9F5); border-color: var(--primary, #8B2500); }
+  .site-menu nav { position: absolute; left: 0; right: 0; top: 100%; z-index: 5; background: var(--bg-elevated, #fff); border: 1px solid var(--border, #E4DCCB); border-top: 0; box-shadow: 0 12px 24px rgba(61, 28, 2, .12); padding: .35rem 1rem .75rem; display: grid; }
+  .site-menu nav a { display: flex; align-items: center; min-height: 44px; text-decoration: none; color: var(--text-primary, #3D1C02); border-bottom: 1px solid var(--border, #E4DCCB); font-weight: 600; }
+  .site-menu nav a:last-child { border-bottom: 0; }
+  @media (min-width: 64rem) {
+    .site-nav { display: flex; align-items: center; gap: 1.4rem; margin-left: auto; white-space: nowrap; }
+    .site-nav a { font-size: var(--fs-sm, .8125rem); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; color: var(--text-primary, #3D1C02); padding: .55rem 0; border-bottom: 2px solid transparent; }
+    .site-nav a:hover, .site-nav a:focus-visible { border-bottom-color: var(--primary, #8B2500); }
+    .site-more { position: relative; display: flex; align-items: center; }
+    .site-more-panel { display: none; position: absolute; top: 100%; left: -1rem; z-index: 5; min-width: 15rem; background: var(--bg-elevated, #fff); border: 1px solid var(--border, #E4DCCB); border-top: 2px solid var(--primary, #8B2500); box-shadow: 0 12px 24px rgba(61, 28, 2, .12); padding: .4rem 0; }
+    .site-more:hover .site-more-panel, .site-more:focus-within .site-more-panel { display: block; }
+    .site-more-panel a { display: block; padding: .6rem 1rem; border-bottom: 0; text-transform: none; letter-spacing: 0; font-size: var(--fs-md, .9375rem); }
+    .site-more-panel a:hover, .site-more-panel a:focus-visible { background: var(--bg, #FAF9F5); }
+    .site-cta { display: inline-block; padding: .6rem 1.05rem; border-radius: .4rem; background: var(--primary, #8B2500); color: var(--bg, #FAF9F5); text-decoration: none; font-weight: 700; font-size: var(--fs-sm, .8125rem); letter-spacing: .04em; white-space: nowrap; }
+    .site-menu { display: none; }
+  }
+  /* Full-bleed ink band from a contained element: the shadow paints outward
+     and the clip keeps it to the element's own height, so no horizontal scroll. */
+  .site-footer { margin: 3rem 0 -4rem; padding: 2.25rem 0 2.5rem; opacity: 1; font-size: var(--fs-md, .9375rem);
+                 background: #2A1507; color: #F5E9D4; box-shadow: 0 0 0 100vmax #2A1507; clip-path: inset(0 -100vmax); }
+  .site-foot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.5rem; }
+  .site-foot-title { margin: 0 0 .6rem; font-size: var(--fs-xs, .75rem); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E7C887; }
+  .site-foot-col a { display: block; color: #F5E9D4; text-decoration: none; padding: .3rem 0; }
+  .site-foot-col a:hover, .site-foot-col a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
+  .site-foot-note { margin: 1.75rem 0 0; padding-top: 1.1rem; border-top: 1px solid #5A3A1E; font-size: var(--fs-sm, .8125rem); color: #D9C8A5; max-width: 62rem; }
+  @media (min-width: 48rem) { .site-foot-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .split > .site-header, .split > .site-footer { grid-column: 1 / -1; }
+  @media print { .skip-link, .site-header, .site-footer { display: none !important; } }
+
   /* Deliberately minimal and self-contained. These pages reuse the app's
      stylesheet for colour and type, but none of its layout JavaScript, so
      they render identically with scripting switched off. */
@@ -188,14 +230,51 @@
   .exhibit-unit { margin: 0 0 .4rem; font-size: var(--fs-sm, .8125rem); color: var(--text-secondary); }
   .exhibit caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .exhibit-src { margin: .3rem 0 0; font-size: var(--fs-xs); color: var(--text-muted); max-width: none; }
-  .page-foot { margin: var(--space-10, 2.5rem) 0 var(--space-4); border-top: 1px solid var(--border); padding-top: .75rem; font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
-  .page-foot p { margin: 0 0 .35rem; }
   .line { border-bottom: 1px solid var(--text-muted); height: 2.1rem; margin: 0; }
   .handout h3 { margin: var(--space-4) 0 .15rem; }
   @media print { .cta { display: none; } section { break-inside: avoid; } .handout { break-before: page; } }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-brand" href="/" aria-label="Njia home"><svg class="site-mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96"> <style> @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf-site"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf-site)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf-site)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg><span class="site-word">Njia</span></a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/#discover">Discover</a>
+      <a href="/grades/">Grades</a>
+      <a href="/counties/">Counties</a>
+      <a href="/careers/">Careers</a>
+      <div class="site-more">
+        <a href="/research/" aria-haspopup="true">Evidence</a>
+        <div class="site-more-panel">
+          <a href="/research/">Catalogue evidence</a>
+          <a href="/methodology/">Methodology</a>
+          <a href="/research/sources/">Official sources</a>
+          <a href="/open-data/">Open data</a>
+          <a href="/analysis/">County analysis</a>
+        </div>
+      </div>
+      <a href="/counsellors/">Counsellors</a>
+    </nav>
+    <a class="site-cta" href="/#discover">Start Discovery</a>
+    <details class="site-menu">
+      <summary>Menu</summary>
+      <nav aria-label="Site menu">
+      <a href="/#discover">Discover</a>
+      <a href="/grades/">Grades</a>
+      <a href="/counties/">Counties</a>
+      <a href="/careers/">Careers</a>
+      <a href="/research/">Catalogue evidence</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/research/sources/">Official sources</a>
+      <a href="/open-data/">Open data</a>
+      <a href="/analysis/">County analysis</a>
+      <a href="/counsellors/">Counsellors</a>
+      </nav>
+    </details>
+  </div>
+</header>
 
 <div class="brief-head">
   <div class="brief-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96" role="img" aria-label="Njia"> <style> /* STANDALONE RENDERING ONLY — as a browser-tab favicon or a bookmark tile. * * Nothing supplies --mark-edge outside the app, so the outline falls back * to earth brown. Rendered against Chrome's dark tab strip (#202124) at 16, * 32, 48 and 64px, the leaf edge disappeared into the ground completely. * The mark still read, because the terracotta field and the cream road * carry it, but the drawing lost its silhouette. * * This rule is inert inside the app: there the #i-njia sprite symbol in * index.html is a separate copy that takes --mark-edge from the page, and * it does not carry this stylesheet. The drift guard in * tests/provenance.test.js compares path geometry rather than styling, so * the two stay legitimately different in presentation and identical in * shape. */ @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg></div>
@@ -209,8 +288,7 @@
     13 November 2026 &middot; njiacareerpathways.work
   </div>
 </div>
-<main>
-<a class="back" href="/">&larr; Njia — data-driven career pathways for Kenyan youth</a>
+<main id="main">
 <h1>Careers by direction: roles, levels and how to start</h1>
 
 <p class="lede">A role here is a job title recorded against a course in Njia's catalogue. For each of the seven directions the questionnaire can point to, this page lists the roles that the most courses lead to, the levels those courses sit at, and how many are open to a learner with an E. It is a map of routes, not a forecast: Njia holds no employment rates or salaries per course, because Kenya does not publish them.</p>
@@ -384,10 +462,39 @@
 </div>
 </section>
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
-<footer class="page-foot">
-<p>Figures are counted from the Njia catalogue on 13 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
-<p><a href="/methodology/">Methodology</a> &middot; <a href="/research/sources/">Official sources</a> &middot; <a href="/open-data/">Open data</a> &middot; <a href="/privacy/">Privacy</a></p>
-</footer>
 </main>
+<footer class="site-footer">
+  <div class="site-foot-grid">
+    <div class="site-foot-col">
+      <p class="site-foot-title">Explore</p>
+      <a href="/#discover">Start Discovery</a>
+      <a href="/grades/">Courses by grade</a>
+      <a href="/counties/">Courses by county</a>
+      <a href="/careers/">Careers by direction</a>
+      <a href="/pathways/">Education pathways</a>
+    </div>
+    <div class="site-foot-col">
+      <p class="site-foot-title">Evidence</p>
+      <a href="/research/">Catalogue evidence</a>
+      <a href="/methodology/">Methodology</a>
+      <a href="/research/sources/">Official sources</a>
+      <a href="/open-data/">Open data</a>
+      <a href="/analysis/">County analysis</a>
+    </div>
+    <div class="site-foot-col">
+      <p class="site-foot-title">Counsellors</p>
+      <a href="/counsellors/">Counsellor kit</a>
+      <a href="/help/">Questions and answers</a>
+      <a href="/diagnostic/">About the questionnaire</a>
+      <a href="/docs/">Partnership proposal</a>
+    </div>
+    <div class="site-foot-col">
+      <p class="site-foot-title">Trust</p>
+      <a href="/privacy/">Privacy</a>
+      <a href="/accessibility/">Accessibility</a>
+    </div>
+  </div>
+  <p class="site-foot-note">Njia is independent: it is not affiliated with KUCCPS, HELB or any institution, and your answers stay on your device. Figures are counted from the catalogue on 13 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
+</footer>
 </body>
 </html>

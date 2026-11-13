@@ -515,18 +515,22 @@ body:not([data-page="home"]) .nav-back { display: flex; }
 .landing-nav, .landing-cta-header, .nav-toggle { display: none; }
 .nav-toggle { display: flex; }
 
-.landing-nav { align-items: center; gap: 1.75rem; }
+.landing-nav { align-items: center; gap: 1.25rem; }
 .landing-nav-link {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-sm);
   font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
   color: var(--text-secondary);
   background: none; border: none;
+  border-bottom: 2px solid transparent;
   display: inline-flex; align-items: center; gap: 0.25rem;
   padding: 0.4rem 0;
-  transition: color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
-.landing-nav-link:hover, .landing-nav-link:focus-visible { color: var(--primary-dark); }
+.landing-nav-link:hover, .landing-nav-link:focus-visible { color: var(--primary-dark); border-bottom-color: var(--primary); }
 .landing-nav-dropdown { position: relative; }
 /* 0.7, not 0.6. The caret is aria-hidden, so axe passes over it as decorative
  * and the sweep never complained — but it is the only visual cue that this nav
@@ -539,11 +543,12 @@ body:not([data-page="home"]) .nav-back { display: flex; }
 .landing-nav-dropdown-menu {
   position: absolute;
   top: calc(100% + 0.75rem);
-  left: 50%;
-  transform: translateX(-50%) translateY(6px);
+  left: -0.75rem;
+  transform: translateY(6px);
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-top: 2px solid var(--primary);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
   box-shadow: var(--shadow-lg);
   padding: 0.5rem;
   min-width: 280px;
@@ -555,12 +560,12 @@ body:not([data-page="home"]) .nav-back { display: flex; }
 .landing-nav-dropdown-menu.open,
 .landing-nav-dropdown:hover .landing-nav-dropdown-menu,
 .landing-nav-dropdown:focus-within .landing-nav-dropdown-menu {
-  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  opacity: 1; visibility: visible; transform: translateY(0);
 }
 /* Two-line rows (title + one-line description) — matching the mega-menu
  * pattern the family sites use for their tool/module dropdowns, instead
  * of a flat list of bare labels. */
-.landing-nav-dropdown-menu button {
+.landing-nav-dropdown-menu :is(button, a) {
   display: flex; align-items: flex-start; gap: 0.7rem;
   width: 100%;
   padding: 0.6rem 0.75rem;
@@ -568,14 +573,15 @@ body:not([data-page="home"]) .nav-back { display: flex; }
   background: none; border: none;
   color: var(--text-primary);
   text-align: left;
+  text-decoration: none;
   min-height: 48px;
 }
 .landing-nav-dropdown-menu button > span:first-child { flex-shrink: 0; display: inline-flex; margin-top: 0.15rem; color: var(--primary); }
 .landing-nav-dropdown-menu button .icon { width: 18px; height: 18px; }
-.landing-nav-dropdown-menu button > span:last-child { display: flex; flex-direction: column; gap: 0.1rem; }
-.landing-nav-dropdown-menu button strong { font-size: var(--fs-lg); font-weight: 600; }
-.landing-nav-dropdown-menu button small { font-size: var(--fs-xs); font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--text-muted); }
-.landing-nav-dropdown-menu button:hover { background: var(--bg-card); }
+.landing-nav-dropdown-menu :is(button, a) > span:last-child { display: flex; flex-direction: column; gap: 0.1rem; }
+.landing-nav-dropdown-menu :is(button, a) strong { font-size: var(--fs-lg); font-weight: 600; }
+.landing-nav-dropdown-menu :is(button, a) small { font-size: var(--fs-xs); font-weight: 400; text-transform: none; letter-spacing: normal; color: var(--text-muted); }
+.landing-nav-dropdown-menu :is(button, a):is(:hover, :focus-visible) { background: var(--bg-card); }
 
 /* Specificity bump (.header-actions .landing-cta-header, not just the
    class alone) so this beats .btn's display:inline-flex — same
@@ -1634,6 +1640,8 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   margin-top: 2px;
 }
 @media (min-width: 720px) { .logo-descriptor { display: block; } }
+/* The full nav needs the room between 1024 and 1280px. */
+@media (min-width: 1024px) and (max-width: 1279px) { .logo-descriptor { display: none; } }
 /* Nav sits hard right against the utility icons rather than floating. */
 @media (min-width: 1024px) { .landing-nav { margin-left: auto; margin-right: 1.25rem; } }
 
@@ -2254,18 +2262,6 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * how big anything is to hit. */
 .landing-footer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; margin-bottom: 1.25rem; }
 .landing-footer-brand { grid-column: 1 / -1; }
-/* Three lists in two columns leaves the third one alone on its own row with
- * the right half blank — the same waste this whole pass is about, just moved
- * to the phone. The last list spans the row instead and lays its own links
- * out two-up, so the row is full and two links tall rather than four. */
-.landing-footer-grid > .landing-footer-col:last-of-type { grid-column: 1 / -1; }
-.landing-footer-grid > .landing-footer-col:last-of-type .footer-col-label { grid-column: 1 / -1; }
-.landing-footer-grid > .landing-footer-col:last-of-type {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 1rem;
-  align-content: start;
-}
 .landing-footer-brand p { font-size: var(--fs-md); color: #C9B693; margin-top: 0.5rem; max-width: 40ch; line-height: 1.6; }
 /* An inline link that happens to be a button, because it opens a modal rather
  * than navigating. Styled as text so the sentence reads as a sentence — but it
@@ -2349,10 +2345,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
      link list narrower than a third of the row is too cramped to read. Three
      columns from 480px puts all three lists on one row; below that they are
      two-up, set on the base rule. */
-  .landing-footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  /* From 480px all three lists fit on one row, so the last one stops spanning
-     and goes back to being an ordinary single-column list. */
-  .landing-footer-grid > .landing-footer-col:last-of-type { grid-column: auto; display: block; }
+  .landing-footer-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 /* Mid-width tier's landing-page half (see MID-WIDTH TIER, near the top of
@@ -2405,7 +2398,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
      own half of it blank. Merged, the brand column takes the freed width and
      the About text that used to sit in a full-width region below fits inside
      the row height the six-item Learn column was setting anyway. */
-  .landing-footer-grid { grid-template-columns: 1.8fr repeat(3, 1fr); }
+  .landing-footer-grid { grid-template-columns: 1.5fr repeat(4, 1fr); }
   .landing-footer-brand { grid-column: auto; }
   .landing-footer-legal { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); align-items: start; gap: 2rem; }
   .landing-footer-bottom { text-align: right; }

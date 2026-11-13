@@ -182,6 +182,14 @@
   .ladder th, .ladder td { text-align: left; padding: .55rem .75rem .55rem 0; border-bottom: 1px solid var(--border); }
   .ladder td.num, .ladder th.num { text-align: right; font-variant-numeric: tabular-nums; }
   .src { font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
+  .exhibit { margin: var(--space-6, 1.5rem) 0; border-top: 2px solid var(--primary); padding-top: .6rem; }
+  .exhibit-label { margin: 0; font-size: var(--fs-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--primary-dark); }
+  .exhibit-title { margin: .15rem 0 .1rem; font-family: var(--serif); font-size: var(--text-lg-fluid, 1.25rem); line-height: 1.25; font-weight: 700; color: var(--text-primary); max-width: var(--prose-max); }
+  .exhibit-unit { margin: 0 0 .4rem; font-size: var(--fs-sm, .8125rem); color: var(--text-secondary); }
+  .exhibit caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .exhibit-src { margin: .3rem 0 0; font-size: var(--fs-xs); color: var(--text-muted); max-width: none; }
+  .page-foot { margin: var(--space-10, 2.5rem) 0 var(--space-4); border-top: 1px solid var(--border); padding-top: .75rem; font-size: var(--fs-sm, .8125rem); color: var(--text-muted); }
+  .page-foot p { margin: 0 0 .35rem; }
   .line { border-bottom: 1px solid var(--text-muted); height: 2.1rem; margin: 0; }
   .handout h3 { margin: var(--space-4) 0 .15rem; }
   @media print { .cta { display: none; } section { break-inside: avoid; } .handout { break-before: page; } }
@@ -221,6 +229,10 @@
 <section>
 <h2 id="fees">Fee provenance</h2>
 <p>Every listing falls into exactly one group. A missing fee does not mean free tuition.</p>
+<figure class="exhibit" style="margin-inline:0">
+<p class="exhibit-label">Exhibit 1</p>
+<p class="exhibit-title">945 of 1,392 listings show no fee figure; 341 are published or derived</p>
+<p class="exhibit-unit">Course listings, by where the fee figure comes from</p>
 <div class="wrap" tabindex="0" role="region" aria-label="Fee groups">
 <table class="ladder">
 <caption>Course listings by where the fee figure comes from</caption>
@@ -234,6 +246,8 @@
 </tbody>
 </table>
 </div>
+<p class="exhibit-src">Source: Njia catalogue, 13 November 2026. Group assigned by the app's own fee classifier.</p>
+</figure>
 <p>Where each group comes from is set out on the <a href="/methodology/">methodology page</a>.</p>
 </section>
 
@@ -244,6 +258,10 @@
 
 <section>
 <h2 id="level">By level and ownership</h2>
+<figure class="exhibit" style="margin-inline:0">
+<p class="exhibit-label">Exhibit 2</p>
+<p class="exhibit-title">Degree is the largest level, with 711 of 1,392 listings</p>
+<p class="exhibit-unit">Course listings, by level of qualification and by ownership</p>
 <div class="wrap" tabindex="0" role="region" aria-label="Listings by level">
 <table class="ladder">
 <caption>Course listings by level</caption>
@@ -267,11 +285,17 @@
 </tbody>
 </table>
 </div>
+<p class="exhibit-src">Source: Njia catalogue, 13 November 2026.</p>
+</figure>
 </section>
 
 <section>
 <h2 id="counties">County representation</h2>
 <p>Listings and institutions in each county within the catalogue. A low number describes what Njia has listed, not what the county offers; see the <a href="/analysis/">county analysis</a> for where provision is thin.</p>
+<figure class="exhibit" style="margin-inline:0">
+<p class="exhibit-label">Exhibit 3</p>
+<p class="exhibit-title">Nairobi holds 300 of 1,392 listings; 12 counties list fewer than 10</p>
+<p class="exhibit-unit">Course listings, institutions and counts of fee and entry evidence, by county</p>
 <div class="wrap" tabindex="0" role="region" aria-label="County coverage in Njia's catalogue">
 <table class="ladder">
 <caption>County coverage in Njia's catalogue</caption>
@@ -327,6 +351,8 @@
 </tbody>
 </table>
 </div>
+<p class="exhibit-src">Source: Njia catalogue, 13 November 2026. A low count describes what Njia has listed, not what the county offers.</p>
+</figure>
 </section>
 
 <section>
@@ -339,6 +365,10 @@
 </ul>
 </section>
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
+<footer class="page-foot">
+<p>Figures are counted from the Njia catalogue on 13 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
+<p><a href="/methodology/">Methodology</a> &middot; <a href="/research/sources/">Official sources</a> &middot; <a href="/open-data/">Open data</a> &middot; <a href="/privacy/">Privacy</a></p>
+</footer>
 </main>
 </body>
 </html>

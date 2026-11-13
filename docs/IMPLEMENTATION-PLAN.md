@@ -35,6 +35,7 @@ payload ceilings hold, and the generators have been re-run in order.
 | 5 | Plan-from-course in Track | 1 | Check what the application checklist already does before building | **Already existed**; not rebuilt |
 | 7 | Rebuild `/research/` as a generated page | 6 | Figures from `summariseCatalogue()` with the app's `feeBasis()`; no script; print header and dark scheme; recomputed by a test; in the axe sweep | **Shipped** |
 | 8 | Counsellor kit `/counsellors/` | 6 | 50-minute session plan and two printable handouts; grade table recomputed; handouts break onto their own sheets; in served link, sitemap, `llms.txt`, axe sweep | **Shipped** |
+| 9 | Design pass: exhibits, shared sources footer, generated `/research/sources/` | 7, 8 | Exhibit titles computed from the data and asserted; footer on every generated guidance page; sources page generated from the register; axe clean | **Shipped** |
 | 6 | `/methodology/` | 1, 2 | Every figure read from the generated stats; each stated limit asserted by a test; in served link, sitemap, `llms.txt`, axe sweep | **Shipped** |
 
 ## Deliberately not in this plan
@@ -111,3 +112,21 @@ and facts the site already carries; the timings are labelled as a suggestion. Un
 pass, 0 fail (7 mtime guards skip under CI); probe 49/49; axe 108 states, 0 violations;
 `CACHE_VERSION` njia-v299. Checked on screen at 1440 and in print emulation. Not checked: the
 page at 390 on screen by eye (measured: no horizontal overflow), or used with a real class.
+
+### 13 November 2026, slice 9: design pass (exhibits, footer, sources page)
+
+Three changes toward a consultancy-grade finish, none adding a font, image or script.
+- **Exhibit component** (label, action title computed from the data, unit, figure, source line)
+  on `/research/` (fee groups, level and ownership, county) and the `/pathways/` ladder.
+  `tests/research-page.test.js` recomputes each title; `tests/exhibits.test.js` requires every
+  exhibit to be complete and numbered in order (both guards were broken and watched to fail).
+- **Shared footer** on all nine generated guidance pages: scope sentence plus links to
+  methodology, official sources, open data and privacy.
+- **`/research/sources/`** is generated from `research/sources.json`, with the shared shell
+  (print header, dark scheme). It says the review date is when an entry was written and that
+  Njia has not confirmed every link is live. It joined the sitemap, `llms.txt` and SURFACES.
+
+Unit suite 375 pass, 0 fail (7 mtime guards skip under CI); probe 49/49; axe 108 states, 0
+violations; `CACHE_VERSION` njia-v300. Checked on screen at 1440 and 390 (dark) and in print
+emulation. Not done: photography (needs an art-direction brief), the board-style report PDF,
+a space measurement of the generated pages, and checking the register's URLs.

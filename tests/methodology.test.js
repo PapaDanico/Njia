@@ -41,3 +41,11 @@ test('methodology links to the pages it points at', () => {
     assert.ok(page.includes(`href="${href}"`), `no link to ${href}`);
   }
 });
+
+test('methodology states the small-count rule with the shipped threshold', () => {
+  const m = /const MIN_SECTOR_SAMPLE = (\d+)/.exec(fs.readFileSync(path.join(root, 'data', 'sectors.js'), 'utf8'));
+  assert.ok(m, 'MIN_SECTOR_SAMPLE not found in data/sectors.js');
+  assert.ok(text.includes(`fewer than ${m[1]} listings`), `the page does not state the shipped threshold ${m[1]}`);
+  assert.ok(text.includes('too few to read as coverage'), 'the wording the app shows is not quoted');
+  assert.ok(page.includes('id="small-counts"'));
+});

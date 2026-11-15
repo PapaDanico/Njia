@@ -166,3 +166,9 @@ columns at 390px. WCAG 2.2 "focus not obscured" was failing under a keyboard wal
 `scroll-padding`. `/research/` gained proportional bars. `docs/DESIGN-BENCHMARK-2026-11-15.md`
 sets out eight measurable criteria drawn from official and secondary benchmarks and where Njia
 stands on each. Production was confirmed on `7740434` (the shared shell) at the start of this work.
+
+### Slice 12: table density and index charts (15 November 2026)
+- Generated-page tables: line-height 1.4 and tighter cell padding. Measured at 1440 and 390 before and after: `/counties/nairobi/` 18,874 to 16,329px (-13.5%), `/grades/e/` 11,289 to 10,005px (-11.4%), Nairobi at 390 37,314 to 32,595px (-12.6%). Rows are not interactive, so touch targets are unchanged.
+- `/counties/` and `/grades/` gained a computed finding, a unit line with source, and proportional bars (the county index also shows the count). `/counties/` went from 47 plain links to the same links plus bars; no new figures, all counted from the catalogue.
+- `/help/` was inspected and left alone: it is prose (no tables), and folding answers into collapsed sections would hide them from print and from readers without JavaScript.
+- Gates: unit suite 387 pass, 7 mtime guards skipped under CI; probe 49/49; axe 108 states, 0 violations.

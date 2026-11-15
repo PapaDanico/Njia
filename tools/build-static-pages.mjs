@@ -160,8 +160,8 @@ const SHELL_CSS = `${SITE_SHELL_CSS}
   .main > :first-child { margin-top: 0; }
   h1 { margin-top: .35rem; }
   .lede { font-size: 1.05rem; }
-  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; }
-  th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
+  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; line-height: 1.4; }
+  th, td { text-align: left; padding: .32rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
   thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
   tbody th { font-weight: 600; }
   /* A data table, not a list of paragraphs: one ruled header in the brand's
@@ -616,8 +616,21 @@ ${siteFooter(BUILD_DATE_LABEL)}
 `;
 }
 
+/* A thin proportional bar for the index lists. A function declaration, so it is
+ * available to the index pages that are written before the const helpers below. */
+function miniBar(value, max) {
+  return `<span class="mbar" aria-hidden="true"><span style="width:${max > 0 ? Math.max(2, Math.round((value / max) * 100)) : 0}%"></span></span>`;
+}
+
 function indexPage(counties) {
   const total = COURSES.length;
+  const counts = counties.map((c) => [c, byCounty.get(c).length]);
+  const maxN = Math.max(...counts.map(([, v]) => v));
+  const sorted = counts.map(([, v]) => v).sort((a, b) => a - b);
+  const median = sorted.length % 2 ? sorted[(sorted.length - 1) / 2] : (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2;
+  const [topName, topN] = counts.reduce((a, b) => (b[1] > a[1] ? b : a));
+  const topShare = Math.round((topN / total) * 100);
+  const finding = `${topName} lists ${topN} of ${total} courses (${topShare}%); the median county lists ${median}.`;
   const ld = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -642,8 +655,14 @@ function indexPage(counties) {
   /* Forty-seven links and three lines of prose is not a rail-and-content page:
      no .split here, and a measure that stays readable at any width. */
   body { max-width: 68rem; }
-  ul.counties { columns: 12rem; column-gap: 2rem; font-size: .95rem; line-height: 1.9; }
-  ul.counties li { break-inside: avoid; }
+  ul.counties { columns: 12rem; column-gap: 2rem; font-size: .95rem; line-height: 1.45; list-style: none; padding: 0; }
+  ul.counties li { break-inside: avoid; padding: .28rem 0; }
+  ul.counties .row { display: flex; justify-content: space-between; gap: .75rem; }
+  ul.counties .n { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
+  .mbar { display: block; height: 4px; margin-top: .2rem; background: rgba(61,28,2,.08); }
+  .mbar > span { display: block; height: 100%; background: var(--primary, #8B2500); }
+  .index-finding { font-family: var(--serif, Georgia, serif); font-size: 1.15rem; font-weight: 700; margin: 1.25rem 0 .2rem; }
+  .index-unit { font-size: var(--fs-sm, .8125rem); color: var(--text-secondary); margin: 0 0 .6rem; }
 </style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
@@ -654,8 +673,10 @@ ${siteHeader()}
 <p>${total} courses at ${new Set(COURSES.map((c) => c.institution_id)).size} institutions across all
 ${counties.length} counties, with the entry grade and fee on every one.</p>
 <p><a class="cta" href="/#decide">Filter by your grade and budget &rarr;</a></p>
+<p class="index-finding">${esc(finding)}</p>
+<p class="index-unit">Courses listed per county. Bars are scaled to the largest county. Source: Njia catalogue, ${esc(BUILD_DATE_LABEL)}. A small count describes what Njia has listed, not what exists in the county.</p>
 <ul class="counties">
-${counties.map((c) => `  <li><a href="/counties/${slug(c)}/">${esc(c)}</a></li>`).join('\n')}
+${counts.map(([c, v]) => `  <li><div class="row"><a href="/counties/${slug(c)}/">${esc(c)}</a><span class="n">${v}</span></div>${miniBar(v, maxN)}</li>`).join('\n')}
 </ul>
 </main>
 ${siteFooter(BUILD_DATE_LABEL)}
@@ -777,7 +798,7 @@ function gradePage(grade, rows) {
 <link rel="stylesheet" href="/css/styles.css">
 <style>${SHELL_CSS}
   table { margin: .6rem 0 1.4rem; font-size: .92rem; }
-  th, td { padding: .5rem .45rem; }
+  th, td { padding: .38rem .45rem; }
   thead th { font-size: .76rem; }
   h3 { margin-top: 1.8rem; scroll-margin-top: 1.5rem; }
   .count { font-size: .8rem; font-weight: 400; opacity: .7; }
@@ -832,6 +853,10 @@ ${siteFooter(BUILD_DATE_LABEL)}
 }
 
 function gradeIndexPage(grades) {
+  const maxG = Math.max(...grades.map(([, v]) => v));
+  const lowest = grades[grades.length - 1];
+  const highest = grades[0];
+  const gFinding = `A learner on ${GRADE_PHRASE[lowest[0]]} can reach ${lowest[1]} of ${COURSES.length} courses; one on ${GRADE_PHRASE[highest[0]]} can reach ${highest[1]}.`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -847,7 +872,14 @@ function gradeIndexPage(grades) {
 <style>${SHELL_CSS}
   /* Seven links: a single measure, like the county index. */
   body { max-width: 52rem; }
-  li { margin: .5rem 0; font-size: 1.02rem; }
+  ul.gl { list-style: none; padding: 0; }
+  ul.gl li { margin: .15rem 0; padding: .3rem 0; font-size: 1.02rem; }
+  ul.gl .row { display: flex; justify-content: space-between; gap: 1rem; }
+  ul.gl .n { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
+  .mbar { display: block; height: 5px; margin-top: .25rem; background: rgba(61,28,2,.08); }
+  .mbar > span { display: block; height: 100%; background: var(--primary, #8B2500); }
+  .index-finding { font-family: var(--serif, Georgia, serif); font-size: 1.15rem; font-weight: 700; margin: 1.25rem 0 .2rem; }
+  .index-unit { font-size: var(--fs-sm, .8125rem); color: var(--text-secondary); margin: 0 0 .6rem; }
 </style>
 </head>
 <body>
@@ -857,8 +889,10 @@ ${siteHeader()}
 <p><strong>TVET placement takes any grade, A to E</strong>, from anyone who sat KCSE from 2000
 onward, and intake runs continuously. Pick your grade to see every course Njia lists that
 accepts it.</p>
-<ul>
-${grades.map(([g, n]) => `  <li><a href="/grades/${GRADE_SLUG[g]}/">${esc(GRADE_PHRASE[g])}</a> — ${n} courses</li>`).join('\n')}
+<p class="index-finding">${esc(gFinding)}</p>
+<p class="index-unit">Courses whose published entry bar a learner at each grade meets. Bars are scaled to the largest row. Source: Njia catalogue, ${esc(BUILD_DATE_LABEL)}.</p>
+<ul class="gl">
+${grades.map(([g, n]) => `  <li><div class="row"><a href="/grades/${GRADE_SLUG[g]}/">${esc(GRADE_PHRASE[g])}</a><span class="n">${n} courses</span></div>${miniBar(n, maxG)}</li>`).join('\n')}
 </ul>
 <p>Grades above C+ are not listed separately because almost the whole catalogue is open to
 them — <a href="/#decide">use Decide</a> to filter by county, budget and interest instead.</p>

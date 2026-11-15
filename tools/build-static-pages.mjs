@@ -1712,6 +1712,9 @@ const STATS = (() => {
 
 function methodologyPage() {
   const n = (v) => Number(v).toLocaleString('en-KE');
+  /* Read from the file the landing page runs on, never typed here, so the rule
+     the page states is the rule the app applies. */
+  const minSample = Number(/const MIN_SECTOR_SAMPLE = (\d+)/.exec(fs.readFileSync(path.join(root, 'data', 'sectors.js'), 'utf8'))[1]);
   const body = `
 <p class="lede">Njia's claim is that its figures can be checked. This page says how they are made, which kind of figure you are looking at, and what none of them can tell you.</p>
 
@@ -1734,6 +1737,11 @@ function methodologyPage() {
 <section>
 <h2 id="grades">Entry grades</h2>
 <p>A grade is the lowest mean grade the institution publishes for that programme. Njia never records one higher than published, because that hides the course from the people with the fewest options, and never lower, because that sends someone at a door that will not open. Where sources disagree the card says so. A blank grade means open entry. Subject requirements and competition for places sit in each course's note. Confirm the programme code and current cut-off with KUCCPS for the cycle you apply in.</p>
+</section>
+
+<section>
+<h2 id="small-counts">Small counts</h2>
+<p>A count is a count of listings, and a small one says more about Njia's coverage than about Kenya. Two rules follow. On the landing page's sector table, a sector with fewer than <strong>${minSample}</strong> listings shows its raw count and the words "too few to read as coverage", and no percentage, because a share of one or two records invites a conclusion the data cannot carry. On the county and grade pages, every count is shown as a raw number with its unit and the date it was counted, never rounded or hidden, and a county with few listings carries a note that this reflects what Njia has listed. Njia has not set a suppression rule for the open-data download: it publishes every row, and the reader decides what a small group can support.</p>
 </section>
 
 <section>

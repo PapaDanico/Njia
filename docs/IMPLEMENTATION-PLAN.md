@@ -172,3 +172,7 @@ stands on each. Production was confirmed on `7740434` (the shared shell) at the 
 - `/counties/` and `/grades/` gained a computed finding, a unit line with source, and proportional bars (the county index also shows the count). `/counties/` went from 47 plain links to the same links plus bars; no new figures, all counted from the catalogue.
 - `/help/` was inspected and left alone: it is prose (no tables), and folding answers into collapsed sections would hide them from print and from readers without JavaScript.
 - Gates: unit suite 387 pass, 7 mtime guards skipped under CI; probe 49/49; axe 108 states, 0 violations.
+
+### Slice 13: published small-count rule (15 November 2026)
+- `/methodology/` gained "Small counts": the sector-table threshold (read from `MIN_SECTOR_SAMPLE` in `data/sectors.js`, not typed), the raw-count rule on county and grade pages, and an explicit statement that the open-data download has no suppression rule. A test fails if the stated threshold drifts from the shipped one (broken to 9 and watched to fail).
+- Production confirmed at `0f5bace` (includes #170 and #171), Lighthouse 94/100/100/100/100.

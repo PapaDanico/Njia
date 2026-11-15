@@ -66,8 +66,8 @@
   .main > :first-child { margin-top: 0; }
   h1 { margin-top: .35rem; }
   .lede { font-size: 1.05rem; }
-  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; }
-  th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
+  table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; font-size: .94rem; line-height: 1.4; }
+  th, td { text-align: left; padding: .32rem .5rem; border-bottom: 1px solid var(--ink-veil, rgba(61,28,2,.12)); vertical-align: top; }
   thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .07em; }
   tbody th { font-weight: 600; }
   /* A data table, not a list of paragraphs: one ruled header in the brand's
@@ -214,7 +214,14 @@
 
   /* Seven links: a single measure, like the county index. */
   body { max-width: 52rem; }
-  li { margin: .5rem 0; font-size: 1.02rem; }
+  ul.gl { list-style: none; padding: 0; }
+  ul.gl li { margin: .15rem 0; padding: .3rem 0; font-size: 1.02rem; }
+  ul.gl .row { display: flex; justify-content: space-between; gap: 1rem; }
+  ul.gl .n { font-variant-numeric: tabular-nums; color: var(--text-secondary); }
+  .mbar { display: block; height: 5px; margin-top: .25rem; background: rgba(61,28,2,.08); }
+  .mbar > span { display: block; height: 100%; background: var(--primary, #8B2500); }
+  .index-finding { font-family: var(--serif, Georgia, serif); font-size: 1.15rem; font-weight: 700; margin: 1.25rem 0 .2rem; }
+  .index-unit { font-size: var(--fs-sm, .8125rem); color: var(--text-secondary); margin: 0 0 .6rem; }
 </style>
 </head>
 <body>
@@ -262,13 +269,15 @@
 <p><strong>TVET placement takes any grade, A to E</strong>, from anyone who sat KCSE from 2000
 onward, and intake runs continuously. Pick your grade to see every course Njia lists that
 accepts it.</p>
-<ul>
-  <li><a href="/grades/c-plain/">C plain</a> — 628 courses</li>
-  <li><a href="/grades/c-minus/">C-</a> — 512 courses</li>
-  <li><a href="/grades/d-plus/">D+</a> — 269 courses</li>
-  <li><a href="/grades/d-plain/">D plain</a> — 235 courses</li>
-  <li><a href="/grades/d-minus/">D-</a> — 155 courses</li>
-  <li><a href="/grades/e/">E</a> — 154 courses</li>
+<p class="index-finding">A learner on E can reach 154 of 1392 courses; one on C plain can reach 628.</p>
+<p class="index-unit">Courses whose published entry bar a learner at each grade meets. Bars are scaled to the largest row. Source: Njia catalogue, 15 November 2026.</p>
+<ul class="gl">
+  <li><div class="row"><a href="/grades/c-plain/">C plain</a><span class="n">628 courses</span></div><span class="mbar" aria-hidden="true"><span style="width:100%"></span></span></li>
+  <li><div class="row"><a href="/grades/c-minus/">C-</a><span class="n">512 courses</span></div><span class="mbar" aria-hidden="true"><span style="width:82%"></span></span></li>
+  <li><div class="row"><a href="/grades/d-plus/">D+</a><span class="n">269 courses</span></div><span class="mbar" aria-hidden="true"><span style="width:43%"></span></span></li>
+  <li><div class="row"><a href="/grades/d-plain/">D plain</a><span class="n">235 courses</span></div><span class="mbar" aria-hidden="true"><span style="width:37%"></span></span></li>
+  <li><div class="row"><a href="/grades/d-minus/">D-</a><span class="n">155 courses</span></div><span class="mbar" aria-hidden="true"><span style="width:25%"></span></span></li>
+  <li><div class="row"><a href="/grades/e/">E</a><span class="n">154 courses</span></div><span class="mbar" aria-hidden="true"><span style="width:25%"></span></span></li>
 </ul>
 <p>Grades above C+ are not listed separately because almost the whole catalogue is open to
 them — <a href="/#decide">use Decide</a> to filter by county, budget and interest instead.</p>

@@ -57,6 +57,7 @@
   @media (min-width: 48rem) { .site-foot-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   .bar-th, .bar-td { width: 30%; padding-left: 1rem; }
   .bar-td { vertical-align: middle; }
+  @media (max-width: 47.99rem) { .bar-th, .bar-td { display: none; } }
   .bar { display: block; height: .7rem; background: var(--primary, #8B2500); border-radius: 1px; }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .split > .site-header, .split > .site-footer { grid-column: 1 / -1; }

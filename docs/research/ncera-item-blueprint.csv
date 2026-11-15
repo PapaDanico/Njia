@@ -1,0 +1,11 @@
+item_id,construct,subscale,proposed_item,response_scale,target_cohort,review_status,notes
+INT-R01,interests,Realistic,I would enjoy testing why a machine stops working,1-5 plus not familiar,all,expert_review_pending,Original illustrative item
+INT-I01,interests,Investigative,I would enjoy comparing evidence to solve an unfamiliar problem,1-5 plus not familiar,all,expert_review_pending,Original illustrative item
+INT-A01,interests,Artistic,I would enjoy developing an original visual or written idea,1-5 plus not familiar,all,expert_review_pending,Original illustrative item
+INT-S01,interests,Social,I would enjoy helping someone learn a new skill,1-5 plus not familiar,all,expert_review_pending,Original illustrative item
+INT-E01,interests,Enterprising,I would enjoy persuading a group to support a useful project,1-5 plus not familiar,all,expert_review_pending,Original illustrative item
+INT-C01,interests,Conventional,I would enjoy checking records for errors,1-5 plus not familiar,all,expert_review_pending,Original illustrative item
+SE-01,decision_self_efficacy,source_checking,I can find the official entry requirements for a course I am considering,1-5 confidence,all,expert_review_pending,Do not score before validation
+SE-02,decision_self_efficacy,affordability,I can distinguish tuition fees from the full cost of attendance,1-5 confidence,all,expert_review_pending,Compare with objective knowledge
+SE-03,decision_self_efficacy,alternatives,I can explain two different qualification routes to the same occupation,1-5 confidence,all,expert_review_pending,Compare with objective task
+SE-04,decision_self_efficacy,exploration,I know how to ask a professional about their daily work,1-5 confidence,all,expert_review_pending,Check exposure differences

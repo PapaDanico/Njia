@@ -284,3 +284,13 @@ or a generated page loses its header, footer, skip link or `main` target.
   navigable".
 - **Adding a page.** Put its link in `tools/site-shell.mjs`, and in the app footer and
   `index.html` menu if it belongs in navigation; the test says which one is missing.
+
+## Exhibits carry bars; the table stays the source
+
+An exhibit on a generated page may add a proportional bar in its own column (`barCell()` in
+`tools/build-static-pages.mjs`). The bar is decorative (`aria-hidden`), scaled to the largest row of
+its own table, and never the only carrier of a figure: the number and the table remain. A bar needs a
+named header cell (`.vh` text) so the extra column is not an empty one. Pick a bar when the message is
+a comparison between a handful of groups; leave a table when the reader needs exact values across
+many rows (the 47-county table has no bars).
+

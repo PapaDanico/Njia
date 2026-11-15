@@ -1753,6 +1753,12 @@ const RESEARCH = (() => {
   return summariseCatalogue(COURSES, INSTITUTIONS, { feeBasis });
 })();
 
+/* A proportional bar under a figure: the shape of the data at a glance, with the
+ * number and the table still carrying the exact value. Decorative (aria-hidden)
+ * because the cell already says the figure; scaled to the largest row. */
+const barCell = (value, max) => `<td class="bar-td" aria-hidden="true"><span class="bar" style="width:${max > 0 ? Math.max(2, Math.round((value / max) * 100)) : 0}%"></span></td>`;
+const BAR_TH = '<th scope="col" class="bar-th"><span class="vh">Proportion of the largest row</span></th>';
+
 function researchPage() {
   const R = RESEARCH;
   const n = (v) => Number(v).toLocaleString('en-KE');
@@ -1785,14 +1791,14 @@ ${tile('Distinct programme names', R.totals.distinct_programme_names)}
 <p>Every listing falls into exactly one group. A missing fee does not mean free tuition.</p>
 ${exhibit({ n: 1,
   title: `${n(R.quality_flags.unavailable_fee)} of ${n(R.totals.linked_offerings)} listings show no fee figure; ${n(R.fees.by_basis.published + R.fees.by_basis.derived)} are published or derived`,
-  unit: 'Course listings, by where the fee figure comes from',
+  unit: 'Course listings, by where the fee figure comes from (bars are proportional to the largest group)',
   source: `Njia catalogue, ${BUILD_DATE_LABEL}. Group assigned by the app's own fee classifier.`,
   inner: `<div class="wrap" tabindex="0" role="region" aria-label="Fee groups">
 <table class="ladder">
 <caption>Course listings by where the fee figure comes from</caption>
-<thead><tr><th scope="col">Group</th><th scope="col" class="num">Listings</th><th scope="col">What it means</th></tr></thead>
+<thead><tr><th scope="col">Group</th><th scope="col" class="num">Listings</th>${BAR_TH}<th scope="col">What it means</th></tr></thead>
 <tbody>
-${Object.keys(BASIS).map((k) => `<tr><th scope="row">${esc(k[0].toUpperCase() + k.slice(1))}</th><td class="num">${n(R.fees.by_basis[k])}</td><td>${esc(BASIS[k])}</td></tr>`).join('\n')}
+${Object.keys(BASIS).map((k) => `<tr><th scope="row">${esc(k[0].toUpperCase() + k.slice(1))}</th><td class="num">${n(R.fees.by_basis[k])}</td>${barCell(R.fees.by_basis[k], Math.max(...Object.values(R.fees.by_basis)))}<td>${esc(BASIS[k])}</td></tr>`).join('\n')}
 </tbody>
 </table>
 </div>` })}
@@ -1808,23 +1814,23 @@ ${Object.keys(BASIS).map((k) => `<tr><th scope="row">${esc(k[0].toUpperCase() + 
 <h2 id="level">By level and ownership</h2>
 ${(() => { const top = Object.entries(R.by_level).sort((a, b) => b[1] - a[1])[0]; return exhibit({ n: 2,
   title: `${LEVELS[top[0]] || top[0]} is the largest level, with ${n(top[1])} of ${n(R.totals.linked_offerings)} listings`,
-  unit: 'Course listings, by level of qualification and by ownership',
+  unit: 'Course listings, by level of qualification and by ownership (bars are proportional to the largest row of each table)',
   source: `Njia catalogue, ${BUILD_DATE_LABEL}.`,
   inner: `<div class="wrap" tabindex="0" role="region" aria-label="Listings by level">
 <table class="ladder">
 <caption>Course listings by level</caption>
-<thead><tr><th scope="col">Level</th><th scope="col" class="num">Listings</th></tr></thead>
+<thead><tr><th scope="col">Level</th><th scope="col" class="num">Listings</th>${BAR_TH}</tr></thead>
 <tbody>
-${Object.entries(R.by_level).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><th scope="row">${esc(LEVELS[k] || k)}</th><td class="num">${n(v)}</td></tr>`).join('\n')}
+${Object.entries(R.by_level).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><th scope="row">${esc(LEVELS[k] || k)}</th><td class="num">${n(v)}</td>${barCell(v, Math.max(...Object.values(R.by_level)))}</tr>`).join('\n')}
 </tbody>
 </table>
 </div>
 <div class="wrap" tabindex="0" role="region" aria-label="Listings by ownership">
 <table class="ladder">
 <caption>Course listings by ownership</caption>
-<thead><tr><th scope="col">Ownership</th><th scope="col" class="num">Listings</th></tr></thead>
+<thead><tr><th scope="col">Ownership</th><th scope="col" class="num">Listings</th>${BAR_TH}</tr></thead>
 <tbody>
-${Object.entries(R.by_ownership).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><th scope="row">${esc(k[0].toUpperCase() + k.slice(1))}</th><td class="num">${n(v)}</td></tr>`).join('\n')}
+${Object.entries(R.by_ownership).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<tr><th scope="row">${esc(k[0].toUpperCase() + k.slice(1))}</th><td class="num">${n(v)}</td>${barCell(v, Math.max(...Object.values(R.by_ownership)))}</tr>`).join('\n')}
 </tbody>
 </table>
 </div>` }); })()}

@@ -54,6 +54,11 @@
   .site-foot-col a:hover, .site-foot-col a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
   .site-foot-note { margin: 1.75rem 0 0; padding-top: 1.1rem; border-top: 1px solid #5A3A1E; font-size: var(--fs-sm, .8125rem); color: #D9C8A5; max-width: 62rem; }
   @media (min-width: 48rem) { .site-foot-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .bar-th, .bar-td { width: 30%; padding-left: 1rem; }
+  .bar-td { vertical-align: middle; }
+  @media (max-width: 47.99rem) { .bar-th, .bar-td { display: none; } }
+  .bar { display: block; height: .7rem; background: var(--primary, #8B2500); border-radius: 1px; }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .split > .site-header, .split > .site-footer { grid-column: 1 / -1; }
   @media print { .skip-link, .site-header, .site-footer { display: none !important; } }
 
@@ -285,14 +290,14 @@
   <div class="brief-meta">
     <strong>Catalogue evidence: what is listed and how well it is sourced</strong><br>
     Counts and provenance &middot; for learners, funders and journalists<br>
-    13 November 2026 &middot; njiacareerpathways.work
+    15 November 2026 &middot; njiacareerpathways.work
   </div>
 </div>
 <main id="main">
 <h1>Catalogue evidence: what is listed and how well it is sourced</h1>
 
 <p class="lede">A transparent view of what Njia has listed, how strong the fee evidence behind it is, and where coverage is thin. These statistics describe the Njia catalogue, <strong>not every institution or course in Kenya</strong>. They are not a national census or a guarantee of admission.</p>
-<p class="src">Counted from the catalogue on 13 November 2026. A course listing is one programme at one institution, so identical names at different institutions are separate listings. The same counts, row by row, are in the <a href="/open-data/">open data download</a>.</p>
+<p class="src">Counted from the catalogue on 15 November 2026. A course listing is one programme at one institution, so identical names at different institutions are separate listings. The same counts, row by row, are in the <a href="/open-data/">open data download</a>.</p>
 
 <section>
 <h2 id="coverage">Catalogue coverage</h2>
@@ -310,21 +315,21 @@
 <figure class="exhibit" style="margin-inline:0">
 <p class="exhibit-label">Exhibit 1</p>
 <p class="exhibit-title">945 of 1,392 listings show no fee figure; 341 are published or derived</p>
-<p class="exhibit-unit">Course listings, by where the fee figure comes from</p>
+<p class="exhibit-unit">Course listings, by where the fee figure comes from (bars are proportional to the largest group)</p>
 <div class="wrap" tabindex="0" role="region" aria-label="Fee groups">
 <table class="ladder">
 <caption>Course listings by where the fee figure comes from</caption>
-<thead><tr><th scope="col">Group</th><th scope="col" class="num">Listings</th><th scope="col">What it means</th></tr></thead>
+<thead><tr><th scope="col">Group</th><th scope="col" class="num">Listings</th><th scope="col" class="bar-th"><span class="vh">Proportion of the largest row</span></th><th scope="col">What it means</th></tr></thead>
 <tbody>
-<tr><th scope="row">Published</th><td class="num">14</td><td>Read off the institution's own schedule for that course.</td></tr>
-<tr><th scope="row">Derived</th><td class="num">327</td><td>Worked out by applying a published rate to the course length.</td></tr>
-<tr><th scope="row">Illustrative</th><td class="num">106</td><td>An indicative figure, not a quotation.</td></tr>
-<tr><th scope="row">Unpublished</th><td class="num">945</td><td>No figure recorded: the institution publishes none, or Njia could not verify one, and each card says which.</td></tr>
-<tr><th scope="row">Unsourced</th><td class="num">0</td><td>A figure with no source note; the catalogue holds none.</td></tr>
+<tr><th scope="row">Published</th><td class="num">14</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:2%"></span></td><td>Read off the institution's own schedule for that course.</td></tr>
+<tr><th scope="row">Derived</th><td class="num">327</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:35%"></span></td><td>Worked out by applying a published rate to the course length.</td></tr>
+<tr><th scope="row">Illustrative</th><td class="num">106</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:11%"></span></td><td>An indicative figure, not a quotation.</td></tr>
+<tr><th scope="row">Unpublished</th><td class="num">945</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:100%"></span></td><td>No figure recorded: the institution publishes none, or Njia could not verify one, and each card says which.</td></tr>
+<tr><th scope="row">Unsourced</th><td class="num">0</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:2%"></span></td><td>A figure with no source note; the catalogue holds none.</td></tr>
 </tbody>
 </table>
 </div>
-<p class="exhibit-src">Source: Njia catalogue, 13 November 2026. Group assigned by the app's own fee classifier.</p>
+<p class="exhibit-src">Source: Njia catalogue, 15 November 2026. Group assigned by the app's own fee classifier.</p>
 </figure>
 <p>Where each group comes from is set out on the <a href="/methodology/">methodology page</a>.</p>
 </section>
@@ -339,31 +344,31 @@
 <figure class="exhibit" style="margin-inline:0">
 <p class="exhibit-label">Exhibit 2</p>
 <p class="exhibit-title">Degree is the largest level, with 711 of 1,392 listings</p>
-<p class="exhibit-unit">Course listings, by level of qualification and by ownership</p>
+<p class="exhibit-unit">Course listings, by level of qualification and by ownership (bars are proportional to the largest row of each table)</p>
 <div class="wrap" tabindex="0" role="region" aria-label="Listings by level">
 <table class="ladder">
 <caption>Course listings by level</caption>
-<thead><tr><th scope="col">Level</th><th scope="col" class="num">Listings</th></tr></thead>
+<thead><tr><th scope="col">Level</th><th scope="col" class="num">Listings</th><th scope="col" class="bar-th"><span class="vh">Proportion of the largest row</span></th></tr></thead>
 <tbody>
-<tr><th scope="row">Degree</th><td class="num">711</td></tr>
-<tr><th scope="row">Diploma</th><td class="num">318</td></tr>
-<tr><th scope="row">Certificate</th><td class="num">217</td></tr>
-<tr><th scope="row">Artisan</th><td class="num">141</td></tr>
-<tr><th scope="row">Short course</th><td class="num">5</td></tr>
+<tr><th scope="row">Degree</th><td class="num">711</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:100%"></span></td></tr>
+<tr><th scope="row">Diploma</th><td class="num">318</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:45%"></span></td></tr>
+<tr><th scope="row">Certificate</th><td class="num">217</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:31%"></span></td></tr>
+<tr><th scope="row">Artisan</th><td class="num">141</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:20%"></span></td></tr>
+<tr><th scope="row">Short course</th><td class="num">5</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:2%"></span></td></tr>
 </tbody>
 </table>
 </div>
 <div class="wrap" tabindex="0" role="region" aria-label="Listings by ownership">
 <table class="ladder">
 <caption>Course listings by ownership</caption>
-<thead><tr><th scope="col">Ownership</th><th scope="col" class="num">Listings</th></tr></thead>
+<thead><tr><th scope="col">Ownership</th><th scope="col" class="num">Listings</th><th scope="col" class="bar-th"><span class="vh">Proportion of the largest row</span></th></tr></thead>
 <tbody>
-<tr><th scope="row">Public</th><td class="num">1,052</td></tr>
-<tr><th scope="row">Private</th><td class="num">340</td></tr>
+<tr><th scope="row">Public</th><td class="num">1,052</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:100%"></span></td></tr>
+<tr><th scope="row">Private</th><td class="num">340</td><td class="bar-td" aria-hidden="true"><span class="bar" style="width:32%"></span></td></tr>
 </tbody>
 </table>
 </div>
-<p class="exhibit-src">Source: Njia catalogue, 13 November 2026.</p>
+<p class="exhibit-src">Source: Njia catalogue, 15 November 2026.</p>
 </figure>
 </section>
 
@@ -429,7 +434,7 @@
 </tbody>
 </table>
 </div>
-<p class="exhibit-src">Source: Njia catalogue, 13 November 2026. A low count describes what Njia has listed, not what the county offers.</p>
+<p class="exhibit-src">Source: Njia catalogue, 15 November 2026. A low count describes what Njia has listed, not what the county offers.</p>
 </figure>
 </section>
 
@@ -475,7 +480,7 @@
       <a href="/accessibility/">Accessibility</a>
     </div>
   </div>
-  <p class="site-foot-note">Njia is independent: it is not affiliated with KUCCPS, HELB or any institution, and your answers stay on your device. Figures are counted from the catalogue on 13 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
+  <p class="site-foot-note">Njia is independent: it is not affiliated with KUCCPS, HELB or any institution, and your answers stay on your device. Figures are counted from the catalogue on 15 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
 </footer>
 </body>
 </html>

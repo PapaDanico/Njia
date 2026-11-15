@@ -10,3 +10,15 @@ test('official source links are available without JavaScript',()=>{
  const html=fs.readFileSync(path.join(root,'research','sources','index.html'),'utf8');
  assert.match(html,/KUCCPS/);assert.match(html,/Universities Fund/);assert.match(html,/TVETA/);assert.match(html,/not a live admissions service/);
 });
+
+test('every source carries a verification status from the published vocabulary, and the page shows it',()=>{
+ const data=JSON.parse(fs.readFileSync(path.join(root,'research','sources.json'),'utf8'));
+ const vocab=Object.keys(data.status_vocabulary);
+ assert.ok(vocab.includes('unverified')&&vocab.includes('verified_primary'));
+ const html=fs.readFileSync(path.join(root,'research','sources','index.html'),'utf8');
+ for(const s of data.sources){
+  assert.ok(vocab.includes(s.verification_status),`${s.key}: unknown status ${s.verification_status}`);
+  assert.ok(html.includes(`Status: ${s.verification_status}`),`${s.key}: status not on the page`);
+  const u=new URL(s.url);assert.ok(u.hostname.includes('.'),`${s.key}: host`);
+ }
+});

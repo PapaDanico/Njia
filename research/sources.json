@@ -14,7 +14,8 @@
         "eligibility",
         "placement"
       ],
-      "action": "Show these as general entry guidance, not guaranteed eligibility for a named course."
+      "action": "Show these as general entry guidance, not guaranteed eligibility for a named course.",
+      "verification_status": "unverified"
     },
     {
       "key": "kuccps-2026",
@@ -27,7 +28,8 @@
         "placement",
         "intakes"
       ],
-      "action": "Archive the dates as historical; never show them as a currently open application window."
+      "action": "Archive the dates as historical; never show them as a currently open application window.",
+      "verification_status": "unverified"
     },
     {
       "key": "kuccps-2026-cutoffs",
@@ -40,7 +42,8 @@
         "cutoffs",
         "eligibility"
       ],
-      "action": "Treat programme cutoffs as cycle-specific and separate from minimum admission grades; verify individual rows before importing."
+      "action": "Treat programme cutoffs as cycle-specific and separate from minimum admission grades; verify individual rows before importing.",
+      "verification_status": "unverified"
     },
     {
       "key": "tveta-accreditation",
@@ -53,7 +56,8 @@
         "accreditation",
         "institutions"
       ],
-      "action": "Require institution and programme-level evidence; never infer approval from a college name alone."
+      "action": "Require institution and programme-level evidence; never infer approval from a college name alone.",
+      "verification_status": "unverified"
     },
     {
       "key": "kuccps-portal",
@@ -66,7 +70,8 @@
         "placement",
         "funding"
       ],
-      "action": "Use as the final live check for programme availability, deadlines and placement details."
+      "action": "Use as the final live check for programme availability, deadlines and placement details.",
+      "verification_status": "unverified"
     },
     {
       "key": "hef-funding",
@@ -78,7 +83,8 @@
       "applies_to": [
         "funding"
       ],
-      "action": "Never treat a KUCCPS placement as an automatic scholarship or promise an award."
+      "action": "Never treat a KUCCPS placement as an automatic scholarship or promise an award.",
+      "verification_status": "unverified"
     },
     {
       "key": "hef-portal",
@@ -91,7 +97,16 @@
         "funding",
         "applications"
       ],
-      "action": "Send applicants to the official portal for current windows and document requirements; do not hardcode the portal countdown."
+      "action": "Send applicants to the official portal for current windows and document requirements; do not hardcode the portal countdown.",
+      "verification_status": "unverified"
     }
-  ]
+  ],
+  "status_vocabulary": {
+    "verified_primary": "The page itself was opened and the claim read off it.",
+    "verified_secondary": "The claim is corroborated by independent reporting, but the official page was not opened.",
+    "conflicting": "Sources disagree and the conflict is not resolved.",
+    "outdated": "Known to be superseded.",
+    "unverified": "Listed as a lead. Nobody has opened the page and read the claim off it.",
+    "inaccessible": "Tried and could not be reached."
+  }
 }

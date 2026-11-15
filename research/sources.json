@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
   "scope": "Curated primary-source research leads for human-reviewed Njia content updates; not imported programme records",
-  "reviewed_on": "2026-11-13",
+  "reviewed_on": "2026-11-15",
   "sources": [
     {
       "key": "kuccps-placement",
-      "title": "KUCCPS placement eligibility and selection",
+      "title": "KUCCPS placement eligibility and selection (2025/2026 cycle)",
       "publisher": "Kenya Universities and Colleges Central Placement Service",
-      "url": "https://kuccps.net/Placem",
-      "accessed": "2026-11-13",
-      "claim": "KUCCPS lists baseline placement grades: degree C+ and above; diploma C/C-; certificate D+/D; artisan D-/E. Actual programme-specific requirements, priorities and capacities also govern selection.",
+      "url": "https://kuccps.net/degree-application-20252026-placement-cycle",
+      "accessed": "2026-11-15",
+      "claim": "KUCCPS's 2025/2026 placement page, as reported by a search summary on 15 November 2026 (the page itself could not be opened from the build), gives minimum mean grades of C+ for a degree, C- for a Level 6 diploma, D for a Level 5 craft certificate and E for a Level 4 artisan certificate, and says KCSE candidates from 2000 to 2024 with a C to E may apply for Level 4 to 6 TVET programmes. One news outlet gives D+ for certificates, which conflicts with D; the official page is the one to read. Programme-specific subject requirements, cluster points and capacities also govern selection.",
       "applies_to": [
         "eligibility",
         "placement"

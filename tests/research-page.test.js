@@ -52,3 +52,11 @@ test('research page indicators are generated rather than hardcoded', () => {
   const src = fs.readFileSync(path.join(root, 'tools', 'catalogue-indicators.mjs'), 'utf8');
   assert.match(src, /summariseCatalogue\(COURSES,INSTITUTIONS,\{feeBasis\}\)/);
 });
+
+test('each proportion bar is scaled to its table and the largest row fills its column', async () => {
+  const widths = [...html.matchAll(/<td class="bar-td" aria-hidden="true"><span class="bar" style="width:(\d+)%"><\/span><\/td>/g)].map((m) => Number(m[1]));
+  assert.ok(widths.length >= 10, 'expected bars on the fee, level and ownership tables');
+  assert.ok(widths.every((w) => w >= 2 && w <= 100), 'every bar is between 2 and 100 percent');
+  assert.ok(widths.filter((w) => w === 100).length >= 3, 'each of the three tables has a full-width largest row');
+  assert.strictEqual((html.match(/<th scope="col" class="bar-th"><span class="vh">/g) || []).length, 3, 'each barred table has a named header cell');
+});

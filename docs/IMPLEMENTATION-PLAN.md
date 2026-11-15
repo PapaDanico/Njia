@@ -156,3 +156,13 @@ header and footer for every generated page, and the app's header menu gains Expl
 Evidence dropdowns while its footer carries the same four columns. Headers print nothing;
 the dated brief head still prints. `tests/site-shell.test.js` guards presence, repeated ids
 and app-versus-shell link drift. Design record: `DESIGN.md`, "Site shell".
+
+### 15 November 2026, slice 11: landing space pass, bars, focus fix and the benchmark
+
+The landing page's economy block measured 1,598px at 1440, 27% of the page. The sector table is now
+a full-width sourced table plus a three-column list of the nine unsourced sectors, and the three
+long figure notes fold into details. The table also stopped clipping its growth and coverage
+columns at 390px. WCAG 2.2 "focus not obscured" was failing under a keyboard walk and is fixed with
+`scroll-padding`. `/research/` gained proportional bars. `docs/DESIGN-BENCHMARK-2026-11-15.md`
+sets out eight measurable criteria drawn from official and secondary benchmarks and where Njia
+stands on each. Production was confirmed on `7740434` (the shared shell) at the start of this work.

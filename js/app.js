@@ -916,7 +916,7 @@ function renderEconomySection() {
   const nameCell = (sector, flag) => `<th scope="row">${escapeHtml(sector.name)}${flag}</th>`;
   const componentFlag = ' <span class="econ-flag" title="This training sector is one part of a broader KNBS series, so the figure describes the neighbourhood rather than the sector itself.">part of a wider series</span>';
 
-  const rows = paced.map(({ sector, pace, routes }) => `
+  const pacedRows = paced.map(({ sector, pace, routes }) => `
     <tr>
       ${nameCell(sector, sector.knbs.mapping === 'component' ? componentFlag : '')}
       <td class="num econ-growth econ-${pace.level}">${pace.growth > 0 ? '+' : ''}${pace.growth}%</td>
@@ -927,13 +927,14 @@ function renderEconomySection() {
            conclude something about mining when the only thing it describes is
            our sourcing. Below the floor the count stands bare and says so. */''}
       ${routeCell(routes)}
-    </tr>`).join('')
-    + unpaced.map(({ sector, routes }) => `
-    <tr class="econ-row-unsourced">
-      ${nameCell(sector, '')}
-      <td class="econ-unsourced" title="KNBS publishes a ${escapeHtml(sector.knbs.series)} series; Njia has not sourced its ${ECONOMY.year} figure, so none is shown rather than an estimate.">not sourced</td>
-      ${routeCell(routes)}
     </tr>`).join('');
+  const unpacedItems = unpaced.map(({ sector, routes }) => `
+    <li title="KNBS publishes a ${escapeHtml(sector.knbs.series)} series; Njia has not sourced its ${ECONOMY.year} figure, so none is shown rather than an estimate.">
+      <span>${escapeHtml(sector.name)}</span>
+      <span class="num">${routes >= MIN_SECTOR_SAMPLE
+        ? `${routes} <span class="econ-share">(${Math.round((routes / catalogueSize) * 100)}%)</span>`
+        : `${routes} <span class="econ-share">· too few to read as coverage</span>`}</span>
+    </li>`).join('');
 
   return `
       <section class="landing-block" id="landing-economy">
@@ -948,17 +949,17 @@ function renderEconomySection() {
           <div class="econ-figure">
             <span class="econ-figure-num num">${ECONOMY.newJobs.toLocaleString('en-KE')}</span>
             <span class="econ-figure-label">new jobs in ${ECONOMY.year} — of which <strong>${ECONOMY.informalSharePct}%</strong> were informal</span>
-            <p>Two headlines circulated from this one survey: "822,100 new jobs" and "717,000 new jobs". They are the same number read two ways — ${ECONOMY.informalSharePct}% of ${ECONOMY.newJobs.toLocaleString('en-KE')} is roughly 717,000. Around <strong class="num">${formalNewJobs().toLocaleString('en-KE')}</strong> of the year's new posts were formal wage jobs. Plan for the economy you are entering, not the one in the headline.</p>
+            <details class="econ-why"><summary>Why this figure</summary><p>Two headlines circulated from this one survey: "822,100 new jobs" and "717,000 new jobs". They are the same number read two ways — ${ECONOMY.informalSharePct}% of ${ECONOMY.newJobs.toLocaleString('en-KE')} is roughly 717,000. Around <strong class="num">${formalNewJobs().toLocaleString('en-KE')}</strong> of the year's new posts were formal wage jobs. Plan for the economy you are entering, not the one in the headline.</p></details>
           </div>
           <div class="econ-figure">
             <span class="econ-figure-num num">${ECONOMY.broadShares.find((b) => b.id === 'agriculture').share}%</span>
             <span class="econ-figure-label">of GDP is agriculture — services are ${ECONOMY.broadShares.find((b) => b.id === 'services').share}%, industry ${ECONOMY.broadShares.find((b) => b.id === 'industry').share}%</span>
-            <p>Agriculture is close to a quarter of the economy and the country's largest employer, and it grew more slowly than the economy as a whole. Most of that work is on smallholdings rather than a payroll — which is an argument for agribusiness and processing, not an argument against the land.</p>
+            <details class="econ-why"><summary>Why this figure</summary><p>Agriculture is close to a quarter of the economy and the country's largest employer, and it grew more slowly than the economy as a whole. Most of that work is on smallholdings rather than a payroll — which is an argument for agribusiness and processing, not an argument against the land.</p></details>
           </div>
           <div class="econ-figure">
             <span class="econ-figure-num num">${ECONOMY.wageEmployment.toLocaleString('en-KE')}</span>
             <span class="econ-figure-label">formal wage jobs in the whole country</span>
-            <p>Up from ${ECONOMY.prevWageEmployment.toLocaleString('en-KE')}, across a workforce of ${(ECONOMY.totalEmployment / 1e6).toFixed(1)} million. ${ECONOMY.largestFormalEmployers.map((e) => `${e.label} is the largest single formal employer at ${e.workers.toLocaleString('en-KE')}`).slice(0, 1)}. A formal salaried post is the exception in Kenya's labour market, not the default — which is why Njia costs a course against day rates and self-employment too.</p>
+            <details class="econ-why"><summary>Why this figure</summary><p>Up from ${ECONOMY.prevWageEmployment.toLocaleString('en-KE')}, across a workforce of ${(ECONOMY.totalEmployment / 1e6).toFixed(1)} million. ${ECONOMY.largestFormalEmployers.map((e) => `${e.label} is the largest single formal employer at ${e.workers.toLocaleString('en-KE')}`).slice(0, 1)}. A formal salaried post is the exception in Kenya's labour market, not the default — which is why Njia costs a course against day rates and self-employment too.</p></details>
           </div>
         </div>
 
@@ -967,17 +968,20 @@ function renderEconomySection() {
              anyone driving the page from the keyboard — they can see a table
              cut off at the viewport edge and have no way to move it. axe flags
              it as scrollable-region-focusable, and it flagged this one. */''}
-        <div class="econ-table-wrap" tabindex="0" role="region" aria-label="Sector growth and Njia coverage, scrollable table">
+        <div class="econ-table-wrap" tabindex="0" role="region" aria-label="Sectors with a sourced KNBS growth figure, scrollable table">
           <table class="econ-table">
             <caption>Sector growth in ${ECONOMY.year} against ${ECONOMY.gdpGrowth}% for the whole economy, and how many of Njia's ${LANDING_STATS.courses} training routes lead into each.</caption>
             <thead>
               <tr><th scope="col">Sector</th><th scope="col">Growth</th><th scope="col">Routes in Njia</th></tr>
             </thead>
-            <tbody>${rows}</tbody>
+            <tbody>${pacedRows}</tbody>
           </table>
         </div>
+        <h3 class="econ-unsourced-title">No sourced growth figure, so none is shown</h3>
+        <p class="econ-unsourced-sub">KNBS publishes a relevant series for each of these; Njia has not sourced its ${ECONOMY.year} figure. The number is how many of Njia's routes lead into the sector.</p>
+        <ul class="econ-unsourced-list">${unpacedItems}</ul>
 
-        <p class="econ-note"><strong>Read this carefully, because a true number can still mislead.</strong> Growth is not vacancies. Mining leads the table on a rebound from a contraction, on a small base, and most quarrying work is informal and unwaged. And the route count is a fact about Njia's sourcing, not about demand — health is over-represented because KMTC runs some forty campuses and we list every one. ${unpaced.length ? `The ${unpaced.length} sectors marked <em>not sourced</em> are ones where KNBS publishes a relevant series that Njia has not obtained; they carry no figure here rather than a borrowed one.` : ''} Source: ${escapeHtml(ECONOMY.source)}</p>
+        <p class="econ-note"><strong>Read this carefully, because a true number can still mislead.</strong> Growth is not vacancies. Mining leads the table on a rebound from a contraction, on a small base, and most quarrying work is informal and unwaged. And the route count is a fact about Njia's sourcing, not about demand — health is over-represented because KMTC runs some forty campuses and we list every one. ${unpaced.length ? `The ${unpaced.length} sectors under &ldquo;No sourced growth figure&rdquo; are ones where KNBS publishes a relevant series that Njia has not obtained; they carry no figure here rather than a borrowed one.` : ''} Source: ${escapeHtml(ECONOMY.source)}</p>
       </section>`;
 }
 

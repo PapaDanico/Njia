@@ -236,19 +236,36 @@ function setHelpTab(tab) {
 }
 
 function renderHelpFaq() {
-  return `
-    <div class="help-columns">
-      ${HELP_FAQ.map((group) => `
-        <section class="card help-group">
-          <span class="caption">${escapeHtml(group.group)}</span>
-          ${group.items.map(([q, a]) => `
+  /* Two independent stacks rather than one grid. In a grid each row is as tall
+     as its tallest card, so a 18-question group beside a 6-question one left a
+     large empty block. The split is chosen to balance the two stacks by
+     question count; opening a question grows one stack and moves nothing in the
+     other. Each group keeps its source position in `--i`, so on a phone, where
+     the stacks flatten (display: contents), the original order is restored. */
+  const weight = (g) => g.items.length + 2;
+  let best = null;
+  for (let mask = 0; mask < (1 << HELP_FAQ.length); mask += 1) {
+    let a = 0;
+    let b = 0;
+    HELP_FAQ.forEach((g, i) => { if (mask & (1 << i)) a += weight(g); else b += weight(g); });
+    const spread = Math.abs(a - b);
+    if (best === null || spread < best.spread) best = { mask, spread };
+  }
+  const group = (g, i) => `
+        <section class="card help-group" style="--i:${i}">
+          <span class="caption">${escapeHtml(g.group)}</span>
+          ${g.items.map(([q, a]) => `
             <details class="help-qa">
               <summary>${escapeHtml(q)}</summary>
               <p>${a}</p>
             </details>
           `).join('')}
-        </section>
-      `).join('')}
+        </section>`;
+  const col = (inA) => HELP_FAQ.map((g, i) => [g, i]).filter(([, i]) => !!(best.mask & (1 << i)) === inA).map(([g, i]) => group(g, i)).join('');
+  return `
+    <div class="help-columns">
+      <div class="help-col">${col(true)}</div>
+      <div class="help-col">${col(false)}</div>
     </div>
     <p class="text-muted text-sm mt-2">Still stuck, or spotted something wrong? Use <button type="button" class="link-btn" onclick="openFeedbackModal()">Give Feedback</button> — it is anonymous and it shapes what gets fixed next.</p>
   `;

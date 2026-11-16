@@ -4,7 +4,10 @@ test('course cards show grade, fee provenance, placement and accreditation as di
  const js=fs.readFileSync(path.join(root,'js/decide.js'),'utf8');
  const start=js.indexOf('function renderCourseCard('),end=js.indexOf('function setDecideClusterFilter(',start);
  assert.ok(start>=0&&end>start);const card=js.slice(start,end);
- for(const phrase of ['Decision evidence','Grade check','Fee evidence','Placement','Accreditation','Current intake unverified','Check programme approval','Funding requires a separate application'])assert.ok(card.includes(phrase),phrase);
+ for(const phrase of ['Decision evidence','Grade check','Fee evidence','Placement','Accreditation','Current intake unverified','Check programme approval'])assert.ok(card.includes(phrase),phrase);
+ /* The grade footnote is a fact about every listing, so it is printed once above the list, not on each card. */
+ assert.equal(js.split('Funding requires a separate application').length-1,1,'the grade footnote must appear exactly once');
+ assert.ok(!card.includes('njia-course-evidence__foot'),'the footnote must not be repeated on every card');
  assert.match(card,/match\.gradeUnconfirmed/);assert.match(card,/!match\.eligible/);
  assert.match(card,/\[basis\]/);assert.match(card,/research\/sources\//);
 });

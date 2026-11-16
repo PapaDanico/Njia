@@ -1055,7 +1055,7 @@ function renderCourseMatcher(container) {
       ${countyThinnessNotice()}
       ${filtered.length === 0
         ? emptyState('search', 'No matching courses', emptyMessage, 'Clear Filters', 'clearDecideFilters()')
-        : `<p class="decide-caveat text-muted text-sm">Cost-of-attendance totals below are illustrative and vary by town — plan against them, don't rely on them.</p>
+        : `<p class="decide-caveat text-muted text-sm">Cost-of-attendance totals below are illustrative and vary by town — plan against them, don't rely on them. <span class="decide-caveat-grade">*A listed grade is a preliminary screen, not a placement offer. Confirm programme requirements, current cutoffs and availability with KUCCPS or the institution. Funding requires a separate application.</span></p>
            <div class="results-grid">${filtered.slice(0, AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE).map(({ course, match }) => renderCourseCard(course, match)).join('')}</div>
            ${filtered.length > (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)
              ? `<div class="results-more"><button type="button" class="btn btn-secondary" onclick="showMoreCourses()">Show ${Math.min(DECIDE_PAGE_SIZE, filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE))} more · ${filtered.length - (AppState.decideFilters.visibleCount || DECIDE_PAGE_SIZE)} remaining</button></div>`
@@ -1195,7 +1195,6 @@ function renderCourseCard(course, match) {
           <div><dt>Placement</dt><dd>Current intake unverified</dd></div>
           <div><dt>Accreditation</dt><dd>Check programme approval</dd></div>
         </dl>
-        <p class="njia-course-evidence__foot">*Listed grade is a preliminary screen, not a placement offer. Confirm programme requirements, current cutoffs and availability with KUCCPS or the institution. Funding requires a separate application.</p>
       </div>
 
       <div class="institution-name">${escapeHtml(inst ? inst.name : 'Unknown institution')} · ${escapeHtml(inst ? inst.location : '')}</div>
@@ -1223,13 +1222,14 @@ function renderCourseCard(course, match) {
           price. Ask the institution for its own figure.</p>`;
       })()}
       ${feePublished ? `
+      <details class="cost-estimate"><summary>Monthly and living-cost estimate</summary>
       ${monthlyEstimate != null ? `<p class="text-muted text-sm mb-2">Tuition estimate averaged over the listed duration: roughly <strong class="num">${formatKes(monthlyEstimate)}/month</strong> over ${course.duration_months} ${course.duration_months === 1 ? 'month' : 'months'}. This is an arithmetic average, not an instalment plan; verify the fee basis above.${inst?.has_workstudy ? ' Work-study may be available at this institution.' : ''}</p>` : '<p class="text-muted text-sm mb-2">A monthly tuition average cannot be calculated because the course duration is not recorded. Request the official payment schedule.</p>'}
       <p class="text-muted text-sm mb-2">Full cost of attendance (illustrative): ${totalCostOfAttendance == null
         ? 'Not calculated — the duration or required cost inputs are unavailable. Confirm tuition, accommodation and living costs with the institution.'
         : requiresRelocation
           ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
           : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
-      }</p>` : `
+      }</p></details>` : `
       ${/* THE COPY THAT WAS WRITTEN FOR ONE AUDIENCE AND SHOWN TO EVERY OTHER.
              This branch used to be unconditional county-VTC advice — cheapest
              option, ring the registrar, mind the NITA trade test — because when

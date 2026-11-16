@@ -176,3 +176,7 @@ stands on each. Production was confirmed on `7740434` (the shared shell) at the 
 ### Slice 13: published small-count rule (15 November 2026)
 - `/methodology/` gained "Small counts": the sector-table threshold (read from `MIN_SECTOR_SAMPLE` in `data/sectors.js`, not typed), the raw-count rule on county and grade pages, and an explicit statement that the open-data download has no suppression rule. A test fails if the stated threshold drifts from the shipped one (broken to 9 and watched to fail).
 - Production confirmed at `0f5bace` (includes #170 and #171), Lighthouse 94/100/100/100/100.
+
+### Slice 14: verification status on the source register (15 November 2026)
+- `research/sources.json` gained a published `status_vocabulary` (verified_primary, verified_secondary, conflicting, outdated, unverified, inaccessible) and a `verification_status` on every source. All seven are `unverified`: no page in the register has been opened and read from this build, so none can honestly claim more. `/research/sources/` shows each status beside the entry. A test fails on an unknown status, a status missing from the page, or an unparseable URL.
+- Follow-up 2 from the baseline (a plausibility check for truncated URLs) is only partly covered: the test checks that each URL parses and has a real host, which would not catch a path cut short, as `https://kuccps.net/Placem` was. No generic check can.

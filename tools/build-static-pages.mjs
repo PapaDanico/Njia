@@ -2022,7 +2022,7 @@ function sourcesPage() {
   const items = reg.sources.map((x) => `
 <section>
 <h2 id="${esc(x.key)}">${esc(x.title)}</h2>
-<p class="src">${esc(x.publisher)} &middot; reviewed ${esc(x.accessed)}</p>
+<p class="src">${esc(x.publisher)} &middot; ${x.cycle === 'general' ? 'General guidance' : `Applies to the ${esc(x.cycle)} cycle only`} &middot; reviewed ${esc(x.accessed)} &middot; <strong>Status: ${esc(x.verification_status)}</strong> (${esc(reg.status_vocabulary[x.verification_status])})</p>
 <p>${esc(x.claim)}</p>
 <p><strong>How Njia should use this:</strong> ${esc(x.action)}</p>
 <p><a href="${esc(x.url)}" rel="noopener noreferrer">Read the official source</a></p>

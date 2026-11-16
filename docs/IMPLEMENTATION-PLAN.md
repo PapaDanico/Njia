@@ -180,3 +180,9 @@ stands on each. Production was confirmed on `7740434` (the shared shell) at the 
 ### Slice 14: verification status on the source register (15 November 2026)
 - `research/sources.json` gained a published `status_vocabulary` (verified_primary, verified_secondary, conflicting, outdated, unverified, inaccessible) and a `verification_status` on every source. All seven are `unverified`: no page in the register has been opened and read from this build, so none can honestly claim more. `/research/sources/` shows each status beside the entry. A test fails on an unknown status, a status missing from the page, or an unparseable URL.
 - Follow-up 2 from the baseline (a plausibility check for truncated URLs) is only partly covered: the test checks that each URL parses and has a real host, which would not catch a path cut short, as `https://kuccps.net/Placem` was. No generic check can.
+
+### Slice 15: a draw is shown as a draw everywhere (16 November 2026)
+- Owner delegated the redesign decisions: keep the terracotta and ochre palette, keep the current navigation labels, spend effort on layout and content.
+- Bug-sweep item NJ-004, confirmed: when two clusters tie, only the printed report said so. The home page said "You're matched as X", Connect said "Based on your X result", the shared summary said "Primary match: X", Decide scored the tied cluster listed second at 72 against 95 and called it "not strongest", and the report's suggested courses came from one of the tied clusters only.
+- Fixed through two helpers in `js/app.js` (`resultTie`, `resultNames`); Decide scores every tied cluster as the top one and says the result was a draw. Driven in a browser with a forced tie: home, Connect, the results badge and the share text all name both clusters.
+- Gates: unit suite 392 pass under `CI=1` (399 tests), probe 49/49, axe 108 states 0 violations. `CACHE_VERSION` njia-v303.

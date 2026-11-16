@@ -586,7 +586,7 @@ function renderDiscoverResults(el) {
       <h1 class="mb-2">This is what the data says about you</h1>
 
       <div class="cluster-primary">
-        <span class="cluster-badge" style="background:${primaryC.color}22;color:var(--cluster-${primary}-ink)">Primary Cluster</span>
+        <span class="cluster-badge" style="background:${primaryC.color}22;color:var(--cluster-${primary}-ink)">${resultTie().length ? 'Joint top result (a draw)' : 'Primary Cluster'}</span>
         <h2 style="color:var(--cluster-${primary}-ink)">${primaryC.name}</h2>
         <p class="text-secondary text-sm mt-1">${primaryC.description}</p>
         <p class="cluster-tags-label">Fields this cluster points toward</p>
@@ -799,7 +799,7 @@ function renderShareableReportHTML() {
   const countyOf = (c) => INSTITUTIONS.find((i) => i.id === c.institution_id)?.county || null;
 
   const eligible = savedCourses.length ? [] : COURSES
-    .filter((c) => c.cluster === results.primary)
+    .filter((c) => (isTie ? tiedTop.includes(c.cluster) : c.cluster === results.primary))
     .filter((c) => !constraints.grade
       || typeof meetsGradeRequirement !== 'function'
       || meetsGradeRequirement(constraints.grade, c.min_grade))
@@ -870,7 +870,7 @@ function renderShareableReportHTML() {
       <p class="report-legend">An exploration aid, not a validated psychological test. It points to directions worth investigating; it does not predict success, rank you or limit what you may choose.</p>
 
       <div class="report-primary" style="border-color:${primaryC.color}">
-        <span class="report-primary-label" style="color:${primaryC.color}">Primary Match</span>
+        <span class="report-primary-label" style="color:${primaryC.color}">${isTie ? 'Joint top match (a draw)' : 'Primary Match'}</span>
         <h2 style="color:${primaryC.color}">${primaryC.name}</h2>
         <p>${primaryC.description}</p>
         <!-- Measured roles, not primaryC.paths. The report is the sheet a
@@ -978,7 +978,7 @@ function renderShareableReportHTML() {
       ${reportCourses.length ? `
         <div class="report-courses">
           <span class="report-section-title">${savedCourses.length ? 'Courses You Are Considering' : 'Courses Open To You'}</span>
-          ${savedCourses.length ? '' : `<p class="report-legend">Njia has not been told what you have chosen yet, so these are the ${suggested.length} closest matches in the catalogue for ${escapeHtml(CLUSTERS[results.primary]?.name || 'your result')}${constraints.grade ? ` that ${/^[AE]/.test(constraints.grade) ? 'an' : 'a'} ${escapeHtml(constraints.grade)} can enter` : ''} — most open first.${/* Say the mix out loud. A reader who set a county filter and then reads a
+          ${savedCourses.length ? '' : `<p class="report-legend">Njia has not been told what you have chosen yet, so these are the ${suggested.length} closest matches in the catalogue for ${escapeHtml(isTie ? tiedTop.map((id) => CLUSTERS[id].name).join(' and ') : (CLUSTERS[results.primary]?.name || 'your result'))}${constraints.grade ? ` that ${/^[AE]/.test(constraints.grade) ? 'an' : 'a'} ${escapeHtml(constraints.grade)} can enter` : ''} — most open first.${/* Say the mix out loud. A reader who set a county filter and then reads a
                 list containing other counties needs to know that was a decision and
                 not an oversight; a reader whose county genuinely has nothing needs
                 to know that too, because "nothing near me" is information they can
@@ -1078,9 +1078,12 @@ function buildReportSummary() {
   const lines = [
     `🧭 *My Njia Career Report*`,
     '',
-    `🎯 Primary match: *${primaryC.name}*`,
-    `↳ ${primaryC.description}`,
-    `🔹 Also aligned with: ${secondaryC.name}`
+    ...(resultTie().length
+      ? [`🎯 Joint top match (a draw): *${resultNames()}*`,
+        `↳ These scored identically, so neither is the single answer.`]
+      : [`🎯 Primary match: *${primaryC.name}*`,
+        `↳ ${primaryC.description}`,
+        `🔹 Also aligned with: ${secondaryC.name}`])
   ];
 
   const constraintBits = [

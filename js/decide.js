@@ -432,10 +432,17 @@ function renderDecideTabContent() {
  * under "Why this match?", so the score is explainable, not an oracle. */
 function scoreCourseMatch(course, profile) {
   const { hasResults, primary, secondary, grade, budgetMax, homeCounty, courseCounty } = profile;
+  const tied = Array.isArray(profile.tied) ? profile.tied : [];
   const breakdown = [];
   let score = 40;
   if (hasResults) {
-    if (course.cluster === primary) {
+    if (tied.length > 1 && tied.includes(course.cluster)) {
+      /* A draw: every tied cluster scores as the top one. Scoring the one that
+         happened to be listed second at 72 would rank its courses below the
+         other's for no reason the questionnaire can give. */
+      score = 95;
+      breakdown.push({ factor: 'Career fit', detail: `${CLUSTERS[course.cluster].short} is one of your joint top clusters — your Discovery result was a draw.`, effect: 'up' });
+    } else if (course.cluster === primary) {
       score = 95;
       breakdown.push({ factor: 'Career fit', detail: `${CLUSTERS[course.cluster].short} is your primary cluster — the strongest signal in your Discovery results.`, effect: 'up' });
     } else if (course.cluster === secondary) {
@@ -870,6 +877,7 @@ function computeCourseMatch(course) {
     hasResults: !!results,
     primary: results?.primary,
     secondary: results?.secondary,
+    tied: Array.isArray(results?.tiedWithPrimary) ? results.tiedWithPrimary : [],
     grade: getEffectiveGrade(),
     budgetMax: AppState.decideFilters.budgetMax,
     // Only meaningful once a county is chosen. Left null for "All Counties",

@@ -186,3 +186,9 @@ stands on each. Production was confirmed on `7740434` (the shared shell) at the 
 - Bug-sweep item NJ-004, confirmed: when two clusters tie, only the printed report said so. The home page said "You're matched as X", Connect said "Based on your X result", the shared summary said "Primary match: X", Decide scored the tied cluster listed second at 72 against 95 and called it "not strongest", and the report's suggested courses came from one of the tied clusters only.
 - Fixed through two helpers in `js/app.js` (`resultTie`, `resultNames`); Decide scores every tied cluster as the top one and says the result was a draw. Driven in a browser with a forced tie: home, Connect, the results badge and the share text all name both clusters.
 - Gates: unit suite 392 pass under `CI=1` (399 tests), probe 49/49, axe 108 states 0 violations. `CACHE_VERSION` njia-v303.
+
+### Slice 16: Decide course cards, space pass (16 November 2026)
+- Measured first: a course card averaged 1,569px at 1440 and 1,485px at 390, and the Decide page ran 14,053px and 39,220px for 24 cards.
+- The grade footnote ("a listed grade is a preliminary screen, not a placement offer...") was printed on every card. It is a fact about every listing, so it now appears once above the list. The monthly tuition average and the illustrative cost-of-attendance paragraph fold into one "Monthly and living-cost estimate" disclosure. Nothing was removed; the fee guidance stays open on the card.
+- After: cards average 1,382px and 1,307px; Decide is 11,796px at 1440 (-16.1%) and 33,203px at 390 (-15.3%).
+- Gates: unit suite 392 pass under `CI=1`, probe 49/49, axe 108 states 0 violations. `CACHE_VERSION` njia-v304.

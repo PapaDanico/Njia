@@ -1380,14 +1380,15 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * share one KMTC note — rendering it open on each card meant reading the same
  * paragraph down the whole grid. Collapsed, the provenance is still attached
  * to the card (so it survives comparison and saved views) without repeating. */
-.fee-provenance, .fee-help { margin-bottom: 0.6rem; font-size: var(--fs-sm); }
-.fee-provenance summary, .fee-help summary {
+.fee-provenance, .fee-help, .cost-estimate { margin-bottom: 0.6rem; font-size: var(--fs-sm); }
+.cost-estimate[open] summary { margin-bottom: 0.4rem; }
+.fee-provenance summary, .fee-help summary, .cost-estimate summary {
   cursor: pointer;
   color: var(--text-muted);
   font-style: italic;
   padding: 0.2rem 0;
 }
-.fee-provenance summary:hover, .fee-help summary:hover { text-decoration: underline; }
+.fee-provenance summary:hover, .fee-help summary:hover, .cost-estimate summary:hover { text-decoration: underline; }
 .fee-provenance p { margin-top: 0.35rem; font-style: italic; }
 .fee-help p { margin-top: 0.35rem; }
 .decide-caveat { margin-bottom: 0.75rem; }

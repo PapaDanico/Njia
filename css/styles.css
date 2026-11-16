@@ -1168,7 +1168,9 @@ textarea.q-input::placeholder { color: var(--text-muted); }
  * columns as actually fit, correct at every width automatically. */
 .results-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  /* min(..., 100%) so a 320px phone, whose container is 288px, gets a
+     one-column grid instead of a 320px card wider than its own screen. */
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
   gap: 1rem;
   align-items: start;
 }
@@ -1176,7 +1178,7 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 /* Denser catalogue on desktop. Declared after the base rule above because
  * a media query adds no specificity — source order is what decides. */
 @media (min-width: 1024px) {
-  .results-grid { grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 1.1rem; }
+  .results-grid { grid-template-columns: repeat(auto-fill, minmax(min(288px, 100%), 1fr)); gap: 1.1rem; }
 }
 .match-badge {
   display: inline-block;
@@ -2130,10 +2132,12 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * h1 with no h2 in between (the page's next real heading is much further
  * down), so an h3 here would skip a level and fail heading-order. */
 .landing-numbers-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; line-height: 1.3; margin-bottom: 1.1rem; color: var(--landing-ink); }
-.landing-numbers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.25rem; margin-bottom: 1.1rem; }
+.landing-numbers-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem 1.25rem; margin-bottom: 1.1rem; }
 @media (min-width: 48rem) { .landing-numbers-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .landing-numbers-item { display: flex; flex-direction: column; gap: 0.2rem; }
+.landing-numbers-item { min-width: 0; }
 .landing-numbers-figure { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.6rem; font-weight: 700; color: var(--primary-dark); line-height: 1; }
+@media (max-width: 22.5rem) { .landing-numbers-figure { font-size: 1.3rem; } }
 .landing-numbers-label { font-size: var(--fs-sm); color: var(--landing-ink-muted); line-height: 1.35; }
 .landing-numbers-note { font-size: var(--fs-xs); color: var(--landing-ink-muted); border-top: 1px solid var(--landing-border); padding-top: 0.75rem; margin: 0; }
 

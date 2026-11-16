@@ -97,7 +97,7 @@
            font-size: 1.9rem; line-height: 1.1; }
   .fig span { display: block; font-size: .82rem; opacity: .85; margin-top: .25rem; }
 
-  .wrap { overflow-x: auto; margin: 1rem 0; }
+  .wrap, .table-wrap { overflow-x: auto; margin: 1rem 0; }
   table { width: 100%; border-collapse: collapse; font-size: .88rem; }
   .tkey { font-size: .84rem; opacity: .85; margin: 0 0 .5rem; max-width: 62rem; }
   th, td { text-align: left; padding: .4rem .55rem .4rem 0; border-bottom: 1px solid var(--border);
@@ -123,7 +123,7 @@
 
   @media print {
     .back, .cta { display: none; }
-    .wrap { overflow-x: visible; }
+    .wrap, .table-wrap { overflow-x: visible; }
     table { font-size: 7.5pt; }
     a { text-decoration: none; color: inherit; }
     .limit { border-left-width: 3px; }

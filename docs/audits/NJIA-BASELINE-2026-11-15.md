@@ -31,6 +31,8 @@ Node v22.23.4. Not run: a screen reader, a real low-end phone, a live-site fetch
 
 ## 3. The one factual change in this PR
 
+> **Superseded on 16 November 2026.** The URL described below as truncated was real (`https://kuccps.net/placem`, titled "Placem"). See `NJIA-HANDOVER-TRIAGE-2026-11-16.md`.
+
 `research/sources.json` entry `kuccps-placement`: URL changed from the truncated `https://kuccps.net/Placem` to `https://kuccps.net/degree-application-20252026-placement-cycle`, which a search on 15 November 2026 returned as KUCCPS's page for the 2025/2026 cycle. The page itself could not be opened from the build, so the claim text now says it rests on a search summary. The summary gave degree C+, diploma C-, craft certificate D and artisan E, with KCSE candidates from 2000 to 2024 (C to E) able to apply to Level 4 to 6. The earlier claim listed ranges (diploma "C/C-", certificate "D+/D", artisan "D-/E") that the official figures do not match. One news outlet gives D+ for certificates; the entry records that conflict and defers to the official page.
 
 This changes a research-lead file and the page generated from it. It does not change any course record, grade or fee in the catalogue.

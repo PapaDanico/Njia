@@ -6795,3 +6795,10 @@ that its defaulters may be excluded from NYOTA is one secondary source, so it
 sits in the description as a report. Leads: the World Bank appraisal document
 (project P179414) for the real component and stipend design; whether the
 recognition-of-prior-learning strand has a published route through NITA.
+
+**A URL that looks broken may be real (16 November 2026).** `https://kuccps.net/Placem`
+was "fixed" in #173 as a truncated link. It was KUCCPS's real general placement page,
+whose title is literally "Placem". Search for the URL itself before calling a link
+broken. `research/sources.json` now carries a `cycle` and a `verification_status` on
+every source: a year-specific notice is never general guidance, and `search_lead`
+means the page was read through a search summary, not opened.

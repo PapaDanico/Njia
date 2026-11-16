@@ -22,3 +22,19 @@ test('every source carries a verification status from the published vocabulary, 
   const u=new URL(s.url);assert.ok(u.hostname.includes('.'),`${s.key}: host`);
  }
 });
+
+test('a cycle-specific notice is never used as general guidance',()=>{
+ const data=JSON.parse(fs.readFileSync(path.join(root,'research','sources.json'),'utf8'));
+ const html=fs.readFileSync(path.join(root,'research','sources','index.html'),'utf8');
+ for(const s of data.sources){
+  assert.ok(s.cycle,`${s.key}: no cycle`);
+  if(s.cycle==='general'){
+   assert.doesNotMatch(s.url,/20\d{2}/,`${s.key}: general guidance cites a year-specific URL`);
+  }else{
+   assert.ok(html.includes(`Applies to the ${s.cycle} cycle only`),`${s.key}: cycle not shown on the page`);
+   assert.match(s.title,/20\d{2}/,`${s.key}: a cycle-specific source must name its year in the title`);
+  }
+ }
+ const general=data.sources.find((s)=>s.key==='kuccps-placement');
+ assert.equal(general.cycle,'general');
+});

@@ -1,25 +1,41 @@
 {
   "schema_version": 1,
   "scope": "Curated primary-source research leads for human-reviewed Njia content updates; not imported programme records",
-  "reviewed_on": "2026-11-15",
+  "reviewed_on": "2026-11-16",
   "sources": [
     {
       "key": "kuccps-placement",
-      "title": "KUCCPS placement eligibility and selection (2025/2026 cycle)",
+      "title": "KUCCPS placement: general guidance",
       "publisher": "Kenya Universities and Colleges Central Placement Service",
-      "url": "https://kuccps.net/degree-application-20252026-placement-cycle",
-      "accessed": "2026-11-15",
-      "claim": "KUCCPS's 2025/2026 placement page, as reported by a search summary on 15 November 2026 (the page itself could not be opened from the build), gives minimum mean grades of C+ for a degree, C- for a Level 6 diploma, D for a Level 5 craft certificate and E for a Level 4 artisan certificate, and says KCSE candidates from 2000 to 2024 with a C to E may apply for Level 4 to 6 TVET programmes. One news outlet gives D+ for certificates, which conflicts with D; the official page is the one to read. Programme-specific subject requirements, cluster points and capacities also govern selection.",
+      "url": "https://kuccps.net/placem",
+      "accessed": "2026-11-16",
+      "claim": "KUCCPS's general placement page (titled \"Placem\" on the site) presents level bands: degree C+ and above; diploma (Level 6) C and C-; certificate (Level 5) D+ and D; artisan (Level 4) D- and E. These are bands, not one national admissions rule: the 2025/2026 cycle notice, listed separately below, states floors of C- for a diploma, D for a craft certificate and E for an artisan certificate. Both can hold in their own scope. Programme-specific subject requirements, cluster points and capacities also govern selection. An external audit on 16 November 2026 reports opening this page; Njia's build read it through a search summary only.",
       "applies_to": [
         "eligibility",
         "placement"
       ],
       "action": "Show these as general entry guidance, not guaranteed eligibility for a named course.",
-      "verification_status": "unverified"
+      "verification_status": "search_lead",
+      "cycle": "general"
+    },
+    {
+      "key": "kuccps-placement-2025",
+      "title": "Historical: 2025/2026 placement cycle notice",
+      "publisher": "Kenya Universities and Colleges Central Placement Service",
+      "url": "https://kuccps.net/degree-application-20252026-placement-cycle",
+      "accessed": "2026-11-15",
+      "cycle": "2025/2026",
+      "verification_status": "search_lead",
+      "claim": "KUCCPS's notice for the 2025/2026 cycle gives minimum mean grades of C+ for a degree, C- for a Level 6 diploma, D for a Level 5 craft certificate and E for a Level 4 artisan certificate, and says KCSE candidates from 2000 to 2024 with a C to E may apply for Level 4 to 6 TVET programmes. It describes that cycle only; its dates have passed.",
+      "applies_to": [
+        "eligibility",
+        "placement"
+      ],
+      "action": "Use as a dated record of the 2025/2026 cycle. Never quote its deadlines or cohort rules as current."
     },
     {
       "key": "kuccps-2026",
-      "title": "2026 placement opening announcement",
+      "title": "Historical: 2026 placement opening announcement",
       "publisher": "KUCCPS",
       "url": "https://ftp.kuccps.net/index.php/kuccps-opens-application-window-2026-placement-universities-and-colleges",
       "accessed": "2026-11-13",
@@ -29,7 +45,8 @@
         "intakes"
       ],
       "action": "Archive the dates as historical; never show them as a currently open application window.",
-      "verification_status": "unverified"
+      "verification_status": "unverified",
+      "cycle": "2026"
     },
     {
       "key": "kuccps-2026-cutoffs",
@@ -43,7 +60,8 @@
         "eligibility"
       ],
       "action": "Treat programme cutoffs as cycle-specific and separate from minimum admission grades; verify individual rows before importing.",
-      "verification_status": "unverified"
+      "verification_status": "unverified",
+      "cycle": "2026/2027"
     },
     {
       "key": "tveta-accreditation",
@@ -57,7 +75,8 @@
         "institutions"
       ],
       "action": "Require institution and programme-level evidence; never infer approval from a college name alone.",
-      "verification_status": "unverified"
+      "verification_status": "unverified",
+      "cycle": "general"
     },
     {
       "key": "kuccps-portal",
@@ -71,7 +90,8 @@
         "funding"
       ],
       "action": "Use as the final live check for programme availability, deadlines and placement details.",
-      "verification_status": "unverified"
+      "verification_status": "unverified",
+      "cycle": "general"
     },
     {
       "key": "hef-funding",
@@ -84,7 +104,8 @@
         "funding"
       ],
       "action": "Never treat a KUCCPS placement as an automatic scholarship or promise an award.",
-      "verification_status": "unverified"
+      "verification_status": "unverified",
+      "cycle": "general"
     },
     {
       "key": "hef-portal",
@@ -98,7 +119,8 @@
         "applications"
       ],
       "action": "Send applicants to the official portal for current windows and document requirements; do not hardcode the portal countdown.",
-      "verification_status": "unverified"
+      "verification_status": "unverified",
+      "cycle": "general"
     }
   ],
   "status_vocabulary": {
@@ -107,6 +129,7 @@
     "conflicting": "Sources disagree and the conflict is not resolved.",
     "outdated": "Known to be superseded.",
     "unverified": "Listed as a lead. Nobody has opened the page and read the claim off it.",
-    "inaccessible": "Tried and could not be reached."
+    "inaccessible": "Tried and could not be reached.",
+    "search_lead": "A search returned this page and summarised the claim. Njia's build could not open the page itself."
   }
 }

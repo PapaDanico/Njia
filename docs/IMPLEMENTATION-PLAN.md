@@ -192,3 +192,9 @@ stands on each. Production was confirmed on `7740434` (the shared shell) at the 
 - The grade footnote ("a listed grade is a preliminary screen, not a placement offer...") was printed on every card. It is a fact about every listing, so it now appears once above the list. The monthly tuition average and the illustrative cost-of-attendance paragraph fold into one "Monthly and living-cost estimate" disclosure. Nothing was removed; the fee guidance stays open on the card.
 - After: cards average 1,382px and 1,307px; Decide is 11,796px at 1440 (-16.1%) and 33,203px at 390 (-15.3%).
 - Gates: unit suite 392 pass under `CI=1`, probe 49/49, axe 108 states 0 violations. `CACHE_VERSION` njia-v304.
+
+### Slice 17: Discover results, space and a wrong count (16 November 2026)
+- Measured first: the results page ran 5,034px at 1440. The labour-market card alone was 2,237px, its notes held to the reading measure so the right half of the screen sat empty.
+- The notes now flow in two columns from 64rem (`.evidence-flow`); below that, one column as before. The "All Clusters" card repeated the cluster spread chart, so its points moved into the chart as a column and the card went. Net: 5,034 to 3,541px at 1440 (-29.7%), 7,681 to 7,227px at 390 (-5.9%).
+- Defect fixed on the way: the chart said "All six clusters" above seven rows. It now counts them. "1 pts" now reads "1 pt".
+- Gates: unit suite 392 pass under `CI=1`, probe 49/49, axe 108 states 0 violations. `CACHE_VERSION` njia-v305.

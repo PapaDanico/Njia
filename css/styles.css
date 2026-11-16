@@ -1750,6 +1750,9 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .spread-bar { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-input); overflow: hidden; min-width: 40px; }
 .spread-fill { display: block; height: 100%; border-radius: 999px; }
 .spread-share { width: 2.6rem; text-align: right; flex-shrink: 0; color: var(--text-secondary); }
+.spread-pts { width: 3.6rem; text-align: right; flex-shrink: 0; color: var(--text-muted); font-size: var(--fs-sm); }
+@media (max-width: 29.99rem) { .spread-pts { display: none; } }
+@media (min-width: 48rem) { .spread-name { width: 11.5rem; } }
 
 .evidence-card { border-left: 3px solid var(--primary); }
 .evidence-list { list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.7rem; }
@@ -2756,6 +2759,16 @@ body.modal-open { overflow: hidden; }
 }
 .absorption-note p { color: var(--warn-ink); max-width: var(--prose-max); }
 .absorption-note .caption { color: var(--warn-ink); }
+
+/* The labour-market card on the Discover results is a stack of independent
+   notes, each held to the reading measure, which left the right half of a wide
+   screen empty and the card 2,200px tall. Two columns from 64rem, one below. */
+.evidence-flow > * { break-inside: avoid; }
+@media (min-width: 64rem) {
+  .evidence-flow { column-count: 2; column-gap: 2.25rem; }
+  .evidence-flow .absorption-note, .evidence-flow .informal-note { margin: 0 0 var(--space-4); }
+  .evidence-flow p { max-width: none; }
+}
 .absorption-note p:last-child { margin-bottom: 0; }
 
 /* Entry pay — the number a school-leaver is actually asking for, and the one

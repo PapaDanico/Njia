@@ -419,6 +419,7 @@ function renderLabourMarketCard(primaryCluster) {
     <div class="card evidence-card">
       <span class="caption">The labour market you are entering</span>
       <h2 class="mb-1 mt-1">What this field actually pays — and who is hiring</h2>
+      <div class="evidence-flow">
 
       ${entry.length ? `
         <p class="text-secondary text-sm mb-2">The honest starting point. Kenya's urban minimum wage is ${money(MINIMUM_WAGE.urbanMonthlyKes)} a month — read every figure here against it.</p>
@@ -555,6 +556,8 @@ function renderLabourMarketCard(primaryCluster) {
         <p class="text-secondary text-sm mb-1">${escapeHtml(FUTURE_OF_WORK.skillChurn)} ${escapeHtml(FUTURE_OF_WORK.topCoreSkill)}</p>
       </details>
 
+      </div>
+
       <p class="text-muted text-sm mt-2">Earnings: ${escapeHtml(LABOUR_MARKET_ANCHORS.source)}. Minimum wage: ${escapeHtml(MINIMUM_WAGE.source)}. Skills outlook: ${escapeHtml(FUTURE_OF_WORK.source)} (global scope). Figures were cross-checked across independent reports rather than read from the primary releases — see Methodology in Help.</p>
     </div>
   `;
@@ -564,6 +567,7 @@ function renderDiscoverResults(el) {
   const { ranked, primary, secondary, elementScores, constraints, stability } = AppState.questionnaire.results;
   const primaryC = CLUSTERS[primary];
   const secondaryC = CLUSTERS[secondary];
+  const pointsOf = Object.fromEntries(ranked);
 
   const elementLabels = { identity: 'Identity', community: 'Community', horizon: 'Horizon' };
   const elementDescs = {
@@ -660,7 +664,7 @@ function renderDiscoverResults(el) {
 
       <div class="card">
         <h2 class="mb-1">Your full cluster spread</h2>
-        <p class="text-muted text-sm mb-2">All six clusters, by share of your total points. Clusters within a few points of each other are effectively tied — treat them as live options, not runners-up.</p>
+        <p class="text-muted text-sm mb-2">All ${AppState.questionnaire.results.ranked.length} clusters, by share of your total points. Clusters within a few points of each other are effectively tied — treat them as live options, not runners-up.</p>
         <div class="spread-list">
           ${clusterSpread(AppState.questionnaire.results.ranked, AppState.questionnaire.results.totalPoints).map((row) => `
             <div class="spread-row${row.rank <= 2 ? ' spread-top' : ''}">
@@ -668,6 +672,7 @@ function renderDiscoverResults(el) {
               <span class="spread-name">${escapeHtml(CLUSTERS[row.id].name)}</span>
               <span class="spread-bar"><span class="spread-fill" style="width:${row.share}%;background:${CLUSTERS[row.id].color}"></span></span>
               <span class="spread-share num">${row.share}%</span>
+              <span class="spread-pts num">${pointsOf[row.id]} ${pointsOf[row.id] === 1 ? 'pt' : 'pts'}</span>
             </div>
           `).join('')}
         </div>
@@ -688,18 +693,6 @@ function renderDiscoverResults(el) {
       ${renderLabourMarketCard(primary)}
 
       ${constraintRows ? `<div class="card"><h2 class="mb-1">Necessity — Your Constraints</h2><p class="text-muted text-sm mb-2">The fourth Element. These feed the Decide module's course matcher directly.</p><div class="meta-grid">${constraintRows}</div></div>` : ''}
-
-      <div class="card">
-        <h2 class="mb-2">All Clusters</h2>
-        <div class="cluster-secondary-list">
-          ${ranked.map(([id, pts]) => `
-            <div class="cluster-row">
-              <span><span class="cluster-dot" style="background:${CLUSTERS[id].color}"></span>${CLUSTERS[id].name}</span>
-              <span class="text-muted text-sm">${pts} pts</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
 
       <div class="btn-row">
         <button type="button" class="btn btn-primary" onclick="navigateTo('design')">Build Odyssey Plan →</button>

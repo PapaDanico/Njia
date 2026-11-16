@@ -308,7 +308,7 @@ function renderOdysseyTab(container) {
         <div class="odyssey-year-row">
           <div class="odyssey-year-badge">Y${i + 1}</div>
           <div class="odyssey-year-field">
-          <input type="text" id="odyssey-year-${plan.id}-${i}" maxlength="200" value="${escapeHtml(val)}" placeholder="What are you doing in year ${i + 1}?"
+          <input type="text" id="odyssey-year-${plan.id}-${i}" maxlength="200" value="${escapeHtml(val)}" placeholder="What happens in year ${i + 1}?"
             onchange="updateOdysseyYear('${plan.id}', ${i}, this.value)" aria-label="${plan.label} year ${i + 1}">
             <select class="odyssey-suggest form-control" aria-label="Insert a suggestion for ${plan.label} year ${i + 1}"
               onchange="applyOdysseySuggestion('${plan.id}', ${i}, this.value, this)">

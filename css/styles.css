@@ -3028,17 +3028,19 @@ p, li { text-wrap: pretty; }
     column-gap: clamp(2rem, 3vw, 3.25rem);
     align-items: start;
   }
-  /* grid-row: 1 / -1 so the rail spans the whole column instead of sitting
-     in row 1. Occupying only the first row made that row as tall as the
-     rail, which left a dead band under whatever content shared it — the
-     tab strips on Design and Connect floated above ~160px of nothing. The
-     rail is one element, so spanning every row cannot collide with
-     anything. */
+  /* The rail spans every row so it does not sit in row 1 and make that row as
+     tall as the rail, which left a dead band under the tab strips on Design
+     and Track (~190px of nothing above the cards). `1 / -1` does not do this:
+     -1 is the last line of the EXPLICIT grid, and these pages declare no rows,
+     so it spanned row 1 only and the dead band survived the comment that
+     claimed to remove it. An explicit span reaches the implicit rows. Empty
+     implicit rows have no height and there is no row-gap, so over-spanning
+     costs nothing. */
   #page-track > .module-rail,
   #page-connect > .module-rail,
   #page-design > .module-rail {
     grid-column: 1;
-    grid-row: 1 / -1;
+    grid-row: 1 / span 12;
     position: sticky;
     top: calc(var(--header-h) + 1.25rem);
     align-self: start;

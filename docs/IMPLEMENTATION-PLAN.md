@@ -204,3 +204,8 @@ stands on each. Production was confirmed on `7740434` (the shared shell) at the 
 - The FAQ now renders as two independent stacks balanced by question count, so opening a question moves nothing in the other stack. On a phone the stacks flatten (`display: contents`) and each group's `--i` restores the source order (checked: visual order equals `HELP_FAQ` order at 390; all 55 questions present at both widths).
 - Result: 2,693 to 2,228px at 1440 (-17.3%). Phone is unchanged by design.
 - Gates: unit suite 392 pass under `CI=1`, probe 49/49, axe 108 states 0 violations. `CACHE_VERSION` njia-v306.
+
+### Slice 19: Design and Track, the dead band that a comment claimed was fixed (16 November 2026)
+- Found by looking: on Design and Track a tab strip floated above roughly 190px of nothing before the content began. `styles.css` carried a comment saying `grid-row: 1 / -1` had removed exactly that. It had not: `-1` is the last line of the explicit grid, these pages declare no rows, so the rail still occupied row 1 only and made it as tall as the rail. The rail now uses `grid-row: 1 / span 12`; empty implicit rows have no height and there is no row-gap, so over-spanning costs nothing. Design at 1440: 1,262 to 1,143px (-9.4%). Phone unchanged (the rule is desktop-only).
+- The Odyssey year inputs clipped their own placeholder ("What are you doing in year 1" cut off at three-up). It now reads "What happens in year N?" and fits.
+- Gates: unit suite 392 pass under `CI=1`, probe 49/49, axe 108 states 0 violations. `CACHE_VERSION` njia-v307.

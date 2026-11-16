@@ -139,6 +139,26 @@ test('primary cluster with met grade scores 95', () => {
   assert.ok(!m.gradeUnconfirmed);
 });
 
+test('a draw scores every tied cluster as the top one, and says it was a draw', () => {
+  const p = { hasResults: true, primary: 'carer', secondary: 'tech', tied: ['carer', 'tech'], grade: null, budgetMax: null };
+  const a = scoreCourseMatch(course({ cluster: 'carer', min_grade: null }), p);
+  const b = scoreCourseMatch(course({ cluster: 'tech', min_grade: null }), p);
+  assert.equal(a.score, 95);
+  assert.equal(b.score, a.score, 'the tied cluster listed second must not rank below the first');
+  for (const m of [a, b]) assert.match(m.breakdown[0].detail, /draw/);
+  assert.equal(scoreCourseMatch(course({ cluster: 'business', min_grade: null }), p).score, 35);
+});
+
+test('no surface names a single match without going through the draw-aware helpers', () => {
+  const fs = require('node:fs'); const path = require('node:path');
+  const read = (f) => fs.readFileSync(path.join(__dirname, '..', 'js', f), 'utf8');
+  assert.match(read('discover.js'), /Joint top match \(a draw\)/);
+  assert.match(read('connect.js'), /resultNames\(\)/);
+  const app = read('app.js');
+  assert.match(app, /function resultTie\(\)/);
+  assert.doesNotMatch(app, /You're matched as <strong[^>]*>\$\{CLUSTERS\[primaryCluster\]/);
+});
+
 test('secondary cluster scores 72, other clusters 35, no results 40', () => {
   const p = { hasResults: true, primary: 'carer', secondary: 'tech', grade: null, budgetMax: null };
   assert.equal(scoreCourseMatch(course({ min_grade: null }), p).score, 72);

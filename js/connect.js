@@ -46,7 +46,7 @@ function renderConnectPage() {
 
     <div class="card">
       <span class="caption">Who to look for</span>
-      <h2 class="mb-1">${cluster ? `Based on your ${CLUSTERS[cluster].name} result` : 'Complete Discover for personalised suggestions'}</h2>
+      <h2 class="mb-1">${cluster ? `Based on your ${resultTie().length ? 'joint ' : ''}${escapeHtml(resultNames())} result` : 'Complete Discover for personalised suggestions'}</h2>
       <ul class="mt-1">
         ${(cluster ? MENTOR_ARCHETYPES[cluster] : MENTOR_ARCHETYPES.tech.concat(MENTOR_ARCHETYPES.carer)).map((a) => `
           <li class="text-secondary text-sm mb-1">• ${escapeHtml(a)}</li>

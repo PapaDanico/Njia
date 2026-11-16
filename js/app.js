@@ -1102,6 +1102,22 @@ function renderApplicationClock() {
   `;
 }
 
+/* A draw is a draw on every surface. computeClusterScores() still names a
+ * `primary` because something has to render, but when two clusters score the
+ * same the one named first is not the winner. Every place that names the
+ * result goes through these two, so none can present a draw as a single match. */
+function resultTie() {
+  const r = AppState.questionnaire.results;
+  const t = r && Array.isArray(r.tiedWithPrimary) ? r.tiedWithPrimary : [];
+  return t.length > 1 ? t : [];
+}
+function resultNames() {
+  const r = AppState.questionnaire.results;
+  if (!r) return '';
+  const t = resultTie();
+  return t.length ? t.map((id) => CLUSTERS[id].name).join(' and ') : CLUSTERS[r.primary].name;
+}
+
 function renderHomePage() {
   const el = document.getElementById('page-home');
   if (!el) return;
@@ -1128,7 +1144,7 @@ function renderHomePage() {
             <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 2c1.9 0 3.6.65 4.95 1.75L5.75 16.95A7.95 7.95 0 0 1 12 4Zm0 16a7.9 7.9 0 0 1-4.95-1.75L18.25 7.05A7.95 7.95 0 0 1 12 20Z"/></svg> Free, no signup</span>
             <span class="landing-trust-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg> About 20 minutes</span>
           </div>
-          ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">You're matched as <strong style="color:var(--landing-ink)">${CLUSTERS[primaryCluster].name}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
+          ${completed ? `<p class="text-sm mt-2" style="color:var(--landing-ink-muted)">${resultTie().length ? 'Your top result is a draw between' : "You're matched as"} <strong style="color:var(--landing-ink)">${escapeHtml(resultNames())}</strong>. <a href="#" onclick="navigateTo('discover');return false" style="color:var(--primary-dark);font-weight:600">Jump back into Discover →</a></p>` : ''}
         </div>
         <div class="landing-hero-aside">
           ${renderApplicationClock()}

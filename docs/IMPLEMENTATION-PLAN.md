@@ -198,3 +198,9 @@ stands on each. Production was confirmed on `7740434` (the shared shell) at the 
 - The notes now flow in two columns from 64rem (`.evidence-flow`); below that, one column as before. The "All Clusters" card repeated the cluster spread chart, so its points moved into the chart as a column and the card went. Net: 5,034 to 3,541px at 1440 (-29.7%), 7,681 to 7,227px at 390 (-5.9%).
 - Defect fixed on the way: the chart said "All six clusters" above seven rows. It now counts them. "1 pts" now reads "1 pt".
 - Gates: unit suite 392 pass under `CI=1`, probe 49/49, axe 108 states 0 violations. `CACHE_VERSION` njia-v305.
+
+### Slice 18: in-app Help, two balanced stacks (16 November 2026)
+- Measured first: Connect (2,105px at 1440) is already a rail plus cards and `CLAUDE.md` records that two-up cards there measured worse, so it was left alone. In-app Help ran 2,693px at 1440 with a visible empty block: an 18-question group sat beside a 6-question one in a grid whose rows are as tall as the tallest card.
+- The FAQ now renders as two independent stacks balanced by question count, so opening a question moves nothing in the other stack. On a phone the stacks flatten (`display: contents`) and each group's `--i` restores the source order (checked: visual order equals `HELP_FAQ` order at 390; all 55 questions present at both widths).
+- Result: 2,693 to 2,228px at 1440 (-17.3%). Phone is unchanged by design.
+- Gates: unit suite 392 pass under `CI=1`, probe 49/49, axe 108 states 0 violations. `CACHE_VERSION` njia-v306.

@@ -26,10 +26,9 @@ function renderDiscoverPage() {
 
 function renderDiscoverIntro(el) {
   el.innerHTML = `
-    <div class="hero" style="padding-top:0.5rem">
-      <div class="icon-disc" aria-hidden="true" style="margin-bottom:0.75rem">${icon('compass')}</div>
+    <div class="module-hero">
       <p class="page-eyebrow">Module 01 · Discover</p>
-      <h1>Discover</h1>
+      <h1 class="mb-1">Discover</h1>
       <p>A 20-minute diagnostic across four Elements of career clarity — <strong>Identity, Community, Necessity, Horizon</strong> — that turns your answers into a shortlist of directions to explore, matched against real Kenyan courses, fees and funding.</p>
       <p class="text-secondary text-sm">It is an exploration aid designed by Njia, not a validated psychological test, and it does not predict success or rank you. <a href="./diagnostic/">What it measures, and what it does not</a>.</p>
     </div>
@@ -587,7 +586,11 @@ function renderDiscoverResults(el) {
     <div class="print-only">${renderShareableReportHTML()}</div>
 
     <div class="discover-full-results">
-      <h1 class="mb-2">This is what the data says about you</h1>
+      <div class="module-hero">
+        <p class="page-eyebrow">Module 01 · Discover</p>
+        <h1 class="mb-1">This is what the data says about you</h1>
+        <p class="text-secondary mb-2">Your result, how clearly it separates from the next one, and where it points in Njia's catalogue.</p>
+      </div>
 
       <div class="cluster-primary">
         <span class="cluster-badge" style="background:${primaryC.color}22;color:var(--cluster-${primary}-ink)">${resultTie().length ? 'Joint top result (a draw)' : 'Primary Cluster'}</span>

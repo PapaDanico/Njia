@@ -300,9 +300,11 @@ function renderDecidePage() {
   el.innerHTML = `
     <div class="module-header">
       <div class="module-header-main">
+        <div class="module-hero">
         <p class="page-eyebrow">Module 03 · Decide</p>
         <h1 class="mb-1">Decide</h1>
         <p class="text-secondary mb-2">Every recommendation answers three questions: Do I qualify? Can I afford it? Will it lead to work I care about?</p>
+        </div>
         <div class="data-disclaimer">
           ${icon('alert')}
           <!-- This sentence used to end "no figure marked est. has been

@@ -14,7 +14,12 @@
   /* ---------- Site header and footer (tools/site-shell.mjs) ---------- */
   .skip-link { position: absolute; left: -999px; top: 0; background: var(--primary, #8B2500); color: var(--bg, #FAF9F5); padding: .6rem 1rem; z-index: 10; }
   .skip-link:focus { left: .5rem; top: .5rem; }
-  .site-header { margin: -1.5rem 0 1.75rem; border-bottom: 3px solid var(--primary, #8B2500); }
+  .site-header { margin: -1.5rem 0 1.75rem; position: relative; z-index: 4; color: #F5E9D4; --mark-edge: #F5E9D4; }
+  .site-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #2A1200; box-shadow: 0 0 0 100vmax #2A1200; clip-path: inset(0 -100vmax); }
+  .site-header .site-nav a { color: #F5E9D4; }
+  .site-header .site-nav a:hover, .site-header .site-nav a:focus-visible { border-bottom-color: #E8B24A; }
+  .site-header .site-menu summary { border-color: rgba(245, 233, 212, .4); color: #F5E9D4; }
+  .site-header .site-cta { background: #E8B24A; color: #2A1200; border-radius: 999px; }
   .site-header-inner { display: flex; align-items: center; gap: 1.25rem; padding: .7rem 0; position: relative; }
   .site-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }
   .site-mark { width: 19px; height: 28px; display: block; flex: none; }
@@ -101,7 +106,7 @@
      than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
   .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
-  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
+  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: 999px;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
   footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
@@ -272,7 +277,7 @@
 47 counties, with the entry grade and fee on every one.</p>
 <p><a class="cta" href="/#decide">Filter by your grade and budget &rarr;</a></p>
 <p class="index-finding">Nairobi lists 300 of 1392 courses (22%); the median county lists 19.</p>
-<p class="index-unit">Courses listed per county. Bars are scaled to the largest county. Source: Njia catalogue, 16 November 2026. A small count describes what Njia has listed, not what exists in the county.</p>
+<p class="index-unit">Courses listed per county. Bars are scaled to the largest county. Source: Njia catalogue, 17 November 2026. A small count describes what Njia has listed, not what exists in the county.</p>
 <ul class="counties">
   <li><div class="row"><a href="/counties/baringo/">Baringo</a><span class="n">11</span></div><span class="mbar" aria-hidden="true"><span style="width:4%"></span></span></li>
   <li><div class="row"><a href="/counties/bomet/">Bomet</a><span class="n">20</span></div><span class="mbar" aria-hidden="true"><span style="width:7%"></span></span></li>
@@ -354,7 +359,7 @@
       <a href="/accessibility/">Accessibility</a>
     </div>
   </div>
-  <p class="site-foot-note">Njia is independent: it is not affiliated with KUCCPS, HELB or any institution, and your answers stay on your device. Figures are counted from the catalogue on 16 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
+  <p class="site-foot-note">Njia is independent: it is not affiliated with KUCCPS, HELB or any institution, and your answers stay on your device. Figures are counted from the catalogue on 17 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
 </footer>
 </body>
 </html>

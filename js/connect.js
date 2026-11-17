@@ -39,9 +39,9 @@ function renderConnectPage() {
 
   el.innerHTML = `
     <div class="module-rail">
-      <p class="page-eyebrow">Module 04 · Connect</p>
+      <div class="module-hero"><p class="page-eyebrow">Module 04 · Connect</p>
       <h1 class="mb-1">Connect</h1>
-      <p class="text-secondary mb-2">No algorithm replaces a real conversation. This module helps you prototype your path by talking to real people.</p>
+      <p class="text-secondary mb-2">No algorithm replaces a real conversation. This module helps you prototype your path by talking to real people.</p></div>
     </div>
 
     <div class="card">

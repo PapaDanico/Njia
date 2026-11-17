@@ -114,7 +114,12 @@ export const SITE_SHELL_CSS = `
   /* ---------- Site header and footer (tools/site-shell.mjs) ---------- */
   .skip-link { position: absolute; left: -999px; top: 0; background: var(--primary, #8B2500); color: var(--bg, #FAF9F5); padding: .6rem 1rem; z-index: 10; }
   .skip-link:focus { left: .5rem; top: .5rem; }
-  .site-header { margin: -1.5rem 0 1.75rem; border-bottom: 3px solid var(--primary, #8B2500); }
+  .site-header { margin: -1.5rem 0 1.75rem; position: relative; z-index: 4; color: #F5E9D4; --mark-edge: #F5E9D4; }
+  .site-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #2A1200; box-shadow: 0 0 0 100vmax #2A1200; clip-path: inset(0 -100vmax); }
+  .site-header .site-nav a { color: #F5E9D4; }
+  .site-header .site-nav a:hover, .site-header .site-nav a:focus-visible { border-bottom-color: #E8B24A; }
+  .site-header .site-menu summary { border-color: rgba(245, 233, 212, .4); color: #F5E9D4; }
+  .site-header .site-cta { background: #E8B24A; color: #2A1200; border-radius: 999px; }
   .site-header-inner { display: flex; align-items: center; gap: 1.25rem; padding: .7rem 0; position: relative; }
   .site-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }
   .site-mark { width: 19px; height: 28px; display: block; flex: none; }

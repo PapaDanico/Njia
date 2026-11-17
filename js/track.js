@@ -38,9 +38,9 @@ function renderTrackPage() {
 
   el.innerHTML = `
     <div class="module-rail">
-    <p class="page-eyebrow">Module 05 · Track</p>
+    <div class="module-hero"><p class="page-eyebrow">Module 05 · Track</p>
     <h1 class="mb-1">Track</h1>
-    <p class="text-secondary mb-2">Plans mean nothing without follow-through.</p>
+    <p class="text-secondary mb-2">Plans mean nothing without follow-through.</p></div>
 
     <div class="stats-row">
       <div class="stat"><div class="value">${AppState.okrs.length}</div><div class="label">OKRs</div></div>

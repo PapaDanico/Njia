@@ -84,11 +84,11 @@ html { scroll-padding-top: calc(var(--header-h) + 1rem); scroll-padding-bottom: 
      the scale a suggestion instead of a rule. */
   /* Editorial restraint: near-square corners. Consulting-grade layouts read
    * as documents, not apps; large radii read as consumer UI. */
-  --radius-xs: 3px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 10px;
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
 
   --header-h: 60px;
   --nav-h: 64px;
@@ -1696,13 +1696,6 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
 .link-btn { background: none; border: none; padding: 0; color: var(--primary-dark); font-weight: 600; text-decoration: underline; cursor: pointer; font-size: inherit; }
 
 /* ---------- Footer learn tiles (Kanda pattern) ---------- */
-  text-align: left; width: 100%;
-  padding: 0.85rem 1rem;
-  background: rgba(248,250,252,0.05);
-  border: 1px solid rgba(248,250,252,0.14);
-  border-radius: var(--radius-md);
-  color: #F5E9D4;
-}
 /* .footer-about* rules stood here. The region they styled was a full-width row
  * holding a 62ch paragraph — 200px of footer to say, in longer words, what the
  * brand column above it already said. The text moved into that column and the
@@ -3284,6 +3277,9 @@ p, li { text-wrap: pretty; }
 
 
 /* ---------- Editorial layer (light scheme) ----------
+ * NOTE (redesign, Nov 2026): the light-scheme hero and clock-card overrides
+ * that used to sit here are gone on purpose. The hero is now the dark earth
+ * ground in both schemes; the redesign layer at the end of this file owns it.
  * The institutional register: a white canvas, a large serif voice, one accent
  * used sparingly, hairlines instead of boxes, and air. Njia's own palette and
  * marks throughout; nothing here imitates any institution's identity.
@@ -3292,52 +3288,13 @@ p, li { text-wrap: pretty; }
  * attribute before first paint, and the hero is dark in the dark scheme, so the
  * dark scheme and the generated pages (which carry no attribute) are untouched
  * by every rule in this layer. */
-:root[data-theme="light"] .landing-hero {
-  background: linear-gradient(180deg, #FFFFFF 0%, var(--bg) 100%);
-  color: var(--text-primary);
-  border-bottom: 1px solid var(--border);
-  padding-block: clamp(1.25rem, 2.5vw, 2.25rem) clamp(1.5rem, 2.5vw, 2.5rem);
-}
-:root[data-theme="light"] .landing-hero .landing-hero-logo { display: none; }
-:root[data-theme="light"] .landing-hero .landing-hero-eyebrow { color: var(--accent-ink); }
-:root[data-theme="light"] .landing-hero .landing-h1 {
-  color: var(--text-primary);
-  font-size: clamp(2.6rem, 5.4vw, 4.6rem);
-  line-height: 1.03;
-  letter-spacing: -0.03em;
-}
-:root[data-theme="light"] .landing-hero .landing-h1 .hl-gold { color: var(--primary); }
-:root[data-theme="light"] .landing-hero .landing-sub { color: var(--text-secondary); font-size: 1.125rem; line-height: 1.65; }
-:root[data-theme="light"] .landing-hero .landing-proverb { color: var(--text-secondary); border-left-color: var(--accent); }
-:root[data-theme="light"] .landing-hero .status-pill {
-  background: #FFFFFF; border-color: var(--border); color: var(--text-secondary);
-}
-:root[data-theme="light"] .landing-hero .landing-trust-item { color: var(--text-muted); }
-:root[data-theme="light"] .landing-hero .btn-outline-dark { color: var(--ink); border-color: var(--ink); }
-:root[data-theme="light"] .landing-hero .btn-outline-dark:hover { background: rgba(61, 28, 2, 0.06); }
 
-:root[data-theme="light"] .landing-clock-card {
-  background: #FFFFFF;
-  border: 1px solid var(--border);
-  border-top: 3px solid var(--primary);
-  -webkit-backdrop-filter: none; backdrop-filter: none;
-  box-shadow: 0 24px 48px -32px rgba(61, 28, 2, 0.35);
-  color: var(--text-primary);
-}
-:root[data-theme="light"] .landing-clock-title { color: var(--accent-ink); }
-:root[data-theme="light"] .landing-clock-row { border-bottom-color: var(--border); }
-:root[data-theme="light"] .landing-clock-when { color: var(--text-muted); }
-:root[data-theme="light"] .landing-clock-note,
-:root[data-theme="light"] .landing-clock-note strong { color: var(--text-secondary); border-top-color: var(--border); }
-:root[data-theme="light"] .landing-clock-btn { color: var(--ink); border-color: var(--ink); }
-:root[data-theme="light"] .landing-clock-btn:hover { background: rgba(61, 28, 2, 0.06); }
 
 /* Masthead: the wordmark carries the page, the tagline whispers. */
 @media (min-width: 64rem) {
   .app-header .logo-word { font-size: 1.7rem; letter-spacing: -0.015em; line-height: 1; }
   .app-header .logo-mark { width: 22px; height: 33px; }
 }
-:root[data-theme="light"] .landing-hero .landing-h1 { font-size: clamp(2.5rem, 5vw, 4.25rem); text-wrap: balance; }
 
 /* SPACE. Measured, not eyeballed: the hero's right column sat empty beneath the
  * clock card and its top was pushed 60px below the headline; the rail column was
@@ -3450,7 +3407,7 @@ p, li { text-wrap: pretty; }
    background: rgba(200, 134, 10, 0.28); color: #F5E9D4; 
   }
 
-  :root:not([data-theme]) :where(a {
+  :root:not([data-theme]) :where(a, button, input, select, textarea, [tabindex]):focus-visible {
     outline-color: #E09A3C;
   }
 
@@ -3460,3 +3417,77 @@ p, li { text-wrap: pretty; }
       radial-gradient(rgba(245, 233, 212, 0.020) 0.5px, transparent 0.5px);
   }
 }
+
+/* ---------- Redesign layer (November 2026) ----------
+ * One decision, applied everywhere: the dark earth ground is the brand's
+ * voice, so the hero is dark in BOTH schemes, controls are pills, surfaces
+ * are large-radius cards on a warm paper, and the gold accent carries the
+ * single action on a dark ground. Palette tokens are unchanged. */
+.btn { border-radius: 999px; font-weight: 700; letter-spacing: 0.01em; }
+.btn-primary { box-shadow: 0 10px 22px -12px var(--primary); }
+.btn-primary:hover { transform: translateY(-1px); }
+.btn-secondary { border-width: 1.5px; }
+
+.landing-hero {
+  padding-block: clamp(2.5rem, 5vw, 4.5rem) clamp(2.5rem, 4vw, 4rem);
+  border-radius: 0 0 clamp(1.5rem, 3vw, 2.75rem) clamp(1.5rem, 3vw, 2.75rem);
+}
+.landing-hero .landing-h1 {
+  font-size: clamp(2.5rem, 5.4vw, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: #F5E9D4;
+}
+.landing-hero .landing-h1 .hl-gold { color: #E8B24A; }
+.landing-hero .landing-sub { font-size: 1.125rem; line-height: 1.65; color: rgba(245, 233, 212, 0.84); }
+.landing-hero .landing-hero-eyebrow { color: #E8B24A; }
+.landing-hero .btn-primary { background: #E8B24A; color: #2A1200; box-shadow: 0 14px 30px -14px rgba(232, 178, 74, 0.7); }
+.landing-hero .btn-primary:hover { background: #F2C163; }
+.landing-hero .btn-outline-dark { color: #F5E9D4; border-color: rgba(245, 233, 212, 0.5); border-width: 1.5px; }
+.landing-hero .landing-trust-item { color: rgba(245, 233, 212, 0.78); }
+.landing-clock-card { border-radius: var(--radius-xl); }
+.landing-clock-btn { color: #F5E9D4; border-color: rgba(245, 233, 212, 0.45); }
+
+.card, .course-card, .funding-card { border-radius: var(--radius-xl); }
+.card { box-shadow: 0 1px 0 rgba(61, 28, 2, 0.04), 0 18px 36px -28px rgba(61, 28, 2, 0.28); }
+.landing-hero .btn-gold { background: #E8B24A; color: #2A1200; box-shadow: 0 14px 30px -14px rgba(232, 178, 74, 0.7); }
+.landing-hero .btn-gold:hover { background: #F2C163; }
+.landing-hero .landing-trust-item svg { color: #E8B24A; }
+.landing-hero .landing-hero-logo { display: none; }
+@media (min-width: 64rem) { .landing-hero .landing-h1 { font-size: clamp(2.5rem, 4.6vw, 4.1rem); } }
+.app-header { border-bottom-color: var(--border); }
+
+/* Masthead: the dark earth ground, in both schemes, so the hero and the bar
+ * above it read as one object. Custom properties are re-declared on the
+ * header itself, so every descendant (links, dropdowns, the CTA) flips with
+ * no per-component rule. */
+:root[data-theme="light"] .app-header {
+  --header-veil: rgba(42, 18, 0, 0.96);
+  --bg-elevated: #3D1C02; --bg-card: #4A2608;
+  --text-primary: #F5E9D4; --text-secondary: #DDCCAE; --text-muted: #BFA783;
+  --border: rgba(245, 233, 212, 0.14); --border-light: rgba(245, 233, 212, 0.24);
+  --primary: #E8B24A; --primary-dark: #F2C163; --primary-deep: #F2C163; --on-fill: #2A1200;
+  --ink: #F5E9D4; --ink-contrast: #2A1200; --accent-ink: #E8B871;
+  --mark-edge: #F5E9D4;
+  color: var(--text-primary);
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+/* Module heroes: the same dark earth band as the landing hero, so every
+ * module opens with the identity rather than a bare heading. Tokens are
+ * re-declared on the band so its text flips without per-element rules. */
+.module-hero {
+  --text-primary: #F5E9D4; --text-secondary: rgba(245, 233, 212, 0.84); --text-muted: #CDBA99;
+  --primary: #E8B24A; --primary-dark: #E8B24A;
+  background:
+    radial-gradient(34rem 16rem at 100% -20%, rgba(200, 134, 10, 0.22), transparent 62%),
+    linear-gradient(180deg, #3D1C02, #2A1200);
+  color: var(--text-primary);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  margin-bottom: var(--space-5);
+}
+.module-hero h1 { color: var(--text-primary); margin-bottom: 0.4rem; }
+.module-hero p:last-child { margin-bottom: 0; max-width: 60ch; }
+.module-hero .page-eyebrow { color: var(--primary); }

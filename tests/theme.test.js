@@ -69,6 +69,20 @@ function rulesStartingWith(source, prefix, from = 0, to = source.length) {
 /* Compare declarations, not formatting. The mirror is indented one level
    deeper because it sits inside a media query, and a whitespace-sensitive
    comparison would fail on that alone and teach everyone to ignore it. */
+/* Split a selector list on top-level commas only. :where(a, button) holds
+   commas that are not list separators; splitting on them once produced a
+   mirror rule with an unclosed paren that swallowed the rest of the stylesheet. */
+function splitList(selector) {
+  const parts = []; let depth = 0; let cur = '';
+  for (const ch of selector) {
+    if (ch === '(' || ch === '[') depth++;
+    if (ch === ')' || ch === ']') depth--;
+    if (ch === ',' && depth === 0) { parts.push(cur.trim()); cur = ''; } else cur += ch;
+  }
+  parts.push(cur.trim());
+  return parts;
+}
+
 function normalise(body) {
   return body
     .split(';')
@@ -92,7 +106,7 @@ test('every data-theme="dark" rule has a twin in the mirror', () => {
   assert.ok(appRules.length > 0, 'no data-theme="dark" rules found — the selector moved');
 
   const mirrorBySelector = new Map(
-    mirrored.map((r) => [r.selector.split(',').map((s) => s.trim()).join(','), r.body])
+    mirrored.map((r) => [splitList(r.selector).join(','), r.body])
   );
 
   const missing = [];
@@ -101,7 +115,7 @@ test('every data-theme="dark" rule has a twin in the mirror', () => {
   for (const rule of appRules) {
     /* Only the parts actually scoped to the dark attribute are mirrored — the
        .logo-mark rule is a list whose other parts are unconditional. */
-    const scoped = rule.selector.split(',').map((s) => s.trim())
+    const scoped = splitList(rule.selector)
       .filter((s) => s.startsWith(DARK_PREFIX))
       .map((s) => s.replace(DARK_PREFIX, MIRROR_PREFIX));
     if (!scoped.length) continue;
@@ -139,4 +153,21 @@ test('the app still stamps a theme before first paint', () => {
   assert.match(index, /dataset\.theme\s*=/,
     'index.html no longer stamps data-theme pre-paint — the prefers-color-scheme '
     + 'mirror was built on the assumption that the app always carries the attribute');
+});
+
+/* A rule with a malformed prelude does not fail loudly: an unclosed paren in
+   a selector (":where(a {") swallows every rule after it, including whole
+   layers, and the sheet still "loads". This is the cheap structural check. */
+test('the stylesheet is structurally balanced: no orphan blocks, no swallowing parens', () => {
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/url\("[^"]*"\)/g, 'url()');
+  let depth = 0; let paren = 0; let minDepth = 0;
+  for (const ch of stripped) {
+    if (ch === '{') depth++;
+    if (ch === '}') { depth--; minDepth = Math.min(minDepth, depth); paren = 0; }
+    if (ch === '(') paren++;
+    if (ch === ')') paren--;
+    assert.ok(paren >= 0, 'a ")" closes a paren that was never opened');
+  }
+  assert.equal(depth, 0, 'unbalanced braces in css/styles.css');
+  assert.equal(minDepth, 0, 'a stray "}" closes something that was never opened — an orphan declaration block');
 });

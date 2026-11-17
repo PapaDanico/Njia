@@ -294,6 +294,7 @@ available in the county" — the difference is the whole point.
 - [Catalogue evidence](${SITE}/research/): which figures are published, derived or unavailable, and how counties are represented.
 - [About the diagnostic](${SITE}/diagnostic/): what the questionnaire measures, how it counts, and why it is an exploration aid and not a validated test.
 - [Privacy](${SITE}/privacy/): what stays on the device, the one form that can send data, and the one step count Njia keeps.
+- [Terms of use](${SITE}/terms/): who publishes Njia (Danico Ventures Ltd), that it is information and not advice, how accurate it is, reuse, liability and governing law.
 - [Accessibility](${SITE}/accessibility/): the WCAG 2.2 AA target, what has been tested, and what has not.
 - [Partnership proposal](${SITE}/docs/): the August 2026 proposal, for funders and partners rather than learners.
 

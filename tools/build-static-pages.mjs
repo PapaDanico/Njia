@@ -1337,7 +1337,7 @@ fs.writeFileSync(path.join(DOCS_OUT, 'index.html'), docsIndexPage(
  * reported, and where sources disagree the page says so instead of picking. The
  * placement criteria for the first CBE cohort are not final, and the page says
  * that rather than guessing at them. */
-const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers'), methodology: path.join(root, 'methodology'), research: path.join(root, 'research'), counsellors: path.join(root, 'counsellors'), 'research/sources': path.join(root, 'research', 'sources') };
+const GUIDANCE_OUT = { pathways: path.join(root, 'pathways'), diagnostic: path.join(root, 'diagnostic'), privacy: path.join(root, 'privacy'), terms: path.join(root, 'terms'), accessibility: path.join(root, 'accessibility'), careers: path.join(root, 'careers'), methodology: path.join(root, 'methodology'), research: path.join(root, 'research'), counsellors: path.join(root, 'counsellors'), 'research/sources': path.join(root, 'research', 'sources') };
 
 const DIAG_CLUSTERS = (() => {
   const ctx = vm.createContext({});
@@ -1545,9 +1545,18 @@ function diagnosticPage() {
  * tested, and says plainly where something has NOT been done. The privacy page
  * mirrors the in-app modal (index.html, openPrivacyModal) claim for claim, so
  * the two cannot disagree; tests/trust-pages.test.js holds the properties. */
+const LEGAL_UPDATED = '17 November 2026';
+const OPERATOR = 'Danico Ventures Ltd';
+
 function privacyPage() {
   const body = `
-<p class="lede">Njia is built so that your answers never leave your phone. This page says exactly what that means, what is the one exception, and the single thing Njia does count. It needs no account because there is no account.</p>
+<p class="lede">Njia is built so that your answers never leave your phone. This page says exactly what that means, who is responsible, what the one exception is, the single thing Njia does count, and what you can ask of us. It needs no account because there is no account. Last updated ${LEGAL_UPDATED}.</p>
+
+<section>
+<h2 id="who">Who is responsible</h2>
+<p>Njia is published by <strong>${OPERATOR}</strong>. For the small amount of information that does reach us (the optional forms, below), ${OPERATOR} decides why and how it is used, which makes it the &ldquo;data controller&rdquo; as Kenya's Data Protection Act 2019 uses that term. Njia's host, Netlify, handles the data on our behalf.</p>
+<p>The contact for anything on this page is <a href="mailto:${CONTACT_EMAIL}?subject=Njia%20privacy%20request">${CONTACT_EMAIL}</a>. Please do not put personal details in a public GitHub issue.</p>
+</section>
 
 <section>
 <h2 id="on-your-device">What stays on your device</h2>
@@ -1557,7 +1566,13 @@ function privacyPage() {
 
 <section>
 <h2 id="exception">The one thing you type that can leave</h2>
-<p>If you choose to submit the optional Feedback or Partner Inquiry form, whatever you type into that form is sent to us. It is the only data that leaves your device, and only if you submit it. Please leave out personal details you would not want read by a stranger.</p>
+<p>If you choose to submit the optional Feedback or Partner Inquiry form, whatever you type into that form is sent to us. A Partner Inquiry also carries the organisation name, your name and your email address, because you are asking us to reply. It is the only data that leaves your device, and only if you submit it. Please leave out personal details you would not want read by a stranger.</p>
+<ul>
+<li><strong>Why we use it.</strong> To read your feedback, reply to an inquiry and improve Njia. Your submission is the consent: nothing is sent unless you press send.</li>
+<li><strong>Who handles it.</strong> The forms are processed by Netlify, which hosts Njia. Netlify's systems may sit outside Kenya, and we have not been able to confirm from Netlify's published material where form submissions are stored. Netlify describes its processing for customers in its <a href="https://www.netlify.com/privacy/">privacy statement</a> and data processing agreement.</li>
+<li><strong>How long we keep it.</strong> For as long as it is useful for replying or improving Njia, and we delete it if you ask.</li>
+<li><strong>Under 18.</strong> Please do not submit either form without a parent or guardian. Njia asks for no age and does not know who you are, so this rests on you.</li>
+</ul>
 </section>
 
 <section>
@@ -1567,7 +1582,13 @@ function privacyPage() {
 </section>
 
 <section>
-<h2 id="your-control">What you can do</h2>
+<h2 id="rights">What you can ask of us</h2>
+<p>Kenya's Data Protection Act 2019 gives people rights over personal data held about them, including to be told how it is used, to see it, to object to its use, and to have it corrected or deleted. For anything you typed into a form, write to the address above and tell us roughly when you sent it and what it said, so we can find it. We will answer, and we will delete it if you ask. Njia holds no profile of you, so for everything else there is nothing for us to look up: it is on your device, and Clear My Data in the app removes it.</p>
+<p>If we have not dealt with your request well, you can complain to the Office of the Data Protection Commissioner. It is free, and the Act sets ninety days for the Commissioner to conclude a complaint: <a href="https://www.odpc.go.ke/file-a-complaint">odpc.go.ke/file-a-complaint</a>.</p>
+</section>
+
+<section>
+<h2 id="your-control">What you can do on your own</h2>
 <ul>
 <li><strong>Back up and move.</strong> The privacy panel in the app exports a backup file, or copies the backup as text if your browser blocks downloads (the WhatsApp, Facebook and Instagram browsers often do). Nothing syncs automatically between devices.</li>
 <li><strong>Wipe it.</strong> On a shared or borrowed phone, use Clear My Data before handing it back. It removes everything Njia stored on that device. It cannot recall a Feedback or Partner Inquiry you already sent.</li>
@@ -1575,15 +1596,95 @@ function privacyPage() {
 </section>
 
 <section>
+<h2 id="breach">If something goes wrong</h2>
+<p>The Act requires a data controller to tell the Data Commissioner within 72 hours of becoming aware of a breach affecting personal data it holds, and to tell the people affected. We would do that. The data at risk is small by design: form submissions and nothing else.</p>
+</section>
+
+<section>
 <h2 id="limits">What this page does not claim</h2>
-<p>Njia has not had a legal review under Kenya's Data Protection Act 2019. Because it holds no personal data on a server, little of the Act should apply, but that is our reading and not legal advice. If that changes, for example by adding accounts, this page changes first.</p>
+<p>Njia has not had a legal review under Kenya's Data Protection Act 2019, and this page is our reading of it, not legal advice. We have not determined whether ${OPERATOR} must register with the Office of the Data Protection Commissioner, and the page does not assume it need not. If Njia adds accounts or collects anything more, this page changes first. The <a href="/terms/">terms of use</a> cover the rest.</p>
 </section>`;
   return guidancePage({
     dir: 'privacy',
     title: 'Privacy: what Njia keeps, what it counts, and what never leaves your phone',
-    description: 'Njia keeps your answers on your device. What stays, the one form that can send data, the one step count it keeps, and how to back up or wipe your data.',
+    description: 'Njia keeps your answers on your device. Who is responsible, the one form that can send data, the one step count it keeps, your rights under Kenya\'s Data Protection Act, and how to back up or wipe your data.',
     h1: 'Privacy: what Njia keeps and what it counts',
     detail: 'Your data and this site &middot; for learners, parents and partners',
+    body
+  });
+}
+
+function termsPage() {
+  const body = `
+<p class="lede">These are the terms for using Njia: what it is, what it is not, what you can rely on and what you cannot. Njia is free, and nothing here asks you to pay or sign up. Last updated ${LEGAL_UPDATED}.</p>
+
+<section>
+<h2 id="operator">Who publishes Njia</h2>
+<p>Njia is published by <strong>${OPERATOR}</strong>. It is independent: it is not affiliated with, endorsed by or sponsored by KUCCPS, HELB, KMTC, TVETA, any university, college, funder or other body named in it. Those names appear because they are real, public institutions that learners are choosing between, not because of any partnership.</p>
+<p>Contact: <a href="mailto:${CONTACT_EMAIL}?subject=Njia">${CONTACT_EMAIL}</a>.</p>
+</section>
+
+<section>
+<h2 id="what-it-is">What Njia is, and is not</h2>
+<p>Njia is an information and exploration tool for people deciding what to do after school in Kenya. It is not career counselling, an admissions service, or financial or legal advice. It does not apply to any institution for you, place you, or secure funding. Whether you are admitted and what you pay are decided by the institution, KUCCPS and the funder, not by Njia.</p>
+<p>The questionnaire is an exploration aid designed by Njia. It is not a validated psychological test and does not predict success in any career.</p>
+</section>
+
+<section>
+<h2 id="accuracy">How accurate it is</h2>
+<p>Njia's rule is that a figure is either sourced or absent. A fee is labelled by how it was obtained: published by the institution, worked out from a published rate, or not available. Where no source could be found, the card says so rather than showing a guess. Entry grades are a preliminary screen: an institution's current requirement, cut-off and intake dates can differ from what Njia lists, and some change every cycle.</p>
+<p>Even so, Njia can be wrong or out of date. <strong>Confirm the course, its entry requirement, its fee, its accreditation and any deadline with the institution, KUCCPS or the funder before you decide or pay anything.</strong> If you find an error, tell us at the address above and we will check it.</p>
+</section>
+
+<section>
+<h2 id="using">Using Njia</h2>
+<ul>
+<li>Use it for yourself, your family, your class or your organisation's own work with young people.</li>
+<li>Do not use it to break the law, to disrupt the service, or to present Njia's figures as if they were an institution's own published statement.</li>
+<li>Automated access to the pages is fine at a reasonable rate; the catalogue is available as downloads on <a href="/open-data/">the open data page</a> and there is no need to scrape it.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="your-data">Your information</h2>
+<p>What you enter stays on your device and is not sent to us. The two optional forms are the exception, and the <a href="/privacy/">privacy page</a> says exactly what they send, who handles it and what you can ask of us. Njia has no accounts.</p>
+</section>
+
+<section>
+<h2 id="content">Content and reuse</h2>
+<p>Njia's catalogue, analysis and pages are published for the public good. You may quote them with a link back to Njia and the date you read them. A formal licence has not been chosen yet; if you need specific terms for a larger use, ask. The institutions' names and the official sources Njia cites remain the property of their owners.</p>
+</section>
+
+<section>
+<h2 id="links">Other websites</h2>
+<p>Njia links to official sites and other tools. We do not control them and are not responsible for what they say or do. Payment never affects how an institution is ranked or what Njia shows for its fees and entry grades, and a paid listing, if one ever exists, is disclosed as one.</p>
+</section>
+
+<section>
+<h2 id="warranty">No warranty, and its limits</h2>
+<p>Njia is provided as it is. We do not promise that it is complete, current, uninterrupted or error-free, or that following it will get you a place, a fee waiver or a job. To the extent the law allows, ${OPERATOR} is not liable for loss that comes from relying on Njia without checking with the institution or funder. Nothing in these terms limits a right you have under Kenyan law that cannot lawfully be limited.</p>
+</section>
+
+<section>
+<h2 id="under-18">If you are under 18</h2>
+<p>Use Njia with a parent, guardian or teacher where you can. Decisions about education and money are better made in conversation, and Njia is a place to prepare for that conversation, not a replacement for it. Please do not submit the Feedback or Partner Inquiry forms without a parent or guardian.</p>
+</section>
+
+<section>
+<h2 id="changes">Changes, and which law applies</h2>
+<p>Njia changes as its data does, and we may update these terms. The date at the top is the date of the current version, and continuing to use Njia after a change means you accept it. These terms are governed by the laws of Kenya, and the courts of Kenya may hear any dispute about them.</p>
+</section>
+
+<section>
+<h2 id="limits">What this page does not claim</h2>
+<p>These terms have not been reviewed by a lawyer. They are written to be read, and they are a plain statement of how Njia is run, not legal advice to you.</p>
+</section>`;
+  return guidancePage({
+    dir: 'terms',
+    title: 'Terms of use: what Njia is, what it is not, and what you can rely on',
+    description: 'The terms for using Njia: who publishes it, that it is information and not advice, how accurate it is, your information, reuse, liability and governing law.',
+    h1: 'Terms of use',
+    detail: 'The rules for using this site &middot; plain English',
     body
   });
 }
@@ -1621,7 +1722,7 @@ function accessibilityPage() {
 <li>No testing with people who use assistive technology has been recorded.</li>
 <li>Reading level has not been tested with learners.</li>
 </ul>
-<p class="note">If something does not work for you, tell us: open an issue at <a href="https://github.com/PapaDanico/Njia/issues">github.com/PapaDanico/Njia/issues</a> and say which page and which device. Njia does not advertise an email address, because the project domain has no mail server configured and anything sent there would bounce silently.</p>
+<p class="note">If something does not work for you, tell us: open an issue at <a href="https://github.com/PapaDanico/Njia/issues">github.com/PapaDanico/Njia/issues</a> and say which page and which device. You can also write to <a href="mailto:${CONTACT_EMAIL}?subject=Njia%20accessibility">${CONTACT_EMAIL}</a>.</p>
 </section>`;
   return guidancePage({
     dir: 'accessibility',
@@ -2041,7 +2142,7 @@ ${items}`;
   });
 }
 
-for (const [dir, render] of [['research/sources', sourcesPage], ['counsellors', counsellorsPage], ['research', researchPage], ['methodology', methodologyPage], ['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['accessibility', accessibilityPage]]) {
+for (const [dir, render] of [['research/sources', sourcesPage], ['counsellors', counsellorsPage], ['research', researchPage], ['methodology', methodologyPage], ['careers', careersPage], ['pathways', pathwaysPage], ['diagnostic', diagnosticPage], ['privacy', privacyPage], ['terms', termsPage], ['accessibility', accessibilityPage]]) {
   fs.mkdirSync(GUIDANCE_OUT[dir], { recursive: true });
   fs.writeFileSync(path.join(GUIDANCE_OUT[dir], 'index.html'), render());
 }
@@ -2078,6 +2179,7 @@ const urls = [
   { loc: `${SITE}/research/`, priority: '0.6', changefreq: 'monthly' },
   { loc: `${SITE}/diagnostic/`, priority: '0.7', changefreq: 'monthly' },
   { loc: `${SITE}/privacy/`, priority: '0.5', changefreq: 'yearly' },
+  { loc: `${SITE}/terms/`, priority: '0.4', changefreq: 'yearly' },
   { loc: `${SITE}/accessibility/`, priority: '0.4', changefreq: 'yearly' },
   { loc: `${SITE}/docs/`, priority: '0.5', changefreq: 'yearly' },
   ...gradePages.map(([g]) => ({ loc: `${SITE}/grades/${GRADE_SLUG[g]}/`, priority: '0.8', changefreq: 'monthly' })),

@@ -1311,7 +1311,7 @@ function renderHomePage() {
             <a href="./privacy/">Privacy</a>
             <a href="./accessibility/">Accessibility</a>
             <button type="button" onclick="openPrivacyModal()">Your data on this device</button>
-            <button type="button" onclick="openTermsModal()">Terms of Use</button>
+            <a href="./terms/">Terms of use</a>
             <button type="button" onclick="openFeedbackModal()">Give feedback</button>
             <button type="button" onclick="openPartnersModal()">Products &amp; partners</button>
           </div>
@@ -1320,6 +1320,7 @@ function renderHomePage() {
           <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong>: Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. The <a href="./methodology/">methodology page</a> names all five fee groups.</p>
           <div class="landing-footer-bottom">
             <span>© 2026 Njia · A free, open pathway for Kenyan youth.</span>
+            <a class="landing-footer-credit" href="./terms/#operator"><img src="./icons/danico-ventures-mark.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Published by Danico Ventures Ltd</span></a>
           </div>
         </div>
       </footer>

@@ -19,7 +19,12 @@
   /* ---------- Site header and footer (tools/site-shell.mjs) ---------- */
   .skip-link { position: absolute; left: -999px; top: 0; background: var(--primary, #8B2500); color: var(--bg, #FAF9F5); padding: .6rem 1rem; z-index: 10; }
   .skip-link:focus { left: .5rem; top: .5rem; }
-  .site-header { margin: -1.5rem 0 1.75rem; border-bottom: 3px solid var(--primary, #8B2500); }
+  .site-header { margin: -1.5rem 0 1.75rem; position: relative; z-index: 4; color: #F5E9D4; --mark-edge: #F5E9D4; }
+  .site-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #2A1200; box-shadow: 0 0 0 100vmax #2A1200; clip-path: inset(0 -100vmax); }
+  .site-header .site-nav a { color: #F5E9D4; }
+  .site-header .site-nav a:hover, .site-header .site-nav a:focus-visible { border-bottom-color: #E8B24A; }
+  .site-header .site-menu summary { border-color: rgba(245, 233, 212, .4); color: #F5E9D4; }
+  .site-header .site-cta { background: #E8B24A; color: #2A1200; border-radius: 999px; }
   .site-header-inner { display: flex; align-items: center; gap: 1.25rem; padding: .7rem 0; position: relative; }
   .site-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }
   .site-mark { width: 19px; height: 28px; display: block; flex: none; }
@@ -106,7 +111,7 @@
      than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
   .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
-  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: .5rem;
+  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: 999px;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
   footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
@@ -274,7 +279,7 @@
   <div class="brief-meta">
     <strong>Machakos County provision brief</strong><br>
     58 courses · 5 open to an E<br>
-    16 November 2026 &middot; njiacareerpathways.work
+    17 November 2026 &middot; njiacareerpathways.work
   </div>
 </div>
 
@@ -867,7 +872,7 @@ publish that data and an invented figure is worse than a missing one.</p>
       <a href="/accessibility/">Accessibility</a>
     </div>
   </div>
-  <p class="site-foot-note">Njia is independent: it is not affiliated with KUCCPS, HELB or any institution, and your answers stay on your device. Figures are counted from the catalogue on 16 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
+  <p class="site-foot-note">Njia is independent: it is not affiliated with KUCCPS, HELB or any institution, and your answers stay on your device. Figures are counted from the catalogue on 17 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
 </footer>
 </body>
 </html>

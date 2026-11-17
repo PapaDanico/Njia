@@ -200,9 +200,9 @@ function renderHelpPage() {
   el.innerHTML = `
     <div class="module-header">
       <div class="module-header-main">
-        <p class="page-eyebrow">Help · Tutorials · Glossary</p>
+        <div class="module-hero"><p class="page-eyebrow">Help · Tutorials · Glossary</p>
         <h1 class="mb-1">How Njia works</h1>
-        <p class="text-secondary mb-2">Everything the app assumes you know, written down: step-by-step walkthroughs for each module, straight answers to the awkward questions, and a glossary of the Kenyan education terms used throughout.</p>
+        <p class="text-secondary mb-2">Everything the app assumes you know, written down: step-by-step walkthroughs for each module, straight answers to the awkward questions, and a glossary of the Kenyan education terms used throughout.</p></div>
       </div>
       <aside class="module-header-aside">
         <p class="decide-rail-title">Quick answers</p>

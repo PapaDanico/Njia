@@ -3491,3 +3491,8 @@ p, li { text-wrap: pretty; }
 .module-hero h1 { color: var(--text-primary); margin-bottom: 0.4rem; }
 .module-hero p:last-child { margin-bottom: 0; max-width: 60ch; }
 .module-hero .page-eyebrow { color: var(--primary); }
+
+/* Operator credit: a small mark and one line, in the footer only. */
+.landing-footer-credit { display: inline-flex; align-items: center; gap: 0.6rem; color: inherit; text-decoration: none; font-size: var(--fs-sm); }
+.landing-footer-credit img { width: 24px; height: 24px; border-radius: var(--radius-xs); display: block; }
+.landing-footer-credit:hover span, .landing-footer-credit:focus-visible span { text-decoration: underline; text-underline-offset: 0.2em; }

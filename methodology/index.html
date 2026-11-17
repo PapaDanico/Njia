@@ -57,6 +57,10 @@
   .site-foot-title { margin: 0 0 .6rem; font-size: var(--fs-xs, .75rem); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E7C887; }
   .site-foot-col a { display: block; color: #F5E9D4; text-decoration: none; padding: .3rem 0; }
   .site-foot-col a:hover, .site-foot-col a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
+  .site-credit { margin: 1.5rem 0 0; font-size: var(--fs-sm, .8125rem); }
+  .site-credit a { display: inline-flex; align-items: center; gap: .6rem; color: #F5E9D4; text-decoration: none; }
+  .site-credit a:hover span, .site-credit a:focus-visible span { text-decoration: underline; text-underline-offset: .2em; }
+  .site-credit img { width: 28px; height: 28px; border-radius: 6px; display: block; }
   .site-foot-note { margin: 1.75rem 0 0; padding-top: 1.1rem; border-top: 1px solid #5A3A1E; font-size: var(--fs-sm, .8125rem); color: #D9C8A5; max-width: 62rem; }
   @media (min-width: 48rem) { .site-foot-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   .bar-th, .bar-td { width: 30%; padding-left: 1rem; }
@@ -383,9 +387,11 @@
     <div class="site-foot-col">
       <p class="site-foot-title">Trust</p>
       <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms of use</a>
       <a href="/accessibility/">Accessibility</a>
     </div>
   </div>
+  <p class="site-credit"><a href="/terms/#operator"><img src="/icons/danico-ventures-mark.png" alt="" width="28" height="28" loading="lazy" decoding="async"><span>Published by Danico Ventures Ltd</span></a></p>
   <p class="site-foot-note">Njia is independent: it is not affiliated with KUCCPS, HELB or any institution, and your answers stay on your device. Figures are counted from the catalogue on 17 November 2026 and describe what Njia has listed, not everything that exists in Kenya.</p>
 </footer>
 </body>

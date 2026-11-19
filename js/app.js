@@ -1141,7 +1141,6 @@ function renderHomePage() {
         <div class="landing-hero-main">
           <svg class="landing-hero-logo" viewBox="0 0 64 96" width="43" height="64" role="img" aria-label="Njia"><use href="#i-njia"/></svg>
           <p class="landing-hero-eyebrow">Career pathway intelligence · Kenya</p>
-          <span class="status-pill mb-2"><span class="dot" aria-hidden="true"></span>Research-backed method · Real Kenyan data · Always free</span>
           <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
           <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
           <p class="landing-proverb">Whatever your grade or your budget, there is a route. This is where you find the first step.</p>
@@ -1298,11 +1297,10 @@ function renderHomePage() {
         <div class="landing-footer-grid">
           <div class="landing-footer-brand">
             <div class="flex items-center gap-1"><svg class="logo-mark" viewBox="0 0 64 96" width="19" height="28" aria-hidden="true"><use href="#i-njia"/></svg><strong style="color:#F5E9D4">Njia</strong></div>
-            <p>Free career-pathway guidance for Kenyan youth. Independent: unaffiliated with KUCCPS, HELB or any institution, and everything computes on your device. <button type="button" class="footer-inline-link" onclick="openAboutModal()">Read more about Njia</button></p>
+            <p>Not affiliated with KUCCPS, HELB or any institution. <button type="button" class="footer-inline-link" onclick="openAboutModal()">Read more about Njia</button></p>
           </div>
           <div class="landing-footer-col">
             <p class="footer-col-label">Explore</p>
-            <button type="button" onclick="navigateTo('discover')">Start Discovery</button>
             <a href="./grades/">Courses by grade</a>
             <a href="./counties/">Courses by county</a>
             <a href="./careers/">Careers by direction</a>
@@ -1324,19 +1322,17 @@ function renderHomePage() {
             <a href="./docs/">Partnership proposal</a>
           </div>
           <div class="landing-footer-col">
-            <p class="footer-col-label">Trust</p>
+            <p class="footer-col-label">About</p>
             <a href="./privacy/">Privacy</a>
             <a href="./accessibility/">Accessibility</a>
-            <button type="button" onclick="openPrivacyModal()">Your data on this device</button>
             <a href="./terms/">Terms of use</a>
             <button type="button" onclick="openFeedbackModal()">Give feedback</button>
-            <button type="button" onclick="openPartnersModal()">Products &amp; partners</button>
           </div>
         </div>
         <div class="landing-footer-legal">
           <p class="landing-footer-sources">Sources: KUCCPS 2025/26 placement · Ministry of Education, July 2026 · World Bank modelled ILO youth unemployment, 2025 · KNBS Economic Survey 2026. <strong>No course here carries an employment rate or a salary</strong>: Kenya publishes no graduate outcomes per course, so Njia prints nothing rather than an estimate. The <a href="./methodology/">methodology page</a> names all five fee groups.</p>
           <div class="landing-footer-bottom">
-            <span>© 2026 Njia · A free, open pathway for Kenyan youth.</span>
+            <span>© 2026 Njia</span>
             <a class="landing-footer-credit" href="./terms/#operator"><img src="./icons/danico-ventures-mark.png" alt="" width="24" height="24" loading="lazy" decoding="async"><span>Published by Danico Ventures Ltd</span></a>
           </div>
         </div>

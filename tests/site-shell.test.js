@@ -56,7 +56,7 @@ test('every link in the shared header and footer points at a real page', async (
 
 test('the shell prints nothing: header and footer are hidden on paper, the brief head is not', () => {
   const html = fs.readFileSync(path.join(root, 'counties', 'nairobi', 'index.html'), 'utf8');
-  assert.match(html, /@media print \{ \.skip-link, \.site-header, \.site-footer \{ display: none !important; \} \}/);
+  assert.match(html, /@media print \{ \.skip-link, \.site-identity, \.site-header, \.site-footer \{ display: none !important; \} \}/);
   assert.match(html, /<div class="brief-head">/);
 });
 

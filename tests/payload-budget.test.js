@@ -138,7 +138,13 @@ test('the critical path stays inside its byte budget', () => {
      evidence block on every course and funding card, so it is linked from index.html
      and counts as critical path (+0.3KB). It is growth with a reader-facing purpose,
      not a regression; measured 115.3KB before the raise. */
-  const CEILING = 116 * 1024;
+  /* Raised 116 -> 119KB deliberately (19 Nov 2026): the institutional redesign
+     adds an identity bar to the served HTML and one CSS layer, measured at
+     116.7KB. That is growth a reader sees (the masthead, the page headers, the
+     footer bar), not catalogue wired to the wrong side of the split, and the
+     catalogue-off-path guard above is unchanged. The Source Serif face is a
+     separate file loaded with font-display: swap, so it is not on this path. */
+  const CEILING = 119 * 1024;
   const files = criticalPath();
   const sizes = files.map((f) => [f, gz(f)]).sort((a, b) => b[1] - a[1]);
   const total = sizes.reduce((n, [, s]) => n + s, 0);

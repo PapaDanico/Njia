@@ -1148,6 +1148,13 @@ function renderHomePage() {
         </div>
         <div class="landing-hero-aside">
           ${renderApplicationClock()}
+          <nav class="landing-paths" aria-label="Start where you are">
+            <p class="landing-paths-title">Start where you are</p>
+            <a href="./grades/">By your KCSE grade <span>Every course your grade opens</span></a>
+            <a href="./counties/">By county <span>What is taught near home</span></a>
+            <a href="./careers/">By career <span>Where each course leads</span></a>
+            <a href="./pathways/">The pathways explained <span>KCSE, CBE, TVET and university</span></a>
+          </nav>
         </div>
       </section>
 

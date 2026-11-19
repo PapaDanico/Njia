@@ -85,6 +85,48 @@ the incidents below are still the cheapest way to avoid repeating them. What
 changed is their standing. When a note here and the reader's interests disagree,
 the reader wins, and the note gets amended.
 
+## Design reference: university flagship sites (19 November 2026)
+
+The maintainer asked for Njia to take the **design** of the Harvard and Stanford
+flagship sites, **not their content**. That is now the standing design
+reference, and it is compatible with the rule that nothing here imitates an
+institution's identity, because what is taken is structure, never marks:
+
+- **Taken (design grammar, from Stanford's published identity rules, its
+  Decanter system and the HarvardSites design system, read via WebSearch):** an
+  identity bar at the very top with nothing above it but the skip link; one
+  signature colour above and in the navigation; a white masthead with
+  sentence-case links; serif display type on a modular scale; square controls
+  and hairline cards; page headers marked by a short rule; prose links
+  underlined; a local footer above a global footer bar with nothing below it;
+  the full width used, with prose capped and the rest flowed into columns.
+- **Not taken, ever:** either university's name, crest, wordmark, crimson or
+  cardinal red, photography, copy, or anything a reader could mistake for an
+  endorsement. Njia's signature colour stays terracotta `#8B2500` on white,
+  with earth brown as its near-black.
+- **Typeface.** Source Serif 4 (SIL OFL 1.1, `fonts/OFL.txt`), one weight,
+  Latin subset, 21KB, declared across 600-700 so no bold is synthesised, with
+  `font-display: swap`. It is cached by the service worker and is not on the
+  critical path the payload guard measures. Body text stays the system sans.
+- **Full width means columns, not a stretched measure.** Prose pages flow into
+  CSS columns at 64rem and up (three at 100rem). Columns rather than a grid,
+  because a grid row is as tall as its tallest cell and leaves blank space, the
+  Connect two-up lesson recorded below. Tables, figures, the title and the lede
+  span all columns.
+
+**Benchmarked**, local Lighthouse 12 against `python3 -m http.server` (no gzip,
+so mobile Performance reads lower than production), before and after:
+home mobile 74 to 84, terms 99 to 98, Nairobi 95 to 94; desktop 100 throughout;
+Accessibility, Best Practices and SEO 100 throughout; CLS 0.000 to 0.001. The
+differences sit inside run-to-run noise; read them as "no regression", not as a
+gain.
+
+**The redesign found a stylesheet defect older than it.** An unclosed
+`:where(a` in the dark-scheme mirror swallowed every rule written after it, so
+new CSS silently did not apply. `tests/theme.test.js` now fails on unbalanced
+braces or parens. If a CSS change appears to do nothing, check the parse before
+the cascade.
+
 ## Research: use WebSearch, never WebFetch
 
 **Do not use WebFetch on this project.** It is not a preference, it is a

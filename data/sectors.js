@@ -239,7 +239,7 @@ const SECTORS = [
     id: 'transport',
     name: 'Rail, roads and transport infrastructure',
     broad: 'services',
-    match: /railway|highway|road construction|transport|plant operation/i,
+    match: /railway|highway|road construction|transport|plant operation|driving instruct|driving school/i,
     awardingBodies: ['Railway Training Institute', 'KIHBT', 'TVET CDACC'],
     knbs: { series: 'Transportation and storage', mapping: 'exact', growth: 3.7 },
     caution: 'Below the whole-economy rate. Much of the training here is run by state corporations for their own intake rather than open entry.'
@@ -329,7 +329,7 @@ const SECTORS = [
     id: 'humanities',
     name: 'Languages, humanities and religious studies',
     broad: 'services',
-    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|\bbible\b|intercultural studies|church educational|christian ministr|christian mission|urban mission|chaplainc|divinity|linguistic|literature|\bfrench\b|kiswahili|language and communication|philosoph|ethic/i,
+    match: /arabic|islamic studies|sharia|religious studies|theolog|biblical|\bbible\b|intercultural studies|church educational|christian ministr|christian mission|urban mission|chaplainc|divinity|spirituality|religious formation|linguistic|literature|\bfrench\b|kiswahili|language and communication|philosoph|ethic/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'These programmes most often lead into teaching, translation, media or further study, and Kenya publishes no graduate-outcome data for any of them. Where teaching is the intended destination, read the note on the education sector too - entry to the classroom runs through the TSC employment queue.'
@@ -369,7 +369,7 @@ const SECTORS = [
  * written: it moves exactly one record, and the three "media technology"
  * names that are genuinely about production tooling already resolve to
  * Creative and do not match it. */
-const JOURNALISM_AWARD = /\b(journalis|mass communication|media studies|broadcast)/i;
+const JOURNALISM_AWARD = /\b(journalis|mass communication|media studies|broadcast|animation)/i;
 
 /* AGRIBUSINESS IS AGRICULTURE, AND THE SECTOR'S OWN NAME SAYS SO.
  *

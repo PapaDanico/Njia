@@ -1658,22 +1658,11 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   }
 }
 
-/* ---------- Header brand lockup (Kanda pattern) ----------
- * Mark + wordmark + a descriptor line, so the header says what this is
- * without spending a nav slot on it. The descriptor drops on phones
- * where the space genuinely is not there. */
+/* ---------- Header brand lockup ----------
+ * Mark + wordmark only. The one-line description lives in the identity bar
+ * above, so the header does not say it a second time. */
 .logo-lockup { display: flex; flex-direction: column; line-height: 1.05; }
 .logo-word { font-family: var(--serif); font-weight: 700; font-size: 1.05rem; }
-.logo-descriptor {
-  display: none;
-  font-size: var(--fs-xs); font-weight: 700;
-  text-transform: uppercase; letter-spacing: 1.2px;
-  color: var(--text-muted);
-  margin-top: 2px;
-}
-@media (min-width: 720px) { .logo-descriptor { display: block; } }
-/* The full nav needs the room between 1024 and 1280px. */
-@media (min-width: 1024px) and (max-width: 1279px) { .logo-descriptor { display: none; } }
 /* Nav sits hard right against the utility icons rather than floating. */
 @media (min-width: 1024px) { .landing-nav { margin-left: auto; margin-right: 1.25rem; } }
 
@@ -3449,16 +3438,7 @@ p, li { text-wrap: pretty; }
   background: #8B2500; color: #F5E9D4;
   font-size: var(--fs-sm);
 }
-.identity-bar a { color: #F5E9D4; text-decoration: none; }
-.identity-bar a:hover, .identity-bar a:focus-visible { text-decoration: underline; text-underline-offset: 0.2em; }
-.identity-bar-name { font-family: var(--serif); font-weight: 600; font-size: 1rem; letter-spacing: 0.01em; }
-.identity-bar-name { display: none; }
-.identity-bar-links { margin-left: auto; display: none; gap: 1.5rem; }
-@media (min-width: 48rem) {
-  .identity-bar { padding: 0.3rem 1.5rem; }
-  .identity-bar-name { display: inline; }
-  .identity-bar-links { display: flex; }
-}
+@media (min-width: 48rem) { .identity-bar { padding: 0.3rem 1.5rem; } }
 
 /* Masthead: white, hairline, sentence-case navigation. */
 :root[data-theme="light"] .app-header { --header-veil: #FFFFFF; box-shadow: none; }

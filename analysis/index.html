@@ -22,12 +22,6 @@
   .site-identity { margin: -1.5rem 0 0; position: relative; z-index: 5; color: #F5E9D4; font-size: var(--fs-sm, .8125rem); }
   .site-identity::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #8B2500; box-shadow: 0 0 0 100vmax #8B2500; clip-path: inset(0 -100vmax); }
   .site-identity-inner { display: flex; align-items: center; gap: 1rem; min-height: 2.25rem; padding: .3rem 0; }
-  .site-identity a { color: #F5E9D4; text-decoration: none; }
-  .site-identity a:hover, .site-identity a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
-  .site-identity-name { font-family: var(--serif, Georgia, serif); font-weight: 600; font-size: 1rem; }
-  .site-identity-tag, .site-identity-links { display: none; }
-  .site-identity-links { margin-left: auto; gap: 1.5rem; }
-  @media (min-width: 48rem) { .site-identity-tag { display: inline; } .site-identity-links { display: flex; } }
   .site-header { margin: 0 0 1.75rem; position: relative; z-index: 4; }
   .site-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--bg-elevated, #fff); box-shadow: 0 0 0 100vmax var(--bg-elevated, #fff); clip-path: inset(0 -100vmax); }
   .site-header::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--border, #E4DCCB); box-shadow: 0 0 0 100vmax var(--border, #E4DCCB); clip-path: inset(0 -100vmax); }
@@ -189,13 +183,11 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<nav class="site-identity" aria-label="Utility">
+<aside class="site-identity" aria-label="About Njia">
   <div class="site-identity-inner">
-    <a class="site-identity-name" href="/">Njia</a>
     <span class="site-identity-tag">Free, independent career pathways for Kenya</span>
-    <span class="site-identity-links"><a href="/help/">Help</a><a href="/open-data/">Open data</a><a href="/privacy/">Privacy</a></span>
   </div>
-</nav>
+</aside>
 <header class="site-header">
   <div class="site-header-inner">
     <a class="site-brand" href="/" aria-label="Njia home"><svg class="site-mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 96"> <style> @media (prefers-color-scheme: dark) { .mark-edge { stroke: #F5E9D4; } } </style> <defs> <clipPath id="njia-leaf-site"> <path d="M32 6.6C40.3 19.5 54.1 34.2 54.1 48 54.1 61.8 40.3 76.5 32 89.4 23.7 76.5 9.9 61.8 9.9 48 9.9 34.2 23.7 19.5 32 6.6Z"/> </clipPath> </defs> <path d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="#F5E9D4"/> <g clip-path="url(#njia-leaf-site)"> <rect width="64" height="96" fill="#8B2500"/> <path d="M0 54 64 60V96H0Z" fill="#3D1C02"/> <path d="M32 50 64 38V62Z" fill="#C8860A"/> </g> <g clip-path="url(#njia-leaf-site)"> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round"/> <path d="M28 85c1-11 9-14 9-22 0-9-5-13-5-19V23" fill="none" stroke="#3D1C02" stroke-width="1" stroke-linecap="round" stroke-dasharray="2.5 4" opacity=".45"/> </g> <path d="m23 33 9-11 9 11" fill="none" stroke="#F5E9D4" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/> <path class="mark-edge" d="M32 3C41 17 56 33 56 48 56 63 41 79 32 93 23 79 8 63 8 48 8 33 23 17 32 3Z" fill="none" stroke="var(--mark-edge, #3D1C02)" stroke-width="2.8" stroke-linejoin="miter"/> </svg><span class="site-word">Njia</span></a>
@@ -1103,7 +1095,6 @@ the difference is the whole point of the box at the top.</p>
   <div class="site-foot-grid">
     <div class="site-foot-col">
       <p class="site-foot-title">Explore</p>
-      <a href="/#discover">Start Discovery</a>
       <a href="/grades/">Courses by grade</a>
       <a href="/counties/">Courses by county</a>
       <a href="/careers/">Careers by direction</a>
@@ -1125,7 +1116,7 @@ the difference is the whole point of the box at the top.</p>
       <a href="/docs/">Partnership proposal</a>
     </div>
     <div class="site-foot-col">
-      <p class="site-foot-title">Trust</p>
+      <p class="site-foot-title">About</p>
       <a href="/privacy/">Privacy</a>
       <a href="/terms/">Terms of use</a>
       <a href="/accessibility/">Accessibility</a>

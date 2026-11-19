@@ -47,7 +47,6 @@ export const COUNSELLOR_LINK = { href: '/counsellors/', label: 'Counsellors' };
 /* Footer: four columns. */
 export const FOOTER_COLUMNS = [
   { title: 'Explore', links: [
-    { href: '/#discover', label: 'Start Discovery' },
     { href: '/grades/', label: 'Courses by grade' },
     { href: '/counties/', label: 'Courses by county' },
     { href: '/careers/', label: 'Careers by direction' },
@@ -60,7 +59,7 @@ export const FOOTER_COLUMNS = [
     { href: '/diagnostic/', label: 'About the questionnaire' },
     { href: '/docs/', label: 'Partnership proposal' }
   ] },
-  { title: 'Trust', links: [
+  { title: 'About', links: [
     { href: '/privacy/', label: 'Privacy' },
     { href: '/terms/', label: 'Terms of use' },
     { href: '/accessibility/', label: 'Accessibility' }
@@ -74,13 +73,11 @@ export function siteHeader() {
   const panel = EVIDENCE_LINKS.map(link).join('\n          ');
   const all = [...HEADER_LINKS, ...EVIDENCE_LINKS, COUNSELLOR_LINK].map(link).join('\n      ');
   return `<a class="skip-link" href="#main">Skip to content</a>
-<nav class="site-identity" aria-label="Utility">
+<aside class="site-identity" aria-label="About Njia">
   <div class="site-identity-inner">
-    <a class="site-identity-name" href="/">Njia</a>
     <span class="site-identity-tag">Free, independent career pathways for Kenya</span>
-    <span class="site-identity-links"><a href="/help/">Help</a><a href="/open-data/">Open data</a><a href="/privacy/">Privacy</a></span>
   </div>
-</nav>
+</aside>
 <header class="site-header">
   <div class="site-header-inner">
     <a class="site-brand" href="/" aria-label="Njia home">${MARK}<span class="site-word">Njia</span></a>
@@ -126,12 +123,6 @@ export const SITE_SHELL_CSS = `
   .site-identity { margin: -1.5rem 0 0; position: relative; z-index: 5; color: #F5E9D4; font-size: var(--fs-sm, .8125rem); }
   .site-identity::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #8B2500; box-shadow: 0 0 0 100vmax #8B2500; clip-path: inset(0 -100vmax); }
   .site-identity-inner { display: flex; align-items: center; gap: 1rem; min-height: 2.25rem; padding: .3rem 0; }
-  .site-identity a { color: #F5E9D4; text-decoration: none; }
-  .site-identity a:hover, .site-identity a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
-  .site-identity-name { font-family: var(--serif, Georgia, serif); font-weight: 600; font-size: 1rem; }
-  .site-identity-tag, .site-identity-links { display: none; }
-  .site-identity-links { margin-left: auto; gap: 1.5rem; }
-  @media (min-width: 48rem) { .site-identity-tag { display: inline; } .site-identity-links { display: flex; } }
   .site-header { margin: 0 0 1.75rem; position: relative; z-index: 4; }
   .site-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--bg-elevated, #fff); box-shadow: 0 0 0 100vmax var(--bg-elevated, #fff); clip-path: inset(0 -100vmax); }
   .site-header::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--border, #E4DCCB); box-shadow: 0 0 0 100vmax var(--border, #E4DCCB); clip-path: inset(0 -100vmax); }

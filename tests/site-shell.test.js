@@ -80,3 +80,28 @@ test('the app footer and menus carry every link the shared shell carries', async
     assert.ok(nav.includes(`href="${rel(l.href)}"`), `app nav lacks ${l.href} (${l.label})`);
   }
 });
+
+/* Each destination gets one place in the footer, and the identity bar carries
+   no links of its own: the header, the identity bar and the footer used to
+   repeat Help, Open data, Privacy and Start Discovery in all three. */
+test('the shell does not repeat a destination', () => {
+  for (const file of pages()) {
+    const html = fs.readFileSync(file, 'utf8');
+    const foot = (html.match(/<footer class="site-footer">([\s\S]*?)<\/footer>/) || [])[1];
+    if (!foot) continue;
+    const hrefs = [...foot.matchAll(/href="([^"]+)"/g)].map((m) => m[1]);
+    const dupes = hrefs.filter((h, i) => hrefs.indexOf(h) !== i);
+    assert.deepStrictEqual(dupes, [], `${path.relative(root, file)} footer repeats ${dupes.join(', ')}`);
+    const idBar = (html.match(/<aside class="site-identity"[\s\S]*?<\/aside>/) || [''])[0];
+    assert.ok(!/<a /.test(idBar), `${path.relative(root, file)} identity bar carries links again`);
+  }
+  const app = fs.readFileSync(path.join(root, 'js/app.js'), 'utf8');
+  const footer = app.slice(app.indexOf('<footer class="landing-footer">'), app.indexOf('</footer>', app.indexOf('<footer class="landing-footer">')));
+  const labels = [...footer.matchAll(/>([^<>]{3,})<\/(?:a|button)>/g)].map((m) => m[1].trim());
+  const dupes = labels.filter((l, i) => labels.indexOf(l) !== i);
+  assert.deepStrictEqual(dupes, [], `app footer repeats ${dupes.join(', ')}`);
+  assert.ok(!/Start Discovery/.test(footer), 'the app footer repeats the Start Discovery call to action the header already carries');
+  const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const bar = (index.match(/<aside class="identity-bar"[\s\S]*?<\/aside>/) || [''])[0];
+  assert.ok(bar && !/<a /.test(bar), 'the app identity bar carries links again');
+});

@@ -6875,3 +6875,15 @@ the one-year against one-and-a-half-year conflict left as an empty duration.
 Commercial pilot training stays a lead: the KCAA list names schools at Wilson,
 but a CPL requires a PPL and a class 1 medical, and no KCSE-entry route was
 found. The sector register needed `mortuar` and `mortician`.
+
+**Header and footer de-duplicated, 19 November 2026.** The maintainer called the
+shell repetitive, and it was: "Njia" printed twice at the top (identity bar and
+logo), two different taglines one line apart, Help, Open data and Privacy in
+the identity bar *and* the menus *and* the footer, Start Discovery in the
+header, the hero and the footer, and the word "free" four times above the fold.
+Now the identity bar carries one sentence and no links (an `<aside>`, so axe
+still finds it in a landmark), the logo is mark and word only, the hero pill is
+gone (the eyebrow and the trust row already said it), and the footers lost
+Start Discovery, the second privacy entry and the second partners entry. The
+rule: **each destination gets one place in the header and at most one in the
+footer.** Before adding a link to the shell, search for it there first.

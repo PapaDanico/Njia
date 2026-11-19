@@ -6887,3 +6887,43 @@ gone (the eyebrow and the trust row already said it), and the footers lost
 Start Discovery, the second privacy entry and the second partners entry. The
 rule: **each destination gets one place in the header and at most one in the
 footer.** Before adding a link to the shell, search for it there first.
+
+**The research workflow, 19 November 2026, and what its corrections fixed.**
+Eight researchers worked one gap area each, and a verifier per area tried to
+refute their candidates. **The first verification pass dropped every candidate
+without running a search**, because the researchers had used up the session's
+shared WebSearch allowance (about 200 calls per turn). Its "drop" meant
+"unchecked", not "refuted". A verifier must be able to say unchecked, and a
+workflow has to budget its searches across stages, not only across agents.
+
+Five corrections came out of the research and were checked by hand before
+being written:
+
+- **KMTC's community health nursing diploma asks a C plain, not C+.** KMTC's
+  own September 2025 and September 2026 pre-service adverts say so. Forty-five
+  KMTC records carried C+, quoting the grade one step high and hiding the card
+  from C-plain learners. Corrected, with the subject-grade disagreement between
+  the two adverts in the note. The mission-college notes no longer call
+  themselves more open than KMTC. The **length** stays parked: KMTC's general
+  programmes page says three and a half years, its nursing department page says
+  three, and the note now tells the reader to ask about a further half-year
+  charge.
+- **Kenya Red Cross c367 carried a diploma's fee as an observed certificate
+  fee.** The Ksh 300,000 and the 12 months belong to the Diploma in
+  Paramedicine. Fee, length and `fee_observed` withdrawn, and the two certificate
+  figures found (90,000 a year, 115,000 total) reported instead.
+- **College of Insurance c431 and c432 showed the middle of a fee band.** That
+  is the midpoint trap this file forbids. Both are now null, with the band
+  reported. c432 is renamed to the college's own award name, the Craft Course
+  in Insurance.
+- **Primary teacher education is closed to new KCSE leavers for 2026.**
+  KUCCPS limited the September 2026 intake to serving P1 teachers, and its
+  2026 FAQ lists the diploma as not available. The six TTC records keep their
+  fee and say so first, ahead of the employment-queue warning, which still
+  leads within the first 120 characters.
+- **KIM's accreditation is in dispute.** TVETA revoked it on 20 April 2026,
+  and the High Court suspended that order two days later. Both KIM records say
+  so.
+
+NYOTA's Ksh 6,000 monthly stipend is now reported by two outlets independently
+and sits in the description, not the amount field.

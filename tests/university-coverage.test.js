@@ -282,13 +282,13 @@ const KMTC_CAMPUSES_CLAIMED_LOW = 71;
 /* Campuses confirmed to exist by search and absent from the register. Add to
    this list whenever one surfaces; remove a name only when it is LISTED. */
 const KNOWN_MISSING_KMTC = [
-  /* Maua and Miathene both closed 13 Sep 2026. */
-  'Imenti (Meru County, announced by the county government)',
+  /* Maua and Miathene closed 13 Sep 2026; Imenti, with Mwingi, Gatundu,
+     Othaya, Sigowet, Molo, Kombewa, Loitokitok and Kangundo, 19 Nov 2026. */
 ];
 
 test('KMTC campus coverage never regresses, and the gap stays named', () => {
   const campuses = INSTITUTIONS.filter((i) => /^kmtc/.test(i.id));
-  const MIN_KMTC_LISTED = 49;
+  const MIN_KMTC_LISTED = 58;
 
   assert.ok(campuses.length >= MIN_KMTC_LISTED,
     `Njia lists ${campuses.length} KMTC campuses, down from ${MIN_KMTC_LISTED}. `

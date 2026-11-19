@@ -6927,3 +6927,31 @@ being written:
 
 NYOTA's Ksh 6,000 monthly stipend is now reported by two outlets independently
 and sits in the description, not the amount field.
+
+**What the research workflow added, 19 November 2026.** After the second
+verification pass, 36 courses, 12 institutions and 5 funding records went in.
+The **unchecked** candidates stayed out as leads: 17 thin-TVET diplomas at
+Borabu, Bureti, Kinango, Ebukanga, Bumbe and Eldama Ravine, 7 Tharaka
+University degrees, and four KMTC campus programmes. The two-sighting standard
+still applies to them.
+
+- **Nine KMTC campuses**, each with at least one course: Imenti, Mwingi,
+  Gatundu, Othaya, Sigowet, Molo, Kombewa, Loitokitok and Kangundo. The register
+  holds 58 campuses, so `KNOWN_MISSING_KMTC` is empty and the ratchet is 58.
+  Machakos gains Occupational Therapy and Clinical Medicine, and Trans Nzoia
+  (Kitale) gains Clinical Medicine, which closes the Kitale lead.
+- **Programme families that were absent:** audiology (KU's hearing health
+  diploma and certificate), animation (Multimedia, USIU, and ADMI as a new
+  institution) and driving instruction (Kisumu National Polytechnic).
+- **Funding at the bottom of the grade range:** Bomet's VTC full scholarship,
+  Elgeyo Marakwet's free county VTC tuition, the Turkana County Education
+  Fund, Safaricom Foundation Wezesha Vijana (Nairobi, Isiolo and Marsabit),
+  and Nakuru's county VTC capitation. None has an amount, because each
+  publishes only pools; none has a date.
+- **Sector register:** `animation` joins the journalism-award precedence,
+  because "Animation and Digital Media" filed under ICT on the word
+  "digital". `driving instruct` and `spirituality|religious formation` were
+  missing words. No course is left without a sector.
+- **The CATALOGUE_ROLES guard caught a casing duplicate**: "Motion graphics
+  artist" sat beside "Motion Graphics Artist". The new records' career paths
+  are Title Case, the catalogue's convention.

@@ -10,39 +10,39 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 1401,
-  "distinctProgrammes": 731,
-  "institutions": 218,
+  "courses": 1437,
+  "distinctProgrammes": 742,
+  "institutions": 230,
   "counties": 47,
   "published": 13,
-  "derived": 329,
-  "withNote": 1401,
-  "feeAbsent": 955,
-  "feeAbsentStated": 955,
+  "derived": 343,
+  "withNote": 1437,
+  "feeAbsent": 977,
+  "feeAbsentStated": 977,
   "sectorRoutes": {
     "aviation": 22,
     "maritime": 11,
     "mining": 9,
     "hospitality": 58,
     "built": 57,
-    "admin": 100,
-    "finance": 173,
-    "ict": 115,
+    "admin": 102,
+    "finance": 174,
+    "ict": 118,
     "supplychain": 25,
-    "transport": 3,
+    "transport": 4,
     "agriculture": 149,
-    "engineering": 126,
-    "health": 337,
+    "engineering": 131,
+    "health": 357,
     "education": 91,
-    "creative": 44,
+    "creative": 47,
     "energy": 9,
     "water": 4,
     "legal": 16,
     "sciences": 12,
-    "humanities": 21,
+    "humanities": 22,
     "personal": 19
   },
-  "fundingSources": 32,
+  "fundingSources": 37,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -155,6 +155,26 @@ const LANDING_STATS = {
     {
       "name": "NITA and the Government of Denmark - Kenya TVET Project construction-trade scholarships",
       "application_deadline": "The call found was for the September 2025 intake at NITA Athi River. No 2026 intake is published in any source reachable from this build, so check nita.go.ke."
+    },
+    {
+      "name": "Bomet County Full Scholarship (VTC trainees)",
+      "application_deadline": "No open window published on 19 November 2026; ask the provider when the next round opens."
+    },
+    {
+      "name": "Elgeyo Marakwet County free VTC tuition",
+      "application_deadline": "No open window published on 19 November 2026; ask the provider when the next round opens."
+    },
+    {
+      "name": "Turkana County Education Fund (bursaries and scholarships)",
+      "application_deadline": "No open window published on 19 November 2026; ask the provider when the next round opens."
+    },
+    {
+      "name": "Safaricom Foundation Wezesha Vijana / TVET Mashinani",
+      "application_deadline": "No open window published on 19 November 2026; ask the provider when the next round opens."
+    },
+    {
+      "name": "Nakuru County VTC capitation and tuition support",
+      "application_deadline": "No open window published on 19 November 2026; ask the provider when the next round opens."
     }
   ]
 };

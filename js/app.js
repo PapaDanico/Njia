@@ -268,6 +268,16 @@ function toggleMobileMenu() {
   if (!menu || !toggle) return;
   const isOpen = menu.classList.toggle('open');
   toggle.setAttribute('aria-expanded', String(isOpen));
+  /* Open directly under the header's real bottom edge. The identity bar above
+     the header moved it down, and a sticky header sits at the top once the
+     page is scrolled, so a fixed offset either covered the close button or
+     opened off-screen. */
+  if (isOpen) {
+    const header = document.querySelector('.app-header');
+    const top = header ? Math.max(0, Math.round(header.getBoundingClientRect().bottom)) : 0;
+    menu.style.top = top + 'px';
+    menu.style.maxHeight = 'calc(100vh - ' + top + 'px)';
+  }
 }
 
 function closeMobileMenu() {

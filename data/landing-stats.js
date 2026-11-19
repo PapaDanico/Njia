@@ -10,18 +10,18 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 1392,
-  "distinctProgrammes": 722,
-  "institutions": 217,
+  "courses": 1398,
+  "distinctProgrammes": 728,
+  "institutions": 218,
   "counties": 47,
   "published": 14,
-  "derived": 327,
-  "withNote": 1392,
-  "feeAbsent": 945,
-  "feeAbsentStated": 945,
+  "derived": 328,
+  "withNote": 1398,
+  "feeAbsent": 950,
+  "feeAbsentStated": 950,
   "sectorRoutes": {
-    "aviation": 21,
-    "maritime": 7,
+    "aviation": 22,
+    "maritime": 11,
     "mining": 9,
     "hospitality": 57,
     "built": 57,
@@ -32,7 +32,7 @@ const LANDING_STATS = {
     "transport": 3,
     "agriculture": 149,
     "engineering": 126,
-    "health": 334,
+    "health": 335,
     "education": 91,
     "creative": 44,
     "energy": 9,
@@ -42,7 +42,7 @@ const LANDING_STATS = {
     "humanities": 21,
     "personal": 19
   },
-  "fundingSources": 30,
+  "fundingSources": 32,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -87,10 +87,6 @@ const LANDING_STATS = {
     {
       "name": "Finlays Community Trust — TVET Scholarship",
       "application_deadline": "Annual cycle — 2026 applications opened for the intake announced August 2026"
-    },
-    {
-      "name": "M-PESA Foundation — University of Embu TVET Scholarship",
-      "application_deadline": "By cohort — the first cohort closed 7 October 2024; watch embuni.ac.ke and Safaricom shops for the current call"
     },
     {
       "name": "Wolfson Education Fund — AMIU Community Health Scholarship",
@@ -147,6 +143,18 @@ const LANDING_STATS = {
     {
       "name": "NYOTA - government youth grants, training and work experience (dial *254#)",
       "application_deadline": "Run in rounds rather than on an annual date: an October 2025 round closed on 12 October and a second phase of payments was launched in July 2026. Dial *254# or check youth.go.ke to see whether a round is open before planning on it."
+    },
+    {
+      "name": "German government (KfW), Ministry of Education and Equity Group Foundation - TVET scholarships in food and agriculture",
+      "application_deadline": "The reported window closed on 18 November 2026. No later intake is published in any source reachable from this build."
+    },
+    {
+      "name": "KeNHA TVET Scholarships - Horn of Africa Gateway project (Isiolo, Meru, Wajir and Garissa)",
+      "application_deadline": "The June 2026 call gave 23 July 2026; one later report gives a November 2026 date that could not be confirmed against a KeNHA notice. Check kenha.co.ke before applying."
+    },
+    {
+      "name": "NITA and the Government of Denmark - Kenya TVET Project construction-trade scholarships",
+      "application_deadline": "The call found was for the September 2025 intake at NITA Athi River. No 2026 intake is published in any source reachable from this build, so check nita.go.ke."
     }
   ]
 };

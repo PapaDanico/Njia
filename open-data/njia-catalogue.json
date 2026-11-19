@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1392,
-  "institution_count": 217,
+  "course_count": 1398,
+  "institution_count": 218,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -10978,6 +10978,22 @@
       "verification_note": "Bandari Maritime Academy is the Kenya Ports Authority's maritime training arm and central to the blue economy agenda, setting its own fees. Published sources give tuition of about Ksh 95,000 for a one-year module, and entry from a KCSE D plain to D+ depending on programme. The figure shown is that published module fee multiplied by course length. Maritime certification also carries separate statutory and medical costs — confirm the full picture with the academy."
     },
     {
+      "course_id": "c1423",
+      "course_name": "Certificate in Marine Engineering",
+      "institution": "Bandari Maritime Academy",
+      "institution_id": "bandari",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the KUCCPS programme list for 2026/27 (code 4290916) at Bandari Maritime Academy. No entry bar specific to this award is published in any source reachable from this build, so the KUCCPS national craft certificate minimum of D plain is recorded. No length is published, so the field is empty, and a fee could not be verified, so none is shown."
+    },
+    {
       "course_id": "c352",
       "course_name": "Certificate in Port Operations",
       "institution": "Bandari Maritime Academy",
@@ -10994,6 +11010,22 @@
       "verification_note": "Bandari Maritime Academy is the Kenya Ports Authority's maritime training arm and central to the blue economy agenda, setting its own fees. Published sources give tuition of about Ksh 95,000 for a one-year module, and entry from a KCSE D plain to D+ depending on programme. The figure shown is that published module fee multiplied by course length. Maritime certification also carries separate statutory and medical costs — confirm the full picture with the academy."
     },
     {
+      "course_id": "c1420",
+      "course_name": "Craft Certificate in Nautical Science",
+      "institution": "Bandari Maritime Academy",
+      "institution_id": "bandari",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the KUCCPS programme list for 2026/27 (code 4290B56) and in Bandari Maritime Academy course listings, with a KCSE mean grade of D plain and a two-year modular duration. The academy sets its own fees and a per-module figure for this award could not be verified, so no total is shown. Seafaring also carries separate statutory, medical and certification costs; confirm the full picture with the academy."
+    },
+    {
       "course_id": "c350",
       "course_name": "Diploma in Marine Engineering",
       "institution": "Bandari Maritime Academy",
@@ -11008,6 +11040,38 @@
       "tuition_kes": 190000,
       "fee_basis": "illustrative",
       "verification_note": "Bandari Maritime Academy is the Kenya Ports Authority's maritime training arm and central to the blue economy agenda, setting its own fees. Published sources give tuition of about Ksh 95,000 for a one-year module, and entry from a KCSE D plain to D+ depending on programme. The figure shown is that published module fee multiplied by course length. Maritime certification also carries separate statutory and medical costs — confirm the full picture with the academy."
+    },
+    {
+      "course_id": "c1422",
+      "course_name": "Diploma in Maritime Transport Logistics",
+      "institution": "Bandari Maritime Academy",
+      "institution_id": "bandari",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "business",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the KUCCPS programme list for 2026/27 (code 4290B57) at Bandari Maritime Academy. No entry bar specific to this award is published in any source reachable from this build, so the KUCCPS national diploma minimum of C minus is recorded. No length is published, so the field is empty, and the academy sets its own fees: a figure could not be verified, so none is shown."
+    },
+    {
+      "course_id": "c1421",
+      "course_name": "Diploma in Nautical Science",
+      "institution": "Bandari Maritime Academy",
+      "institution_id": "bandari",
+      "county": "Mombasa",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the KUCCPS programme list for 2026/27 (code 4290849) and in Bandari Maritime Academy course listings, KNEC-examined, three years modular. Entry is a KCSE mean grade of C minus, or a Craft Certificate in Maritime Transport Logistics, which is a second route in for a learner below C minus. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two listings give the fee per module as Ksh 120,000 and Ksh 140,000, so a total could not be verified and none is shown; ask the academy which is current and how many modules the diploma takes."
     },
     {
       "course_id": "c351",
@@ -12514,6 +12578,22 @@
       "verification_note": "Private TVETA-registered vocational training centre run by the Salesians of Don Bosco; this trade is offered at Grade III-I and accredited by NITA, with a stated maximum of 90 trainees. Admission is by interview rather than a KCSE grade, so Njia records it as open entry - the centre recruits from very poor households and takes learners without a KCSE. Boys only, with 168 hostel places. The centre publishes no fee structure, so no figure is shown rather than a guessed one; ask admissions what is charged and what is sponsored on 0722 203646 or (020) 3882996."
     },
     {
+      "course_id": "c1424",
+      "course_name": "Remote Pilot Licence (RPL) training - drones",
+      "institution": "Drone Space",
+      "institution_id": "dronespace",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "short_course",
+      "cluster": "tech",
+      "min_grade": "",
+      "open_entry": "yes",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Drone Space is named on the KCAA list of approved UAS training organisations (March 2025) and is reported as a KCAA-certified training organisation with facilities in Nairobi. The licence requires the applicant to be at least 18, to hold a valid Class 3 aviation medical certificate, to understand English, and to pass a theory exam and a practical flight test; no KCSE grade is among the published requirements, so the course is recorded as open entry. A Reuters report of 2021 describes the course as two weeks and USD 1,600 including the licence fee; that is five years old, so neither a length nor a fee is recorded, and the provider does not publish a current fee reachable from this build. The Remote Pilot Licence is a KCAA licence, not a KNQF qualification, and it does not by itself permit commercial operations, which need a separate operator certificate. Other KCAA-approved schools include RPAS Training Academy, Geoid Technologies and Kendrone."
+    },
+    {
       "course_id": "c371",
       "course_name": "Certificate in Aeronautical Communication Operations",
       "institution": "East African School of Aviation (EASA)",
@@ -13904,6 +13984,22 @@
       "tuition_kes": 238200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation and meals are extra, and some programmes add a published Year 1 skills-lab fee. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Named on this campus's own list, not inferred from KMTC's national one. This record rests on the Nairobi campus itself: it is KMTC headquarters, operational since 1927 on 20 acres opposite Kenyatta National Hospital, and holds more than 8,000 students — the largest campus in the college. Two independent searches name this programme at Nairobi, one as a named award and one as the professional group the campus trains, and only programmes appearing in both were recorded. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster-subject requirements on top; confirm the current subject grades with the campus."
+    },
+    {
+      "course_id": "c1419",
+      "course_name": "Diploma in Orthopaedic Technology",
+      "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
+      "institution_id": "kmtc",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC lists the Diploma in Orthopaedic Technology on its own site and names the Nairobi campus for it; other listings say only selected campuses, so confirm the campus with KMTC. Entry is a KCSE mean grade of C plain, with a C in English or Kiswahili, a C minus in Biology and a D plus in one of Physics, Mathematics or Chemistry, reported by KMTC listings and two independent course guides; one older listing gives passes in English, Mathematics and Biology or Physics instead. Three years. KMTC publishes one national fee structure across all campuses: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). The total is that schedule multiplied by the three-year length; any programme-specific skills-lab fee is not included because none is published for this award. Accommodation and meals are extra. Placement is through KUCCPS. The higher diplomas in prosthetics and in orthotics are post-diploma courses and are not recorded."
     },
     {
       "course_id": "c1052",

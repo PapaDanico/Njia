@@ -76,7 +76,7 @@ const FUNDING_SOURCES = [
   },
   {
     id: 'f002', name: 'Equity Group Foundation — Wings to Fly', type: 'scholarship',
-    description: 'Comprehensive SECONDARY-school scholarship (tuition, accommodation, books, uniform, pocket money, transport for 4 years). Relevant to tertiary pathways only through its continuation track: top-performing alumni can enter the Equity Leaders Program (ELP), which sponsors university/TVET study.',
+    description: 'Comprehensive SECONDARY-school scholarship (tuition, accommodation, books, uniform, pocket money, transport for 4 years). Relevant to tertiary pathways only through its continuation track: top-performing alumni can enter the Equity Leaders Program (ELP), which sponsors university/TVET study, and the Foundation also runs a TVET Scholarship Programme that has funded 4,039 alumni into technical and vocational training in Kenya and the DRC. It is for Wings to Fly and Elimu scholars, not an open call.',
     coverage: 'Full secondary-school support; tertiary via the ELP continuation track', max_amount_kes: null,
     eligibility: 'Financially challenged, top-performing learners entering secondary school; ELP tertiary track selects top KCSE-performing alumni',
     min_grade: null, application_deadline: 'Varies — check annually',
@@ -84,7 +84,7 @@ const FUNDING_SOURCES = [
     requirements: ['Means testing', 'KCPE results (secondary entry)', 'Recommendation letters'],
     interest_rate: null, repayment_period: null,
     data_confidence: 'verified',
-    verification_note: 'Programme scope (4-year comprehensive secondary scholarship; 60,000+ scholars to date; ELP as the university/TVET continuation for top alumni) confirmed via equitygroupfoundation.com and Equity Group press releases, August 2026. No fixed cash value is published, so none is shown.'
+    verification_note: 'Programme scope (4-year comprehensive secondary scholarship; 60,000+ scholars to date; ELP as the university/TVET continuation for top alumni) confirmed via equitygroupfoundation.com and Equity Group press releases, August 2026. The 4,039 TVET scholarships and the TVET Scholarship Programme are reported by equitygroupfoundation.com and Citizen Digital, September and November 2026. No fixed cash value is published, so none is shown.'
   },
   {
     id: 'f003', name: 'Mastercard Foundation Scholars Program', type: 'scholarship',
@@ -240,27 +240,6 @@ const FUNDING_SOURCES = [
     data_confidence: 'verified',
     verification_note: 'Eligibility (Bomet and Kericho residency, KCSE 2022-2024, mean grade D or D+), the four Level 5 course areas, the forty annual places, the Ksh 50,000 graduation toolkit and the Browns Plantations attachment are as published by Finlays Community Trust and cross-reported by Education News, The Star and Kenya News Agency, August 2026, which put the 2026 award at Ksh 8.3-8.7 million across 39-40 students. Reports differ on whether 39 or 40 were awarded in 2026 against a stated forty places a year, so the figure here is the published intake rather than either count. Confirm the current window with the Trust before applying.'
   },
-  {
-    id: 'f014',
-    name: 'M-PESA Foundation — University of Embu TVET Scholarship',
-    type: 'scholarship',
-    description: 'Nationwide and built for the trades: 1,300 places across all 47 counties, covering full programme fees plus a monthly stipend for accommodation and upkeep, at the University of Embu TVET Institute. Craft certificates and diplomas in cosmetology, building and construction, mobile and electronic repairs, repair of two- and three-wheeled vehicles, electrical installation and maintenance, advanced welding, culinary arts and IT. The entry route matters as much as the money: alongside a KCSE mean grade of D plain, the Institute accepts a certificate in a relevant artisan course, and recognises prior learning from jua kali and other work experience — so not having sat KCSE is not automatically the end of it.',
-    coverage: 'Full programme fees plus a monthly stipend for accommodation and upkeep',
-    max_amount_kes: null,
-    eligibility: 'Open to youth from all 47 counties. Entry by KCSE mean grade D plain, OR a certificate in a relevant artisan course, OR recognition of prior learning including jua kali and work experience',
-    min_grade: 'D',
-    application_deadline: 'By cohort — the first cohort closed 7 October 2024; watch embuni.ac.ke and Safaricom shops for the current call',
-    website: 'https://uoemtvet.embuni.ac.ke',
-    application_url: 'https://embuni.ac.ke',
-    requirements: [
-      'KCSE mean grade D plain, an artisan certificate in a related course, or evidence of prior learning',
-      'Application form from embuni.ac.ke or a participating Safaricom shop'
-    ],
-    interest_rate: null,
-    repayment_period: null,
-    data_confidence: 'verified',
-    verification_note: 'Programme, the 1,300 places across 47 counties, the full-fees-plus-monthly-stipend coverage and the course list are as announced by the M-PESA Foundation and Safaricom in the joint launch with the University of Embu, September 2024, cross-reported by Business Quest and Africa Solutions Media Hub. Entry requirements (KCSE mean grade D plain, or a certificate in a relevant artisan course, or an equivalent determined by KNEC, with prior learning from the informal or formal sector - jua kali and work-related engagement - considered toward the minimum) are from the University of Embu TVET Institute prospectus. The 7 October 2024 deadline was for cohort one; no later cohort date has been sourced, so confirm the current call before relying on it. Training is at the Institute in Embu - budget for relocation if you live elsewhere.'
-  },
   {"id":"f015","name":"Wolfson Education Fund — AMIU Community Health Scholarship","type":"scholarship","description":"A needs-based scholarship sitting in the part of the funding landscape this catalogue finds thinnest: it reaches a learner with a C-, where almost every other scholarship here either ends at KCSE or begins at C+. Partial tuition for the Diploma in Community Health at Amref International University, and it is open to applicants from marginalised communities in Kenya, South Sudan and Somalia rather than to one county.","coverage":"Partial tuition for the Diploma in Community Health at Amref International University, Nairobi","max_amount_kes":null,"eligibility":"From a marginalised community in Kenya, South Sudan or Somalia; demonstrably needy and unable to raise fees from any other source; KCSE mean grade of C- or equivalent, with C- in English or Kiswahili and C- in one of Mathematics, Biology, Chemistry, Agriculture or Home Science","min_grade":"C-","application_deadline":"Call-based rather than annual — confirm the current window with AMIU admissions before applying","website":"https://amref.ac.ke/scholarships-2/","application_url":"https://amref.ac.ke/scholarships-2/","requirements":["KCSE certificate showing a mean grade of C- or better, with C- in English or Kiswahili","C- in one of Mathematics, Biology, Chemistry, Agriculture or Home Science","Evidence of financial need and that fees cannot be raised from another source","Evidence of coming from a marginalised community in Kenya, South Sudan or Somalia"],"interest_rate":null,"repayment_period":null,"data_confidence":"verified","verification_note":"The partnership, the named programme, the C- mean grade, the subject minima, the three countries and the needs test are published by Amref International University on its own scholarships page and were returned by two independently phrased searches, the second naming no grade. NO AMOUNT IS RECORDED and that is deliberate: the award is described as PARTIAL tuition with no published figure or percentage, so any number here would be invented. NO DEADLINE IS RECORDED either - the call for applications reachable from this build is dated August 2023, and a stale open window is an instruction to go somewhere that will not take you, which is the one direction this project refuses to err in. Ring AMIU admissions for the current call and the size of the award. AMIU separately advertises full scholarships for its pre-service Kenya Registered Community Health Nursing programme; that is a different award with its own terms and is not covered by this record."},
   {"id":"f016","name":"DAFI Scholarship (UNHCR) — Windle International Kenya","type":"scholarship","description":"The tertiary funding route for refugees and asylum-seekers in Kenya, run by UNHCR since 1992 and administered here by Windle International Kenya. It is one of very few scholarships on this list that reaches TVET: accredited technical and vocational programmes of two years or more leading to a certificate or diploma qualify alongside university degrees. It covers tuition, fees, study materials, food, transport and accommodation, and it prioritises women and girls to close the gender gap in refugee tertiary education.","coverage":"Tuition and institutional fees, study materials, food, transport and accommodation, plus mentoring and the DAFI student club and alumni network","max_amount_kes":null,"eligibility":"Valid refugee or asylum-seeker status in Kenya (Government of Kenya refugee ID and UNHCR protection document); original academic documents from a recognised institution; demonstrated financial need; not already holding another scholarship; not in an immediate resettlement process. An age ceiling applies — see the note.","min_grade":"C-","application_deadline":"Annual call, opening around April or May — confirm the current window with Windle International Kenya","website":"https://help.unhcr.org/kenya/helpful-services/education/","application_url":"https://help.unhcr.org/kenya/helpful-services/education/","requirements":["Government of Kenya refugee ID card and UNHCR protection document","Original KCSE or equivalent academic certificates","Admission letter from a recognised university, college or TVET institution","Evidence of financial need and of community contribution"],"interest_rate":null,"repayment_period":null,"data_confidence":"verified","verification_note":"UNHCR Kenya and Windle International Kenya both publish the programme, and Windle Trust International has been UNHCR's DAFI implementing partner since 2005. THE ENTRY GRADE IS RECORDED AT THE LEAST EXCLUSIONARY FIGURE ANY SOURCE STATES, BECAUSE TWO SOURCES DISAGREE AND THE SCOPES DIFFER: the Kenya call gives a minimum KCSE mean of C plain for male applicants and C- for female applicants, while a second source gives C+ and attaches it specifically to university study. Those can both hold — a degree needs the higher bar to be placed at all, while a two-year TVET diploma is reachable lower down — but Njia has not confirmed that reading, so treat C- as the floor for a female applicant to a TVET programme and expect to be asked for more at a university. The age limit is stated as 26 and below in the Kenya call and as under 28 elsewhere; confirm both the grade and the age with Windle International Kenya before applying. No award amount is published in any source reachable from this build, so none is shown. Njia does not verify refugee status and nothing here affects it."},
   {"id":"f017","name":"Rattansi Educational Trust — Institutional Bursary","type":"bursary","description":"One of Kenya's oldest education philanthropies, supporting needy students since the 1950s across universities, national polytechnics and tertiary colleges, public and private alike. It is need-based rather than merit-based and is designed to close a fee balance, so it is normally held alongside HELB, an NG-CDF bursary and a county bursary rather than instead of them. YOU DO NOT APPLY TO THE TRUST DIRECTLY: each participating institution vets and pre-qualifies its own neediest students and the Trust then allocates against that list, so the application starts at your dean of students or financial aid office.","coverage":"A partial award against an outstanding fee balance, paid to the institution","max_amount_kes":null,"eligibility":"Registered at a participating university, national polytechnic or tertiary college; demonstrated financial need; applications made through your own institution, not to the Trust. Open regardless of faith or community.","min_grade":null,"application_deadline":"Set by each institution, not by the Trust — ask your dean of students for the current window","website":"https://www.rattansieducationaltrust.or.ke/","application_url":"https://www.rattansieducationaltrust.or.ke/apply.htm","requirements":["Latest fee statement verified by your faculty accountant","Death certificate(s) of parent(s) if orphaned","Any other document evidencing level of need","Your institution’s own Rattansi application form, from its student portal or bookshop"],"interest_rate":null,"repayment_period":null,"data_confidence":"verified","verification_note":"The Trust's own application page states that applications are made through the respective institutions, and three institutions corroborate it independently by publishing their own Rattansi calls with their own forms and windows — the Technical University of Kenya, Masinde Muliro University of Science and Technology and Moi University. The required documents above are as the Trust lists them. NO AWARD AMOUNT IS RECORDED: figures circulate for a typical per-semester award and none could be verified against the Trust or a participating institution, so quoting one would put a number on a card that nothing here stands behind. The Trust publishes a list of the institutions that disburse the bursary; check yours is on it before assuming your college participates. Offices are on Koinange Street, Nairobi."},
@@ -363,14 +342,14 @@ const FUNDING_SOURCES = [
     checked_at: '2026-11-08',
     name: 'M-PESA Foundation and University of Embu TVET Scholarships',
     type: 'scholarship',
-    description: 'Asks for no KCSE mean grade at all: a KCSE or KCPE certificate qualifies, and so can prior learning from work in the formal or informal sector. The scholarships cover all programme fees and pay a monthly stipend for accommodation and upkeep, for craft certificates, diplomas and other qualifications at the University of Embu TVET Institute. Courses named in the call are cosmetology, building and construction, mobile and electronic repairs, repair of two- and three-wheeled vehicles, electrical installation and maintenance, advanced welding, culinary arts and information technology. The programme was launched in September 2024 for 1,300 young people; the call that opened it was for a first cohort, a second-cohort call followed in May 2026 and closed on 12 June 2026, so cohorts do recur; ask the University of Embu TVET Institute when the next one opens before planning on it.',
-    coverage: 'All programme fees, plus a monthly stipend for accommodation and upkeep',
+    description: 'Asks for no KCSE mean grade at all: a KCSE or KCPE certificate qualifies, and so can prior learning from work in the formal or informal sector. The scholarships cover all programme fees and pay a monthly stipend for accommodation and upkeep, for craft certificates, diplomas and other qualifications at the University of Embu TVET Institute. Courses named in the call are cosmetology, building and construction, mobile and electronic repairs, repair of two- and three-wheeled vehicles, electrical installation and maintenance, advanced welding, culinary arts and information technology. The programme was launched in September 2024 for 1,300 young people; the first cohort of 400 started in October 2025, and a second-cohort call for 650 places, drawn from counties named in the call, followed in May 2026 and closed on 12 June 2026. The second call adds basic tools of trade on graduation. Cohorts recur, so ask the University of Embu TVET Institute when the next one opens before planning on it. For the craft certificates themselves, the Institute prospectus gives a KCSE mean grade of D plain, or a certificate in a relevant artisan course, with prior learning counted toward it, so the route that needs no grade is artisan-level entry or recognition of prior learning.',
+    coverage: 'All programme fees, a monthly stipend for accommodation and upkeep, and (from the second cohort) basic tools of trade on graduation',
     max_amount_kes: null,
     eligibility: 'Aged 15 to 30. A KCSE or KCPE certificate, or recognised prior learning from the formal or informal sector. No KCSE mean grade is published as a requirement.',
     min_grade: null,
     application_deadline: 'Cohort-based. The first cohort closed on 7 October 2024 and a second-cohort call closed on 12 June 2026 (programmes starting July 2026). No third-cohort date is published in any source reachable from this build, so confirm with the University of Embu TVET Institute.',
     website: 'https://uoemtvet.embuni.ac.ke/',
-    application_url: 'https://embuni.ac.ke/call-for-1st-cohort-university-of-embu-tvet-scholarships/',
+    application_url: 'https://embuni.ac.ke/call-for-2nd-cohort-university-of-embu-tvet-scholarships-3/',
     requirements: [
       'KCSE or KCPE certificate, or evidence of prior learning',
       'Aged 15 to 30',
@@ -426,6 +405,74 @@ const FUNDING_SOURCES = [
     repayment_period: null,
     data_confidence: 'verified',
     verification_note: 'The programme, its World Bank financing and five-year span, the age and Form Four limits, the identity and SIM requirements, the Ksh 50,000 business grant and the *254# application route are reported consistently by the World Bank project page and by The Star, Business Today, Nairobi Leo and Pulse. Sources disagree on the target number of youth (800,000 or 820,000) and one outlet gives 18 to 35 for all youth, so neither is recorded as a figure; 18 to 29 is the majority reading. The October 2025 closing date and the July 2026 second phase are each from one outlet, so no open date is recorded. The Hustler Fund exclusion is from one secondary source and is flagged as a report. No stipend is recorded: one outlet mentions one and no other source repeats it.'
+  },
+  {
+    id: 'f031',
+    checked_at: '2026-11-19',
+    name: 'German government (KfW), Ministry of Education and Equity Group Foundation - TVET scholarships in food and agriculture',
+    type: 'scholarship',
+    description: 'One of the few awards in this list aimed squarely at agriculture, the sector this catalogue covers most thinly against its share of the economy. Germany, through its development bank KfW, is financing 1,200 scholarships with the Ministry of Education and Equity Group Foundation for Kenyans aged 18 to 35 studying a Level 5 certificate or a Level 6 diploma in food and agriculture-related disciplines at 51 partner TVET institutions. You must first be admitted to one of the partner institutions, so the entry bar is the bar for the course itself: a craft certificate (Level 5) takes a KCSE mean grade of D plain through KUCCPS. The reported window closed on 18 November 2026; ask a partner institution or Equity Group Foundation whether another intake follows before planning on it.',
+    coverage: 'Scholarship for a Level 5 certificate or Level 6 diploma in food and agriculture at a partner TVET institution; the published reports do not state an amount or exactly which costs are covered',
+    max_amount_kes: null,
+    eligibility: 'Kenyan aged 18 to 35, admitted to a food or agriculture-related Level 5 certificate or Level 6 diploma at one of the 51 partner TVET institutions. Admission comes first; the scholarship does not place you.',
+    min_grade: 'D',
+    application_deadline: 'The reported window closed on 18 November 2026. No later intake is published in any source reachable from this build.',
+    website: 'https://equitygroupfoundation.com/',
+    application_url: 'https://equitygroupfoundation.com/',
+    requirements: [
+      'Aged 18 to 35',
+      'Admission to a food or agriculture-related Level 5 or Level 6 programme at one of the 51 partner TVET institutions',
+      'The application made through the route named in the current call'
+    ],
+    interest_rate: null,
+    repayment_period: null,
+    data_confidence: 'verified',
+    verification_note: 'The 1,200 scholarships, the KfW financing, the partnership with the Ministry of Education and Equity Group Foundation, the 18 to 35 age range, the Level 5 and Level 6 scope, the food and agriculture focus, the 51 partner institutions and the admission-first rule are from the German Embassy announcement as reported by Kenyans.co.ke, November 2026; a second search returned the same programme with a closing date of 18 November 2026 at 4:30 pm. The D plain minimum is the published KUCCPS bar for a Level 5 craft certificate, recorded because admission to such a programme is a condition of the award; a Level 6 diploma asks more. No amount is recorded because none is published, and no open date is recorded because the reported window has closed.'
+  },
+  {
+    id: 'f032',
+    checked_at: '2026-11-19',
+    name: 'KeNHA TVET Scholarships - Horn of Africa Gateway project (Isiolo, Meru, Wajir and Garissa)',
+    type: 'scholarship',
+    description: 'A separate KeNHA scheme from its Mombasa-Mariakani one, for the north. Under the World Bank-financed Horn of Africa Gateway Development Project, the Kenya National Highways Authority sponsors one-year technical courses for unemployed young people living in Isiolo, Meru, Wajir and Garissa. It is reported as covering tuition and boarding and paying a monthly subsistence stipend for the length of the course. Priority goes to applicants living with a disability, orphans, young people from single-parent families and young single parents. Forms are free from KeNHA regional offices in Isiolo and Garissa, area chiefs and county commissioners, and must be signed and stamped by the area chief or assistant county commissioner as proof of residence. Courses examined by KNEC, CDACC or a national polytechnic require a KCSE certificate.',
+    coverage: 'Reported as tuition, boarding and a monthly subsistence stipend for a one-year course',
+    max_amount_kes: null,
+    eligibility: 'Kenyan citizen aged 18 to 35, unemployed, resident in Isiolo, Meru, Wajir or Garissa, with residence confirmed by the area chief or assistant county commissioner. A KCSE certificate for courses examined by KNEC, CDACC or a national polytechnic; no KCSE mean grade is published.',
+    min_grade: null,
+    application_deadline: 'The June 2026 call gave 23 July 2026; one later report gives a November 2026 date that could not be confirmed against a KeNHA notice. Check kenha.co.ke before applying.',
+    website: 'https://kenha.co.ke/document-category/scholarships/',
+    application_url: 'https://kenha.co.ke/document-category/scholarships/',
+    requirements: [
+      'Aged 18 to 35, unemployed, and resident in Isiolo, Meru, Wajir or Garissa',
+      'Application form signed and stamped by the area chief or assistant county commissioner',
+      'KCSE certificate for courses examined by KNEC, CDACC or a national polytechnic'
+    ],
+    interest_rate: null,
+    repayment_period: null,
+    data_confidence: 'verified',
+    verification_note: 'The programme, its World Bank financing under the Horn of Africa Gateway Development Project, the four counties, the 18 to 35 age range, the one-year course length, the coverage, the priority groups, the free forms and the residence stamp are from the KeNHA call for applications and application form published on kenha.co.ke in June 2026, and reported by Kenyans.co.ke and Kahawatungu. The 23 July 2026 closing date is on the KeNHA form; a later report gives 26 November, which no KeNHA notice reachable from this build confirms, so no open date is recorded. No amount is recorded because none is published.'
+  },
+  {
+    id: 'f033',
+    checked_at: '2026-11-19',
+    name: 'NITA and the Government of Denmark - Kenya TVET Project construction-trade scholarships',
+    type: 'scholarship',
+    description: 'Reaches down to a KCSE D minus, below the bar of almost every other award here. The National Industrial Training Authority and the Danish Ministry of Foreign Affairs fund training in building and construction trades (carpentry, plumbing, electrical work and solar installation) at NITA training centres, covering tuition, examination and certification fees. Training runs two terms at the centre followed by a three-month industrial attachment arranged by NITA, and ends in a National Skills Certificate. Two further categories serve construction workers aged 18 to 35 without formal training and workers seeking recognition of prior learning. Women were strongly encouraged to apply. The call found is for the September 2025 intake at NITA Athi River; ask NITA whether a later intake is open.',
+    coverage: 'Tuition, examination and certification fees, two terms of training and a three-month industrial attachment',
+    max_amount_kes: null,
+    eligibility: 'KCSE mean grade of D minus or above with an interest in building and construction trades; or a construction worker aged 18 to 35 without formal training; or a worker seeking recognition of prior learning.',
+    min_grade: 'D-',
+    application_deadline: 'The call found was for the September 2025 intake at NITA Athi River. No 2026 intake is published in any source reachable from this build, so check nita.go.ke.',
+    website: 'https://www.nita.go.ke/',
+    application_url: 'https://www.nita.go.ke/',
+    requirements: [
+      'KCSE mean grade D minus or above, or construction work experience, or a recognition-of-prior-learning claim',
+      'An interest in carpentry, plumbing, electrical work or solar installation'
+    ],
+    interest_rate: null,
+    repayment_period: null,
+    data_confidence: 'verified',
+    verification_note: 'The NITA and Danish Ministry of Foreign Affairs partnership under the Kenya TVET Project, the D minus minimum, the four trades, the fee coverage, the two terms plus three-month attachment, the National Skills Certificate, the further categories and the encouragement to women are reported consistently by The Kenya Times (May 2025), Opportunities for Young Kenyans and CampusBiz, summarising the NITA call. The September 2025 intake at NITA Athi River is from one listing. No amount is recorded because none is published, and no open date is recorded because the only intake found has passed.'
   },
 ];
 

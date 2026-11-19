@@ -608,7 +608,7 @@ body:not([data-page="home"]) .nav-back { display: flex; }
    the header's own height exactly. */
 .mobile-menu {
   display: none;
-  position: absolute;
+  position: fixed;
   top: var(--header-h); left: 0; right: 0;
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border);

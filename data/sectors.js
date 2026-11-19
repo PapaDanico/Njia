@@ -138,7 +138,7 @@ const SECTORS = [
      * them the ground-handling courses this register was extended to cover in
      * the first place. The old pattern had `passenger handling`, and the
      * catalogue says "Passenger Service and Ground Handling". */
-    match: /aviation|aeronautic|aircraft|avionic|cabin crew|flight|air traffic|airport operations|passenger (?:handling|service)|air cargo|ground handling|navaids|surveillance engineering|dispatch/i,
+    match: /aviation|aeronautic|aircraft|avionic|cabin crew|flight|air traffic|airport operations|passenger (?:handling|service)|air cargo|ground handling|navaids|surveillance engineering|dispatch|drone|remote pilot/i,
     awardingBodies: ['Kenya Civil Aviation Authority', 'IATA'],
     knbs: { series: 'Transportation and storage', mapping: 'component', growth: 3.7 },
     caution: 'Aviation is a small part of a broad transport series, so the 3.7% is the parent\'s and not aviation\'s own. Licensing sits with KCAA and is separate from the college award — budget for the licence as well as the course.'
@@ -147,7 +147,7 @@ const SECTORS = [
     id: 'maritime',
     name: 'Maritime and the blue economy',
     broad: 'services',
-    match: /maritime|marine|seafar|port operations|shipping|deck/i,
+    match: /maritime|marine|seafar|port operations|shipping|deck|nautical/i,
     awardingBodies: ['Kenya Maritime Authority', 'Kenya Ports Authority', 'STCW'],
     knbs: { series: 'Transportation and storage', mapping: 'component', growth: 3.7 },
     caution: 'Statutory STCW certification, medicals and endorsements sit outside the tuition figure and are not costed in this catalogue.'

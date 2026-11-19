@@ -6844,3 +6844,22 @@ whose title is literally "Placem". Search for the URL itself before calling a li
 broken. `research/sources.json` now carries a `cycle` and a `verification_status` on
 every source: a year-specific notice is never general guidance, and `search_lead`
 means the page was read through a search summary, not opened.
+
+**Data pass, 19 November 2026.** Funding: f014 and f028 were the same M-PESA
+Foundation and University of Embu scheme listed twice, with conflicting entry
+rules (D plain against no grade). They are merged into f028. The D plain belongs
+to the craft certificates in the Institute prospectus; the scholarship call
+itself accepts a KCSE or KCPE certificate or prior learning, so the record stays
+open-entry with the craft bar stated. **Before adding a funding record, search
+the table for the funder and the institution by name, not by programme title.**
+Added: f031 (KfW, Ministry of Education and Equity Group Foundation, 1,200
+food-and-agriculture TVET scholarships, Level 5 and 6, 51 partner colleges),
+f032 (KeNHA under the World Bank Horn of Africa Gateway project, Isiolo, Meru,
+Wajir and Garissa, a different scheme from f026), f033 (NITA and Denmark,
+construction trades from a KCSE D minus). Catalogue: KMTC Diploma in
+Orthopaedic Technology (prosthetics and orthotics, previously absent), four
+Bandari Maritime Academy awards from the 2026/27 KUCCPS list (nautical science
+was absent), and a KCAA Remote Pilot Licence course at Drone Space (drones were
+absent). The sector register needed `nautical`, `drone` and `remote pilot`.
+The absence phrase was inverted for the seventh time ("no total could be
+verified"); the guard caught it.

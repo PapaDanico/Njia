@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1398,
+  "course_count": 1401,
   "institution_count": 218,
   "county_count": 47,
   "column_notes": {
@@ -13938,6 +13938,22 @@
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. The same schedule adds a one-off Year 1 skills-lab fee of Ksh 2,750 for this programme, included in the total. Accommodation and meals are extra. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Named on this campus's own list, not inferred from KMTC's national one. This record rests on the Nairobi campus itself: it is KMTC headquarters, operational since 1927 on 20 acres opposite Kenyatta National Hospital, and holds more than 8,000 students — the largest campus in the college. Two independent searches name this programme at Nairobi, one as a named award and one as the professional group the campus trains, and only programmes appearing in both were recorded. Entry is the Clinical Officers Council bar applied at every accredited college: C plain overall, with a C plain in Biology and in English or Kiswahili and a C- in Chemistry and in Mathematics or Physics — the mean grade is the door, the cluster subjects are the rest of it."
     },
     {
+      "course_id": "c1425",
+      "course_name": "Diploma in Dental Technology",
+      "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
+      "institution_id": "kmtc",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 238200,
+      "fee_basis": "derived",
+      "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation and meals are extra, and some programmes add a published Year 1 skills-lab fee. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. KMTC’s own Department of Dental Technology page lists this three-year diploma at the Nairobi Campus, and the KUCCPS March 2026 KMTC advert lists it at Nairobi as well. The mean grade is C plain in KMTC’s department page and in both the March and September 2026 adverts. The subject grades differ: the department page and the March 2026 advert ask a C in English or Kiswahili, a C in Chemistry, Physics or Physical Sciences and a C- in Biology, while one reading of the September 2026 advert gives a D+ in Biology. Confirm the subject grades on the KUCCPS portal. KMTC says the course runs at selected campuses; the March 2026 advert also names Nakuru, which is not recorded here because no second source ties it to that campus."
+    },
+    {
       "course_id": "c003",
       "course_name": "Diploma in Kenya Registered Community Health Nursing (KRCHN)",
       "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
@@ -13968,6 +13984,22 @@
       "tuition_kes": 238200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation and meals are extra, and some programmes add a published Year 1 skills-lab fee. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Named on this campus's own list, not inferred from KMTC's national one. This record rests on the Nairobi campus itself: it is KMTC headquarters, operational since 1927 on 20 acres opposite Kenyatta National Hospital, and holds more than 8,000 students — the largest campus in the college. Two independent searches name this programme at Nairobi, one as a named award and one as the professional group the campus trains, and only programmes appearing in both were recorded. KMTC publishes a minimum KCSE mean grade of C plain for its diploma programmes, with cluster-subject requirements on top; confirm the current subject grades with the campus."
+    },
+    {
+      "course_id": "c1426",
+      "course_name": "Diploma in Mortuary Science",
+      "institution": "Kenya Medical Training College (KMTC) — Nairobi Campus",
+      "institution_id": "kmtc",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "carer",
+      "min_grade": "D+",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "KMTC’s September 2026 pre-service advertisement lists the Diploma in Mortuary Science at a KCSE mean grade of D+. Older guides give C-; the newer, official figure is recorded because it is KMTC’s own and it is the less exclusionary of the two. Nairobi appears in every campus list found (one 2025/26 KUCCPS listing also names Bondo, Kakamega, Kisumu, Machakos and Mombasa, and the lists disagree beyond Nairobi), so the record is placed here and the other campuses are left for the KUCCPS portal to confirm. KMTC does not publish a programme length for this pre-service diploma in any source reachable from here; only a two-year upgrading version for certificate holders, at Machakos, is published, and that is a different route. Without a length the national KMTC schedule cannot be scaled, so no fee is shown and the fee could not be verified. A Certificate in Mortuary Science is advertised separately at Siaya for September 2026."
     },
     {
       "course_id": "c1053",
@@ -14208,6 +14240,22 @@
       "tuition_kes": 82500,
       "fee_basis": "illustrative",
       "verification_note": "Kenya Utalii College is a state corporation under the Ministry of Tourism, NOT a TVET institute on the government's consolidated Ksh 67,189 rate, so that rate must not be used to derive its fees. Published Utalii figures conflict: roughly Ksh 38,850 per semester (about 77,700 a year), a quoted diploma range of Ksh 88,000-92,000, a certificate range of Ksh 80,000-85,000, and one one-year certificate quoted at Ksh 125,900. Njia will not choose among those and call the result verified, so the figure shown is an illustrative annual-equivalent scaled to course length and is flagged as such. Entry grades are from KUCCPS: a KCSE mean grade of C plain for diplomas and C- for certificates. Confirm the current fee and the exact programme list with the college or on the KUCCPS student portal before you decide."
+    },
+    {
+      "course_id": "c1427",
+      "course_name": "Certificate in Pastry and Bakery",
+      "institution": "Kenya Utalii College",
+      "institution_id": "utalii",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "creator",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Kenya Utalii College’s October 2025 intake brochure lists the Certificate in Pastry and Bakery at a KCSE aggregate of C-, with a C- in English and a D in Mathematics or Home Science; one news report gives the subject bar as D+ rather than D, so confirm it with the college. Graduates of the college’s own short courses in kitchen operation, cake making and decoration, or pastry may also apply. The length is not settled: most listings say one year and one report says one and a half years, so no duration is recorded. Kenya Utalii College is a state corporation under the Ministry of Tourism and is not on the consolidated public-TVET rate; it publishes no fee for this certificate that could be verified here, so none is shown. A separate Pastry and Bakery Techniques short course runs one month full time or three months part time, with a three-month evening option advertised at Ksh 40,000 for Kenyans in January 2026; that is a different award. Apply through the college’s own portal at utalii.ac.ke."
     },
     {
       "course_id": "c313",

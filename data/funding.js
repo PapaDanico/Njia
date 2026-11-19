@@ -457,11 +457,11 @@ const FUNDING_SOURCES = [
     checked_at: '2026-11-19',
     name: 'NITA and the Government of Denmark - Kenya TVET Project construction-trade scholarships',
     type: 'scholarship',
-    description: 'Reaches down to a KCSE D minus, below the bar of almost every other award here. The National Industrial Training Authority and the Danish Ministry of Foreign Affairs fund training in building and construction trades (carpentry, plumbing, electrical work and solar installation) at NITA training centres, covering tuition, examination and certification fees. Training runs two terms at the centre followed by a three-month industrial attachment arranged by NITA, and ends in a National Skills Certificate. Two further categories serve construction workers aged 18 to 35 without formal training and workers seeking recognition of prior learning. Women were strongly encouraged to apply. The call found is for the September 2025 intake at NITA Athi River; ask NITA whether a later intake is open.',
+    description: 'Reaches below the bar of almost every other award here: a KCSE D minus for school leavers, and no grade at all for construction workers entering through work experience or recognition of prior learning. The National Industrial Training Authority and the Danish Ministry of Foreign Affairs fund training in building and construction trades (carpentry, plumbing, electrical work and solar installation) at NITA training centres, covering tuition, examination and certification fees. Training runs two terms at the centre followed by a three-month industrial attachment arranged by NITA, and ends in a National Skills Certificate. Two further categories serve construction workers aged 18 to 35 without formal training and workers seeking recognition of prior learning. Women were strongly encouraged to apply. The call found is for the September 2025 intake at NITA Athi River; ask NITA whether a later intake is open.',
     coverage: 'Tuition, examination and certification fees, two terms of training and a three-month industrial attachment',
     max_amount_kes: null,
     eligibility: 'KCSE mean grade of D minus or above with an interest in building and construction trades; or a construction worker aged 18 to 35 without formal training; or a worker seeking recognition of prior learning.',
-    min_grade: 'D-',
+    min_grade: null,
     application_deadline: 'The call found was for the September 2025 intake at NITA Athi River. No 2026 intake is published in any source reachable from this build, so check nita.go.ke.',
     website: 'https://www.nita.go.ke/',
     application_url: 'https://www.nita.go.ke/',
@@ -472,7 +472,7 @@ const FUNDING_SOURCES = [
     interest_rate: null,
     repayment_period: null,
     data_confidence: 'verified',
-    verification_note: 'The NITA and Danish Ministry of Foreign Affairs partnership under the Kenya TVET Project, the D minus minimum, the four trades, the fee coverage, the two terms plus three-month attachment, the National Skills Certificate, the further categories and the encouragement to women are reported consistently by The Kenya Times (May 2025), Opportunities for Young Kenyans and CampusBiz, summarising the NITA call. The September 2025 intake at NITA Athi River is from one listing. No amount is recorded because none is published, and no open date is recorded because the only intake found has passed.'
+    verification_note: 'The NITA and Danish Ministry of Foreign Affairs partnership under the Kenya TVET Project, the D minus minimum, the four trades, the fee coverage, the two terms plus three-month attachment, the National Skills Certificate, the further categories and the encouragement to women are reported consistently by The Kenya Times (May 2025), Opportunities for Young Kenyans and CampusBiz, summarising the NITA call. The September 2025 intake at NITA Athi River is from one listing. The minimum grade field is left empty rather than D minus because two of the three routes ask for no KCSE grade, and quoting D minus would hide the award from an E-grade worker who qualifies. No amount is recorded because none is published, and no open date is recorded because the only intake found has passed.'
   },
 ];
 

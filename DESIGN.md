@@ -1,5 +1,13 @@
 # Njia Design System
 
+**Current direction (19 Nov 2026): institutional.** The design grammar of
+university flagship sites (identity bar, white masthead, serif display on a
+modular scale, square controls, hairline cards, ruled page headers, a global
+footer bar, full-width columns), in Njia's own palette. See the "Design
+reference" section of CLAUDE.md for what is taken and what never is. Display
+type is Source Serif 4 (self-hosted, OFL); where this file says Charter, read
+it as the fallback.
+
 Njia shares the family's **warm editorial** design DNA (see JiPange's
 DESIGN.md for the sibling implementation): serif display type over
 paper-toned surfaces, one terracotta accent, mono numerals for data,

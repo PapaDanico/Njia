@@ -156,6 +156,20 @@ const SHELL_CSS = `${SITE_SHELL_CSS}
      stylesheet for colour and type, but none of its layout JavaScript, so
      they render identically with scripting switched off. */
   body { max-width: min(96rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  /* Full width without overlong lines: prose pages flow into newspaper columns
+     on wide screens. Columns rather than a grid, so sections of different
+     lengths do not leave blank rows (a grid row is as tall as its tallest
+     cell). Headings, the lede, tables and figures span the full width. */
+  @media (min-width: 64rem) {
+    main.cols { column-count: 2; column-gap: 3.5rem; column-rule: 1px solid var(--border, #E4DCCB); }
+    main.cols > section { break-inside: avoid; }
+    main.cols > h1, main.cols > .lede, main.cols > figure, main.cols > .wide, main.cols > section.wide, main.cols > p:last-child { column-span: all; }
+    main.cols > section:has(table) { column-span: all; }
+    main.cols section p, main.cols section li { max-width: none; }
+  }
+  @media (min-width: 64rem) { main.cols-flow > section { break-inside: auto; } main.cols-flow h2, main.cols-flow h3 { break-after: avoid; } main.cols-flow > p, main.cols-flow > ul.toc, main.cols-flow > nav, main.cols-flow > .wide { column-span: all; } main.cols-flow .faq, main.cols-flow li { break-inside: avoid; } main.cols-flow > ul.toc { display: flex; flex-wrap: wrap; gap: .4rem 1.75rem; } }
+  @media (min-width: 100rem) { main.cols { column-count: 3; } }
+  @media print { main.cols { column-count: 1; } }
   .rail > :first-child { margin-top: 0; }
   .main > :first-child { margin-top: 0; }
   h1 { margin-top: .35rem; }
@@ -195,7 +209,7 @@ const SHELL_CSS = `${SITE_SHELL_CSS}
      than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
   .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
-  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: 999px;
+  .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: 3px;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
   footer { margin-top: 2.5rem; font-size: .85rem; opacity: .8; }
@@ -654,7 +668,6 @@ function indexPage(counties) {
 <style>${SHELL_CSS}
   /* Forty-seven links and three lines of prose is not a rail-and-content page:
      no .split here, and a measure that stays readable at any width. */
-  body { max-width: 68rem; }
   ul.counties { columns: 12rem; column-gap: 2rem; font-size: .95rem; line-height: 1.45; list-style: none; padding: 0; }
   ul.counties li { break-inside: avoid; padding: .28rem 0; }
   ul.counties .row { display: flex; justify-content: space-between; gap: .75rem; }
@@ -871,7 +884,6 @@ function gradeIndexPage(grades) {
 <link rel="stylesheet" href="/css/styles.css">
 <style>${SHELL_CSS}
   /* Seven links: a single measure, like the county index. */
-  body { max-width: 52rem; }
   ul.gl { list-style: none; padding: 0; }
   ul.gl li { margin: .15rem 0; padding: .3rem 0; font-size: 1.02rem; }
   ul.gl .row { display: flex; justify-content: space-between; gap: 1rem; }
@@ -1087,7 +1099,6 @@ ${g.items.map(([q, a]) => `<div class="faq">
 <meta property="og:url" content="${SITE}/help/">
 <link rel="stylesheet" href="/css/styles.css">
 <style>${SHELL_CSS}
-  body { max-width: 60rem; }
   .faq { margin: 0 0 var(--space-5); }
   .faq h3 { font-size: 1.02rem; margin: 0 0 .35rem; }
   .faq > div { color: var(--text-secondary); max-width: var(--prose-max); }
@@ -1103,7 +1114,7 @@ ${g.items.map(([q, a]) => `<div class="faq">
 <body>
 ${siteHeader()}
 ${briefHead('Questions and answers', `${total} answers &middot; for career teachers and county officers`)}
-<main id="main">
+<main id="main" class="cols cols-flow">
 <h1>How Njia works, and answers to ${total} questions</h1>
 <p>${total} plain answers, written for school leavers and the people advising them.
 Nothing here needs an account and nothing you read is tracked. If your question is
@@ -1143,7 +1154,6 @@ function docsIndexPage(courseCount, institutionCount, countyCount) {
 <style>${SHELL_CSS}
   /* One document and a paragraph about it: a single measure, like the county
      and grade indexes. */
-  body { max-width: 52rem; }
   li { margin: .45rem 0; }
   .dl { display: inline-block; margin: .3rem 0 .2rem; }
   .meta { color: var(--muted, #6b625a); font-size: .92rem; margin-top: .2rem; }
@@ -1151,7 +1161,7 @@ function docsIndexPage(courseCount, institutionCount, countyCount) {
 </head>
 <body>
 ${siteHeader()}
-<main id="main">
+<main id="main" class="cols cols-flow">
 ${briefHead('Partnership proposal', 'For funders, partners and county education offices')}
 <h1>A Partnership Proposal for Kenya's Education-to-Employment Transition</h1>
 <p>Njia is a free, open career-pathway platform for Kenyan school leavers. It lists
@@ -1375,7 +1385,6 @@ function guidancePage({ dir, title, description, h1, detail, body }) {
 <meta property="og:url" content="${SITE}/${dir}/">
 <link rel="stylesheet" href="/css/styles.css">
 <style>${SHELL_CSS}
-  body { max-width: 60rem; }
   section { margin: 0 0 var(--space-10, 2.5rem); }
   section h2 { margin: 0 0 var(--space-3, .75rem); }
   section p { margin: 0 0 var(--space-4, 1rem); }
@@ -1402,7 +1411,7 @@ function guidancePage({ dir, title, description, h1, detail, body }) {
 <body>
 ${siteHeader()}
 ${briefHead(h1, detail)}
-<main id="main">
+<main id="main" class="cols">
 <h1>${esc(h1)}</h1>
 ${body}
 <p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>

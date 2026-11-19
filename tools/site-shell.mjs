@@ -74,6 +74,13 @@ export function siteHeader() {
   const panel = EVIDENCE_LINKS.map(link).join('\n          ');
   const all = [...HEADER_LINKS, ...EVIDENCE_LINKS, COUNSELLOR_LINK].map(link).join('\n      ');
   return `<a class="skip-link" href="#main">Skip to content</a>
+<nav class="site-identity" aria-label="Utility">
+  <div class="site-identity-inner">
+    <a class="site-identity-name" href="/">Njia</a>
+    <span class="site-identity-tag">Free, independent career pathways for Kenya</span>
+    <span class="site-identity-links"><a href="/help/">Help</a><a href="/open-data/">Open data</a><a href="/privacy/">Privacy</a></span>
+  </div>
+</nav>
 <header class="site-header">
   <div class="site-header-inner">
     <a class="site-brand" href="/" aria-label="Njia home">${MARK}<span class="site-word">Njia</span></a>
@@ -116,12 +123,19 @@ export const SITE_SHELL_CSS = `
   /* ---------- Site header and footer (tools/site-shell.mjs) ---------- */
   .skip-link { position: absolute; left: -999px; top: 0; background: var(--primary, #8B2500); color: var(--bg, #FAF9F5); padding: .6rem 1rem; z-index: 10; }
   .skip-link:focus { left: .5rem; top: .5rem; }
-  .site-header { margin: -1.5rem 0 1.75rem; position: relative; z-index: 4; color: #F5E9D4; --mark-edge: #F5E9D4; }
-  .site-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #2A1200; box-shadow: 0 0 0 100vmax #2A1200; clip-path: inset(0 -100vmax); }
-  .site-header .site-nav a { color: #F5E9D4; }
-  .site-header .site-nav a:hover, .site-header .site-nav a:focus-visible { border-bottom-color: #E8B24A; }
-  .site-header .site-menu summary { border-color: rgba(245, 233, 212, .4); color: #F5E9D4; }
-  .site-header .site-cta { background: #E8B24A; color: #2A1200; border-radius: 999px; }
+  .site-identity { margin: -1.5rem 0 0; position: relative; z-index: 5; color: #F5E9D4; font-size: var(--fs-sm, .8125rem); }
+  .site-identity::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #8B2500; box-shadow: 0 0 0 100vmax #8B2500; clip-path: inset(0 -100vmax); }
+  .site-identity-inner { display: flex; align-items: center; gap: 1rem; min-height: 2.25rem; padding: .3rem 0; }
+  .site-identity a { color: #F5E9D4; text-decoration: none; }
+  .site-identity a:hover, .site-identity a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
+  .site-identity-name { font-family: var(--serif, Georgia, serif); font-weight: 600; font-size: 1rem; }
+  .site-identity-tag, .site-identity-links { display: none; }
+  .site-identity-links { margin-left: auto; gap: 1.5rem; }
+  @media (min-width: 48rem) { .site-identity-tag { display: inline; } .site-identity-links { display: flex; } }
+  .site-header { margin: 0 0 1.75rem; position: relative; z-index: 4; }
+  .site-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--bg-elevated, #fff); box-shadow: 0 0 0 100vmax var(--bg-elevated, #fff); clip-path: inset(0 -100vmax); }
+  .site-header::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--border, #E4DCCB); box-shadow: 0 0 0 100vmax var(--border, #E4DCCB); clip-path: inset(0 -100vmax); }
+  .site-header .site-cta { border-radius: var(--radius-sm, 3px); }
   .site-header-inner { display: flex; align-items: center; gap: 1.25rem; padding: .7rem 0; position: relative; }
   .site-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }
   .site-mark { width: 19px; height: 28px; display: block; flex: none; }
@@ -137,7 +151,7 @@ export const SITE_SHELL_CSS = `
   .site-menu nav a:last-child { border-bottom: 0; }
   @media (min-width: 64rem) {
     .site-nav { display: flex; align-items: center; gap: 1.4rem; margin-left: auto; white-space: nowrap; }
-    .site-nav a { font-size: var(--fs-sm, .8125rem); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; text-decoration: none; color: var(--text-primary, #3D1C02); padding: .55rem 0; border-bottom: 2px solid transparent; }
+    .site-nav a { font-size: var(--fs-lg, .9375rem); font-weight: 500; letter-spacing: 0; text-transform: none; text-decoration: none; color: var(--text-primary, #3D1C02); padding: .55rem 0; border-bottom: 2px solid transparent; }
     .site-nav a:hover, .site-nav a:focus-visible { border-bottom-color: var(--primary, #8B2500); }
     .site-more { position: relative; display: flex; align-items: center; }
     .site-more-panel { display: none; position: absolute; top: 100%; left: -1rem; z-index: 5; min-width: 15rem; background: var(--bg-elevated, #fff); border: 1px solid var(--border, #E4DCCB); border-top: 2px solid var(--primary, #8B2500); box-shadow: 0 12px 24px rgba(61, 28, 2, .12); padding: .4rem 0; }
@@ -150,7 +164,8 @@ export const SITE_SHELL_CSS = `
   /* Full-bleed ink band from a contained element: the shadow paints outward
      and the clip keeps it to the element's own height, so no horizontal scroll. */
   .site-footer { margin: 3rem 0 -4rem; padding: 2.25rem 0 2.5rem; opacity: 1; font-size: var(--fs-md, .9375rem);
-                 background: #2A1507; color: #F5E9D4; box-shadow: 0 0 0 100vmax #2A1507; clip-path: inset(0 -100vmax); }
+                 background: #2A1507; color: #F5E9D4; box-shadow: 0 0 0 100vmax #2A1507; clip-path: inset(0 -100vmax); position: relative; }
+  .site-footer::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: .6rem; background: #8B2500; box-shadow: 0 0 0 100vmax #8B2500; clip-path: inset(0 -100vmax); }
   .site-foot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1.5rem; }
   .site-foot-title { margin: 0 0 .6rem; font-size: var(--fs-xs, .75rem); font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #E7C887; }
   .site-foot-col a { display: block; color: #F5E9D4; text-decoration: none; padding: .3rem 0; }
@@ -166,6 +181,6 @@ export const SITE_SHELL_CSS = `
   @media (max-width: 47.99rem) { .bar-th, .bar-td { display: none; } }
   .bar { display: block; height: .7rem; background: var(--primary, #8B2500); border-radius: 1px; }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .split > .site-header, .split > .site-footer { grid-column: 1 / -1; }
-  @media print { .skip-link, .site-header, .site-footer { display: none !important; } }
+  .split > .site-identity, .split > .site-header, .split > .site-footer { grid-column: 1 / -1; }
+  @media print { .skip-link, .site-identity, .site-header, .site-footer { display: none !important; } }
 `;

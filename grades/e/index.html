@@ -29,7 +29,8 @@
   .site-identity-links { margin-left: auto; gap: 1.5rem; }
   @media (min-width: 48rem) { .site-identity-tag { display: inline; } .site-identity-links { display: flex; } }
   .site-header { margin: 0 0 1.75rem; position: relative; z-index: 4; }
-  .site-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--bg-elevated, #fff); border-bottom: 1px solid var(--border, #E4DCCB); box-shadow: 0 0 0 100vmax var(--bg-elevated, #fff); clip-path: inset(0 -100vmax); }
+  .site-header::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--bg-elevated, #fff); box-shadow: 0 0 0 100vmax var(--bg-elevated, #fff); clip-path: inset(0 -100vmax); }
+  .site-header::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--border, #E4DCCB); box-shadow: 0 0 0 100vmax var(--border, #E4DCCB); clip-path: inset(0 -100vmax); }
   .site-header .site-cta { border-radius: var(--radius-sm, 3px); }
   .site-header-inner { display: flex; align-items: center; gap: 1.25rem; padding: .7rem 0; position: relative; }
   .site-brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: inherit; }

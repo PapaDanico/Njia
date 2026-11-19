@@ -3470,7 +3470,7 @@ p, li { text-wrap: pretty; }
   color: var(--text-primary);
   border-bottom-width: 3px;
 }
-.landing-nav-link .caret { display: none; }
+.landing-nav-link .caret { font-size: var(--fs-xs); }
 .app-header .logo-word { font-weight: 600; }
 .app-header + .brand-rule { display: none; }
 
@@ -3486,7 +3486,7 @@ p, li { text-wrap: pretty; }
 
 /* Type: serif display on a Major Third scale; body copy at 16px. */
 h1, h2, h3, .landing-h1, .landing-h2 { font-weight: 600; letter-spacing: -0.015em; }
-.landing-sub, .module-hero p { font-size: 1rem; }
+.landing-sub, .module-hero p:not(.text-sm) { font-size: 1rem; }
 
 /* Landing hero: white editorial canvas in the light scheme; the dark scheme
  * keeps its earth ground. */

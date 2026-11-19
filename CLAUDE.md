@@ -6863,3 +6863,15 @@ was absent), and a KCAA Remote Pilot Licence course at Drone Space (drones were
 absent). The sector register needed `nautical`, `drone` and `remote pilot`.
 The absence phrase was inverted for the seventh time ("no total could be
 verified"); the guard caught it.
+
+**Data pass, 19 November 2026 (second).** Three of the KMTC and hospitality
+leads above are now records. KMTC Diploma in Dental Technology at Nairobi (C
+plain on KMTC's own department page and both 2026 adverts; Nakuru is named by
+one advert and left out). KMTC Diploma in Mortuary Science at Nairobi, at the
+**D+** in KMTC's own September 2026 advert against an older C-; the campus lists
+disagree beyond Nairobi, and no pre-service length is published, so duration and
+fee are empty. Kenya Utalii College Certificate in Pastry and Bakery at C-, with
+the one-year against one-and-a-half-year conflict left as an empty duration.
+Commercial pilot training stays a lead: the KCAA list names schools at Wilson,
+but a CPL requires a PPL and a class 1 medical, and no KCSE-entry route was
+found. The sector register needed `mortuar` and `mortician`.

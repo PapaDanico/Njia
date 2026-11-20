@@ -6955,3 +6955,16 @@ still applies to them.
 - **The CATALOGUE_ROLES guard caught a casing duplicate**: "Motion graphics
   artist" sat beside "Motion Graphics Artist". The new records' career paths
   are Title Case, the catalogue's convention.
+
+**Closing the unchecked leads, 19 November 2026.** One unseeded search per
+institution, run by hand after #189 merged. **Tharaka University +5**:
+actuarial science and information technology are named in the university's own
+2025 programmes document, medical microbiology in its brochure, environmental
+science on the Faculty of Life Sciences page, and ecotourism in the brochure and
+an older listing. Applied Statistics and Agricultural Education stay leads: the
+only cut-off table found carries a Chuka course-code prefix, which is the
+contamination shape. **Not closed:** Kinango's craft and diploma awards (the
+search that named them had the trades in its own query), Borabu and Bureti
+(departments named, no awards), Othaya's environmental health and clinical
+medicine, and Eldama Ravine (a staffing advert and a truncated list). Each
+still needs an award-level listing on the college's own site.

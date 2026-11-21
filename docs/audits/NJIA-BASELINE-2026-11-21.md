@@ -15,6 +15,7 @@ Chromium. Every line below is a command that was run and its result.
 | Functional probe | `node tests/functional-probe.mjs` | PASS, 49/49 |
 | Accessibility sweep | `node tests/a11y-sweep.mjs` | PASS, 108 states, 0 violations |
 | Horizontal overflow, 320 and 390px | Playwright over all 70 generated pages, plus 7 app routes at 320px | PASS, no page wider than its viewport |
+| Print to A4 | Playwright `page.pdf({format:'A4'})` on all 70 pages, then `pdftotext -bbox` for the rightmost word | PASS, no text past the right margin (the widest, `/analysis/`, ends at 560pt of 596pt) |
 | GitHub Actions | the run history of `node.js.yml` | BLOCKED. Jobs are never placed on a runner (`runner_id: 0`, no log). This is a repository setting, recorded in CLAUDE.md, and not a test result |
 | External links | n/a | NOT RUN. This build has no egress, so a link that looks fine in a search snippet is not evidence it answers |
 
@@ -54,3 +55,12 @@ or 390px overflows. The type floor, dark mode on generated pages, contrast and
 print headers each already have a guard (see CLAUDE.md). A restyle should start
 from a specific defect a reader meets, not from the rubric score, which the
 handover itself calls a prioritisation device and not a measurement.
+
+## An instrument error, recorded so the next audit does not repeat it
+
+A first print check emulated print media in a 718px browser window and reported
+the 12-column `/analysis/` table at 761px, which reads as "the fee column is cut
+off the sheet". A real A4 PDF of the same page puts the last word at 560pt of
+596pt: nothing is cut. Print media emulation in a window does not lay out a page
+the way the print engine does. A CSS fix written for that false finding was
+reverted. To measure print, print to PDF and read the coordinates.

@@ -1,0 +1,7 @@
+id,severity,reproducible,affected_path,proof,fix_commit,test,status
+NJIA-2026-11-21-01,P1,yes,help/index.html (from js/help.js),"/help/ links ./privacy/ and ./terms/ which resolve to /help/privacy/ and /help/terms/ (absent)",this pass,tests/internal-links.test.js,fixed
+NJIA-2026-11-21-02,P0,no,js/decide.js byFee,"handover asked that missing fees never rank as cheapest; nulls already sort last",n/a,existing,no change needed
+NJIA-2026-11-21-03,P0,no,research/sources.json,"cycle-specific KUCCPS notices already labelled Historical with cycle field",n/a,tests/official-research-sources.test.js,no change needed
+NJIA-2026-11-21-04,P0,blocked,.github/workflows/node.js.yml,"jobs never placed on a runner; runner_id 0; no log",n/a,n/a,blocked (repository Actions setting)
+NJIA-2026-11-21-05,P1,no,all generated pages and 7 app routes,"Playwright scrollWidth check at 320 and 390px: no overflow",n/a,none (manual measurement),no change needed
+NJIA-2026-11-21-06,P0,n/a,data/courses.js private institutions,"private tuition closed to search (23/23 refused); fee request template added",ad75dfd,n/a,open (needs institutions to reply)

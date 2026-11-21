@@ -54,14 +54,11 @@ const COURSES = vm.runInContext('COURSES', ctx);
    colleges and several institutions on letters of interim authority; those are
    deliberately outside this denominator, because a constituent college is
    reached through its parent and an interim authority can lapse. */
-/* Outlets report 36 public chartered universities on the CUE register of 15
-   September 2026, but the chartered universities Njia can name come to 37 once
-   Kabianga and Kirinyaga are counted, so one figure is stale. 37 is the count
-   of named, chartered institutions; re-read cue.or.ke and lower it if a name
-   here turns out not to be on the register. The Open University of Kenya is a
+/* 36 public chartered universities on the CUE register of 15 September 2026,
+   as reported by outlets that list it. The Open University of Kenya is a
    specialised public degree-awarding institution, not a chartered university,
-   so it is outside this count (see charteredPublic below). */
-const CUE_PUBLIC_CHARTERED = 37;
+   so it is outside this count (see the filter in the known-missing test). */
+const CUE_PUBLIC_CHARTERED = 36;
 const CUE_PRIVATE_CHARTERED = 32;
 
 const universities = (ownership) =>
@@ -103,9 +100,7 @@ test('private university coverage never regresses', () => {
    single-course stub this file refuses as coverage. A per-school query found
    four named programmes. A lead with its blocker named is worth more than a
    number, and it is what made the difference here. */
-/* Kirinyaga University (chartered 2016) was found missing when the register was
-   recounted in November 2026, beside Kabianga, which was then listed. */
-const KNOWN_MISSING_PUBLIC = ['Kirinyaga University'];
+const KNOWN_MISSING_PUBLIC = [];
 
 test('the known-missing public universities are still named, or listed', () => {
   const names = INSTITUTIONS

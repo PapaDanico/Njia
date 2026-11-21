@@ -1289,7 +1289,7 @@ The metric is now the **eligibility floor**, ratcheted in
 `tests/sector-coverage.test.js`: the number of counties where an E-grade learner
 sees nothing may fall but never rise, and the four closed deliberately (Turkana,
 West Pokot, Mandera, Marsabit) are named so a future edit cannot quietly reopen
-one inside an aggregate that still looks fine. Ten remain — lower the constant when you close more. It was 23; Kakamega and
+one inside an aggregate that still looks fine. One remains — lower the constant when you close more. It was 23; Kakamega and
 Siaya were closed by re-reading an either/or in a published entry requirement
 rather than by finding new provision, and Bomet from the funding side.
 
@@ -4200,8 +4200,8 @@ guarding the claim.
 `tests/provision-analysis.test.js`. It exists because the most decision-changing
 number this project holds lived only as a constant in a test file.
 
-The finding it carries: **10 counties list nothing an E-grade leaver can enter,
-and all 10 list no artisan course at all.** It was 23 and 21 when this page
+The finding it carries: **1 county lists nothing an E-grade leaver can enter,
+and it lists no artisan course at all.** It was 23 and 21 when this page
 shipped; the page is generated, so it is correct by construction and this
 paragraph is the copy that goes stale. The blindness is one missing
 tier, not a high bar — which is why the fix is an institution rather than a
@@ -6996,26 +6996,34 @@ funding, agriculture, intakes, counties), each checked by a verifier.
   c697/c698 repointed to `lti_wajir`, the Kapkatet same-county shape again.
   Whether c407 "Diploma in Animal Health" there is the same award as c698 is
   open.
-- **The university register count was wrong.** The coverage test counted the
-  Open University of Kenya, which CUE classes as a specialised degree-awarding
-  institution, and missed Kabianga and Kirinyaga. Kabianga is listed (five
-  agriculture degrees); Kirinyaga is named in `KNOWN_MISSING_PUBLIC`. Outlets
-  give 36 chartered public universities while the named set is 37, so the
-  denominator is 37 with the conflict in the comment: re-read cue.or.ke.
+- **The university register count was wrong, and the first fix was wrong
+  too.** The coverage test counted the Open University of Kenya, which CUE
+  classes as a specialised degree-awarding institution, and Kabianga was
+  missing. Kabianga is now listed with five agriculture degrees. The same pass
+  also named Kirinyaga University as missing and raised the denominator to 37.
+  Kirinyaga was already listed as `kyu`, with 17 records: the check matched the
+  search result against nothing in the register. Corrected the next pass:
+  denominator 36, matching CUE, and an empty `KNOWN_MISSING_PUBLIC`. **Before
+  calling an institution missing, grep the register for its name and its
+  likely id.**
 - Added: Kabianga +5, Kisii +4, Rongo +4, MMUST Sugar and Agro-processing, AHITI
   Ndomba and Kabete, KSA Nakuru, and funding f039 Kisumu VTC subsidy, f040
   KBEST, f041 Kakamega. Corrected f011/f018 (2026/27 HEF window closed 21
   September after an extension; the original date is disputed, 31 August or 8
   September) and f013 (2025 and 2026 award rounds separated). JKUAT and SEKU
   intake months follow their 2026 adverts.
-- **Verified but not yet written, on the maintainer's instruction to stop
-  fixating on E grades:** nine TVCs and VTCs in thin counties, each confirmed
-  on its own domain or the TVETA register by an unseeded search — Mulango TVC
-  (Kitui), Maasai Mara TVC (Narok), Laikipia North and Laikipia East TVCs,
-  Kibwezi West TVC (Makindu, Makueni), Iten VTC, Merti TVC (Isiolo), Chuka TVC
-  (Tharaka-Nithi, distinct from Chuka University), Tana River TVC (Hola), Wajir
-  VTC and ACK Uthaini VTC. Payloads and verdicts are in the workflow journal;
-  they run craft and diploma courses too, so they are general coverage.
+- **The thin-county colleges went in the next pass.** Ten public TVCs and
+  VTCs, each confirmed on its own domain or the TVETA register by an unseeded
+  search: Mulango (Kitui), Chuka TVC (Tharaka-Nithi, not Chuka University),
+  Maasai Mara TVC (Narok), Laikipia North and Laikipia East, Merti (Isiolo),
+  Kibwezi West (Makindu, Makueni; KUCCPS calls it Kibwezi TVC), Iten VTC, Tana
+  River TVC (Hola) and Wajir VTC. Fourteen courses; four carry a fee derived
+  from the consolidated rate over a one-year length the college publishes.
+  E-blind counties fell 10 to 1 and single-provider counties 3 to 1: Lamu is the
+  one left in both. ACK Uthaini VTC (Tharaka-Nithi) stays a lead, because its
+  TVETA licence is reported as lapsing in July 2023 and nothing confirms it is
+  operating. Chuka's carpentry and motor vehicle artisan awards, and Mulango's
+  other Level 4 programmes, are leads for one more sighting.
 - Leads: Rongo agribusiness degree (two award titles on its own pages), AHITI
   Kabete Range Management and Leather Technology diplomas (one source),
   Makueni ATC (needs a CDACC award title), MMUST BSc Agriculture and

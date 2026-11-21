@@ -85,7 +85,7 @@ test('CLAUDE.md agrees with the ratchet on how many counties are blind to an E',
     `CLAUDE.md says "${remaining[1]} remain" while E_GRADE_BLIND_COUNTIES is ${n} `
     + `(${WORDS[n]}). The constant is what fails a build; the prose must follow it.`);
 
-  const finding = DOC.match(/\*\*(\d+) counties list nothing an E-grade leaver can enter/);
+  const finding = DOC.match(/\*\*(\d+) count(?:y lists|ies list) nothing an E-grade leaver can enter/);
   assert.ok(finding, 'The /analysis/ finding sentence has moved or gone.');
   assert.equal(Number(finding[1]), n,
     `The /analysis/ paragraph in CLAUDE.md says ${finding[1]} blind counties while the `

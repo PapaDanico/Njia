@@ -7030,3 +7030,31 @@ funding, agriculture, intakes, counties), each checked by a verifier.
   Biotechnology and BSc Fisheries and Aquaculture (named on its own page, need
   a second sighting), IMTR Middle Meteorological Technician Course, KenGen GTC
   durations (sources say 21-45-day short courses; records say 6-12 months).
+
+**Research pass, 21 November 2026 (four search-only researchers).**
+- Added: Rongo BSc Agribusiness Management (its brochure and its agriculture
+  school's site), MMUST Agriculture and Biotechnology and Fisheries and
+  Aquaculture (own pages plus KUCCPS), Chuka TVC carpentry and motor vehicle
+  artisans at E (KUCCPS plus an intake list), and **Lamu East TVC** with three
+  Level 5 certificates at D from the KUCCPS portal. Lamu is no longer a
+  single-provider or KMTC-only county: both ratchets are now 0. It is still
+  E-blind; its county VTCs name trades but no award, and their licences lapsed
+  in 2024.
+- Removed: KenGen GTC and its three records. It trains KenGen and utility staff;
+  the sourced lengths are 21 days (UNU-GTP) and 45 days (one blog), and no
+  KCSE-entry route exists, so the 6 to 12-month certificates at C- were
+  inventions of a door. c407 "Diploma in Animal Health" at LTI Wajir was a
+  duplicate of c698 under a name the ministry's 2026 notice does not use.
+- Fees, still not written: Zetech's business group reads 60,000 tuition a
+  semester and a 576,200 eight-semester total in one reading only (the earlier
+  "five of eight semesters" note may be wrong; one more unseeded reading would
+  settle it). Daystar's official 2025-26 rate reads 6,640 (Athi River) and 7,380
+  (Nairobi) per credit hour twice, which settles the earlier disagreement, but
+  no programme credit count is published. KCA prices per unit (BCom 10,925 on
+  campus, 2024-25). USIU 11,000 a unit for finance and accounting; CUEA's
+  totals are on a 2023 sheet; Egerton's 2025-26 annex exists but no figure was
+  read. Strathmore's LLB total is on the Law School FAQ, undated.
+- Leads: MMUST Agribusiness Management and Marketing (own page only); Mulango
+  automotive and carpentry artisans (KUCCPS only); whether Mulango's
+  "Electrical Engineering Technician" (Level 4, one year) is KUCCPS's "Artisan
+  in Electrical Installation".

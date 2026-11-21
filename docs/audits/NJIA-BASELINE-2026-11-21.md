@@ -35,6 +35,7 @@ catalogue (the guard in `tests/provenance.test.js`).
 | P0-02, KUCCPS links | `research/sources.json` labels each link by `cycle` and `verification_status`. The 2025/26 and 2026 notices are titled "Historical", with "never quote as current". No site-wide internal-link check existed, and adding one found a real defect (below) |
 | P0-04, claim hygiene | `tests/pathways.test.js` already bans the unsourced endorsement and requires "not a validated psychological test" on every surface describing the diagnostic. No new claim found |
 | P1-10, salaries | No surface labels a sector wage as a starting or graduate salary. `paybackMonths()` is null for every record |
+| P2-11, funding deadlines | None of the 40 funding records carries a dated deadline that has passed. Every window is worded as a cycle ("Annual call", "Rolling", "closed on …"). The Application Clock's 120-day verification rule is enforced in `tests/placement-clock.test.js` |
 | P2-13, external `rel` | Every `target="_blank"` link carries `noopener` |
 
 ## Defect fixed in this pass

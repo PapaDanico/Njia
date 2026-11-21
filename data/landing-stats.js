@@ -10,15 +10,15 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 1442,
-  "distinctProgrammes": 744,
-  "institutions": 230,
+  "courses": 1462,
+  "distinctProgrammes": 747,
+  "institutions": 233,
   "counties": 47,
   "published": 13,
   "derived": 343,
-  "withNote": 1442,
-  "feeAbsent": 982,
-  "feeAbsentStated": 982,
+  "withNote": 1462,
+  "feeAbsent": 1002,
+  "feeAbsentStated": 1002,
   "sectorRoutes": {
     "aviation": 22,
     "maritime": 11,
@@ -26,12 +26,12 @@ const LANDING_STATS = {
     "hospitality": 59,
     "built": 57,
     "admin": 102,
-    "finance": 175,
+    "finance": 177,
     "ict": 119,
     "supplychain": 25,
     "transport": 4,
-    "agriculture": 150,
-    "engineering": 131,
+    "agriculture": 167,
+    "engineering": 132,
     "health": 358,
     "education": 91,
     "creative": 47,
@@ -42,7 +42,7 @@ const LANDING_STATS = {
     "humanities": 22,
     "personal": 19
   },
-  "fundingSources": 37,
+  "fundingSources": 40,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -86,7 +86,7 @@ const LANDING_STATS = {
     },
     {
       "name": "Finlays Community Trust — TVET Scholarship",
-      "application_deadline": "Annual cycle — 2026 applications opened for the intake announced August 2026"
+      "application_deadline": "Annual cycle. The 2026 round was awarded in August 2026 and no window is open now; ask the Trust when the next round opens."
     },
     {
       "name": "Wolfson Education Fund — AMIU Community Health Scholarship",
@@ -102,7 +102,7 @@ const LANDING_STATS = {
     },
     {
       "name": "Government Scholarship (HEF portal — Universities Fund / SD-TVET)",
-      "application_deadline": "First-time applications open around July after placement results and close early September; subsequent years via the HELB App or *642#"
+      "application_deadline": "First-time applications open around July after placement results. The 2026/27 window closed on 21 September 2026 after an extension. Later years apply through the HELB App or *642#"
     },
     {
       "name": "Equity Leaders Program (Equity Group Foundation)",
@@ -175,6 +175,18 @@ const LANDING_STATS = {
     {
       "name": "Nakuru County VTC capitation and tuition support",
       "application_deadline": "No open window published on 19 November 2026; ask the provider when the next round opens."
+    },
+    {
+      "name": "Kisumu County VTC subsidy and bursaries",
+      "application_deadline": "No open window published on 21 November 2026; ask the VTC or the county education office."
+    },
+    {
+      "name": "Kenya Blue Economy Skills Training (KBEST): scholarships at partner colleges (Coast and Lake Victoria)",
+      "application_deadline": "No open window published on 21 November 2026; ask the partner institution."
+    },
+    {
+      "name": "Kakamega County: Barasa Jamii Scholarship and county polytechnic bursaries",
+      "application_deadline": "No open window published on 21 November 2026; ask the county education office."
     }
   ]
 };

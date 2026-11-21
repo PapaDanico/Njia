@@ -2283,6 +2283,37 @@ test('every fee-less card names a published instrument, and none of it reaches t
     + 'a guideline rather than an assertion.');
 });
 
+/* THE SEPTEMBER 2025 UNIVERSITY FEE SCHEDULE IS SHOWN, NEVER WRITTEN.
+ *
+ * From 1 September 2025 public universities charge within a national range per
+ * cluster of programmes, and where a student falls depends on their funding
+ * assessment. The card shows the reported range for the programme's cluster;
+ * it may never become a total_fees_kes, the ranges live once in
+ * data/funding.js beside their source, and the card says the cluster was
+ * assigned from the programme's name, because no source lists every degree. */
+test('the 2025 university fee schedule is reported beside the card, never written as a fee', () => {
+  const S = grab('SCFM_FEE_CLUSTERS_2025');
+  assert.ok(S && S.source && S.effective, 'SCFM_FEE_CLUSTERS_2025 has lost its source or its effective date.');
+  for (const c of S.clusters) {
+    assert.ok(c.name && c.match && /Ksh [\d,]+/.test(c.range), `cluster ${c.name} has no name, pattern or reported range`);
+    assert.doesNotThrow(() => new RegExp(c.match, 'i'), `cluster ${c.name} has an invalid pattern`);
+  }
+  const ownership = Object.fromEntries(INSTITUTIONS.map((i) => [i.id, i.fee_regime]));
+  /* The Open University of Kenya is the one exception: it publishes a flat
+     per-programme fee of its own, which those records cite. */
+  const written = COURSES.filter((c) => ownership[c.institution_id] === 'public_university'
+    && c.institution_id !== 'ouk' && c.total_fees_kes != null);
+  assert.equal(written.length, 0, `public-university records carry a written fee: ${written.map((c) => c.id).join(', ')}`);
+  const decideSrc = fs.readFileSync(path.join(root, 'js', 'decide.js'), 'utf8');
+  assert.match(decideSrc, /SCFM_FEE_CLUSTERS_2025/, 'the card no longer reads the fee schedule constant.');
+  assert.match(decideSrc, /placed the programme\s+in that group from its name/,
+    'the card shows a cluster range without saying the cluster was assigned from the programme name.');
+  for (const c of S.clusters) {
+    const fig = (c.range.match(/Ksh ([\d,]{5,})/) || [])[1];
+    assert.ok(!fig || !decideSrc.includes(fig), `js/decide.js carries its own copy of ${fig}; read it from the constant.`);
+  }
+});
+
 /* THE CONSOLIDATED TVET RATE GOVERNS COLLEGES, NOT COUNTY CENTRES, AND THE
  * DIFFERENCE IS AN ORDER OF MAGNITUDE.
  *

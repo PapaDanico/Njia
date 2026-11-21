@@ -6968,3 +6968,57 @@ search that named them had the trades in its own query), Borabu and Bureti
 (departments named, no awards), Othaya's environmental health and clinical
 medicine, and Eldama Ravine (a staffing advert and a truncated list). Each
 still needs an award-level listing on the college's own site.
+
+**Fees and agriculture pass, 21 November 2026.** Two research workflows (fees;
+funding, agriculture, intakes, counties), each checked by a verifier.
+- **Public universities now show a shilling range.** From 1 September 2025 the
+  Ministry of Education charges within a national schedule of 14 cost-based
+  clusters, a minimum and maximum fee per SEMESTER, for new and continuing
+  students. `SCFM_FEE_CLUSTERS_2025` in `data/funding.js` holds the ranges that
+  were reported consistently and re-sighted by a search naming no figure;
+  `scfmCluster()` in `js/decide.js` places a degree by its name and the card
+  says so. Shown, never written: `tests/provenance.test.js` fails if a public
+  university (other than OUK, which publishes its own flat fee) carries a
+  `total_fees_kes`, or if `js/decide.js` types a copy of a range. Economics,
+  education and ICT have no consistent reading, so they get no range. The five
+  SCFM bands are still in use alongside it; one outlet's claim that they were
+  scrapped was not corroborated. Egerton's own 2025-26 fee PDF exists and would
+  give per-programme Egerton figures if it could be read.
+- **State institutes: research reported, nothing written.** Bukura (two
+  figures on its own domain), AHITI (a fee table read row-misaligned), Bandari,
+  KFC Londiani, MTI Athi River and KISE all yielded real figures that disagree
+  or lack a period, so each card carries a WHAT NJIA FOUND paragraph. Two
+  researcher claims were wrong against the data (Bandari c350 and KIHBT
+  c354/c355 already carry fees): check the record before writing its note.
+  Bukura diplomas are 30 months on the college's own page (24 before).
+- **There is no AHITI campus in Wajir.** The ministry lists its Wajir training
+  at the Livestock Training Institute (Griftu); `ahiti_wajir` was removed and
+  c697/c698 repointed to `lti_wajir`, the Kapkatet same-county shape again.
+  Whether c407 "Diploma in Animal Health" there is the same award as c698 is
+  open.
+- **The university register count was wrong.** The coverage test counted the
+  Open University of Kenya, which CUE classes as a specialised degree-awarding
+  institution, and missed Kabianga and Kirinyaga. Kabianga is listed (five
+  agriculture degrees); Kirinyaga is named in `KNOWN_MISSING_PUBLIC`. Outlets
+  give 36 chartered public universities while the named set is 37, so the
+  denominator is 37 with the conflict in the comment: re-read cue.or.ke.
+- Added: Kabianga +5, Kisii +4, Rongo +4, MMUST Sugar and Agro-processing, AHITI
+  Ndomba and Kabete, KSA Nakuru, and funding f039 Kisumu VTC subsidy, f040
+  KBEST, f041 Kakamega. Corrected f011/f018 (2026/27 HEF window closed 21
+  September after an extension; the original date is disputed, 31 August or 8
+  September) and f013 (2025 and 2026 award rounds separated). JKUAT and SEKU
+  intake months follow their 2026 adverts.
+- **Verified but not yet written, on the maintainer's instruction to stop
+  fixating on E grades:** nine TVCs and VTCs in thin counties, each confirmed
+  on its own domain or the TVETA register by an unseeded search — Mulango TVC
+  (Kitui), Maasai Mara TVC (Narok), Laikipia North and Laikipia East TVCs,
+  Kibwezi West TVC (Makindu, Makueni), Iten VTC, Merti TVC (Isiolo), Chuka TVC
+  (Tharaka-Nithi, distinct from Chuka University), Tana River TVC (Hola), Wajir
+  VTC and ACK Uthaini VTC. Payloads and verdicts are in the workflow journal;
+  they run craft and diploma courses too, so they are general coverage.
+- Leads: Rongo agribusiness degree (two award titles on its own pages), AHITI
+  Kabete Range Management and Leather Technology diplomas (one source),
+  Makueni ATC (needs a CDACC award title), MMUST BSc Agriculture and
+  Biotechnology and BSc Fisheries and Aquaculture (named on its own page, need
+  a second sighting), IMTR Middle Meteorological Technician Course, KenGen GTC
+  durations (sources say 21-45-day short courses; records say 6-12 months).

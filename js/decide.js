@@ -738,6 +738,20 @@ function collapseFeeGuidance(html) {
   return `<details class="fee-help"><summary>${m[1].replace(/\.\s*$/, '')}</summary><p class="text-sm mb-2">${m[2]}</details>`;
 }
 
+/* Which reported fee-schedule cluster a public-university programme falls in,
+   matched on its name. Teaching awards are left out: no consistent reading
+   for the education cluster was found. */
+function scfmCluster(course) {
+  if (typeof SCFM_FEE_CLUSTERS_2025 === 'undefined' || course.level !== 'degree') return null;
+  const name = course.name || '';
+  if (/\beducation\b/i.test(name)) return null;
+  for (const c of SCFM_FEE_CLUSTERS_2025.clusters) {
+    if (c.exclude && new RegExp(c.exclude, 'i').test(name)) continue;
+    if (new RegExp(c.match, 'i').test(name)) return c;
+  }
+  return null;
+}
+
 function feeGuidance(course, institution) {
   if (course.total_fees_kes != null) return '';
   /* The card's own VTC branch already gives the right advice for these, and the
@@ -747,8 +761,15 @@ function feeGuidance(course, institution) {
   const scfm = typeof SCFM_HOUSEHOLD_SHARE !== 'undefined' ? SCFM_HOUSEHOLD_SHARE : null;
 
   if (regime === 'public_university' && scfm) {
+    const cluster = scfmCluster(course);
+    const sched = cluster
+      ? ` Under the national fee schedule in force from ${escapeHtml(SCFM_FEE_CLUSTERS_2025.effective)}, programmes in the
+        <em>${escapeHtml(cluster.name)}</em> group are reported at ${escapeHtml(cluster.range)}. Where you fall depends
+        on your funding assessment, so this is a range rather than this course's price; Njia placed the programme
+        in that group from its name, and a university may add other charges, so confirm on its portal.`
+      : '';
     return `<p class="text-sm mb-2"><strong>What you would actually be asked for.</strong>
-      ${escapeHtml(scfm.reading)} <a href="/help/#scfm">How the bands work</a>.</p>`;
+      ${escapeHtml(scfm.reading)}${sched} <a href="/help/#scfm">How the bands work</a>.</p>`;
   }
   if (regime === 'private_own_rate' && scfm) {
     return `<p class="text-sm mb-2"><strong>Before you compare this with a public university.</strong>

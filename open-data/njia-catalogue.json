@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1442,
-  "institution_count": 230,
+  "course_count": 1462,
+  "institution_count": 233,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -2988,10 +2988,10 @@
       "cluster": "business",
       "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 24,
+      "duration_months": 30,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office."
+      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Bukura publishes two figures for its diplomas on its own site: Ksh 163,500 over five semesters on its courses page and Ksh 123,300 on its older training-opportunities page; KUCCPS lists Ksh 68,000 as a Year 1 programme cost. The courses page names this diploma at the 163,500 figure; two figures on one domain means none is recorded. Length: the college says diplomas run two and a half years, five semesters plus attachment."
     },
     {
       "course_id": "c397",
@@ -3004,10 +3004,10 @@
       "cluster": "people",
       "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 24,
+      "duration_months": 30,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office."
+      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Bukura publishes two figures for its diplomas on its own site: Ksh 163,500 over five semesters on its courses page and Ksh 123,300 on its older training-opportunities page; KUCCPS lists Ksh 68,000 as a Year 1 programme cost. No college page names this award with a figure. Length: the college says diplomas run two and a half years, five semesters plus attachment."
     },
     {
       "course_id": "c394",
@@ -3020,10 +3020,10 @@
       "cluster": "maker",
       "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 24,
+      "duration_months": 30,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office."
+      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Bukura publishes two figures for its diplomas on its own site: Ksh 163,500 over five semesters on its courses page and Ksh 123,300 on its older training-opportunities page; KUCCPS lists Ksh 68,000 as a Year 1 programme cost. No college page names this award with a figure. Length: the college says diplomas run two and a half years, five semesters plus attachment."
     },
     {
       "course_id": "c391",
@@ -3036,10 +3036,10 @@
       "cluster": "maker",
       "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 24,
+      "duration_months": 30,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office."
+      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Bukura publishes two figures for its diplomas on its own site: Ksh 163,500 over five semesters on its courses page and Ksh 123,300 on its older training-opportunities page; KUCCPS lists Ksh 68,000 as a Year 1 programme cost. No college page names this award with a figure. Length: the college says diplomas run two and a half years, five semesters plus attachment."
     },
     {
       "course_id": "c393",
@@ -3052,10 +3052,10 @@
       "cluster": "maker",
       "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 24,
+      "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office."
+      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Bukura publishes two figures for its diplomas on its own site: Ksh 163,500 over five semesters on its courses page and Ksh 123,300 on its older training-opportunities page; KUCCPS lists Ksh 68,000 as a Year 1 programme cost. The courses page names this diploma at the 163,500 figure. Length: the college says diplomas run two and a half years, while a department page gives three for this award, so no length is shown."
     },
     {
       "course_id": "c396",
@@ -3068,10 +3068,10 @@
       "cluster": "carer",
       "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 24,
+      "duration_months": 30,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office."
+      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Bukura publishes two figures for its diplomas on its own site: Ksh 163,500 over five semesters on its courses page and Ksh 123,300 on its older training-opportunities page; KUCCPS lists Ksh 68,000 as a Year 1 programme cost. No college page names this award with a figure, and the nearest award on its courses page is a Diploma in Food and Beverage Production, so confirm the title. Length: the college says diplomas run two and a half years."
     },
     {
       "course_id": "c392",
@@ -3084,10 +3084,10 @@
       "cluster": "maker",
       "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": 24,
+      "duration_months": 30,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office."
+      "verification_note": "Bukura Agricultural College is a state corporation established by an Act of Parliament, training middle-level agricultural staff since 1974 and taking KUCCPS placement. Its Certificate in Agriculture and Community Development is published at Ksh 100,150, with a non-refundable application fee of Ksh 500 for self-sponsored applicants. Per-programme diploma fees could not be verified from any source reachable here, so no figure is shown on those records rather than one scaled from the certificate — a certificate and a diploma are not priced alike. Ask the admissions office. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Bukura publishes two figures for its diplomas on its own site: Ksh 163,500 over five semesters on its courses page and Ksh 123,300 on its older training-opportunities page; KUCCPS lists Ksh 68,000 as a Year 1 programme cost. The courses page names this diploma at the 163,500 figure; two figures on one domain means none is recorded. Length: the college says diplomas run two and a half years, five semesters plus attachment."
     },
     {
       "course_id": "c1396",
@@ -3330,6 +3330,22 @@
       "verification_note": "MMUST is public, CUE-chartered, in Kakamega, and runs over 400 programmes across eleven schools - and this catalogue held two of them. Listed on the university's own school structure, which two independently phrased searches name the same way: Agriculture and Veterinary Sciences, Public Health, Biomedical Sciences and Technology, Engineering and the Built Environment, Business and Economics, Computing and Informatics, Education and Social Sciences, Science, Nursing, and Disaster Management and Humanitarian Assistance. Entry is recorded at the national KUCCPS degree minimum of C+, the door rather than the queue; MMUST publishes subject requirements per programme - good mathematics and physics grades for engineering, and the health programmes are competitive. Duration is the standard national programme length for each award, five years for engineering and four for the rest, which is a qualification-level fact rather than a figure read off this university's calendar. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1482",
+      "course_name": "Bachelor of Science in Sugar and Agro-processing Technology",
+      "institution": "Masinde Muliro University of Science and Technology (MMUST)",
+      "institution_id": "mmust",
+      "county": "Kakamega",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on MMUST’s own School of Agriculture, Veterinary Sciences and Technology programmes page and attached to MMUST in KUCCPS cut-off tables (programme code 1082367). C+ is the national degree minimum; a third-party listing gives C+ in Biology and two of Mathematics, Chemistry and Physics. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c055",
       "course_name": "Diploma in Statistics",
       "institution": "Masinde Muliro University of Science and Technology (MMUST)",
@@ -3567,7 +3583,7 @@
       "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Kenya Forestry College is the Kenya Forest Service's own training college, inside the 4,152-hectare Masaita Forest Block at Londiani. Two independently phrased searches attribute it: the Service's official application advertisement, and the college's own background and programmes page. They disagree by a year on when it opened - 1956 in one, 1957 in the other - so neither is recorded. This award's entry bar and length are published in the Service's own application advertisement. Entry is a C- mean grade OR a Certificate in Forestry, which is a published second pathway worth knowing: it reopens the door to someone whose grade closed it. Intake is June to July. No fee is recorded: the college is a parastatal training arm rather than a Ministry of Education college, so the consolidated public-TVET rate cannot be assumed to govern it, and its figure could not be verified against any reachable source. Write to collegeadmissions@kenyaforestservice.org. ALSO NAMED AND NOT RECORDED: an Artisan Certificate in Bee Hives and Bee Equipment at a D- over six months, named by the advertisement and not repeated by the college's page; an INTERNAL one-year Diploma in Forestry, which is an upgrading route for people who already hold the certificate rather than an entry route from school; and certificates in Business Management and Information Communication, which carry no published bar and are amply covered elsewhere in this catalogue."
+      "verification_note": "Kenya Forestry College is the Kenya Forest Service's own training college, inside the 4,152-hectare Masaita Forest Block at Londiani. Two independently phrased searches attribute it: the Service's official application advertisement, and the college's own background and programmes page. They disagree by a year on when it opened - 1956 in one, 1957 in the other - so neither is recorded. This award's entry bar and length are published in the Service's own application advertisement. Entry is a C- mean grade OR a Certificate in Forestry, which is a published second pathway worth knowing: it reopens the door to someone whose grade closed it. Intake is June to July. No fee is recorded: the college is a parastatal training arm rather than a Ministry of Education college, so the consolidated public-TVET rate cannot be assumed to govern it, and its figure could not be verified against any reachable source. Write to collegeadmissions@kenyaforestservice.org. ALSO NAMED AND NOT RECORDED: an Artisan Certificate in Bee Hives and Bee Equipment at a D- over six months, named by the advertisement and not repeated by the college's page; an INTERNAL one-year Diploma in Forestry, which is an upgrading route for people who already hold the certificate rather than an entry route from school; and certificates in Business Management and Information Communication, which carry no published bar and are amply covered elsewhere in this catalogue. WHAT NJIA FOUND, AND COULD NOT RECONCILE: a 2025/26 guide gives Ksh 40,000 a year residential and Ksh 28,500 non-residential; another gives a six-term schedule starting at Ksh 70,992 for Term 1. The two cannot both describe this diploma, so no figure is recorded."
     },
     {
       "course_id": "c1341",
@@ -3824,6 +3840,86 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Listed on independent sources that name this award at this institution (jambonews.co.ke, victormatara.com, educationnewshub.co.ke), and an adversarial re-check in November 2026 did not refute it. Entry detail: KMTC certificate cluster subjects; confirm on KUCCPS. NO LENGTH OR FEE IS SHOWN: one listing gives two years and another three, so the KMTC schedule cannot be scaled and the fee could not be verified. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Diplomas (Clinical Medicine, Orthopaedic and Trauma Medicine, Nursing, Pharmacy) are listed as offered by some sources and planned by others; excluded. A March 2024 KUCCPS PDF lists Community Health Assistant, Nutrition & Dietetics certificate and diploma, and Medical Engineering certificate at Sigowet, but the text is garbled."
+    },
+    {
+      "course_id": "c1470",
+      "course_name": "Bachelor of Science in Agricultural Economics and Resource Management",
+      "institution": "University of Kabianga",
+      "institution_id": "kabianga",
+      "county": "Kericho",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "business",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the University of Kabianga’s own School of Agriculture and Natural Resources pages, and named as a field of study by an independent university listing. C+ is the national degree minimum. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1471",
+      "course_name": "Bachelor of Science in Agricultural Education and Extension",
+      "institution": "University of Kabianga",
+      "institution_id": "kabianga",
+      "county": "Kericho",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the University of Kabianga’s own School of Agriculture and Natural Resources pages and in its 2024 graduation list. C+ is the national degree minimum. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1469",
+      "course_name": "Bachelor of Science in Agriculture",
+      "institution": "University of Kabianga",
+      "institution_id": "kabianga",
+      "county": "Kericho",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the University of Kabianga’s own School of Agriculture and Natural Resources pages and in its 2024 graduation list. C+ is the national degree minimum; confirm the subject grades on the KUCCPS portal. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1472",
+      "course_name": "Bachelor of Science in Forestry",
+      "institution": "University of Kabianga",
+      "institution_id": "kabianga",
+      "county": "Kericho",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the University of Kabianga’s own School of Agriculture and Natural Resources pages (its Agroforestry, Environmental Studies and Integrated Natural Resource Management department), and named as a field by an independent university listing. C+ is the national degree minimum. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1473",
+      "course_name": "Bachelor of Science in Horticulture",
+      "institution": "University of Kabianga",
+      "institution_id": "kabianga",
+      "county": "Kericho",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the University of Kabianga’s own School of Agriculture and Natural Resources pages (its Agricultural Bio-systems, Economics and Horticulture department), and named as a field by an independent university listing. C+ is the national degree minimum. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c1449",
@@ -4716,10 +4812,10 @@
       "cluster": "carer",
       "min_grade": "C-",
       "open_entry": "no",
-      "duration_months": "",
+      "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Listed on independent sources that name this award at this institution (ku.ac.ke, humansciences.ku.ac.ke), and an adversarial re-check in November 2026 did not refute it. Entry detail: Passes in required subject clusters; the summary shows D+ in Mathematics or Physics among them, the rest of the cluster list could not be read. No programme length is published in a reachable source, so none is shown. Null. Public university; the university publishes no fee for this certificate that could be verified from this build. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Full subject cluster list was cut off in every result."
+      "verification_note": "Listed on independent sources that name this award at this institution (ku.ac.ke, humansciences.ku.ac.ke), and an adversarial re-check in November 2026 did not refute it. Entry detail: Passes in required subject clusters; the summary shows D+ in Mathematics or Physics among them, the rest of the cluster list could not be read. The length is from the university’s own course page, found by a search that did not name it. Null. Public university; the university publishes no fee for this certificate that could be verified from this build. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Full subject cluster list was cut off in every result."
     },
     {
       "course_id": "c1428",
@@ -4732,10 +4828,10 @@
       "cluster": "carer",
       "min_grade": "C",
       "open_entry": "no",
-      "duration_months": "",
+      "duration_months": 24,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Listed on independent sources that name this award at this institution (ku.ac.ke, medicine.ku.ac.ke), and an adversarial re-check in November 2026 did not refute it. Entry detail: C+ in English or Kiswahili (or Kenyan Sign Language), C+ in Biology, C plain in Mathematics or Physics. Alternative published route: KCSE C- plus a certificate in a field related to hearing health. The C plain mean grade is from the university course page; one verifier search found only the subject grades, which differ between the two KU pages, so confirm both with the School of Health Sciences. No programme length is published in a reachable source, so none is shown. Null. Kenyatta is a public university; the university publishes no fee for this programme that could be verified from this build, and no per-programme figure was found."
+      "verification_note": "Listed on independent sources that name this award at this institution (ku.ac.ke, medicine.ku.ac.ke), and an adversarial re-check in November 2026 did not refute it. Entry detail: C+ in English or Kiswahili (or Kenyan Sign Language), C+ in Biology, C plain in Mathematics or Physics. Alternative published route: KCSE C- plus a certificate in a field related to hearing health. The C plain mean grade is from the university course page; one verifier search found only the subject grades, which differ between the two KU pages, so confirm both with the School of Health Sciences. The length is from the university’s own course page, found by a search that did not name it. Null. Kenyatta is a public university; the university publishes no fee for this programme that could be verified from this build, and no per-programme figure was found."
     },
     {
       "course_id": "c274",
@@ -6274,6 +6370,38 @@
       "verification_note": "Kenya Utalii College is a state corporation under the Ministry of Tourism, NOT a TVET institute on the government's consolidated Ksh 67,189 rate, so that rate must not be used to derive its fees. Published Utalii figures conflict: roughly Ksh 38,850 per semester (about 77,700 a year), a quoted diploma range of Ksh 88,000-92,000, a certificate range of Ksh 80,000-85,000, and one one-year certificate quoted at Ksh 125,900. Njia will not choose among those and call the result verified, so the figure shown is an illustrative annual-equivalent scaled to course length and is flagged as such. Entry grades are from KUCCPS: a KCSE mean grade of C plain for diplomas and C- for certificates. Confirm the current fee and the exact programme list with the college or on the KUCCPS student portal before you decide. This campus opens for its pioneer intake in September 2026 with roughly 1,000 places, applications through the KUCCPS student portal at students.kuccps.ac.ke closing 23 August 2026. Six certificate programmes also run at this campus; the exact certificate list was not published in the sources available here, so confirm it on the portal rather than assuming it matches the Nairobi campus."
     },
     {
+      "course_id": "c1483",
+      "course_name": "Certificate in Animal Health and Production",
+      "institution": "Animal Health and Industry Training Institute (AHITI) — Ndomba",
+      "institution_id": "ahiti_ndomba",
+      "county": "Kirinyaga",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "AHITI Ndomba is listed for this award in the State Department for Livestock Development’s April 2026 training notice (postal address Box 32, Kerugoya; ahitindomba@kilimo.go.ke). C- is the Kenya Veterinary Board minimum, as at AHITI Nyahururu. WHAT NJIA FOUND, AND COULD NOT RECONCILE: a report of the same notice gives this certificate as two years at Ksh 136,700, the figure AHITI Nyahururu carries, but one reading of the notice gives one year (two semesters), so no length or fee is shown and the institute’s fee for this campus could not be verified."
+    },
+    {
+      "course_id": "c1484",
+      "course_name": "Diploma in Animal Health and Production",
+      "institution": "Animal Health and Industry Training Institute (AHITI) — Ndomba",
+      "institution_id": "ahiti_ndomba",
+      "county": "Kirinyaga",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed at AHITI Ndomba in the State Department for Livestock Development’s April 2026 training notice, at a KCSE mean grade of C with C in Biology. The notice’s fee table could not be read row by row (readings give Ksh 203,550 and 210,300), so no length or fee is shown; the fee could not be verified. Ask the institute."
+    },
+    {
       "course_id": "c667",
       "course_name": "Bachelor of Commerce",
       "institution": "Kirinyaga University",
@@ -6880,6 +7008,70 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Kisii University is public and CUE-chartered in Kisii County, with eight schools - Arts and Social Sciences, Business and Economics, Education and Human Resource Development, Health Sciences, Information Science and Technology, Law, Pure and Applied Sciences, and Agriculture and Natural Resources Management. This catalogue held two of its programmes. Listed on the university's own programme index and that school structure. Entry is the national KUCCPS degree minimum of C+, the door rather than the queue - the health programmes carry cluster-subject requirements above it. Durations are the published national programme lengths for each award. No per-programme price exists to quote: Kenya retired the Differentiated Unit Cost in May 2023 for the Student-Centred Funding Model, under which what a student pays is set by an assessed means band, so the fee could not be verified as a course total. See the funding note on this card for what you would be asked for."
+    },
+    {
+      "course_id": "c1476",
+      "course_name": "Bachelor of Science in Agribusiness Management",
+      "institution": "Kisii University",
+      "institution_id": "kisii_uni",
+      "county": "Kisii",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "business",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named in Kisii University’s own course brochure and listed at Kisii in KUCCPS cut-off tables. The published bar is a C+ mean with C+ in English, Mathematics, Biology and Chemistry or Physical Sciences; diploma holders with a credit pass may also apply. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1477",
+      "course_name": "Bachelor of Science in Agricultural Economics",
+      "institution": "Kisii University",
+      "institution_id": "kisii_uni",
+      "county": "Kisii",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "business",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed at Kisii University in KUCCPS cut-off tables (programme code 1087216) and on the school’s own listing. C+ is the national degree minimum. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1475",
+      "course_name": "Bachelor of Science in Agricultural Education and Extension",
+      "institution": "Kisii University",
+      "institution_id": "kisii_uni",
+      "county": "Kisii",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named in Kisii University’s own course brochure and by an independent listing. The published bar is a C+ mean with C+ in Biology and Agriculture, and a diploma in a related field is a second route in. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1474",
+      "course_name": "Bachelor of Science in Agriculture",
+      "institution": "Kisii University",
+      "institution_id": "kisii_uni",
+      "county": "Kisii",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Grouped under the school’s own programme listing and listed at Kisii University in KUCCPS cut-off tables (programme code 1087122). C+ is the national degree minimum; confirm the subject grades on the KUCCPS portal. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c1193",
@@ -8492,10 +8684,10 @@
       "cluster": "maker",
       "min_grade": "C",
       "open_entry": "no",
-      "duration_months": 36,
+      "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Entry requirement is a KCSE mean grade of C with C in Biology, C- in Chemistry or Physical Science and C- in Mathematics or Agriculture, per the Kenya Veterinary Board's published minimum entry requirements for animal health courses and the institute's own listing. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. AHITI also advertises artisan and short courses at this campus, but no artisan course is named in any source reachable from this build, so none is listed here rather than a plausible name being invented."
+      "verification_note": "Entry requirement is a KCSE mean grade of C with C in Biology, C- in Chemistry or Physical Science and C- in Mathematics or Agriculture, per the Kenya Veterinary Board's published minimum entry requirements for animal health courses and the institute's own listing. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. AHITI also advertises artisan and short courses at this campus, but no artisan course is named in any source reachable from this build, so none is listed here rather than a plausible name being invented. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the State Department for Livestock Development’s April 2026 training notice lists this diploma at AHITI Kabete, Ndomba and Nyahururu at a KCSE mean grade of C with C in Biology, but its fee table could not be read row by row: readings give Ksh 203,550, Ksh 210,300 and two and a half years, and the Kenya Times attaches Ksh 210,300 and two and a half years to the separate Animal Health and Range Management diploma. So no length or fee is shown; ask the institute for both."
     },
     {
       "course_id": "c139",
@@ -9471,7 +9663,7 @@
       "duration_months": 12,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The institute publishes its ladder as \"C- and above for Diploma; D plain and above for Certificate; other course categories are open\", so a KCSE mean grade of D plain is recorded for the certificate tier. Course named in the State Department for Livestock Development 2026 training intake advertisement (Ministry of Agriculture and Livestock Development), reported by The Kenya Times and Education News Hub, and cross-read against the institute course listings on colleges.co.ke and Elimu Centre, September 2026. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. The open tier is real but no artisan course is named in any reachable source, so none is listed."
+      "verification_note": "The institute publishes its ladder as \"C- and above for Diploma; D plain and above for Certificate; other course categories are open\", so a KCSE mean grade of D plain is recorded for the certificate tier. Course named in the State Department for Livestock Development 2026 training intake advertisement (Ministry of Agriculture and Livestock Development), reported by The Kenya Times and Education News Hub, and cross-read against the institute course listings on colleges.co.ke and Elimu Centre, September 2026. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. The open tier is real but no artisan course is named in any reachable source, so none is listed. WHAT NJIA FOUND, AND COULD NOT RECONCILE: two readings of the 2026 State Department for Livestock Development advertisement give this course as Ksh 45,000 over 10 weeks and as Ksh 77,500 over 6 months, so neither the fee nor a change of length is recorded. Ask which course you are applying for."
     },
     {
       "course_id": "c700",
@@ -11090,6 +11282,22 @@
       "verification_note": "Rongo University is a public chartered university and had not been listed here at all. Programme named in its published course listing. Degrees are placed through KUCCPS at the national minimum of a KCSE mean grade of C+, with cluster-point cut-offs that move every cycle - so C+ is the floor to be eligible to apply rather than a guarantee of a place. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1478",
+      "course_name": "Bachelor of Science in Agriculture",
+      "institution": "Rongo University",
+      "institution_id": "rongo_uni",
+      "county": "Migori",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on the university’s own School of Agriculture, Natural Resources and Environmental Studies pages and by independent outlets (Kenya Times, SOMO). C+ is the national degree minimum. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c627",
       "course_name": "Bachelor of Science in Communication and Journalism",
       "institution": "Rongo University",
@@ -11122,6 +11330,22 @@
       "verification_note": "Rongo University is a public chartered university and had not been listed here at all. Programme named in its published course listing. Degrees are placed through KUCCPS at the national minimum of a KCSE mean grade of C+, with cluster-point cut-offs that move every cycle - so C+ is the floor to be eligible to apply rather than a guarantee of a place. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1479",
+      "course_name": "Bachelor of Science in Horticulture",
+      "institution": "Rongo University",
+      "institution_id": "rongo_uni",
+      "county": "Migori",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on two of Rongo University’s own pages, its agriculture school homepage and its fee page; no independent outlet repeats it, so confirm it on the KUCCPS portal. C+ is the national degree minimum. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c642",
       "course_name": "Certificate in Health Records and Information Technology",
       "institution": "Rongo University",
@@ -11152,6 +11376,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Rongo University is a public chartered university and had not been listed here at all. Programme named in its published course listing. This is a certificate, and it is listed because a university certificate is unusual and reaches far lower than a degree does. No certificate-specific minimum grade was published in any source reachable from this build, so the national KUCCPS certificate floor of D plain is recorded rather than a stricter figure invented for it - confirm with admissions. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1480",
+      "course_name": "Diploma in Agriculture",
+      "institution": "Rongo University",
+      "institution_id": "rongo_uni",
+      "county": "Migori",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Rongo University’s own agriculture school diploma page and its 2025 brochure, and independently by Kenya Times. Rongo publishes no diploma bar reachable from this build, so C- is the national diploma floor, as on its other diplomas; confirm with admissions. No length is published, so none is shown, and the university does not publish a fee for it that could be verified."
     },
     {
       "course_id": "c639",
@@ -11282,6 +11522,22 @@
       "verification_note": "Rongo University is a public chartered university and had not been listed here at all. Programme named in its published course listing. This is a diploma. The university publishes no diploma-specific minimum grade in any source reachable from this build, so the national KUCCPS diploma floor of C- is recorded rather than a stricter figure invented for it - confirm with admissions. A diploma at a university is one of the few routes that later opens a degree at the same institution. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1481",
+      "course_name": "Diploma in Horticulture",
+      "institution": "Rongo University",
+      "institution_id": "rongo_uni",
+      "county": "Migori",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Rongo University’s own agriculture school diploma page and its 2025 brochure, and independently by Kenya Times. Rongo publishes no diploma bar reachable from this build, so C- is the national diploma floor; confirm with admissions. No length is published, so none is shown, and the university does not publish a fee for it that could be verified."
+    },
+    {
       "course_id": "c633",
       "course_name": "Diploma in Information Communication Technology",
       "institution": "Rongo University",
@@ -11391,7 +11647,7 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Listed on the KUCCPS programme list for 2026/27 (code 4290916) at Bandari Maritime Academy. No entry bar specific to this award is published in any source reachable from this build, so the KUCCPS national craft certificate minimum of D plain is recorded. No length is published, so the field is empty, and a fee could not be verified, so none is shown."
+      "verification_note": "Listed on the KUCCPS programme list for 2026/27 (code 4290916) at Bandari Maritime Academy. No entry bar specific to this award is published in any source reachable from this build, so the KUCCPS national craft certificate minimum of D plain is recorded. No length is published, so the field is empty, and a fee could not be verified, so none is shown. WHAT NJIA FOUND: one guide gives Ksh 125,000 per module for this certificate over two years. It is a single, undated source, so no figure is recorded."
     },
     {
       "course_id": "c352",
@@ -11455,7 +11711,7 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Listed on the KUCCPS programme list for 2026/27 (code 4290B57) at Bandari Maritime Academy. No entry bar specific to this award is published in any source reachable from this build, so the KUCCPS national diploma minimum of C minus is recorded. No length is published, so the field is empty, and the academy sets its own fees: a figure could not be verified, so none is shown."
+      "verification_note": "Listed on the KUCCPS programme list for 2026/27 (code 4290B57) at Bandari Maritime Academy. No entry bar specific to this award is published in any source reachable from this build, so the KUCCPS national diploma minimum of C minus is recorded. No length is published, so the field is empty, and the academy sets its own fees: a figure could not be verified, so none is shown. WHAT NJIA FOUND: the 2023/24 KUCCPS listing gives a first-year programme cost of Ksh 120,000 for this diploma, and a guide gives Ksh 120,000 per module at one year a module. The number of modules is not stated, so no total is recorded."
     },
     {
       "course_id": "c1421",
@@ -12592,6 +12848,38 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Amref International University is a CUE-chartered private university run by Amref Health Africa, with a School of Medical Sciences and a School of Public Health. Entry is a KCSE mean grade of C plain or equivalent. The university does not publish a per-programme fee schedule in any source available here — fees are set by the university and vary by citizenship — so no figure is shown rather than a guessed one — confirm with the admissions office. WHAT NJIA FOUND, AND COULD NOT RECONCILE: one search gave Ksh 111,700-115,200 a semester and a four-year total of about Ksh 1,363,100; the next gave Ksh 155,700-160,700 a semester and a total \"over Ksh 1.8 million\". Those differ by roughly 40%, and non-East-African students are reported to pay 20% more. None of these is this course’s fee - treat it as a bracket to check, and ask which AWARD the quote covers and what it excludes."
+    },
+    {
+      "course_id": "c1485",
+      "course_name": "Certificate in Animal Health and Production",
+      "institution": "Animal Health and Industry Training Institute (AHITI) — Kabete",
+      "institution_id": "ahiti_kabete",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "AHITI Kabete, founded in 1965 with FAO and UNDP under what is now the State Department for Livestock Development, is listed for this award in the April 2026 training notice. Its postal address is Kangemi, Nairobi, and the campus sits on the Nairobi-Kiambu boundary, so Nairobi is recorded; do not confuse it with Kabete National Polytechnic. WHAT NJIA FOUND, AND COULD NOT RECONCILE: a report gives this certificate as two years at Ksh 136,700 while one reading of the notice gives one year, so no length or fee is shown and the fee could not be verified."
+    },
+    {
+      "course_id": "c1486",
+      "course_name": "Diploma in Animal Health and Production",
+      "institution": "Animal Health and Industry Training Institute (AHITI) — Kabete",
+      "institution_id": "ahiti_kabete",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed at AHITI Kabete in the State Department for Livestock Development’s April 2026 training notice, at a KCSE mean grade of C with C in Biology. The notice’s fee table could not be read row by row (readings give Ksh 203,550 and 210,300), so no length or fee is shown; the fee could not be verified. The Kenya Times also places a Diploma in Animal Health and Range Management and a Diploma in Leather Technology here, which no second source repeats."
     },
     {
       "course_id": "c1346",
@@ -14255,7 +14543,7 @@
       "duration_months": 3,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "KISE is a semi-autonomous agency under the Ministry of Education, established 1986 at Kasarani, Nairobi. Two independently phrased searches agree on the award, a THREE-MONTH length and a minimum KCSE mean grade of D. KISE states a general C- floor for its certificate courses and publishes D for this one specifically, so the lower published figure is recorded per programme and a learner at D is not turned away on the institute-wide floor. RECORDED AS A SHORT COURSE, NOT A KNQF CERTIFICATE: no source places this award on the qualifications framework, so Njia does not imply it ladders like a KNEC certificate. Ask KISE whether it carries a KNQF level before planning a ladder on it. KISE publishes no fee for it that Njia could reach; ring +254 724 269505."
+      "verification_note": "KISE is a semi-autonomous agency under the Ministry of Education, established 1986 at Kasarani, Nairobi. Two independently phrased searches agree on the award, a THREE-MONTH length and a minimum KCSE mean grade of D. KISE states a general C- floor for its certificate courses and publishes D for this one specifically, so the lower published figure is recorded per programme and a learner at D is not turned away on the institute-wide floor. RECORDED AS A SHORT COURSE, NOT A KNQF CERTIFICATE: no source places this award on the qualifications framework, so Njia does not imply it ladders like a KNEC certificate. Ask KISE whether it carries a KNQF level before planning a ladder on it. KISE publishes no fee for it that Njia could reach; ring +254 724 269505. WHAT NJIA FOUND: a 2024/25 guide gives Ksh 52,500 tuition for all three sessions, Ksh 5,000 registration and Ksh 9,000 administration, Ksh 66,500 in all. It is one site, so no figure is recorded; confirm it with KISE."
     },
     {
       "course_id": "c1354",
@@ -18176,6 +18464,38 @@
       "tuition_kes": 238200,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Total here is that schedule multiplied out by course length. Tuition only — accommodation and meals are extra, and some programmes add a published Year 1 skills-lab fee. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Named on this campus's own list, not inferred from KMTC's national one. KMTC Nakuru's clinical site is Nakuru County Teaching and Referral Hospital, and the campus states that it runs 14 courses. Two independently phrased searches name this programme at this campus, and neither query contained its name. The certificate and the diploma are both named at this campus by the listing that gives its course count; the diploma bar is KMTC’s published C plain mean grade with cluster-subject requirements on top. Higher diplomas at this campus - including Clinical Medicine, Medical Laboratory Sciences, Medical Imaging and Medical Education - are post-basic qualifications for people already in practice and are not recorded: this catalogue is read by people deciding what to do after KCSE. What is NOT recorded here is as deliberate as what is. One listing also named Dental Technology, Nursing, Public Health, Nutrition and Dietetics, Occupational Therapy and Health Promotion at this campus; the other did not, and a list that long is the shape of the national catalogue rather than of a campus running 14 courses, so none of them is recorded. Pharmacy, Community Oral Health and Medical Imaging Sciences are also left out on a narrower ground: they appeared in a search whose own query named them, which is one source asked twice rather than two sources agreeing. Physiotherapy is left out because the two listings disagree - one places a physiotherapy department inside the referral hospital, the other omits it from the campus course list entirely. Ring the campus about any of these rather than reading their absence here as evidence."
+    },
+    {
+      "course_id": "c1488",
+      "course_name": "Craft Certificate in General Agriculture",
+      "institution": "Kenya School of Agriculture — Nakuru Campus",
+      "institution_id": "ksa_nakuru",
+      "county": "Nakuru",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "D",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Offered at the Kenya School of Agriculture’s new Nakuru campus from its first intake in September 2026 (reported by an education news site; contact nakuru@ksa.ac.ke). KSA publishes D plain for craft certificates. No length is published for the craft certificate, so none is shown, and the school does not publish a fee for it that could be verified."
+    },
+    {
+      "course_id": "c1487",
+      "course_name": "Diploma in General Agriculture",
+      "institution": "Kenya School of Agriculture — Nakuru Campus",
+      "institution_id": "ksa_nakuru",
+      "county": "Nakuru",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development. Its Nakuru campus took its first intake in September 2026 (reported by an education news site; contact nakuru@ksa.ac.ke, 0202 637 367), and KSA is a multi-campus school whose bars are the same across campuses: C- for diplomas, which run three years over three modules. The school does not publish a fee for this course that could be verified."
     },
     {
       "course_id": "c1329",
@@ -22866,38 +23186,6 @@
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Totals here are that schedule multiplied out by course length. The same schedule adds a one-off Year 1 skills-lab fee of Ksh 1,500 for this programme, included in the total. Accommodation and meals are extra. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry: the KMTC September 2025 and September 2026 pre-service adverts give a KCSE mean grade of C plain for this diploma; the subject grades differ between the two adverts (C- or C in English or Kiswahili, D+ or C in Biology, and a D or C- in one of Mathematics, Chemistry, Physics or Physical Science), so confirm them on the KUCCPS portal. Length: the KMTC general programmes page gives three and a half years for Community Health Nursing while its nursing department page gives three; the total here covers three years, so ask whether a further half-year charge applies."
     },
     {
-      "course_id": "c697",
-      "course_name": "Certificate in Animal Health and Range Management",
-      "institution": "Animal Health and Industry Training Institute (AHITI) — Wajir",
-      "institution_id": "ahiti_wajir",
-      "county": "Wajir",
-      "ownership": "public",
-      "level": "certificate",
-      "cluster": "maker",
-      "min_grade": "C-",
-      "open_entry": "no",
-      "duration_months": 24,
-      "tuition_kes": "",
-      "fee_basis": "unpublished",
-      "verification_note": "Entry requirement is a KCSE mean grade of C-, per the Kenya Veterinary Board's published minimum entry requirements for animal health courses and the AHITI course listing naming Wajir as one of five campuses. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. This is the only institution Njia lists in Wajir outside the KMTC campus, and its lowest bar is a C-, so it does not open the county to a learner with a D or an E."
-    },
-    {
-      "course_id": "c698",
-      "course_name": "Diploma in Animal Health and Range Management",
-      "institution": "Animal Health and Industry Training Institute (AHITI) — Wajir",
-      "institution_id": "ahiti_wajir",
-      "county": "Wajir",
-      "ownership": "public",
-      "level": "diploma",
-      "cluster": "maker",
-      "min_grade": "C",
-      "open_entry": "no",
-      "duration_months": 36,
-      "tuition_kes": "",
-      "fee_basis": "unpublished",
-      "verification_note": "Entry requirement is a KCSE mean grade of C, per the Kenya Veterinary Board's published minimum entry requirements for animal health courses and the AHITI course listing naming Wajir as one of five campuses. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. This is the only institution Njia lists in Wajir outside the KMTC campus, and its lowest bar is a C-, so it does not open the county to a learner with a D or an E."
-    },
-    {
       "course_id": "c093",
       "course_name": "Certificate in Community Health Assistant",
       "institution": "Kenya Medical Training College (KMTC) — Wajir Campus",
@@ -22928,6 +23216,22 @@
       "tuition_kes": 239700,
       "fee_basis": "derived",
       "verification_note": "KMTC publishes one national fee structure for every campus: Ksh 82,200 in Year 1 and Ksh 78,000 each subsequent year, 2025/26 (kmtc.ac.ke, August 2026). Totals here are that schedule multiplied out by course length. The same schedule adds a one-off Year 1 skills-lab fee of Ksh 1,500 for this programme, included in the total. Accommodation and meals are extra. A non-refundable Ksh 1,500 application fee applies. Confirm with the campus before paying. Entry: the KMTC September 2025 and September 2026 pre-service adverts give a KCSE mean grade of C plain for this diploma; the subject grades differ between the two adverts (C- or C in English or Kiswahili, D+ or C in Biology, and a D or C- in one of Mathematics, Chemistry, Physics or Physical Science), so confirm them on the KUCCPS portal. Length: the KMTC general programmes page gives three and a half years for Community Health Nursing while its nursing department page gives three; the total here covers three years, so ask whether a further half-year charge applies."
+    },
+    {
+      "course_id": "c697",
+      "course_name": "Certificate in Animal Health and Range Management",
+      "institution": "Livestock Training Institute, Wajir (Griftu)",
+      "institution_id": "lti_wajir",
+      "county": "Wajir",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "maker",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Entry requirement is a KCSE mean grade of C-, per the Kenya Veterinary Board's published minimum entry requirements for animal health courses and the AHITI course listing naming Wajir as one of five campuses. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. This is the only institution Njia lists in Wajir outside the KMTC campus, and its lowest bar is a C-, so it does not open the county to a learner with a D or an E. This award was earlier filed under an AHITI campus in Wajir; no source names one, and the State Department for Livestock Development lists its Wajir training at the Livestock Training Institute Wajir (Griftu), so it is recorded there."
     },
     {
       "course_id": "c411",
@@ -22992,6 +23296,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "The Livestock Training Institute at Griftu is a government institute in Wajir West, upgraded from the Griftu Pastoral Training Centre — running since 1968 — by executive order in September 2016. It trains middle-level professionals for the livestock economy and has taken tens of thousands of pastoralists through short courses. It does not publish a fee schedule in any source reachable here, so no figure is shown rather than a guessed one. Ask the institute directly, and ask about county and donor-sponsored places, which are common in this sector."
+    },
+    {
+      "course_id": "c698",
+      "course_name": "Diploma in Animal Health and Range Management",
+      "institution": "Livestock Training Institute, Wajir (Griftu)",
+      "institution_id": "lti_wajir",
+      "county": "Wajir",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "maker",
+      "min_grade": "C",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Entry requirement is a KCSE mean grade of C, per the Kenya Veterinary Board's published minimum entry requirements for animal health courses and the AHITI course listing naming Wajir as one of five campuses. The institute publishes no fee for this course in any source reachable from this build: the intake advertisement states that fees vary per programme and directs applicants to the admissions office, so a per-course total could not be verified. No figure is shown rather than an invented one; ask the principal for the current rate and what it excludes. This is the only institution Njia lists in Wajir outside the KMTC campus, and its lowest bar is a C-, so it does not open the county to a learner with a D or an E. WHAT NJIA FOUND, AND COULD NOT RECONCILE: the State Department for Livestock Development 2026 advertisement gives this diploma at Ksh 210,300 (one reading gives 211,450), and lists it at AHITI Kabete and the Livestock Training Institute Wajir rather than at an AHITI Wajir campus, so confirm which institute you would attend. Readings of its length disagree between two and two and a half years, so no length is shown. This award was earlier filed under an AHITI campus in Wajir; no source names one, and the State Department for Livestock Development lists its Wajir training at the Livestock Training Institute Wajir (Griftu), so it is recorded there."
     },
     {
       "course_id": "c408",

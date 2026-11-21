@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1476,
+  "course_count": 1477,
   "institution_count": 243,
   "county_count": 47,
   "column_notes": {
@@ -11424,6 +11424,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Rongo University is a public chartered university and had not been listed here at all. Programme named in its published course listing. Degrees are placed through KUCCPS at the national minimum of a KCSE mean grade of C+, with cluster-point cut-offs that move every cycle - so C+ is the floor to be eligible to apply rather than a guarantee of a place. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1503",
+      "course_name": "Bachelor of Science in Agribusiness Management",
+      "institution": "Rongo University",
+      "institution_id": "rongo_uni",
+      "county": "Migori",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "business",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on two of the university’s own sources: its programmes brochure calls it Bachelor of Science in Agribusiness Management, and the School of Agriculture, Natural Resources and Environmental Studies site calls it Bachelor of Science in Agribusiness; the brochure title is used here, so confirm the exact name on the KUCCPS portal. A 2023/24 intake listing gave a C+ mean with C+ in Mathematics and in a business subject or Agriculture, and also admitted a C plain mean or a relevant diploma; that listing is from a past cycle, so ask the university whether the C plain route still runs. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c1478",

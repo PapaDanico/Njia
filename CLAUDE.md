@@ -46,6 +46,44 @@ reader who has no way to check:
 If a rule below and the reader's interests point in different directions, the
 reader wins — and then come back and fix the rule.
 
+## What counts as a source (widened 24 November 2026)
+
+The maintainer's instruction: *all the information needed to elevate the
+platform is publicly available.* The sections below were written one refusal at
+a time, and read together they had grown stricter than the four rules at the
+top require. This is the standing standard. Where an older paragraph below is
+stricter, this one wins.
+
+**A figure is sourced by any ONE of these:**
+
+- **The institution's own domain**, read through a search summary, when it
+  names the programme, the figure and the period. Two summaries of the same
+  page that disagree still attribute nothing.
+- **A national authority's own publication**: the Ministry of Education,
+  KUCCPS, HELB, the Higher Education Fund (HEF), CUE, TVETA, KNEC, KNBS, NITA, a
+  county government, or the Kenya Gazette.
+- **The institution's or authority's verified social media account**, cross-checked against
+  one other channel. The impersonator rules on `/help/` apply.
+- **Two independent outlets that agree to the shilling or the grade.** Several
+  pages on one site count as one outlet, and so do two results quoting the same
+  sentence.
+
+**A listing (existence) needs less.** A programme map (KUCCPS, CUE, the
+institution's school or faculty pages, an intake advert or poster) plus
+confirmation that the institution runs that school is enough to create a
+record. Unknown fields stay empty.
+
+**Report everything that was found.** A figure that misses the bar above goes
+into the note as a WHAT NJIA FOUND paragraph, with its source, period and year,
+and never into the fee field. Withholding research a reader could use is the
+error the maintainer has corrected four times.
+
+**What has not moved:** no invented figure; never quote a grade high or low;
+never derive a total by multiplying a rate across a count you picked yourself;
+never put the figure you are checking into the query that checks it. Searches
+go through WebSearch only. Scope each search to the institution's own domain
+first and to news outlets second.
+
 ## The file itself got too rigid, and it cost quality
 
 The maintainer's correction, and it is the second time: *this file shouldn't be

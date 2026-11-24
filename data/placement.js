@@ -146,9 +146,9 @@ const PLACEMENT_CALENDAR = [
  * the search, so the calendar running short reads as "re-checked, nothing
  * announced" rather than as nobody having looked. It expires after 30 days. */
 const PLACEMENT_NEXT_CYCLE_CHECK = {
-  checked: '2026-10-23',
-  finding: 'No 2027 KUCCPS main-window, KMTC March 2027 or TVET January 2027 dates announced. KUCCPS said in August 2026 that students placed in degrees in 2026 may apply for the KMTC March 2027 intake, and the 2026 March window ran 7-27 January, but no 2027 date has been published.',
-  source: 'Searches of KUCCPS, KMTC and Kenyan education press, 23 October 2026',
+  checked: '2026-11-24',
+  finding: 'Still no 2027 KUCCPS main-window, KMTC March 2027 or TVET January 2027 dates announced. The 2026 precedent was KMTC March applications 7-27 January, a TVET window for May closing 18 March, and the main window 7 April to 6 May; none of that is a 2027 date.',
+  source: 'Searches of KUCCPS (kuccps.net), Standard, Star, People Daily and Capital FM, 24 November 2026',
 };
 
 if (typeof module !== 'undefined' && module.exports) {

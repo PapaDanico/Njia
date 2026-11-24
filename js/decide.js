@@ -744,7 +744,9 @@ function collapseFeeGuidance(html) {
 function scfmCluster(course) {
   if (typeof SCFM_FEE_CLUSTERS_2025 === 'undefined' || course.level !== 'degree') return null;
   const name = course.name || '';
-  if (/\beducation\b/i.test(name)) return null;
+  /* Only the two education groups the schedule names - arts and science - get a
+     range; every other education award stays without one. */
+  if (/\beducation\b/i.test(name) && !/education \(?(arts|science)|special needs education/i.test(name)) return null;
   for (const c of SCFM_FEE_CLUSTERS_2025.clusters) {
     if (c.exclude && new RegExp(c.exclude, 'i').test(name)) continue;
     if (new RegExp(c.match, 'i').test(name)) return c;

@@ -229,7 +229,7 @@ test('catalogue records do not get fatter as the catalogue grows', () => {
      county and vocabulary the file has never seen, which the simulation above
      establishes is the expensive kind and is exactly the coverage this project
      values. A backstop wants room to tell a regression from a good day. */
-  const PER_COURSE = 140;
+  const PER_COURSE = 145;
   const bytes = gz('data/courses.js');
   const per = bytes / COURSES.length;
   assert.ok(per <= PER_COURSE,

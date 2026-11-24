@@ -7030,3 +7030,90 @@ funding, agriculture, intakes, counties), each checked by a verifier.
   Biotechnology and BSc Fisheries and Aquaculture (named on its own page, need
   a second sighting), IMTR Middle Meteorological Technician Course, KenGen GTC
   durations (sources say 21-45-day short courses; records say 6-12 months).
+
+**Research pass, 21 November 2026 (four search-only researchers).**
+- Added: Rongo BSc Agribusiness Management (its brochure and its agriculture
+  school's site), MMUST Agriculture and Biotechnology and Fisheries and
+  Aquaculture (own pages plus KUCCPS), Chuka TVC carpentry and motor vehicle
+  artisans at E (KUCCPS plus an intake list), and **Lamu East TVC** with three
+  Level 5 certificates at D from the KUCCPS portal. Lamu is no longer a
+  single-provider or KMTC-only county: both ratchets are now 0. It is still
+  E-blind; its county VTCs name trades but no award, and their licences lapsed
+  in 2024.
+- Removed: KenGen GTC and its three records. It trains KenGen and utility staff;
+  the sourced lengths are 21 days (UNU-GTP) and 45 days (one blog), and no
+  KCSE-entry route exists, so the 6 to 12-month certificates at C- were
+  inventions of a door. c407 "Diploma in Animal Health" at LTI Wajir was a
+  duplicate of c698 under a name the ministry's 2026 notice does not use.
+- Fees, still not written: Zetech's business group reads 60,000 tuition a
+  semester and a 576,200 eight-semester total in one reading only (the earlier
+  "five of eight semesters" note may be wrong; one more unseeded reading would
+  settle it). Daystar's official 2025-26 rate reads 6,640 (Athi River) and 7,380
+  (Nairobi) per credit hour twice, which settles the earlier disagreement, but
+  no programme credit count is published. KCA prices per unit (BCom 10,925 on
+  campus, 2024-25). USIU 11,000 a unit for finance and accounting; CUEA's
+  totals are on a 2023 sheet; Egerton's 2025-26 annex exists but no figure was
+  read. Strathmore's LLB total is on the Law School FAQ, undated.
+- Leads: MMUST Agribusiness Management and Marketing (own page only); Mulango
+  automotive and carpentry artisans (KUCCPS only); whether Mulango's
+  "Electrical Engineering Technician" (Level 4, one year) is KUCCPS's "Artisan
+  in Electrical Installation".
+
+**Courses and fees workflow, 24 November 2026 (five areas, each verified).**
+- ADMI +4 diplomas (Music Production, Film and Television Production, Sound
+  Engineering, Graphic Design), C- on its own pages; c1432 renamed to its
+  current title, Animation and Motion Graphics. Its fees are reported, not
+  written: its own pages say "From KES 100,000" a semester (a floor) and also
+  show 85,000, 90,000, 120,000 and 150,000; 2023 guides give 145,000.
+- New families: KU Aerospace Engineering, Exercise and Sports Science, and BA
+  Film and Theatre; Strathmore BSc Computer Networks and Cyber Security (B-,
+  its general bar); Embu BSc Cyber Security. Funding: f042 KMTC and Beyond
+  Zero full scholarship at C-, f043 Murang'a Inua Masomo (Ksh 10,000 once, C+).
+- **Cyber security had been filed under public administration**, because the
+  admin pattern holds `security`: OUK, KCA (two) were shipped that way.
+  `CYBER_AWARD` precedence in `data/sectors.js` moves exactly the six records
+  naming cyber or information security; `sound engineering` joins the creative
+  precedence.
+- Refused or unchecked: private flat fees (Zetech total still single-read;
+  MKU refuted; KCA unit count unchecked); public self-sponsored fees were
+  mostly unchecked, so nothing was reported on cards. Daystar's 129 credit
+  hours is for "most majors" and cannot attach to a named programme.
+- The placement calendar runs out on 31 December 2026 and no 2027 dates are
+  published; `PLACEMENT_NEXT_CYCLE_CHECK` records the 24 November search, which
+  the guard accepts for 30 days. Re-search before 24 December.
+
+**Fees, depth and social media pass, 24 November 2026.**
+- **Five more groups of the 2025 public-university fee schedule**, each read by
+  two outlets agreeing to the shilling: education (arts) and economics sit in
+  the business group (7,525-30,101), education (science) with applied sciences
+  (11,628-46,512), applied humanities 6,982-27,927, food sciences 11,401-45,603,
+  and a professional group (hospitality, tourism, journalism, library)
+  9,690-38,760. `scfmCluster()` now gives the two education groups a range.
+  Public-university degrees with a range: 168 to 255 of 483. Open question:
+  Njia's "law, agribusiness" group carries 9,690-38,760, the professional
+  group's range; no outlet this pass placed law there, so re-check it.
+- **UoN self-sponsored (Schedule II) fees are reported on four cards**, never
+  written: MBChB 600,000, LLB 216,000, BCom 216,000, civil engineering 396,000
+  a year, tuition only, undated.
+- Added: KU Real Estate and Biomedical Engineering (EBK accreditation not
+  confirmed, and the card says so), Egerton MBChB (B plain, its own advert) and
+  BEd (Science), Moi MBChB, Medical Laboratory Science and Physical Therapy (C+
+  shown; older adverts gave B+ and B-), JKUAT Physiotherapy. Zetech BSc Nursing
+  priced at its stated programme total, Ksh 1,169,200 (derived).
+- c525 Riara BBA showed no fee while its note described a withdrawn Ksh 820,000
+  total; a new guard fails any fee-less note that opens by describing a fee.
+- **Social media pass.** Official accounts only, every claim with a second
+  channel. KUCCPS's own Facebook is `@The.Placement.Service`; "Kuccps News" and
+  similar pages are impersonators. KMTC opened March 2027 deferments on 19
+  November (a deferment route, not an intake). Scam patterns now on `/help/`:
+  paid "service fee" transfer posters, WhatsApp-number admission letters, fake
+  January intake adverts.
+
+**Fees and depth pass, 24 November 2026 (second).** Four search-only researchers, each checked by a verifier.
+- **Three more public fee groups**, each confirmed by outlets agreeing to the shilling: basic sciences (mathematics, physics, chemistry, biology) 10,659-42,636; public and allied health (public, environmental and community health, radiography, medical psychology, physiotherapy, sports science) 13,082-52,326; and social work and development studies, which join applied humanities (6,982-27,927). The health ceiling is printed as 52,236 by one outlet; 52,326 is the majority reading and four times the floor. Law is confirmed in the professional group, 9,690-38,760. Public-university degrees with a range: 296 of 501.
+- **Computing has no range**: one outlet places it with built environment (12,960-51,840), and HapaKenya twice places it in the professional group (9,690-38,760). Procurement, HRM, statistics, actuarial science and agricultural economics are named in no fee group reachable from here.
+- **A wrong figure corrected on three Zetech cards.** c520, c521 and c522 reported Ksh 66,000 a semester, which is Zetech's IT-group rate, not the business group's. The six business cards now report the three readings that disagree (100,000, 60,000 and 54,650 a semester).
+- **Ten degrees added**, each on the university's own pages plus KUCCPS or an independent listing: UoN Biosystems Engineering and Medical Laboratory Science and Technology; Egerton LLB (B-, published), Clinical Medicine and BEd (Arts); Moi Medical Psychology; JKUAT BBIT and Clinical Medicine and Community Health; KU Bachelor of Music and Music (Technology). The two clinical medicine records carry no duration, because none is published.
+- **The per-course byte backstop went from 140 to 145.** It failed at 140.1 with both of its properties holding, which means the extra bytes are new text from ten new programmes, not bloat.
+- **Self-sponsored fees: reported nowhere, because almost nothing held up.** JKUAT's own BSc Computer Technology page gives Ksh 207,142 a year, but the programme is not in the catalogue. JKUAT's own pages contradict each other on Banking and Finance (168,967 against 183,600). KU's 193,800 a year appears on several unrelated rows. Moi and Egerton MBChB figures are irreconcilable.
+- Leads: KU BEd (Arts) Music code (1111T50 or 1111162); JKUAT Medical Biochemistry, Medical Microbiology, Medical Social Work and Health Records (own domain only); the Zetech business-group total; KCA's unit count (its BCom runs nine trimesters, not eight).

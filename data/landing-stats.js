@@ -10,39 +10,39 @@
  * build time, not by a second copy of the rule.
  */
 const LANDING_STATS = {
-  "courses": 1476,
-  "distinctProgrammes": 753,
+  "courses": 1507,
+  "distinctProgrammes": 768,
   "institutions": 243,
   "counties": 47,
   "published": 13,
-  "derived": 348,
-  "withNote": 1476,
-  "feeAbsent": 1011,
-  "feeAbsentStated": 1011,
+  "derived": 349,
+  "withNote": 1507,
+  "feeAbsent": 1041,
+  "feeAbsentStated": 1041,
   "sectorRoutes": {
     "aviation": 22,
     "maritime": 11,
-    "mining": 9,
-    "hospitality": 59,
-    "built": 62,
-    "admin": 102,
+    "mining": 8,
+    "hospitality": 61,
+    "built": 64,
+    "admin": 99,
     "finance": 177,
-    "ict": 119,
+    "ict": 125,
     "supplychain": 25,
     "transport": 4,
-    "agriculture": 168,
-    "engineering": 139,
-    "health": 358,
-    "education": 91,
-    "creative": 48,
-    "energy": 9,
+    "agriculture": 170,
+    "engineering": 143,
+    "health": 367,
+    "education": 93,
+    "creative": 55,
+    "energy": 8,
     "water": 4,
-    "legal": 16,
+    "legal": 17,
     "sciences": 12,
     "humanities": 22,
-    "personal": 19
+    "personal": 20
   },
-  "fundingSources": 40,
+  "fundingSources": 42,
   "fundingDeadlines": [
     {
       "name": "HELB (Higher Education Loans Board)",
@@ -187,6 +187,14 @@ const LANDING_STATS = {
     {
       "name": "Kakamega County: Barasa Jamii Scholarship and county polytechnic bursaries",
       "application_deadline": "No open window published on 21 November 2026; ask the county education office."
+    },
+    {
+      "name": "KMTC and Beyond Zero: full scholarship for the Certificate in Community Health Nursing",
+      "application_deadline": "Per KMTC intake; the September 2026 call is past and no later call was published on 24 November 2026."
+    },
+    {
+      "name": "Murang'a County Inua Masomo transition bursary",
+      "application_deadline": "Paid once a year after KCSE results; no 2027 round announced on 24 November 2026."
     }
   ]
 };

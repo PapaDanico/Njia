@@ -586,7 +586,7 @@ const SCFM_HOUSEHOLD_SHARE = {
  * says so. Patterns are tested in order; `exclude` wins over `match`. */
 const SCFM_FEE_CLUSTERS_2025 = {
   effective: '1 September 2025',
-  source: 'Ministry of Education national cluster fee schedule for public universities, effective 1 September 2025, as reported by The Star (31 July and 5 September 2025), The Standard, Kenya Times, Money254, Eastleigh Voice and Education News; no 2026/27 revision was found when checked in November 2026.',
+  source: 'Ministry of Education national cluster fee schedule for public universities, effective 1 September 2025, as reported by The Star (31 July and 5 September 2025), The Standard, Kenya Times, Money254, Eastleigh Voice, Business Radar, Nairobi Wire, Kenya Insights and Education News; no 2026/27 revision was found when checked in November 2026.',
   clusters: [
     { name: 'education (arts)', match: 'education \\(arts|education arts', range: 'Ksh 7,525 to 30,101 a semester, the same group as business and economics' },
     { name: 'education (science)', match: 'education \\(science|education science|special needs education', range: 'Ksh 11,628 to 46,512 a semester, the same group as the applied sciences' },
@@ -600,7 +600,9 @@ const SCFM_FEE_CLUSTERS_2025 = {
     { name: 'agriculture, natural resources and wildlife', match: 'agricultur|animal (science|production|health)|horticultur|natural resource|wildlife|crop (science|protection)|range management|agronomy', exclude: 'biotechnolog|engineering|economics', range: 'Ksh 9,720 to 38,880 a semester' },
     { name: 'applied sciences', match: 'biochemistry|biotechnolog|microbiology|environmental science', exclude: 'agricultur|medical', range: 'Ksh 11,628 to 46,512 a semester' },
     { name: 'business, commerce and economics', match: 'commerce|business administration|business management|\\beconomics\\b', exclude: 'information technology|agribusiness|agricultur', range: 'Ksh 7,525 to 30,101 a semester (one outlet gives this group as Ksh 6,814 to 27,097)' },
-    { name: 'applied humanities and social sciences', match: 'international relations|anthropolog|psycholog|public administration', range: 'Ksh 6,982 to 27,927 a semester' },
+    { name: 'applied humanities and social sciences', match: 'international relations|anthropolog|psycholog|public administration|social work|development studies', exclude: 'medical psycholog', range: 'Ksh 6,982 to 27,927 a semester' },
+    { name: 'public and allied health sciences', match: 'public health|environmental health|community health|radiograph|medical psycholog|physical therap|physiotherap|sports? science', range: 'Ksh 13,082 to 52,326 a semester (one outlet prints the ceiling as Ksh 52,236)' },
+    { name: 'basic sciences', match: '\\b(mathematics|physics|chemistry|biology)\\b', exclude: 'comput|economics|industrial|analytical|applied|bio(chem|technolog)|medical|education|statistic|actuarial', range: 'Ksh 10,659 to 42,636 a semester; some outlets list physics and applied chemistry in the applied sciences group instead (Ksh 11,628 to 46,512)' },
     { name: 'applied social sciences and arts (professional)', match: 'hospitality|tourism|journalism|mass communication|media studies|library', range: 'Ksh 9,690 to 38,760 a semester' },
     { name: 'basic humanities and social sciences', match: '\\b(geography|history|philosophy|sociology|linguistics)\\b', range: 'Ksh 5,814 to 23,256 a semester' },
   ],

@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1497,
+  "course_count": 1507,
   "institution_count": 243,
   "county_count": 47,
   "column_notes": {
@@ -4178,6 +4178,22 @@
       "verification_note": "This course previously displayed a precise-looking tuition figure that was never observed anywhere. An audit found the same value repeated across unrelated institutions - Ksh 420,000 appeared on twelve different degrees at twelve different universities, public and private, from nursing to design to actuarial science - which is not what real fee data looks like. It was a placeholder, so it has been removed rather than left wearing a caveat. The figure could not be verified against any source reachable here, so nothing is shown. Ask the institution directly; if it is a public university, note that a single per-programme price no longer exists."
     },
     {
+      "course_id": "c1534",
+      "course_name": "Bachelor of Business Information Technology",
+      "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
+      "institution_id": "jkuat",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "tech",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on JKUAT's own programme pages, which publish a C+ mean grade with at least a C plain in Mathematics and English, or two principal passes at A level. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c1133",
       "course_name": "Bachelor of Medicine and Bachelor of Surgery (MBChB)",
       "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
@@ -4288,6 +4304,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "JKUAT is public, CUE-chartered and one of the largest universities in Kenya, organised into colleges covering Agriculture and Natural Resources, Engineering and Technology, Health Sciences, Pure and Applied Sciences and Human Resource Development - and this catalogue held three of its programmes. Listed on the university's own published programmes-and-requirements listing together with its college structure, named the same way by two independently phrased searches. Entry is recorded at the national KUCCPS degree minimum of C+, WHICH IS THE DOOR AND NOT THE QUEUE: JKUAT publishes cluster-subject requirements on top of the mean grade - a B+ average across three named subjects for Computer Science, and C+ in each of English or Kiswahili, mathematics or physics, chemistry and biology for Nursing - and placement on the competitive programmes runs well above the minimum. Durations are the published national programme lengths for each award - six years for MBChB, five for engineering and pharmacy, four for the rest - which is a qualification-level fact rather than a figure read off this university's own calendar. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1535",
+      "course_name": "Bachelor of Science in Clinical Medicine and Community Health",
+      "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
+      "institution_id": "jkuat",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on JKUAT's own programme page and in its September 2026 College of Health Sciences advert, which lists direct KCSE entry at a C+ mean grade; Biology and the other cluster subjects carry grades of their own, so confirm them on the KUCCPS portal. JKUAT publishes no programme length reachable from here, so none is shown. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c018",
@@ -4752,6 +4784,38 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Kenyatta University is a public university in Kahawa, Kiambu County, running 117 CUE-accredited bachelor degrees across schools including Medicine, Engineering, Business, Computing, Education, Law and the Humanities. Programme listed from the national KUCCPS degree programme map against the university's own published school structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a B plain in Biology, a B plain in Chemistry, a B plain in Mathematics or Physics and a B plain in English or Kiswahili - well above the mean-grade minimum - and placement runs at the very top of the cluster range. Treat the C+ as the door, not the queue. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1536",
+      "course_name": "Bachelor of Music",
+      "institution": "Kenyatta University",
+      "institution_id": "ku",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "creator",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Kenyatta University's own Department of Music and Dance page, and on the KUCCPS portal under code 1111160. An older listing calls it a BA in Music. C+ is the national degree minimum; ask the department whether an audition is part of selection. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1537",
+      "course_name": "Bachelor of Music (Technology)",
+      "institution": "Kenyatta University",
+      "institution_id": "ku",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "creator",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Kenyatta University's own Department of Music and Dance page and in an independent 2026/27 KUCCPS course list. C+ is the national degree minimum; one directory says applicants with a C plain in Mathematics and Physics are preferred, which Njia could not confirm. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c809",
@@ -5967,7 +6031,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BAF, BBAM, BPSM, BCOM, BES, BIRD and BPSY group: tuition Ksh 100,000 a semester, with Year 1 at Ksh 125,000 (Semester 1, including a Ksh 25,000 administrative charge) and Ksh 119,000 (Semester 2). One reading of the schedule, so confirm it. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BAF, BBAM, BPSM, BCOM, BES, BIRD and BPSY group: tuition Ksh 100,000 a semester, with Year 1 at Ksh 125,000 (Semester 1, including a Ksh 25,000 administrative charge) and Ksh 119,000 (Semester 2). One reading of the schedule, so confirm it. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure. A separate Zetech programme listing gives tuition of Ksh 60,000 a semester for the same group, and a 2024 Zetech newsletter Ksh 54,650, so the readings disagree; ask which applies to your intake."
     },
     {
       "course_id": "c520",
@@ -5983,7 +6047,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university with campuses in Nairobi and Ruiru, Kiambu County. Programme named in the university's published course listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade; confirm the exact requirement with admissions, because a private university sets its own bar and may ask for more. The university publishes no fee for this programme in any source reachable from this build, so it could not be verified and no figure is shown rather than a guessed one - ring admissions for the current schedule. WHAT NJIA FOUND, AND COULD NOT RECONCILE: a published table gives tuition flat at Ksh 66,000 a semester plus administrative charges of Ksh 8,900-14,400, but it covers only five of the eight semesters a four-year degree needs, so a whole-course total cannot be completed from it without inventing the rest. None of these is this course’s fee - treat it as a bracket to check, and ask which AWARD the quote covers and what it excludes."
+      "verification_note": "Zetech University is a CUE-chartered private university with campuses in Nairobi and Ruiru, Kiambu County. Programme named in the university's published course listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade; confirm the exact requirement with admissions, because a private university sets its own bar and may ask for more. The university publishes no fee for this programme in any source reachable from this build, so it could not be verified and no figure is shown rather than a guessed one - ring admissions for the current schedule. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Zetech prices this programme in its business group, and the readings disagree: its 2026 fee-structure PDFs give tuition of Ksh 100,000 a semester, a separate Zetech programme listing gives Ksh 60,000, and a 2024 Zetech newsletter Ksh 54,650, each with administrative charges on top. The Ksh 66,000 figure this card used to report belongs to Zetech's IT group, not this one. No total for the course could be verified, so none is shown; ask admissions which rate applies to your intake and for the full eight-semester figure."
     },
     {
       "course_id": "c1311",
@@ -5999,7 +6063,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BAF, BBAM, BPSM, BCOM, BES, BIRD and BPSY group: tuition Ksh 100,000 a semester, with Year 1 at Ksh 125,000 (Semester 1, including a Ksh 25,000 administrative charge) and Ksh 119,000 (Semester 2). One reading of the schedule, so confirm it. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BAF, BBAM, BPSM, BCOM, BES, BIRD and BPSY group: tuition Ksh 100,000 a semester, with Year 1 at Ksh 125,000 (Semester 1, including a Ksh 25,000 administrative charge) and Ksh 119,000 (Semester 2). One reading of the schedule, so confirm it. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure. A separate Zetech programme listing gives tuition of Ksh 60,000 a semester for the same group, and a 2024 Zetech newsletter Ksh 54,650, so the readings disagree; ask which applies to your intake."
     },
     {
       "course_id": "c1313",
@@ -6047,7 +6111,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university with campuses in Nairobi and Ruiru, Kiambu County. Programme named in the university's published course listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade; confirm the exact requirement with admissions, because a private university sets its own bar and may ask for more. The university publishes no fee for this programme in any source reachable from this build, so it could not be verified and no figure is shown rather than a guessed one - ring admissions for the current schedule. WHAT NJIA FOUND, AND COULD NOT RECONCILE: a published table gives tuition flat at Ksh 66,000 a semester plus administrative charges of Ksh 8,900-14,400, but it covers only five of the eight semesters a four-year degree needs, so a whole-course total cannot be completed from it without inventing the rest. None of these is this course’s fee - treat it as a bracket to check, and ask which AWARD the quote covers and what it excludes."
+      "verification_note": "Zetech University is a CUE-chartered private university with campuses in Nairobi and Ruiru, Kiambu County. Programme named in the university's published course listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade; confirm the exact requirement with admissions, because a private university sets its own bar and may ask for more. The university publishes no fee for this programme in any source reachable from this build, so it could not be verified and no figure is shown rather than a guessed one - ring admissions for the current schedule. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Zetech prices this programme in its business group, and the readings disagree: its 2026 fee-structure PDFs give tuition of Ksh 100,000 a semester, a separate Zetech programme listing gives Ksh 60,000, and a 2024 Zetech newsletter Ksh 54,650, each with administrative charges on top. The Ksh 66,000 figure this card used to report belongs to Zetech's IT group, not this one. No total for the course could be verified, so none is shown; ask admissions which rate applies to your intake and for the full eight-semester figure."
     },
     {
       "course_id": "c1316",
@@ -6079,7 +6143,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university with campuses in Nairobi and Ruiru, Kiambu County. Programme named in the university's published course listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade; confirm the exact requirement with admissions, because a private university sets its own bar and may ask for more. The university publishes no fee for this programme in any source reachable from this build, so it could not be verified and no figure is shown rather than a guessed one - ring admissions for the current schedule. WHAT NJIA FOUND, AND COULD NOT RECONCILE: a published table gives tuition flat at Ksh 66,000 a semester plus administrative charges of Ksh 8,900-14,400, but it covers only five of the eight semesters a four-year degree needs, so a whole-course total cannot be completed from it without inventing the rest. None of these is this course’s fee - treat it as a bracket to check, and ask which AWARD the quote covers and what it excludes."
+      "verification_note": "Zetech University is a CUE-chartered private university with campuses in Nairobi and Ruiru, Kiambu County. Programme named in the university's published course listing. Entry is recorded at the national CUE and KUCCPS degree minimum of a C+ mean grade; confirm the exact requirement with admissions, because a private university sets its own bar and may ask for more. The university publishes no fee for this programme in any source reachable from this build, so it could not be verified and no figure is shown rather than a guessed one - ring admissions for the current schedule. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Zetech prices this programme in its business group, and the readings disagree: its 2026 fee-structure PDFs give tuition of Ksh 100,000 a semester, a separate Zetech programme listing gives Ksh 60,000, and a 2024 Zetech newsletter Ksh 54,650, each with administrative charges on top. The Ksh 66,000 figure this card used to report belongs to Zetech's IT group, not this one. No total for the course could be verified, so none is shown; ask admissions which rate applies to your intake and for the full eight-semester figure."
     },
     {
       "course_id": "c1312",
@@ -6095,7 +6159,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BAF, BBAM, BPSM, BCOM, BES, BIRD and BPSY group: tuition Ksh 100,000 a semester, with Year 1 at Ksh 125,000 (Semester 1, including a Ksh 25,000 administrative charge) and Ksh 119,000 (Semester 2). One reading of the schedule, so confirm it. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure."
+      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the university's published general undergraduate minimum of a C+ mean grade, with the subject requirements for the programme on top. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech prices this programme in its BAF, BBAM, BPSM, BCOM, BES, BIRD and BPSY group: tuition Ksh 100,000 a semester, with Year 1 at Ksh 125,000 (Semester 1, including a Ksh 25,000 administrative charge) and Ksh 119,000 (Semester 2). One reading of the schedule, so confirm it. Read from Zetech's own 2026 fee-structure PDFs on zetech.ac.ke; no Year 4 sheet was reachable, so any programme total would under-quote and none is written. Non-East African students pay 25% more. Ask admissions for the full eight-semester structure. A separate Zetech programme listing gives tuition of Ksh 60,000 a semester for the same group, and a 2024 Zetech newsletter Ksh 54,650, so the readings disagree; ask which applies to your intake."
     },
     {
       "course_id": "c1306",
@@ -17650,6 +17714,22 @@
       "verification_note": "The University of Nairobi is the oldest and largest university in Kenya and holds more than 300 academic programmes across nine faculties, so a listing here is a selection rather than the whole. This programme is named on the Faculty of Science and Technology's own undergraduate listing. The university publishes a general minimum of a KCSE mean grade of C+ for all undergraduate degree programmes; science programmes additionally require cluster subjects, typically Mathematics with Physics, Chemistry or Biology, and those are stated here rather than written into the mean-grade field because the card filters on the mean grade. The university does not publish a per-programme price for this course. /help/ sets out the five bands."
     },
     {
+      "course_id": "c1528",
+      "course_name": "Bachelor of Science in Biosystems Engineering",
+      "institution": "University of Nairobi",
+      "institution_id": "uon",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 60,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on the University of Nairobi's own faculty and department pages, and listed on the KUCCPS portal under code 1263121. Five years is given by two independent listings. C+ is the national degree minimum; engineering places run well above it, with Mathematics, Physics and Chemistry weighted, so confirm the current cut-off on the KUCCPS portal. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c952",
       "course_name": "Bachelor of Science in Chemistry",
       "institution": "University of Nairobi",
@@ -17856,6 +17936,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "The University of Nairobi is Kenya's oldest and largest public university, teaching through nine faculties - Arts, Business and Management Sciences, Engineering, Science and Technology, Health Sciences, Agriculture, Veterinary Medicine, Law and Education - across more than 300 accredited programmes. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1529",
+      "course_name": "Bachelor of Science in Medical Laboratory Science and Technology",
+      "institution": "University of Nairobi",
+      "institution_id": "uon",
+      "county": "Nairobi",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on the University of Nairobi's Department of Human Pathology and Department of Ophthalmology pages; four years is given by the department's programme list and an independent listing. C+ is the national degree minimum; placement is competitive and the cluster subjects are Biology and Chemistry, so confirm the current cut-off on the KUCCPS portal. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c798",
@@ -18194,6 +18290,22 @@
       "verification_note": "The institute publishes a RANGE of Ksh 160,300 to 165,300 for this course rather than a single total, so the upper bound is recorded — quoting a fee high leaves a reader prepared, quoting it low does not. Entry is a KCSE mean grade of C- with C- in Biology and one other science. Duration of five semesters and both figures per the institute's published requirements, read alongside the State Department for Livestock Development 2026 training intake advertisement (Ministry of Agriculture and Livestock Development), reported by The Kenya Times and Education News Hub, and cross-read against the institute course listings on colleges.co.ke and Elimu Centre, September 2026."
     },
     {
+      "course_id": "c1532",
+      "course_name": "Bachelor of Education (Arts)",
+      "institution": "Egerton University",
+      "institution_id": "egerton",
+      "county": "Nakuru",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Egerton University's own Faculty of Education and Community Studies bachelor's programmes page and in the KUCCPS listings under code 1057135. C+ is the national degree minimum, and each of the two teaching subjects carries its own grade. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c1527",
       "course_name": "Bachelor of Education (Science)",
       "institution": "Egerton University",
@@ -18208,6 +18320,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Named on Egerton University's own Faculty of Education and Community Studies pages and by an independent listing. No KCSE mean grade is published for this award; the C+ in one listing is a Mathematics subject grade, so C+ here is the national degree minimum, and the teaching subjects carry their own grades. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1530",
+      "course_name": "Bachelor of Laws (LLB)",
+      "institution": "Egerton University",
+      "institution_id": "egerton",
+      "county": "Nakuru",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "B-",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Egerton University's own Faculty of Law page and in its programmes listing, both of which publish a B- mean grade. The two pages disagree on the subject grade: the faculty page asks a B plain in English, the listing a B plain in English or Kiswahili, so ask the faculty which applies. Four years is the national LLB length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c1522",
@@ -18240,6 +18368,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Egerton is Kenya's oldest agricultural university, public and CUE-chartered, with nine faculties and 51 academic departments; this catalogue listed four of its diplomas and certificates and NOT ONE DEGREE until this record, which told a reader searching its name that it does not teach them. Listed on the university's own bachelors programme listing and its published faculty structure at Njoro - Agriculture, Arts and Social Sciences, Education and Community Studies, Engineering and Technology, Environment and Resources Development, Science, and Veterinary Medicine and Surgery. Entry is recorded at the national KUCCPS degree minimum of C+, which is the door rather than the queue: subject requirements and cluster cut-offs are set per programme and the competitive ones run well above the minimum. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1531",
+      "course_name": "Bachelor of Science in Clinical Medicine",
+      "institution": "Egerton University",
+      "institution_id": "egerton",
+      "county": "Nakuru",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named under this title on Egerton University's own news pages, which report a Clinical Officers Council audit of the programme, and in the KUCCPS listings. C+ is the national degree minimum; Biology and Chemistry carry subject grades on top, so confirm them on the KUCCPS portal. Egerton publishes no programme length reachable from here, so none is shown. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c1101",
@@ -23184,6 +23328,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Named on Moi University's own School of Medicine pages and its 2024/2025 privately sponsored programmes advert, which gives a C+ mean with C+ in Biology, Chemistry, Mathematics or Physics and English or Kiswahili; diploma holders in a health field may also apply. An older 2019/2020 school advert gave a B- mean, so confirm the current bar. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1533",
+      "course_name": "Bachelor of Science in Medical Psychology",
+      "institution": "Moi University",
+      "institution_id": "moi",
+      "county": "Uasin Gishu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Moi University's own School of Medicine pages. Two independent outlets agree its 2024 KUCCPS cut-off was 25.141, so places are competitive well above the C+ national degree minimum; confirm the current cut-off and subject grades on the KUCCPS portal. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c845",

@@ -7081,3 +7081,30 @@ funding, agriculture, intakes, counties), each checked by a verifier.
 - The placement calendar runs out on 31 December 2026 and no 2027 dates are
   published; `PLACEMENT_NEXT_CYCLE_CHECK` records the 24 November search, which
   the guard accepts for 30 days. Re-search before 24 December.
+
+**Fees, depth and social media pass, 24 November 2026.**
+- **Five more groups of the 2025 public-university fee schedule**, each read by
+  two outlets agreeing to the shilling: education (arts) and economics sit in
+  the business group (7,525-30,101), education (science) with applied sciences
+  (11,628-46,512), applied humanities 6,982-27,927, food sciences 11,401-45,603,
+  and a professional group (hospitality, tourism, journalism, library)
+  9,690-38,760. `scfmCluster()` now gives the two education groups a range.
+  Public-university degrees with a range: 168 to 255 of 483. Open question:
+  Njia's "law, agribusiness" group carries 9,690-38,760, the professional
+  group's range; no outlet this pass placed law there, so re-check it.
+- **UoN self-sponsored (Schedule II) fees are reported on four cards**, never
+  written: MBChB 600,000, LLB 216,000, BCom 216,000, civil engineering 396,000
+  a year, tuition only, undated.
+- Added: KU Real Estate and Biomedical Engineering (EBK accreditation not
+  confirmed, and the card says so), Egerton MBChB (B plain, its own advert) and
+  BEd (Science), Moi MBChB, Medical Laboratory Science and Physical Therapy (C+
+  shown; older adverts gave B+ and B-), JKUAT Physiotherapy. Zetech BSc Nursing
+  priced at its stated programme total, Ksh 1,169,200 (derived).
+- c525 Riara BBA showed no fee while its note described a withdrawn Ksh 820,000
+  total; a new guard fails any fee-less note that opens by describing a fee.
+- **Social media pass.** Official accounts only, every claim with a second
+  channel. KUCCPS's own Facebook is `@The.Placement.Service`; "Kuccps News" and
+  similar pages are impersonators. KMTC opened March 2027 deferments on 19
+  November (a deferment route, not an intake). Scam patterns now on `/help/`:
+  paid "service fee" transfer posters, WhatsApp-number admission letters, fake
+  January intake adverts.

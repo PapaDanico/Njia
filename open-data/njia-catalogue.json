@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1489,
+  "course_count": 1497,
   "institution_count": 243,
   "county_count": 47,
   "column_notes": {
@@ -4434,6 +4434,22 @@
       "verification_note": "JKUAT is public, CUE-chartered and one of the largest universities in Kenya, organised into colleges covering Agriculture and Natural Resources, Engineering and Technology, Health Sciences, Pure and Applied Sciences and Human Resource Development - and this catalogue held three of its programmes. Listed on the university's own published programmes-and-requirements listing together with its college structure, named the same way by two independently phrased searches. Entry is recorded at the national KUCCPS degree minimum of C+, WHICH IS THE DOOR AND NOT THE QUEUE: JKUAT publishes cluster-subject requirements on top of the mean grade - a B+ average across three named subjects for Computer Science, and C+ in each of English or Kiswahili, mathematics or physics, chemistry and biology for Nursing - and placement on the competitive programmes runs well above the minimum. Durations are the published national programme lengths for each award - six years for MBChB, five for engineering and pharmacy, four for the rest - which is a qualification-level fact rather than a figure read off this university's own calendar. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1526",
+      "course_name": "Bachelor of Science in Physiotherapy",
+      "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
+      "institution_id": "jkuat",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on JKUAT's own programme page and its School of Medicine page. Entry is a C+ mean with C+ in the cluster subjects; diploma holders registered with the Kenya Society of Physiotherapists may join in year three. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c1439",
       "course_name": "Diploma in Clinical Medicine and Surgery",
       "institution": "Kenya Medical Training College (KMTC) — Gatundu Campus",
@@ -4786,6 +4802,22 @@
       "verification_note": "Kenyatta University is a public university in Kahawa, Kiambu County, running 117 CUE-accredited bachelor degrees across schools including Medicine, Engineering, Business, Computing, Education, Law and the Humanities. Programme listed from the national KUCCPS degree programme map against the university's own published school structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1521",
+      "course_name": "Bachelor of Science in Biomedical Engineering",
+      "institution": "Kenyatta University",
+      "institution_id": "ku",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 60,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Kenyatta University's own course pages and its 2026/2027 bachelor's programmes list. Engineering Board of Kenya accreditation for this programme could not be verified: a 2026 list of EBK-recognised programmes names only Kenyatta's mechanical, civil and electrical degrees, so ask the university whether graduates can register as engineers. Five years is the national engineering degree length and C+ the national degree minimum; no programme bar is published. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c811",
       "course_name": "Bachelor of Science in Civil Engineering",
       "institution": "Kenyatta University",
@@ -4928,6 +4960,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Kenyatta University is a public university in Kahawa, Kiambu County, running 117 CUE-accredited bachelor degrees across schools including Medicine, Engineering, Business, Computing, Education, Law and the Humanities. Programme listed from the national KUCCPS degree programme map against the university's own published school structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a C+ in Biology, Chemistry and Mathematics or Physics. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1520",
+      "course_name": "Bachelor of Science in Real Estate",
+      "institution": "Kenyatta University",
+      "institution_id": "ku",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "business",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Kenyatta University's own course page in its Department of Construction and Real Estate Management. No length or programme bar is published there, so the four-year national bachelor's length and the C+ national degree minimum are shown. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c1429",
@@ -17375,7 +17423,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "This course displayed Ksh 560,000, and the note under it said in plain words that the figure was a four-year mid-range estimate rather than UoN's published price. A hedge written in the note does not survive into the card: the number still rendered to the nearest shilling, under a verification tick, and still fed the affordability sort. It is also the one thing this catalogue will not do — put a single price on a public university degree. A single per-programme fee could not be verified here for the plain reason that none exists to verify, so the figure is removed rather than left wearing a caveat. Ask the admissions office what your intake is being billed, and read the university funding transition note first. See the funding note on this card for what you would be asked for."
+      "verification_note": "This course displayed Ksh 560,000, and the note under it said in plain words that the figure was a four-year mid-range estimate rather than UoN's published price. A hedge written in the note does not survive into the card: the number still rendered to the nearest shilling, under a verification tick, and still fed the affordability sort. It is also the one thing this catalogue will not do — put a single price on a public university degree. A single per-programme fee could not be verified here for the plain reason that none exists to verify, so the figure is removed rather than left wearing a caveat. Ask the admissions office what your intake is being billed, and read the university funding transition note first. See the funding note on this card for what you would be asked for. WHAT NJIA FOUND: the University of Nairobi's Schedule II fee table and a 2022 admissions booklet give the Bachelor of Commerce at Ksh 216,000 a year for self-sponsored students. This is tuition only, applies to self-sponsored (Module II) students rather than those placed by KUCCPS, and the schedule is undated."
     },
     {
       "course_id": "c785",
@@ -17439,7 +17487,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The University of Nairobi is Kenya's oldest and largest public university, teaching through nine faculties - Arts, Business and Management Sciences, Engineering, Science and Technology, Health Sciences, Agriculture, Veterinary Medicine, Law and Education - across more than 300 accredited programmes. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The Council of Legal Education requires a B plain in English or Kiswahili on top of the mean grade, so the C+ alone does not open this programme. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
+      "verification_note": "The University of Nairobi is Kenya's oldest and largest public university, teaching through nine faculties - Arts, Business and Management Sciences, Engineering, Science and Technology, Health Sciences, Agriculture, Veterinary Medicine, Law and Education - across more than 300 accredited programmes. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The Council of Legal Education requires a B plain in English or Kiswahili on top of the mean grade, so the C+ alone does not open this programme. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course. WHAT NJIA FOUND: the University of Nairobi's law school page and its Schedule II fee table give self-sponsored tuition of Ksh 108,000 a semester, Ksh 216,000 a year. This is tuition only, applies to self-sponsored (Module II) students rather than those placed by KUCCPS, and the schedule is undated."
     },
     {
       "course_id": "c784",
@@ -17455,7 +17503,7 @@
       "duration_months": 72,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The University of Nairobi is Kenya's oldest and largest public university, teaching through nine faculties - Arts, Business and Management Sciences, Engineering, Science and Technology, Health Sciences, Agriculture, Veterinary Medicine, Law and Education - across more than 300 accredited programmes. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a B plain in Biology, a B plain in Chemistry, a B plain in Mathematics or Physics and a B plain in English or Kiswahili - well above the mean-grade minimum - and placement runs at the very top of the cluster range. Treat the C+ as the door, not the queue. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
+      "verification_note": "The University of Nairobi is Kenya's oldest and largest public university, teaching through nine faculties - Arts, Business and Management Sciences, Engineering, Science and Technology, Health Sciences, Agriculture, Veterinary Medicine, Law and Education - across more than 300 accredited programmes. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a B plain in Biology, a B plain in Chemistry, a B plain in Mathematics or Physics and a B plain in English or Kiswahili - well above the mean-grade minimum - and placement runs at the very top of the cluster range. Treat the C+ as the door, not the queue. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course. WHAT NJIA FOUND: the University of Nairobi's own Schedule II fee table for self-sponsored bachelor's programmes gives this programme at Ksh 600,000 a year, repeated on its health sciences pages. This is tuition only, applies to self-sponsored (Module II) students rather than those placed by KUCCPS, and the schedule is undated."
     },
     {
       "course_id": "c786",
@@ -17631,7 +17679,7 @@
       "duration_months": 60,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "The University of Nairobi is Kenya's oldest and largest public university, teaching through nine faculties - Arts, Business and Management Sciences, Engineering, Science and Technology, Health Sciences, Agriculture, Veterinary Medicine, Law and Education - across more than 300 accredited programmes. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
+      "verification_note": "The University of Nairobi is Kenya's oldest and largest public university, teaching through nine faculties - Arts, Business and Management Sciences, Engineering, Science and Technology, Health Sciences, Agriculture, Veterinary Medicine, Law and Education - across more than 300 accredited programmes. Programme listed from the national KUCCPS degree programme map against the university's own published faculty structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course. WHAT NJIA FOUND: the University of Nairobi's Schedule II fee table and its 2021/2022 admissions booklet give civil engineering at Ksh 396,000 a year for self-sponsored students. This is tuition only, applies to self-sponsored (Module II) students rather than those placed by KUCCPS, and the schedule is undated."
     },
     {
       "course_id": "c796",
@@ -18144,6 +18192,38 @@
       "tuition_kes": 165300,
       "fee_basis": "derived",
       "verification_note": "The institute publishes a RANGE of Ksh 160,300 to 165,300 for this course rather than a single total, so the upper bound is recorded — quoting a fee high leaves a reader prepared, quoting it low does not. Entry is a KCSE mean grade of C- with C- in Biology and one other science. Duration of five semesters and both figures per the institute's published requirements, read alongside the State Department for Livestock Development 2026 training intake advertisement (Ministry of Agriculture and Livestock Development), reported by The Kenya Times and Education News Hub, and cross-read against the institute course listings on colleges.co.ke and Elimu Centre, September 2026."
+    },
+    {
+      "course_id": "c1527",
+      "course_name": "Bachelor of Education (Science)",
+      "institution": "Egerton University",
+      "institution_id": "egerton",
+      "county": "Nakuru",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "people",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Egerton University's own Faculty of Education and Community Studies pages and by an independent listing. No KCSE mean grade is published for this award; the C+ in one listing is a Mathematics subject grade, so C+ here is the national degree minimum, and the teaching subjects carry their own grades. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1522",
+      "course_name": "Bachelor of Medicine and Bachelor of Surgery (MBChB)",
+      "institution": "Egerton University",
+      "institution_id": "egerton",
+      "county": "Nakuru",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "B",
+      "open_entry": "no",
+      "duration_months": 72,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Egerton University's own Faculty of Health Sciences pages and its undergraduate admissions advert, which gives a KCSE mean of B plain with a B plain in English or Kiswahili, Mathematics or Physics, Biology and Chemistry; the advert is undated, so confirm the bar for the current cycle. Six years is the national MBChB length. Placement runs at the very top of the cluster range. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how. WHAT NJIA FOUND: the faculty page gives self-sponsored tuition of Ksh 380,000 a year, which applies to privately sponsored students, not to those placed by KUCCPS."
     },
     {
       "course_id": "c1099",
@@ -22866,6 +22946,22 @@
       "verification_note": "Moi University is a public university at Kesses in Uasin Gishu County, teaching through fourteen schools including Medicine, Dentistry, Engineering, Law, Business and Economics, Information Sciences, Nursing and Midwifery, Public Health, Agriculture and Natural Resources, Education, Arts and Social Sciences, Sciences and Aerospace Studies, and Tourism, Hospitality and Events Management. Programme named in Moi University's own published A-Z bachelors listing. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The Council of Legal Education requires a B plain in English or Kiswahili on top of the mean grade, so the C+ alone does not open this programme. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1523",
+      "course_name": "Bachelor of Medicine and Bachelor of Surgery (MBChB)",
+      "institution": "Moi University",
+      "institution_id": "moi",
+      "county": "Uasin Gishu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 72,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Moi University's own School of Medicine pages and in KUCCPS cut-off listings. The bar is not settled: the school's 2019/2020 advert gave a B+ mean with a B plain in Biology, and newer listings give a C+ mean with a B in each cluster subject. C+, the national degree minimum, is shown as the door, not the queue; placement runs at the very top of the cluster range, so confirm the current bar on the KUCCPS portal. Six years is the national MBChB length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c828",
       "course_name": "Bachelor of Science in Actuarial Science",
       "institution": "Moi University",
@@ -23074,6 +23170,22 @@
       "verification_note": "Moi University is a public university at Kesses in Uasin Gishu County, teaching through fourteen schools including Medicine, Dentistry, Engineering, Law, Business and Economics, Information Sciences, Nursing and Midwifery, Public Health, Agriculture and Natural Resources, Education, Arts and Social Sciences, Sciences and Aerospace Studies, and Tourism, Hospitality and Events Management. Programme named in Moi University's own published A-Z bachelors listing. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1524",
+      "course_name": "Bachelor of Science in Medical Laboratory Science",
+      "institution": "Moi University",
+      "institution_id": "moi",
+      "county": "Uasin Gishu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Moi University's own School of Medicine pages and its 2024/2025 privately sponsored programmes advert, which gives a C+ mean with C+ in Biology, Chemistry, Mathematics or Physics and English or Kiswahili; diploma holders in a health field may also apply. An older 2019/2020 school advert gave a B- mean, so confirm the current bar. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c845",
       "course_name": "Bachelor of Science in Nursing",
       "institution": "Moi University",
@@ -23088,6 +23200,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Moi University is a public university at Kesses in Uasin Gishu County, teaching through fourteen schools including Medicine, Dentistry, Engineering, Law, Business and Economics, Information Sciences, Nursing and Midwifery, Public Health, Agriculture and Natural Resources, Education, Arts and Social Sciences, Sciences and Aerospace Studies, and Tourism, Hospitality and Events Management. Programme named in Moi University's own published A-Z bachelors listing. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a C+ in Biology, Chemistry, Mathematics or Physics and English or Kiswahili, and nursing places are heavily oversubscribed. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1525",
+      "course_name": "Bachelor of Science in Physical Therapy",
+      "institution": "Moi University",
+      "institution_id": "moi",
+      "county": "Uasin Gishu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Moi University's own School of Medicine pages and its 2024/2025 privately sponsored programmes advert, which gives a C+ mean with C+ in Biology, Chemistry, Mathematics or Physics and English or Kiswahili. An older school listing gave a B- mean with higher subject grades, so confirm the current bar. Four years is the national bachelor's length. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c846",

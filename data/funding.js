@@ -588,6 +588,9 @@ const SCFM_FEE_CLUSTERS_2025 = {
   effective: '1 September 2025',
   source: 'Ministry of Education national cluster fee schedule for public universities, effective 1 September 2025, as reported by The Star (31 July and 5 September 2025), The Standard, Kenya Times, Money254, Eastleigh Voice and Education News; no 2026/27 revision was found when checked in November 2026.',
   clusters: [
+    { name: 'education (arts)', match: 'education \\(arts|education arts', range: 'Ksh 7,525 to 30,101 a semester, the same group as business and economics' },
+    { name: 'education (science)', match: 'education \\(science|education science|special needs education', range: 'Ksh 11,628 to 46,512 a semester, the same group as the applied sciences' },
+    { name: 'food sciences and nutrition', match: 'food science|food and nutrition', range: 'Ksh 11,401 to 45,603 a semester' },
     { name: 'veterinary medicine and pharmacy', match: 'veterinary medicine|pharmacy', range: 'from about Ksh 12,343 a semester in the pre-clinical years up to Ksh 75,000 in the clinical years; outlets disagree on the clinical floor (Ksh 19,152 or 20,546)' },
     { name: 'medicine and dentistry', match: 'medicine and (bachelor of )?surgery|mbchb|dental surgery|dentistry', range: 'about Ksh 12,960 to 51,840 a semester in the pre-clinical years and Ksh 22,371 to 75,000 in the clinical years (one outlet gives the pre-clinical floor as Ksh 12,343)' },
     { name: 'nursing and health sciences', match: 'nursing|clinical medicine|medical laboratory', range: 'Ksh 14,400 to 57,600 a semester' },
@@ -596,7 +599,9 @@ const SCFM_FEE_CLUSTERS_2025 = {
     { name: 'law, agribusiness and related programmes', match: '\\blaws?\\b|\\bllb\\b|agribusiness|aviation management|maritime management|fine arts?\\b|theatre|food service', range: 'Ksh 9,690 to 38,760 a semester' },
     { name: 'agriculture, natural resources and wildlife', match: 'agricultur|animal (science|production|health)|horticultur|natural resource|wildlife|crop (science|protection)|range management|agronomy', exclude: 'biotechnolog|engineering|economics', range: 'Ksh 9,720 to 38,880 a semester' },
     { name: 'applied sciences', match: 'biochemistry|biotechnolog|microbiology|environmental science', exclude: 'agricultur|medical', range: 'Ksh 11,628 to 46,512 a semester' },
-    { name: 'business and commerce', match: 'commerce|business administration|business management', exclude: 'information technology|agribusiness', range: 'Ksh 7,525 to 30,101 a semester (one outlet gives this group as Ksh 6,814 to 27,097)' },
+    { name: 'business, commerce and economics', match: 'commerce|business administration|business management|\\beconomics\\b', exclude: 'information technology|agribusiness|agricultur', range: 'Ksh 7,525 to 30,101 a semester (one outlet gives this group as Ksh 6,814 to 27,097)' },
+    { name: 'applied humanities and social sciences', match: 'international relations|anthropolog|psycholog|public administration', range: 'Ksh 6,982 to 27,927 a semester' },
+    { name: 'applied social sciences and arts (professional)', match: 'hospitality|tourism|journalism|mass communication|media studies|library', range: 'Ksh 9,690 to 38,760 a semester' },
     { name: 'basic humanities and social sciences', match: '\\b(geography|history|philosophy|sociology|linguistics)\\b', range: 'Ksh 5,814 to 23,256 a semester' },
   ],
 };

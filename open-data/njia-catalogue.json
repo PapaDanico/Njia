@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1507,
+  "course_count": 1515,
   "institution_count": 243,
   "county_count": 47,
   "column_notes": {
@@ -4242,6 +4242,38 @@
       "verification_note": "Listed on JKUAT's own programme listing for the Bachelor of Radiography, run by the College of Health Sciences through the Department of Medical Laboratory Sciences, corroborated by a second search that named no grade. Four years, integrated academic and clinical. The published mean grade is C+ and it is the door rather than the queue: the subject requirement is a B- in Physics and a B- in Biology, a C+ in Mathematics or Chemistry and a C+ in English or Kiswahili, under an alternative route a B- in Biological Sciences and Physical Sciences, and placement for a regulated health programme runs well above the mean. Confirm the programme code and the current cluster cut-off on the KUCCPS portal. JKUAT is public, so the Student-Centred Funding Model sets what a household pays from an assessed band and the university does not publish a per-programme price for this course. KMTC also runs a diploma route into this profession at a lower bar than a degree; ring KMTC for the campus and the current requirement if C+ is out of reach."
     },
     {
+      "course_id": "c1543",
+      "course_name": "Bachelor of Science (Health Information Management and Informatics)",
+      "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
+      "institution_id": "jkuat",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "tech",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on JKUAT's own pages as Health Records and Information Management and listed at Juja under this KUCCPS title, at a C+ mean grade with a C in English or Kiswahili, Biology, Mathematics and Chemistry or Physics, over four years. A per-year figure of Ksh 212,208 appears on one listing and was not corroborated. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
+      "course_id": "c1544",
+      "course_name": "Bachelor of Science (Medical Social Work)",
+      "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
+      "institution_id": "jkuat",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the KUCCPS portal at JKUAT with subject minima of a C in Biology, Chemistry, Mathematics or Physics and English or Kiswahili, and recent cut-offs near 27 to 29 points; a separate guide gives the C+ mean. No programme length is published reachably, so none is shown. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c054",
       "course_name": "Bachelor of Science in Actuarial Science",
       "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
@@ -4336,6 +4368,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "The university does not publish a single per-programme price for this course, and that is the honest answer rather than a gap. There is therefore no single number that is true for this course. This record previously displayed a precise-looking total carrying no citation of any kind. See the funding note on this card for what you would be asked for."
+    },
+    {
+      "course_id": "c1545",
+      "course_name": "Bachelor of Science in Computer Technology",
+      "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
+      "institution_id": "jkuat",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "tech",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on JKUAT's own programme page, at four academic years, and on an independent listing for the Westlands campus at a C+ mean with a C+ average in Mathematics, Physics and Chemistry or a physical and biological sciences combination. JKUAT's page gives Ksh 207,142 a year for self-sponsored study, which other listings contradict (Ksh 306,000 and 164,934), so it is not recorded. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c1130",
@@ -4434,6 +4482,22 @@
       "verification_note": "JKUAT is public, CUE-chartered and one of the largest universities in Kenya, organised into colleges covering Agriculture and Natural Resources, Engineering and Technology, Health Sciences, Pure and Applied Sciences and Human Resource Development - and this catalogue held three of its programmes. Listed on the university's own published programmes-and-requirements listing together with its college structure, named the same way by two independently phrased searches. Entry is recorded at the national KUCCPS degree minimum of C+, WHICH IS THE DOOR AND NOT THE QUEUE: JKUAT publishes cluster-subject requirements on top of the mean grade - a B+ average across three named subjects for Computer Science, and C+ in each of English or Kiswahili, mathematics or physics, chemistry and biology for Nursing - and placement on the competitive programmes runs well above the minimum. Durations are the published national programme lengths for each award - six years for MBChB, five for engineering and pharmacy, four for the rest - which is a qualification-level fact rather than a figure read off this university's own calendar. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1541",
+      "course_name": "Bachelor of Science in Medical Biochemistry",
+      "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
+      "institution_id": "jkuat",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Listed on the KUCCPS portal under code 1249580 and by two independent course listings, which agree on a C+ mean grade with a C+ in Biology and Chemistry and a C in Mathematics or Physics, over four years. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c1136",
       "course_name": "Bachelor of Science in Medical Laboratory Sciences",
       "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
@@ -4448,6 +4512,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "JKUAT is public, CUE-chartered and one of the largest universities in Kenya, organised into colleges covering Agriculture and Natural Resources, Engineering and Technology, Health Sciences, Pure and Applied Sciences and Human Resource Development - and this catalogue held three of its programmes. Listed on the university's own published programmes-and-requirements listing together with its college structure, named the same way by two independently phrased searches. Entry is recorded at the national KUCCPS degree minimum of C+, WHICH IS THE DOOR AND NOT THE QUEUE: JKUAT publishes cluster-subject requirements on top of the mean grade - a B+ average across three named subjects for Computer Science, and C+ in each of English or Kiswahili, mathematics or physics, chemistry and biology for Nursing - and placement on the competitive programmes runs well above the minimum. Durations are the published national programme lengths for each award - six years for MBChB, five for engineering and pharmacy, four for the rest - which is a qualification-level fact rather than a figure read off this university's own calendar. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1542",
+      "course_name": "Bachelor of Science in Medical Microbiology",
+      "institution": "Jomo Kenyatta University of Agriculture and Technology (JKUAT)",
+      "institution_id": "jkuat",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on JKUAT's own programme pages and in KUCCPS cut-off listings under code 1249281, at a C+ mean grade. Sources disagree on the subject grades (C+ in Biology on JKUAT's page, C- in the cluster subjects in a directory), so confirm them on the KUCCPS portal. No programme length is published reachably, so none is shown. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c1134",
@@ -10178,6 +10258,54 @@
       "verification_note": "Scott Christian University is private and CUE-chartered at Machakos, founded by the Africa Inland Church as a theological college and now a full university across three schools. Listed on the university's own list-of-programmes pages, named the same way by two independently phrased searches. Entry is the national C+ degree minimum; confirm with the admissions office before applying. WHAT NJIA FOUND, AND COULD NOT RECONCILE: one search gives Ksh 72,700 a semester for degrees and a per-credit-hour rate of Ksh 3,995, while another describes the university as running TRIMESTERS rather than semesters - the figure and the calendar disagree. The same result set also returned Scott Christian College in Nagercoil, Tamil Nadu, a different institution in a different country whose flagship programme totals INR 72,000, three digits from the Kenyan figure. A cross-border name collision with numerically adjacent figures is the one case a county check cannot catch. The fee could not be verified, so none is shown - ask the admissions office whether the calendar is semesters or trimesters, and what this named award costs across the whole programme."
     },
     {
+      "course_id": "c1538",
+      "course_name": "Bachelor of Business and Entrepreneurship",
+      "institution": "The Open University of Kenya (OUK)",
+      "institution_id": "ouk",
+      "county": "Machakos",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "business",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": 316000,
+      "fee_basis": "derived",
+      "verification_note": "Named in the Open University of Kenya's 2025/26 programme advertisement and fee table, reported by The Kenya Times, at Ksh 39,500 a semester, Ksh 79,000 a year, over four years; the figure here is that annual rate across the four years. C+ is the national degree minimum for KUCCPS placement. OUK is fully online with year-round applications; confirm the award title, entry requirements and current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
+    },
+    {
+      "course_id": "c1540",
+      "course_name": "Bachelor of Economics and Data Science",
+      "institution": "The Open University of Kenya (OUK)",
+      "institution_id": "ouk",
+      "county": "Machakos",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "numbers",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": 316000,
+      "fee_basis": "derived",
+      "verification_note": "Named in the Open University of Kenya's 2025/26 programme advertisement and fee table, reported by The Kenya Times, at Ksh 39,500 a semester, Ksh 79,000 a year, over four years; the figure here is that annual rate across the four years. C+ is the national degree minimum for KUCCPS placement. OUK is fully online with year-round applications; confirm the award title, entry requirements and current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
+    },
+    {
+      "course_id": "c1539",
+      "course_name": "Bachelor of Economics and Statistics",
+      "institution": "The Open University of Kenya (OUK)",
+      "institution_id": "ouk",
+      "county": "Machakos",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "numbers",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": 316000,
+      "fee_basis": "derived",
+      "verification_note": "Named in the Open University of Kenya's 2025/26 programme advertisement and fee table, reported by The Kenya Times, at Ksh 39,500 a semester, Ksh 79,000 a year, over four years; the figure here is that annual rate across the four years. C+ is the national degree minimum for KUCCPS placement. OUK is fully online with year-round applications; confirm the award title, entry requirements and current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
+    },
+    {
       "course_id": "c064",
       "course_name": "Bachelor of Education (Arts)",
       "institution": "The Open University of Kenya (OUK)",
@@ -10191,7 +10319,7 @@
       "duration_months": 48,
       "tuition_kes": 316000,
       "fee_basis": "derived",
-      "verification_note": "Open University of Kenya undergraduate fees are published at roughly Ksh 79,000-86,000 per year for the 2025/26 cycle (OUK fee announcement, reported by The Kenya Times and Eastleigh Voice, August 2026); the figure here is that annual rate across the course duration. OUK is fully online with year-round applications - confirm the current rate at ouk.ac.ke before enrolling. Outcome figures were removed rather than left as estimates: with roughly 369,000 TSC-registered teachers unemployed, an employment rate in the seventies is not an unmeasured guess but one the evidence contradicts. See TEACHER_LABOUR_MARKET in data/labour-market.js."
+      "verification_note": "The Open University of Kenya's 2025/26 fee structure, reported by Eastleigh Voice, The Kenya Times and Education News, lists this programme at Ksh 79,000 a year; the figure here is that annual rate across four years. One outlet reported a September 2025 advert at Ksh 70,000, and older listings give Ksh 105,000 from before the fee cut. OUK is fully online with year-round applications; confirm the current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
     },
     {
       "course_id": "c078",
@@ -10207,7 +10335,7 @@
       "duration_months": 48,
       "tuition_kes": 316000,
       "fee_basis": "derived",
-      "verification_note": "OUK 2025/26 fee structure as announced by the university and cross-reported by Kenya Times, Eastleigh Voice, The Standard, Tuko and Kenya Education Guide (Aug 2026): most bachelor programmes reduced to Ksh 79,000/yr (from 105,000); Technology Education and Agri-Technology to Ksh 86,000/yr (from 115,000). Total here = annual fee x 4 years. OUK is CUE-accredited and its students are eligible for KUCCPS placement, government scholarship and HELB. Confirm at ouk.ac.ke before paying."
+      "verification_note": "The Open University of Kenya's 2025/26 fee structure, reported by Eastleigh Voice, The Kenya Times and Education News, lists this programme at Ksh 79,000 a year; the figure here is that annual rate across four years. One outlet reported a September 2025 advert at Ksh 70,000, and older listings give Ksh 105,000 from before the fee cut. OUK is fully online with year-round applications; confirm the current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
     },
     {
       "course_id": "c063",
@@ -10221,9 +10349,9 @@
       "min_grade": "C+",
       "open_entry": "no",
       "duration_months": 48,
-      "tuition_kes": 316000,
-      "fee_basis": "derived",
-      "verification_note": "Open University of Kenya undergraduate fees are published at roughly Ksh 79,000-86,000 per year for the 2025/26 cycle (OUK fee announcement, reported by The Kenya Times and Eastleigh Voice, August 2026); the figure here is that annual rate across the course duration. OUK is fully online with year-round applications - confirm the current rate at ouk.ac.ke before enrolling."
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "WHAT NJIA FOUND, AND COULD NOT RECONCILE: two outlets reporting the Open University of Kenya's 2025/26 fee structure disagree on this programme - Eastleigh Voice gives Ksh 79,000 a year and Education News Ksh 105,000 a year, while giving 79,000 for OUK's other degrees. Its fee could not be verified, so none is shown; ask OUK which rate applies (admissions@ouk.ac.ke, 0702 212 212). OUK is fully online with year-round applications."
     },
     {
       "course_id": "c062",
@@ -10239,7 +10367,7 @@
       "duration_months": 48,
       "tuition_kes": 316000,
       "fee_basis": "derived",
-      "verification_note": "Open University of Kenya undergraduate fees are published at roughly Ksh 79,000-86,000 per year for the 2025/26 cycle (OUK fee announcement, reported by The Kenya Times and Eastleigh Voice, August 2026); the figure here is that annual rate across the course duration. OUK is fully online with year-round applications - confirm the current rate at ouk.ac.ke before enrolling."
+      "verification_note": "The Open University of Kenya's 2025/26 fee structure, reported by Eastleigh Voice, The Kenya Times and Education News, lists this programme at Ksh 79,000 a year; the figure here is that annual rate across four years. One outlet reported a September 2025 advert at Ksh 70,000, and older listings give Ksh 105,000 from before the fee cut. OUK is fully online with year-round applications; confirm the current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
     },
     {
       "course_id": "c061",
@@ -10271,7 +10399,7 @@
       "duration_months": 48,
       "tuition_kes": 316000,
       "fee_basis": "derived",
-      "verification_note": "Open University of Kenya undergraduate fees are published at roughly Ksh 79,000-86,000 per year for the 2025/26 cycle (OUK fee announcement, reported by The Kenya Times and Eastleigh Voice, August 2026); the figure here is that annual rate across the course duration. OUK is fully online with year-round applications - confirm the current rate at ouk.ac.ke before enrolling."
+      "verification_note": "The Open University of Kenya's 2025/26 fee structure, reported by Eastleigh Voice, The Kenya Times and Education News, lists this programme at Ksh 79,000 a year; the figure here is that annual rate across four years. One outlet reported a September 2025 advert at Ksh 70,000, and older listings give Ksh 105,000 from before the fee cut. OUK is fully online with year-round applications; confirm the current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
     },
     {
       "course_id": "c059",
@@ -10287,7 +10415,7 @@
       "duration_months": 48,
       "tuition_kes": 316000,
       "fee_basis": "derived",
-      "verification_note": "Open University of Kenya undergraduate fees are published at roughly Ksh 79,000-86,000 per year for the 2025/26 cycle (OUK fee announcement, reported by The Kenya Times and Eastleigh Voice, August 2026); the figure here is that annual rate across the course duration. OUK is fully online with year-round applications - confirm the current rate at ouk.ac.ke before enrolling."
+      "verification_note": "The Open University of Kenya's 2025/26 fee structure, reported by Eastleigh Voice, The Kenya Times and Education News, lists this programme at Ksh 79,000 a year; the figure here is that annual rate across four years. One outlet reported a September 2025 advert at Ksh 70,000, and older listings give Ksh 105,000 from before the fee cut. OUK is fully online with year-round applications; confirm the current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
     },
     {
       "course_id": "c058",
@@ -10303,7 +10431,7 @@
       "duration_months": 48,
       "tuition_kes": 316000,
       "fee_basis": "derived",
-      "verification_note": "Open University of Kenya undergraduate fees are published at roughly Ksh 79,000-86,000 per year for the 2025/26 cycle (OUK fee announcement, reported by The Kenya Times and Eastleigh Voice, August 2026); the figure here is that annual rate across the course duration. OUK is fully online with year-round applications - confirm the current rate at ouk.ac.ke before enrolling."
+      "verification_note": "The Open University of Kenya's 2025/26 fee structure, reported by Eastleigh Voice, The Kenya Times and Education News, lists this programme at Ksh 79,000 a year; the figure here is that annual rate across four years. One outlet reported a September 2025 advert at Ksh 70,000, and older listings give Ksh 105,000 from before the fee cut. OUK is fully online with year-round applications; confirm the current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
     },
     {
       "course_id": "c076",
@@ -10319,7 +10447,7 @@
       "duration_months": 48,
       "tuition_kes": 316000,
       "fee_basis": "derived",
-      "verification_note": "OUK 2025/26 fee structure as announced by the university and cross-reported by Kenya Times, Eastleigh Voice, The Standard, Tuko and Kenya Education Guide (Aug 2026): most bachelor programmes reduced to Ksh 79,000/yr (from 105,000); Technology Education and Agri-Technology to Ksh 86,000/yr (from 115,000). Total here = annual fee x 4 years. OUK is CUE-accredited and its students are eligible for KUCCPS placement, government scholarship and HELB. Confirm at ouk.ac.ke before paying."
+      "verification_note": "The Open University of Kenya's 2025/26 fee structure, reported by Eastleigh Voice, The Kenya Times and Education News, lists this programme at Ksh 79,000 a year; the figure here is that annual rate across four years. One outlet reported a September 2025 advert at Ksh 70,000, and older listings give Ksh 105,000 from before the fee cut. OUK is fully online with year-round applications; confirm the current rate at ouk.ac.ke (admissions@ouk.ac.ke, 0702 212 212)."
     },
     {
       "course_id": "c065",

@@ -1,7 +1,7 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1480,
+  "course_count": 1489,
   "institution_count": 243,
   "county_count": 47,
   "column_notes": {
@@ -1552,6 +1552,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "The University of Embu is in Embu County and was chartered in 2016. It teaches through the schools of Agriculture, Business and Economics, Education and Social Sciences, Pure and Applied Sciences and Nursing, and its agricultural offering is unusually deep for a university of its size - which matters in a catalogue where agriculture is a quarter of the economy and a much smaller share of the courses. Only programmes named on its own listing are recorded here. It publishes the national degree minimum of a KCSE mean grade of C+. The university does not publish a per-programme price for this course. /help/ sets out the five bands."
+    },
+    {
+      "course_id": "c1519",
+      "course_name": "Bachelor of Science in Cyber Security",
+      "institution": "University of Embu",
+      "institution_id": "university_of_embu",
+      "county": "Embu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "tech",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on the university's own School of Computing and IT pages. Entry is a KCSE C+ with at least a C plain in Mathematics and English, or a C- with a relevant diploma. No length is published, so the four-year national bachelor's length is shown. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c992",
@@ -4530,6 +4546,22 @@
       "verification_note": "The Kenya School of Agriculture is a college under the State Department for Crops Development, TVETA-licensed and KNEC-examined. Its Songa Mbele campus in Thika is named on the school’s own campus list and confirmed by a second, differently phrased search. Entry is a KCSE C- for diplomas and D plain for craft certificates; diplomas run three years over three modules, craft certificates over two. The school does not publish a per-programme fee schedule reachable from this build, so no figure is shown. A Nakuru campus appears on one campus list only and is not listed here until a second source names it."
     },
     {
+      "course_id": "c1517",
+      "course_name": "Bachelor of Arts (Film and Theatre)",
+      "institution": "Kenyatta University",
+      "institution_id": "ku",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "creator",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Kenyatta University's own pages, a four-year programme over eight semesters. No programme bar is published there, so C+ is the national degree minimum. A separate Diploma in Film and Theatre Arts also runs. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c822",
       "course_name": "Bachelor of Arts in Communication and Media Technology",
       "institution": "Kenyatta University",
@@ -4722,6 +4754,22 @@
       "verification_note": "Kenyatta University is a public university in Kahawa, Kiambu County, running 117 CUE-accredited bachelor degrees across schools including Medicine, Engineering, Business, Computing, Education, Law and the Humanities. Programme listed from the national KUCCPS degree programme map against the university's own published school structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a C+ in Biology, Chemistry, Mathematics or Physics and English or Kiswahili, and pharmacy is one of the most competitive placements on the portal. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
     },
     {
+      "course_id": "c1515",
+      "course_name": "Bachelor of Science in Aerospace Engineering",
+      "institution": "Kenyatta University",
+      "institution_id": "ku",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "maker",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 60,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Kenyatta University's own course page and on its School of Engineering site, five academic years. The university publishes no programme bar on that page, so C+ is the national degree minimum; aerospace engineering takes a high cluster score in Mathematics and Physics in practice, so confirm the cut-off. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
+    },
+    {
       "course_id": "c827",
       "course_name": "Bachelor of Science in Agribusiness Management",
       "institution": "Kenyatta University",
@@ -4784,6 +4832,22 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Kenyatta University is a public university in Kahawa, Kiambu County, running 117 CUE-accredited bachelor degrees across schools including Medicine, Engineering, Business, Computing, Education, Law and the Humanities. Programme listed from the national KUCCPS degree programme map against the university's own published school structure. Entry is the national CUE and KUCCPS degree minimum of a C+ mean grade. The published subject requirement is a C+ in Mathematics, Physics, Chemistry and English or Kiswahili. Engineering cut-offs sit well above the mean-grade minimum and the programme is accredited by the Engineers Board of Kenya. /help/ explains the five bands and what each leaves the household to find. The university does not publish a per-programme price for this course."
+    },
+    {
+      "course_id": "c1516",
+      "course_name": "Bachelor of Science in Exercise and Sports Science",
+      "institution": "Kenyatta University",
+      "institution_id": "ku",
+      "county": "Kiambu",
+      "ownership": "public",
+      "level": "degree",
+      "cluster": "carer",
+      "min_grade": "C+",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Kenyatta University's own course page and its 2026/2027 student catalogue, in the Department of Physical Education, Exercise and Sports Science. No length or programme bar is published there, so the four-year national bachelor's length and the C+ national degree minimum are shown. As a public university it does not publish one fee for this programme; what a household pays follows the funding band, and the card explains how."
     },
     {
       "course_id": "c823",
@@ -12867,7 +12931,7 @@
     },
     {
       "course_id": "c1432",
-      "course_name": "Diploma in Animation and Digital Media",
+      "course_name": "Diploma in Animation and Motion Graphics",
       "institution": "Africa Digital Media Institute (ADMI)",
       "institution_id": "admi",
       "county": "Nairobi",
@@ -12879,7 +12943,71 @@
       "duration_months": "",
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Listed on independent sources that name this award at this institution (chuokikuu.co.ke, admi.ac.ke), and an adversarial re-check in November 2026 did not refute it. Entry detail: Alternatives: a KNQF Level 5 national certificate in the field, or equivalent as determined by KNQA. The institution publishes no fee for this course that could be verified from this build, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Structure given as 4 full-time semesters plus 1 internship semester (ADMI page) and as 2.5 years / 5 semesters (aggregator); semester length not published, so no month figure recorded. ADMI's current listings may title it Animation & Motion Graphics."
+      "verification_note": "ADMI's current pages call this award the Diploma in Animation and Motion Graphics; earlier listings call it the Diploma in Animation and Digital Media. Listed on independent sources that name this award at this institution (chuokikuu.co.ke, admi.ac.ke), and an adversarial re-check in November 2026 did not refute it. Entry detail: Alternatives: a KNQF Level 5 national certificate in the field, or equivalent as determined by KNQA. The institution publishes no fee for this course that could be verified from this build, so none is shown. WHAT NJIA FOUND, AND COULD NOT RECONCILE: Structure given as 4 full-time semesters plus 1 internship semester (ADMI page) and as 2.5 years / 5 semesters (aggregator); semester length not published, so no month figure recorded. ADMI's current listings may title it Animation & Motion Graphics."
+    },
+    {
+      "course_id": "c1512",
+      "course_name": "Diploma in Film and Television Production",
+      "institution": "Africa Digital Media Institute (ADMI)",
+      "institution_id": "admi",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "creator",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on ADMI's own course page and by independent listings. Entry is a KCSE C- or an equivalent qualification; mature entry is open with relevant work experience. Two years: four academic semesters plus an internship semester with a three-month placement. ADMI's page gives 100,000 a semester in instalments and an upfront option of 405,000 without saying how many semesters it covers. WHAT NJIA FOUND: ADMI's 2026 diploma pages say fees are reviewed each semester and quote them as 'From KES 100,000' per semester, a floor rather than a price; the same pages also show 85,000, 90,000, 120,000 and 150,000 for diplomas, and 2023-24 guides give 145,000 per semester. None is recorded, so the institute publishes no fee that could be verified for this programme; ask ADMI for the current semester fee and how many semesters, including the internship semester, it covers."
+    },
+    {
+      "course_id": "c1514",
+      "course_name": "Diploma in Graphic Design",
+      "institution": "Africa Digital Media Institute (ADMI)",
+      "institution_id": "admi",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "creator",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on ADMI's own two-year diploma page and by an independent listing. Entry is a KCSE C- or two A-level principal passes; an older guide adds C- in Kiswahili, English, Mathematics and one science. Its own page gives the fee as both 85,000 and 100,000 a semester. WHAT NJIA FOUND: ADMI's 2026 diploma pages say fees are reviewed each semester and quote them as 'From KES 100,000' per semester, a floor rather than a price; the same pages also show 85,000, 90,000, 120,000 and 150,000 for diplomas, and 2023-24 guides give 145,000 per semester. None is recorded, so the institute publishes no fee that could be verified for this programme; ask ADMI for the current semester fee and how many semesters, including the internship semester, it covers."
+    },
+    {
+      "course_id": "c1511",
+      "course_name": "Diploma in Music Production",
+      "institution": "Africa Digital Media Institute (ADMI)",
+      "institution_id": "admi",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "creator",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": "",
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on ADMI's own course page and its list of diplomas open at a KCSE C-, and by independent guides. ADMI states C- as the minimum for all its diplomas. Its pages give the length as two years and, elsewhere, as 18 months, so no length is shown. WHAT NJIA FOUND: ADMI's 2026 diploma pages say fees are reviewed each semester and quote them as 'From KES 100,000' per semester, a floor rather than a price; the same pages also show 85,000, 90,000, 120,000 and 150,000 for diplomas, and 2023-24 guides give 145,000 per semester. None is recorded, so the institute publishes no fee that could be verified for this programme; ask ADMI for the current semester fee and how many semesters, including the internship semester, it covers."
+    },
+    {
+      "course_id": "c1513",
+      "course_name": "Diploma in Sound Engineering",
+      "institution": "Africa Digital Media Institute (ADMI)",
+      "institution_id": "admi",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "diploma",
+      "cluster": "creator",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on ADMI's own course page and by independent listings, which give two years over four semesters. Entry is a KCSE C- with C- in Kiswahili, English, Mathematics and one science, or two A-level principal passes. WHAT NJIA FOUND: ADMI's 2026 diploma pages say fees are reviewed each semester and quote them as 'From KES 100,000' per semester, a floor rather than a price; the same pages also show 85,000, 90,000, 120,000 and 150,000 for diplomas, and 2023-24 guides give 145,000 per semester. None is recorded, so the institute publishes no fee that could be verified for this programme; ask ADMI for the current semester fee and how many semesters, including the internship semester, it covers."
     },
     {
       "course_id": "c1261",
@@ -16304,6 +16432,22 @@
       "tuition_kes": 2051438,
       "fee_basis": "derived",
       "verification_note": "Programme total published by Strathmore Law School: Ksh 2,051,438 for the four-year, eight-semester LLB, confirmed against two independent reports of the same schedule (about Ksh 250,000-258,000 a semester) and stated to cover lectures, course materials, a laptop and an academic trip abroad. This total is read from reporting of the schedule rather than off the university's own current fee structure, so Njia treats it as derived rather than published. ENTRY IS THE PUBLISHED BAR, NOT THE EXCEPTION: the school states an aggregate KCSE B with a B in English or Kiswahili, and that a B- may exceptionally be considered - B is recorded, because the exception is discretionary and recording B- would quote the bar low. A grade alone does not secure a place: every candidate meeting the requirement sits a University entrance examination in English (Ksh 2,000) and an oral interview, and this is reported as the most selective LLB entry in the country. The July intake is the published single intake for this programme, which is why it is stated here rather than left to the catalogue default cycle."
+    },
+    {
+      "course_id": "c1518",
+      "course_name": "Bachelor of Science in Computer Networks and Cyber Security",
+      "institution": "Strathmore University",
+      "institution_id": "strathmore",
+      "county": "Nairobi",
+      "ownership": "private",
+      "level": "degree",
+      "cluster": "tech",
+      "min_grade": "B-",
+      "open_entry": "no",
+      "duration_months": 48,
+      "tuition_kes": "",
+      "fee_basis": "unpublished",
+      "verification_note": "Named on Strathmore University's own programme page and brochure, four years. No programme-specific KCSE bar is published there, so B-, the university's general undergraduate minimum, is shown; every candidate also sits an entrance examination and interview. Strathmore prices per programme and publishes no fee for this one that could be verified; ask whether a quoted figure is per semester or for the whole course."
     },
     {
       "course_id": "c1144",

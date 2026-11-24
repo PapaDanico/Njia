@@ -7058,3 +7058,26 @@ funding, agriculture, intakes, counties), each checked by a verifier.
   automotive and carpentry artisans (KUCCPS only); whether Mulango's
   "Electrical Engineering Technician" (Level 4, one year) is KUCCPS's "Artisan
   in Electrical Installation".
+
+**Courses and fees workflow, 24 November 2026 (five areas, each verified).**
+- ADMI +4 diplomas (Music Production, Film and Television Production, Sound
+  Engineering, Graphic Design), C- on its own pages; c1432 renamed to its
+  current title, Animation and Motion Graphics. Its fees are reported, not
+  written: its own pages say "From KES 100,000" a semester (a floor) and also
+  show 85,000, 90,000, 120,000 and 150,000; 2023 guides give 145,000.
+- New families: KU Aerospace Engineering, Exercise and Sports Science, and BA
+  Film and Theatre; Strathmore BSc Computer Networks and Cyber Security (B-,
+  its general bar); Embu BSc Cyber Security. Funding: f042 KMTC and Beyond
+  Zero full scholarship at C-, f043 Murang'a Inua Masomo (Ksh 10,000 once, C+).
+- **Cyber security had been filed under public administration**, because the
+  admin pattern holds `security`: OUK, KCA (two) were shipped that way.
+  `CYBER_AWARD` precedence in `data/sectors.js` moves exactly the six records
+  naming cyber or information security; `sound engineering` joins the creative
+  precedence.
+- Refused or unchecked: private flat fees (Zetech total still single-read;
+  MKU refuted; KCA unit count unchecked); public self-sponsored fees were
+  mostly unchecked, so nothing was reported on cards. Daystar's 129 credit
+  hours is for "most majors" and cannot attach to a named programme.
+- The placement calendar runs out on 31 December 2026 and no 2027 dates are
+  published; `PLACEMENT_NEXT_CYCLE_CHECK` records the 24 November search, which
+  the guard accepts for 30 days. Re-search before 24 December.

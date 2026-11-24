@@ -369,7 +369,20 @@ const SECTORS = [
  * written: it moves exactly one record, and the three "media technology"
  * names that are genuinely about production tooling already resolve to
  * Creative and do not match it. */
-const JOURNALISM_AWARD = /\b(journalis|mass communication|media studies|broadcast|animation)/i;
+const JOURNALISM_AWARD = /\b(journalis|mass communication|media studies|broadcast|animation|sound engineering)/i;
+/* `sound engineering` joined it in November 2026: ADMI's Diploma in Sound
+ * Engineering resolved to Engineering on the word. It is studio and live audio,
+ * a creative trade. */
+
+/* A CYBER SECURITY AWARD IS ICT, NOT SECURITY SERVICES.
+ *
+ * The admin pattern holds `security` for criminology and security studies, so
+ * every cyber and information security record - OUK, KCA, Strathmore, Embu -
+ * resolved to public administration and security. Found by printing the
+ * resolved sector on insert, like every case above it; three were already
+ * shipped. Narrow: it moves only records naming cyber or information
+ * security, and leaves criminology, safety and aviation security alone. */
+const CYBER_AWARD = /\bcyber|\binformation security\b/i;
 
 /* AGRIBUSINESS IS AGRICULTURE, AND THE SECTOR'S OWN NAME SAYS SO.
  *
@@ -426,6 +439,9 @@ function sectorForCourse(course) {
   }
   if (JOURNALISM_AWARD.test(course.name || '')) {
     return SECTORS.find((s) => s.id === 'creative') || null;
+  }
+  if (CYBER_AWARD.test(course.name || '')) {
+    return SECTORS.find((s) => s.id === 'ict') || null;
   }
   if (AGRIBUSINESS_AWARD.test(course.name || '')) {
     return SECTORS.find((s) => s.id === 'agriculture') || null;

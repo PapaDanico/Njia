@@ -2425,3 +2425,18 @@ test('no institution website is a regulator, employer or placement body', () => 
   const bad = INSTITUTIONS.filter((i) => i.website && NOT_OWN.test(i.website)).map((i) => `${i.id} -> ${i.website}`);
   assert.deepEqual(bad.join(', '), '');
 });
+
+test('a course showing no fee does not open its note by describing a fee', () => {
+  /* c525 (Riara BBA) had its Ksh 820,000 total withdrawn in September 2026
+   * because it left out statutory charges, and the note kept opening "Fee
+   * derived from ... = Ksh 820,000". The card then explained a figure it did
+   * not show, which reads as an error or, worse, as the price. A withdrawal
+   * must rewrite the note, not only null the field. */
+  const offenders = COURSES
+    .filter((c) => c.total_fees_kes == null)
+    .filter((c) => /^(fee derived|programme total published|fee published)/i.test(c.verification_note || ''))
+    .map((c) => c.id);
+  assert.equal(offenders.join(', '), '',
+    `${offenders.join(', ')} show no fee while their note opens by describing one. Rewrite the note `
+    + 'to say what was found and why no figure is shown.');
+});

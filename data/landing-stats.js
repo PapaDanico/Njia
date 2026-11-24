@@ -15,10 +15,10 @@ const LANDING_STATS = {
   "institutions": 243,
   "counties": 47,
   "published": 13,
-  "derived": 348,
+  "derived": 349,
   "withNote": 1489,
-  "feeAbsent": 1024,
-  "feeAbsentStated": 1024,
+  "feeAbsent": 1023,
+  "feeAbsentStated": 1023,
   "sectorRoutes": {
     "aviation": 22,
     "maritime": 11,

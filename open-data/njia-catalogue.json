@@ -6125,9 +6125,9 @@
       "min_grade": "C+",
       "open_entry": "no",
       "duration_months": 48,
-      "tuition_kes": "",
-      "fee_basis": "unpublished",
-      "verification_note": "Zetech University is a CUE-chartered private university at Ruiru on Thika Road, with a Nairobi city campus. Programme named in the university's own academic listing across its five schools, with the entry bar corroborated by a second search naming no programme. Entry is the published C+ mean grade. Nursing carries additional published subject requirements in Mathematics, Biology and Chemistry, and registration is with the Nursing Council of Kenya - ask admissions for the current subject minima before applying, because the mean grade alone does not secure a place. The university publishes a fee schedule, but its figure for this programme could not be verified, so none is shown. WHAT NJIA FOUND: Zetech publishes 2026 fee structures by programme group on zetech.ac.ke, with tuition from Ksh 60,000 to Ksh 100,000 a semester depending on the group, but none reachable from here names this programme. Ask admissions which group it sits in and for the full eight-semester structure."
+      "tuition_kes": 1169200,
+      "fee_basis": "derived",
+      "verification_note": "Programme total published by Zetech University: Ksh 1,169,200 for the BSc Nursing on its 2025/26 undergraduate fee structure, with tuition of Ksh 122,500 a period and Ksh 144,900 for Year 1 Semester 1 including Ksh 22,400 of administrative charges, read by two separate passes and in an independent copy of the same schedule. This total is read from search summaries of the schedule rather than off the PDF itself, so Njia treats it as derived rather than published; the sheet calls the periods trimesters and other Zetech pages call them semesters, so ask whether the total is for the whole programme as delivered. Entry is the published C+ mean grade, with additional subject requirements in Mathematics, Biology and Chemistry, and registration is with the Nursing Council of Kenya; the mean grade alone does not secure a place."
     },
     {
       "course_id": "c523",
@@ -16175,7 +16175,7 @@
       "duration_months": 48,
       "tuition_kes": "",
       "fee_basis": "unpublished",
-      "verification_note": "Fee derived from Riara University's published tuition schedule for THIS NAMED PROGRAMME: Bachelor of Business Administration at Ksh 97,300 per semester, plus the registration fee of Ksh 3,700 charged every semester and a one-off Ksh 12,000 for degree courses (Riara University fee structure, cross-reported 2026). Two semesters an academic year over four years gives eight semesters: 8 x Ksh 101,000 + Ksh 12,000 = Ksh 820,000. ONLY THIS COURSE IS PRICED FROM IT. Riara publishes per-programme rather than one institutional rate and states that courses with practical components - computing, engineering, hospitality - attract higher fees, so this figure is NOT transferred to the university's other records: those keep a null fee and say the figure could not be verified for them. Tuition and mandatory charges only; accommodation, meals and examination extras are additional. Confirm with the finance office before paying."
+      "verification_note": "Riara publishes fees per programme and states that courses with practical components - computing, engineering, hospitality - cost more, so nothing here is transferred to its other records. The university publishes no total for this programme, so its fee could not be verified and none is shown. WHAT NJIA FOUND: the Riara School of Business's own page gives Ksh 13,900 per course unit, so tuition is Ksh 97,300 for seven units a semester, plus a Ksh 3,000 statutory fee (the Kenya Times reported the same in July 2026); a Riara brochure instead lists a Ksh 3,700 registration fee every semester and a one-off Ksh 12,000 for degree courses. Because the two disagree on the charges on top of tuition, no total is written. Ask the finance office for the full eight-semester structure, including accommodation, meals and examination extras."
     },
     {
       "course_id": "c1213",

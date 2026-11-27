@@ -298,6 +298,10 @@ available in the county" — the difference is the whole point.
 - [Accessibility](${SITE}/accessibility/): the WCAG 2.2 AA target, what has been tested, and what has not.
 - [Partnership proposal](${SITE}/docs/): the August 2026 proposal, for funders and partners rather than learners.
 
+## Related tool
+
+- [JiPange](https://jipangefinance.org/): a free sister tool for household money (budgeting, debt, and saving towards a goal such as school fees). Njia course cards that show a fee link to its savings-goal calculator with that fee filled in. Njia earns nothing from the link.
+
 ## Contact
 
 Corrections are welcome and are the reason the data is published. Use the

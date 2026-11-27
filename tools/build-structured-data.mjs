@@ -222,6 +222,8 @@ function injectGenerated(file, dataset) {
 const PARTNERSHIP_BUILDER = fs.readFileSync(path.join(root, 'tools', 'build-static-pages.mjs'), 'utf8');
 const MAIL_LIVE = /const MAIL_LIVE = true;/.test(PARTNERSHIP_BUILDER);
 const CONTACT_EMAIL = (PARTNERSHIP_BUILDER.match(/const CONTACT_EMAIL = '([^']+)';/) || [])[1];
+const CONTACT_WHATSAPP = (PARTNERSHIP_BUILDER.match(/const CONTACT_WHATSAPP = '([^']+)';/) || [])[1];
+if (!CONTACT_WHATSAPP) throw new Error('CONTACT_WHATSAPP could not be read from build-static-pages.mjs');
 if (MAIL_LIVE && !CONTACT_EMAIL) {
   throw new Error('MAIL_LIVE is true in build-static-pages.mjs but CONTACT_EMAIL could not be '
     + 'parsed out of it, so llms.txt would silently omit the address the page advertises.');
@@ -307,9 +309,9 @@ available in the county" — the difference is the whole point.
 Corrections are welcome and are the reason the data is published. Use the
 feedback link in the app and quote the course_id.
 
-Partnership, licensing and funding enquiries go to ${MAIL_LIVE ? CONTACT_EMAIL : 'the project\'s issue tracker'}, or to
-the issue tracker at https://github.com/PapaDanico/Njia/issues, which also takes
-catalogue corrections and needs no account of ours to reach.${MAIL_LIVE ? '' : ` Njia does not advertise an
+Partnership, licensing and funding enquiries go to ${MAIL_LIVE ? CONTACT_EMAIL + ', or to' : ''}
+the publisher, Danico Ventures Ltd, on WhatsApp at ${CONTACT_WHATSAPP}, which also
+takes catalogue corrections.${MAIL_LIVE ? '' : ` Njia does not advertise an
 email address: the project domain has no mail exchanger configured, so anything
 sent to one would bounce silently.`} Njia is
 free to learners and funded from the institutional side. Payment never affects

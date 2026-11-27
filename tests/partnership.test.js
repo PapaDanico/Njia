@@ -61,15 +61,15 @@ const MAILTO = /href="mailto:([^"?]+)/;
  * one place that judgement is recorded. Publishing a dead address is worse than
  * publishing none, because the reader writes and hears nothing. */
 test('the partnership page always offers a route that needs nothing set up', () => {
-  assert.match(page, /github\.com\/PapaDanico\/Njia\/issues/,
-    'docs/index.html no longer offers the issue tracker. It is the only contact route that is '
+  assert.match(page, /wa\.me\/message\/GPPIKMENXJVWO1/,
+    'docs/index.html no longer offers the WhatsApp link. It is the contact route that is '
     + 'live without anything being configured, so a funder or county officer who reads the '
     + 'proposal has no way to answer it. Restore it in docsIndexPage().');
 });
 
 test('llms.txt gives answer engines the same working route', () => {
-  assert.match(llms, /github\.com\/PapaDanico\/Njia\/issues/,
-    'llms.txt does not name the issue tracker. An answer engine is how a funder or journalist '
+  assert.match(llms, /wa\.me\/message\/GPPIKMENXJVWO1/,
+    'llms.txt does not name the WhatsApp link. An answer engine is how a funder or journalist '
     + 'increasingly arrives, and it should be able to offer the route that certainly works.');
 });
 
@@ -150,9 +150,9 @@ test('no email address is advertised unless it has been verified to receive mail
 
   /* The page keeps the zero-configuration route even once mail works: a funder
    * reading on a machine with no mail client still needs somewhere to answer,
-   * and the tracker is the route that cannot silently stop working. */
-  assert.match(page, /github\.com\/PapaDanico\/Njia\/issues/,
-    'the page dropped the issue tracker once an email address was published. The address is an '
+   * and WhatsApp is the route that needs no mail client. */
+  assert.match(page, /wa\.me\/message\/GPPIKMENXJVWO1/,
+    'the page dropped the WhatsApp link once an email address was published. The address is an '
     + 'addition to the route that always works, never a replacement for it.');
 });
 

@@ -1031,11 +1031,11 @@ const NO_MX_DOMAIN = 'njiacareerpathways.work';
  * worse than finding no address at all.
  *
  * So the page carries a second route that is live today and needs nothing set
- * up: the repository's issue tracker. It is a strange thing to offer a funder
- * and a natural thing to offer the journalists, researchers and county analysts
- * who are the /open-data/ and /analysis/ audience, and it means the page
- * converts whether or not the mailbox is configured. */
-const CONTACT_FALLBACK = 'https://github.com/PapaDanico/Njia/issues/new';
+ * up. It was the repository's issue tracker until 27 November 2026, when the
+ * maintainer replaced it with the publisher's WhatsApp business link: a funder,
+ * a county officer and a school-leaver all have WhatsApp, and none of them
+ * should need a GitHub account to reach the project. */
+const CONTACT_WHATSAPP = 'https://wa.me/message/GPPIKMENXJVWO1';
 /* THE 48 ANSWERS THAT HAD NO URL.
  *
  * `HELP_FAQ` is six groups of question-and-answer pairs (48 when this was written), roughly
@@ -1294,7 +1294,7 @@ declined and the money with it.</li>
 <h2>Getting in touch</h2>
 ${MAIL_LIVE ? `<p>One address, read by a person:
 <a class="cta dl" href="mailto:${CONTACT_EMAIL}?subject=Njia%20partnership%20enquiry">${CONTACT_EMAIL}</a></p>` : ''}
-<p><a class="cta dl" href="${CONTACT_FALLBACK}">Open an enquiry on the issue tracker</a></p>
+<p><a class="cta dl" href="${CONTACT_WHATSAPP}">Message Danico Ventures Ltd on WhatsApp</a></p>
 <p class="meta">Useful things to include: who you are, which of the four routes above is
 closest, and the county or institution involved. There is no form, no tracker and no
 mailing list &mdash; the same reason the app has none.${MAIL_LIVE ? '' : ` Njia does not yet
@@ -1590,7 +1590,7 @@ function privacyPage() {
 <section>
 <h2 id="who">Who is responsible</h2>
 <p>Njia is published by <strong>${OPERATOR}</strong>. For the small amount of information that does reach us (the optional forms, below), ${OPERATOR} decides why and how it is used, which makes it the &ldquo;data controller&rdquo; as Kenya's Data Protection Act 2019 uses that term. Njia's host, Netlify, handles the data on our behalf.</p>
-<p>The contact for anything on this page is <a href="mailto:${CONTACT_EMAIL}?subject=Njia%20privacy%20request">${CONTACT_EMAIL}</a>. Please do not put personal details in a public GitHub issue.</p>
+<p>The contact for anything on this page is <a href="mailto:${CONTACT_EMAIL}?subject=Njia%20privacy%20request">${CONTACT_EMAIL}</a>, or <a href="${CONTACT_WHATSAPP}">message ${OPERATOR} on WhatsApp</a>. A WhatsApp message reaches us through WhatsApp, which is run by Meta under its own privacy terms, so your number and message are also handled by them.</p>
 </section>
 
 <section>
@@ -1656,7 +1656,7 @@ function termsPage() {
 <section>
 <h2 id="operator">Who publishes Njia</h2>
 <p>Njia is published by <strong>${OPERATOR}</strong>. It is independent: it is not affiliated with, endorsed by or sponsored by KUCCPS, HELB, KMTC, TVETA, any university, college, funder or other body named in it. Those names appear because they are real, public institutions that learners are choosing between, not because of any partnership.</p>
-<p>Contact: <a href="mailto:${CONTACT_EMAIL}?subject=Njia">${CONTACT_EMAIL}</a>.</p>
+<p>Contact: <a href="mailto:${CONTACT_EMAIL}?subject=Njia">${CONTACT_EMAIL}</a>, or <a href="${CONTACT_WHATSAPP}">message ${OPERATOR} on WhatsApp</a>.</p>
 </section>
 
 <section>
@@ -1757,7 +1757,7 @@ function accessibilityPage() {
 <li>No testing with people who use assistive technology has been recorded.</li>
 <li>Reading level has not been tested with learners.</li>
 </ul>
-<p class="note">If something does not work for you, tell us: <a href="https://wa.me/message/GPPIKMENXJVWO1">message Danico Ventures Ltd on WhatsApp</a> and say which page and which device. You can also write to <a href="mailto:${CONTACT_EMAIL}?subject=Njia%20accessibility">${CONTACT_EMAIL}</a>.</p>
+<p class="note">If something does not work for you, tell us: <a href="${CONTACT_WHATSAPP}">message ${OPERATOR} on WhatsApp</a> and say which page and which device. You can also write to <a href="mailto:${CONTACT_EMAIL}?subject=Njia%20accessibility">${CONTACT_EMAIL}</a>.</p>
 </section>`;
   return guidancePage({
     dir: 'accessibility',

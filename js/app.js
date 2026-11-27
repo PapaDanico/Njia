@@ -1142,7 +1142,7 @@ function renderHomePage() {
           <svg class="landing-hero-logo" viewBox="0 0 64 96" width="43" height="64" role="img" aria-label="Njia"><use href="#i-njia"/></svg>
           <p class="landing-hero-eyebrow">Career pathway intelligence · Kenya</p>
           <h1 class="landing-h1">Career clarity shouldn't cost <span class="hl-gold">what consultants charge.</span></h1>
-          <p class="landing-sub">The Njia Method fuses career psychology, life design and strategic life-portfolio planning into one free diagnostic — matched against real Kenyan course fees, grade cut-offs and funding sources.</p>
+          <p class="landing-sub">Free for Kenyan school-leavers: find the courses you can enter with your KCSE grade, what they cost, and who can help pay.</p>
           <p class="landing-proverb">Whatever your grade or your budget, there is a route. This is where you find the first step.</p>
           <div class="landing-cta-row">
             <button type="button" class="btn btn-gold" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>

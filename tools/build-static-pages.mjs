@@ -156,6 +156,9 @@ const SHELL_CSS = `${SITE_SHELL_CSS}
      stylesheet for colour and type, but none of its layout JavaScript, so
      they render identically with scripting switched off. */
   body { max-width: min(110rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  /* The page uses the full width; running text does not. At 1440px a help or
+     pathways paragraph ran 1,368px, about 170 characters a line. */
+  p, dd, .faq li { max-width: 72ch; }
   /* Full width without overlong lines: prose pages flow into newspaper columns
      on wide screens. Columns rather than a grid, so sections of different
      lengths do not leave blank rows (a grid row is as tall as its tallest
@@ -209,6 +212,19 @@ const SHELL_CSS = `${SITE_SHELL_CSS}
      than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
   .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
+  /* Course tables become stacked rows on a phone. At 375px the six columns
+     were 606px wide inside a 340px box, so the Tuition column sat off-screen
+     behind a sideways swipe on the field readers come for. Each row now reads
+     course, institution, then level · grade · tuition · duration, labelled. */
+  @media (max-width: 47.99rem) {
+    table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    table.stack, table.stack tbody { display: block; width: 100%; }
+    table.stack tr { display: flex; flex-wrap: wrap; gap: .15rem .9rem; padding: .5rem 0; border-bottom: 1px solid var(--rule, rgba(0,0,0,.15)); }
+    table.stack th[scope="row"], table.stack td { border: 0; padding: 0; white-space: normal; }
+    table.stack th[scope="row"], table.stack td:not(.tok) { flex: 1 1 100%; }
+    table.stack td:not(.tok) { opacity: .85; }
+    table.stack td[data-label]::before { content: attr(data-label) ": "; opacity: .75; }
+  }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: 3px;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
@@ -497,8 +513,8 @@ function coursePage(county, rows) {
           <th scope="row">${esc(c.name)}</th>
           <td>${esc(i.name)}</td>
           <td class="tok">${esc(LEVEL_LABEL[c.level] || c.level)}</td>
-          <td class="tok">${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
-          <td class="tok">${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td>
+          <td class="tok" data-label="Entry">${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
+          <td class="tok" data-label="Tuition">${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td>
           <td class="tok">${c.duration_months == null ? 'Not published' : c.duration_months + ' mo'}</td>
         </tr>`).join('');
 
@@ -589,7 +605,7 @@ ${clusters.map((c) => esc(CLUSTER_LABEL[c] || c)).join(', ')}.</p>
 
 <main class="main" id="main">
 <div class="wrap" tabindex="0" role="region" aria-label="Course table for ${esc(county)} County">
-<table>
+<table class="stack">
   <caption>Every course Njia lists in ${esc(county)} County, lowest entry requirement first.</caption>
   <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col" class="tok">Level</th>
   <th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th><th scope="col" class="tok">Duration</th></tr></thead>
@@ -753,14 +769,14 @@ function gradePage(grade, rows) {
       .sort((a, b) => a.course.name.localeCompare(b.course.name));
     return `
   <h3 id="c-${slug(county)}">${esc(county)} <span class="count">${inCounty.length}</span></h3>
-  <div class="wrap" tabindex="0" role="region" aria-label="Courses in ${esc(county)}"><table>
+  <div class="wrap" tabindex="0" role="region" aria-label="Courses in ${esc(county)}"><table class="stack">
     <thead><tr><th scope="col">Course</th><th scope="col">Institution</th>
     <th scope="col" class="tok">Level</th><th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th></tr></thead>
     <tbody>${inCounty.map(({ course: c, inst: i }) => `
       <tr><th scope="row">${esc(c.name)}</th><td>${esc(i.name)}</td>
       <td class="tok">${esc(LEVEL_LABEL[c.level] || c.level)}</td>
-      <td class="tok">${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
-      <td class="tok">${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td></tr>`).join('')}
+      <td class="tok" data-label="Entry">${c.min_grade ? esc(c.min_grade) : '<span class="open">Open entry</span>'}</td>
+      <td class="tok" data-label="Tuition">${c.total_fees_kes == null ? '<span class="muted">Not published</span>' : esc(money(c.total_fees_kes))}</td></tr>`).join('')}
     </tbody>
   </table></div>`;
   }).join('');
@@ -1120,6 +1136,7 @@ ${briefHead('Questions and answers', `${total} answers &middot; for career teach
 Nothing here needs an account and nothing you read is tracked. If your question is
 about a specific course or county, <a href="/counties/">browse by county</a> or
 <a href="/grades/">start from your KCSE grade</a>.</p>
+<p><a class="cta" href="/#discover">Take the 20-minute diagnostic</a></p>
 <ul class="toc">
 ${toc}
 </ul>

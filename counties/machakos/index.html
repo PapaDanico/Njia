@@ -99,6 +99,9 @@
      stylesheet for colour and type, but none of its layout JavaScript, so
      they render identically with scripting switched off. */
   body { max-width: min(110rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  /* The page uses the full width; running text does not. At 1440px a help or
+     pathways paragraph ran 1,368px, about 170 characters a line. */
+  p, dd, .faq li { max-width: 72ch; }
   /* Full width without overlong lines: prose pages flow into newspaper columns
      on wide screens. Columns rather than a grid, so sections of different
      lengths do not leave blank rows (a grid row is as tall as its tallest
@@ -152,6 +155,19 @@
      than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
   .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
+  /* Course tables become stacked rows on a phone. At 375px the six columns
+     were 606px wide inside a 340px box, so the Tuition column sat off-screen
+     behind a sideways swipe on the field readers come for. Each row now reads
+     course, institution, then level · grade · tuition · duration, labelled. */
+  @media (max-width: 47.99rem) {
+    table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    table.stack, table.stack tbody { display: block; width: 100%; }
+    table.stack tr { display: flex; flex-wrap: wrap; gap: .15rem .9rem; padding: .5rem 0; border-bottom: 1px solid var(--rule, rgba(0,0,0,.15)); }
+    table.stack th[scope="row"], table.stack td { border: 0; padding: 0; white-space: normal; }
+    table.stack th[scope="row"], table.stack td:not(.tok) { flex: 1 1 100%; }
+    table.stack td:not(.tok) { opacity: .85; }
+    table.stack td[data-label]::before { content: attr(data-label) ": "; opacity: .75; }
+  }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: 3px;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
@@ -363,7 +379,7 @@ Caring and health, Working with people, Technology, Business, Creative and makin
 
 <main class="main" id="main">
 <div class="wrap" tabindex="0" role="region" aria-label="Course table for Machakos County">
-<table>
+<table class="stack">
   <caption>Every course Njia lists in Machakos County, lowest entry requirement first.</caption>
   <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col" class="tok">Level</th>
   <th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th><th scope="col" class="tok">Duration</th></tr></thead>
@@ -372,512 +388,512 @@ Caring and health, Working with people, Technology, Business, Creative and makin
           <th scope="row">Business Modelling for Entrepreneurs (OUK, free)</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Certificate</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok">Ksh 0</td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition">Ksh 0</td>
           <td class="tok">1 mo</td>
         </tr>
         <tr>
           <th scope="row">ICDL Digital Literacy Certification (OUK)</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Certificate</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok">Ksh 12,000</td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition">Ksh 12,000</td>
           <td class="tok">1 mo</td>
         </tr>
         <tr>
           <th scope="row">Mental Health Awareness (OUK, free)</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Certificate</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok">Ksh 0</td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition">Ksh 0</td>
           <td class="tok">1 mo</td>
         </tr>
         <tr>
           <th scope="row">Professional Certificate in Corporate Governance (OUK)</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Certificate</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok">Ksh 10,000</td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition">Ksh 10,000</td>
           <td class="tok">2 mo</td>
         </tr>
         <tr>
           <th scope="row">Professional Certificate in Emotional Intelligence (OUK)</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Certificate</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok">Ksh 10,000</td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition">Ksh 10,000</td>
           <td class="tok">2 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Abattoir Instruction</th>
           <td>Meat Training Institute (MTI), Athi River</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok">Ksh 45,000</td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition">Ksh 45,000</td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Abattoir Operation</th>
           <td>Meat Training Institute (MTI), Athi River</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Meat Grading</th>
           <td>Meat Training Institute (MTI), Athi River</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok">Ksh 45,000</td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition">Ksh 45,000</td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Meat Inspection</th>
           <td>Meat Training Institute (MTI), Athi River</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Meat Processing</th>
           <td>Meat Training Institute (MTI), Athi River</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Meat-based Products Processing</th>
           <td>Meat Training Institute (MTI), Athi River</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Christian Ministry</th>
           <td>Scott Christian University</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Community Health Assistant</th>
           <td>Kenya Medical Training College (KMTC) — Machakos Campus</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 160,200</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 160,200</td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Orthopaedic and Trauma Medicine</th>
           <td>Kenya Medical Training College (KMTC) — Kangundo Campus</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 160,200</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 160,200</td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Human Resource Management</th>
           <td>Machakos University</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Theology</th>
           <td>Scott Christian University</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Clinical Medicine and Surgery</th>
           <td>Kenya Medical Training College (KMTC) — Machakos Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 240,950</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 240,950</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Kenya Registered Community Health Nursing (KRCHN)</th>
           <td>Kenya Medical Training College (KMTC) — Machakos Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 239,700</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 239,700</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Medical Laboratory Sciences</th>
           <td>Kenya Medical Training College (KMTC) — Machakos Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 238,200</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 238,200</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Occupational Therapy</th>
           <td>Kenya Medical Training College (KMTC) — Machakos Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 238,200</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 238,200</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Communication and Public Relations</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Community Development</th>
           <td>Scott Christian University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Community Development</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Counselling Psychology</th>
           <td>Scott Christian University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Music</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Psychology and Counseling</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Social Work</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business and Entrepreneurship</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Commerce</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Commerce</th>
           <td>Machakos University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Economics and Data Science</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Economics and Finance</th>
           <td>Machakos University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Economics and Statistics</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Arts)</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Arts)</th>
           <td>Scott Christian University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Early Childhood Development Education)</th>
           <td>Scott Christian University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Early Childhood Development)</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Mathematics)</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Music)</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Primary Option)</th>
           <td>Machakos University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Environmental Studies (Community Development)</th>
           <td>Machakos University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Environmental Studies (Community Resource Conservation)</th>
           <td>Machakos University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Interactive Media Technologies</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Public Administration</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Public Communication</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Actuarial Science</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Agri-Technology</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 344,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 344,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Agricultural Education and Extension</th>
           <td>Machakos University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Applied Computer Science</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Biology</th>
           <td>Machakos University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Biomedical Science</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Science</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Cyber Security and Digital Forensics</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Data Science</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Economics</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Environmental Health</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Mathematics and Computer Science</th>
           <td>Machakos University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Mathematics and Computing</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 316,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 316,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Nursing</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Nursing (Upgrading)</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 237,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 237,000</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Physics</th>
           <td>Daystar University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Statistics and Programming</th>
           <td>Machakos University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Technology Education</th>
           <td>The Open University of Kenya (OUK)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 344,000</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 344,000</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Theology</th>
           <td>Scott Christian University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
   </tbody>

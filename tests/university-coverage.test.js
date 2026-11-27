@@ -67,7 +67,7 @@ const universities = (ownership) =>
 /* RATCHETS. Raise these as institutions are added; they may never fall.
    They are floors on coverage, not targets — the target is the full register. */
 const MIN_PUBLIC_LISTED = 37;
-const MIN_PRIVATE_LISTED = 29;
+const MIN_PRIVATE_LISTED = 32;
 
 test('public university coverage never regresses', () => {
   const listed = universities('public').length;
@@ -140,17 +140,8 @@ const OUT_OF_SCOPE_PRIVATE = [
 ];
 
 const KNOWN_MISSING_PRIVATE = [
-  /* Blocker: its Kenyan programmes are medical and nursing and run heavily at
-     postgraduate level; no reachable source names an undergraduate award with
-     an entry requirement. Not re-run without a per-programme listing. */
-  'Aga Khan University',
-  /* Blocker: worked 13 Sep 2026 and yielded ONE corroborated programme
-     (Bachelor of Business Information Technology, named by two independently
-     phrased searches). Its other degrees rest on a single listing. One record
-     would make it the single-course stub MAX_STUBS forbids, so it stays a lead
-     until a second source names a second award. Do not re-run the general
-     search; the missing thing is corroboration, not effort. */
-  'The East African University'
+  /* Empty: Aga Khan University and The East African University were listed on
+     27 November 2026. The empty list is the finding; a new charter goes here by name. */
 ];
 
 test('the out-of-scope private universities say WHY, not just that', () => {
@@ -227,7 +218,10 @@ test('the thin tail of shallow universities only shrinks', () => {
      publish no entry bar reachable from here, and recording them with none would
      read as open entry, which quotes a grade low. Remove the exemption when an
      entry bar is found for them. */
-  const THIN_EXEMPT = new Set(['ilu']);
+  /* AKU (Nairobi): its Kenyan undergraduate entry is two programmes, MBChB and
+     direct-entry nursing; everything else it teaches here is postgraduate or
+     upgrading for registered nurses, so five records would be padding. */
+  const THIN_EXEMPT = new Set(['ilu', 'aku']);
   const thin = INSTITUTIONS
     .filter((i) => i.type === 'university' && !THIN_EXEMPT.has(i.id) && count(i.id) < 5)
     .map((i) => `${i.name} (${count(i.id)})`);

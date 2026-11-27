@@ -711,6 +711,7 @@ function tierMedians() {
 function regulatoryStatus(institution) {
   if (!institution) return null;
   if (institution.regulatory_dispute) return { kind: 'dispute', text: institution.regulatory_dispute };
+  if (institution.tveta_licence) return { kind: 'licence', licence: institution.tveta_licence };
   const acc = institution.accreditation || '';
   if (institution.type === 'university') {
     return /cue chartered|chartered/i.test(acc) ? { kind: 'chartered' } : { kind: 'unchecked' };
@@ -734,6 +735,17 @@ function regulatoryLine(institution) {
           ? 'the Nursing Council of Kenya and the TVETA register at tveta.go.ke'
           : 'the TVETA register at tveta.go.ke';
     return `<p class="text-muted text-sm mb-2"><strong>Licence not checked by Njia.</strong> Confirm this institution, and this programme, on ${reg} before you pay anything. A 2026 national census found about one training institution in nine operating without a licence, and many more on an expired one.</p>`;
+  }
+  if (st.kind === 'licence' && st.licence) {
+    const l = st.licence;
+    const today = (typeof NJIA_TODAY === 'string' ? NJIA_TODAY : new Date().toISOString().slice(0, 10));
+    const fmt = (d) => new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+    const soon = new Date(Date.parse(l.expires) - 90 * 864e5).toISOString().slice(0, 10);
+    if (l.expires < today) {
+      return `<p class="text-sm mb-2"><strong>TVETA licence shown as expired.</strong> The TVETA register lists ${escapeHtml(l.number)} with an expiry date of ${fmt(l.expires)}, which has passed (Njia read it on ${fmt(l.checked)}). It may have been renewed since; confirm on tveta.go.ke before you pay.</p>`;
+    }
+    const due = today >= soon ? ' It is due for renewal soon, so check it is still current before you pay.' : '';
+    return `<p class="text-muted text-sm mb-2"><strong>TVETA licence checked.</strong> Registered and licensed, ${escapeHtml(l.number)}, valid to ${fmt(l.expires)} on the TVETA register (read by Njia ${fmt(l.checked)}).${due} This licenses the college; ask whether this programme is accredited too.</p>`;
   }
   return '';
 }
@@ -813,7 +825,14 @@ function feeGuidance(course, institution) {
       ${escapeHtml(scfm.reading)}${sched} <a href="/help/#scfm">How the bands work</a>.</p>`;
   }
   if (regime === 'private_own_rate' && scfm) {
-    return `<p class="text-sm mb-2"><strong>Before you compare this with a public university.</strong>
+    const y1 = typeof KUCCPS_YEAR1_COST !== 'undefined' ? KUCCPS_YEAR1_COST.byCourse[course.id] : null;
+    const y1line = y1
+      ? `<p class="text-sm mb-2"><strong>KUCCPS lists a first-year cost of <span class="num">${formatKes(y1.kes)}</span></strong>
+      for this programme at this university${y1.once ? ' (read once)' : ''}. That is Year 1 only, the list is not dated to
+      the current intake, and later years can differ, so it is not shown as the course total. Source:
+      ${escapeHtml(KUCCPS_YEAR1_COST.source)}.</p>`
+      : '';
+    return `${y1line}<p class="text-sm mb-2"><strong>Before you compare this with a public university.</strong>
       ${escapeHtml(scfm.privateExclusion)} Ask the admissions office for the published structure for
       <em>this named award</em>, and whether the figure quoted is per semester, per trimester or per year.</p>`;
   }

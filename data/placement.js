@@ -146,9 +146,9 @@ const PLACEMENT_CALENDAR = [
  * the search, so the calendar running short reads as "re-checked, nothing
  * announced" rather than as nobody having looked. It expires after 30 days. */
 const PLACEMENT_NEXT_CYCLE_CHECK = {
-  checked: '2026-11-24',
-  finding: 'Still no 2027 KUCCPS main-window, KMTC March 2027 or TVET January 2027 dates announced. The 2026 precedent was KMTC March applications 7-27 January, a TVET window for May closing 18 March, and the main window 7 April to 6 May; none of that is a 2027 date.',
-  source: 'Searches of KUCCPS (kuccps.net), Standard, Star, People Daily and Capital FM, 24 November 2026',
+  checked: '2026-11-27',
+  finding: 'Still no 2027 KUCCPS main-window, KMTC March 2027 or TVET January 2027 dates announced. The 2026 precedent was KMTC March applications 7-27 January, a TVET window for May closing 18 March, and the main window 7 April to 6 May; none of that is a 2027 date. KMTC calls its next intake March 2027 (deferment applications for it opened 19 November 2026); a January 2027 KMTC intake is not announced. KCSE 2026 results have no announced release date; the 2025 results came out on 9 January 2026.',
+  source: 'Searches of KUCCPS (kuccps.net), Standard, Star, People Daily and Capital FM, 24 November 2026; KUCCPS, KMTC, KNEC and HELB re-searched 27 November 2026 (Star, Kenyans.co.ke, KDRTV, Standard)',
 };
 
 if (typeof module !== 'undefined' && module.exports) {

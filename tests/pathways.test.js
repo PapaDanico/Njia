@@ -76,7 +76,7 @@ test('the diagnostic is described as an exploration aid on every surface that de
 
 test('no shipped surface credits the diagnostic to a source the repository cannot cite', () => {
   const shipped = ['index.html', 'js/app.js', 'js/discover.js', 'js/help.js', 'help/index.html', 'diagnostic/index.html', 'docs/index.html', 'llms.txt'];
-  const offenders = shipped.filter((f) => /executive coaches/i.test(read(f)));
+  const offenders = shipped.filter((f) => /executive coach/i.test(read(f)));
   assert.deepEqual(offenders, [], `unsourced endorsement claim on: ${offenders.join(', ')}`);
 });
 

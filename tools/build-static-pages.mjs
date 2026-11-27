@@ -253,8 +253,17 @@ const SHELL_CSS = `${SITE_SHELL_CSS}
    * which for a six-column table is about 950px, so the cut is at 85rem. Below
    * that the page is a single full-width column, which at 1280px is already a
    * 1,200px table against the old 957px.
+   *
+   * Moved to 100rem on 27 November 2026, benchmarked against the sister site
+   * mwangazayield.org, whose data pages give the table the whole content box.
+   * Measured at 1440px, with no rail: C plain 38,515 to 31,946px, Nairobi
+   * 17,870 to 14,347, Kiambu 8,539 to 7,565, Kisumu 3,812 to 3,621, D plain
+   * 15,818 to 15,118. Lamu, a short page, grew from 1,509 to 1,812px. At 1600px
+   * no rail was still shorter on the long pages (C plain 35,014 to 33,096,
+   * Nairobi 15,279 to 13,736); at 1920px the rail won back (C plain 31,595 against
+   * 33,096). So the cut is 110rem, between the two.
    */
-  @media (min-width: 85rem) {
+  @media (min-width: 110rem) {
     body.split { display: grid; grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
                  column-gap: clamp(2rem, 3vw, 3rem); align-items: start; }
     /* min-width: 0 or the table's intrinsic width blows the column out and
@@ -839,7 +848,7 @@ function gradePage(grade, rows) {
      matters more on the small screen than the large one. */
   .jump { list-style: none; padding: 0; font-size: .9rem; line-height: 1.55;
           display: flex; flex-wrap: wrap; gap: 0 .9rem; }
-  @media (min-width: 85rem) { .jump { display: block; } .jump li { margin-bottom: .25rem; } }
+  @media (min-width: 110rem) { .jump { display: block; } .jump li { margin-bottom: .25rem; } }
 </style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>

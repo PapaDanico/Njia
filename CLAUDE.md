@@ -167,17 +167,23 @@ the cascade.
 
 ## Research: use WebSearch, never WebFetch
 
-**Do not use WebFetch on this project.** It is not a preference, it is a
-standing instruction from the maintainer.
+**Network re-tested 27 November 2026; the old "do not use WebFetch" rule is
+lifted at the maintainer's instruction.** The egress policy has opened up. From
+a session, plain `curl` through the proxy now reaches (HTTP 200 unless shown):
+`www.kra.go.ke` (Acts as PDFs), `www.centralbank.go.ke`, `www.treasury.go.ke`,
+`www.hef.co.ke`, `www.nita.go.ke`, `www.kmtc.ac.ke` (301 redirect, answers),
+`kenyalaw.org`, `jipangefinance.org` and this site. **Still unreachable (000):**
+`www.cue.or.ke`, `www.tveta.go.ke`, `www.kuccps.ac.ke`, `students.kuccps.net`,
+`www.helb.co.ke`, `www.education.go.ke` and `www.uonbi.ac.ke` (one university
+site tested; others untested).
 
-It is also useless here. The network egress policy in the build environment
-blocks essentially every host that matters — every Kenyan government domain
-(`tveta.go.ke`, `kcaa.or.ke`, `knqa.go.ke`, `kra.go.ke`), every university
-site, every course aggregator (`kenyaplex.com`, `elimucentre.com`,
-`colleges.co.ke`), Kenyan news sites, and even `en.wikipedia.org`. A fetch
-attempt costs a round trip and returns `EGRESS_BLOCKED`.
+So: **read the primary document wherever it is reachable** (fetch the PDF and
+extract it), and fall back to WebSearch only for hosts that are still closed.
+Re-test a host before writing it off; the policy has changed once and can
+change again. CBK file names with spaces must be percent-encoded, or the fetch
+returns 404 and looks like a missing file.
 
-**WebSearch works and is the only external channel.** It returns titles, URLs
+**WebSearch is still the channel for closed hosts.** It returns titles, URLs
 and a summary of the result content, and that summary has been good enough to
 source real figures — the consolidated public-TVET rate of Ksh 67,189, KMTC's
 national schedule, the EACFFPC's Ksh 35,000 per semester, the College of
@@ -187,7 +193,7 @@ Insurance fee bands, and the whole KNBS Economic Survey 2026 sector table.
 Naming the institution, the qualification family and the year works.
 
 Never route around a block — no archive mirrors, no proxies, no cache
-services. If a host is blocked, say so and move on.
+services. If a host is still blocked, say so and move on.
 
 ## The core pillar: a figure is either sourced or absent
 
@@ -7196,3 +7202,16 @@ funding, agriculture, intakes, counties), each checked by a verifier.
 **Corrected the same day (PR #198).** The link now opens JiPange's Education Planner, `jipangefinance.org/planners/education?amount=<tuition>&years=1&from=njia`, the tool built for a fee bill, and it is sent only for a fee whose basis is `published` or `derived`. #197 linked every priced card, which included 104 ILLUSTRATIVE fees: the card labels them, but the link strips the label, so a parent would have planned around a figure Njia says it cannot source. `from=njia` is a fixed string that only makes the planner say the figure was carried over and should be checked against the fee letter; it is never echoed. The provenance test now asserts sourced-only, the exact three keys, and that the real catalogue exercises both the sent and the withheld branch. The old `/tools/savings-goal?target=` address still works (JiPange redirects it), so links already shared do not break.
 
 **KUCCPS first-year costs, second pass, 27 November 2026.** `KUCCPS_YEAR1_COST` went from 18 to 38 programmes, adding MKU (6), Daystar (3), CUEA (3), Zetech (2), Lukenya (2), KCA, GLUK, MUA and Kenya Highlands. Skipped, and worth another read: Daystar Economics (242,800 in one list and 223,900 in another), KeMU Nursing (163,500, and an older list differs), MUA Development Studies (78,000 or 78,600), and every name that did not match (Zetech "Hospitality and Tourism", GLUK "Community Health"). No KUCCPS cost surfaced for Umma or Tangaza.
+
+## Closing evidence gaps: the deep-research workflow (adopted 27 Nov 2026)
+
+When a question needs outside evidence (a tax rule, a fee, a regulator's
+convention), run the `deep-research` skill: independent tracks in parallel
+(statute, regulator documents, market practice), researchers who read the
+primary document and reproduce a figure against the publisher's own numbers,
+labelled notes (read in full or search summary, URL, date, confidence), then a
+decision table. Verify any code finding a researcher reports yourself before
+acting on it, and bring a methodology change to the owner with reference cases
+first. Keep the notes and report under `docs/research/<date>-<title>/`. The
+first run (Kenya bond withholding tax; credit pricing; CBK bond conventions)
+is in PapaDanico/Mwangaza-Yield `docs/research/`.

@@ -99,6 +99,9 @@
      stylesheet for colour and type, but none of its layout JavaScript, so
      they render identically with scripting switched off. */
   body { max-width: min(110rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  /* The page uses the full width; running text does not. At 1440px a help or
+     pathways paragraph ran 1,368px, about 170 characters a line. */
+  p, dd, .faq li { max-width: 72ch; }
   /* Full width without overlong lines: prose pages flow into newspaper columns
      on wide screens. Columns rather than a grid, so sections of different
      lengths do not leave blank rows (a grid row is as tall as its tallest
@@ -152,6 +155,19 @@
      than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
   .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
+  /* Course tables become stacked rows on a phone. At 375px the six columns
+     were 606px wide inside a 340px box, so the Tuition column sat off-screen
+     behind a sideways swipe on the field readers come for. Each row now reads
+     course, institution, then level · grade · tuition · duration, labelled. */
+  @media (max-width: 47.99rem) {
+    table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    table.stack, table.stack tbody { display: block; width: 100%; }
+    table.stack tr { display: flex; flex-wrap: wrap; gap: .15rem .9rem; padding: .5rem 0; border-bottom: 1px solid var(--rule, rgba(0,0,0,.15)); }
+    table.stack th[scope="row"], table.stack td { border: 0; padding: 0; white-space: normal; }
+    table.stack th[scope="row"], table.stack td:not(.tok) { flex: 1 1 100%; }
+    table.stack td:not(.tok) { opacity: .85; }
+    table.stack td[data-label]::before { content: attr(data-label) ": "; opacity: .75; }
+  }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: 3px;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
@@ -363,7 +379,7 @@ Caring and health, Creative and making, Technology, Technical trades, Business, 
 
 <main class="main" id="main">
 <div class="wrap" tabindex="0" role="region" aria-label="Course table for Kiambu County">
-<table>
+<table class="stack">
   <caption>Every course Njia lists in Kiambu County, lowest entry requirement first.</caption>
   <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col" class="tok">Level</th>
   <th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th><th scope="col" class="tok">Duration</th></tr></thead>
@@ -372,1200 +388,1200 @@ Caring and health, Creative and making, Technology, Technical trades, Business, 
           <th scope="row">Artisan in Automotive Engineering</th>
           <td>St. Kizito Vocational Training Institute</td>
           <td class="tok">Artisan</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Artisan in Carpentry and Joinery</th>
           <td>St. Kizito Vocational Training Institute</td>
           <td class="tok">Artisan</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Artisan in Computer Studies</th>
           <td>St. Kizito Vocational Training Institute</td>
           <td class="tok">Artisan</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Artisan in Electrical Installation</th>
           <td>St. Kizito Vocational Training Institute</td>
           <td class="tok">Artisan</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Artisan in Plumbing</th>
           <td>St. Kizito Vocational Training Institute</td>
           <td class="tok">Artisan</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Bible and Theology</th>
           <td>Moffat Bible College</td>
           <td class="tok">Certificate</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Bible</th>
           <td>Moffat Bible College</td>
           <td class="tok">Diploma</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Craft Certificate in General Agriculture</th>
           <td>Kenya School of Agriculture — Songa Mbele (Thika) Campus</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Community Health Assistant</th>
           <td>Kenya Medical Training College (KMTC) — Thika Campus</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 160,200</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 160,200</td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Hearing Health (Hearing Instrumentalist)</th>
           <td>Kenyatta University</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Automotive Engineering</th>
           <td>Thika Technical Training Institute</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Banking and Finance (CDACC Level 6)</th>
           <td>Kiambu National Polytechnic</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 134,378</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 134,378</td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Business Management</th>
           <td>Nairobi Institute of Business Studies (NIBS)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Electrical and Electronic Engineering</th>
           <td>Kiambu National Polytechnic</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 201,567</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 201,567</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in General Agriculture</th>
           <td>Kenya School of Agriculture — Songa Mbele (Thika) Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Nutrition and Dietetics</th>
           <td>Thika School of Medical and Health Sciences (TSMHS)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Supply Chain Management</th>
           <td>Kiambu National Polytechnic</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 134,378</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 134,378</td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma of Theology in Chaplaincy</th>
           <td>Kenya Baptist Theological College</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma of Theology in Children and Youth Ministry</th>
           <td>Kenya Baptist Theological College</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma of Theology in Christian Worship</th>
           <td>Kenya Baptist Theological College</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma of Theology in Pastoral Ministry</th>
           <td>Kenya Baptist Theological College</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Clinical Medicine and Surgery</th>
           <td>Kenya Medical Training College (KMTC) — Thika Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 240,950</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 240,950</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Clinical Medicine and Surgery</th>
           <td>Kenya Medical Training College (KMTC) — Gatundu Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 240,950</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 240,950</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Clinical Medicine and Surgery</th>
           <td>AIC Kijabe College of Health Sciences</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Community Health Nursing</th>
           <td>PCEA Kikuyu Hospital School of Nursing</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Counselling Psychology</th>
           <td>Pan Africa Christian University (PAC)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Hearing Health (Hearing Health Technician)</th>
           <td>Kenyatta University</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Kenya Registered Community Health Nursing (KRCHN)</th>
           <td>Kenya Medical Training College (KMTC) — Thika Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 239,700</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 239,700</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Kenya Registered Community Health Nursing (KRCHN)</th>
           <td>AIC Kijabe College of Health Sciences</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">42 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Kenya Registered Community Health Nursing (KRCHN)</th>
           <td>Kenya Medical Training College (KMTC) — Gatundu Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 239,700</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 239,700</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Medical Laboratory Sciences</th>
           <td>Thika School of Medical and Health Sciences (TSMHS)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Primary Teacher Education</th>
           <td>St. John's Teachers Training College, Kilimambogo</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 201,567</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 201,567</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts (Film and Theatre)</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Communication</th>
           <td>Pan Africa Christian University (PAC)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Communication</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Communication and Journalism</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Communication and Media Technology</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Community Development</th>
           <td>Pan Africa Christian University (PAC)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Community Development</th>
           <td>Gretsa University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Counselling Psychology</th>
           <td>Pan Africa Christian University (PAC)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Criminology and Fraud Management</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Journalism, Media and Digital Communication</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Psychology</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Psychology</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Public Relations</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Safety and Security Management</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Arts in Social Work</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business Administration</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business Administration</th>
           <td>Gretsa University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business Administration and Management</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business Administration and Management</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business and Information Technology</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business Information Technology</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business Information Technology</th>
           <td>Pan Africa Christian University (PAC)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business Information Technology</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business Information Technology</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Business Leadership</th>
           <td>Pan Africa Christian University (PAC)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Commerce</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Commerce</th>
           <td>Gretsa University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Commerce</th>
           <td>Pan Africa Christian University (PAC)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Commerce</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Commerce</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Commerce</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Economics</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Arts)</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Arts)</th>
           <td>Gretsa University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Arts)</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Arts)</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Early Childhood Studies)</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Early Childhood Studies)</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Science)</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Science)</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Special Needs Education)</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Special Needs Education)</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Special Needs)</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Environmental Studies</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Hotel and Tourism Management</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of International Relations and Diplomacy</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Laws (LLB)</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Laws (LLB)</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Laws (LLB)</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Medicine and Bachelor of Surgery (MBChB)</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">72 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Medicine and Bachelor of Surgery (MBChB)</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">72 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Medicine and Bachelor of Surgery (MBChB)</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">72 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Music</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Music (Technology)</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Pharmacy</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Pharmacy</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Pharmacy</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Purchasing and Supply Chain Management</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Radiography</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science (Health Information Management and Informatics)</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science (Medical Social Work)</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Accounting and Finance</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Aerospace Engineering</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Agribusiness Management</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Agricultural and Biosystems Engineering</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Agricultural Management</th>
           <td>Gretsa University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Biomedical Engineering</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Biotechnology</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Civil Engineering</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Civil Engineering</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Clinical Medicine and Community Health</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Clinical Medicine and Community Health</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Science</th>
           <td>Gretsa University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Science</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Science</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Science</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Science</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Technology</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Data Science and Analytics</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Electrical and Electronic Engineering</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Electrical and Electronic Engineering</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Enterprise Computing</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Exercise and Sports Science</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Food Science and Technology</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Horticulture</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Hospitality and Tourism Management</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Hospitality and Tourism Management</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Hospitality Management</th>
           <td>Gretsa University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Hospitality Management</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Hotel and Restaurant Management</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Information Science and Knowledge Management</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Information Technology</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Information Technology</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Information Technology</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Information Technology</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Information Technology</th>
           <td>Gretsa University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Mechanical Engineering</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Mechanical Engineering</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Mechatronic Engineering</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Medical Biochemistry</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Medical Laboratory Sciences</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Medical Microbiology</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Nursing</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Nursing</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Nursing</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Nursing</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 1,169,200</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 1,169,200</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Occupational Therapy</th>
           <td>Presbyterian University of East Africa (PUEA)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Oral Health</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Physiotherapy</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Public Health</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Public Health</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Real Estate</th>
           <td>Kenyatta University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Software Engineering</th>
           <td>Zetech University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Travel and Tourism Management</th>
           <td>Mount Kenya University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Theology and Community Leadership</th>
           <td>St Paul's University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Science</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">B-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">B-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Architecture</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">B</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">B</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Actuarial Science</th>
           <td>Jomo Kenyatta University of Agriculture and Technology (JKUAT)</td>
           <td class="tok">Degree</td>
-          <td class="tok">B+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">B+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
   </tbody>

@@ -99,6 +99,9 @@
      stylesheet for colour and type, but none of its layout JavaScript, so
      they render identically with scripting switched off. */
   body { max-width: min(110rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  /* The page uses the full width; running text does not. At 1440px a help or
+     pathways paragraph ran 1,368px, about 170 characters a line. */
+  p, dd, .faq li { max-width: 72ch; }
   /* Full width without overlong lines: prose pages flow into newspaper columns
      on wide screens. Columns rather than a grid, so sections of different
      lengths do not leave blank rows (a grid row is as tall as its tallest
@@ -152,6 +155,19 @@
      than here: CSS cannot make an element focusable. */
   .wrap { overflow-x: auto; }
   .wrap:focus-visible { outline: 2px solid var(--accent, #C8860A); outline-offset: 2px; }
+  /* Course tables become stacked rows on a phone. At 375px the six columns
+     were 606px wide inside a 340px box, so the Tuition column sat off-screen
+     behind a sideways swipe on the field readers come for. Each row now reads
+     course, institution, then level · grade · tuition · duration, labelled. */
+  @media (max-width: 47.99rem) {
+    table.stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    table.stack, table.stack tbody { display: block; width: 100%; }
+    table.stack tr { display: flex; flex-wrap: wrap; gap: .15rem .9rem; padding: .5rem 0; border-bottom: 1px solid var(--rule, rgba(0,0,0,.15)); }
+    table.stack th[scope="row"], table.stack td { border: 0; padding: 0; white-space: normal; }
+    table.stack th[scope="row"], table.stack td:not(.tok) { flex: 1 1 100%; }
+    table.stack td:not(.tok) { opacity: .85; }
+    table.stack td[data-label]::before { content: attr(data-label) ": "; opacity: .75; }
+  }
   .cta { display: inline-block; margin: .4rem .5rem .4rem 0; padding: .7rem 1.1rem; border-radius: 3px;
          background: var(--primary, #8B2500); color: var(--bg, #F5E9D4); text-decoration: none; font-weight: 700; }
   .back { display: inline-block; margin-bottom: .75rem; }
@@ -363,7 +379,7 @@ Caring and health, Numbers and analysis, Technical trades, Technology, Working w
 
 <main class="main" id="main">
 <div class="wrap" tabindex="0" role="region" aria-label="Course table for Nakuru County">
-<table>
+<table class="stack">
   <caption>Every course Njia lists in Nakuru County, lowest entry requirement first.</caption>
   <thead><tr><th scope="col">Course</th><th scope="col">Institution</th><th scope="col" class="tok">Level</th>
   <th scope="col" class="tok">Min grade</th><th scope="col" class="tok">Tuition</th><th scope="col" class="tok">Duration</th></tr></thead>
@@ -372,584 +388,584 @@ Caring and health, Numbers and analysis, Technical trades, Technology, Working w
           <th scope="row">Artisan in Dairy Farm Management</th>
           <td>Dairy Training Institute (DTI), Naivasha</td>
           <td class="tok">Artisan</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok">Ksh 47,800</td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition">Ksh 47,800</td>
           <td class="tok">6 mo</td>
         </tr>
         <tr>
           <th scope="row">Artisan in Dairy Plant Management</th>
           <td>Dairy Training Institute (DTI), Naivasha</td>
           <td class="tok">Artisan</td>
-          <td class="tok"><span class="open">Open entry</span></td>
-          <td class="tok">Ksh 47,800</td>
+          <td class="tok" data-label="Entry"><span class="open">Open entry</span></td>
+          <td class="tok" data-label="Tuition">Ksh 47,800</td>
           <td class="tok">6 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Agriculture and Community Development (CDACC Level 5)</th>
           <td>Baraka Agricultural College</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Aquaculture</th>
           <td>Kenya Wildlife Service Training Institute (KWSTI)</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">9 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Welding and Fabrication</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok">Ksh 143,400</td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition">Ksh 143,400</td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Craft Certificate in General Agriculture</th>
           <td>Kenya School of Agriculture — Nakuru Campus</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Agriculture</th>
           <td>Egerton University</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">D+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Dairy Production and Processing</th>
           <td>Dairy Training Institute (DTI), Naivasha</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D+</td>
-          <td class="tok">Ksh 71,800</td>
+          <td class="tok" data-label="Entry">D+</td>
+          <td class="tok" data-label="Tuition">Ksh 71,800</td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Dairy Technology and Management</th>
           <td>Dairy Training Institute (DTI), Naivasha</td>
           <td class="tok">Certificate</td>
-          <td class="tok">D+</td>
-          <td class="tok">Ksh 71,800</td>
+          <td class="tok" data-label="Entry">D+</td>
+          <td class="tok" data-label="Tuition">Ksh 71,800</td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Community Health Assistant</th>
           <td>Kenya Medical Training College (KMTC) — Nakuru Campus</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 160,200</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 160,200</td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Health Records and Information Technology</th>
           <td>Kenya Medical Training College (KMTC) — Nakuru Campus</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 160,200</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 160,200</td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Orthopaedic and Trauma Medicine</th>
           <td>Kenya Medical Training College (KMTC) — Nakuru Campus</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 160,200</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 160,200</td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Pipeline Fire and Safety Officer</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Pipeline Instrumentation and Control Technician</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Pipeline Laboratory Technologist</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Pipeline Maintenance Technician</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Certificate in Pipeline Operations Technician</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Certificate</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">12 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Agricultural Education and Extension</th>
           <td>Egerton University</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Agriculture and Extension (CDACC Level 6)</th>
           <td>Baraka Agricultural College</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Analytical Chemistry</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 215,100</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 215,100</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Animal Health and Production</th>
           <td>Egerton University</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Animal Production (CDACC Level 6)</th>
           <td>Baraka Agricultural College</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Dairy Production and Processing</th>
           <td>Dairy Training Institute (DTI), Naivasha</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 165,300</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 165,300</td>
           <td class="tok">30 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Environmental Management</th>
           <td>Kenya Wildlife Service Training Institute (KWSTI)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">18 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Environmental Science</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 215,100</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 215,100</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Fisheries and Aquatic Science</th>
           <td>Kenya Wildlife Service Training Institute (KWSTI)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">18 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in General Agriculture</th>
           <td>Kenya School of Agriculture — Nakuru Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Horticulture</th>
           <td>Egerton University</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Law</th>
           <td>Kabarak University</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Petroleum Management</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 215,100</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 215,100</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Sustainable Agriculture and Rural Development (CDACC Level 6)</th>
           <td>Baraka Agricultural College</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Tourism and Hospitality</th>
           <td>Kenya Wildlife Service Training Institute (KWSTI)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">18 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Welding and Fabrication</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok">Ksh 215,100</td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition">Ksh 215,100</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Wildlife Management</th>
           <td>Kenya Wildlife Service Training Institute (KWSTI)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">18 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Clinical Medicine and Surgery</th>
           <td>Kenya Medical Training College (KMTC) — Nakuru Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 240,950</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 240,950</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Health Records and Information Technology</th>
           <td>Kenya Medical Training College (KMTC) — Nakuru Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 238,200</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 238,200</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Kenya Registered Community Health Nursing (KRCHN)</th>
           <td>Kenya Medical Training College (KMTC) — Nakuru Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 239,700</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 239,700</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Medical Laboratory Sciences</th>
           <td>Kenya Medical Training College (KMTC) — Nakuru Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 238,200</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 238,200</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Nutrition and Dietetics</th>
           <td>Kenya Medical Training College (KMTC) — Molo Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 238,200</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 238,200</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Oil and Gas Economics</th>
           <td>Morendat Institute of Oil and Gas (MIOG)</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">24 mo</td>
         </tr>
         <tr>
           <th scope="row">Diploma in Orthopaedic and Trauma Medicine</th>
           <td>Kenya Medical Training College (KMTC) — Nakuru Campus</td>
           <td class="tok">Diploma</td>
-          <td class="tok">C</td>
-          <td class="tok">Ksh 238,200</td>
+          <td class="tok" data-label="Entry">C</td>
+          <td class="tok" data-label="Tuition">Ksh 238,200</td>
           <td class="tok">36 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Commerce</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 766,800</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 766,800</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Arts)</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 766,800</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 766,800</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Arts)</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Science)</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 766,800</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 766,800</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Education (Science)</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Laws (LLB)</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Management Information Systems</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 766,800</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 766,800</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Agriculture</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Clinical Medicine</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Clinical Medicine</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">Not published</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Computer Science</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Dairy Technology and Management</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Dryland Resources Management</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Economics</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 766,800</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 766,800</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Economics and Mathematics</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok">Ksh 766,800</td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition">Ksh 766,800</td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Economics and Statistics</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Ecotourism and Hospitality Management</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Environmental Science</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Environmental Science</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Food Science and Technology</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Foods, Nutrition and Dietetics</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Horticulture</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Information Technology</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Instrumentation and Control Engineering</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Nursing</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Software Engineering</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Telecommunications</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Theology</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Veterinary Medicine and Surgery</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">C+</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">C+</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">60 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Laws (LLB)</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">B-</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">B-</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Medicine and Bachelor of Surgery (MBChB)</th>
           <td>Egerton University</td>
           <td class="tok">Degree</td>
-          <td class="tok">B</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">B</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">72 mo</td>
         </tr>
         <tr>
           <th scope="row">Bachelor of Science in Nursing</th>
           <td>Kabarak University</td>
           <td class="tok">Degree</td>
-          <td class="tok">B</td>
-          <td class="tok"><span class="muted">Not published</span></td>
+          <td class="tok" data-label="Entry">B</td>
+          <td class="tok" data-label="Tuition"><span class="muted">Not published</span></td>
           <td class="tok">48 mo</td>
         </tr>
   </tbody>

@@ -2194,7 +2194,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
   color: var(--landing-ink);
 }
 .landing-quote .hl-gold { color: #C8860A; }
-.landing-quote-caption { margin-top: 1rem; font-size: var(--fs-md); color: var(--landing-ink-muted); }
+.landing-quote-caption { max-width: var(--prose-max); margin-top: 1rem; font-size: var(--fs-md); color: var(--landing-ink-muted); }
 
 .landing-process-list { display: flex; flex-direction: column; gap: 1rem; }
 .landing-process-card {

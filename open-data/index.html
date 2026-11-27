@@ -72,6 +72,27 @@
   .bar { display: block; height: .7rem; background: var(--primary, #8B2500); border-radius: 1px; }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .split > .site-identity, .split > .site-header, .split > .site-footer { grid-column: 1 / -1; }
+  /* Masthead with presence (27 November 2026): the app header's treatment,
+     drawn the full-bleed way these script-free pages draw every band. */
+  html { overflow-x: clip; }
+  .site-identity { font-weight: 500; letter-spacing: .02em; }
+  .site-identity-inner { min-height: 2.5rem; padding-bottom: calc(.3rem + 7px); }
+  .site-identity::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); height: 7px;
+    background-repeat: repeat-x; background-size: auto 7px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='11' viewBox='0 0 36 11'%3E%3Cpath d='M0 1h36' stroke='%23F5E9D4' stroke-width='1.2'/%3E%3Cpath d='M0 10h36' stroke='%23F5E9D4' stroke-width='1.2'/%3E%3Cpath d='M0 2.4h9L4.5 8.6Z' fill='%238B2500'/%3E%3Cpath d='M9 8.6h9L13.5 2.4Z' fill='%23C8860A'/%3E%3Cpath d='M18 2.4h9l-4.5 6.2Z' fill='%23F5E9D4'/%3E%3Cpath d='M27 8.6h9l-4.5-6.2Z' fill='%232D5A1B'/%3E%3Ccircle cx='9' cy='5.5' r='1' fill='%23F5E9D4'/%3E%3Ccircle cx='27' cy='5.5' r='1' fill='%23F5E9D4'/%3E%3C/svg%3E"); }
+  @media (prefers-color-scheme: light) { .site-header::before { background: #FCF8F1; box-shadow: 0 0 0 100vmax #FCF8F1; } }
+  .site-header-inner { padding: .95rem 0; }
+  .site-word { font-size: 2.05rem; color: var(--primary, #8B2500); }
+  .site-mark { width: 25px; height: 37px; }
+  @media (min-width: 64rem) {
+    .site-nav a { position: relative; border-bottom: 0; transition: color .15s ease; }
+    .site-nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: linear-gradient(90deg, var(--primary, #8B2500), var(--accent, #C8860A)); transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
+    .site-nav a:hover, .site-nav a:focus-visible { color: var(--primary, #8B2500); }
+    .site-nav a:hover::after, .site-nav a:focus-visible::after { transform: scaleX(1); }
+    .site-more-panel a::after { display: none; }
+    .site-cta { border-bottom: 3px solid var(--accent, #C8860A); }
+    .site-cta::after { content: ' \2192'; margin-left: .35rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .site-nav a, .site-nav a::after { transition: none; } }
   @media print { .skip-link, .site-identity, .site-header, .site-footer { display: none !important; } }
 
   body { max-width: 62rem; margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }

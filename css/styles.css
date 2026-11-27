@@ -3529,3 +3529,57 @@ h1, h2, h3, .landing-h1, .landing-h2 { font-weight: 600; letter-spacing: -0.015e
 .landing-footer-credit { display: inline-flex; align-items: center; gap: 0.6rem; color: inherit; text-decoration: none; font-size: var(--fs-sm); }
 .landing-footer-credit img { width: 24px; height: 24px; border-radius: var(--radius-xs); display: block; }
 .landing-footer-credit:hover span, .landing-footer-credit:focus-visible span { text-decoration: underline; text-underline-offset: 0.2em; }
+
+
+/* ---------- Masthead with presence (27 November 2026) ----------
+ * The maintainer found the header dull, and measured it was: a 36px band, a
+ * 60px white strip with an 18px wordmark and one beige hairline. Same grammar
+ * as the design reference (identity band, white masthead, serif wordmark,
+ * square controls), with more weight: a deeper band carrying the brand's own
+ * folk-pattern strip, a larger terracotta wordmark, a taller masthead with a
+ * warm wash, and links whose underline grows in the signature colour. */
+:root { --header-h: 64px; }
+@media (min-width: 64rem) { :root { --header-h: 76px; } }
+.identity-bar {
+  position: relative; min-height: 2.5rem; padding-bottom: calc(0.3rem + 7px);
+  background: linear-gradient(90deg, #5E1900 0%, #8B2500 38%, #8B2500 100%);
+  letter-spacing: 0.02em; font-weight: 500;
+}
+.identity-bar::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 7px;
+  background-repeat: repeat-x; background-size: auto 7px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='11' viewBox='0 0 36 11'%3E%3Cpath d='M0 1h36' stroke='%23F5E9D4' stroke-width='1.2'/%3E%3Cpath d='M0 10h36' stroke='%23F5E9D4' stroke-width='1.2'/%3E%3Cpath d='M0 2.4h9L4.5 8.6Z' fill='%238B2500'/%3E%3Cpath d='M9 8.6h9L13.5 2.4Z' fill='%23C8860A'/%3E%3Cpath d='M18 2.4h9l-4.5 6.2Z' fill='%23F5E9D4'/%3E%3Cpath d='M27 8.6h9l-4.5-6.2Z' fill='%232D5A1B'/%3E%3Ccircle cx='9' cy='5.5' r='1' fill='%23F5E9D4'/%3E%3Ccircle cx='27' cy='5.5' r='1' fill='%23F5E9D4'/%3E%3C/svg%3E");
+}
+.app-header { box-shadow: 0 10px 24px -20px rgba(61, 28, 2, 0.55); }
+:root[data-theme="light"] .app-header { background: linear-gradient(180deg, #FFFFFF 0%, #FCF6EC 100%); }
+.app-header .logo-word { color: var(--primary); font-weight: 700; }
+.app-header .logo { gap: 0.65rem; }
+.app-header .logo-word { font-size: 1.5rem; line-height: 1; }
+.app-header .logo-mark { width: 21px; height: 31px; }
+@media (min-width: 64rem) {
+  .app-header { padding-inline: clamp(1.25rem, 3vw, 3rem); }
+  .app-header .logo-word { font-size: 2.05rem; }
+  .app-header .logo-mark { width: 25px; height: 37px; }
+}
+.landing-nav-link {
+  position: relative; border-bottom-color: transparent !important;
+  transition: color .15s ease;
+}
+.landing-nav-link::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 2px; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transform: scaleX(0); transform-origin: left; transition: transform .2s ease;
+}
+.landing-nav-link:hover, .landing-nav-link:focus-visible, .landing-nav-link[aria-expanded="true"] { color: var(--primary); }
+.landing-nav-link:hover::after, .landing-nav-link:focus-visible::after, .landing-nav-link[aria-expanded="true"]::after { transform: scaleX(1); }
+.header-actions .landing-cta-header::after { content: ' \2192'; margin-left: 0.35rem; }
+.header-actions .landing-cta-header { border-bottom: 3px solid var(--accent); }
+@media (prefers-reduced-motion: reduce) { .landing-nav-link, .landing-nav-link::after { transition: none; } }
+
+/* Full width. The landing bands stopped at 1480px while every app page used
+ * --page-max (1760px), so on a 1920 screen the home page left 220px of cream
+ * on each side. One cap now, the same as the modules. */
+@media (min-width: 1024px) {
+  .landing-hero, .landing-block, .landing-quote-section,
+  .landing-footer-grid, .landing-footer-legal, .landing-guarantee-box { max-width: var(--page-max); }
+  .landing-stats-grid { max-width: calc(var(--page-max) - 2 * clamp(1.25rem, 3vw, 3rem)); }
+}

@@ -145,7 +145,7 @@ const HELP_FAQ = [
       ['Are private universities and colleges included?', 'Yes. The directory covers public and private universities, national polytechnics, technical training institutes and private colleges, and every institution is labelled public or private — the single biggest driver of what you will pay.'],
       ['Can I study online?', 'Yes, and it may be the best option if you cannot relocate or you are already working. The Open University of Kenya — the country’s first fully virtual public university — is in the catalogue with its published fees, alongside other institutions offering online and evening modes. Filter by Online in Decide.'],
       ['Employment rates and salaries — where are those from?', 'They are illustrative at present. No Kenyan institution in this catalogue publishes a graduate tracer study we could verify against, so those figures carry no verified badge and should be read as rough context only, never as a promise.'],
-      ['I found a data error — how do I report it?', 'Use “Give Feedback” in the footer and describe what looks wrong. Reports directly shape what gets verified next.'],
+      ['I found a data error — how do I report it?', 'Use “Give Feedback” in the footer, or <a href="https://wa.me/message/GPPIKMENXJVWO1">message Danico Ventures Ltd on WhatsApp</a>, and describe what looks wrong. Reports directly shape what gets verified next.'],
       ['Is Njia affiliated with KUCCPS, HELB, or any institution?', 'No. Njia is independent and unaffiliated. Institution and funder names appear because they are real, publicly known Kenyan bodies — not because of any partnership, sponsorship or endorsement.']
     ]
   },

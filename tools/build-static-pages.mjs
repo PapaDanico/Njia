@@ -155,7 +155,7 @@ const SHELL_CSS = `${SITE_SHELL_CSS}
   /* Deliberately minimal and self-contained. These pages reuse the app's
      stylesheet for colour and type, but none of its layout JavaScript, so
      they render identically with scripting switched off. */
-  body { max-width: min(96rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
+  body { max-width: min(110rem, 100%); margin: 0 auto; padding: 1.5rem clamp(1.1rem, 2.5vw, 2.25rem) 4rem; }
   /* Full width without overlong lines: prose pages flow into newspaper columns
      on wide screens. Columns rather than a grid, so sections of different
      lengths do not leave blank rows (a grid row is as tall as its tallest

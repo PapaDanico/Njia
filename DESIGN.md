@@ -10,8 +10,40 @@ fees and filters rather than margin. The values below are the ones in
 
 **What this is based on.** The project's own brand sheet and the structure of
 the Harvard and Stanford flagship sites recorded in CLAUDE.md ("Design
-reference"). No design library (UXKIN) was connected for this pass, so no
-other sites were compared fresh.
+reference"), plus a measured benchmark against the sister site
+mwangazayield.org (below). No design library (UXKIN) was connected, so no other
+sites were compared.
+
+### Benchmark: mwangazayield.org (27 November 2026)
+
+Measured in a real browser at 390, 1440 and 1920px.
+
+| | Mwangaza | Njia |
+|---|---|---|
+| Content box, home | 1248px (80rem) at 1440 and 1920 | rail 271 + content 1047 at 1440; 333 + 1291 at 1920 |
+| Data page table | 1214px, no rail | 1037px beside a rail at 1440 (before this pass) |
+| Text page | one 672px column | 727px paragraphs flowed into 2-3 columns |
+| Type | Plus Jakarta Sans, h1 54px, h2 30px; JetBrains Mono for figures | Source Serif 4 headings, system sans body; mono for figures |
+| Controls | 46px tall, 12px radius, pill chips for task links | 48px tall, 3px radius |
+| Cards | 16px radius, hairline warm border on off-white | 4px radius, hairline border on white |
+| Numbers | tabular in tables | tabular in fee cells, stats and provenance |
+
+**Taken (structure, not identity):** the data table gets the whole content
+box, so county and grade pages now split into rail plus table only from
+110rem (it was 85rem). At 1440px that cut C plain 38,515 to 31,946px, Nairobi
+17,870 to 14,347, Kiambu 8,539 to 7,565 and D plain 15,818 to 15,118. Lamu,
+a short page, grew 1,509 to 1,812. At 1600px no rail was still shorter on
+the long pages (C plain 35,014 to 33,096); at 1920px the rail won back, so it
+returns from 110rem (1760px).
+
+**Already the same, kept:** one shared content box per page, tabular numerals
+for money, a single dark band for emphasis, hairline cards on a warm ground.
+
+**Not taken:** Mwangaza's typeface, navy and amber palette, 12-16px radii and
+pill chips. They are that brand's identity; Njia keeps terracotta, Source
+Serif 4 and square controls. Mwangaza is not wider: at 1920 its box stays
+1248px while Njia uses up to 1760px, so "full width" here means the data gets
+the box, not that the box grows.
 
 ### Colour, by role
 
@@ -50,7 +82,7 @@ Dark mode mirrors every role under `[data-theme="dark"]`. Text contrast is
   and 288px above (four at 1920, where five made cards wrap and the page grow); `--grid-tile-min` 200px for stat
   tiles. Grids get denser with width; prose does not get wider.
 - Wide screens: rail plus content (filters in a sticky rail on Decide; county
-  pages split at 85rem). Prose pages flow into columns at 64rem, three at 100rem.
+  and grade pages split at 110rem, below that the table takes the full box). Prose pages flow into columns at 64rem, three at 100rem.
 - Phones: course tables become stacked labelled rows below 48rem so fees stay
   on screen; no sideways scroll at 360px.
 - Rule: a layout change that claims to save space is measured in document

@@ -211,7 +211,9 @@ test('catalogue records do not get fatter as the catalogue grows', () => {
      characters is still close enough to rounding that ordinary work trips it,
      and every real instance this has caught moved the mean by 20 or more. A
      guard wants enough room to tell a regression from a normal day. */
-  const MEAN_NOTE = 900;
+  /* Lowered 900 -> 870 on 27 November 2026 after repository-history sentences
+     were cut from ~350 notes (mean 861 -> 819); the 50-character band stays. */
+  const MEAN_NOTE = 870;
   const mean = COURSES.reduce((n, c) => n + c.verification_note.length, 0) / COURSES.length;
   assert.ok(mean <= MEAN_NOTE,
     `the mean verification note is ${mean.toFixed(0)} characters, over the ${MEAN_NOTE} `

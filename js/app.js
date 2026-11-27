@@ -746,7 +746,7 @@ const LANDING_EVIDENCE = [
 ];
 
 const LANDING_PROCESS = [
-  { page: 'discover', title: 'Discover your cluster', body: 'A 20-minute adaptive diagnostic across Identity, Community, Necessity and Horizon — a career-psychology model refined through decades of executive coaching research.' },
+  { page: 'discover', title: 'Discover your cluster', body: 'An adaptive diagnostic across Identity, Community, Necessity and Horizon. It is an exploration aid, not a validated psychological test.' },
   { page: 'design', title: 'Design three futures', body: "A structured life-design technique: sketch the path you're already on, the one you'd choose if it disappeared, and the one you'd choose if money were no object." },
   { page: 'decide', title: 'Decide with evidence', body: 'Match your profile against real course fees, grade requirements, and funding sources — filtered by your actual budget and timeline, not a wish list.' },
   { page: 'connect', title: 'Connect with real people', body: "No algorithm replaces a conversation. Generate an outreach message and go talk to someone already doing the work." },
@@ -1287,8 +1287,7 @@ function renderHomePage() {
       </section>
 
       <section class="landing-dark landing-final-cta">
-        <h2 class="landing-h2">Start with clarity. It's free.</h2>
-        <p class="landing-sub">Your answers never leave your device. No account, no cost, about 20 minutes.</p>
+        <h2 class="landing-h2">Start with clarity.</h2>
         <button type="button" class="btn btn-gold" style="width:auto;display:inline-flex;margin-top:0.5rem" onclick="navigateTo('discover')">${completed ? 'Revisit Your Discovery' : 'Start Your Discovery'} →</button>
       </section>
 

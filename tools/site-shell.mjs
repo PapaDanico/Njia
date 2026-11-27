@@ -165,7 +165,7 @@ export const SITE_SHELL_CSS = `
   .site-credit a { display: inline-flex; align-items: center; gap: .6rem; color: #F5E9D4; text-decoration: none; }
   .site-credit a:hover span, .site-credit a:focus-visible span { text-decoration: underline; text-underline-offset: .2em; }
   .site-credit img { width: 28px; height: 28px; border-radius: 6px; display: block; }
-  .site-foot-note { margin: 1.75rem 0 0; padding-top: 1.1rem; border-top: 1px solid #5A3A1E; font-size: var(--fs-sm, .8125rem); color: #D9C8A5; max-width: 62rem; }
+  .site-foot-note { margin: 1.75rem 0 0; padding-top: 1.1rem; border-top: 1px solid #5A3A1E; font-size: var(--fs-sm, .8125rem); color: #D9C8A5; max-width: 72ch; }
   @media (min-width: 48rem) { .site-foot-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   .bar-th, .bar-td { width: 30%; padding-left: 1rem; }
   .bar-td { vertical-align: middle; }

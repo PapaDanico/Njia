@@ -49,12 +49,12 @@
 #   @netlify/plugin-sitemap      origin: ui
 #   netlify-plugin-debug-cache   origin: ui
 #
-# @netlify/plugin-sitemap writes sitemap.xml into the publish directory, which
-# is this repository root — where the hand-written sitemap.xml already sits, so
-# the generated file probably replaces it. Low stakes in practice: Njia is a
-# single page, so the plugin would emit roughly the same single entry. Worth a
-# glance at what /sitemap.xml actually serves, mainly to confirm the URL names
-# the custom domain rather than the deploy subdomain; not worth worrying about.
+# @netlify/plugin-sitemap targets the publish directory, which is this
+# repository root, where the generated sitemap.xml (tools/build-static-pages.mjs)
+# already sits. Checked 27 November 2026: the live /sitemap.xml is
+# byte-identical to the committed file, 70 URLs, all on the custom domain, so the
+# plugin is not replacing it. If that check ever differs, the plugin is
+# overwriting a generated artefact and should be removed in the dashboard.
 #
 # The plugins are also the only reason npm runs during a deploy at all. On
 # 12 August 2026 a production build failed with npm ECONNRESET installing into

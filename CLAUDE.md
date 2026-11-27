@@ -16,8 +16,10 @@ reader who has no way to check:
 2. **Never quote an entry grade higher than published** — it deletes the card
    for the reader with the fewest options — and never lower, which sends them
    at a door that will not open.
-3. **Never route around the network block.** No archive mirrors, no proxies, no
-   cache services. WebSearch is the only external channel; WebFetch is off.
+3. **Never route around a network block.** No archive mirrors, no proxies, no
+   cache services. Since 27 Nov 2026 many hosts answer directly: read the
+   primary document where it is reachable, and use WebSearch for hosts that
+   are still closed (see "Research" below).
 4. **Report honestly.** If something failed, was skipped, or could not be
    verified, say so plainly.
 
@@ -165,7 +167,7 @@ new CSS silently did not apply. `tests/theme.test.js` now fails on unbalanced
 braces or parens. If a CSS change appears to do nothing, check the parse before
 the cascade.
 
-## Research: use WebSearch, never WebFetch
+## Research: primary documents where reachable, WebSearch where not
 
 **Network re-tested 27 November 2026; the old "do not use WebFetch" rule is
 lifted at the maintainer's instruction.** The egress policy has opened up. From
@@ -5395,9 +5397,9 @@ award elsewhere only because those institutions publish it.
 
 ### The C- rung of the funding ladder was empty, and a scholarship fills it
 
-The maintainer pointed at Amref's scholarships page. It cannot be fetched -
-WebFetch is banned here and every host is egress-blocked - but WebSearch reached
-it, and the find sits exactly in the hole this file's funding sweep identified:
+The maintainer pointed at Amref's scholarships page. It could not be fetched at the
+time (WebFetch was banned and every host egress-blocked; both lifted 27 Nov
+2026, see "Research") - but WebSearch reached it, and the find sits exactly in the hole this file's funding sweep identified:
 provision is heavy before KCSE and above C+, and **thin precisely where Njia's
 core reader stands.**
 

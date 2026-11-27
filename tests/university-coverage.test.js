@@ -62,7 +62,10 @@ const CUE_PUBLIC_CHARTERED = 36;
 const CUE_PRIVATE_CHARTERED = 32;
 
 const universities = (ownership) =>
-  INSTITUTIONS.filter((i) => i.type === 'university' && i.ownership === ownership);
+  INSTITUTIONS.filter((i) => i.type === 'university' && i.ownership === ownership && !i.constituent_of);
+/* A constituent college (constituent_of names its parent) is listed for the
+   courses it teaches, but it is not one of CUE's chartered universities, so it
+   counts toward neither register denominator. */
 
 /* RATCHETS. Raise these as institutions are added; they may never fall.
    They are floors on coverage, not targets — the target is the full register. */

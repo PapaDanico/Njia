@@ -320,7 +320,7 @@ const SECTORS = [
     id: 'sciences',
     name: 'Physical sciences and research',
     broad: 'services',
-    match: /astronom|astrophys|meteorolog|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|science \(general\)|general science|biotechnolog|biochemist|parasitolog|microbiolog/i,
+    match: /astronom|astrophys|meteorolog|\bphysics\b|optic|laser|photonic|physical science|pure science|research science|science \(general\)|general science|basic science|biotechnolog|biochemist|parasitolog|microbiolog/i,
     awardingBodies: ['Commission for University Education'],
     knbs: { series: 'Professional, scientific and technical activities', mapping: 'unsourced' },
     caution: 'Njia holds no employment or earnings data for research careers in Kenya, and there is no TVET tier beneath these programmes - the route is a degree and then postgraduate study or a research institute. Read the absence of a figure here as an absence of published data, not as an absence of work.'
@@ -426,6 +426,13 @@ const AGRIBUSINESS_AWARD = /\bagribusiness\b|\bentrepreneurial agricultur/i;
 const PIPELINE_AWARD = /\bpipeline\b/i;
 const PIPELINE_EXTRACTIVES = /instrumentation|control technician/i;
 
+/* A theology award belongs to religious studies whatever its specialism names.
+ * "Diploma of Theology in Pastoral Ministry" filed under Agriculture because the
+ * agriculture pattern holds `pastoral` for pastoralism: first-match-wins order,
+ * the same shape as TEACHING_AWARD below. Found by printing the resolved sector
+ * on insert (27 November 2026). */
+const THEOLOGY_AWARD = /\btheolog|\bdivinity\b|\bbiblical\b|\bministry\b/i;
+
 const TEACHING_AWARD = /\b(bachelor|master|diploma|certificate) (of|in) education\b|\beducation \(/i;
 
 function sectorForCourse(course) {
@@ -433,6 +440,9 @@ function sectorForCourse(course) {
   const hay = `${course.name || ''} ${course.field || ''}`;
   if (PIPELINE_AWARD.test(course.name || '') && !PIPELINE_EXTRACTIVES.test(course.name || '')) {
     return SECTORS.find((s) => s.id === 'energy') || null;
+  }
+  if (THEOLOGY_AWARD.test(course.name || '')) {
+    return SECTORS.find((s) => s.id === 'humanities') || null;
   }
   if (TEACHING_AWARD.test(course.name || '')) {
     return SECTORS.find((s) => s.id === 'education') || null;

@@ -130,7 +130,7 @@ html { scroll-padding-top: calc(var(--header-h) + 1rem); scroll-padding-bottom: 
    * component may use. --gutter scales with the viewport so a phone keeps 20px
    * and a 1920px screen gets 36px rather than a fixed rem. */
   --gutter: clamp(1.25rem, 2.4vw, 2.25rem);
-  --grid-card-min: 288px;   /* course and funding cards: 3-5 per row on desktop */
+  --grid-card-min: 288px;   /* course and funding cards; 252px between 1024 and 1599px (measured) */
   --grid-tile-min: 200px;   /* stat tiles and small panels */
   --section-gap: clamp(2rem, 4vw, 3.5rem);
 
@@ -1197,7 +1197,14 @@ textarea.q-input::placeholder { color: var(--text-muted); }
 /* Denser catalogue on desktop. Declared after the base rule above because
  * a media query adds no specificity — source order is what decides. */
 @media (min-width: 1024px) {
-  .results-grid { grid-template-columns: repeat(auto-fill, minmax(min(288px, 100%), 1fr)); gap: 1.1rem; }
+  .results-grid { grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-card-min), 100%), 1fr)); gap: 1.1rem; }
+}
+/* Measured at 1440: a 252px minimum fits four course cards instead of three and
+ * the Decide page is 272px shorter. At 1920 the same minimum gives five
+ * columns, the cards wrap harder, and the page grows 241px, so the narrower
+ * minimum stops at 1600px. */
+@media (min-width: 1024px) and (max-width: 1599.98px) {
+  :root { --grid-card-min: 252px; }
 }
 .match-badge {
   display: inline-block;
@@ -2249,7 +2256,7 @@ h3 > .icon { color: var(--primary); margin-right: 0.2rem; }
  * stripe in a dark run of four rather than as a moment. */
 .landing-final-cta {
   text-align: center;
-  padding: clamp(2.5rem, 4.5vw, 4rem) 1.25rem;
+  padding: var(--section-gap) 1.25rem;
 }
 /* margin-inline:auto because .landing-h2 now carries a 22ch measure, and
  * a max-width without auto margins silently left-aligns a heading inside

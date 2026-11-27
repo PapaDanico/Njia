@@ -46,7 +46,8 @@ Dark mode mirrors every role under `[data-theme="dark"]`. Text contrast is
 - Container: `--page-max` 1760px, side padding `--gutter` (20-36px).
 - Sections: `--section-gap` (32-56px) between major blocks.
 - Grids: `auto-fill, minmax(var(--grid-card-min), 1fr)` for course and
-  funding cards (3-5 per row on desktop); `--grid-tile-min` 200px for stat
+  funding cards. The minimum is 252px from 1024 to 1599px (four cards at 1440)
+  and 288px above (four at 1920, where five made cards wrap and the page grow); `--grid-tile-min` 200px for stat
   tiles. Grids get denser with width; prose does not get wider.
 - Wide screens: rail plus content (filters in a sticky rail on Decide; county
   pages split at 85rem). Prose pages flow into columns at 64rem, three at 100rem.

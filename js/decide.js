@@ -721,6 +721,22 @@ function regulatoryStatus(institution) {
   return { kind: 'unchecked' };
 }
 
+/* HAND-OFF TO JIPANGE, CARRYING THE FIGURE.
+ * Njia says what a course costs; JiPange, the sister tool, plans how a household
+ * finds it. Its savings-goal calculator reads ?target= from the address and
+ * opens pre-filled (lib/share-link.ts in that repository), so a parent lands on
+ * their own number instead of a blank form. Only the course's PUBLIC fee goes
+ * in the link: nothing the reader typed, no ids, no campaign tags. Shown only
+ * where the card shows a fee, because a link with no figure is the plain
+ * sister-tool link the funding panel already carries. */
+function jipangeHandoff(course) {
+  const fee = course && course.total_fees_kes;
+  if (!(typeof fee === 'number' && isFinite(fee) && fee > 0)) return '';
+  const url = `https://jipangefinance.org/tools/savings-goal?target=${Math.round(fee)}`;
+  return `<p class="text-sm mb-2"><a href="${url}" target="_blank" rel="noopener noreferrer">Plan saving for this fee in JiPange<span aria-hidden="true"> \u2197</span></a>
+    <span class="text-muted">It opens with this total filled in; take off any bursary or loan you expect. Only the fee travels in the link, and JiPange, our free sister tool, sells nothing.</span></p>`;
+}
+
 function regulatoryLine(institution) {
   const st = regulatoryStatus(institution);
   if (!st) return '';
@@ -1312,7 +1328,8 @@ function renderCourseCard(course, match) {
         : requiresRelocation
           ? `tuition + ~${formatKes(accomRate)}/month ${inst?.has_hostel ? 'on-campus hostel' : 'off-campus rent'} & upkeep ≈ <strong class="num">${formatKes(totalCostOfAttendance)}</strong> total.`
           : `<strong class="num">${formatKes(totalCostOfAttendance)}</strong> tuition only — this course is online, so no relocation or accommodation cost is assumed.`
-      }</p></details>` : `
+      }</p></details>
+      ${jipangeHandoff(course)}` : `
       ${/* THE COPY THAT WAS WRITTEN FOR ONE AUDIENCE AND SHOWN TO EVERY OTHER.
              This branch used to be unconditional county-VTC advice — cheapest
              option, ring the registrar, mind the NITA trade test — because when

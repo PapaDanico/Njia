@@ -90,7 +90,28 @@ Dark mode mirrors every role under `[data-theme="dark"]`. Text contrast is
 
 ### Shape and depth
 
-- Radius: `--radius-xs` 2px to `--radius-xl` 8px; controls use 3-4px.
+- Radius: `--radius-xs` 2px to `--radius-xl` 8px; controls use 3-4px. `--radius-pill`
+  (999px) is the one exception, for chips, badges, tags and progress tracks. It was
+  written as a literal 24 times until 27 November 2026 and is now a token, so a shape
+  decision is one edit rather than 24.
+
+### Refresh review (27 November 2026, polish depth)
+
+The trigger was accumulated inconsistency, not a dated look: the language was set
+this week. What must not change: terracotta on white, Source Serif 4 headings, square
+controls, the 12px type floor, full-width data tables.
+
+| Trait | Verdict | Why |
+|---|---|---|
+| Terracotta `#8B2500` on white, earth-brown near-black | Keep | Distinctive, AA contrast, owned by no comparable Kenyan site |
+| Source Serif 4 headings, system sans body | Keep | One 21KB weight; readable on cheap Android screens |
+| Square controls, 3-4px radius | Keep | The institutional register the design reference asks for |
+| Pill chips and badges (999px) | Evolve | Kept as a deliberate exception, now tokenised; whether chips go square is an open decision |
+| Shadows | Keep | Three tokens plus a hairline card shadow; depth stays quiet |
+| Motion | Keep | 0.1-0.3s transitions with a global reduced-motion rule |
+| Decide on phones, about 38 screens | Evolve | Needs pagination or "show more"; that is a feature decision |
+
+Recommended depth: polish. Nothing here calls for an evolution or an overhaul.
 - Shadow: cards use `--shadow-card` (a hairline), overlays `--shadow-lg`.
   Cards separate by border, not by floating.
 

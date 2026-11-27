@@ -3598,3 +3598,9 @@ h1, h2, h3, .landing-h1, .landing-h2 { font-weight: 600; letter-spacing: -0.015e
   .landing-footer-grid, .landing-footer-legal, .landing-guarantee-box { max-width: var(--page-max); }
   .landing-stats-grid { max-width: calc(var(--page-max) - 2 * clamp(1.25rem, 3vw, 3rem)); }
 }
+
+/* Running text in the app modules keeps a reading measure. At 1440 the Discover
+ * intro, Decide's count and caveat, Help's footer line and Connect's notes ran
+ * 960-1370px wide (140-190 characters a line). Cards, grids and tables keep the
+ * full width; only paragraphs are capped. */
+.page p { max-width: var(--prose-max); }

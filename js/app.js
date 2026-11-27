@@ -18,7 +18,7 @@ const defaultState = () => ({
   applications: [],
   okrs: [],
   mentors: [],
-  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false, sortBy: 'match', visibleCount: 24 },
+  decideFilters: { activeTab: 'courses', cluster: 'all', grade: null, budgetMax: null, mode: 'any', county: 'all', level: 'all', savedOnly: false, sortBy: 'match', visibleCount: null },
   // View-only UI state for Track and Design — kept separate from
   // decideFilters (Decide-module-scoped) so clearDecideFilters() can't
   // accidentally drop or corrupt unrelated modules' selections. Also holds

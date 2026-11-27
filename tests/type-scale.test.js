@@ -39,6 +39,15 @@ const path = require('node:path');
    now walked into three separate times. */
 const css = fs.readFileSync(path.join(__dirname, '..', 'css', 'styles.css'), 'utf8')
   .replace(/\/\*[\s\S]*?\*\//g, '');
+/* Every stylesheet the app ships, not just styles.css. decide-evidence.css,
+   academic-editorial.css and advisory-components.css carried fifteen
+   hand-written small sizes between them, two rendering at 11.7px on every
+   Decide card, while these guards read one file and stayed green. Values
+   written without a leading zero (.74rem) slipped the old pattern as well. */
+const cssDir = path.join(__dirname, '..', 'css');
+const allCss = fs.readdirSync(cssDir).filter((f) => f.endsWith('.css'))
+  .map((f) => fs.readFileSync(path.join(cssDir, f), 'utf8').replace(/\/\*[\s\S]*?\*\//g, ''))
+  .join('\n');
 
 const STEPS = ['--fs-xs', '--fs-sm', '--fs-md', '--fs-lg'];
 
@@ -64,7 +73,7 @@ test('no rule sets a font-size below the floor by hand', () => {
      `font-size: 0.7rem` to one new component because it looked right in that
      one place, which is exactly how the nineteen accumulated. */
   const offenders = [];
-  for (const m of css.matchAll(/font-size:\s*([\d.]+)rem/g)) {
+  for (const m of allCss.matchAll(/font-size:\s*([\d.]+)rem/g)) {
     const px = parseFloat(m[1]) * 16;
     if (px < 12) offenders.push(`${m[1]}rem (${px}px)`);
   }
@@ -79,7 +88,7 @@ test('the scale stays a scale', () => {
      Set at zero deliberately: every one of them now has a token, so any new
      literal is a new step being introduced by accident. */
   const literals = new Set(
-    [...css.matchAll(/font-size:\s*(0\.\d+)rem/g)].map((m) => m[1])
+    [...allCss.matchAll(/font-size:\s*(0?\.\d+)rem/g)].map((m) => m[1])
   );
   assert.deepEqual([...literals], [],
     `${literals.size} hand-written sub-1rem font sizes are back in the stylesheet `

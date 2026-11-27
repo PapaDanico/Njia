@@ -611,6 +611,32 @@ const SCFM_FEE_CLUSTERS_2025 = {
   ],
 };
 
+/* KUCCPS publishes a YEAR 1 programme cost for every programme it places
+   students into, private universities included, in its degree programme list
+   (statics.kuccps.net/uploads/globalFiles/DEGREE_PROGRAMMES.pdf; the same
+   figures appear in its March 2024 revision, DEGREE_20_03_2024_RV2.pdf). It is
+   a national authority's figure for a named programme at a named institution,
+   so it is shown on the card. It is NOT written into total_fees_kes: it covers
+   the first year only, later years can differ, and the list carries no cycle
+   date. Matched to a record only where the award name is the same; figures read
+   twice with differently phrased searches unless marked once:true. Read 27
+   November 2026. */
+const KUCCPS_YEAR1_COST = {
+  source: 'KUCCPS degree programme list, statics.kuccps.net (undated; figures unchanged from its March 2024 revision), read 27 November 2026',
+  byCourse: {
+    c513: { kes: 105000 }, c1164: { kes: 510000 }, c1165: { kes: 375000 },
+    c745: { kes: 242800 },
+    c1091: { kes: 174270 }, c1098: { kes: 122406, once: true },
+    c758: { kes: 152000 }, c1176: { kes: 429500 }, c1175: { kes: 559500, once: true },
+    c751: { kes: 227500 },
+    c762: { kes: 214220 },
+    c519: { kes: 130400 }, c516: { kes: 132400, once: true },
+    c536: { kes: 159150 },
+    c774: { kes: 159400 }, c769: { kes: 159400, once: true },
+    c1311: { kes: 130600 }, c1313: { kes: 104300 },
+  },
+};
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { FUNDING_SOURCES, PUBLIC_TVET_CAPITATION, SCFM_HOUSEHOLD_SHARE, SCFM_FEE_CLUSTERS_2025 };
+  module.exports = { FUNDING_SOURCES, PUBLIC_TVET_CAPITATION, SCFM_HOUSEHOLD_SHARE, SCFM_FEE_CLUSTERS_2025, KUCCPS_YEAR1_COST };
 }

@@ -2459,7 +2459,8 @@ test('a card never implies a licence Njia has not checked', () => {
     const st = regulatoryStatus(inst);
     const privateCollege = inst.ownership === 'private' && inst.type !== 'university';
     if (privateCollege && st.kind === 'licence') {
-      if (!/TVETA\/(PUBLIC|PRIVATE)\/[A-Z]+\/\d+/.test(inst.accreditation) || /reported|aggregator/i.test(inst.accreditation)) bad.push(inst.id + ' marked licensed without a checked number');
+      const l = inst.tveta_licence;
+      if (!l || !/^TVETA\/(PUBLIC|PRIVATE)\/[A-Z]+\/\d+\/\d{4}$/.test(l.number) || !/^\d{4}-\d{2}-\d{2}$/.test(l.expires) || !/^\d{4}-\d{2}-\d{2}$/.test(l.checked) || !/tveta\.go\.ke/.test(l.source)) bad.push(inst.id + ' marked licensed without a checked number, expiry, date and register source');
     }
     if (privateCollege && st.kind === 'unchecked' && !/Licence not checked by Njia/.test(regulatoryLine(inst))) bad.push(inst.id + ' lost its check-the-register line');
     if (inst.type === 'university' && !/charter/i.test(inst.accreditation || '') && st.kind !== 'unchecked') bad.push(inst.id + ' university without a charter not flagged');
@@ -2467,4 +2468,28 @@ test('a card never implies a licence Njia has not checked', () => {
   assert.deepEqual(bad.join('; '), '');
   const kim = INSTITUTIONS.find((i) => i.id === 'kim');
   assert.equal(regulatoryStatus(kim).kind, 'dispute', 'KIM accreditation dispute must reach the card');
+  const krcti = INSTITUTIONS.find((i) => i.id === 'krcti');
+  assert.match(regulatoryLine(krcti), /licence shown as expired/, 'a licence past its expiry must not read as current');
+  assert.doesNotMatch(regulatoryLine(INSTITUTIONS.find((i) => i.id === 'baraka')), /expired/);
+});
+
+test('a KUCCPS first-year cost is shown, never written as the course fee', () => {
+  const ctx = vm.createContext({ console, module: { exports: {} }, escapeHtml: (s) => String(s), formatKes: (n) => 'Ksh ' + n.toLocaleString('en-KE') });
+  for (const file of ['data/courses.js', 'data/institutions.js', 'data/funding.js', 'js/decide.js']) {
+    vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), ctx, { filename: file });
+  }
+  const { COURSES, INSTITUTIONS, KUCCPS_YEAR1_COST } = vm.runInContext('({ COURSES, INSTITUTIONS, KUCCPS_YEAR1_COST })', ctx);
+  const feeGuidance = vm.runInContext('feeGuidance', ctx);
+  assert.match(KUCCPS_YEAR1_COST.source, /kuccps\.net/);
+  const bad = [];
+  for (const [id, v] of Object.entries(KUCCPS_YEAR1_COST.byCourse)) {
+    const c = COURSES.find((x) => x.id === id);
+    if (!c) { bad.push(id + ' is not a course'); continue; }
+    const inst = INSTITUTIONS.find((i) => i.id === c.institution_id);
+    if (c.total_fees_kes != null) bad.push(id + ' has the Year 1 cost and a written fee');
+    if (inst.ownership !== 'private' || inst.type !== 'university') bad.push(id + ' is not a private university');
+    if (!Number.isInteger(v.kes) || v.kes < 50000) bad.push(id + ' has an implausible figure');
+    if (!/first-year cost/.test(feeGuidance(c, inst))) bad.push(id + ' does not reach the card');
+  }
+  assert.equal(bad.join('; '), '');
 });

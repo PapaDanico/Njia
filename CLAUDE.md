@@ -7233,3 +7233,9 @@ is in PapaDanico/Mwangaza-Yield `docs/research/`.
 - **Line length.** Generated-page paragraphs are capped at 72ch, and the landing quote caption at `--prose-max`.
 - **Help page.** It has a diagnostic button under the lede.
 - **Not changed.** Inline links under 24px on `/help/` sit inside running text, which WCAG 2.5.8 exempts.
+
+**Koitaleel Samoei and Sirisia, 27 November 2026.**
+- **Koitaleel Samoei University College (`ksuc`, Mosoriot, Nandi)** is the first constituent college in the register. It carries `constituent_of: 'uon'`, and `universities()` in `tests/university-coverage.test.js` excludes such records, so it counts toward neither CUE denominator. Six degrees are listed, each named both by the college's own pages or 2026/27 joining instructions and by KUCCPS. The lead degrees (Mathematics, Agriculture, Agricultural Education) rest on the joining instructions alone.
+- **Sirisia** gains Library and Information Science L5, Applied Biology L6 and Science Lab Technology L5 and L6, all from its own department pages. Its intake PDF gives HRM and Supply Chain L5 at plain D, against the D+ on the department ladder, so neither is recorded.
+- **Network.** WebFetch returned ENOTFOUND for kmtc.ac.ke, sirisiatvc.ac.ke, mulangotvc.ac.ke, ksu.ac.ke and tveta.go.ke on 27 November, so these hosts are outside the session's allowed domains.
+- **KMTC Nairobi leads.** A single outlet names five KUCCPS September 2026 reopening programmes at Nairobi that Njia lacks: Optometry, Physiotherapy, Community Health Assistant, Emergency Medical Technician and Health Insurance Management. Each needs a second unseeded sighting.

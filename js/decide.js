@@ -1223,7 +1223,11 @@ function currentDecideResults() {
  * The counter lives in decideFilters so it resets naturally whenever a filter
  * changes (each setter clears it) rather than leaking a stale offset between
  * different result sets. */
-const DECIDE_PAGE_SIZE = 24;
+/* Twelve on a phone, 24 above: a course card is about a screen tall at 390px,
+ * so a first page of 24 meant roughly 34,000px before the reader reached the
+ * "Show more" button (measured 27 November 2026). */
+const DECIDE_PAGE_SIZE = (typeof matchMedia === 'function'
+  && matchMedia('(max-width: 47.99rem)').matches) ? 12 : 24;
 
 /* Appends the next page rather than re-rendering the tab.
  *

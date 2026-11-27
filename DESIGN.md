@@ -106,10 +106,10 @@ controls, the 12px type floor, full-width data tables.
 | Terracotta `#8B2500` on white, earth-brown near-black | Keep | Distinctive, AA contrast, owned by no comparable Kenyan site |
 | Source Serif 4 headings, system sans body | Keep | One 21KB weight; readable on cheap Android screens |
 | Square controls, 3-4px radius | Keep | The institutional register the design reference asks for |
-| Pill chips and badges (999px) | Evolve | Kept as a deliberate exception, now tokenised; whether chips go square is an open decision |
+| Pill chips and badges (999px) | Keep | A deliberate exception, now tokenised: the round shape is what tells a filter or tag apart from a square button (decided 27 November 2026) |
 | Shadows | Keep | Three tokens plus a hairline card shadow; depth stays quiet |
 | Motion | Keep | 0.1-0.3s transitions with a global reduced-motion rule |
-| Decide on phones, about 38 screens | Evolve | Needs pagination or "show more"; that is a feature decision |
+| Decide on phones, about 38 screens | Evolved | The first page is 12 cards below 48rem, 24 above: 34,668 to 18,264px at 390px |
 
 Recommended depth: polish. Nothing here calls for an evolution or an overhaul.
 - Shadow: cards use `--shadow-card` (a hairline), overlays `--shadow-lg`.

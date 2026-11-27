@@ -257,7 +257,7 @@ const SECTORS = [
     id: 'engineering',
     name: 'Engineering, manufacturing and trades',
     broad: 'industry',
-    match: /engineering|\bengine\b|mechanic|electric|electronic|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|chemist|chemistry|processing technology|printing technology|map reproduction|plant technician|instrumentation|control technician/i,
+    match: /engineering|\bengine\b|mechanic|electric|electronic|automotive|weld|fitter|\bfitting\b|turning|machinist|fabricat|refrigerat|metal|(?<!bio)chemist|(?<!bio)chemistry|processing technology|printing technology|map reproduction|plant technician|instrumentation|control technician/i,
     awardingBodies: ['Engineers Board of Kenya', 'TVET CDACC', 'NITA'],
     knbs: { series: 'Manufacturing', mapping: 'unsourced' },
     caution: 'Manufacturing is the largest formal employer in the country at 366,600 workers, and its share of the economy has been drifting down for over a decade. Njia did not source its 2025 growth figure, so none is shown.'

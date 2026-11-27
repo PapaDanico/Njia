@@ -1,7 +1,7 @@
 # Njia — data-driven career pathways for Kenyan youth
 
 > Free, offline-capable guidance for Kenyan school leavers deciding what to do
-> after KCSE. 1507 courses at 243 institutions across all
+> after KCSE. 1515 courses at 243 institutions across all
 > 47 counties, with entry grades, tuition and — unusually — a statement of where
 > every fee figure came from. Independent of KUCCPS, HELB and every institution listed.
 > No account, no cost, and nothing a user enters leaves their device.
@@ -12,7 +12,7 @@
   tier that takes an E, which most course listings omit entirely.
 - Tuition figures WITH PROVENANCE. Every fee is classified: published by the
   institution for that course, derived from a published rate, illustrative, or
-  not published at all. 1507 courses carry this. Almost no other
+  not published at all. 1515 courses carry this. Almost no other
   Kenyan source states which of its numbers it can stand behind.
 - County-level provision gaps — which counties list nothing a learner with an E
   can enter, and which qualification tier is missing.
@@ -42,7 +42,7 @@ available in the county" — the difference is the whole point.
 - [Home](https://njiacareerpathways.work/): the guidance app — questionnaire, course matcher, funding, planning tools.
 - [Courses by county](https://njiacareerpathways.work/counties/): a page per county with its real course table, entry grades and fees.
 - [Courses by grade](https://njiacareerpathways.work/grades/): what is open at C plain and below, down to E.
-- [Questions and answers](https://njiacareerpathways.work/help/): 57 plain answers on grades, fees, funding and applications — the same text the app shows, at its own URL.
+- [Questions and answers](https://njiacareerpathways.work/help/): 58 plain answers on grades, fees, funding and applications — the same text the app shows, at its own URL.
 - [Open data](https://njiacareerpathways.work/open-data/): the whole catalogue as CSV and JSON, including the fee-provenance column.
 - [County provision analysis](https://njiacareerpathways.work/analysis/): which counties are closed to a low-grade learner, and why.
 - [Education and career pathways](https://njiacareerpathways.work/pathways/): the KCSE and CBE routes, what is reported about senior school pathways and university placement from 2029, and the qualification ladder in the catalogue.

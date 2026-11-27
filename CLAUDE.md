@@ -46,6 +46,44 @@ reader who has no way to check:
 If a rule below and the reader's interests point in different directions, the
 reader wins — and then come back and fix the rule.
 
+## What counts as a source (widened 24 November 2026)
+
+The maintainer's instruction: *all the information needed to elevate the
+platform is publicly available.* The sections below were written one refusal at
+a time, and read together they had grown stricter than the four rules at the
+top require. This is the standing standard. Where an older paragraph below is
+stricter, this one wins.
+
+**A figure is sourced by any ONE of these:**
+
+- **The institution's own domain**, read through a search summary, when it
+  names the programme, the figure and the period. Two summaries of the same
+  page that disagree still attribute nothing.
+- **A national authority's own publication**: the Ministry of Education,
+  KUCCPS, HELB, the Higher Education Fund (HEF), CUE, TVETA, KNEC, KNBS, NITA, a
+  county government, or the Kenya Gazette.
+- **The institution's or authority's verified social media account**, cross-checked against
+  one other channel. The impersonator rules on `/help/` apply.
+- **Two independent outlets that agree to the shilling or the grade.** Several
+  pages on one site count as one outlet, and so do two results quoting the same
+  sentence.
+
+**A listing (existence) needs less.** A programme map (KUCCPS, CUE, the
+institution's school or faculty pages, an intake advert or poster) plus
+confirmation that the institution runs that school is enough to create a
+record. Unknown fields stay empty.
+
+**Report everything that was found.** A figure that misses the bar above goes
+into the note as a WHAT NJIA FOUND paragraph, with its source, period and year,
+and never into the fee field. Withholding research a reader could use is the
+error the maintainer has corrected four times.
+
+**What has not moved:** no invented figure; never quote a grade high or low;
+never derive a total by multiplying a rate across a count you picked yourself;
+never put the figure you are checking into the query that checks it. Searches
+go through WebSearch only. Scope each search to the institution's own domain
+first and to news outlets second.
+
 ## The file itself got too rigid, and it cost quality
 
 The maintainer's correction, and it is the second time: *this file shouldn't be
@@ -7117,3 +7155,16 @@ funding, agriculture, intakes, counties), each checked by a verifier.
 - **The per-course byte backstop went from 140 to 145.** It failed at 140.1 with both of its properties holding, which means the extra bytes are new text from ten new programmes, not bloat.
 - **Self-sponsored fees: reported nowhere, because almost nothing held up.** JKUAT's own BSc Computer Technology page gives Ksh 207,142 a year, but the programme is not in the catalogue. JKUAT's own pages contradict each other on Banking and Finance (168,967 against 183,600). KU's 193,800 a year appears on several unrelated rows. Moi and Egerton MBChB figures are irreconcilable.
 - Leads: KU BEd (Arts) Music code (1111T50 or 1111162); JKUAT Medical Biochemistry, Medical Microbiology, Medical Social Work and Health Records (own domain only); the Zetech business-group total; KCA's unit count (its BCom runs nine trimesters, not eight).
+
+**Own-domain pass, 24 November 2026.** Each search was restricted to the institution's own domain first, then to named news outlets. The verifier then searched other domains, phrasing its queries without the figure being checked.
+- **OUK fees per programme:** 79,000 a year is confirmed for seven degrees, and 86,000 for Agri-Technology and Technology Education. Public Administration has no fee: Eastleigh Voice gives 79,000 and Education News 105,000. Three degrees were added: Business and Entrepreneurship, Economics and Statistics, and Economics and Data Science.
+- **Computing fee group:** computer science, IT, software engineering and data science sit in the built environment and design group, at 12,960-51,840 a semester. BBIT sits in the professional group (9,690-38,760), and statistics and actuarial science in applied sciences (11,628-46,512). Public degrees showing a range went from 296 to 356 of 509. Procurement and HRM are still not in any group.
+- **JKUAT:** five degrees added: Medical Biochemistry, Medical Microbiology, Health Information Management and Informatics, Medical Social Work, and Computer Technology. JKUAT's own fee figures for these contradict other listings, so none is recorded.
+- **Biochemistry had been filed under Engineering**, because the engineering pattern's `chemist` and `chemistr` matched inside "biochemistry". The fix moves exactly five records to health.
+- **Still unchecked:** Zetech's business-group total (aggregators give 54,650 a semester, against 60,000 in Zetech's 2026 PDF); KCA's unit count; MKU's BBM fee (45,550, 52,500 and 60,000 all reported); Daystar BCom credit hours (one listing gives 132-135 by specialisation); the KU BEd Music code.
+
+**Regulatory status on every card, 26 November 2026.** The KNBS TVET census (published 26 November 2026) reported 530 of 4,679 training institutions neither registered nor licensed, mostly vocational training centres; 58.7% had not registered their qualifications on the national framework. A TVETA audit found 812 of 2,120 registered institutions (38%) holding an expired licence. The media line "most institutions lack approval" is true only of the qualification-registration figure.
+- **A labelled line, never a filter.** `regulatoryStatus()` in `js/decide.js` is derived from the register, never stored per course. Chartered universities and public bodies show nothing. A private college counts as checked only when its record carries a TVETA licence number that is not an aggregator report; today that is just Sagana. Every other private college (27 of them) shows "Licence not checked by Njia", naming the right regulator: TVETA, CUE, the KCAA for aviation schools, the Nursing Council for nursing schools. KIM carries `regulatory_dispute`. Hiding a card would harm the reader the same way quoting an entry grade too high does.
+- **CUE's January 2026 list of 16** was checked against the register by name, and none of those institutions is listed in Njia. "Baraton College" on that list is **not** the chartered University of Eastern Africa, Baraton (`ueab`); watch for that name collision.
+- **Guard:** `a card never implies a licence Njia has not checked` in `tests/provenance.test.js`. I broke it by marking ADMI's aggregator-reported licence number as checked, and it failed.
+- **Lead:** licence numbers for the 27 unchecked private colleges, each searched on the TVETA register. A checked number moves a card to "licence"; record the number and the date it was checked.

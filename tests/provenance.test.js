@@ -2440,3 +2440,31 @@ test('a course showing no fee does not open its note by describing a fee', () =>
     `${offenders.join(', ')} show no fee while their note opens by describing one. Rewrite the note `
     + 'to say what was found and why no figure is shown.');
 });
+
+/* REGULATORY STATUS. The KNBS TVET census (November 2026) reported 530 of 4,679
+ * training institutions unlicensed, and TVETA found 38% of registered ones on
+ * an expired licence. A card may not imply a licence Njia has not checked: a
+ * private non-university institution earns the quiet "checked" state only with
+ * a TVETA licence number that is not itself an aggregator report. */
+test('a card never implies a licence Njia has not checked', () => {
+  const ctx = vm.createContext({ console, module: { exports: {} }, escapeHtml: (s) => String(s) });
+  for (const file of ['data/courses.js', 'data/institutions.js', 'data/funding.js', 'js/decide.js']) {
+    vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), ctx, { filename: file });
+  }
+  const regulatoryStatus = vm.runInContext('regulatoryStatus', ctx);
+  const regulatoryLine = vm.runInContext('regulatoryLine', ctx);
+  const INSTITUTIONS = vm.runInContext('INSTITUTIONS', ctx);
+  const bad = [];
+  for (const inst of INSTITUTIONS) {
+    const st = regulatoryStatus(inst);
+    const privateCollege = inst.ownership === 'private' && inst.type !== 'university';
+    if (privateCollege && st.kind === 'licence') {
+      if (!/TVETA\/(PUBLIC|PRIVATE)\/[A-Z]+\/\d+/.test(inst.accreditation) || /reported|aggregator/i.test(inst.accreditation)) bad.push(inst.id + ' marked licensed without a checked number');
+    }
+    if (privateCollege && st.kind === 'unchecked' && !/Licence not checked by Njia/.test(regulatoryLine(inst))) bad.push(inst.id + ' lost its check-the-register line');
+    if (inst.type === 'university' && !/charter/i.test(inst.accreditation || '') && st.kind !== 'unchecked') bad.push(inst.id + ' university without a charter not flagged');
+  }
+  assert.deepEqual(bad.join('; '), '');
+  const kim = INSTITUTIONS.find((i) => i.id === 'kim');
+  assert.equal(regulatoryStatus(kim).kind, 'dispute', 'KIM accreditation dispute must reach the card');
+});

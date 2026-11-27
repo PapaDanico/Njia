@@ -699,6 +699,45 @@ function tierMedians() {
  * The card already had this test inline. It is one function now because two
  * copies of a predicate are two things free to disagree, which this repository
  * has already been bitten by in a pair of print guards. */
+/* REGULATORY STATUS, DERIVED AND NEVER STORED PER COURSE.
+ * The KNBS TVET census (November 2026) found 530 of 4,679 training
+ * institutions neither registered nor licensed, and a TVETA audit found 38% of
+ * registered institutions holding an expired licence. A card must not imply a
+ * licence it has not checked, and must not hide a real college either: so the
+ * status is a labelled line, never a filter. Public and chartered bodies rest
+ * on a statute or a CUE charter; a private college is "checked" only when its
+ * record carries a TVETA licence number. Everything else is told to confirm on
+ * the register before paying. */
+function regulatoryStatus(institution) {
+  if (!institution) return null;
+  if (institution.regulatory_dispute) return { kind: 'dispute', text: institution.regulatory_dispute };
+  const acc = institution.accreditation || '';
+  if (institution.type === 'university') {
+    return /cue chartered|chartered/i.test(acc) ? { kind: 'chartered' } : { kind: 'unchecked' };
+  }
+  if (institution.ownership === 'public') return { kind: 'statutory' };
+  if (/TVETA\/(PUBLIC|PRIVATE)\/[A-Z]+\/\d+/.test(acc) && !/reported|aggregator/i.test(acc)) return { kind: 'licence' };
+  return { kind: 'unchecked' };
+}
+
+function regulatoryLine(institution) {
+  const st = regulatoryStatus(institution);
+  if (!st) return '';
+  if (st.kind === 'dispute') return `<p class="text-sm mb-2"><strong>Regulatory status in dispute.</strong> ${escapeHtml(st.text)} Check the current position with TVETA before you pay.</p>`;
+  if (st.kind === 'unchecked') {
+    const acc = institution.accreditation || '';
+    const reg = institution.type === 'university'
+      ? 'the Commission for University Education list at cue.or.ke'
+      : /KCAA|civil aviation/i.test(acc)
+        ? 'the Kenya Civil Aviation Authority list of approved training organisations'
+        : /nursing council/i.test(acc)
+          ? 'the Nursing Council of Kenya and the TVETA register at tveta.go.ke'
+          : 'the TVETA register at tveta.go.ke';
+    return `<p class="text-muted text-sm mb-2"><strong>Licence not checked by Njia.</strong> Confirm this institution, and this programme, on ${reg} before you pay anything. A 2026 national census found about one training institution in nine operating without a licence, and many more on an expired one.</p>`;
+  }
+  return '';
+}
+
 function isVocationalCentre(institution) {
   if (!institution || institution.type !== 'tvet') return false;
   const text = `${institution.name} ${institution.accreditation || ''}`;
@@ -1275,6 +1314,7 @@ function renderCourseCard(course, match) {
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> Public universities do publish fees, but there is no longer a single per-programme price to quote: what you pay is set from your assessed household means, and the model is being changed again by Parliament. Ask the university what your intake is being billed and under which model — in writing.</p>`
       : `
       <p class="text-muted text-sm mb-2"><strong>Njia does not have a fee for this course.</strong> This institution sets its own fees and none could be verified from a source Njia can reach. Ring or email the admissions office and ask for the full cost per year, what it includes, and what is charged separately — accommodation, exams and materials usually are.</p>`}
+      ${regulatoryLine(inst)}
       ${collapseFeeGuidance(feeGuidance(course, inst))}
       ${/* ONE STANDING INSTRUCTION, RENDERED ONCE RATHER THAN STORED 399 TIMES.
              Every degree placed through KUCCPS needs the same sentence, and it

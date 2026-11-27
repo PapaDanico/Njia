@@ -2494,22 +2494,32 @@ test('a KUCCPS first-year cost is shown, never written as the course fee', () =>
   assert.equal(bad.join('; '), '');
 });
 
-test('the JiPange hand-off carries only the public fee, and only where a fee is shown', () => {
+test('the JiPange hand-off carries only a sourced fee, and only where one is shown', () => {
   const ctx = vm.createContext({ console, module: { exports: {} }, escapeHtml: (s) => String(s) });
   for (const file of ['data/courses.js', 'data/institutions.js', 'data/funding.js', 'js/decide.js']) {
     vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), ctx, { filename: file });
   }
   const { COURSES } = vm.runInContext('({ COURSES })', ctx);
   const jipangeHandoff = vm.runInContext('jipangeHandoff', ctx);
+  const feeBasis = vm.runInContext('feeBasis', ctx);
   const bad = [];
+  let sent = 0, withheld = 0;
   for (const c of COURSES) {
     const html = jipangeHandoff(c);
     const priced = typeof c.total_fees_kes === 'number' && c.total_fees_kes > 0;
-    if (priced !== Boolean(html)) { bad.push(c.id + (priced ? ' priced without a hand-off' : ' hand-off without a fee')); continue; }
+    // An illustrative fee is labelled on the card; a link would strip the label.
+    const sourced = priced && ['published', 'derived'].includes(feeBasis(c));
+    if (priced && !sourced) withheld++;
+    if (sourced !== Boolean(html)) { bad.push(c.id + (sourced ? ' sourced fee without a hand-off' : ' hand-off for an unsourced or missing fee')); continue; }
     if (!html) continue;
+    sent++;
     const url = new URL(html.match(/href="([^"]+)"/)[1]);
-    if (url.origin !== 'https://jipangefinance.org' || [...url.searchParams.keys()].join() !== 'target'
-        || url.searchParams.get('target') !== String(Math.round(c.total_fees_kes))) bad.push(c.id + ' link carries more than the fee');
+    if (url.origin + url.pathname !== 'https://jipangefinance.org/planners/education'
+        || [...url.searchParams.keys()].join() !== 'amount,years,from'
+        || url.searchParams.get('amount') !== String(Math.round(c.total_fees_kes))
+        || url.searchParams.get('years') !== '1' || url.searchParams.get('from') !== 'njia') bad.push(c.id + ' link carries more than the fee');
   }
   assert.equal(bad.join('; '), '');
+  // Both branches exercised on the real catalogue, or the loop proves nothing.
+  assert.ok(sent > 0 && withheld > 0, `sent ${sent}, withheld ${withheld}`);
 });

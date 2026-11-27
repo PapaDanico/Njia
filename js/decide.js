@@ -729,12 +729,30 @@ function regulatoryStatus(institution) {
  * in the link: nothing the reader typed, no ids, no campaign tags. Shown only
  * where the card shows a fee, because a link with no figure is the plain
  * sister-tool link the funding panel already carries. */
+/* 27 Nov 2026, the same day: two corrections.
+ *
+ * WHERE IT LANDS. The link now opens JiPange's EDUCATION PLANNER, which is the
+ * tool for a fee bill (it inflates the figure to the year it falls due and can
+ * hold several children), rather than the general savings-goal calculator.
+ * Contract: `amount` = tuition in KES, integer; `years` = years until fees
+ * start (1 = next intake, editable there); `from=njia`, a fixed string that
+ * only makes the planner label the figure as carried over and tell the reader
+ * to check it against the fee letter. It is never echoed onto the page.
+ *
+ * WHICH FEES TRAVEL. Only a fee Njia vouches for: observed (`published`) or
+ * calculated from a published rate (`derived`). 104 cards show an ILLUSTRATIVE
+ * figure; the card labels it, but a link strips the label off, and the parent
+ * would plan around a number this site says it cannot source. Those cards get
+ * no hand-off, the same as a card with no fee. */
+const JIPANGE_HANDOFF_BASES = new Set(['published', 'derived']);
+
 function jipangeHandoff(course) {
   const fee = course && course.total_fees_kes;
   if (!(typeof fee === 'number' && isFinite(fee) && fee > 0)) return '';
-  const url = `https://jipangefinance.org/tools/savings-goal?target=${Math.round(fee)}`;
+  if (!JIPANGE_HANDOFF_BASES.has(feeBasis(course))) return '';
+  const url = `https://jipangefinance.org/planners/education?amount=${Math.round(fee)}&years=1&from=njia`;
   return `<p class="text-sm mb-2"><a href="${url}" target="_blank" rel="noopener noreferrer">Plan saving for this fee in JiPange<span aria-hidden="true"> \u2197</span></a>
-    <span class="text-muted">It opens with this total filled in; take off any bursary or loan you expect. Only the fee travels in the link, and JiPange, our free sister tool, sells nothing.</span></p>`;
+    <span class="text-muted">It opens with this tuition filled in; take off any bursary or loan you expect, and add living costs there. Only the fee travels in the link, and JiPange, our free sister tool, sells nothing.</span></p>`;
 }
 
 function regulatoryLine(institution) {

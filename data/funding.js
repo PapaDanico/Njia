@@ -624,6 +624,10 @@ const SCFM_FEE_CLUSTERS_2025 = {
 const KUCCPS_YEAR1_COST = {
   source: 'KUCCPS degree programme list, statics.kuccps.net (undated; figures unchanged from its March 2024 revision), read 27 November 2026',
   byCourse: {
+    c1300: { kes: 242800 }, c648: { kes: 191150 }, c653: { kes: 181150 },
+    c529: { kes: 178800, once: true }, c655: { kes: 150550, once: true }, c759: { kes: 152000, once: true },
+    c753: { kes: 269500, once: true }, c537: { kes: 159150, once: true }, c1240: { kes: 159150, once: true },
+    c766: { kes: 187760, once: true },
     c513: { kes: 105000 }, c1164: { kes: 510000 }, c1165: { kes: 375000 },
     c745: { kes: 242800 },
     c1091: { kes: 174270 }, c1098: { kes: 122406, once: true },

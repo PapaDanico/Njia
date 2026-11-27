@@ -1,8 +1,8 @@
 {
   "source": "Njia — njiacareerpathways.work",
   "generated_from": "data/courses.js + data/institutions.js",
-  "course_count": 1536,
-  "institution_count": 246,
+  "course_count": 1538,
+  "institution_count": 247,
   "county_count": 47,
   "column_notes": {
     "min_grade": "Empty means the course states no minimum grade — open entry, the most permissive value, not a missing one.",
@@ -944,6 +944,38 @@
       "tuition_kes": "",
       "fee_basis": "unpublished",
       "verification_note": "Kibabii University is in Bungoma County and was chartered in 2015. It teaches through three schools and two faculties - Business and Economics, Computing and Informatics, Education and Social Sciences, and Graduate Studies - and only programmes named on its own undergraduate listing are recorded here. It publishes the national degree minimum of a KCSE mean grade of C+. The university does not publish a per-programme price for this course. /help/ sets out the five bands."
+    },
+    {
+      "course_id": "c1568",
+      "course_name": "Certificate in ICT Technician Level 5 (CDACC)",
+      "institution": "Sirisia Technical and Vocational College",
+      "institution_id": "sirisia_tvc",
+      "county": "Bungoma",
+      "ownership": "public",
+      "level": "certificate",
+      "cluster": "tech",
+      "min_grade": "D+",
+      "open_entry": "no",
+      "duration_months": 24,
+      "tuition_kes": 134378,
+      "fee_basis": "derived",
+      "verification_note": "Listed on the college’s own ICT department page (sirisiatvc.ac.ke) as a two-year Level 5 programme at a D+ mean grade, read through a search summary on 27 November 2026; the college publishes its entry ladder as Level 4 D-, Level 5 D+ and Level 6 C-. Fee derived from the consolidated annual public-TVET fee of Ksh 67,189 a year over the two years the college publishes."
+    },
+    {
+      "course_id": "c1569",
+      "course_name": "Diploma in ICT Technician Level 6 (CDACC)",
+      "institution": "Sirisia Technical and Vocational College",
+      "institution_id": "sirisia_tvc",
+      "county": "Bungoma",
+      "ownership": "public",
+      "level": "diploma",
+      "cluster": "tech",
+      "min_grade": "C-",
+      "open_entry": "no",
+      "duration_months": 36,
+      "tuition_kes": 201567,
+      "fee_basis": "derived",
+      "verification_note": "Listed on the college’s own ICT department page (sirisiatvc.ac.ke) as a three-year Level 6 programme at a C- mean grade, read through a search summary on 27 November 2026. Fee derived from the consolidated annual public-TVET fee of Ksh 67,189 a year over the three years the college publishes. Its brochure also names Carpentry and Joinery (Level 4) and Accountancy (Level 6), not yet recorded."
     },
     {
       "course_id": "c1046",

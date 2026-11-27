@@ -125,6 +125,14 @@ html { scroll-padding-top: calc(var(--header-h) + 1rem); scroll-padding-bottom: 
    * 68ch, which is the whole reason these are two tokens and not one. */
   --page-max: 1760px;
   --prose-max: 68ch;
+  /* Layout tokens (DESIGN.md, "Direction and tokens"). The page uses the full
+   * width up to --page-max; these are the only gutters and grid minimums a
+   * component may use. --gutter scales with the viewport so a phone keeps 20px
+   * and a 1920px screen gets 36px rather than a fixed rem. */
+  --gutter: clamp(1.25rem, 2.4vw, 2.25rem);
+  --grid-card-min: 288px;   /* course and funding cards: 3-5 per row on desktop */
+  --grid-tile-min: 200px;   /* stat tiles and small panels */
+  --section-gap: clamp(2rem, 4vw, 3.5rem);
 
   /* ---- Structural tokens (Kanda discipline: component rules reference
    * tokens, never raw values — if you're typing a hex or px in a
@@ -748,7 +756,7 @@ main {
   main { padding-bottom: 1rem; }
   .bottom-nav { display: none; }
 
-  .page { max-width: var(--page-max); margin: 0 auto; padding: 1.75rem clamp(1.25rem, 2.4vw, 2.25rem); }
+  .page { max-width: var(--page-max); margin: 0 auto; padding: 1.75rem var(--gutter); }
   #page-home.page { max-width: none; margin: 0; padding: 0 !important; }
 
   /* Running text stays at a readable measure even though the page is wide.

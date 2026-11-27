@@ -1,5 +1,84 @@
 # Njia Design System
 
+## Direction and tokens (27 November 2026)
+
+**Education, institutional, full width.** Njia reads like a university
+prospectus that has been laid out as a working tool: serif headings, square
+controls, hairline cards, and every pixel of a wide screen used for courses,
+fees and filters rather than margin. The values below are the ones in
+`css/styles.css` `:root`; components use the names, never raw values.
+
+**What this is based on.** The project's own brand sheet and the structure of
+the Harvard and Stanford flagship sites recorded in CLAUDE.md ("Design
+reference"). No design library (UXKIN) was connected for this pass, so no
+other sites were compared fresh.
+
+### Colour, by role
+
+| Token | Value | Role |
+| --- | --- | --- |
+| `--primary` | #8B2500 terracotta | buttons, links, current-location marks |
+| `--primary-dark` | #6E1D00 | hover and pressed |
+| `--secondary` | #2D5A1B forest | success, "open to you" states |
+| `--accent` | #C8860A ochre | fills only (strips, mark); never small text |
+| `--accent-ink` | #7A5206 | readable gold for text on tinted panels |
+| `--danger` | #A32014 | errors, expired licences |
+| `--text-primary` / `-secondary` / `-muted` | #3D1C02 / #5C3410 / #6E4A22 | body, supporting, captions |
+| `--bg` / `--bg-elevated` / `--bg-card` | #FAF9F5 / #FFF / #F4EEE2 | page, cards, insets |
+| `--border` / `--border-light` | #E4DCCB / #CFC3AB | hairlines, inputs |
+
+Dark mode mirrors every role under `[data-theme="dark"]`. Text contrast is
+4.5:1 or better on its own surface.
+
+### Typography
+
+- Display: Source Serif 4 (`--serif`), h1 `--text-xl-fluid` (28-40px), h2
+  `--text-lg-fluid` (21-26px), hero `--text-2xl-fluid` (34-54px), tracking
+  `--display-tracking`.
+- Body and UI: system sans, 16px.
+- Small text: `--fs-xs` 12px (the floor), `--fs-sm` 13, `--fs-md` 14, `--fs-lg` 15.
+- Figures: `--mono` with tabular numerals for fees, grades and dates.
+- Measure: running text capped at `--prose-max` (68ch); 72ch on the generated pages.
+
+### Spacing and layout: full width, dense where it helps
+
+- Scale: 4px grid, `--space-1` (4px) to `--space-16` (64px).
+- Container: `--page-max` 1760px, side padding `--gutter` (20-36px).
+- Sections: `--section-gap` (32-56px) between major blocks.
+- Grids: `auto-fill, minmax(var(--grid-card-min), 1fr)` for course and
+  funding cards (3-5 per row on desktop); `--grid-tile-min` 200px for stat
+  tiles. Grids get denser with width; prose does not get wider.
+- Wide screens: rail plus content (filters in a sticky rail on Decide; county
+  pages split at 85rem). Prose pages flow into columns at 64rem, three at 100rem.
+- Phones: course tables become stacked labelled rows below 48rem so fees stay
+  on screen; no sideways scroll at 360px.
+- Rule: a layout change that claims to save space is measured in document
+  height at 375, 768, 1440 and 1920px before it ships.
+
+### Shape and depth
+
+- Radius: `--radius-xs` 2px to `--radius-xl` 8px; controls use 3-4px.
+- Shadow: cards use `--shadow-card` (a hairline), overlays `--shadow-lg`.
+  Cards separate by border, not by floating.
+
+### Components
+
+- Buttons: primary (terracotta fill, white text), secondary (outline), quiet
+  (text link). Visible 2px focus ring; disabled at reduced opacity. Size to
+  content on desktop, full width on phones.
+- Links: underlined in running text; the underline is the affordance.
+- Cards: white on paper, hairline border, serif title, mono figures.
+- Navigation: identity bar, white masthead, grouped dropdowns, phone bottom nav.
+- Footer: local footer above one global footer bar.
+
+### Imagery and icons
+
+One line-icon set for chrome; no emoji as icons; no stock photography. Data
+is shown as tables and labelled bars, never as decoration.
+
+---
+
+
 **Current direction (19 Nov 2026): institutional.** The design grammar of
 university flagship sites (identity bar, white masthead, serif display on a
 modular scale, square controls, hairline cards, ruled page headers, a global
@@ -147,7 +226,7 @@ scoped `--landing-*` token set as a unit.
 
 ## Desktop layout — earn the width
 
-The desktop shell is a top nav plus a `--page-max` (1280px) content
+The desktop shell is a top nav plus a `--page-max` (1760px) content
 column. Wide does not mean stretched:
 
 - **Running text keeps a readable measure** (`--prose-max`, 68ch). Cards,

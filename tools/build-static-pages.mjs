@@ -1757,7 +1757,7 @@ function accessibilityPage() {
 <li>No testing with people who use assistive technology has been recorded.</li>
 <li>Reading level has not been tested with learners.</li>
 </ul>
-<p class="note">If something does not work for you, tell us: open an issue at <a href="https://github.com/PapaDanico/Njia/issues">github.com/PapaDanico/Njia/issues</a> and say which page and which device. You can also write to <a href="mailto:${CONTACT_EMAIL}?subject=Njia%20accessibility">${CONTACT_EMAIL}</a>.</p>
+<p class="note">If something does not work for you, tell us: <a href="https://wa.me/message/GPPIKMENXJVWO1">message Danico Ventures Ltd on WhatsApp</a> and say which page and which device. You can also write to <a href="mailto:${CONTACT_EMAIL}?subject=Njia%20accessibility">${CONTACT_EMAIL}</a>.</p>
 </section>`;
   return guidancePage({
     dir: 'accessibility',

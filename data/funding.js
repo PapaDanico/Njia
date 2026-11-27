@@ -634,6 +634,16 @@ const KUCCPS_YEAR1_COST = {
     c536: { kes: 159150 },
     c774: { kes: 159400 }, c769: { kes: 159400, once: true },
     c1311: { kes: 130600 }, c1313: { kes: 104300 },
+    c1306: { kes: 142600 }, c523: { kes: 142600, once: true },
+    c512: { kes: 111000, once: true }, c514: { kes: 111000, once: true }, c515: { kes: 135000 },
+    c1166: { kes: 318900, once: true }, c1168: { kes: 170000, once: true }, c1169: { kes: 237200, once: true },
+    c1299: { kes: 273600, once: true }, c749: { kes: 242800, once: true }, c1298: { kes: 242800, once: true },
+    c1092: { kes: 182320 },
+    c738: { kes: 224200, once: true }, c736: { kes: 222800, once: true }, c735: { kes: 160000, once: true },
+    c530: { kes: 220500, once: true },
+    c712: { kes: 78000, once: true },
+    c732: { kes: 86200, once: true }, c731: { kes: 86200, once: true },
+    c1232: { kes: 177800, once: true },
   },
 };
 
